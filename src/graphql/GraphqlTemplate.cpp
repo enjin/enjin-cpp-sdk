@@ -5,7 +5,9 @@
 #include <sstream>
 #include <vector>
 
-using namespace enjin::sdk::graphql;
+namespace enjin {
+namespace sdk {
+namespace graphql {
 
 std::string process_arg(std::string &line) {
     std::vector<std::string> parts = enjin::sdk::utils::split(line, " ");
@@ -64,7 +66,7 @@ void GraphqlTemplate::compile() {
 
         auto begin = processed_fragments.begin();
         auto end = processed_fragments.end();
-        auto iter = find(begin, end, fragment_template.get_namespace());
+        auto iter = std::find(begin, end, fragment_template.get_namespace());
         if (iter != end) {
             continue;
         }
@@ -76,7 +78,7 @@ void GraphqlTemplate::compile() {
         for (const std::string &parameter : fragment_template.get_parameters()) {
             auto begin = this->parameters.begin();
             auto end = this->parameters.end();
-            auto iter = find(begin, end, parameter);
+            auto iter = std::find(begin, end, parameter);
             if (iter != end) {
                 this->parameters.push_back(parameter);
             }
@@ -139,12 +141,6 @@ std::string GraphqlTemplate::parse_contents(const std::list<std::string> &conten
     return stream.str();
 }
 
-std::string GraphqlTemplate::read_namespace(const std::list<std::string> &contents) {
-    for (const std::string &line : contents) {
-        if (line.find(namespace_key) != std::string::npos) {
-            return enjin::sdk::utils::split(line, " ")[1];
-        }
-    }
-
-    return std::string ();
-}
+} // namespace graphql
+} // namespace sdk
+} // namespace enjin

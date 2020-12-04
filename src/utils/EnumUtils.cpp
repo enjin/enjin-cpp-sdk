@@ -1,6 +1,10 @@
 #include "EnumUtils.hpp"
 
-std::string enjin::sdk::utils::get_name(enjin::sdk::graphql::TemplateType e) {
+namespace enjin {
+namespace sdk {
+namespace utils {
+
+std::string get_name(enjin::sdk::graphql::TemplateType e) {
     // No default case to produce compiler warning
     switch (e) {
         case enjin::sdk::graphql::FRAGMENT:
@@ -11,3 +15,7 @@ std::string enjin::sdk::utils::get_name(enjin::sdk::graphql::TemplateType e) {
             return "QUERY";
     }
 }
+
+} // namespace
+} // namespace
+} // namespace

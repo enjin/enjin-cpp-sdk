@@ -4,7 +4,9 @@
 #include <list>
 #include <string>
 
-using namespace enjin::sdk::graphql;
+namespace enjin {
+namespace sdk {
+namespace graphql {
 
 class GraphqlTemplateTest : public ::testing::Test {
 protected:
@@ -23,7 +25,7 @@ TEST_F(GraphqlTemplateTest, ReadNamespaceContentsDoesHaveNamespaceReturnsNamespa
     contents.emplace_back(default_empty_line);
 
     // Act
-    std::string actual = GraphqlTemplate::read_namespace(contents);
+    std::string actual = GraphqlTemplate::read_namespace(contents.begin(), contents.end());
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -37,8 +39,12 @@ TEST_F(GraphqlTemplateTest, ReadNamespaceContentsDoesNotHaveNamespaceReturnsEmpt
     contents.emplace_back(default_empty_line);
 
     // Act
-    std::string actual = GraphqlTemplate::read_namespace(contents);
+    std::string actual = GraphqlTemplate::read_namespace(contents.begin(), contents.end());
 
     // Assert
     ASSERT_TRUE(actual.empty());
 }
+
+} // namespace graphql
+} // namespace sdk
+} // namespace enjin

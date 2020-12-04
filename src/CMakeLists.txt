@@ -1,12 +1,20 @@
-add_library(
-        src
+file(GLOB HEADERS_ENJINSDK "${PROJECT_SOURCE_DIR}/include/enjinsdk/*.hpp")
+source_group("Header Files\\enjinsdk" FILES ${HEADERS_ENJINSDK})
+
+set(SOURCE_FILES
+        ${HEADERS_ENJINSDK}
         graphql/GraphqlTemplate.cpp
+        graphql/GraphqlTemplate.hpp
         utils/EnumUtils.cpp
+        utils/EnumUtils.hpp
         utils/StringUtils.cpp
+        utils/StringUtils.hpp
 )
 
-target_include_directories(
-        src
+add_library(enjinsdk ${SOURCE_FILES})
+target_include_directories(enjinsdk
+        PUBLIC
+        $<INSTALL_INTERFACE:include> $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/graphql
         ${CMAKE_CURRENT_SOURCE_DIR}/utils
