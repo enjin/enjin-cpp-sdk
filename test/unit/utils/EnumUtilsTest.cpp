@@ -23,13 +23,10 @@ TEST_P(EnumUtilsTemplateTypeTest, GetName) {
     ASSERT_EQ(expected, actual);
 }
 
-INSTANTIATE_TEST_CASE_P
-
-(
-        TemplateTypeGetNameTests,
-        EnumUtilsTemplateTypeTest,
-        ::testing::Values(
-                std::make_tuple(enjin::sdk::graphql::TemplateType::FRAGMENT, "FRAGMENT"),
-                std::make_tuple(enjin::sdk::graphql::TemplateType::MUTATION, "MUTATION"),
-                std::make_tuple(enjin::sdk::graphql::TemplateType::QUERY, "QUERY")
-        ));
+INSTANTIATE_TEST_SUITE_P(TemplateTypeGetNameTests,
+                         EnumUtilsTemplateTypeTest,
+                         ::testing::Values(
+                                 std::make_tuple(enjin::sdk::graphql::TemplateType::FRAGMENT, "FRAGMENT"),
+                                 std::make_tuple(enjin::sdk::graphql::TemplateType::MUTATION, "MUTATION"),
+                                 std::make_tuple(enjin::sdk::graphql::TemplateType::QUERY, "QUERY")
+                         ));
