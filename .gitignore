@@ -1,11 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
 
-*/enjincppsdk.cbp
-*/bin/tests.exe
-*/bin/tests.ilk
-*/bin/tests.pdb
-*/lib/src.lib
-
 ### CMake
 # Covers CMake files
 # Reference: https://github.com/github/gitignore/blob/master/CMake.gitignore
@@ -30,6 +24,7 @@ _deps
 *.iml
 out
 gen
+cmake-build-*/
 
 ### Conan
 */graph_info.json
