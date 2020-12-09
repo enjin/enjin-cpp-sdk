@@ -1,6 +1,7 @@
 include_directories(${ENJINCPPSDK_SOURCE_DIRECTORY}/src)
 
 set(TEST_FILES
+        graphql/GraphqlQueryRegistryTest.cpp
         utils/EnumUtilsTest.cpp
         utils/StringUtilsTest.cpp)
 add_executable(unittests ${TEST_FILES})
