@@ -3,8 +3,8 @@ source_group("Header Files\\enjinsdk" FILES ${HEADERS_ENJINSDK})
 
 set(SOURCE_FILES
         ${HEADERS_ENJINSDK}
-        graphql/GraphqlTemplate.cpp
-        graphql/GraphqlTemplate.hpp
+        graphql/TemplateConstants.cpp
+        graphql/TemplateConstants.hpp
         utils/EnumUtils.cpp
         utils/EnumUtils.hpp
         utils/StringUtils.cpp
