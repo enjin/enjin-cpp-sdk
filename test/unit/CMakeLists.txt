@@ -1,9 +1,8 @@
 include_directories(${ENJINCPPSDK_SOURCE_DIRECTORY}/src)
 
 set(TEST_FILES
-        ./graphql/GraphqlTemplateTest.cpp
-        ./utils/EnumUtilsTest.cpp
-        ./utils/StringUtilsTest.cpp)
+        utils/EnumUtilsTest.cpp
+        utils/StringUtilsTest.cpp)
 add_executable(unittests ${TEST_FILES})
 target_link_libraries(unittests
         PUBLIC

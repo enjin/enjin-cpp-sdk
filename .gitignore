@@ -32,3 +32,6 @@ cmake-build-*/
 */conanbuildinfo.txt
 */conanbuildinfo.cmake
 */conan.lock
+
+### Python
+venv/
