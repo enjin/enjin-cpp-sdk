@@ -197,7 +197,7 @@ TEST_F(StringUtilTest, SplitInputDoesHaveSeparatorReturnsVectorWithSeparatedStri
     const std::vector<std::string> result = split(input, separator);
 
     // Assert
-    for (const std::string &actual : result) {
+    for (const std::string& actual : result) {
         EXPECT_EQ(expected, actual);
     }
 }
@@ -213,7 +213,7 @@ TEST_F(StringUtilTest, SplitInputDoesNotHaveSeparatorReturnsVectorWithOnlyInput)
 
     // Assert
     EXPECT_TRUE(result.size() == 1);
-    for (const std::string &actual : result) {
+    for (const std::string& actual : result) {
         EXPECT_EQ(expected, actual);
     }
 }
@@ -226,7 +226,7 @@ TEST_F(StringUtilTest, SplitInputIsSeparatorReturnsVectorWithEmptyStrings) {
     const std::vector<std::string> result = split(input, input);
 
     // Assert
-    for (const std::string &actual : result) {
+    for (const std::string& actual : result) {
         EXPECT_TRUE(actual.empty());
     }
 }
