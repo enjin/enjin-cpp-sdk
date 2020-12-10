@@ -8,15 +8,15 @@ namespace enjin {
 namespace sdk {
 namespace utils {
 
-bool is_empty_or_whitespace(const std::string &str) {
+bool is_empty_or_whitespace(const std::string& str) {
     return str.empty() || std::all_of(str.begin(), str.end(), [](unsigned char c) { return c == ' '; });
 }
 
-std::string join(const std::string &separator, const std::list<std::string> &values) {
+std::string join(const std::string& separator, const std::list<std::string>& values) {
     std::stringstream stream;
 
     size_t count = 0;
-    for (const std::string &e : values) {
+    for (const std::string& e : values) {
         stream << e;
         if (count++ < values.size() - 1) {
             stream << separator;
@@ -26,7 +26,7 @@ std::string join(const std::string &separator, const std::list<std::string> &val
     return stream.str();
 }
 
-std::string to_lower(const std::string &str) {
+std::string to_lower(const std::string& str) {
     std::string new_str(str);
 
     std::transform(new_str.begin(), new_str.end(), new_str.begin(), [](unsigned char c) { return std::tolower(c); });
@@ -34,7 +34,7 @@ std::string to_lower(const std::string &str) {
     return new_str;
 }
 
-std::string to_upper(const std::string &str) {
+std::string to_upper(const std::string& str) {
     std::string new_str(str);
 
     std::transform(new_str.begin(), new_str.end(), new_str.begin(), [](unsigned char c) { return std::toupper(c); });
@@ -42,7 +42,7 @@ std::string to_upper(const std::string &str) {
     return new_str;
 }
 
-std::string trim(const std::string &str) {
+std::string trim(const std::string& str) {
     size_t left = 0;
     size_t right = str.size() - 1;
 
@@ -57,9 +57,9 @@ std::string trim(const std::string &str) {
     return str.substr(left, right - left + 1);
 }
 
-std::string replace(const std::string &str,
-                    const std::string &old_value,
-                    const std::string &new_value) {
+std::string replace(const std::string& str,
+                    const std::string& old_value,
+                    const std::string& new_value) {
     std::stringstream stream;
     size_t offset = old_value.size();
     size_t beginIdx = 0;
@@ -75,7 +75,7 @@ std::string replace(const std::string &str,
     }
 }
 
-std::vector<std::string> split(const std::string &str, const std::string &separator) {
+std::vector<std::string> split(const std::string& str, const std::string& separator) {
     std::vector<std::string> tokens;
     size_t offset = separator.size();
     size_t beginIdx = 0;
