@@ -5,9 +5,11 @@ source_group("Header Files\\enjinsdk" FILES ${HEADERS_ENJINSDK})
 
 set(SOURCE_FILES
         ${HEADERS_ENJINSDK}
+        graphql/GraphqlError.cpp
         graphql/GraphqlQueryRegistry.cpp
         graphql/TemplateConstants.cpp
         graphql/TemplateConstants.hpp
+        models/PaginationCursor.cpp
         utils/EnumUtils.cpp
         utils/EnumUtils.hpp
         utils/StringUtils.cpp
