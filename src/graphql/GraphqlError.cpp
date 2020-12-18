@@ -11,19 +11,19 @@ void GraphqlError::deserialize(const char* json) {
     document.Parse(json);
 
     if (document.IsObject()) {
-        if (document.HasMember(MESSAGE) && document[MESSAGE].IsString()) {
-            message.emplace(document[MESSAGE].GetString());
+        if (document.HasMember(MESSAGE_KEY) && document[MESSAGE_KEY].IsString()) {
+            message.emplace(document[MESSAGE_KEY].GetString());
         }
-        if (document.HasMember(CODE) && document[CODE].IsInt()) {
-            code.emplace(document[CODE].GetInt());
+        if (document.HasMember(CODE_KEY) && document[CODE_KEY].IsInt()) {
+            code.emplace(document[CODE_KEY].GetInt());
         }
-        if (document.HasMember(DETAILS) && document[DETAILS].IsString()) {
-            details.emplace(document[DETAILS].GetString());
+        if (document.HasMember(DETAILS_KEY) && document[DETAILS_KEY].IsString()) {
+            details.emplace(document[DETAILS_KEY].GetString());
         }
-        if (document.HasMember(LOCATIONS) && document[LOCATIONS].IsArray()) {
+        if (document.HasMember(LOCATIONS_KEY) && document[LOCATIONS_KEY].IsArray()) {
             locations.emplace(std::vector<std::map<std::string, int>>());
 
-            for (auto& l : document[LOCATIONS].GetArray()) {
+            for (auto& l : document[LOCATIONS_KEY].GetArray()) {
                 if (!l.IsObject()) {
                     continue;
                 }
@@ -46,16 +46,16 @@ std::string GraphqlError::serialize() {
     if (message.has_value()) {
         rapidjson::Value v;
         v.SetString(message.value().c_str(), document.GetAllocator());
-        document.AddMember(MESSAGE, v, allocator);
+        document.AddMember(MESSAGE_KEY, v, allocator);
     }
     if (code.has_value()) {
         rapidjson::Value v(code.value());
-        document.AddMember(CODE, v, allocator);
+        document.AddMember(CODE_KEY, v, allocator);
     }
     if (details.has_value()) {
         rapidjson::Value v;
         v.SetString(details.value().c_str(), allocator);
-        document.AddMember(DETAILS, v, allocator);
+        document.AddMember(DETAILS_KEY, v, allocator);
     }
     if (locations.has_value()) {
         rapidjson::Value v_locations(rapidjson::kArrayType);
@@ -69,7 +69,7 @@ std::string GraphqlError::serialize() {
             }
             v_locations.PushBack(v_location, allocator);
         }
-        document.AddMember(LOCATIONS, v_locations, allocator);
+        document.AddMember(LOCATIONS_KEY, v_locations, allocator);
     }
 
     rapidjson::StringBuffer buffer;
