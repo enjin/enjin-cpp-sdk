@@ -1,8 +1,10 @@
 include_directories(${ENJINCPPSDK_SOURCE_DIRECTORY}/src)
 
 set(TEST_FILES
+        graphql/GraphqlErrorTest.cpp
         graphql/GraphqlQueryRegistryTest.cpp
         graphql/GraphqlRequestTest.cpp
+        models/PaginationCursorTest.cpp
         utils/EnumUtilsTest.cpp
         utils/StringUtilsTest.cpp
 )
