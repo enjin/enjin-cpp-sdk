@@ -1,4 +1,6 @@
-file(GLOB HEADERS_ENJINSDK "${PROJECT_SOURCE_DIR}/include/enjinsdk/*.hpp")
+file(GLOB HEADERS_ENJINSDK
+        "${PROJECT_SOURCE_DIR}/include/enjinsdk/*.hpp"
+        "${PROJECT_SOURCE_DIR}/include/enjinsdk/*/*.hpp")
 source_group("Header Files\\enjinsdk" FILES ${HEADERS_ENJINSDK})
 
 set(SOURCE_FILES
