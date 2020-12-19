@@ -13,6 +13,10 @@ public:
     /// \brief Default constructor.
     PaginationCursor() = default;
 
+    bool operator==(const PaginationCursor& rhs) const;
+
+    bool operator!=(const PaginationCursor& rhs) const;
+
     void deserialize(const char* json) override;
 
     std::string serialize() override;

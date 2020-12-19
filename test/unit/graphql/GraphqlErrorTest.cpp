@@ -86,3 +86,32 @@ TEST_F(GraphqlErrorTest, SerializationFieldsHaveNoValuesReturnsEmptyJsonObject) 
     // Assert
     ASSERT_EQ(expected, actual);
 }
+
+TEST_F(GraphqlErrorTest, EquilityObjectsDoHaveSameValuesReturnsTrue) {
+    // Arrange
+    const char* json = POPULATED_JSON_OBJECT;
+    GraphqlError error1;
+    GraphqlError error2;
+    error1.deserialize(json);
+    error2.deserialize(json);
+
+    // Act
+    bool actual = error1 == error2;
+
+    // Assert
+    ASSERT_TRUE(actual);
+}
+
+TEST_F(GraphqlErrorTest, EquilityObjectsDoNotHaveSameValuesReturnsFalse) {
+    // Arrange
+    const char* json = POPULATED_JSON_OBJECT;
+    GraphqlError error1;
+    GraphqlError error2;
+    error1.deserialize(json);
+
+    // Act
+    bool actual = error1 == error2;
+
+    // Assert
+    ASSERT_FALSE(actual);
+}

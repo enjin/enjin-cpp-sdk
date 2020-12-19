@@ -15,6 +15,10 @@ public:
     /// \brief Default constructor.
     GraphqlError() = default;
 
+    bool operator==(const GraphqlError& rhs) const;
+
+    bool operator!=(const GraphqlError& rhs) const;
+
     void deserialize(const char* json) override;
 
     std::string serialize() override;
