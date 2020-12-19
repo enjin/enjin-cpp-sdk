@@ -100,3 +100,32 @@ TEST_F(PaginationCursorTest, SerializationFieldsHaveNoValuesReturnsEmptyJsonObje
     // Assert
     ASSERT_EQ(expected, actual);
 }
+
+TEST_F(PaginationCursorTest, EquilityObjectsDoHaveSameValuesReturnsTrue) {
+    // Arrange
+    const char* json = POPULATED_JSON_OBJECT;
+    PaginationCursor cursor1;
+    PaginationCursor cursor2;
+    cursor1.deserialize(json);
+    cursor2.deserialize(json);
+
+    // Act
+    bool actual = cursor1 == cursor2;
+
+    // Assert
+    ASSERT_TRUE(actual);
+}
+
+TEST_F(PaginationCursorTest, EquilityObjectsDoNotHaveSameValuesReturnsFalse) {
+    // Arrange
+    const char* json = POPULATED_JSON_OBJECT;
+    PaginationCursor cursor1;
+    PaginationCursor cursor2;
+    cursor1.deserialize(json);
+
+    // Act
+    bool actual = cursor1 == cursor2;
+
+    // Assert
+    ASSERT_FALSE(actual);
+}

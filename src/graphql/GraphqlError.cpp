@@ -41,7 +41,7 @@ void GraphqlError::deserialize(const char* json) {
 std::string GraphqlError::serialize() {
     rapidjson::Document document;
     document.SetObject();
-    rapidjson::Document::AllocatorType & allocator = document.GetAllocator();
+    rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
 
     if (message.has_value()) {
         rapidjson::Value v;
@@ -94,6 +94,17 @@ std::optional<std::vector<std::map<std::string, int>>> GraphqlError::get_locatio
 
 std::optional<std::string> GraphqlError::get_details() {
     return details;
+}
+
+bool GraphqlError::operator==(const GraphqlError& rhs) const {
+    return message == rhs.message &&
+           code == rhs.code &&
+           locations == rhs.locations &&
+           details == rhs.details;
+}
+
+bool GraphqlError::operator!=(const GraphqlError& rhs) const {
+    return !(rhs == *this);
 }
 
 }
