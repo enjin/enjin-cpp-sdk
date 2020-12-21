@@ -48,13 +48,14 @@ public:
 protected:
     std::optional<T> result;
 
-    void process_data(const rapidjson::Document& document) override {
-        auto data_obj = document[DATA_KEY].GetObject();
-        if (!data_obj.HasMember(RESULT_KEY) || !data_obj[RESULT_KEY].IsObject()) {
+    void process_data(const char* data_json) override {
+        rapidjson::Document document;
+        document.Parse(data_json);
+        if (!document.IsObject() || !document.HasMember(RESULT_KEY) || !document[RESULT_KEY].IsObject()) {
             return;
         }
 
-        auto& result_value = data_obj[RESULT_KEY];
+        auto& result_value = document[RESULT_KEY];
         rapidjson::StringBuffer buffer;
         rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
         result_value.Accept(writer);
@@ -95,13 +96,14 @@ public:
 protected:
     std::optional<std::vector<T>> result;
 
-    void process_data(const rapidjson::Document& document) override {
-        auto data_obj = document[DATA_KEY].GetObject();
-        if (!data_obj.HasMember(RESULT_KEY) || !data_obj[RESULT_KEY].IsObject()) {
+    void process_data(const char* data_json) override {
+        rapidjson::Document document;
+        document.Parse(data_json);
+        if (!document.IsObject() || !document.HasMember(RESULT_KEY) || !document[RESULT_KEY].IsObject()) {
             return;
         }
 
-        auto result_obj = data_obj[RESULT_KEY].GetObject();
+        auto result_obj = document[RESULT_KEY].GetObject();
         if (!result_obj.HasMember(ITEMS_KEY)
             || !result_obj.HasMember(CURSOR_KEY)
             || !result_obj[ITEMS_KEY].IsArray()

@@ -5,6 +5,7 @@ source_group("Header Files\\enjinsdk" FILES ${HEADERS_ENJINSDK})
 
 set(SOURCE_FILES
         ${HEADERS_ENJINSDK}
+        graphql/AbstractGraphqlResponse.cpp
         graphql/GraphqlError.cpp
         graphql/GraphqlQueryRegistry.cpp
         graphql/TemplateConstants.cpp
