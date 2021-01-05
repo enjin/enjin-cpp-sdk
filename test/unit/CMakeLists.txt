@@ -8,6 +8,7 @@ set(TEST_FILES
         http/HttpClientImplTest.cpp
         http/HttpResponseTest.cpp
         models/PaginationCursorTest.cpp
+        schemas/BaseSchemaTest.cpp
         utils/EnumUtilsTest.cpp
         utils/StringUtilsTest.cpp
         ../utils/MockHttpServer.cpp
