@@ -10,6 +10,9 @@ set(SOURCE_FILES
         graphql/GraphqlQueryRegistry.cpp
         graphql/TemplateConstants.cpp
         graphql/TemplateConstants.hpp
+        http/AbstractHttpClient.cpp
+        http/HttpClientImpl.cpp
+        http/HttpClientImpl.hpp
         http/HttpResponse.cpp
         models/Balance.cpp
         models/PaginationCursor.cpp
