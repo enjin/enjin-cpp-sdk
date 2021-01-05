@@ -8,6 +8,8 @@ set(TEST_FILES
         models/PaginationCursorTest.cpp
         utils/EnumUtilsTest.cpp
         utils/StringUtilsTest.cpp
+        ../utils/MockHttpServer.cpp
+        ../utils/MockHttpServer.hpp
 )
 add_executable(unittests ${TEST_FILES})
 target_link_libraries(unittests
