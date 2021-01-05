@@ -10,7 +10,13 @@ set(SOURCE_FILES
         graphql/GraphqlQueryRegistry.cpp
         graphql/TemplateConstants.cpp
         graphql/TemplateConstants.hpp
+        models/Balance.cpp
         models/PaginationCursor.cpp
+        models/Player.cpp
+        models/Project.cpp
+        models/Request.cpp
+        models/Token.cpp
+        models/Wallet.cpp
         utils/EnumUtils.cpp
         utils/EnumUtils.hpp
         utils/StringUtils.cpp
