@@ -5,6 +5,7 @@ set(TEST_FILES
         graphql/GraphqlQueryRegistryTest.cpp
         graphql/GraphqlRequestTest.cpp
         graphql/GraphqlResponseTest.cpp
+        http/HttpResponseTest.cpp
         models/PaginationCursorTest.cpp
         utils/EnumUtilsTest.cpp
         utils/StringUtilsTest.cpp
@@ -24,5 +25,6 @@ target_include_directories(
         unittests
         PRIVATE
         ${PROJECT_SOURCE_DIR}/src/graphql
+        ${PROJECT_SOURCE_DIR}/src/http
         ${PROJECT_SOURCE_DIR}/src/utils
 )
