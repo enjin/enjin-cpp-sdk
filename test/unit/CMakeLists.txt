@@ -5,6 +5,7 @@ set(TEST_FILES
         graphql/GraphqlQueryRegistryTest.cpp
         graphql/GraphqlRequestTest.cpp
         graphql/GraphqlResponseTest.cpp
+        http/HttpClientImplTest.cpp
         http/HttpResponseTest.cpp
         models/PaginationCursorTest.cpp
         utils/EnumUtilsTest.cpp
