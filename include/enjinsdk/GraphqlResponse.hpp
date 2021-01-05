@@ -5,9 +5,9 @@
 #include "enjinsdk/internal/AbstractGraphqlResponse.hpp"
 #include "enjinsdk/models/PaginationCursor.hpp"
 #include "enjinsdk/serialization/ISerializable.hpp"
-#include "rapidjson/document.h"
-#include "rapidjson/stringbuffer.h"
-#include "rapidjson/writer.h"
+#include "rapidjson/document.h"     // TODO: Implement Pimpl idiom to hide rapidjson implementation if possible.
+#include "rapidjson/stringbuffer.h" //
+#include "rapidjson/writer.h"       //
 #include <optional>
 #include <type_traits>
 #include <vector>
@@ -49,6 +49,7 @@ protected:
     std::optional<T> result;
 
     void process_data(const char* data_json) override {
+        // Start TODO: Utilize Pimpl idiom on this section.
         rapidjson::Document document;
         document.Parse(data_json);
         if (!document.IsObject() || !document.HasMember(RESULT_KEY) || !document[RESULT_KEY].IsObject()) {
@@ -60,6 +61,7 @@ protected:
         rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
         result_value.Accept(writer);
         const char* result_json = buffer.GetString();
+        // End TODO
 
         T t;
         t.deserialize(result_json);
@@ -97,6 +99,9 @@ protected:
     std::optional<std::vector<T>> result;
 
     void process_data(const char* data_json) override {
+        /* TODO: Refactor method to utilize Pimpl idiom so that rapidjson usage is hidden away into a non-public
+         *       implementation class.
+         */
         rapidjson::Document document;
         document.Parse(data_json);
         if (!document.IsObject() || !document.HasMember(RESULT_KEY) || !document[RESULT_KEY].IsObject()) {

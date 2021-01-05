@@ -10,6 +10,8 @@ set(TEST_FILES
         utils/StringUtilsTest.cpp
         ../utils/MockHttpServer.cpp
         ../utils/MockHttpServer.hpp
+        ../utils/DummyObject.cpp
+        ../utils/DummyObject.hpp
 )
 add_executable(unittests ${TEST_FILES})
 target_link_libraries(unittests
