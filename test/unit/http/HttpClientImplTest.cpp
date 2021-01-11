@@ -11,37 +11,45 @@ public:
     HttpClientImpl class_under_test = HttpClientImpl("http://localhost/");
     enjin::test::utils::MockHttpServer mock_server;
 
+    static HttpRequest create_default_request() {
+        return HttpRequestBuilder()
+                .method(utility::conversions::to_utf8string(web::http::methods::POST))
+                .path_query_fragment("/")
+                .body("{}")
+                .content_type(enjin::sdk::http::AbstractHttpClient::CONTENT_TYPE)
+                .build();
+    }
+
 protected:
     void SetUp() override {
         mock_server.start();
 
-        std::string base_uri = utility::conversions::to_utf8string(mock_server.uri("/").to_string());
+        std::string base_uri = utility::conversions::to_utf8string(mock_server.uri().to_string());
         class_under_test = HttpClientImpl(base_uri);
     }
 
     void TearDown() override {
+        class_under_test.close();
         mock_server.shutdown();
     }
 };
 
-TEST_F(HttpClientImplTest, SendRequestReceivesResponseWithExpectedData) {
+TEST_F(HttpClientImplTest, SendRequestReceivesExpectedResponse) {
     // Arrange
-    const uint16_t expected_code = 200;
-    const std::string expected_body = "{}";
-    web::http::http_response mock_response = web::http::http_response();
-    mock_response.set_status_code(expected_code);
-    mock_response.set_body(expected_body);
-    mock_server.enqueue(mock_response);
+    HttpResponse expected = HttpResponseBuilder()
+            .code(200)
+            .body("EXPECTED RESPONSE")
+            .content_type(enjin::sdk::http::AbstractHttpClient::CONTENT_TYPE)
+            .build();
+    HttpRequest fake_request = create_default_request();
+    mock_server.map_response_for_request(fake_request, expected);
 
     // Act
-    auto future = class_under_test.send_request();
+    auto future = class_under_test.send_request(fake_request);
 
     future.wait();
-    HttpResponse response = future.get();
+    HttpResponse actual = future.get();
 
     // Assert
-    ASSERT_TRUE(response.get_code().has_value());
-    ASSERT_TRUE(response.get_body().has_value());
-    EXPECT_EQ(expected_code, response.get_code().value());
-    EXPECT_EQ(expected_body, response.get_body().value());
+    ASSERT_EQ(expected, actual);
 }

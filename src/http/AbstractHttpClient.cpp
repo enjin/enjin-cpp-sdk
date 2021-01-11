@@ -1,17 +1,14 @@
 #include "enjinsdk/AbstractHttpClient.hpp"
 
+#include <utility>
+
 namespace enjin::sdk::http {
 
-AbstractHttpClient::AbstractHttpClient(const std::string& base_uri) : base_uri(base_uri) {
+AbstractHttpClient::AbstractHttpClient(std::string base_uri) : base_uri(std::move(base_uri)) {
 }
 
-bool AbstractHttpClient::set_base_uri(const std::string& uri) {
-    if (base_uri.has_value()) {
-        return false;
-    }
-
-    base_uri.emplace(uri);
-    return true;
+std::string AbstractHttpClient::get_base_uri() {
+    return base_uri;
 }
 
 }
