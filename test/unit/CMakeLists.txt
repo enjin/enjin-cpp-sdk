@@ -6,6 +6,7 @@ set(TEST_FILES
         graphql/GraphqlRequestTest.cpp
         graphql/GraphqlResponseTest.cpp
         http/HttpClientImplTest.cpp
+        http/HttpRequestBuilderTest.cpp
         http/HttpResponseTest.cpp
         models/PaginationCursorTest.cpp
         schemas/BaseSchemaTest.cpp
