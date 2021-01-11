@@ -9,6 +9,7 @@ set(TEST_FILES
         http/HttpRequestBuilderTest.cpp
         http/HttpResponseBuilderTest.cpp
         http/HttpResponseTest.cpp
+        models/AccessTokenTest.cpp
         models/PaginationCursorTest.cpp
         schemas/BaseSchemaTest.cpp
         utils/EnumUtilsTest.cpp
