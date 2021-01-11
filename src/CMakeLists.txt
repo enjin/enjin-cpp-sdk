@@ -16,6 +16,7 @@ set(SOURCE_FILES
         http/HttpClientImpl.hpp
         http/HttpRequest.cpp
         http/HttpResponse.cpp
+        models/AccessToken.cpp
         models/Balance.cpp
         models/PaginationCursor.cpp
         models/Player.cpp
