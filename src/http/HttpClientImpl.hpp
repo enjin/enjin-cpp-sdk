@@ -6,13 +6,16 @@
 
 namespace enjin::sdk::http {
 
+/// \brief Implementation class for an HTTP client base on Microsoft's C++ Rest SDK.
 class HttpClientImpl : public AbstractHttpClient {
 public:
-    HttpClientImpl() = delete;
-
+    /// \brief Creates the HTTP client and assigns a base URI.
+    /// \param base_uri The base URI for the client.
     explicit HttpClientImpl(const std::string& base_uri);
 
-    std::future<HttpResponse> send_request() override;
+    void close() override;
+
+    std::future<HttpResponse> send_request(const HttpRequest& request) override;
 
 private:
     web::http::client::http_client http_client;
