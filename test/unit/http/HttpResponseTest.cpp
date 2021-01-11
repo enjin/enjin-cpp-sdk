@@ -20,7 +20,9 @@ class HttpResponseStatusCodeFailed300To599Test : public testing::TestWithParam<i
 
 TEST_P(HttpResponseStatusCodeSuccess200To299Test, IsSuccessGiven200To299ReturnsTrue) {
     // Arrange
-    HttpResponse response(GetParam(), "");
+    HttpResponse response = HttpResponseBuilder()
+            .code(GetParam())
+            .build();
 
     // Act
     bool actual = response.is_success();
@@ -31,19 +33,21 @@ TEST_P(HttpResponseStatusCodeSuccess200To299Test, IsSuccessGiven200To299ReturnsT
 
 TEST_F(HttpResponseTest, IsSuccessDoesNotHaveCodeReturnsFalse) {
     // Arrange
-    HttpResponse response;
+    HttpResponse response = HttpResponseBuilder().build();
 
     // Act
     bool actual = response.is_success();
 
     // Assert
-    EXPECT_TRUE(!response.get_code().has_value());
+    EXPECT_FALSE(response.get_code().has_value());
     ASSERT_FALSE(actual);
 }
 
 TEST_P(HttpResponseStatusCodeFailed100To199Test, IsSuccessGiven100To199ReturnsFalse) {
     // Arrange
-    HttpResponse response(GetParam(), "");
+    HttpResponse response = HttpResponseBuilder()
+            .code(GetParam())
+            .build();
 
     // Act
     bool actual = response.is_success();
@@ -54,7 +58,9 @@ TEST_P(HttpResponseStatusCodeFailed100To199Test, IsSuccessGiven100To199ReturnsFa
 
 TEST_P(HttpResponseStatusCodeFailed300To599Test, IsSuccessGiven300To599ReturnsFalse) {
     // Arrange
-    HttpResponse response(GetParam(), "");
+    HttpResponse response = HttpResponseBuilder()
+            .code(GetParam())
+            .build();
 
     // Act
     bool actual = response.is_success();
@@ -65,7 +71,7 @@ TEST_P(HttpResponseStatusCodeFailed300To599Test, IsSuccessGiven300To599ReturnsFa
 
 TEST_F(HttpResponseTest, IsEmptyDoesNotHaveBodyReturnsTrue) {
     // Arrange
-    HttpResponse response;
+    HttpResponse response = HttpResponseBuilder().build();
 
     // Act
     bool actual = response.is_empty();
@@ -77,7 +83,7 @@ TEST_F(HttpResponseTest, IsEmptyDoesNotHaveBodyReturnsTrue) {
 
 TEST_F(HttpResponseTest, IsEmptyBodyIsEmptyStringReturnsTrue) {
     // Arrange
-    HttpResponse response(0, "");
+    HttpResponse response = HttpResponseBuilder().build();
 
     // Act
     bool actual = response.is_empty();
@@ -88,7 +94,9 @@ TEST_F(HttpResponseTest, IsEmptyBodyIsEmptyStringReturnsTrue) {
 
 TEST_F(HttpResponseTest, IsEmptyBodyIsEmptyJsonObjectReturnsTrue) {
     // Arrange
-    HttpResponse response(0, EMPTY_JSON_OBJECT);
+    HttpResponse response = HttpResponseBuilder()
+            .body(EMPTY_JSON_OBJECT)
+            .build();
 
     // Act
     bool actual = response.is_empty();
@@ -100,7 +108,9 @@ TEST_F(HttpResponseTest, IsEmptyBodyIsEmptyJsonObjectReturnsTrue) {
 TEST_F(HttpResponseTest, IsEmptyBodyIsPopulatedJsonObjectReturnsFalse) {
     // Arrange
     enjin::test::utils::DummyObject dummy_object = enjin::test::utils::DummyObject::create_default_dummy_object();
-    HttpResponse response(0, dummy_object.serialize());
+    HttpResponse response = HttpResponseBuilder()
+            .body(dummy_object.serialize())
+            .build();
 
     // Act
     bool actual = response.is_empty();
