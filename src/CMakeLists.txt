@@ -14,6 +14,7 @@ set(SOURCE_FILES
         http/AbstractHttpClient.cpp
         http/HttpClientImpl.cpp
         http/HttpClientImpl.hpp
+        http/HttpRequest.cpp
         http/HttpResponse.cpp
         models/Balance.cpp
         models/PaginationCursor.cpp
