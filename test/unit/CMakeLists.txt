@@ -11,6 +11,11 @@ set(TEST_FILES
         http/HttpResponseTest.cpp
         models/AccessTokenTest.cpp
         models/PaginationCursorTest.cpp
+        models/TokenTest.cpp
+        models/TokenConfigDataTest.cpp
+        models/TokenStateDataTest.cpp
+        models/TokenTransferFeeSettingsTest.cpp
+        models/TokenVariantTest.cpp
         schemas/BaseSchemaTest.cpp
         utils/EnumUtilsTest.cpp
         utils/StringUtilsTest.cpp
