@@ -55,7 +55,7 @@ private:
     constexpr static char MELT_VALUE_KEY[] = "meltValue";
     constexpr static char METADATA_URI_KEY[] = "metadataUri";
     constexpr static char TRANSFERABLE_KEY[] = "transferable";
-    constexpr static char TRANSFER_FEE_SETTINGS_KEY[] = "TransferFeeSettings";
+    constexpr static char TRANSFER_FEE_SETTINGS_KEY[] = "transferFeeSettings";
 };
 
 }
