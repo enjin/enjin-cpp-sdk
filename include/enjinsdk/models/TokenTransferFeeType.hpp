@@ -3,6 +3,7 @@
 
 namespace enjin::sdk::models {
 
+/// \brief Represents the different transfer types for tokens.
 enum class TokenTransferFeeType {
     NONE,
     PER_TRANSFER,

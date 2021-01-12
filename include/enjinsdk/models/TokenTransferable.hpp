@@ -3,6 +3,7 @@
 
 namespace enjin::sdk::models {
 
+/// \brief Represents the transferable types of a token.
 enum class TokenTransferable {
     PERMANENT,
     TEMPORARY,
