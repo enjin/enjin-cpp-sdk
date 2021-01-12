@@ -15,15 +15,15 @@ public:
 
     /// \brief Returns the transfer fee type.
     /// \return The transfer type.
-    [[nodiscard]] const std::optional<TokenTransferFeeType>& getType() const;
+    [[nodiscard]] const std::optional<TokenTransferFeeType>& get_type() const;
 
     /// \brief Returns the token (item) ID or "0" if ENJ.
     /// \return The item ID.
-    [[nodiscard]] const std::optional<std::string>& getTokenId() const;
+    [[nodiscard]] const std::optional<std::string>& get_token_id() const;
 
     /// \brief Returns the fee value in Wei.
     /// \return The value.
-    [[nodiscard]] const std::optional<std::string>& getValue() const;
+    [[nodiscard]] const std::optional<std::string>& get_value() const;
 
 private:
     std::optional<TokenTransferFeeType> type;

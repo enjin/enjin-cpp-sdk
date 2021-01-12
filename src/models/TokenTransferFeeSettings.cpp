@@ -6,15 +6,15 @@ void TokenTransferFeeSettings::deserialize(const std::string& json) {
 
 }
 
-const std::optional<TokenTransferFeeType>& TokenTransferFeeSettings::getType() const {
+const std::optional<TokenTransferFeeType>& TokenTransferFeeSettings::get_type() const {
     return type;
 }
 
-const std::optional<std::string>& TokenTransferFeeSettings::getTokenId() const {
+const std::optional<std::string>& TokenTransferFeeSettings::get_token_id() const {
     return token_id;
 }
 
-const std::optional<std::string>& TokenTransferFeeSettings::getValue() const {
+const std::optional<std::string>& TokenTransferFeeSettings::get_value() const {
     return value;
 }
 
