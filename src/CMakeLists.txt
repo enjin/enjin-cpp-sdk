@@ -23,6 +23,10 @@ set(SOURCE_FILES
         models/Project.cpp
         models/Request.cpp
         models/Token.cpp
+        models/TokenConfigData.cpp
+        models/TokenStateData.cpp
+        models/TokenTransferFeeSettings.cpp
+        models/TokenVariant.cpp
         models/Wallet.cpp
         schemas/BaseSchema.cpp
         utils/EnumUtils.cpp
