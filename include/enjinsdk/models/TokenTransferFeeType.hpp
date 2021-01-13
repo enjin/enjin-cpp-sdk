@@ -5,6 +5,7 @@ namespace enjin::sdk::models {
 
 /// \brief Represents the different transfer types for tokens.
 enum class TokenTransferFeeType {
+    UNKNOWN, ///< SDK value for unknown values.
     NONE,
     PER_TRANSFER,
     PER_CRYPTO_ITEM,
