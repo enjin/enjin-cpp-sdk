@@ -5,6 +5,7 @@ namespace enjin::sdk::models {
 
 /// \brief Values used to specify the token supply model.
 enum class TokenSupplyModel {
+    UNKNOWN, ///< SDK value for unknown values.
     FIXED,
     SETTABLE,
     INFINITE,
