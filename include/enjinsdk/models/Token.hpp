@@ -54,6 +54,10 @@ public:
     /// \remarks The datetime is formatted using the ISO 8601 date format.
     [[nodiscard]] const std::optional<std::string>& get_updated_at() const;
 
+    bool operator==(const Token& rhs) const;
+
+    bool operator!=(const Token& rhs) const;
+
 private:
     std::optional<std::string> id;
     std::optional<std::string> name;
