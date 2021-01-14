@@ -11,6 +11,9 @@ namespace enjin::sdk::models {
 /// \brief Models the state data of a item.
 class TokenStateData : public enjin::sdk::serialization::IDeserializable {
 public:
+    /// \brief Default constructor.
+    TokenStateData() = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the fungible state of the item this state belongs to.
@@ -48,6 +51,10 @@ public:
     /// \brief Returns the total supply of the item this state belongs to.
     /// \return The total supply.
     [[nodiscard]] const std::optional<std::string>& get_total_supply() const;
+
+    bool operator==(const TokenStateData& rhs) const;
+
+    bool operator!=(const TokenStateData& rhs) const;
 
 private:
     std::optional<bool> nonfungible;
