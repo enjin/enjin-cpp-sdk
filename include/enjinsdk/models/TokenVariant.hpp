@@ -10,6 +10,9 @@ namespace enjin::sdk::models {
 /// \brief Models a token variant.
 class TokenVariant : public enjin::sdk::serialization::IDeserializable {
 public:
+    /// \brief Default constructor.
+    TokenVariant() = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the ID of this variant.
@@ -37,6 +40,10 @@ public:
     /// \return The datetime.
     /// \remarks The datetime is formatted using the ISO 8601 date format.
     [[nodiscard]] const std::optional<std::string>& get_updated_at() const;
+
+    bool operator==(const TokenVariant& rhs) const;
+
+    bool operator!=(const TokenVariant& rhs) const;
 
 private:
     std::optional<int> id;
