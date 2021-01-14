@@ -1,13 +1,12 @@
+#include "ModelsTestSuite.hpp"
 #include "enjinsdk/models/AccessToken.hpp"
-#include "gtest/gtest.h"
 
 using namespace enjin::sdk::models;
 
-class AccessTokenTest : public testing::Test {
+class AccessTokenTest : public ModelsTestSuite {
 public:
     AccessToken class_under_test;
 
-    constexpr static char EMPTY_JSON_OBJECT[] = "{}";
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"accessToken":"xyz","expiresIn":1})";
 };
@@ -46,8 +45,6 @@ TEST_F(AccessTokenTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) 
     class_under_test.deserialize(json);
 
     // Assert
-    EXPECT_TRUE(class_under_test.get_token().has_value());
-    EXPECT_TRUE(class_under_test.get_expires_in().has_value());
     EXPECT_EQ(expected_token, class_under_test.get_token().value());
     EXPECT_EQ(expected_expires_in, class_under_test.get_expires_in().value());
 }
