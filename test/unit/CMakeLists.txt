@@ -10,6 +10,7 @@ set(TEST_FILES
         http/HttpResponseBuilderTest.cpp
         http/HttpResponseTest.cpp
         models/AccessTokenTest.cpp
+        models/ModelsTestSuite.hpp
         models/PaginationCursorTest.cpp
         models/TokenTest.cpp
         models/TokenConfigDataTest.cpp
