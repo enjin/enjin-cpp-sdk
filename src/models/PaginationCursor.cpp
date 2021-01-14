@@ -6,9 +6,9 @@
 
 namespace enjin::sdk::models {
 
-void PaginationCursor::deserialize(const char* json) {
+void PaginationCursor::deserialize(const std::string& json) {
     rapidjson::Document document;
-    document.Parse(json);
+    document.Parse(json.c_str());
     if (document.IsObject()) {
         if (document.HasMember(TOTAL_KEY) && document[TOTAL_KEY].IsInt()) {
             total.emplace(document[TOTAL_KEY].GetInt());
@@ -37,81 +37,35 @@ void PaginationCursor::deserialize(const char* json) {
     }
 }
 
-std::string PaginationCursor::serialize() {
-    rapidjson::Document document;
-    document.SetObject();
-    rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
-
-    if (total.has_value()) {
-        rapidjson::Value v(total.value());
-        document.AddMember(TOTAL_KEY, v, allocator);
-    }
-    if (per_page.has_value()) {
-        rapidjson::Value v(per_page.value());
-        document.AddMember(PER_PAGE_KEY, v, allocator);
-    }
-    if (current_page.has_value()) {
-        rapidjson::Value v(current_page.value());
-        document.AddMember(CURRENT_PAGE_KEY, v, allocator);
-    }
-    if (has_pages.has_value()) {
-        rapidjson::Value v(has_pages.value());
-        document.AddMember(HAS_PAGES_KEY, v, allocator);
-    }
-    if (from.has_value()) {
-        rapidjson::Value v(from.value());
-        document.AddMember(FROM_KEY, v, allocator);
-    }
-    if (to.has_value()) {
-        rapidjson::Value v(to.value());
-        document.AddMember(TO_KEY, v, allocator);
-    }
-    if (last_page.has_value()) {
-        rapidjson::Value v(last_page.value());
-        document.AddMember(LAST_PAGE_KEY, v, allocator);
-    }
-    if (has_more_pages.has_value()) {
-        rapidjson::Value v(has_more_pages.value());
-        document.AddMember(HAS_MORE_PAGES_KEY, v, allocator);
-    }
-
-    rapidjson::StringBuffer buffer;
-    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-    document.Accept(writer);
-    const char* json = buffer.GetString();
-
-    return std::string(json);
-}
-
-std::optional<int> PaginationCursor::get_total() {
+const std::optional<int>& PaginationCursor::get_total() const {
     return total;
 }
 
-std::optional<int> PaginationCursor::get_per_page() {
+const std::optional<int>& PaginationCursor::get_per_page() const {
     return per_page;
 }
 
-std::optional<int> PaginationCursor::get_current_page() {
+const std::optional<int>& PaginationCursor::get_current_page() const {
     return current_page;
 }
 
-std::optional<bool> PaginationCursor::get_has_pages() {
+const std::optional<bool>& PaginationCursor::get_has_pages() const {
     return has_pages;
 }
 
-std::optional<int> PaginationCursor::get_from() {
+const std::optional<int>& PaginationCursor::get_from() const {
     return from;
 }
 
-std::optional<int> PaginationCursor::get_to() {
+const std::optional<int>& PaginationCursor::get_to() const {
     return to;
 }
 
-std::optional<int> PaginationCursor::get_last_page() {
+const std::optional<int>& PaginationCursor::get_last_page() const {
     return last_page;
 }
 
-std::optional<bool> PaginationCursor::get_has_more_pages() {
+const std::optional<bool>& PaginationCursor::get_has_more_pages() const {
     return has_more_pages;
 }
 

@@ -1,57 +1,55 @@
 #ifndef ENJINCPPSDK_PAGINATIONCURSOR_HPP
 #define ENJINCPPSDK_PAGINATIONCURSOR_HPP
 
-#include "enjinsdk/serialization/ISerializable.hpp"
+#include "enjinsdk/serialization/IDeserializable.hpp"
 #include <optional>
 #include <string>
 
 namespace enjin::sdk::models {
 
 /// \brief Models a pagination cursor for queries.
-class PaginationCursor : public enjin::sdk::serialization::ISerializable {
+class PaginationCursor : public enjin::sdk::serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     PaginationCursor() = default;
 
+    void deserialize(const std::string& json) override;
+
+    /// \brief Returns the total number of items selected by this cursor.
+    /// \return The total number of items.
+    [[nodiscard]] const std::optional<int>& get_total() const;
+
+    /// \brief Returns the number of items per page for this cursor.
+    /// \return The number items per page.
+    [[nodiscard]] const std::optional<int>& get_per_page() const;
+
+    /// \brief Returns the current page for this cursor.
+    /// \return The current page number.
+    [[nodiscard]] const std::optional<int>& get_current_page() const;
+
+    /// \brief Returns whether this cursor has pages.
+    /// \return Whether the cursor has pages.
+    [[nodiscard]] const std::optional<bool>& get_has_pages() const;
+
+    /// \brief Returns the first item returned for this cursor.
+    /// \return The first item returned.
+    [[nodiscard]] const std::optional<int>& get_from() const;
+
+    /// \brief Returns the last item returned for this cursor.
+    /// \return The last item returned.
+    [[nodiscard]] const std::optional<int>& get_to() const;
+
+    /// \brief Returns the last page (number of pages) for this cursor.
+    /// \return The last page number.
+    [[nodiscard]] const std::optional<int>& get_last_page() const;
+
+    /// \brief Returns whether there are more pages for this cursor.
+    /// \return Whether the cursor has more pages.
+    [[nodiscard]] const std::optional<bool>& get_has_more_pages() const;
+
     bool operator==(const PaginationCursor& rhs) const;
 
     bool operator!=(const PaginationCursor& rhs) const;
-
-    void deserialize(const char* json) override;
-
-    std::string serialize() override;
-
-    /// \brief Returns the total number of items selected by the cursor.
-    /// \return Optional for the total number of items.
-    std::optional<int> get_total();
-
-    /// \brief Returns the number of items per page for the cursor.
-    /// \return Optional for the number items per page.
-    std::optional<int> get_per_page();
-
-    /// \brief Returns the current page for the cursor.
-    /// \return Optional for the current page number.
-    std::optional<int> get_current_page();
-
-    /// \brief Returns whether the cursor has pages.
-    /// \return Optional for whether the cursor has pages.
-    std::optional<bool> get_has_pages();
-
-    /// \brief Returns the first item returned for the cursor.
-    /// \return Optional for the first item returned.
-    std::optional<int> get_from();
-
-    /// \brief Returns the last item returned for the cursor.
-    /// \return Optional for the last item returned.
-    std::optional<int> get_to();
-
-    /// \brief Returns the last page (number of pages) for the cursor.
-    /// \return Optional for the last page number.
-    std::optional<int> get_last_page();
-
-    /// \brief Returns whether there are more pages for the cursor.
-    /// \return Optional for whether the cursor has more pages.
-    std::optional<bool> get_has_more_pages();
 
 private:
     std::optional<int> total;
