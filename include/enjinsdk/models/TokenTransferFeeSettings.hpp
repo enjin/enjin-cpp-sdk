@@ -11,6 +11,9 @@ namespace enjin::sdk::models {
 /// \brief Models transfer fee settings for an item.
 class TokenTransferFeeSettings : public enjin::sdk::serialization::IDeserializable {
 public:
+    /// \brief Default constructor.
+    TokenTransferFeeSettings() = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the transfer fee type.
@@ -24,6 +27,10 @@ public:
     /// \brief Returns the fee value in Wei.
     /// \return The value.
     [[nodiscard]] const std::optional<std::string>& get_value() const;
+
+    bool operator==(const TokenTransferFeeSettings& rhs) const;
+
+    bool operator!=(const TokenTransferFeeSettings& rhs) const;
 
 private:
     std::optional<TokenTransferFeeType> type;
