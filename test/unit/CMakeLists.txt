@@ -18,6 +18,7 @@ set(TEST_FILES
         models/TokenVariantTest.cpp
         schemas/BaseSchemaTest.cpp
         utils/EnumUtilsTest.cpp
+        utils/RapidJsonUtilsTest.cpp
         utils/StringUtilsTest.cpp
         ../utils/MockHttpServer.cpp
         ../utils/MockHttpServer.hpp

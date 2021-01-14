@@ -31,6 +31,8 @@ set(SOURCE_FILES
         schemas/BaseSchema.cpp
         utils/EnumUtils.cpp
         utils/EnumUtils.hpp
+        utils/RapidJsonUtils.cpp
+        utils/RapidJsonUtils.hpp
         utils/StringUtils.cpp
         utils/StringUtils.hpp
 )
