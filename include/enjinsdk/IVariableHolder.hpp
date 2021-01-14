@@ -3,7 +3,6 @@
 
 #include <any>
 #include <string>
-#include <type_traits>
 
 namespace enjin::sdk::graphql {
 
