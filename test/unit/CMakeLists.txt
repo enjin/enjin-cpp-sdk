@@ -12,6 +12,7 @@ set(TEST_FILES
         models/AccessTokenTest.cpp
         models/ModelsTestSuite.hpp
         models/PaginationCursorTest.cpp
+        models/ProjectTest.cpp
         models/TokenTest.cpp
         models/TokenConfigDataTest.cpp
         models/TokenStateDataTest.cpp
