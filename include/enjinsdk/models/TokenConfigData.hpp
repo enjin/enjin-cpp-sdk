@@ -12,6 +12,9 @@ namespace enjin::sdk::models {
 /// \brief Models the configuration data of a token.
 class TokenConfigData : public enjin::sdk::serialization::IDeserializable {
 public:
+    /// \brief Default constructor.
+    TokenConfigData() = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the melt fee ratio of the item this config belongs too.
@@ -41,6 +44,10 @@ public:
     /// \brief Returns the transfer fee settings for the item this config belongs to.
     /// \return The transfer fee settings.
     [[nodiscard]] const std::optional<TokenTransferFeeSettings>& get_transfer_fee_settings() const;
+
+    bool operator==(const TokenConfigData& rhs) const;
+
+    bool operator!=(const TokenConfigData& rhs) const;
 
 private:
     std::optional<int> melt_fee_ratio;
