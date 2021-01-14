@@ -5,7 +5,6 @@
 #include <any>
 #include <map>
 #include <string>
-#include <type_traits>
 
 namespace enjin::sdk::graphql {
 
