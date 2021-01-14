@@ -11,17 +11,18 @@ using namespace enjin::sdk::graphql;
 class GraphqlResponseTest : public testing::Test {
 public:
     constexpr static char EMPTY_JSON_OBJECT[] = "{}";
+    constexpr static char POPULATED_CURSOR_JSON[] = R"({"total":1,"perPage":1,"currentPage":1,"hasPages":true,"from":1,"to":1,"lastPage":1,"hasMorePages":true})";
+    constexpr static char POPULATED_ERROR_JSON[] = R"({"message":"xyz","code":1,"details":"xyz","locations":[{"key":1}]})";
 
     static enjin::sdk::models::PaginationCursor create_default_pagination_cursor() {
         enjin::sdk::models::PaginationCursor cursor;
-        cursor.deserialize(
-                R"({"total":1,"perPage":1,"currentPage":1,"hasPages":true,"from":1,"to":1,"lastPage":1,"hasMorePages":true})");
+        cursor.deserialize(POPULATED_CURSOR_JSON);
         return cursor;
     }
 
     static GraphqlError create_default_graphql_error() {
         GraphqlError error;
-        error.deserialize(R"({"message":"xyz","code":1,"details":"xyz","locations":[{"key":1}]})");
+        error.deserialize(POPULATED_ERROR_JSON);
         return error;
     }
 };
@@ -52,7 +53,7 @@ TEST_F(GraphqlResponseTest, ConstructorParsesPaginatedType) {
       << R"(,)"
       << expected_obj.serialize()
       << R"(],"cursor":)"
-      << expected_cursor.serialize()
+      << POPULATED_CURSOR_JSON
       << R"(}}})";
 
     // Act
@@ -158,7 +159,7 @@ TEST_F(GraphqlResponseTest, IsEmptyPaginatedTypeReturnsFalse) {
       << R"(,)"
       << expected_obj.serialize()
       << R"(],"cursor":)"
-      << expected_cursor.serialize()
+      << POPULATED_CURSOR_JSON
       << R"(}}})";
 
     // Act
@@ -204,7 +205,7 @@ TEST_F(GraphqlResponseTest, IsPaginatedReturnsTrue) {
       << R"(,)"
       << expected_obj.serialize()
       << R"(],"cursor":)"
-      << expected_cursor.serialize()
+      << POPULATED_CURSOR_JSON
       << R"(}}})";
 
     // Act
