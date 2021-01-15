@@ -22,6 +22,9 @@ set(SOURCE_FILES
         models/PaginationCursor.cpp
         models/Player.cpp
         models/Project.cpp
+        models/Pusher.cpp
+        models/PusherChannels.cpp
+        models/PusherOptions.cpp
         models/Request.cpp
         models/Token.cpp
         models/TokenConfigData.cpp
