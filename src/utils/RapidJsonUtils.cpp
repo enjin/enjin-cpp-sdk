@@ -1,8 +1,5 @@
 #include "RapidJsonUtils.hpp"
 
-#include "rapidjson/stringbuffer.h"
-#include "rapidjson/writer.h"
-
 namespace enjin::sdk::utils {
 
 std::vector<std::string> get_array_as_serialized_vector(const rapidjson::Document& document, const std::string& key) {

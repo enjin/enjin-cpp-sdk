@@ -25,9 +25,8 @@ void TokenConfigData::deserialize(const std::string& json) {
             transferable.emplace(utils::deserialize_token_transferable(document[TRANSFERABLE_KEY].GetString()));
         }
         if (document.HasMember(TRANSFER_FEE_SETTINGS_KEY) && document[TRANSFER_FEE_SETTINGS_KEY].IsObject()) {
-            TokenTransferFeeSettings v;
-            v.deserialize(utils::get_object_as_string(document, TRANSFER_FEE_SETTINGS_KEY));
-            transfer_fee_settings.emplace(v);
+            transfer_fee_settings.emplace(utils::get_object_as_type<TokenTransferFeeSettings>(document,
+                                                                                              TRANSFER_FEE_SETTINGS_KEY));
         }
     }
 }

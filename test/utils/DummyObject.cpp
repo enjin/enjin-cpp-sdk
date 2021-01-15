@@ -11,7 +11,16 @@ DummyObject::DummyObject(int id) {
 void DummyObject::deserialize(const char* json) {
     rapidjson::Document document;
     document.Parse(json);
+    if (document.IsObject()) {
+        if (document.HasMember(ID_KEY) && document[ID_KEY].IsInt()) {
+            id = std::optional<int>(document[ID_KEY].GetInt());
+        }
+    }
+}
 
+void DummyObject::deserialize(const std::string& json) {
+    rapidjson::Document document;
+    document.Parse(json.c_str());
     if (document.IsObject()) {
         if (document.HasMember(ID_KEY) && document[ID_KEY].IsInt()) {
             id = std::optional<int>(document[ID_KEY].GetInt());
