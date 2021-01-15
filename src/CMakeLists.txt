@@ -18,6 +18,7 @@ set(SOURCE_FILES
         http/HttpResponse.cpp
         models/AccessToken.cpp
         models/Balance.cpp
+        models/BlockchainData.cpp
         models/PaginationCursor.cpp
         models/Player.cpp
         models/Project.cpp
@@ -27,6 +28,9 @@ set(SOURCE_FILES
         models/TokenStateData.cpp
         models/TokenTransferFeeSettings.cpp
         models/TokenVariant.cpp
+        models/TransactionEvent.cpp
+        models/TransactionLog.cpp
+        models/TransactionReceipt.cpp
         models/Wallet.cpp
         schemas/BaseSchema.cpp
         utils/EnumUtils.cpp

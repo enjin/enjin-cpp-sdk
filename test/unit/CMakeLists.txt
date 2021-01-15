@@ -10,14 +10,19 @@ set(TEST_FILES
         http/HttpResponseBuilderTest.cpp
         http/HttpResponseTest.cpp
         models/AccessTokenTest.cpp
+        models/BlockchainDataTest.cpp
         models/ModelsTestSuite.hpp
         models/PaginationCursorTest.cpp
         models/ProjectTest.cpp
+        models/RequestTest.cpp
         models/TokenTest.cpp
         models/TokenConfigDataTest.cpp
         models/TokenStateDataTest.cpp
         models/TokenTransferFeeSettingsTest.cpp
         models/TokenVariantTest.cpp
+        models/TransactionEventTest.cpp
+        models/TransactionLogTest.cpp
+        models/TransactionReceiptTest.cpp
         schemas/BaseSchemaTest.cpp
         utils/EnumUtilsTest.cpp
         utils/RapidJsonUtilsTest.cpp
