@@ -1,15 +1,18 @@
 #ifndef ENJINCPPSDK_DUMMYOBJECT_HPP
 #define ENJINCPPSDK_DUMMYOBJECT_HPP
 
+#include "enjinsdk/serialization/IDeserializable.hpp"
 #include "enjinsdk/serialization/ISerializable.hpp"
 #include <optional>
 #include <string>
 
 namespace enjin::test::utils {
 
-class DummyObject : public enjin::sdk::serialization::ISerializable {
+class DummyObject : public enjin::sdk::serialization::IDeserializable,
+                    public enjin::sdk::serialization::ISerializable {
 public:
     std::optional<int> id;
+
     constexpr static char ID_KEY[] = "id";
 
     DummyObject() = default;
@@ -20,6 +23,8 @@ public:
 
     void deserialize(const char* json) override;
 
+    void deserialize(const std::string& json);
+
     std::string serialize() override;
 
     bool operator==(const DummyObject& rhs) const;
@@ -27,7 +32,6 @@ public:
     bool operator!=(const DummyObject& rhs) const;
 
     static DummyObject create_default_dummy_object();
-
 };
 
 }

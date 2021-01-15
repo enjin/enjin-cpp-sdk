@@ -70,22 +70,6 @@ TEST_F(TokenTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
     EXPECT_EQ(expected_string, class_under_test.get_updated_at().value());
 }
 
-TEST_F(TokenTest, DeserializePopulatedVariantsArrayHaveExpectedElements) {
-    // Arrange
-    const std::string json(R"({"variants":[{"id":1}, {"id":1}, {"id":1}]})");
-    TokenVariant expected;
-    expected.deserialize(R"({"id":1})");
-
-    // Act
-    class_under_test.deserialize(json);
-
-    // Assert
-    ASSERT_TRUE(class_under_test.get_variants().has_value());
-    for (const TokenVariant& actual : class_under_test.get_variants().value()) {
-        EXPECT_EQ(expected, actual);
-    }
-}
-
 TEST_F(TokenTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
     Token lhs;
