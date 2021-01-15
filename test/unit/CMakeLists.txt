@@ -14,6 +14,9 @@ set(TEST_FILES
         models/ModelsTestSuite.hpp
         models/PaginationCursorTest.cpp
         models/ProjectTest.cpp
+        models/PusherTest.cpp
+        models/PusherChannelsTest.cpp
+        models/PusherOptionsTest.cpp
         models/RequestTest.cpp
         models/TokenTest.cpp
         models/TokenConfigDataTest.cpp
