@@ -30,6 +30,7 @@ set(TEST_FILES
         models/TransactionEventTest.cpp
         models/TransactionLogTest.cpp
         models/TransactionReceiptTest.cpp
+        models/WalletTest.cpp
         schemas/BaseSchemaTest.cpp
         utils/EnumUtilsTest.cpp
         utils/RapidJsonUtilsTest.cpp
