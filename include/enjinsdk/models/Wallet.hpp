@@ -1,19 +1,58 @@
 #ifndef ENJINCPPSDK_WALLET_HPP
 #define ENJINCPPSDK_WALLET_HPP
 
-#include "enjinsdk/serialization/ISerializable.hpp"
+#include "enjinsdk/models/Token.hpp"
+#include "enjinsdk/serialization/IDeserializable.hpp"
+#include <optional>
+#include <string>
+#include <vector>
 
 namespace enjin::sdk::models {
 
-class Wallet : public enjin::sdk::serialization::ISerializable {
+/// \brief Models a wallet on the platform.
+class Wallet : public enjin::sdk::serialization::IDeserializable {
 public:
+    /// \brief Default constructor.
     Wallet() = default;
 
-    void deserialize(const char* json) override;
+    void deserialize(const std::string& json) override;
 
-    std::string serialize() override;
+    /// \brief Returns the Ethereum address of this wallet.
+    /// \return The address.
+    [[nodiscard]] const std::optional<std::string>& get_eth_address() const;
 
-    // TODO: Implement fields and getters.
+    /// \brief Returns the ENJ allowance given for crypto-items.
+    /// \return The allowance.
+    [[nodiscard]] const std::optional<float>& get_enj_allowance() const;
+
+    /// \brief Returns the ENJ balance for this wallet.
+    /// \return The balance.
+    [[nodiscard]] const std::optional<float>& get_enj_balance() const;
+
+    /// \brief Returns the ETH balance for this wallet.
+    /// \return The balance.
+    [[nodiscard]] const std::optional<float>& get_eth_balance() const;
+
+    /// \brief Returns the tokens (items) this wallet has created.
+    /// \return The tokens.
+    [[nodiscard]] const std::optional<std::vector<Token>>& get_tokens_created() const;
+
+    bool operator==(const Wallet& rhs) const;
+
+    bool operator!=(const Wallet& rhs) const;
+
+private:
+    std::optional<std::string> eth_address;
+    std::optional<float> enj_allowance;
+    std::optional<float> enj_balance;
+    std::optional<float> eth_balance;
+    std::optional<std::vector<Token>> tokens_created;
+
+    constexpr static char ETH_ADDRESS_KEY[] = "ethAddress";
+    constexpr static char ENJ_ALLOWANCE_KEY[] = "enjAllowance";
+    constexpr static char ENJ_BALANCE_KEY[] = "enjBalance";
+    constexpr static char ETH_BALANCE_KEY[] = "ethBalance";
+    constexpr static char TOKENS_CREATED_KEY[] = "tokensCreated";
 };
 
 }
