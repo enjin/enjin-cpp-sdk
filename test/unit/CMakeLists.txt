@@ -11,13 +11,17 @@ set(TEST_FILES
         http/HttpResponseTest.cpp
         models/AccessTokenTest.cpp
         models/BlockchainDataTest.cpp
+        models/ContractsTest.cpp
         models/ModelsTestSuite.hpp
+        models/NotificationsTest.cpp
         models/PaginationCursorTest.cpp
+        models/PlatformTest.cpp
         models/ProjectTest.cpp
         models/PusherTest.cpp
         models/PusherChannelsTest.cpp
         models/PusherOptionsTest.cpp
         models/RequestTest.cpp
+        models/SupplyModelsTest.cpp
         models/TokenTest.cpp
         models/TokenConfigDataTest.cpp
         models/TokenStateDataTest.cpp

@@ -19,13 +19,17 @@ set(SOURCE_FILES
         models/AccessToken.cpp
         models/Balance.cpp
         models/BlockchainData.cpp
+        models/Contracts.cpp
+        models/Notifications.cpp
         models/PaginationCursor.cpp
+        models/Platform.cpp
         models/Player.cpp
         models/Project.cpp
         models/Pusher.cpp
         models/PusherChannels.cpp
         models/PusherOptions.cpp
         models/Request.cpp
+        models/SupplyModels.cpp
         models/Token.cpp
         models/TokenConfigData.cpp
         models/TokenStateData.cpp
