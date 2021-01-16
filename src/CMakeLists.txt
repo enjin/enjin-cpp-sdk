@@ -20,6 +20,7 @@ set(SOURCE_FILES
         models/Balance.cpp
         models/BlockchainData.cpp
         models/Contracts.cpp
+        models/GasPrices.cpp
         models/LinkingInfo.cpp
         models/Notifications.cpp
         models/PaginationCursor.cpp
