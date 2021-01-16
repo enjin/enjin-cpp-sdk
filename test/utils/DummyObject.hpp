@@ -21,9 +21,7 @@ public:
 
     ~DummyObject() override = default;
 
-    void deserialize(const char* json) override;
-
-    void deserialize(const std::string& json);
+    void deserialize(const std::string& json) override;
 
     std::string serialize() override;
 

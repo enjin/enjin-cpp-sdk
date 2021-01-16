@@ -1,20 +1,20 @@
+#include "../models/ModelsTestSuite.hpp"
 #include "enjinsdk/GraphqlError.hpp"
-#include "gtest/gtest.h"
+#include <string>
 
 using namespace enjin::sdk::graphql;
 
-class GraphqlErrorTest : public testing::Test {
+class GraphqlErrorTest : public ModelsTestSuite {
 public:
     GraphqlError class_under_test;
 
-    constexpr static char EMPTY_JSON_OBJECT[] = "{}";
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"message":"xyz","code":1,"details":"xyz","locations":[{"key":1}]})";
 };
 
 TEST_F(GraphqlErrorTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
     // Arrange
-    const char* json = "";
+    const std::string json;
 
     // Act
     class_under_test.deserialize(json);
@@ -28,7 +28,7 @@ TEST_F(GraphqlErrorTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
 
 TEST_F(GraphqlErrorTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     // Arrange
-    const char* json = EMPTY_JSON_OBJECT;
+    const std::string json(EMPTY_JSON_OBJECT);
 
     // Act
     class_under_test.deserialize(json);
@@ -45,7 +45,7 @@ TEST_F(GraphqlErrorTest, DeserializePopulatedJsonObjectFieldsHaveValues) {
     const int expected_int = 1;
     const std::string expected_string("xyz");
     const std::string expected_key("key");
-    const char* json = POPULATED_JSON_OBJECT;
+    const std::string json(POPULATED_JSON_OBJECT);
 
     // Act
     class_under_test.deserialize(json);
@@ -64,53 +64,53 @@ TEST_F(GraphqlErrorTest, DeserializePopulatedJsonObjectFieldsHaveValues) {
     }
 }
 
-TEST_F(GraphqlErrorTest, SerializationFieldsHaveValuesReturnsPopulatedJsonObject) {
+TEST_F(GraphqlErrorTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    const std::string expected = POPULATED_JSON_OBJECT;
-    class_under_test.deserialize(expected.c_str());
+    GraphqlError lhs;
+    GraphqlError rhs;
 
     // Act
-    std::string actual = class_under_test.serialize();
-
-    // Assert
-    ASSERT_EQ(expected, actual);
-}
-
-TEST_F(GraphqlErrorTest, SerializationFieldsHaveNoValuesReturnsEmptyJsonObject) {
-    // Arrange
-    const std::string expected = EMPTY_JSON_OBJECT;
-
-    // Act
-    std::string actual = class_under_test.serialize();
-
-    // Assert
-    ASSERT_EQ(expected, actual);
-}
-
-TEST_F(GraphqlErrorTest, EquilityObjectsDoHaveSameValuesReturnsTrue) {
-    // Arrange
-    const char* json = POPULATED_JSON_OBJECT;
-    GraphqlError error1;
-    GraphqlError error2;
-    error1.deserialize(json);
-    error2.deserialize(json);
-
-    // Act
-    bool actual = error1 == error2;
+    bool actual = lhs == rhs;
 
     // Assert
     ASSERT_TRUE(actual);
 }
 
-TEST_F(GraphqlErrorTest, EquilityObjectsDoNotHaveSameValuesReturnsFalse) {
+TEST_F(GraphqlErrorTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    const char* json = POPULATED_JSON_OBJECT;
-    GraphqlError error1;
-    GraphqlError error2;
-    error1.deserialize(json);
+    GraphqlError lhs;
+    GraphqlError rhs;
+    lhs.deserialize(POPULATED_JSON_OBJECT);
+    rhs.deserialize(POPULATED_JSON_OBJECT);
 
     // Act
-    bool actual = error1 == error2;
+    bool actual = lhs == rhs;
+
+    // Assert
+    ASSERT_TRUE(actual);
+}
+
+TEST_F(GraphqlErrorTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+    // Arrange
+    GraphqlError lhs;
+    GraphqlError rhs;
+    lhs.deserialize(POPULATED_JSON_OBJECT);
+
+    // Act
+    bool actual = lhs == rhs;
+
+    // Assert
+    ASSERT_FALSE(actual);
+}
+
+TEST_F(GraphqlErrorTest, EqualityRightSideIsPopulatedReturnsFalse) {
+    // Arrange
+    GraphqlError lhs;
+    GraphqlError rhs;
+    rhs.deserialize(POPULATED_JSON_OBJECT);
+
+    // Act
+    bool actual = lhs == rhs;
 
     // Assert
     ASSERT_FALSE(actual);

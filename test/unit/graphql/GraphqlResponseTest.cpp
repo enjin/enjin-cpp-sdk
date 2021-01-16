@@ -73,7 +73,7 @@ TEST_F(GraphqlResponseTest, ConstructorParsesErrors) {
     GraphqlError expected = create_default_graphql_error();
     std::stringstream s;
     s << R"({"error":{"errors":[)"
-      << expected.serialize()
+      << POPULATED_ERROR_JSON
       << R"(]}})";
 
     // Act
@@ -91,7 +91,7 @@ TEST_F(GraphqlResponseTest, HasErrorsReturnsTrue) {
     GraphqlError error = create_default_graphql_error();
     std::stringstream s;
     s << R"({"error":{"errors":[)"
-      << error.serialize()
+      << POPULATED_ERROR_JSON
       << R"(]}})";
 
     // Act
