@@ -39,9 +39,8 @@ TEST_F(TokenTransferFeeSettingsTest, DeserializeEmptyJsonObjectFieldsDoNotHaveVa
 
 TEST_F(TokenTransferFeeSettingsTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
     // Arrange
+    const std::string expected_string("1");
     const TokenTransferFeeType expected_type = TokenTransferFeeType::NONE;
-    const std::string expected_token_id("1");
-    const std::string expected_value("1");
     const std::string json(POPULATED_JSON_OBJECT);
 
     // Act
@@ -49,8 +48,8 @@ TEST_F(TokenTransferFeeSettingsTest, DeserializePopulatedJsonObjectFieldsHaveExp
 
     // Assert
     EXPECT_EQ(expected_type, class_under_test.get_type().value());
-    EXPECT_EQ(expected_token_id, class_under_test.get_token_id().value());
-    EXPECT_EQ(expected_value, class_under_test.get_value().value());
+    EXPECT_EQ(expected_string, class_under_test.get_token_id().value());
+    EXPECT_EQ(expected_string, class_under_test.get_value().value());
 }
 
 TEST_F(TokenTransferFeeSettingsTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
