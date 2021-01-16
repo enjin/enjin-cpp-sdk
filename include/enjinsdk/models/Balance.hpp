@@ -3,21 +3,43 @@
 
 #include "enjinsdk/models/Project.hpp"
 #include "enjinsdk/models/Wallet.hpp"
-#include "enjinsdk/serialization/ISerializable.hpp"
+#include "enjinsdk/serialization/IDeserializable.hpp"
 #include <optional>
 #include <string>
 
 namespace enjin::sdk::models {
 
-class Balance : public enjin::sdk::serialization::ISerializable {
+/// \brief Models a item balance.
+class Balance : public enjin::sdk::serialization::IDeserializable {
 public:
+    /// \brief Default constructor.
     Balance() = default;
 
-    void deserialize(const char* json) override;
+    void deserialize(const std::string& json) override;
 
-    std::string serialize() override;
+    /// \brief Returns the item ID for this balance.
+    /// \return The item ID.
+    [[nodiscard]] const std::optional<std::string>& get_id() const;
 
-    // TODO: Implement getters.
+    /// \brief Returns the item index for this balance.
+    /// \return The item index.
+    [[nodiscard]] const std::optional<std::string>& get_index() const;
+
+    /// \brief Returns the amount of the item in the balance.
+    /// \return The amount of the item.
+    [[nodiscard]] const std::optional<int>& get_value() const;
+
+    /// \brief Returns the project the token of this balance belongs to.
+    /// \return The project.
+    [[nodiscard]] const std::optional<Project>& get_project() const;
+
+    /// \brief Returns the wallet this balance belongs to.
+    /// \return The wallet.
+    [[nodiscard]] const std::optional<Wallet>& get_wallet() const;
+
+    bool operator==(const Balance& rhs) const;
+
+    bool operator!=(const Balance& rhs) const;
 
 private:
     std::optional<std::string> id;
