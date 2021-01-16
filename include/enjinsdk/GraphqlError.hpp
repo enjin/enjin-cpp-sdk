@@ -1,7 +1,7 @@
 #ifndef ENJINCPPSDK_GRAPHQLERROR_HPP
 #define ENJINCPPSDK_GRAPHQLERROR_HPP
 
-#include "enjinsdk/serialization/ISerializable.hpp"
+#include "enjinsdk/serialization/IDeserializable.hpp"
 #include <map>
 #include <optional>
 #include <string>
@@ -10,34 +10,32 @@
 namespace enjin::sdk::graphql {
 
 /// \brief Models the structure of a GraphQL response error.
-class GraphqlError : enjin::sdk::serialization::ISerializable {
+class GraphqlError : public enjin::sdk::serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     GraphqlError() = default;
 
+    void deserialize(const std::string& json) override;
+
+    /// \brief Returns the error message.
+    /// \return The error message.
+    [[nodiscard]] const std::optional<std::string>& get_message() const;
+
+    /// \brief Returns the error code.
+    /// \return The error code.
+    [[nodiscard]] const std::optional<int>& get_code() const;
+
+    /// \brief Returns the error locations.
+    /// \return The error locations.
+    [[nodiscard]] const std::optional<std::vector<std::map<std::string, int>>>& get_locations() const;
+
+    /// \brief Returns the error details.
+    /// \return The error details.
+    [[nodiscard]] const std::optional<std::string>& get_details() const;
+
     bool operator==(const GraphqlError& rhs) const;
 
     bool operator!=(const GraphqlError& rhs) const;
-
-    void deserialize(const char* json) override;
-
-    std::string serialize() override;
-
-    /// \brief Returns the error message.
-    /// \return Optional for the error message.
-    std::optional<std::string> get_message();
-
-    /// \brief Returns the error code.
-    /// \return Optional for the error code.
-    std::optional<int> get_code();
-
-    /// \brief Returns the error locations.
-    /// \return Optional for the error locations.
-    std::optional<std::vector<std::map<std::string, int>>> get_locations();
-
-    /// \brief Returns the error details.
-    /// \return Optional for the error details.
-    std::optional<std::string> get_details();
 
 private:
     std::optional<std::string> message;

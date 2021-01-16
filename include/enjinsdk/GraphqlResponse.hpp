@@ -4,7 +4,7 @@
 #include "enjinsdk/GraphqlError.hpp"
 #include "enjinsdk/internal/AbstractGraphqlResponse.hpp"
 #include "enjinsdk/models/PaginationCursor.hpp"
-#include "enjinsdk/serialization/ISerializable.hpp"
+#include "enjinsdk/serialization/IDeserializable.hpp"
 #include "rapidjson/document.h"     // TODO: Implement Pimpl idiom to hide rapidjson implementation if possible.
 #include "rapidjson/stringbuffer.h" //
 #include "rapidjson/writer.h"       //
@@ -20,11 +20,11 @@ template<class...>
 class GraphqlResponse;
 
 /// \brief Models the body of a GraphQL response for non-paginated responses.
-/// \tparam T The model of the data field. Must inherit from enjin::sdk::serialization::ISerializable.
+/// \tparam T The model of the data field. Must inherit from enjin::sdk::serialization::IDeserializable.
 template<class T>
 class GraphqlResponse<T> : public AbstractGraphqlResponse {
-    static_assert(std::is_base_of<enjin::sdk::serialization::ISerializable, T>::value,
-                  "Type T does not inherit from ISerializable.");
+    static_assert(std::is_base_of<enjin::sdk::serialization::IDeserializable, T>::value,
+                  "Type T does not inherit from IDeserializable.");
 
 public:
     GraphqlResponse() = delete;
@@ -70,11 +70,11 @@ protected:
 };
 
 /// \brief Models the body of a GraphQL response for paginated responses.
-/// \tparam T The model of the data field. Must inherit from enjin::sdk::serialization::ISerializable.
+/// \tparam T The model of the data field. Must inherit from enjin::sdk::serialization::IDeserializable.
 template<class T>
 class GraphqlResponse<std::vector<T>> : public AbstractGraphqlResponse {
-    static_assert(std::is_base_of<enjin::sdk::serialization::ISerializable, T>::value,
-                  "Type T does not inherit from ISerializable.");
+    static_assert(std::is_base_of<enjin::sdk::serialization::IDeserializable, T>::value,
+                  "Type T does not inherit from IDeserializable.");
 
 public:
     GraphqlResponse() = delete;
