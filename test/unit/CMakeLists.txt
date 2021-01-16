@@ -13,10 +13,12 @@ set(TEST_FILES
         models/BalanceTest.cpp
         models/BlockchainDataTest.cpp
         models/ContractsTest.cpp
+        models/LinkingInfoTest.cpp
         models/ModelsTestSuite.hpp
         models/NotificationsTest.cpp
         models/PaginationCursorTest.cpp
         models/PlatformTest.cpp
+        models/PlayerTest.cpp
         models/ProjectTest.cpp
         models/PusherTest.cpp
         models/PusherChannelsTest.cpp
