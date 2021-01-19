@@ -37,6 +37,7 @@ set(TEST_FILES
         models/TokenStateDataTest.cpp
         models/TokenTransferFeeSettingsTest.cpp
         models/TokenVariantTest.cpp
+        models/TradeTest.cpp
         models/TransactionEventTest.cpp
         models/TransactionFilterTest.cpp
         models/TransactionLogTest.cpp
