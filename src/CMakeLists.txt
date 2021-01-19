@@ -53,6 +53,9 @@ set(SOURCE_FILES
         models/Transfer.cpp
         models/Wallet.cpp
         schemas/BaseSchema.cpp
+        schemas/player/PlayerSchema.cpp
+        schemas/project/ProjectSchema.cpp
+        schemas/shared/SharedSchema.cpp
         utils/EnumUtils.cpp
         utils/EnumUtils.hpp
         utils/RapidJsonUtils.cpp

@@ -8,22 +8,16 @@
 
 namespace enjin::sdk {
 
-/// \brief
 class BaseSchema {
 public:
-    /// \brief
     BaseSchema() = delete;
 
 protected:
     TrustedPlatformMiddleware middleware;
     std::string schema;
 
-    /// \brief
-    /// \param middleware
-    /// \param schema
-    BaseSchema(TrustedPlatformMiddleware middleware, const char* schema);
+    BaseSchema(const TrustedPlatformMiddleware& middleware, std::string schema);
 
-    /// \brief
     ~BaseSchema() = default;
 
     void create_request_body(const enjin::sdk::graphql::IGraphqlRequest& request);
