@@ -42,7 +42,7 @@ TEST_P(RequestStateTest, SerializeRequestStateReturnsExpectedString) {
     RequestState value = std::get<1>(GetParam());
 
     // Act
-    std::string_view actual = serialize_request_state(value);
+    std::string actual = serialize_request_state(value);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -66,7 +66,7 @@ TEST_P(RequestTypeTest, SerializeRequestTypeReturnsExpectedString) {
     RequestType value = std::get<1>(GetParam());
 
     // Act
-    std::string_view actual = serialize_request_type(value);
+    std::string actual = serialize_request_type(value);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -90,7 +90,7 @@ TEST_P(TokenSupplyModelTest, SerializeTokenSupplyModelReturnsExpectedString) {
     TokenSupplyModel value = std::get<1>(GetParam());
 
     // Act
-    std::string_view actual = serialize_token_supply_model(value);
+    std::string actual = serialize_token_supply_model(value);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -114,7 +114,7 @@ TEST_P(TokenTransferFeeTypeTest, SerializeTokenTransferFeeTypeReturnsExpectedStr
     TokenTransferFeeType value = std::get<1>(GetParam());
 
     // Act
-    std::string_view actual = serialize_token_transfer_fee_type(value);
+    std::string actual = serialize_token_transfer_fee_type(value);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -138,7 +138,7 @@ TEST_P(TokenTransferableTest, SerializeTokenTransferableReturnsExpectedString) {
     TokenTransferable value = std::get<1>(GetParam());
 
     // Act
-    std::string_view actual = serialize_token_transferable(value);
+    std::string actual = serialize_token_transferable(value);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -162,7 +162,7 @@ TEST_P(TokenVariantModeTest, SerializeTokenVariantModeReturnsExpectedString) {
     TokenVariantMode value = std::get<1>(GetParam());
 
     // Act
-    std::string_view actual = serialize_token_variant_mode(value);
+    std::string actual = serialize_token_variant_mode(value);
 
     // Assert
     ASSERT_EQ(expected, actual);
