@@ -43,6 +43,7 @@ set(SOURCE_FILES
         models/TokenStateData.cpp
         models/TokenTransferFeeSettings.cpp
         models/TokenVariant.cpp
+        models/Trade.cpp
         models/TransactionEvent.cpp
         models/TransactionFilter.cpp
         models/TransactionLog.cpp
