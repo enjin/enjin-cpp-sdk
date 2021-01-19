@@ -49,6 +49,7 @@ set(SOURCE_FILES
         models/TransactionLog.cpp
         models/TransactionReceipt.cpp
         models/TransactionSort.cpp
+        models/Transfer.cpp
         models/Wallet.cpp
         schemas/BaseSchema.cpp
         utils/EnumUtils.cpp

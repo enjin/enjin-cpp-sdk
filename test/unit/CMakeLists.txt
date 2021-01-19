@@ -43,6 +43,7 @@ set(TEST_FILES
         models/TransactionLogTest.cpp
         models/TransactionReceiptTest.cpp
         models/TransactionSortTest.cpp
+        models/TransferTest.cpp
         models/WalletTest.cpp
         schemas/BaseSchemaTest.cpp
         utils/EnumUtilsTest.cpp
