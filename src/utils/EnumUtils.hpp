@@ -5,11 +5,14 @@
 #include "enjinsdk/models/RequestType.hpp"
 #include "enjinsdk/models/SortDirection.hpp"
 #include "enjinsdk/models/TokenField.hpp"
+#include "enjinsdk/models/TokenIdFormat.hpp"
+#include "enjinsdk/models/TokenIndexFormat.hpp"
 #include "enjinsdk/models/TokenSupplyModel.hpp"
 #include "enjinsdk/models/TokenTransferFeeType.hpp"
 #include "enjinsdk/models/TokenTransferable.hpp"
 #include "enjinsdk/models/TokenVariantMode.hpp"
 #include "enjinsdk/models/TransactionField.hpp"
+#include "enjinsdk/models/Whitelisted.hpp"
 #include <string>
 
 namespace enjin::sdk::utils {
@@ -34,6 +37,10 @@ std::string serialize_sort_direction(enjin::sdk::models::SortDirection v) noexce
 
 std::string serialize_token_field(enjin::sdk::models::TokenField v) noexcept;
 
+std::string serialize_token_id_format(enjin::sdk::models::TokenIdFormat v) noexcept;
+
+std::string serialize_token_index_format(enjin::sdk::models::TokenIndexFormat v) noexcept;
+
 std::string serialize_token_supply_model(enjin::sdk::models::TokenSupplyModel v) noexcept;
 
 std::string serialize_token_transfer_fee_type(enjin::sdk::models::TokenTransferFeeType v) noexcept;
@@ -43,6 +50,8 @@ std::string serialize_token_transferable(enjin::sdk::models::TokenTransferable v
 std::string serialize_token_variant_mode(enjin::sdk::models::TokenVariantMode v) noexcept;
 
 std::string serialize_transaction_field(enjin::sdk::models::TransactionField v) noexcept;
+
+std::string serialize_whitelisted(enjin::sdk::models::Whitelisted v) noexcept;
 
 }
 
