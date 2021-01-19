@@ -27,6 +27,7 @@ set(SOURCE_FILES
         models/PaginationCursor.cpp
         models/Platform.cpp
         models/Player.cpp
+        models/PlayerFilter.cpp
         models/Project.cpp
         models/Pusher.cpp
         models/PusherChannels.cpp
