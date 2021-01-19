@@ -18,6 +18,12 @@ class SortDirectionTest : public testing::TestWithParam<std::tuple<std::string, 
 class TokenFieldTest : public testing::TestWithParam<std::tuple<std::string, TokenField>> {
 };
 
+class TokenIdFormatTest : public testing::TestWithParam<std::tuple<std::string, TokenIdFormat>> {
+};
+
+class TokenIndexFormatTest : public testing::TestWithParam<std::tuple<std::string, TokenIndexFormat>> {
+};
+
 class TokenSupplyModelTest : public testing::TestWithParam<std::tuple<std::string, TokenSupplyModel>> {
 };
 
@@ -31,6 +37,9 @@ class TokenVariantModeTest : public testing::TestWithParam<std::tuple<std::strin
 };
 
 class TransactionFieldTest : public testing::TestWithParam<std::tuple<std::string, TransactionField>> {
+};
+
+class WhitelistedTest : public testing::TestWithParam<std::tuple<std::string, Whitelisted>> {
 };
 
 TEST_P(RequestStateTest, DeserializeRequestStateReturnsExpectedValue) {
@@ -100,6 +109,30 @@ TEST_P(TokenFieldTest, SerializeTokenFieldReturnsExpectedString) {
 
     // Act
     std::string actual = serialize_token_field(value);
+
+    // Assert
+    ASSERT_EQ(expected, actual);
+}
+
+TEST_P(TokenIdFormatTest, SerializeTokenIdFormatReturnsExpectedString) {
+    // Arrange
+    const std::string& expected = std::get<0>(GetParam());
+    TokenIdFormat value = std::get<1>(GetParam());
+
+    // Act
+    std::string actual = serialize_token_id_format(value);
+
+    // Assert
+    ASSERT_EQ(expected, actual);
+}
+
+TEST_P(TokenIndexFormatTest, SerializeTokenIndexFormatReturnsExpectedString) {
+    // Arrange
+    const std::string& expected = std::get<0>(GetParam());
+    TokenIndexFormat value = std::get<1>(GetParam());
+
+    // Act
+    std::string actual = serialize_token_index_format(value);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -213,6 +246,18 @@ TEST_P(TransactionFieldTest, SerializeTransactionFieldReturnsExpectedString) {
     ASSERT_EQ(expected, actual);
 }
 
+TEST_P(WhitelistedTest, SerializeWhitelistedReturnsExpectedString) {
+    // Arrange
+    const std::string& expected = std::get<0>(GetParam());
+    Whitelisted value = std::get<1>(GetParam());
+
+    // Act
+    std::string actual = serialize_whitelisted(value);
+
+    // Assert
+    ASSERT_EQ(expected, actual);
+}
+
 INSTANTIATE_TEST_SUITE_P(SerializableRequestState,
                          RequestStateTest,
                          testing::Values(std::make_tuple("PENDING", RequestState::PENDING),
@@ -303,9 +348,29 @@ INSTANTIATE_TEST_SUITE_P(SerializeTokenField,
                                          std::make_tuple("totalSupply", TokenField::TOTAL_SUPPLY),
                                          std::make_tuple("createdAt", TokenField::CREATED_AT)));
 
+INSTANTIATE_TEST_SUITE_P(SerializeTokenIdFormat,
+                         TokenIdFormatTest,
+                         testing::Values(std::make_tuple("hex64", TokenIdFormat::HEX64),
+                                         std::make_tuple("hex256", TokenIdFormat::HEX256),
+                                         std::make_tuple("uint256", TokenIdFormat::UINT256)));
+
+INSTANTIATE_TEST_SUITE_P(SerializeTokenIndexFormat,
+                         TokenIndexFormatTest,
+                         testing::Values(std::make_tuple("hex64", TokenIndexFormat::HEX64),
+                                         std::make_tuple("uint64", TokenIndexFormat::UINT64)));
+
 INSTANTIATE_TEST_SUITE_P(SerializeTransactionField,
                          TransactionFieldTest,
                          testing::Values(std::make_tuple("id", TransactionField::ID),
                                          std::make_tuple("state", TransactionField::STATE),
                                          std::make_tuple("title", TransactionField::TITLE),
                                          std::make_tuple("createdAt", TransactionField::CREATED_AT)));
+
+INSTANTIATE_TEST_SUITE_P(SerializeWhitelisted,
+                         WhitelistedTest,
+                         testing::Values(std::make_tuple("NONE", Whitelisted::NONE),
+                                         std::make_tuple("SEND_AND_RECEIVE", Whitelisted::SEND_AND_RECEIVE),
+                                         std::make_tuple("SEND", Whitelisted::SEND),
+                                         std::make_tuple("RECEIVE", Whitelisted::RECEIVE),
+                                         std::make_tuple("NO_FEES", Whitelisted::NO_FEES),
+                                         std::make_tuple("ADDRESS", Whitelisted::ADDRESS)));
