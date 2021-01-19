@@ -28,6 +28,7 @@ set(TEST_FILES
         models/PusherOptionsTest.cpp
         models/RequestTest.cpp
         models/SupplyModelsTest.cpp
+        models/TokenFilterTest.cpp
         models/TokenTest.cpp
         models/TokenConfigDataTest.cpp
         models/TokenStateDataTest.cpp
