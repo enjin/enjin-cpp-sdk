@@ -36,6 +36,7 @@ set(SOURCE_FILES
         models/SupplyModels.cpp
         models/Token.cpp
         models/TokenConfigData.cpp
+        models/TokenFilter.cpp
         models/TokenStateData.cpp
         models/TokenTransferFeeSettings.cpp
         models/TokenVariant.cpp
