@@ -6,7 +6,6 @@ namespace enjin::sdk::models {
 
 std::string PlayerFilter::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
-    rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
 
     if (and_filters.has_value()) {
         utils::set_array_member_from_type_vector<PlayerFilter>(document, AND_KEY, and_filters.value());
