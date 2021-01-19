@@ -35,7 +35,7 @@ public:
     }
 };
 
-TEST_F(TransactionFilterTest, SerializeNoSetFieldsReturnsFilterWithNoSetFields) {
+TEST_F(TransactionFilterTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EMPTY_JSON_OBJECT);
 
@@ -46,7 +46,7 @@ TEST_F(TransactionFilterTest, SerializeNoSetFieldsReturnsFilterWithNoSetFields) 
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(TransactionFilterTest, SerializeSetFieldsReturnsFilterWithSetFields) {
+TEST_F(TransactionFilterTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_and(std::vector<TransactionFilter>())
@@ -76,7 +76,7 @@ TEST_F(TransactionFilterTest, SerializeSetFieldsReturnsFilterWithSetFields) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(TransactionFilterTest, SerializeRequestInReturnsPopulatedJsonObject) {
+TEST_F(TransactionFilterTest, SerializeRequestInFieldSetReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(R"({"type_in":["APPROVE","APPROVE","APPROVE"]})");
     class_under_test.set_type_in({RequestType::APPROVE, RequestType::APPROVE, RequestType::APPROVE});
@@ -88,7 +88,7 @@ TEST_F(TransactionFilterTest, SerializeRequestInReturnsPopulatedJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(TransactionFilterTest, SerializeStateInReturnsPopulatedJsonObject) {
+TEST_F(TransactionFilterTest, SerializeStateInReturnsFieldSetExpectedJsonObject) {
     // Arrange
     const std::string expected(R"({"state_in":["PENDING","PENDING","PENDING"]})");
     std::vector<RequestState> states;

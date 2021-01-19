@@ -20,7 +20,7 @@ public:
     }
 };
 
-TEST_F(PlayerFilterTest, SerializeNoSetFieldsReturnsFilterWithNoSetFields) {
+TEST_F(PlayerFilterTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EMPTY_JSON_OBJECT);
 
@@ -31,7 +31,7 @@ TEST_F(PlayerFilterTest, SerializeNoSetFieldsReturnsFilterWithNoSetFields) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(PlayerFilterTest, SerializeSetFieldsReturnsFilterWithSetFields) {
+TEST_F(PlayerFilterTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_and(std::vector<PlayerFilter>())

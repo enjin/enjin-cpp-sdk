@@ -27,7 +27,7 @@ public:
     }
 };
 
-TEST_F(BalanceFilterTest, SerializeNoSetFieldsReturnsFilterWithNoSetFields) {
+TEST_F(BalanceFilterTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EMPTY_JSON_OBJECT);
 
@@ -38,7 +38,7 @@ TEST_F(BalanceFilterTest, SerializeNoSetFieldsReturnsFilterWithNoSetFields) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(BalanceFilterTest, SerializeSetFieldsReturnsFilterWithSetFields) {
+TEST_F(BalanceFilterTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_and(std::vector<BalanceFilter>())
