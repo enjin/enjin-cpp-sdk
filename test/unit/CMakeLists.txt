@@ -31,6 +31,7 @@ set(TEST_FILES
         models/TokenFilterTest.cpp
         models/TokenTest.cpp
         models/TokenConfigDataTest.cpp
+        models/TokenSortTest.cpp
         models/TokenStateDataTest.cpp
         models/TokenTransferFeeSettingsTest.cpp
         models/TokenVariantTest.cpp
@@ -38,6 +39,7 @@ set(TEST_FILES
         models/TransactionFilterTest.cpp
         models/TransactionLogTest.cpp
         models/TransactionReceiptTest.cpp
+        models/TransactionSortTest.cpp
         models/WalletTest.cpp
         schemas/BaseSchemaTest.cpp
         utils/EnumUtilsTest.cpp

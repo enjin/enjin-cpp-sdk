@@ -223,6 +223,34 @@ std::string serialize_request_type(enjin::sdk::models::RequestType v) noexcept {
     }
 }
 
+std::string serialize_sort_direction(enjin::sdk::models::SortDirection v) noexcept {
+    switch (v) {
+        case models::SortDirection::ASCENDING:
+            return "asc";
+        case models::SortDirection::DESCENDING:
+            return "desc";
+    }
+}
+
+std::string serialize_token_field(enjin::sdk::models::TokenField v) noexcept {
+    switch (v) {
+        case models::TokenField::ID:
+            return "id";
+        case models::TokenField::NAME:
+            return "name";
+        case models::TokenField::CIRCULATING_SUPPLY:
+            return "circulatingSupply";
+        case models::TokenField::NON_FUNGIBLE:
+            return "nonFungible";
+        case models::TokenField::RESERVE:
+            return "reserve";
+        case models::TokenField::TOTAL_SUPPLY:
+            return "totalSupply";
+        case models::TokenField::CREATED_AT:
+            return "createdAt";
+    }
+}
+
 std::string serialize_token_supply_model(enjin::sdk::models::TokenSupplyModel v) noexcept {
     switch (v) {
         case models::TokenSupplyModel::FIXED:
@@ -284,6 +312,19 @@ std::string serialize_token_variant_mode(enjin::sdk::models::TokenVariantMode v)
             return "ALWAYS";
         default:
             return "UNKNOWN";
+    }
+}
+
+std::string serialize_transaction_field(enjin::sdk::models::TransactionField v) noexcept {
+    switch (v) {
+        case models::TransactionField::ID:
+            return "id";
+        case models::TransactionField::STATE:
+            return "state";
+        case models::TransactionField::TITLE:
+            return "title";
+        case models::TransactionField::CREATED_AT:
+            return "createdAt";
     }
 }
 
