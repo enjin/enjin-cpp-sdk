@@ -27,6 +27,7 @@ set(SOURCE_FILES
         models/MintInput.cpp
         models/Notifications.cpp
         models/PaginationCursor.cpp
+        models/PaginationOptions.cpp
         models/Platform.cpp
         models/Player.cpp
         models/PlayerFilter.cpp
