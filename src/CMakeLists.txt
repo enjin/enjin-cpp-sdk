@@ -41,6 +41,7 @@ set(SOURCE_FILES
         models/TokenTransferFeeSettings.cpp
         models/TokenVariant.cpp
         models/TransactionEvent.cpp
+        models/TransactionFilter.cpp
         models/TransactionLog.cpp
         models/TransactionReceipt.cpp
         models/Wallet.cpp
