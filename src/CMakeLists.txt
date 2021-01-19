@@ -23,6 +23,7 @@ set(SOURCE_FILES
         models/Contracts.cpp
         models/GasPrices.cpp
         models/LinkingInfo.cpp
+        models/Melt.cpp
         models/Notifications.cpp
         models/PaginationCursor.cpp
         models/Platform.cpp
