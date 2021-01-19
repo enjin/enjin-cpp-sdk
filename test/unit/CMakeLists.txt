@@ -17,6 +17,7 @@ set(TEST_FILES
         models/GasPricesTest.cpp
         models/LinkingInfoTest.cpp
         models/MeltTest.cpp
+        models/MintInputTest.cpp
         models/ModelsTestSuite.hpp
         models/NotificationsTest.cpp
         models/PaginationCursorTest.cpp
