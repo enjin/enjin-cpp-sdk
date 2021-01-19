@@ -20,6 +20,7 @@ set(TEST_FILES
         models/NotificationsTest.cpp
         models/PaginationCursorTest.cpp
         models/PlatformTest.cpp
+        models/PlayerFilterTest.cpp
         models/PlayerTest.cpp
         models/ProjectTest.cpp
         models/PusherTest.cpp
