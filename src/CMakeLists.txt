@@ -37,6 +37,7 @@ set(SOURCE_FILES
         models/Token.cpp
         models/TokenConfigData.cpp
         models/TokenFilter.cpp
+        models/TokenSort.cpp
         models/TokenStateData.cpp
         models/TokenTransferFeeSettings.cpp
         models/TokenVariant.cpp
@@ -44,6 +45,7 @@ set(SOURCE_FILES
         models/TransactionFilter.cpp
         models/TransactionLog.cpp
         models/TransactionReceipt.cpp
+        models/TransactionSort.cpp
         models/Wallet.cpp
         schemas/BaseSchema.cpp
         utils/EnumUtils.cpp

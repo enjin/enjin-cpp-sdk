@@ -12,6 +12,12 @@ class RequestStateTest : public testing::TestWithParam<std::tuple<std::string, R
 class RequestTypeTest : public testing::TestWithParam<std::tuple<std::string, RequestType>> {
 };
 
+class SortDirectionTest : public testing::TestWithParam<std::tuple<std::string, SortDirection>> {
+};
+
+class TokenFieldTest : public testing::TestWithParam<std::tuple<std::string, TokenField>> {
+};
+
 class TokenSupplyModelTest : public testing::TestWithParam<std::tuple<std::string, TokenSupplyModel>> {
 };
 
@@ -22,6 +28,9 @@ class TokenTransferableTest : public testing::TestWithParam<std::tuple<std::stri
 };
 
 class TokenVariantModeTest : public testing::TestWithParam<std::tuple<std::string, TokenVariantMode>> {
+};
+
+class TransactionFieldTest : public testing::TestWithParam<std::tuple<std::string, TransactionField>> {
 };
 
 TEST_P(RequestStateTest, DeserializeRequestStateReturnsExpectedValue) {
@@ -67,6 +76,30 @@ TEST_P(RequestTypeTest, SerializeRequestTypeReturnsExpectedString) {
 
     // Act
     std::string actual = serialize_request_type(value);
+
+    // Assert
+    ASSERT_EQ(expected, actual);
+}
+
+TEST_P(SortDirectionTest, SerializeSortDirectionReturnsExpectedString) {
+    // Arrange
+    const std::string& expected = std::get<0>(GetParam());
+    SortDirection value = std::get<1>(GetParam());
+
+    // Act
+    std::string actual = serialize_sort_direction(value);
+
+    // Assert
+    ASSERT_EQ(expected, actual);
+}
+
+TEST_P(TokenFieldTest, SerializeTokenFieldReturnsExpectedString) {
+    // Arrange
+    const std::string& expected = std::get<0>(GetParam());
+    TokenField value = std::get<1>(GetParam());
+
+    // Act
+    std::string actual = serialize_token_field(value);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -168,6 +201,18 @@ TEST_P(TokenVariantModeTest, SerializeTokenVariantModeReturnsExpectedString) {
     ASSERT_EQ(expected, actual);
 }
 
+TEST_P(TransactionFieldTest, SerializeTransactionFieldReturnsExpectedString) {
+    // Arrange
+    const std::string& expected = std::get<0>(GetParam());
+    TransactionField value = std::get<1>(GetParam());
+
+    // Act
+    std::string actual = serialize_transaction_field(value);
+
+    // Assert
+    ASSERT_EQ(expected, actual);
+}
+
 INSTANTIATE_TEST_SUITE_P(SerializableRequestState,
                          RequestStateTest,
                          testing::Values(std::make_tuple("PENDING", RequestState::PENDING),
@@ -209,6 +254,11 @@ INSTANTIATE_TEST_SUITE_P(SerializableRequestType,
                                          std::make_tuple("MESSAGE", RequestType::MESSAGE),
                                          std::make_tuple("", RequestType::UNKNOWN)));
 
+INSTANTIATE_TEST_SUITE_P(SerializeSortDirection,
+                         SortDirectionTest,
+                         testing::Values(std::make_tuple("asc", SortDirection::ASCENDING),
+                                         std::make_tuple("desc", SortDirection::DESCENDING)));
+
 INSTANTIATE_TEST_SUITE_P(SerializableTokenSupplyModel,
                          TokenSupplyModelTest,
                          testing::Values(std::make_tuple("UNKNOWN", TokenSupplyModel::UNKNOWN),
@@ -242,3 +292,20 @@ INSTANTIATE_TEST_SUITE_P(SerializableTokenVariantMode,
                                          std::make_tuple("BEAM", TokenVariantMode::BEAM),
                                          std::make_tuple("ONCE", TokenVariantMode::ONCE),
                                          std::make_tuple("ALWAYS", TokenVariantMode::ALWAYS)));
+
+INSTANTIATE_TEST_SUITE_P(SerializeTokenField,
+                         TokenFieldTest,
+                         testing::Values(std::make_tuple("id", TokenField::ID),
+                                         std::make_tuple("name", TokenField::NAME),
+                                         std::make_tuple("circulatingSupply", TokenField::CIRCULATING_SUPPLY),
+                                         std::make_tuple("nonFungible", TokenField::NON_FUNGIBLE),
+                                         std::make_tuple("reserve", TokenField::RESERVE),
+                                         std::make_tuple("totalSupply", TokenField::TOTAL_SUPPLY),
+                                         std::make_tuple("createdAt", TokenField::CREATED_AT)));
+
+INSTANTIATE_TEST_SUITE_P(SerializeTransactionField,
+                         TransactionFieldTest,
+                         testing::Values(std::make_tuple("id", TransactionField::ID),
+                                         std::make_tuple("state", TransactionField::STATE),
+                                         std::make_tuple("title", TransactionField::TITLE),
+                                         std::make_tuple("createdAt", TransactionField::CREATED_AT)));
