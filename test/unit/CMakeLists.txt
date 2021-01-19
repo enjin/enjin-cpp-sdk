@@ -16,6 +16,7 @@ set(TEST_FILES
         models/ContractsTest.cpp
         models/GasPricesTest.cpp
         models/LinkingInfoTest.cpp
+        models/MeltTest.cpp
         models/ModelsTestSuite.hpp
         models/NotificationsTest.cpp
         models/PaginationCursorTest.cpp
