@@ -18,6 +18,7 @@ set(SOURCE_FILES
         http/HttpResponse.cpp
         models/AccessToken.cpp
         models/Balance.cpp
+        models/BalanceFilter.cpp
         models/BlockchainData.cpp
         models/Contracts.cpp
         models/GasPrices.cpp

@@ -10,6 +10,7 @@ set(TEST_FILES
         http/HttpResponseBuilderTest.cpp
         http/HttpResponseTest.cpp
         models/AccessTokenTest.cpp
+        models/BalanceFilterTest.cpp
         models/BalanceTest.cpp
         models/BlockchainDataTest.cpp
         models/ContractsTest.cpp
