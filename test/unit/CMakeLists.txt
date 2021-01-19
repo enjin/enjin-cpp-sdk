@@ -21,6 +21,7 @@ set(TEST_FILES
         models/ModelsTestSuite.hpp
         models/NotificationsTest.cpp
         models/PaginationCursorTest.cpp
+        models/PaginationOptionsTest.cpp
         models/PlatformTest.cpp
         models/PlayerFilterTest.cpp
         models/PlayerTest.cpp
