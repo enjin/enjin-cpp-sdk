@@ -5,10 +5,12 @@
 #include "enjinsdk/internal/AbstractGraphqlResponse.hpp"
 #include "enjinsdk/models/PaginationCursor.hpp"
 #include "enjinsdk/serialization/IDeserializable.hpp"
-#include "rapidjson/document.h"     // TODO: Implement Pimpl idiom to hide rapidjson implementation if possible.
+#include "RapidJsonUtils.hpp"       // TODO: Implement Pimpl idiom to hide rapidjson implementation if possible.
+#include "rapidjson/document.h"     //
 #include "rapidjson/stringbuffer.h" //
 #include "rapidjson/writer.h"       //
 #include <optional>
+#include <string>
 #include <type_traits>
 #include <vector>
 
@@ -19,7 +21,7 @@ namespace enjin::sdk::graphql {
 template<class...>
 class GraphqlResponse;
 
-/// \brief Models the body of a GraphQL response for non-paginated responses.
+/// \brief Models the body of a GraphQL response for responses with one object.
 /// \tparam T The model of the data field. Must inherit from enjin::sdk::serialization::IDeserializable.
 template<class T>
 class GraphqlResponse<T> : public AbstractGraphqlResponse {
@@ -27,11 +29,11 @@ class GraphqlResponse<T> : public AbstractGraphqlResponse {
                   "Type T does not inherit from IDeserializable.");
 
 public:
-    GraphqlResponse() = delete;
+    GraphqlResponse() = default;
 
     /// \brief Constructs the GraphQL response with a JSON string.
     /// \param raw The JSON body that is the GraphQL response.
-    explicit GraphqlResponse(const char* raw) {
+    explicit GraphqlResponse(const std::string& raw) {
         process(raw);
     };
 
@@ -48,28 +50,20 @@ public:
 protected:
     std::optional<T> result;
 
-    void process_data(const char* data_json) override {
-        // Start TODO: Utilize Pimpl idiom on this section.
+    void process_data(const std::string& data_json) override {
+        /* TODO: Refactor method to utilize Pimpl idiom so that rapidjson usage is hidden away into a non-public
+         *       implementation class.
+         */
         rapidjson::Document document;
-        document.Parse(data_json);
-        if (!document.IsObject() || !document.HasMember(RESULT_KEY) || !document[RESULT_KEY].IsObject()) {
-            return;
+        document.Parse(data_json.c_str());
+
+        if (document.IsObject() && document.HasMember(RESULT_KEY) && document[RESULT_KEY].IsObject()) {
+            result.emplace(utils::get_object_as_type<T>(document, RESULT_KEY));
         }
-
-        auto& result_value = document[RESULT_KEY];
-        rapidjson::StringBuffer buffer;
-        rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-        result_value.Accept(writer);
-        const char* result_json = buffer.GetString();
-        // End TODO
-
-        T t;
-        t.deserialize(result_json);
-        result.emplace(t);
     }
 };
 
-/// \brief Models the body of a GraphQL response for paginated responses.
+/// \brief Models the body of a GraphQL response for paginated responses or responses with many objects.
 /// \tparam T The model of the data field. Must inherit from enjin::sdk::serialization::IDeserializable.
 template<class T>
 class GraphqlResponse<std::vector<T>> : public AbstractGraphqlResponse {
@@ -77,11 +71,11 @@ class GraphqlResponse<std::vector<T>> : public AbstractGraphqlResponse {
                   "Type T does not inherit from IDeserializable.");
 
 public:
-    GraphqlResponse() = delete;
+    GraphqlResponse() = default;
 
     /// \brief Constructs the GraphQL response with a JSON string.
     /// \param raw The JSON body that is the GraphQL response.
-    explicit GraphqlResponse(const char* raw) {
+    explicit GraphqlResponse(const std::string& raw) {
         process(raw);
     };
 
@@ -98,48 +92,31 @@ public:
 protected:
     std::optional<std::vector<T>> result;
 
-    void process_data(const char* data_json) override {
+    void process_data(const std::string& data_json) override {
         /* TODO: Refactor method to utilize Pimpl idiom so that rapidjson usage is hidden away into a non-public
          *       implementation class.
          */
         rapidjson::Document document;
-        document.Parse(data_json);
-        if (!document.IsObject() || !document.HasMember(RESULT_KEY) || !document[RESULT_KEY].IsObject()) {
+        document.Parse(data_json.c_str());
+        if (!document.IsObject() || !document.HasMember(RESULT_KEY)) {
             return;
         }
 
-        auto result_obj = document[RESULT_KEY].GetObject();
-        if (!result_obj.HasMember(ITEMS_KEY)
-            || !result_obj.HasMember(CURSOR_KEY)
-            || !result_obj[ITEMS_KEY].IsArray()
-            || !result_obj[CURSOR_KEY].IsObject()) {
-            return;
+        if (document[RESULT_KEY].IsObject()) {
+            std::string result_json = utils::get_object_as_string(document, RESULT_KEY);
+            rapidjson::Document result_document;
+            result_document.Parse(result_json.c_str());
+
+            auto result_obj = document[RESULT_KEY].GetObject();
+            if (result_obj.HasMember(ITEMS_KEY) && result_obj[ITEMS_KEY].IsArray()) {
+                result.emplace(utils::get_array_as_type_vector<T>(result_document, ITEMS_KEY));
+            }
+            if (result_obj.HasMember(CURSOR_KEY) && result_obj[CURSOR_KEY].IsObject()) {
+                cursor.emplace(utils::get_object_as_type<models::PaginationCursor>(result_document, CURSOR_KEY));
+            }
+        } else if (document[RESULT_KEY].IsArray()) {
+            result.emplace(utils::get_array_as_type_vector<T>(document, RESULT_KEY));
         }
-
-        // Parse items list
-        std::vector<T> list;
-        for (auto& v : result_obj[ITEMS_KEY].GetArray()) {
-            rapidjson::StringBuffer buffer;
-            rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-            v.Accept(writer);
-            const char* result_json = buffer.GetString();
-
-            T t;
-            t.deserialize(result_json);
-            list.push_back(t);
-        }
-        result.emplace(list);
-
-        // Parse cursor
-        auto& cursor_value = result_obj[CURSOR_KEY];
-        rapidjson::StringBuffer buffer;
-        rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-        cursor_value.Accept(writer);
-        const char* cursor_json = buffer.GetString();
-
-        enjin::sdk::models::PaginationCursor c;
-        c.deserialize(cursor_json);
-        cursor.emplace(c);
     }
 };
 

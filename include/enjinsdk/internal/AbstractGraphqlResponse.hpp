@@ -4,6 +4,7 @@
 #include "enjinsdk/GraphqlError.hpp"
 #include "enjinsdk/models/PaginationCursor.hpp"
 #include <optional>
+#include <string>
 #include <vector>
 
 namespace enjin::sdk::graphql {
@@ -50,11 +51,11 @@ protected:
     static constexpr char ERROR_KEY[] = "error";
     static constexpr char ERRORS_KEY[] = "errors";
 
-    void process(const char* json);
+    void process(const std::string& json);
 
-    virtual void process_data(const char* data_json) = 0;
+    virtual void process_data(const std::string& data_json) = 0;
 
-    void process_errors(const char* error_json);
+    void process_errors(const std::string& error_json);
 };
 
 }
