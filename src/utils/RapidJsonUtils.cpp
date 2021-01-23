@@ -76,6 +76,17 @@ void set_array_member_from_string_vector(rapidjson::Document& document,
     document.AddMember(v_key, v, allocator);
 }
 
+void set_boolean_member(rapidjson::Document& document, const std::string& key, bool value) {
+    set_member_assert(document, key);
+
+    auto& allocator = document.GetAllocator();
+    rapidjson::Value v_key;
+    rapidjson::Value v;
+    v_key.SetString(key.c_str(), allocator);
+    v.SetBool(value);
+    document.AddMember(v_key, v, allocator);
+}
+
 void set_integer_member(rapidjson::Document& document, const std::string& key, int value) {
     set_member_assert(document, key);
 

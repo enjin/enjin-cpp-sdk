@@ -315,6 +315,21 @@ TEST_F(RapidJsonUtilsTest, SetArrayMemberFromStringVectorArrayWithStringsIsSet) 
     }
 }
 
+TEST_F(RapidJsonUtilsTest, SetBooleanMemberMemberIsSet) {
+    // Arrange
+    const char* expected_key = DEFAULT_KEY;
+    const bool expected_value = true;
+    rapidjson::Document document = create_object_document();
+
+    // Act
+    set_boolean_member(document, expected_key, expected_value);
+
+    // Assert
+    ASSERT_TRUE(document.HasMember(expected_key));
+    ASSERT_TRUE(document[expected_key].IsBool());
+    ASSERT_EQ(expected_value, document[expected_key].GetBool());
+}
+
 TEST_F(RapidJsonUtilsTest, SetIntegerMemberMemberIsSet) {
     // Arrange
     const char* expected_key = DEFAULT_KEY;
@@ -343,4 +358,19 @@ TEST_F(RapidJsonUtilsTest, SetStringMemberMemberIsSet) {
     ASSERT_TRUE(document.HasMember(expected_key));
     ASSERT_TRUE(document[expected_key].IsString());
     ASSERT_EQ(expected_value, document[expected_key].GetString());
+}
+
+TEST_F(RapidJsonUtilsTest, SetObjectMemberMemberFromTypeIsSet) {
+    // Arrange
+    const char* expected_key = DEFAULT_KEY;
+    const DummyObject expected_value = DummyObject::create_default_dummy_object();
+    rapidjson::Document document = create_object_document();
+
+    // Act
+    set_object_member_from_type<DummyObject>(document, expected_key, expected_value);
+
+    // Assert
+    ASSERT_TRUE(document.HasMember(expected_key));
+    ASSERT_TRUE(document[expected_key].IsObject());
+    ASSERT_EQ(expected_value, get_object_as_type<DummyObject>(document, expected_key));
 }
