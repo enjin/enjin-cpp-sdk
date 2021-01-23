@@ -26,9 +26,9 @@ bool AbstractGraphqlResponse::is_paginated() noexcept {
     return cursor.has_value();
 }
 
-void AbstractGraphqlResponse::process(const char* json) {
+void AbstractGraphqlResponse::process(const std::string& json) {
     rapidjson::Document document;
-    document.Parse(json);
+    document.Parse(json.c_str());
     if (document.IsObject()) {
         if (document.HasMember(DATA_KEY) && document[DATA_KEY].IsObject()) {
             auto& data_obj = document[DATA_KEY];
@@ -48,9 +48,9 @@ void AbstractGraphqlResponse::process(const char* json) {
     }
 }
 
-void AbstractGraphqlResponse::process_errors(const char* error_json) {
+void AbstractGraphqlResponse::process_errors(const std::string& error_json) {
     rapidjson::Document document;
-    document.Parse(error_json);
+    document.Parse(error_json.c_str());
     if (!document.IsObject() || !document.HasMember(ERRORS_KEY) && document[ERRORS_KEY].IsArray()) {
         return;
     }

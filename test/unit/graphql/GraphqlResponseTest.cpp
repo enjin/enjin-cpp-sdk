@@ -1,12 +1,12 @@
 #include "../../utils/DummyObject.hpp"
 #include "enjinsdk/GraphqlResponse.hpp"
 #include "gtest/gtest.h"
-#include <optional>
 #include <sstream>
 #include <string>
 #include <vector>
 
 using namespace enjin::sdk::graphql;
+using namespace enjin::test::utils;
 
 class GraphqlResponseTest : public testing::Test {
 public:
@@ -27,25 +27,44 @@ public:
     }
 };
 
-TEST_F(GraphqlResponseTest, ConstructorParsesNonPaginatedType) {
+TEST_F(GraphqlResponseTest, ConstructorParsesOneType) {
     // Arrange
-    enjin::test::utils::DummyObject expected = enjin::test::utils::DummyObject::create_default_dummy_object();
+    DummyObject expected = DummyObject::create_default_dummy_object();
     std::stringstream s;
     s << R"({"data":{"result":)"
       << expected.serialize()
       << R"(}})";
 
     // Act
-    GraphqlResponse<enjin::test::utils::DummyObject> response(s.str().c_str());
+    GraphqlResponse<enjin::test::utils::DummyObject> response(s.str());
 
     // Assert
     ASSERT_TRUE(response.get_result().has_value());
     ASSERT_EQ(expected, response.get_result().value());
 }
 
+TEST_F(GraphqlResponseTest, ConstructorParsesManyType) {
+    // Arrange
+    DummyObject expected = DummyObject::create_default_dummy_object();
+    std::stringstream s;
+    s << R"({"data":{"result":[)"
+      << expected.serialize()
+      << R"(,)"
+      << expected.serialize()
+      << R"(]}})";
+
+    // Act
+    GraphqlResponse<std::vector<DummyObject>> response(s.str());
+
+    // Assert
+    for (const auto& actual : response.get_result().value()) {
+        EXPECT_EQ(expected, actual);
+    }
+}
+
 TEST_F(GraphqlResponseTest, ConstructorParsesPaginatedType) {
     // Arrange
-    enjin::test::utils::DummyObject expected_obj = enjin::test::utils::DummyObject::create_default_dummy_object();
+    DummyObject expected_obj = DummyObject::create_default_dummy_object();
     enjin::sdk::models::PaginationCursor expected_cursor = create_default_pagination_cursor();
     std::stringstream s;
     s << R"({"data":{"result":{"items":[)"
@@ -57,7 +76,7 @@ TEST_F(GraphqlResponseTest, ConstructorParsesPaginatedType) {
       << R"(}}})";
 
     // Act
-    GraphqlResponse<std::vector<enjin::test::utils::DummyObject>> response(s.str().c_str());
+    GraphqlResponse<std::vector<DummyObject>> response(s.str());
 
     // Assert
     ASSERT_TRUE(response.get_result().has_value());
@@ -77,7 +96,7 @@ TEST_F(GraphqlResponseTest, ConstructorParsesErrors) {
       << R"(]}})";
 
     // Act
-    GraphqlResponse<enjin::test::utils::DummyObject> response(s.str().c_str());
+    GraphqlResponse<DummyObject> response(s.str());
 
     // Assert
     ASSERT_TRUE(response.get_errors().has_value());
@@ -95,7 +114,7 @@ TEST_F(GraphqlResponseTest, HasErrorsReturnsTrue) {
       << R"(]}})";
 
     // Act
-    GraphqlResponse<enjin::test::utils::DummyObject> response(s.str().c_str());
+    GraphqlResponse<DummyObject> response(s.str());
 
     // Assert
     ASSERT_TRUE(response.has_errors());
@@ -103,10 +122,10 @@ TEST_F(GraphqlResponseTest, HasErrorsReturnsTrue) {
 
 TEST_F(GraphqlResponseTest, HasErrorsReturnsFalse) {
     // Arrange
-    const char* json = EMPTY_JSON_OBJECT;
+    const std::string json(EMPTY_JSON_OBJECT);
 
     // Act
-    GraphqlResponse<enjin::test::utils::DummyObject> response(json);
+    GraphqlResponse<DummyObject> response(json);
 
     // Assert
     ASSERT_FALSE(response.has_errors());
@@ -114,10 +133,10 @@ TEST_F(GraphqlResponseTest, HasErrorsReturnsFalse) {
 
 TEST_F(GraphqlResponseTest, IsEmptyNonPaginatedTypeReturnsTrue) {
     // Arrange
-    const char* json = EMPTY_JSON_OBJECT;
+    const std::string json(EMPTY_JSON_OBJECT);
 
     // Act
-    GraphqlResponse<enjin::test::utils::DummyObject> response(json);
+    GraphqlResponse<DummyObject> response(json);
 
     // Assert
     ASSERT_TRUE(response.is_empty());
@@ -125,10 +144,10 @@ TEST_F(GraphqlResponseTest, IsEmptyNonPaginatedTypeReturnsTrue) {
 
 TEST_F(GraphqlResponseTest, IsEmptyPaginatedTypeReturnsTrue) {
     // Arrange
-    const char* json = EMPTY_JSON_OBJECT;
+    const std::string json(EMPTY_JSON_OBJECT);
 
     // Act
-    GraphqlResponse<std::vector<enjin::test::utils::DummyObject>> response(json);
+    GraphqlResponse<std::vector<DummyObject>> response(json);
 
     // Assert
     ASSERT_TRUE(response.is_empty());
@@ -136,14 +155,14 @@ TEST_F(GraphqlResponseTest, IsEmptyPaginatedTypeReturnsTrue) {
 
 TEST_F(GraphqlResponseTest, IsEmptyNonPaginatedTypeReturnsFalse) {
     // Arrange
-    enjin::test::utils::DummyObject expected = enjin::test::utils::DummyObject::create_default_dummy_object();
+    DummyObject expected = DummyObject::create_default_dummy_object();
     std::stringstream s;
     s << R"({"data":{"result":)"
       << expected.serialize()
       << R"(}})";
 
     // Act
-    GraphqlResponse<enjin::test::utils::DummyObject> response(s.str().c_str());
+    GraphqlResponse<DummyObject> response(s.str());
 
     // Assert
     ASSERT_FALSE(response.is_empty());
@@ -151,7 +170,7 @@ TEST_F(GraphqlResponseTest, IsEmptyNonPaginatedTypeReturnsFalse) {
 
 TEST_F(GraphqlResponseTest, IsEmptyPaginatedTypeReturnsFalse) {
     // Arrange
-    enjin::test::utils::DummyObject expected_obj = enjin::test::utils::DummyObject::create_default_dummy_object();
+    DummyObject expected_obj = DummyObject::create_default_dummy_object();
     enjin::sdk::models::PaginationCursor expected_cursor = create_default_pagination_cursor();
     std::stringstream s;
     s << R"({"data":{"result":{"items":[)"
@@ -163,7 +182,7 @@ TEST_F(GraphqlResponseTest, IsEmptyPaginatedTypeReturnsFalse) {
       << R"(}}})";
 
     // Act
-    GraphqlResponse<std::vector<enjin::test::utils::DummyObject>> response(s.str().c_str());
+    GraphqlResponse<std::vector<DummyObject>> response(s.str());
 
     // Assert
     ASSERT_FALSE(response.is_empty());
@@ -171,14 +190,14 @@ TEST_F(GraphqlResponseTest, IsEmptyPaginatedTypeReturnsFalse) {
 
 TEST_F(GraphqlResponseTest, IsSuccessfulReturnsTrue) {
     // Arrange
-    enjin::test::utils::DummyObject expected = enjin::test::utils::DummyObject::create_default_dummy_object();
+    DummyObject expected = DummyObject::create_default_dummy_object();
     std::stringstream s;
     s << R"({"data":{"result":)"
       << expected.serialize()
       << R"(}})";
 
     // Act
-    GraphqlResponse<enjin::test::utils::DummyObject> response(s.str().c_str());
+    GraphqlResponse<DummyObject> response(s.str());
 
     // Assert
     ASSERT_TRUE(response.is_successful());
@@ -186,10 +205,10 @@ TEST_F(GraphqlResponseTest, IsSuccessfulReturnsTrue) {
 
 TEST_F(GraphqlResponseTest, IsSuccessfulReturnsFalse) {
     // Arrange
-    const char* json = EMPTY_JSON_OBJECT;
+    const std::string json(EMPTY_JSON_OBJECT);
 
     // Act
-    GraphqlResponse<enjin::test::utils::DummyObject> response(json);
+    GraphqlResponse<DummyObject> response(json);
 
     // Assert
     ASSERT_FALSE(response.is_successful());
@@ -197,7 +216,7 @@ TEST_F(GraphqlResponseTest, IsSuccessfulReturnsFalse) {
 
 TEST_F(GraphqlResponseTest, IsPaginatedReturnsTrue) {
     // Arrange
-    enjin::test::utils::DummyObject expected_obj = enjin::test::utils::DummyObject::create_default_dummy_object();
+    DummyObject expected_obj = DummyObject::create_default_dummy_object();
     enjin::sdk::models::PaginationCursor expected_cursor = create_default_pagination_cursor();
     std::stringstream s;
     s << R"({"data":{"result":{"items":[)"
@@ -209,7 +228,7 @@ TEST_F(GraphqlResponseTest, IsPaginatedReturnsTrue) {
       << R"(}}})";
 
     // Act
-    GraphqlResponse<std::vector<enjin::test::utils::DummyObject>> response(s.str().c_str());
+    GraphqlResponse<std::vector<DummyObject>> response(s.str());
 
     // Assert
     ASSERT_TRUE(response.is_paginated());
@@ -217,10 +236,10 @@ TEST_F(GraphqlResponseTest, IsPaginatedReturnsTrue) {
 
 TEST_F(GraphqlResponseTest, IsPaginatedReturnsFalse) {
     // Arrange
-    const char* json = EMPTY_JSON_OBJECT;
+    const std::string json(EMPTY_JSON_OBJECT);
 
     // Act
-    GraphqlResponse<enjin::test::utils::DummyObject> response(json);
+    GraphqlResponse<DummyObject> response(json);
 
     // Assert
     ASSERT_FALSE(response.is_paginated());
