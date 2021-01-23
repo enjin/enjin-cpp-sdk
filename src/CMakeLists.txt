@@ -6,6 +6,7 @@ source_group("Header Files\\enjinsdk" FILES ${HEADERS_ENJINSDK})
 set(SOURCE_FILES
         ${HEADERS_ENJINSDK}
         TrustedPlatformMiddleware.cpp
+        graphql/AbstractGraphqlRequest.cpp
         graphql/AbstractGraphqlResponse.cpp
         graphql/GraphqlError.cpp
         graphql/GraphqlQueryRegistry.cpp
