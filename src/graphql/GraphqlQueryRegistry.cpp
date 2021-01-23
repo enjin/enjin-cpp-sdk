@@ -3,9 +3,7 @@
 #include "TemplateConstants.hpp"
 #include <algorithm>
 
-namespace enjin {
-namespace sdk {
-namespace graphql {
+namespace enjin::sdk::graphql {
 
 GraphqlQueryRegistry::GraphqlQueryRegistry() {
     register_template_constants();
@@ -33,7 +31,7 @@ bool GraphqlQueryRegistry::has_operation_for_name(const std::string& name) {
     return this->registered.find(name) != this->registered.end();
 }
 
-std::string GraphqlQueryRegistry::get_operation_for_name(const std::string& name) {
+std::string GraphqlQueryRegistry::get_operation_for_name(const std::string& name) const {
     auto iter = this->registered.find(name);
     if (iter == this->registered.end()) {
         return std::string();
@@ -42,6 +40,4 @@ std::string GraphqlQueryRegistry::get_operation_for_name(const std::string& name
     return std::string(iter->second);
 }
 
-} // namespace graphql
-} // namespace sdk
-} // namespace enjin
+}
