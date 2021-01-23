@@ -7,22 +7,26 @@
 
 namespace enjin::sdk {
 
-/// \brief
+// TODO: Documentation
 class TrustedPlatformMiddleware {
 public:
-    // TODO: Add arguments for constructing middleware.
-    TrustedPlatformMiddleware() = default;
+    TrustedPlatformMiddleware() = delete;
 
-    /// \brief
+    explicit TrustedPlatformMiddleware(enjin::sdk::http::AbstractHttpClient& client, bool debug = false);
+
+    /// \brief Copy constructor.
+    /// \param middleware
+    TrustedPlatformMiddleware(const TrustedPlatformMiddleware& middleware) = default;
+
     ~TrustedPlatformMiddleware() = default;
 
-    /// \brief
-    /// \return
-    enjin::sdk::graphql::GraphqlQueryRegistry& get_query_registry();
+    [[nodiscard]] const graphql::GraphqlQueryRegistry& get_query_registry() const;
+
+    [[nodiscard]] http::AbstractHttpClient* get_client() const;
 
 private:
-    std::string base_url;
     enjin::sdk::graphql::GraphqlQueryRegistry query_registry;
+    enjin::sdk::http::AbstractHttpClient* client = nullptr; // TODO: Consider using a smart pointer instead for client.
 };
 
 }

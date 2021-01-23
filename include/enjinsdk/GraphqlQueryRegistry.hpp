@@ -4,9 +4,7 @@
 #include <map>
 #include <string>
 
-namespace enjin {
-namespace sdk {
-namespace graphql {
+namespace enjin::sdk::graphql {
 
 /// \brief Class for registering and storing GraphQL templates.
 class GraphqlQueryRegistry {
@@ -31,7 +29,7 @@ public:
     /// \brief Returns the template string if the registry contains the template or an empty string if not.
     /// \param name The template name.
     /// \return The template string.
-    std::string get_operation_for_name(const std::string& name);
+    [[nodiscard]] std::string get_operation_for_name(const std::string& name) const;
 
 private:
     std::map<std::string, std::string> registered;
@@ -39,8 +37,6 @@ private:
     void register_template_constants();
 };
 
-} // namespace graphql
-} // namespace sdk
-} // namespace enjin
+}
 
 #endif //ENJINCPPSDK_GRAPHQLQUERYREGISTRY_HPP
