@@ -47,6 +47,13 @@ set(TEST_FILES
         models/TransferTest.cpp
         models/WalletTest.cpp
         schemas/BaseSchemaTest.cpp
+        schemas/shared/arguments/BalanceFragmentArgumentsTest.cpp
+        schemas/shared/arguments/PaginationArgumentsTest.cpp
+        schemas/shared/arguments/PlayerFragmentArgumentsTest.cpp
+        schemas/shared/arguments/TokenFragmentArgumentsTest.cpp
+        schemas/shared/arguments/TransactionFragmentArgumentsTest.cpp
+        schemas/shared/arguments/TransactionRequestArgumentsTest.cpp
+        schemas/shared/arguments/WalletFragmentArgumentsTest.cpp
         utils/EnumUtilsTest.cpp
         utils/RapidJsonUtilsTest.cpp
         utils/StringUtilsTest.cpp

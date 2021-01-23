@@ -57,6 +57,13 @@ set(SOURCE_FILES
         schemas/player/PlayerSchema.cpp
         schemas/project/ProjectSchema.cpp
         schemas/shared/SharedSchema.cpp
+        schemas/shared/arguments/BalanceFragmentArguments.cpp
+        schemas/shared/arguments/PaginationArguments.cpp
+        schemas/shared/arguments/PlayerFragmentArguments.cpp
+        schemas/shared/arguments/TokenFragmentArguments.cpp
+        schemas/shared/arguments/TransactionFragmentArguments.cpp
+        schemas/shared/arguments/TransactionRequestArguments.cpp
+        schemas/shared/arguments/WalletFragmentArguments.cpp
         utils/EnumUtils.cpp
         utils/EnumUtils.hpp
         utils/RapidJsonUtils.cpp
