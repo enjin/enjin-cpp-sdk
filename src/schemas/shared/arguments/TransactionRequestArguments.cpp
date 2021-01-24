@@ -34,7 +34,9 @@ void TransactionRequestArguments::set_send(bool send) {
 }
 
 bool TransactionRequestArguments::operator==(const TransactionRequestArguments& rhs) const {
-    return eth_address == rhs.eth_address &&
+    return static_cast<const TransactionFragmentArguments&>(*this) ==
+           static_cast<const TransactionFragmentArguments&>(rhs) &&
+           eth_address == rhs.eth_address &&
            test == rhs.test &&
            send == rhs.send;
 }
