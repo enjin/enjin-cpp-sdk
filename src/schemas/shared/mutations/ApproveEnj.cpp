@@ -8,8 +8,8 @@ ApproveEnj::ApproveEnj() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.App
 }
 
 std::string ApproveEnj::serialize() {
-    rapidjson::Document document;
-    document.Parse(TransactionRequestArgumentsTemplate::serialize().c_str());
+    rapidjson::Document document(rapidjson::kObjectType);
+    utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
 
     if (value.has_value()) {
         utils::set_string_member(document, "value", value.value());

@@ -8,8 +8,8 @@ CompleteTrade::CompleteTrade() : graphql::AbstractGraphqlRequest("enjin.sdk.shar
 }
 
 std::string CompleteTrade::serialize() {
-    rapidjson::Document document;
-    document.Parse(TransactionRequestArgumentsTemplate::serialize().c_str());
+    rapidjson::Document document(rapidjson::kObjectType);
+    utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
 
     if (trade_id.has_value()) {
         utils::set_string_member(document, "tradeId", trade_id.value());

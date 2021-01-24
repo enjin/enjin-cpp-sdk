@@ -8,8 +8,8 @@ Message::Message() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.Message")
 }
 
 std::string Message::serialize() {
-    rapidjson::Document document;
-    document.Parse(TransactionRequestArgumentsTemplate::serialize().c_str());
+    rapidjson::Document document(rapidjson::kObjectType);
+    utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
 
     if (message.has_value()) {
         utils::set_string_member(document, "message", message.value());

@@ -8,8 +8,8 @@ MeltToken::MeltToken() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.MeltT
 }
 
 std::string MeltToken::serialize() {
-    rapidjson::Document document;
-    document.Parse(TransactionRequestArgumentsTemplate::serialize().c_str());
+    rapidjson::Document document(rapidjson::kObjectType);
+    utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
 
     if (melts.has_value()) {
         utils::set_array_member_from_type_vector<models::Melt>(document, "melts", melts.value());

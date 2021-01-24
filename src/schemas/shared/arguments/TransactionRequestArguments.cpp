@@ -5,8 +5,8 @@
 namespace enjin::sdk::shared {
 
 std::string TransactionRequestArguments::serialize() {
-    rapidjson::Document document;
-    document.Parse(TransactionFragmentArguments::serialize().c_str());
+    rapidjson::Document document(rapidjson::kObjectType);
+    utils::join_serialized_object_to_document(document, TransactionFragmentArguments::serialize());
 
     if (eth_address.has_value()) {
         utils::set_string_member(document, "ethAddress", eth_address.value());

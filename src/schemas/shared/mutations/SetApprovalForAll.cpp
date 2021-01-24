@@ -8,8 +8,8 @@ SetApprovalForAll::SetApprovalForAll() : graphql::AbstractGraphqlRequest("enjin.
 }
 
 std::string SetApprovalForAll::serialize() {
-    rapidjson::Document document;
-    document.Parse(TransactionRequestArgumentsTemplate::serialize().c_str());
+    rapidjson::Document document(rapidjson::kObjectType);
+    utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
 
     if (operator_address.has_value()) {
         utils::set_string_member(document, "operatorAddress", operator_address.value());

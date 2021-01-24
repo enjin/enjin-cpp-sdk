@@ -11,11 +11,116 @@ using namespace enjin::test::utils;
 class RapidJsonUtilsTest : public testing::Test {
 public:
     constexpr static char DEFAULT_KEY[] = "key";
+    constexpr static char EMPTY_JSON_OBJECT_KEY[] = "{}";
 
     static rapidjson::Document create_object_document() {
         return rapidjson::Document(rapidjson::kObjectType);
     }
 };
+
+TEST_F(RapidJsonUtilsTest, JoinSerializedObjectToDocumentDocumentIsNotObjectThrowsException) {
+    // Arrange
+    const std::string expected_key(DEFAULT_KEY);
+    rapidjson::Document document(rapidjson::kArrayType);
+    std::stringstream s;
+    s << R"({")"
+      << expected_key
+      << R"(":1})";
+
+    // Assert
+    ASSERT_ANY_THROW(join_serialized_object_to_document(document, s.str()));
+}
+
+TEST_F(RapidJsonUtilsTest, JoinSerializedObjectToDocumentJsonIsNotObjectDoesNothing) {
+    // Arrange
+    const std::string expected(EMPTY_JSON_OBJECT_KEY);
+    const std::string json(R"("1":1)");
+    rapidjson::Document document;
+    document.Parse(expected.c_str());
+
+    // Act
+    join_serialized_object_to_document(document, json);
+
+    // Assert
+    ASSERT_EQ(expected, document_to_string(document));
+}
+
+TEST_F(RapidJsonUtilsTest, JoinSerializedObjectToDocumentDocumentIsObjectAddsMemberFields) {
+    // Arrange
+    const std::string expected_key(DEFAULT_KEY);
+    rapidjson::Document document;
+    document.Parse(EMPTY_JSON_OBJECT_KEY);
+    std::stringstream s;
+    s << R"({")"
+      << expected_key
+      << R"(":1})";
+
+    // Act
+    join_serialized_object_to_document(document, s.str());
+
+    // Assert
+    ASSERT_TRUE(document.HasMember(expected_key.c_str()));
+    ASSERT_TRUE(document[expected_key.c_str()].IsInt());
+}
+
+TEST_F(RapidJsonUtilsTest, JoinSerializedObjectsToDocumentDocumentIsNotObjectThrowsException) {
+    // Arrange
+    const std::string expected_key1("key1");
+    const std::string expected_key2("key2");
+    rapidjson::Document document(rapidjson::kArrayType);
+    std::stringstream s1;
+    s1 << R"({")"
+       << expected_key1
+       << R"(":1})";
+    std::stringstream s2;
+    s2 << R"({")"
+       << expected_key2
+       << R"(":1})";
+    std::vector<std::string> objects({s1.str(), s2.str()});
+
+    // Assert
+    ASSERT_ANY_THROW(join_serialized_objects_to_document(document, objects));
+}
+
+TEST_F(RapidJsonUtilsTest, JoinSerializedObjectsToDocumentJsonsAreNotObjectsDoesNothing) {
+    // Arrange
+    const std::string expected(EMPTY_JSON_OBJECT_KEY);
+    const std::vector<std::string> jsons({R"("1":1)"});
+    rapidjson::Document document;
+    document.Parse(expected.c_str());
+
+    // Act
+    join_serialized_objects_to_document(document, jsons);
+
+    // Assert
+    ASSERT_EQ(expected, document_to_string(document));
+}
+
+TEST_F(RapidJsonUtilsTest, JoinSerializedObjectsToDocumentDocumentIsObjectAddsMemberFields) {
+    // Arrange
+    const std::string expected_key1("key1");
+    const std::string expected_key2("key2");
+    rapidjson::Document document;
+    document.Parse(EMPTY_JSON_OBJECT_KEY);
+    std::stringstream s1;
+    s1 << R"({")"
+      << expected_key1
+      << R"(":1})";
+    std::stringstream s2;
+    s2 << R"({")"
+       << expected_key2
+       << R"(":1})";
+    std::vector<std::string> objects({s1.str(), s2.str()});
+
+    // Act
+    join_serialized_objects_to_document(document, objects);
+
+    // Assert
+    ASSERT_TRUE(document.HasMember(expected_key1.c_str()));
+    ASSERT_TRUE(document[expected_key1.c_str()].IsInt());
+    ASSERT_TRUE(document.HasMember(expected_key2.c_str()));
+    ASSERT_TRUE(document[expected_key2.c_str()].IsInt());
+}
 
 TEST_F(RapidJsonUtilsTest, DocumentToStringReturnsExpectedString) {
     // Arrange
