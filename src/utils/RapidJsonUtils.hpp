@@ -12,6 +12,12 @@
 
 namespace enjin::sdk::utils {
 
+void join_serialized_object_to_document(rapidjson::Document& document,
+                                        const std::string& o);
+
+void join_serialized_objects_to_document(rapidjson::Document& document,
+                                         const std::vector<std::string>& o);
+
 std::string document_to_string(const rapidjson::Document& document);
 
 std::vector<std::string> get_array_as_serialized_vector(const rapidjson::Document& document,

@@ -2,6 +2,37 @@
 
 namespace enjin::sdk::utils {
 
+void join_serialized_object_to_document(rapidjson::Document& document,
+                                        const std::string& o) {
+    if (!document.IsObject()) {
+        throw std::exception("Document is not a Json Object");
+    }
+
+    rapidjson::Document object_document;
+    object_document.Parse(o.c_str());
+
+    if (!object_document.IsObject()) {
+        return;
+    }
+
+    auto& allocator = document.GetAllocator();
+    for (auto& [key, value] : object_document.GetObject()) {
+        document.AddMember(key, value, allocator);
+    }
+
+}
+
+void join_serialized_objects_to_document(rapidjson::Document& document,
+                                         const std::vector<std::string>& o) {
+    if (!document.IsObject()) {
+        throw std::exception("Document is not a Json Object");
+    }
+
+    for (const auto& s : o) {
+        join_serialized_object_to_document(document, s);
+    }
+}
+
 std::string document_to_string(const rapidjson::Document& document) {
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);

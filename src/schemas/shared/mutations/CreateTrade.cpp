@@ -9,8 +9,8 @@ CreateTrade::CreateTrade() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.C
 }
 
 std::string CreateTrade::serialize() {
-    rapidjson::Document document;
-    document.Parse(TransactionRequestArgumentsTemplate::serialize().c_str());
+    rapidjson::Document document(rapidjson::kObjectType);
+    utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
 
     if (asking_tokens.has_value()) {
         utils::set_array_member_from_type_vector<models::Trade>(document, "askingTokens", asking_tokens.value());

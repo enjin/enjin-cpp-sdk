@@ -8,8 +8,8 @@ SendEnj::SendEnj() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.SendEnj")
 }
 
 std::string SendEnj::serialize() {
-    rapidjson::Document document;
-    document.Parse(TransactionRequestArgumentsTemplate::serialize().c_str());
+    rapidjson::Document document(rapidjson::kObjectType);
+    utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
 
     if (recipient_address.has_value()) {
         utils::set_string_member(document, "recipientAddress", recipient_address.value());

@@ -8,8 +8,8 @@ AdvancedSendToken::AdvancedSendToken() : graphql::AbstractGraphqlRequest("enjin.
 }
 
 std::string AdvancedSendToken::serialize() {
-    rapidjson::Document document;
-    document.Parse(TransactionRequestArgumentsTemplate::serialize().c_str());
+    rapidjson::Document document(rapidjson::kObjectType);
+    utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
 
     if (transfers.has_value()) {
         utils::set_array_member_from_type_vector<models::Transfer>(document, "transfers", transfers.value());
