@@ -64,6 +64,18 @@ set(SOURCE_FILES
         schemas/shared/arguments/TransactionFragmentArguments.cpp
         schemas/shared/arguments/TransactionRequestArguments.cpp
         schemas/shared/arguments/WalletFragmentArguments.cpp
+        schemas/shared/mutations/AdvancedSendToken.cpp
+        schemas/shared/mutations/ApproveEnj.cpp
+        schemas/shared/mutations/ApproveMaxEnj.cpp
+        schemas/shared/mutations/CancelTransaction.cpp
+        schemas/shared/mutations/CompleteTrade.cpp
+        schemas/shared/mutations/CreateTrade.cpp
+        schemas/shared/mutations/MeltToken.cpp
+        schemas/shared/mutations/Message.cpp
+        schemas/shared/mutations/ResetEnjApproval.cpp
+        schemas/shared/mutations/SendEnj.cpp
+        schemas/shared/mutations/SendToken.cpp
+        schemas/shared/mutations/SetApprovalForAll.cpp
         utils/EnumUtils.cpp
         utils/EnumUtils.hpp
         utils/RapidJsonUtils.cpp

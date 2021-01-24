@@ -54,6 +54,16 @@ set(TEST_FILES
         schemas/shared/arguments/TransactionFragmentArgumentsTest.cpp
         schemas/shared/arguments/TransactionRequestArgumentsTest.cpp
         schemas/shared/arguments/WalletFragmentArgumentsTest.cpp
+        schemas/shared/mutations/AdvancedSendTokenTest.cpp
+        schemas/shared/mutations/ApproveEnjTest.cpp
+        schemas/shared/mutations/CancelTransactionTest.cpp
+        schemas/shared/mutations/CompleteTradeTest.cpp
+        schemas/shared/mutations/CreateTradeTest.cpp
+        schemas/shared/mutations/MeltTokenTest.cpp
+        schemas/shared/mutations/MessageTest.cpp
+        schemas/shared/mutations/SendEnjTest.cpp
+        schemas/shared/mutations/SendTokenTest.cpp
+        schemas/shared/mutations/SetApprovalForAllTest.cpp
         utils/EnumUtilsTest.cpp
         utils/RapidJsonUtilsTest.cpp
         utils/StringUtilsTest.cpp
