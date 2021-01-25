@@ -55,6 +55,9 @@ set(SOURCE_FILES
         models/Wallet.cpp
         schemas/BaseSchema.cpp
         schemas/player/PlayerSchema.cpp
+        schemas/player/mutations/UnlinkWallet.cpp
+        schemas/player/queries/GetPlayer.cpp
+        schemas/player/queries/GetWallet.cpp
         schemas/project/ProjectSchema.cpp
         schemas/shared/SharedSchema.cpp
         schemas/shared/arguments/BalanceFragmentArguments.cpp
