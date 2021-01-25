@@ -76,6 +76,14 @@ set(SOURCE_FILES
         schemas/shared/mutations/SendEnj.cpp
         schemas/shared/mutations/SendToken.cpp
         schemas/shared/mutations/SetApprovalForAll.cpp
+        schemas/shared/queries/GetBalances.cpp
+        schemas/shared/queries/GetGasPrices.cpp
+        schemas/shared/queries/GetPlatform.cpp
+        schemas/shared/queries/GetProject.cpp
+        schemas/shared/queries/GetRequest.cpp
+        schemas/shared/queries/GetRequests.cpp
+        schemas/shared/queries/GetToken.cpp
+        schemas/shared/queries/GetTokens.cpp
         utils/EnumUtils.cpp
         utils/EnumUtils.hpp
         utils/RapidJsonUtils.cpp

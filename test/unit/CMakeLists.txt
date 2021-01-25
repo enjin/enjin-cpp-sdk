@@ -64,6 +64,13 @@ set(TEST_FILES
         schemas/shared/mutations/SendEnjTest.cpp
         schemas/shared/mutations/SendTokenTest.cpp
         schemas/shared/mutations/SetApprovalForAllTest.cpp
+        schemas/shared/queries/GetBalancesTest.cpp
+        schemas/shared/queries/GetPlatformTest.cpp
+        schemas/shared/queries/GetProjectTest.cpp
+        schemas/shared/queries/GetRequestTest.cpp
+        schemas/shared/queries/GetRequestsTest.cpp
+        schemas/shared/queries/GetTokenTest.cpp
+        schemas/shared/queries/GetTokensTest.cpp
         utils/EnumUtilsTest.cpp
         utils/RapidJsonUtilsTest.cpp
         utils/StringUtilsTest.cpp
