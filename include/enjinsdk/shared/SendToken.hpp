@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_SENDTOKEN_HPP
-#define ENJINCPPSDK_SENDTOKEN_HPP
+#ifndef ENJINCPPSDK_SHAREDSENDTOKEN_HPP
+#define ENJINCPPSDK_SHAREDSENDTOKEN_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
@@ -58,4 +58,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_SENDTOKEN_HPP
+#endif //ENJINCPPSDK_SHAREDSENDTOKEN_HPP

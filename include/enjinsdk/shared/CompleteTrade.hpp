@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_COMPLETETRADE_HPP
-#define ENJINCPPSDK_COMPLETETRADE_HPP
+#ifndef ENJINCPPSDK_SHAREDCOMPLETETRADE_HPP
+#define ENJINCPPSDK_SHAREDCOMPLETETRADE_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
@@ -34,4 +34,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_COMPLETETRADE_HPP
+#endif //ENJINCPPSDK_SHAREDCOMPLETETRADE_HPP

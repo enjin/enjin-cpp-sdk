@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_RESETENJAPPROVAL_HPP
-#define ENJINCPPSDK_RESETENJAPPROVAL_HPP
+#ifndef ENJINCPPSDK_SHAREDRESETENJAPPROVAL_HPP
+#define ENJINCPPSDK_SHAREDRESETENJAPPROVAL_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
@@ -25,4 +25,4 @@ public:
 
 }
 
-#endif //ENJINCPPSDK_RESETENJAPPROVAL_HPP
+#endif //ENJINCPPSDK_SHAREDRESETENJAPPROVAL_HPP

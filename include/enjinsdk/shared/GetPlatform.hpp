@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_GETPLATFORM_HPP
-#define ENJINCPPSDK_GETPLATFORM_HPP
+#ifndef ENJINCPPSDK_SHAREDGETPLATFORM_HPP
+#define ENJINCPPSDK_SHAREDGETPLATFORM_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include <optional>
@@ -35,4 +35,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_GETPLATFORM_HPP
+#endif //ENJINCPPSDK_SHAREDGETPLATFORM_HPP

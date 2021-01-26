@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_SETTRANSFERFEE_HPP
-#define ENJINCPPSDK_SETTRANSFERFEE_HPP
+#ifndef ENJINCPPSDK_PROJECTSETTRANSFERFEE_HPP
+#define ENJINCPPSDK_PROJECTSETTRANSFERFEE_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
@@ -46,4 +46,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_SETTRANSFERFEE_HPP
+#endif //ENJINCPPSDK_PROJECTSETTRANSFERFEE_HPP

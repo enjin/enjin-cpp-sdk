@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_GETREQUESTS_HPP
-#define ENJINCPPSDK_GETREQUESTS_HPP
+#ifndef ENJINCPPSDK_SHAREDGETREQUESTS_HPP
+#define ENJINCPPSDK_SHAREDGETREQUESTS_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/TransactionFilter.hpp"
@@ -43,4 +43,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_GETREQUESTS_HPP
+#endif //ENJINCPPSDK_SHAREDGETREQUESTS_HPP

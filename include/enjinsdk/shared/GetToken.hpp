@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_GETTOKEN_HPP
-#define ENJINCPPSDK_GETTOKEN_HPP
+#ifndef ENJINCPPSDK_SHAREDGETTOKEN_HPP
+#define ENJINCPPSDK_SHAREDGETTOKEN_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/Token.hpp"
@@ -35,4 +35,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_GETTOKEN_HPP
+#endif //ENJINCPPSDK_SHAREDGETTOKEN_HPP

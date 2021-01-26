@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_SETURI_HPP
-#define ENJINCPPSDK_SETURI_HPP
+#ifndef ENJINCPPSDK_PROJECTSETURI_HPP
+#define ENJINCPPSDK_PROJECTSETURI_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
@@ -46,4 +46,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_SETURI_HPP
+#endif //ENJINCPPSDK_PROJECTSETURI_HPP

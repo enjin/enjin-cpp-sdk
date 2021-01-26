@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_SETAPPROVALFORALL_HPP
-#define ENJINCPPSDK_SETAPPROVALFORALL_HPP
+#ifndef ENJINCPPSDK_SHAREDSETAPPROVALFORALL_HPP
+#define ENJINCPPSDK_SHAREDSETAPPROVALFORALL_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
@@ -32,4 +32,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_SETAPPROVALFORALL_HPP
+#endif //ENJINCPPSDK_SHAREDSETAPPROVALFORALL_HPP

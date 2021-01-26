@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_MESSAGE_HPP
-#define ENJINCPPSDK_MESSAGE_HPP
+#ifndef ENJINCPPSDK_SHAREDMESSAGE_HPP
+#define ENJINCPPSDK_SHAREDMESSAGE_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
@@ -34,4 +34,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_MESSAGE_HPP
+#endif //ENJINCPPSDK_SHAREDMESSAGE_HPP

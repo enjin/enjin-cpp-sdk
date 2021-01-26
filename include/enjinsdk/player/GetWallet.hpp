@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_GETWALLET_HPP
-#define ENJINCPPSDK_GETWALLET_HPP
+#ifndef ENJINCPPSDK_PLAYERGETWALLET_HPP
+#define ENJINCPPSDK_PLAYERGETWALLET_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/WalletFragmentArgumentsTemplate.hpp"
@@ -24,4 +24,4 @@ public:
 
 }
 
-#endif //ENJINCPPSDK_GETWALLET_HPP
+#endif //ENJINCPPSDK_PLAYERGETWALLET_HPP

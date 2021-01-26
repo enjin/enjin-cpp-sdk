@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_GETREQUEST_HPP
-#define ENJINCPPSDK_GETREQUEST_HPP
+#ifndef ENJINCPPSDK_SHAREDGETREQUEST_HPP
+#define ENJINCPPSDK_SHAREDGETREQUEST_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/TransactionFragmentArgumentsTemplate.hpp"
@@ -40,4 +40,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_GETREQUEST_HPP
+#endif //ENJINCPPSDK_SHAREDGETREQUEST_HPP
