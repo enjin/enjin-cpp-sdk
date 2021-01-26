@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_GETBALANCES_HPP
-#define ENJINCPPSDK_GETBALANCES_HPP
+#ifndef ENJINCPPSDK_SHAREDGETBALANCES_HPP
+#define ENJINCPPSDK_SHAREDGETBALANCES_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/BalanceFilter.hpp"
@@ -36,4 +36,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_GETBALANCES_HPP
+#endif //ENJINCPPSDK_SHAREDGETBALANCES_HPP

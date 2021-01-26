@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_GETPLAYER_HPP
-#define ENJINCPPSDK_GETPLAYER_HPP
+#ifndef ENJINCPPSDK_PLAYERGETPLAYER_HPP
+#define ENJINCPPSDK_PLAYERGETPLAYER_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/PlayerFragmentArgumentsTemplate.hpp"
@@ -24,4 +24,4 @@ public:
 
 }
 
-#endif //ENJINCPPSDK_GETPLAYER_HPP
+#endif //ENJINCPPSDK_PLAYERGETPLAYER_HPP

@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_SETWHITELISTED_HPP
-#define ENJINCPPSDK_SETWHITELISTED_HPP
+#ifndef ENJINCPPSDK_PROJECTSETWHITELISTED_HPP
+#define ENJINCPPSDK_PROJECTSETWHITELISTED_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/Whitelisted.hpp"
@@ -59,4 +59,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_SETWHITELISTED_HPP
+#endif //ENJINCPPSDK_PROJECTSETWHITELISTED_HPP

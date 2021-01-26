@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_MINTTOKEN_HPP
-#define ENJINCPPSDK_MINTTOKEN_HPP
+#ifndef ENJINCPPSDK_PROJECTMINTTOKEN_HPP
+#define ENJINCPPSDK_PROJECTMINTTOKEN_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/MintInput.hpp"
@@ -42,4 +42,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_MINTTOKEN_HPP
+#endif //ENJINCPPSDK_PROJECTMINTTOKEN_HPP

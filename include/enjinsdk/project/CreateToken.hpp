@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_CREATETOKEN_HPP
-#define ENJINCPPSDK_CREATETOKEN_HPP
+#ifndef ENJINCPPSDK_PROJECTCREATETOKEN_HPP
+#define ENJINCPPSDK_PROJECTCREATETOKEN_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/TokenSupplyModel.hpp"
@@ -87,4 +87,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_CREATETOKEN_HPP
+#endif //ENJINCPPSDK_PROJECTCREATETOKEN_HPP

@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_MELTTOKEN_HPP
-#define ENJINCPPSDK_MELTTOKEN_HPP
+#ifndef ENJINCPPSDK_SHAREDMELTTOKEN_HPP
+#define ENJINCPPSDK_SHAREDMELTTOKEN_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/Melt.hpp"
@@ -35,4 +35,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_MELTTOKEN_HPP
+#endif //ENJINCPPSDK_SHAREDMELTTOKEN_HPP

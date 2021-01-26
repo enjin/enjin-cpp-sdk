@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_CREATETRADE_HPP
-#define ENJINCPPSDK_CREATETRADE_HPP
+#ifndef ENJINCPPSDK_SHAREDCREATETRADE_HPP
+#define ENJINCPPSDK_SHAREDCREATETRADE_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/Trade.hpp"
@@ -48,4 +48,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_CREATETRADE_HPP
+#endif //ENJINCPPSDK_SHAREDCREATETRADE_HPP

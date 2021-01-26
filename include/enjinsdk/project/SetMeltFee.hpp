@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_SETMELTFEE_HPP
-#define ENJINCPPSDK_SETMELTFEE_HPP
+#ifndef ENJINCPPSDK_PROJECTSETMELTFEE_HPP
+#define ENJINCPPSDK_PROJECTSETMELTFEE_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
@@ -47,4 +47,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_SETMELTFEE_HPP
+#endif //ENJINCPPSDK_PROJECTSETMELTFEE_HPP

@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_RELEASERESERVE_HPP
-#define ENJINCPPSDK_RELEASERESERVE_HPP
+#ifndef ENJINCPPSDK_PROJECTRELEASERESERVE_HPP
+#define ENJINCPPSDK_PROJECTRELEASERESERVE_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
@@ -40,4 +40,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_RELEASERESERVE_HPP
+#endif //ENJINCPPSDK_PROJECTRELEASERESERVE_HPP

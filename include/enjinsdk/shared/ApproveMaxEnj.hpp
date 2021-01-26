@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_APPROVEMAXENJ_HPP
-#define ENJINCPPSDK_APPROVEMAXENJ_HPP
+#ifndef ENJINCPPSDK_SHAREDAPPROVEMAXENJ_HPP
+#define ENJINCPPSDK_SHAREDAPPROVEMAXENJ_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
@@ -24,4 +24,4 @@ public:
 
 }
 
-#endif //ENJINCPPSDK_APPROVEMAXENJ_HPP
+#endif //ENJINCPPSDK_SHAREDAPPROVEMAXENJ_HPP
