@@ -62,6 +62,12 @@ set(TEST_FILES
         schemas/project/mutations/SetUriTest.cpp
         schemas/project/mutations/SetWhitelistedTest.cpp
         schemas/project/mutations/UnlinkWalletTest.cpp
+        schemas/project/queries/AuthPlayerTest.cpp
+        schemas/project/queries/AuthProjectTest.cpp
+        schemas/project/queries/GetPlayerTest.cpp
+        schemas/project/queries/GetPlayersTest.cpp
+        schemas/project/queries/GetWalletTest.cpp
+        schemas/project/queries/GetWalletsTest.cpp
         schemas/shared/arguments/BalanceFragmentArgumentsTest.cpp
         schemas/shared/arguments/PaginationArgumentsTest.cpp
         schemas/shared/arguments/PlayerFragmentArgumentsTest.cpp

@@ -73,6 +73,12 @@ set(SOURCE_FILES
         schemas/project/mutations/SetUri.cpp
         schemas/project/mutations/SetWhitelisted.cpp
         schemas/project/mutations/UnlinkWallet.cpp
+        schemas/project/queries/AuthPlayer.cpp
+        schemas/project/queries/AuthProject.cpp
+        schemas/project/queries/GetPlayer.cpp
+        schemas/project/queries/GetPlayers.cpp
+        schemas/project/queries/GetWallet.cpp
+        schemas/project/queries/GetWallets.cpp
         schemas/shared/SharedSchema.cpp
         schemas/shared/arguments/BalanceFragmentArguments.cpp
         schemas/shared/arguments/PaginationArguments.cpp
