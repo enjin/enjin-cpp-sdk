@@ -59,6 +59,20 @@ set(SOURCE_FILES
         schemas/player/queries/GetPlayer.cpp
         schemas/player/queries/GetWallet.cpp
         schemas/project/ProjectSchema.cpp
+        schemas/project/mutations/CreatePlayer.cpp
+        schemas/project/mutations/CreateToken.cpp
+        schemas/project/mutations/DecreaseMaxMeltFee.cpp
+        schemas/project/mutations/DecreaseMaxTransferFee.cpp
+        schemas/project/mutations/DeletePlayer.cpp
+        schemas/project/mutations/InvalidateTokenMetadata.cpp
+        schemas/project/mutations/MintToken.cpp
+        schemas/project/mutations/ReleaseReserve.cpp
+        schemas/project/mutations/SetMeltFee.cpp
+        schemas/project/mutations/SetTransferFee.cpp
+        schemas/project/mutations/SetTransferable.cpp
+        schemas/project/mutations/SetUri.cpp
+        schemas/project/mutations/SetWhitelisted.cpp
+        schemas/project/mutations/UnlinkWallet.cpp
         schemas/shared/SharedSchema.cpp
         schemas/shared/arguments/BalanceFragmentArguments.cpp
         schemas/shared/arguments/PaginationArguments.cpp
