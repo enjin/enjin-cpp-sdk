@@ -3,6 +3,7 @@
 
 #include "enjinsdk/models/TokenTransferFeeType.hpp"
 #include "enjinsdk/serialization/IDeserializable.hpp"
+#include "enjinsdk/serialization/ISerializable.hpp"
 #include <optional>
 #include <string>
 
@@ -32,7 +33,7 @@ public:
 
     bool operator!=(const TokenTransferFeeSettings& rhs) const;
 
-private:
+protected:
     std::optional<TokenTransferFeeType> type;
     std::optional<std::string> token_id;
     std::optional<std::string> value;
@@ -40,6 +41,37 @@ private:
     constexpr static char TYPE_KEY[] = "type";
     constexpr static char TOKEN_ID_KEY[] = "tokenId";
     constexpr static char VALUE_KEY[] = "value";
+};
+
+/// \brief Models input for the transfer fee settings used in GraphQL requests.
+class TokenTransferFeeSettingsInput : public TokenTransferFeeSettings,
+                                      public serialization::ISerializable {
+public:
+    /// \brief Default constructor.
+    TokenTransferFeeSettingsInput() = default;
+
+    ~TokenTransferFeeSettingsInput() override = default;
+
+    std::string serialize() override;
+
+    /// \brief Sets the transfer type for this input.
+    /// \param type The type.
+    /// \return This input for chaining.
+    TokenTransferFeeSettingsInput& set_type(TokenTransferFeeType type);
+
+    /// \brief Sets the token ID for this input.
+    /// \param token_id The ID.
+    /// \return This input for chaining.
+    TokenTransferFeeSettingsInput& set_token_id(const std::string& token_id);
+
+    /// \brief Sets the value in Wei for this input.
+    /// \param value The value.
+    /// \return This input for chaining.
+    TokenTransferFeeSettingsInput& set_value(const std::string& value);
+
+    bool operator==(const TokenTransferFeeSettingsInput& rhs) const;
+
+    bool operator!=(const TokenTransferFeeSettingsInput& rhs) const;
 };
 
 }

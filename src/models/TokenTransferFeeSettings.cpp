@@ -1,7 +1,7 @@
 #include "enjinsdk/models/TokenTransferFeeSettings.hpp"
 
 #include "EnumUtils.hpp"
-#include "rapidjson/document.h"
+#include "RapidJsonUtils.hpp"
 
 namespace enjin::sdk::models {
 
@@ -40,6 +40,46 @@ bool TokenTransferFeeSettings::operator==(const TokenTransferFeeSettings& rhs) c
 }
 
 bool TokenTransferFeeSettings::operator!=(const TokenTransferFeeSettings& rhs) const {
+    return !(rhs == *this);
+}
+
+std::string TokenTransferFeeSettingsInput::serialize() {
+    rapidjson::Document document(rapidjson::kObjectType);
+
+    if (type.has_value()) {
+        utils::set_string_member(document, TYPE_KEY, utils::serialize_token_transfer_fee_type(type.value()));
+    }
+    if (token_id.has_value()) {
+        utils::set_string_member(document, TOKEN_ID_KEY, token_id.value());
+    }
+    if (value.has_value()) {
+        utils::set_string_member(document, VALUE_KEY, value.value());
+    }
+
+    return utils::document_to_string(document);
+}
+
+TokenTransferFeeSettingsInput& TokenTransferFeeSettingsInput::set_type(TokenTransferFeeType type) {
+    TokenTransferFeeSettingsInput::type = type;
+    return *this;
+}
+
+TokenTransferFeeSettingsInput& TokenTransferFeeSettingsInput::set_token_id(const std::string& token_id) {
+    TokenTransferFeeSettingsInput::token_id = token_id;
+    return *this;
+}
+
+TokenTransferFeeSettingsInput& TokenTransferFeeSettingsInput::set_value(const std::string& value) {
+    TokenTransferFeeSettingsInput::value = value;
+    return *this;
+}
+
+bool TokenTransferFeeSettingsInput::operator==(const TokenTransferFeeSettingsInput& rhs) const {
+    return static_cast<const TokenTransferFeeSettings&>(*this) ==
+           static_cast<const TokenTransferFeeSettings&>(rhs);
+}
+
+bool TokenTransferFeeSettingsInput::operator!=(const TokenTransferFeeSettingsInput& rhs) const {
     return !(rhs == *this);
 }
 
