@@ -39,7 +39,18 @@ TEST_F(GraphqlResponseTest, ConstructorParsesOneType) {
     GraphqlResponse<enjin::test::utils::DummyObject> response(s.str());
 
     // Assert
-    ASSERT_TRUE(response.get_result().has_value());
+    ASSERT_EQ(expected, response.get_result().value());
+}
+
+TEST_F(GraphqlResponseTest, ConstructorParsesOneBoolean) {
+    // Arrange
+    bool expected = true;
+    std::string json(R"({"data":{"result":true}})");
+
+    // Act
+    GraphqlResponse<bool> response(json);
+
+    // Assert
     ASSERT_EQ(expected, response.get_result().value());
 }
 

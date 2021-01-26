@@ -51,10 +51,16 @@ protected:
     static constexpr char ERROR_KEY[] = "error";
     static constexpr char ERRORS_KEY[] = "errors";
 
+    /// \brief Processes the serialized GraphQL response.
+    /// \param json The JSON.
     void process(const std::string& json);
 
+    /// \brief Processes the data member of a serialized GraphQL response.
+    /// \param data_json The JSON string of the member.
     virtual void process_data(const std::string& data_json) = 0;
 
+    /// \brief Processes the error member of a serialized GraphQL response.
+    /// \param error_json The JSON string of the member.
     void process_errors(const std::string& error_json);
 };
 

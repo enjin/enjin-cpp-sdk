@@ -25,8 +25,8 @@ class GraphqlResponse;
 /// \tparam T The model of the data field. Must inherit from enjin::sdk::serialization::IDeserializable.
 template<class T>
 class GraphqlResponse<T> : public AbstractGraphqlResponse {
-    static_assert(std::is_base_of<enjin::sdk::serialization::IDeserializable, T>::value,
-                  "Type T does not inherit from IDeserializable.");
+    static_assert(std::is_base_of<enjin::sdk::serialization::IDeserializable, T>::value || std::is_same_v<bool, T>,
+                  "Type T does not inherit from IDeserializable or boolean.");
 
 public:
     GraphqlResponse() = default;
@@ -39,7 +39,7 @@ public:
 
     /// \brief Returns the result of the response.
     /// \return Optional for the result.
-    std::optional<T> get_result() {
+    [[nodiscard]] const std::optional<T>& get_result() const {
         return result;
     }
 
@@ -63,6 +63,21 @@ protected:
     }
 };
 
+/// \brief Specialized member function for responses containing booleans instead of platform objects.
+/// \param data_json The JSON string of the member.
+template<>
+void GraphqlResponse<bool>::process_data(const std::string& data_json) {
+    /* TODO: Refactor method to utilize Pimpl idiom so that rapidjson usage is hidden away into a non-public
+     *       implementation class.
+     */
+    rapidjson::Document document;
+    document.Parse(data_json.c_str());
+
+    if (document.IsObject() && document.HasMember(RESULT_KEY) && document[RESULT_KEY].IsBool()) {
+        result.emplace(document[RESULT_KEY].GetBool());
+    }
+}
+
 /// \brief Models the body of a GraphQL response for paginated responses or responses with many objects.
 /// \tparam T The model of the data field. Must inherit from enjin::sdk::serialization::IDeserializable.
 template<class T>
@@ -81,7 +96,7 @@ public:
 
     /// \brief Returns the result of the response.
     /// \return Optional for the result.
-    std::optional<std::vector<T>> get_result() {
+    [[nodiscard]] const std::optional<std::vector<T>>& get_result() const {
         return result;
     }
 
