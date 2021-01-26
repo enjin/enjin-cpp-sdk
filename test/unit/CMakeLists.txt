@@ -48,6 +48,20 @@ set(TEST_FILES
         models/TransferTest.cpp
         models/WalletTest.cpp
         schemas/BaseSchemaTest.cpp
+        schemas/project/mutations/CreatePlayerTest.cpp
+        schemas/project/mutations/CreateTokenTest.cpp
+        schemas/project/mutations/DecreaseMaxMeltFeeTest.cpp
+        schemas/project/mutations/DecreaseMaxTransferFeeTest.cpp
+        schemas/project/mutations/DeletePlayerTest.cpp
+        schemas/project/mutations/InvalidateTokenMetadataTest.cpp
+        schemas/project/mutations/MintTokenTest.cpp
+        schemas/project/mutations/ReleaseReserveTest.cpp
+        schemas/project/mutations/SetMeltFeeTest.cpp
+        schemas/project/mutations/SetTransferFeeTest.cpp
+        schemas/project/mutations/SetTransferableTest.cpp
+        schemas/project/mutations/SetUriTest.cpp
+        schemas/project/mutations/SetWhitelistedTest.cpp
+        schemas/project/mutations/UnlinkWalletTest.cpp
         schemas/shared/arguments/BalanceFragmentArgumentsTest.cpp
         schemas/shared/arguments/PaginationArgumentsTest.cpp
         schemas/shared/arguments/PlayerFragmentArgumentsTest.cpp
