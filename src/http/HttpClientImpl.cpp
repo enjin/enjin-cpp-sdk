@@ -12,13 +12,13 @@ void HttpClientImpl::close() {
 
 std::future<HttpResponse> HttpClientImpl::send_request(const HttpRequest& request) {
     // TODO: Determine if 'this->http_client' introduces unsafe thread behavior.
-    return std::async([this, request]() {
+    return std::async([this, request] {
         auto method = utility::conversions::to_string_t(request.get_method());
         auto task = http_client.request(method,
                                         request.get_path_query_fragment(),
                                         request.get_body(),
                                         request.get_content_type());
-        task.wait();
+
         web::http::http_response response = task.get();
 
         return HttpResponseBuilder()
