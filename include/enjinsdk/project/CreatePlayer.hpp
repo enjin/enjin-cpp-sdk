@@ -8,7 +8,7 @@
 namespace enjin::sdk::project {
 
 /// \brief Request for creating a player for the project.
-class CreatePlayer : graphql::AbstractGraphqlRequest {
+class CreatePlayer : public graphql::AbstractGraphqlRequest {
 public:
     /// \brief Default constructor.
     CreatePlayer();
