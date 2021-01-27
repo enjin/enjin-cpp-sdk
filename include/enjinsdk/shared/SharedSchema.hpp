@@ -7,6 +7,7 @@
 
 namespace enjin::sdk::shared {
 
+/// \brief Class for sending requests shared across schemas.
 class SharedSchema : public ISharedSchema,
                      public BaseSchema {
 public:
@@ -97,6 +98,9 @@ public:
     graphql::GraphqlResponse<models::Request> set_approval_for_all_sync(SetApprovalForAll& request) override;
 
 protected:
+    /// \brief Constructs the schema with the middleware and name.
+    /// \param middleware The middleware.
+    /// \param schema The schema name.
     SharedSchema(const enjin::sdk::TrustedPlatformMiddleware& middleware, const std::string& schema);
 };
 
