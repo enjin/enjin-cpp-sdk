@@ -1,10 +1,12 @@
 #include "enjinsdk/internal/AbstractGraphqlResponse.hpp"
 
-#include "rapidjson/document.h"
-#include "rapidjson/stringbuffer.h"
-#include "rapidjson/writer.h"
+#include "RapidJsonUtils.hpp"
 
 namespace enjin::sdk::graphql {
+
+constexpr char DATA_KEY[] = "data";
+constexpr char ERROR_KEY[] = "error";
+constexpr char ERRORS_KEY[] = "errors";
 
 std::optional<std::vector<GraphqlError>> AbstractGraphqlResponse::get_errors() {
     return errors;
@@ -31,19 +33,9 @@ void AbstractGraphqlResponse::process(const std::string& json) {
     document.Parse(json.c_str());
     if (document.IsObject()) {
         if (document.HasMember(DATA_KEY) && document[DATA_KEY].IsObject()) {
-            auto& data_obj = document[DATA_KEY];
-            rapidjson::StringBuffer buffer;
-            rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-            data_obj.Accept(writer);
-            const char* data_json = buffer.GetString();
-            process_data(data_json);
+            process_data(utils::get_object_as_string(document, DATA_KEY));
         } else if (document.HasMember(ERROR_KEY) && document[ERROR_KEY].IsObject()) {
-            auto& error_obj = document[ERROR_KEY];
-            rapidjson::StringBuffer buffer;
-            rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-            error_obj.Accept(writer);
-            const char* error_json = buffer.GetString();
-            process_errors(error_json);
+            process_errors(utils::get_object_as_string(document, ERROR_KEY));
         }
     }
 }
@@ -51,22 +43,10 @@ void AbstractGraphqlResponse::process(const std::string& json) {
 void AbstractGraphqlResponse::process_errors(const std::string& error_json) {
     rapidjson::Document document;
     document.Parse(error_json.c_str());
-    if (!document.IsObject() || !document.HasMember(ERRORS_KEY) && document[ERRORS_KEY].IsArray()) {
-        return;
-    }
 
-    std::vector<GraphqlError> list;
-    for (auto& v : document[ERRORS_KEY].GetArray()) {
-        rapidjson::StringBuffer buffer;
-        rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-        v.Accept(writer);
-        const char* v_json = buffer.GetString();
-
-        GraphqlError error;
-        error.deserialize(v_json);
-        list.push_back(error);
+    if (document.IsObject() && document.HasMember(ERRORS_KEY) && document[ERRORS_KEY].IsArray()) {
+        errors.emplace(utils::get_array_as_type_vector<GraphqlError>(document, ERRORS_KEY));
     }
-    errors.emplace(list);
 }
 
 }
