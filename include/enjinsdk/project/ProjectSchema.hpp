@@ -98,7 +98,7 @@ public:
 protected:
     /// \brief Constructs the schema with the middleware.
     /// \param middleware The middleware.
-    explicit ProjectSchema(const enjin::sdk::TrustedPlatformMiddleware& middleware);
+    explicit ProjectSchema(const TrustedPlatformMiddleware& middleware);
 };
 
 }
