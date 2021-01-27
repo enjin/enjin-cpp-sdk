@@ -14,7 +14,7 @@ namespace enjin::sdk::player {
 /// \brief Interface for player schema implementation.
 class IPlayerSchema {
 public:
-    /// \brief Default constructor.
+    /// \brief Default destructor.
     virtual ~IPlayerSchema() = default;
 
     /// \brief Sends GetPlayer request asynchronously.

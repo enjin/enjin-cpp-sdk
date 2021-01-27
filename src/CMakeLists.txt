@@ -5,6 +5,8 @@ source_group("Header Files\\enjinsdk" FILES ${HEADERS_ENJINSDK})
 
 set(SOURCE_FILES
         ${HEADERS_ENJINSDK}
+        PlayerClient.cpp
+        ProjectClient.cpp
         TrustedPlatformMiddleware.cpp
         graphql/AbstractGraphqlRequest.cpp
         graphql/AbstractGraphqlResponse.cpp
@@ -122,5 +124,6 @@ target_include_directories(enjinsdk
         $<INSTALL_INTERFACE:include> $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/graphql
+        ${CMAKE_CURRENT_SOURCE_DIR}/http
         ${CMAKE_CURRENT_SOURCE_DIR}/utils
 )
