@@ -27,7 +27,7 @@ public:
 protected:
     /// \brief Constructs the schema with the middleware.
     /// \param middleware The middleware.
-    explicit PlayerSchema(const enjin::sdk::TrustedPlatformMiddleware& middleware);
+    explicit PlayerSchema(const TrustedPlatformMiddleware& middleware);
 };
 
 }
