@@ -1,4 +1,5 @@
 #include "EnumUtils.hpp"
+
 #include "StringUtils.hpp"
 
 namespace enjin::sdk::utils {
@@ -229,6 +230,8 @@ std::string serialize_sort_direction(enjin::sdk::models::SortDirection v) noexce
             return "asc";
         case models::SortDirection::DESCENDING:
             return "desc";
+        default:
+            return "";
     }
 }
 
@@ -248,6 +251,8 @@ std::string serialize_token_field(enjin::sdk::models::TokenField v) noexcept {
             return "totalSupply";
         case models::TokenField::CREATED_AT:
             return "createdAt";
+        default:
+            return "";
     }
 }
 
@@ -259,6 +264,8 @@ std::string serialize_token_id_format(enjin::sdk::models::TokenIdFormat v) noexc
             return "hex256";
         case models::TokenIdFormat::UINT256:
             return "uint256";
+        default:
+            return "";
     }
 }
 
@@ -268,6 +275,8 @@ std::string serialize_token_index_format(enjin::sdk::models::TokenIndexFormat v)
             return "hex64";
         case models::TokenIndexFormat::UINT64:
             return "uint64";
+        default:
+            return "";
     }
 }
 
@@ -345,6 +354,8 @@ std::string serialize_transaction_field(enjin::sdk::models::TransactionField v) 
             return "title";
         case models::TransactionField::CREATED_AT:
             return "createdAt";
+        default:
+            return "";
     }
 }
 
@@ -362,6 +373,8 @@ std::string serialize_whitelisted(enjin::sdk::models::Whitelisted v) noexcept {
             return "NO_FEES";
         case models::Whitelisted::ADDRESS:
             return "ADDRESS";
+        default:
+            return "";
     }
 }
 
