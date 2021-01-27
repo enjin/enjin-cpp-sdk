@@ -10,6 +10,7 @@ set(SOURCE_FILES
         graphql/AbstractGraphqlResponse.cpp
         graphql/GraphqlError.cpp
         graphql/GraphqlQueryRegistry.cpp
+        graphql/GraphqlResponseImpl.cpp
         graphql/TemplateConstants.cpp
         graphql/TemplateConstants.hpp
         http/AbstractHttpClient.cpp

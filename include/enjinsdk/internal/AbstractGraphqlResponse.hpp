@@ -44,13 +44,6 @@ protected:
     std::optional<std::vector<GraphqlError>> errors;
     std::optional<enjin::sdk::models::PaginationCursor> cursor;
 
-    static constexpr char DATA_KEY[] = "data";
-    static constexpr char RESULT_KEY[] = "result";
-    static constexpr char ITEMS_KEY[] = "items";
-    static constexpr char CURSOR_KEY[] = "cursor";
-    static constexpr char ERROR_KEY[] = "error";
-    static constexpr char ERRORS_KEY[] = "errors";
-
     /// \brief Processes the serialized GraphQL response.
     /// \param json The JSON.
     void process(const std::string& json);
