@@ -23,11 +23,12 @@ ProjectClient ProjectClientBuilder::build() {
     /* TODO: Use compile-time macros to only allow HttpClientImpl if cpprestsdk is installed and require a client be
      *       passed in if not.
      */
-    http::AbstractHttpClient* client = m_http_client.has_value()
-                                       ? m_http_client.value()
-                                       : new http::HttpClientImpl(m_base_uri.has_value()
-                                                                  ? m_base_uri.value()
-                                                                  : throw std::exception("No base URI was set for default HTTP client implementation"));
+    http::IHttpClient* client = m_http_client.has_value()
+                                ? m_http_client.value()
+                                : new http::HttpClientImpl(m_base_uri.has_value()
+                                                           ? m_base_uri.value()
+                                                           : throw std::exception(
+                            "No base URI was set for default HTTP client implementation"));
 
     TrustedPlatformMiddleware middleware(*client, m_debug.has_value() && m_debug.value());
     return ProjectClient(middleware);
@@ -38,7 +39,7 @@ ProjectClientBuilder& ProjectClientBuilder::base_uri(const std::string& base_uri
     return *this;
 }
 
-ProjectClientBuilder& ProjectClientBuilder::http_client(http::AbstractHttpClient& client) {
+ProjectClientBuilder& ProjectClientBuilder::http_client(http::IHttpClient& client) {
     m_http_client = &client;
     return *this;
 }

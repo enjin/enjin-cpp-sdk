@@ -2,16 +2,20 @@
 #define ENJINCPPSDK_HTTPCLIENTIMPL_HPP
 
 #include "cpprest/http_client.h"
-#include "enjinsdk/AbstractHttpClient.hpp"
+#include "enjinsdk/IHttpClient.hpp"
 
 namespace enjin::sdk::http {
 
 /// \brief Implementation class for an HTTP client base on Microsoft's C++ Rest SDK.
-class HttpClientImpl : public AbstractHttpClient {
+class HttpClientImpl : public IHttpClient {
 public:
+    HttpClientImpl() = delete;
+
     /// \brief Creates the HTTP client and assigns a base URI.
     /// \param base_uri The base URI for the client.
     explicit HttpClientImpl(const std::string& base_uri);
+
+    ~HttpClientImpl() override = default;
 
     void close() override;
 

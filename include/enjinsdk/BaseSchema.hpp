@@ -30,7 +30,7 @@ protected:
         // TODO: Placeholder section until function parameters are finalized.
         auto method = "POST";
         auto path = std::string("/graphql/").append(schema);
-        auto content = http::AbstractHttpClient::CONTENT_TYPE;
+        auto content = http::IHttpClient::CONTENT_TYPE;
         auto body = create_request_body(request);
 
         http::HttpRequest http_request = http::HttpRequestBuilder()
@@ -59,7 +59,7 @@ protected:
         // TODO: Placeholder section until function parameters are finalized.
         auto method = "POST";
         auto path = std::string("/graphql/").append(schema);
-        auto content = http::AbstractHttpClient::CONTENT_TYPE;
+        auto content = http::IHttpClient::CONTENT_TYPE;
         auto body = create_request_body(request);
 
         http::HttpRequest http_request = http::HttpRequestBuilder()

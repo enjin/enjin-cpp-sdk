@@ -2,7 +2,7 @@
 #define ENJINCPPSDK_TRUSTEDPLATFORMMIDDLEWARE_HPP
 
 #include "enjinsdk/GraphqlQueryRegistry.hpp"
-#include "enjinsdk/AbstractHttpClient.hpp"
+#include "enjinsdk/IHttpClient.hpp"
 #include <string>
 
 namespace enjin::sdk {
@@ -12,7 +12,7 @@ class TrustedPlatformMiddleware {
 public:
     TrustedPlatformMiddleware() = delete;
 
-    explicit TrustedPlatformMiddleware(http::AbstractHttpClient& client, bool debug = false);
+    explicit TrustedPlatformMiddleware(http::IHttpClient& client, bool debug = false);
 
     /// \brief Copy constructor.
     /// \param middleware
@@ -22,11 +22,11 @@ public:
 
     [[nodiscard]] const graphql::GraphqlQueryRegistry& get_query_registry() const;
 
-    [[nodiscard]] http::AbstractHttpClient* get_client() const;
+    [[nodiscard]] http::IHttpClient* get_client() const;
 
 private:
     graphql::GraphqlQueryRegistry query_registry;
-    http::AbstractHttpClient* client = nullptr; // TODO: Consider using a smart pointer instead for client.
+    http::IHttpClient* client = nullptr; // TODO: Consider using a smart pointer instead for client.
 };
 
 }

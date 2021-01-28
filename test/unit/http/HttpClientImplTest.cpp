@@ -16,7 +16,7 @@ public:
                 .method(utility::conversions::to_utf8string(web::http::methods::POST))
                 .path_query_fragment("/")
                 .body("{}")
-                .content_type(enjin::sdk::http::AbstractHttpClient::CONTENT_TYPE)
+                .content_type(enjin::sdk::http::IHttpClient::CONTENT_TYPE)
                 .build();
     }
 
@@ -39,7 +39,7 @@ TEST_F(HttpClientImplTest, SendRequestReceivesExpectedResponse) {
     HttpResponse expected = HttpResponseBuilder()
             .code(200)
             .body("EXPECTED RESPONSE")
-            .content_type(enjin::sdk::http::AbstractHttpClient::CONTENT_TYPE)
+            .content_type(enjin::sdk::http::IHttpClient::CONTENT_TYPE)
             .build();
     HttpRequest fake_request = create_default_request();
     mock_server.map_response_for_request(fake_request, expected);
