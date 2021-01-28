@@ -92,7 +92,18 @@ set(TEST_FILES
         schemas/shared/queries/GetRequestsTest.cpp
         schemas/shared/queries/GetTokenTest.cpp
         schemas/shared/queries/GetTokensTest.cpp
-        utils/EnumUtilsTest.cpp
+        utils/EnumUtilsRequestStateTest.cpp
+        utils/EnumUtilsRequestTypeTest.cpp
+        utils/EnumUtilsSortDirectionTest.cpp
+        utils/EnumUtilsTokenFieldTest.cpp
+        utils/EnumUtilsTokenIdFormatTest.cpp
+        utils/EnumUtilsTokenIndexFormatTest.cpp
+        utils/EnumUtilsTokenSupplyModelTest.cpp
+        utils/EnumUtilsTokenTransferFeeTypeTest.cpp
+        utils/EnumUtilsTokenTransferableTest.cpp
+        utils/EnumUtilsTokenVariantModeTest.cpp
+        utils/EnumUtilsTransactionFieldTest.cpp
+        utils/EnumUtilsWhitelistedTest.cpp
         utils/RapidJsonUtilsTest.cpp
         utils/StringUtilsTest.cpp
         ../utils/MockHttpServer.cpp
