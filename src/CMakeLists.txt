@@ -15,7 +15,6 @@ set(SOURCE_FILES
         graphql/GraphqlResponseImpl.cpp
         graphql/TemplateConstants.cpp
         graphql/TemplateConstants.hpp
-        http/AbstractHttpClient.cpp
         http/HttpClientImpl.cpp
         http/HttpClientImpl.hpp
         http/HttpRequest.cpp

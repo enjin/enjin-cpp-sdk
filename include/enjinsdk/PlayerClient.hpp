@@ -1,7 +1,7 @@
 #ifndef ENJINCPPSDK_PLAYERCLIENT_HPP
 #define ENJINCPPSDK_PLAYERCLIENT_HPP
 
-#include "enjinsdk/AbstractHttpClient.hpp"
+#include "enjinsdk/IHttpClient.hpp"
 #include "enjinsdk/IClient.hpp"
 #include "enjinsdk/TrustedPlatformMiddleware.hpp"
 #include "enjinsdk/player/PlayerSchema.hpp"
@@ -33,7 +33,7 @@ public:
     /// \brief Sets the underlying HTTP client implementation for the platform client to use.
     /// \param http_client The client implementation.
     /// \return This builder for chaining.
-    PlayerClientBuilder& http_client(http::AbstractHttpClient& http_client);
+    PlayerClientBuilder& http_client(http::IHttpClient& http_client);
 
     /// \brief Sets whether the client will have debugging enabled.
     /// \param debug The debug state.
@@ -42,7 +42,7 @@ public:
 
 private:
     std::optional<std::string> m_base_uri;
-    std::optional<http::AbstractHttpClient*> m_http_client;
+    std::optional<http::IHttpClient*> m_http_client;
     std::optional<bool> m_debug;
 };
 

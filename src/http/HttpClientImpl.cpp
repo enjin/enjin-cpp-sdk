@@ -2,8 +2,7 @@
 
 namespace enjin::sdk::http {
 
-HttpClientImpl::HttpClientImpl(const std::string& base_uri) : AbstractHttpClient(base_uri),
-                                                              http_client(utility::conversions::to_string_t(base_uri)) {
+HttpClientImpl::HttpClientImpl(const std::string& base_uri) : http_client(utility::conversions::to_string_t(base_uri)) {
 }
 
 void HttpClientImpl::close() {
