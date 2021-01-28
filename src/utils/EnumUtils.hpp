@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_ENUMUTILS_HPP
 #define ENJINCPPSDK_ENUMUTILS_HPP
 
+#include "enjinsdk/models/EventType.hpp"
 #include "enjinsdk/models/RequestState.hpp"
 #include "enjinsdk/models/RequestType.hpp"
 #include "enjinsdk/models/SortDirection.hpp"
@@ -16,6 +17,8 @@
 #include <string>
 
 namespace enjin::sdk::utils {
+
+enjin::sdk::models::EventType deserialize_event_type(const std::string& s) noexcept;
 
 enjin::sdk::models::RequestState deserialize_request_state(const std::string& s) noexcept;
 

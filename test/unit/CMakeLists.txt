@@ -92,6 +92,7 @@ set(TEST_FILES
         schemas/shared/queries/GetRequestsTest.cpp
         schemas/shared/queries/GetTokenTest.cpp
         schemas/shared/queries/GetTokensTest.cpp
+        utils/EnumUtilsEventTypeTest.cpp
         utils/EnumUtilsRequestStateTest.cpp
         utils/EnumUtilsRequestTypeTest.cpp
         utils/EnumUtilsSortDirectionTest.cpp

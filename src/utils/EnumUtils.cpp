@@ -4,6 +4,71 @@
 
 namespace enjin::sdk::utils {
 
+enjin::sdk::models::EventType deserialize_event_type(const std::string& s) noexcept {
+    std::string str = to_upper(s);
+    if (str == "APP_CREATED") {
+        return models::EventType::APP_CREATED;
+    } else if (str == "APP_DELETED") {
+        return models::EventType::APP_DELETED;
+    } else if (str == "APP_LINKED") {
+        return models::EventType::APP_LINKED;
+    } else if (str == "APP_LOCKED") {
+        return models::EventType::APP_LOCKED;
+    } else if (str == "APP_UNLINKED") {
+        return models::EventType::APP_UNLINKED;
+    } else if (str == "APP_UNLOCKED") {
+        return models::EventType::APP_UNLOCKED;
+    } else if (str == "APP_UPDATED") {
+        return models::EventType::APP_UPDATED;
+    } else if (str == "BLOCKCHAIN_LOG_PROCESSED") {
+        return models::EventType::BLOCKCHAIN_LOG_PROCESSED;
+    } else if (str == "MESSAGE_PROCESSED") {
+        return models::EventType::MESSAGE_PROCESSED;
+    } else if (str == "PLAYER_CREATED") {
+        return models::EventType::PLAYER_CREATED;
+    } else if (str == "PLAYER_DELETED") {
+        return models::EventType::PLAYER_DELETED;
+    } else if (str == "PLAYER_LINKED") {
+        return models::EventType::PLAYER_LINKED;
+    } else if (str == "PLAYER_UNLINKED") {
+        return models::EventType::PLAYER_UNLINKED;
+    } else if (str == "PLAYER_UPDATED") {
+        return models::EventType::PLAYER_UPDATED;
+    } else if (str == "TOKEN_CREATED") {
+        return models::EventType::TOKEN_CREATED;
+    } else if (str == "TOKEN_MELTED") {
+        return models::EventType::TOKEN_MELTED;
+    } else if (str == "TOKEN_MINTED") {
+        return models::EventType::TOKEN_MINTED;
+    } else if (str == "TOKEN_TRANSFERRED") {
+        return models::EventType::TOKEN_TRANSFERRED;
+    } else if (str == "TOKEN_UPDATED") {
+        return models::EventType::TOKEN_UPDATED;
+    } else if (str == "TRADE_COMPLETED") {
+        return models::EventType::TRADE_COMPLETED;
+    } else if (str == "TRADE_CREATED") {
+        return models::EventType::TRADE_CREATED;
+    } else if (str == "TRANSACTION_BROADCAST") {
+        return models::EventType::TRANSACTION_BROADCAST;
+    } else if (str == "TRANSACTION_CANCELED") {
+        return models::EventType::TRANSACTION_CANCELED;
+    } else if (str == "TRANSACTION_DROPPED") {
+        return models::EventType::TRANSACTION_DROPPED;
+    } else if (str == "TRANSACTION_EXECUTED") {
+        return models::EventType::TRANSACTION_EXECUTED;
+    } else if (str == "TRANSACTION_FAILED") {
+        return models::EventType::TRANSACTION_FAILED;
+    } else if (str == "TRANSACTION_PENDING") {
+        return models::EventType::TRANSACTION_PENDING;
+    } else if (str == "TRANSACTION_PROCESSING") {
+        return models::EventType::TRANSACTION_PROCESSING;
+    } else if (str == "TRANSACTION_UPDATED") {
+        return models::EventType::TRANSACTION_UPDATED;
+    }
+
+    return models::EventType::UNKNOWN;
+}
+
 enjin::sdk::models::RequestState deserialize_request_state(const std::string& s) noexcept {
     std::string str = to_upper(s);
     if (str == "PENDING") {
