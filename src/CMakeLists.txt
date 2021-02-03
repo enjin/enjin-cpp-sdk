@@ -8,6 +8,15 @@ set(SOURCE_FILES
         PlayerClient.cpp
         ProjectClient.cpp
         TrustedPlatformMiddleware.cpp
+        events/channels/AppChannel.cpp
+        events/channels/AppChannel.hpp
+        events/channels/IChannel.hpp
+        events/channels/PlayerChannel.cpp
+        events/channels/PlayerChannel.hpp
+        events/channels/TokenChannel.cpp
+        events/channels/TokenChannel.hpp
+        events/channels/WalletChannel.cpp
+        events/channels/WalletChannel.hpp
         graphql/AbstractGraphqlRequest.cpp
         graphql/AbstractGraphqlResponse.cpp
         graphql/GraphqlError.cpp
@@ -122,6 +131,8 @@ target_include_directories(enjinsdk
         PUBLIC
         $<INSTALL_INTERFACE:include> $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/events
+        ${CMAKE_CURRENT_SOURCE_DIR}/events/channels
         ${CMAKE_CURRENT_SOURCE_DIR}/graphql
         ${CMAKE_CURRENT_SOURCE_DIR}/http
         ${CMAKE_CURRENT_SOURCE_DIR}/utils
