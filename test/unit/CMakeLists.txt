@@ -1,6 +1,12 @@
 include_directories(${ENJINCPPSDK_SOURCE_DIRECTORY}/src)
 
 set(TEST_FILES
+        events/AppChannelTest.cpp
+        events/ChannelsTestSuite.hpp
+        events/PlayerChannelTest.cpp
+        events/PusherEventServiceTest.cpp
+        events/TokenChannelTest.cpp
+        events/WalletChannelTest.cpp
         graphql/AbstractGraphqlRequestTest.cpp
         graphql/GraphqlErrorTest.cpp
         graphql/GraphqlQueryRegistryTest.cpp
@@ -122,6 +128,8 @@ target_link_libraries(unittests
 target_include_directories(
         unittests
         PRIVATE
+        ${PROJECT_SOURCE_DIR}/src/events
+        ${PROJECT_SOURCE_DIR}/src/events/channels
         ${PROJECT_SOURCE_DIR}/src/graphql
         ${PROJECT_SOURCE_DIR}/src/http
         ${PROJECT_SOURCE_DIR}/src/utils
