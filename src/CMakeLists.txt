@@ -8,6 +8,7 @@ set(SOURCE_FILES
         PlayerClient.cpp
         ProjectClient.cpp
         TrustedPlatformMiddleware.cpp
+        events/EventListenerRegistration.cpp
         events/EventTypeDef.cpp
         events/EventTypeDef.hpp
         events/channels/AppChannel.cpp
