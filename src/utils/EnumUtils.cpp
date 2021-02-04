@@ -211,6 +211,71 @@ enjin::sdk::models::TokenVariantMode deserialize_token_variant_mode(const std::s
     return models::TokenVariantMode::UNKNOWN;
 }
 
+std::string serialize_event_type(models::EventType v) noexcept {
+    switch (v) {
+        case models::EventType::APP_CREATED:
+            return "APP_CREATED";
+        case models::EventType::APP_DELETED:
+            return "APP_DELETED";
+        case models::EventType::APP_LINKED:
+            return "APP_LINKED";
+        case models::EventType::APP_LOCKED:
+            return "APP_LOCKED";
+        case models::EventType::APP_UNLINKED:
+            return "APP_UNLINKED";
+        case models::EventType::APP_UNLOCKED:
+            return "APP_UNLOCKED";
+        case models::EventType::APP_UPDATED:
+            return "APP_UPDATED";
+        case models::EventType::BLOCKCHAIN_LOG_PROCESSED:
+            return "BLOCKCHAIN_LOG_PROCESSED";
+        case models::EventType::MESSAGE_PROCESSED:
+            return "MESSAGE_PROCESSED";
+        case models::EventType::PLAYER_CREATED:
+            return "PLAYER_CREATED";
+        case models::EventType::PLAYER_DELETED:
+            return "PLAYER_DELETED";
+        case models::EventType::PLAYER_LINKED:
+            return "PLAYER_LINKED";
+        case models::EventType::PLAYER_UNLINKED:
+            return "PLAYER_UNLINKED";
+        case models::EventType::PLAYER_UPDATED:
+            return "PLAYER_UPDATED";
+        case models::EventType::TOKEN_CREATED:
+            return "TOKEN_CREATED";
+        case models::EventType::TOKEN_MELTED:
+            return "TOKEN_MELTED";
+        case models::EventType::TOKEN_MINTED:
+            return "TOKEN_MINTED";
+        case models::EventType::TOKEN_TRANSFERRED:
+            return "TOKEN_TRANSFERRED";
+        case models::EventType::TOKEN_UPDATED:
+            return "TOKEN_UPDATED";
+        case models::EventType::TRADE_COMPLETED:
+            return "TRADE_COMPLETED";
+        case models::EventType::TRADE_CREATED:
+            return "TRADE_CREATED";
+        case models::EventType::TRANSACTION_BROADCAST:
+            return "TRANSACTION_BROADCAST";
+        case models::EventType::TRANSACTION_CANCELED:
+            return "TRANSACTION_CANCELED";
+        case models::EventType::TRANSACTION_DROPPED:
+            return "TRANSACTION_DROPPED";
+        case models::EventType::TRANSACTION_EXECUTED:
+            return "TRANSACTION_EXECUTED";
+        case models::EventType::TRANSACTION_FAILED:
+            return "TRANSACTION_FAILED";
+        case models::EventType::TRANSACTION_PENDING:
+            return "TRANSACTION_PENDING";
+        case models::EventType::TRANSACTION_PROCESSING:
+            return "TRANSACTION_PROCESSING";
+        case models::EventType::TRANSACTION_UPDATED:
+            return "TRANSACTION_UPDATED";
+        default:
+            return "";
+    }
+}
+
 std::string serialize_request_state(enjin::sdk::models::RequestState v) noexcept {
     switch (v) {
         case models::RequestState::PENDING:

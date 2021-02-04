@@ -21,7 +21,19 @@ TEST_P(EventTypeTest, DeserializeEventTypeReturnsExpectedValue) {
     ASSERT_EQ(expected, actual);
 }
 
-INSTANTIATE_TEST_SUITE_P(DeserializeEventType,
+TEST_P(EventTypeTest, SerializeEventTypeReturnsExpectedString) {
+    // Arrange
+    const std::string& expected = std::get<0>(GetParam());
+    EventType value = std::get<1>(GetParam());
+
+    // Act
+    std::string actual = serialize_event_type(value);
+
+    // Assert
+    ASSERT_EQ(expected, actual);
+}
+
+INSTANTIATE_TEST_SUITE_P(SerializableRequestState,
                          EventTypeTest,
                          testing::Values(std::make_tuple("APP_CREATED", EventType::APP_CREATED),
                                          std::make_tuple("APP_DELETED", EventType::APP_DELETED),

@@ -32,6 +32,8 @@ enjin::sdk::models::TokenTransferable deserialize_token_transferable(const std::
 
 enjin::sdk::models::TokenVariantMode deserialize_token_variant_mode(const std::string& s) noexcept;
 
+std::string serialize_event_type(enjin::sdk::models::EventType v) noexcept;
+
 std::string serialize_request_state(enjin::sdk::models::RequestState v) noexcept;
 
 std::string serialize_request_type(enjin::sdk::models::RequestType v) noexcept;
