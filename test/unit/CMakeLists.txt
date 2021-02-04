@@ -26,6 +26,7 @@ set(TEST_FILES
         models/MeltTest.cpp
         models/MintInputTest.cpp
         models/ModelsTestSuite.hpp
+        models/NotificationEventTest.cpp
         models/NotificationsTest.cpp
         models/PaginationCursorTest.cpp
         models/PaginationOptionsTest.cpp
