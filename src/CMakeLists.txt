@@ -39,6 +39,7 @@ set(SOURCE_FILES
         models/LinkingInfo.cpp
         models/Melt.cpp
         models/MintInput.cpp
+        models/NotificationEvent.cpp
         models/Notifications.cpp
         models/PaginationCursor.cpp
         models/PaginationOptions.cpp
