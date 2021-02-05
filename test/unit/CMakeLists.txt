@@ -117,10 +117,13 @@ set(TEST_FILES
         utils/EnumUtilsWhitelistedTest.cpp
         utils/RapidJsonUtilsTest.cpp
         utils/StringUtilsTest.cpp
-        ../utils/MockHttpServer.cpp
-        ../utils/MockHttpServer.hpp
+        websockets/WebsocketClientImplTest.cpp
         ../utils/DummyObject.cpp
         ../utils/DummyObject.hpp
+        ../utils/MockHttpServer.cpp
+        ../utils/MockHttpServer.hpp
+        ../utils/MockWebsocketServer.cpp
+        ../utils/MockWebsocketServer.hpp
 )
 add_executable(unittests ${TEST_FILES})
 target_link_libraries(unittests
@@ -137,4 +140,5 @@ target_include_directories(
         ${PROJECT_SOURCE_DIR}/src/graphql
         ${PROJECT_SOURCE_DIR}/src/http
         ${PROJECT_SOURCE_DIR}/src/utils
+        ${PROJECT_SOURCE_DIR}/src/websockets
 )

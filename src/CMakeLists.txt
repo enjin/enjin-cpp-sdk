@@ -128,6 +128,8 @@ set(SOURCE_FILES
         utils/RapidJsonUtils.hpp
         utils/StringUtils.cpp
         utils/StringUtils.hpp
+        websockets/WebsocketClientImpl.cpp
+        websockets/WebsocketClientImpl.hpp
 )
 
 add_library(enjinsdk ${SOURCE_FILES})
@@ -140,4 +142,5 @@ target_include_directories(enjinsdk
         ${CMAKE_CURRENT_SOURCE_DIR}/graphql
         ${CMAKE_CURRENT_SOURCE_DIR}/http
         ${CMAKE_CURRENT_SOURCE_DIR}/utils
+        ${CMAKE_CURRENT_SOURCE_DIR}/websockets
 )
