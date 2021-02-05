@@ -1,6 +1,7 @@
 file(GLOB HEADERS_ENJINSDK
         "${PROJECT_SOURCE_DIR}/include/enjinsdk/*.hpp"
-        "${PROJECT_SOURCE_DIR}/include/enjinsdk/*/*.hpp")
+        "${PROJECT_SOURCE_DIR}/include/enjinsdk/*/*.hpp"
+        "${PROJECT_SOURCE_DIR}/include/enjinsdk/*/*/*.hpp")
 source_group("Header Files\\enjinsdk" FILES ${HEADERS_ENJINSDK})
 
 set(SOURCE_FILES
@@ -68,6 +69,10 @@ set(SOURCE_FILES
         models/TransactionSort.cpp
         models/Transfer.cpp
         models/Wallet.cpp
+        pusher/PusherChannel.cpp
+        pusher/PusherClient.cpp
+        pusher/PusherEvent.cpp
+        pusher/PusherOptions.cpp
         schemas/BaseSchema.cpp
         schemas/player/PlayerSchema.cpp
         schemas/player/mutations/UnlinkWallet.cpp
