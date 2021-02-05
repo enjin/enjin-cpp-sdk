@@ -18,7 +18,7 @@ std::optional<bool> get_bool_result(const std::string& data_json);
 /// \param data_json The JSON.
 /// \return Optional with the pagination cursor and serialized items array.
 std::optional<std::pair<models::PaginationCursor, std::vector<std::string>>>
-get_pagination_tuple(const std::string& data_json);
+get_pagination_data(const std::string& data_json);
 
 /// \brief Extracts the serialized result objects array from the data JSON.
 /// \param data_json The JSON.

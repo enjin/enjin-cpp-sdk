@@ -95,7 +95,7 @@ protected:
 
     void process_data(const std::string& data_json) override {
         if (is_json_paginated(data_json)) {
-            auto pagination_pair = get_pagination_tuple(data_json);
+            auto pagination_pair = get_pagination_data(data_json);
             if (pagination_pair.has_value()) {
                 cursor = pagination_pair.value().first;
 

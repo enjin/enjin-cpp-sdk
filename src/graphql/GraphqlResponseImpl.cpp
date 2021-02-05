@@ -20,7 +20,7 @@ std::optional<bool> get_bool_result(const std::string& data_json) {
 }
 
 std::optional<std::pair<models::PaginationCursor, std::vector<std::string>>>
-get_pagination_tuple(const std::string& data_json) {
+get_pagination_data(const std::string& data_json) {
     rapidjson::Document document;
     document.Parse(data_json.c_str());
 
