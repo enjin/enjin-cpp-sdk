@@ -57,6 +57,9 @@ set(TEST_FILES
         models/TransactionSortTest.cpp
         models/TransferTest.cpp
         models/WalletTest.cpp
+        pusher/PusherChannelTest.cpp
+        pusher/PusherClientTest.cpp
+        pusher/PusherEventTest.cpp
         schemas/BaseSchemaTest.cpp
         schemas/project/mutations/CreatePlayerTest.cpp
         schemas/project/mutations/CreateTokenTest.cpp
