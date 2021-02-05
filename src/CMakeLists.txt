@@ -12,6 +12,7 @@ set(SOURCE_FILES
         events/EventListenerRegistration.cpp
         events/EventTypeDef.cpp
         events/EventTypeDef.hpp
+        events/PusherEventService.cpp
         events/channels/AppChannel.cpp
         events/channels/AppChannel.hpp
         events/channels/IChannel.hpp
