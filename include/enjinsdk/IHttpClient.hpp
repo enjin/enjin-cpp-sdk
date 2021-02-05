@@ -10,7 +10,7 @@ namespace enjin::sdk::http {
 
 // TODO: Add constructor argument to add a HTTP interceptor/handler.
 
-/// \brief Abstract HTTP client class to be used for interfacing with the SDK.
+/// \brief HTTP client interface to be used for interfacing with the Enjin SDK platform clients.
 class IHttpClient {
 public:
     constexpr static char CONTENT_TYPE[] = "application/json; charset=utf-8"; // TODO: Move to a class for defined consts.
