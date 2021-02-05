@@ -123,6 +123,7 @@ set(TEST_FILES
         websockets/WebsocketClientImplTest.cpp
         ../utils/DummyObject.cpp
         ../utils/DummyObject.hpp
+        ../utils/MockEventListener.hpp
         ../utils/MockHttpServer.cpp
         ../utils/MockHttpServer.hpp
         ../utils/MockWebsocketServer.cpp
