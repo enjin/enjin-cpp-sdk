@@ -7,6 +7,7 @@ set(TEST_FILES
         events/EventListenerRegistrationTest.cpp
         events/PlayerChannelTest.cpp
         events/PusherEventServiceTest.cpp
+        events/RegistrationListenerConfigurationTest.cpp
         events/TokenChannelTest.cpp
         events/WalletChannelTest.cpp
         graphql/AbstractGraphqlRequestTest.cpp
