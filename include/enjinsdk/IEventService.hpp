@@ -29,6 +29,22 @@ public:
     /// \return Whether this service is connected.
     virtual bool is_connected() = 0;
 
+    /// \brief Sets a handler for when the service connects to the server.
+    /// \param handler The handler.
+    virtual void set_connected_handler(const std::function<void()>& handler) = 0;
+
+    /// \brief Sets a handler for when the service disconnects from the server.
+    /// \param handler The handler.
+    virtual void set_disconnected_handler(const std::function<void()>& handler) = 0;
+
+    /// \brief Sets a handler for when the service encounters an error.
+    /// \param handler The handler.
+    /// \remarks The arguments for the handler are a standard string as the message, a standard string as the error
+    /// code, and a exception.
+    virtual void set_error_handler(const std::function<void(const std::string& message,
+                                                            const std::string& code,
+                                                            const std::exception& e)>& handler) = 0;
+
     /// \brief Registers a event listener and provides the registration for it.
     /// \param listener The shared listener.
     /// \return The registration.

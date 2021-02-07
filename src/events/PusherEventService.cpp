@@ -65,6 +65,19 @@ bool PusherEventService::is_connected() {
     return pusher_client != nullptr && pusher_client->get_state() == pusher::ConnectionState::CONNECTED;
 }
 
+void PusherEventService::set_connected_handler(const std::function<void()>& handler) {
+    connected_handler = handler;
+}
+
+void PusherEventService::set_disconnected_handler(const std::function<void()>& handler) {
+    disconnected_handler = handler;
+}
+
+void PusherEventService::set_error_handler(
+        const std::function<void(const std::string&, const std::string&, const std::exception&)>& handler) {
+    error_handler = handler;
+}
+
 EventListenerRegistration PusherEventService::register_listener(std::shared_ptr<IEventListener> listener) {
     return cache_registration(EventListenerRegistration::RegistrationListenerConfiguration(listener));
 }

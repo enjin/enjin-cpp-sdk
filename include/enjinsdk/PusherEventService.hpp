@@ -73,6 +73,14 @@ public:
 
     bool is_connected() override;
 
+    void set_connected_handler(const std::function<void()>& handler) override;
+
+    void set_disconnected_handler(const std::function<void()>& handler) override;
+
+    void set_error_handler(const std::function<void(const std::string&,
+                                                    const std::string&,
+                                                    const std::exception&)>& handler) override;
+
     EventListenerRegistration register_listener(std::shared_ptr<IEventListener> listener) override;
 
     EventListenerRegistration
@@ -124,6 +132,11 @@ private:
     std::optional<models::Platform> platform;
     std::unique_ptr<pusher::PusherClient> pusher_client;
     std::shared_ptr<websockets::IWebsocketClient> ws_client;
+
+    // Handlers
+    std::optional<std::function<void()>> connected_handler;
+    std::optional<std::function<void()>> disconnected_handler;
+    std::optional<std::function<void(const std::string&, const std::string&, const std::exception&)>> error_handler;
 
     explicit PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client);
 
