@@ -42,8 +42,9 @@ void PusherEventService::start() {
 
     pusher::PusherOptions options = pusher::PusherOptions()
             .set_cluster(cluster.value())
-            .set_use_tls(encrypted.value());
-    pusher_client = pusher::PusherClient(ws_client, key.value(), options);
+            .set_encrypted(encrypted.value());
+    pusher_client = std::make_unique<pusher::PusherClient>(ws_client, key.value(), options);
+
     listener = PusherEventListener(*this);
 
     // TODO: Use pusher_client->connect() to setup error logging.
@@ -55,13 +56,13 @@ void PusherEventService::start(models::Platform platform) {
 }
 
 void PusherEventService::shutdown() {
-    if (pusher_client.has_value()) {
+    if (pusher_client != nullptr) {
         pusher_client->disconnect();
     }
 }
 
 bool PusherEventService::is_connected() {
-    return pusher_client.has_value() && pusher_client->get_state() == pusher::ConnectionState::CONNECTED;
+    return pusher_client != nullptr && pusher_client->get_state() == pusher::ConnectionState::CONNECTED;
 }
 
 EventListenerRegistration PusherEventService::register_listener(std::shared_ptr<IEventListener> listener) {
@@ -167,7 +168,7 @@ bool PusherEventService::is_subscribed_to_wallet(const std::string& wallet) {
 }
 
 void PusherEventService::subscribe(const std::string& channel) {
-    if (!pusher_client.has_value() || subscribed.find(channel) != subscribed.end()) {
+    if (pusher_client == nullptr || subscribed.find(channel) != subscribed.end()) {
         return;
     }
 
@@ -178,7 +179,7 @@ void PusherEventService::subscribe(const std::string& channel) {
 
 void PusherEventService::unsubscribe(const std::string& channel) {
     auto iter = subscribed.find(channel);
-    if (!pusher_client.has_value() || iter == subscribed.end()) {
+    if (pusher_client == nullptr || iter == subscribed.end()) {
         return;
     }
 
