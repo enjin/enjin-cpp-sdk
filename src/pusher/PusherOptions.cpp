@@ -1,5 +1,7 @@
 #include "enjinsdk/internal/pusher/PusherOptions.hpp"
 
+#include <sstream>
+
 namespace enjin::pusher {
 
 PusherOptions& PusherOptions::set_cluster(const std::string& cluster) {
@@ -7,9 +9,25 @@ PusherOptions& PusherOptions::set_cluster(const std::string& cluster) {
     return *this;
 }
 
-PusherOptions& PusherOptions::set_use_tls(bool use_tls) {
-    PusherOptions::use_tls = use_tls;
+PusherOptions& PusherOptions::set_encrypted(bool encrypted) {
+    PusherOptions::encrypted = encrypted;
     return *this;
+}
+
+const std::optional<std::string>& PusherOptions::get_cluster() const {
+    return cluster;
+}
+
+bool PusherOptions::is_encrypted() const {
+    return encrypted;
+}
+
+std::string PusherOptions::host() const {
+    return (std::stringstream()
+            << "ws-"
+            << cluster.value_or("mt1")
+            << ".pusher.com"
+    ).str();
 }
 
 }

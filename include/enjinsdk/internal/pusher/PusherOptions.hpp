@@ -13,13 +13,19 @@ public:
 
     ~PusherOptions() = default;
 
+    [[nodiscard]] std::string host() const;
+
+    [[nodiscard]] bool is_encrypted() const;
+
     PusherOptions& set_cluster(const std::string& cluster);
 
-    PusherOptions& set_use_tls(bool use_tls);
+    PusherOptions& set_encrypted(bool encrypted);
+
+    [[nodiscard]] const std::optional<std::string>& get_cluster() const;
 
 private:
     std::optional<std::string> cluster;
-    bool use_tls = false;
+    bool encrypted = false;
 };
 
 }

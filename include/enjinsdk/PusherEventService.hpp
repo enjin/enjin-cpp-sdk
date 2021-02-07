@@ -122,8 +122,7 @@ protected:
 private:
     std::optional<PusherEventListener> listener;
     std::optional<models::Platform> platform;
-    std::optional<pusher::PusherClient> pusher_client;
-    std::map<std::string, pusher::PusherChannel> subscribed;
+    std::unique_ptr<pusher::PusherClient> pusher_client;
     std::shared_ptr<websockets::IWebsocketClient> ws_client;
 
     explicit PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client);
