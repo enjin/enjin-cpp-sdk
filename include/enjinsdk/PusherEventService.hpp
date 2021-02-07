@@ -3,7 +3,6 @@
 
 #include "enjinsdk/IEventService.hpp"
 #include "enjinsdk/IWebsocketClient.hpp"
-#include "enjinsdk/internal/pusher/PusherChannel.hpp"
 #include "enjinsdk/internal/pusher/PusherClient.hpp"
 #include "enjinsdk/internal/pusher/PusherEvent.hpp"
 #include "enjinsdk/internal/pusher/ISubscriptionEventListener.hpp"
@@ -130,6 +129,8 @@ protected:
 private:
     std::optional<PusherEventListener> listener;
     std::optional<models::Platform> platform;
+    std::map<std::string, pusher::PusherClient::PusherChannel> subscribed;
+
     std::unique_ptr<pusher::PusherClient> pusher_client;
     std::shared_ptr<websockets::IWebsocketClient> ws_client;
 
@@ -146,7 +147,7 @@ private:
 
     void unsubscribe(const std::string& channel);
 
-    void bind(pusher::PusherChannel& channel);
+    void bind(pusher::PusherClient::PusherChannel& channel);
 
     friend std::unique_ptr<PusherEventService> PusherEventServiceBuilder::build();
 };

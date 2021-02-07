@@ -47,7 +47,25 @@ void PusherEventService::start() {
 
     listener = PusherEventListener(*this);
 
-    // TODO: Use pusher_client->connect() to setup error logging.
+    pusher_client->connect(
+            [this](pusher::ConnectionState state) { // On connection state change
+                // TODO: Log event service state.
+
+                if (state == pusher::ConnectionState::CONNECTED && connected_handler.has_value()) {
+                    connected_handler.value()();
+                } else if (state == pusher::ConnectionState::DISCONNECTED && disconnected_handler.has_value()) {
+                    disconnected_handler.value()();
+                }
+            },
+            [this](const std::string& message,
+                   const std::string& code,
+                   const std::exception& e) { // On error
+                if (error_handler.has_value()) {
+                    error_handler.value()(message, code, e);
+                } else {
+                    // TODO: Log error.
+                }
+            });
 }
 
 void PusherEventService::start(models::Platform platform) {
@@ -185,7 +203,7 @@ void PusherEventService::subscribe(const std::string& channel) {
         return;
     }
 
-    pusher::PusherChannel pusher_channel = pusher_client->subscribe(channel);
+    pusher::PusherClient::PusherChannel pusher_channel = pusher_client->subscribe(channel).get();
     subscribed.emplace(channel, pusher_channel);
     bind(pusher_channel);
 }
@@ -200,7 +218,7 @@ void PusherEventService::unsubscribe(const std::string& channel) {
     pusher_client->unsubscribe(channel);
 }
 
-void PusherEventService::bind(pusher::PusherChannel& channel) {
+void PusherEventService::bind(pusher::PusherClient::PusherChannel& channel) {
     for (auto& def : EventTypeDef::filter_by_channel_types({channel.get_name()})) {
         channel.bind(def.get_key(), listener.value());
     }
