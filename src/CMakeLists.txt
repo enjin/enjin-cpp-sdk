@@ -70,7 +70,6 @@ set(SOURCE_FILES
         models/TransactionSort.cpp
         models/Transfer.cpp
         models/Wallet.cpp
-        pusher/PusherChannel.cpp
         pusher/PusherClient.cpp
         pusher/PusherEvent.cpp
         pusher/PusherOptions.cpp
