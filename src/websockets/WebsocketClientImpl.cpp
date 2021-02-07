@@ -33,10 +33,25 @@ void WebsocketClientImpl::set_close_handler(const std::function<void(int,
 }
 
 void WebsocketClientImpl::set_message_handler(const std::function<void(const std::string& message)>& handler) {
-    ws_client.set_message_handler([handler](const web::websockets::client::websocket_incoming_message& msg) {
-        // Only handle incoming messages that are strings
-        if (msg.message_type() == web::websockets::client::websocket_message_type::text_message) {
-            handler(msg.extract_string().get());
+    ws_client.set_message_handler([this, handler](const web::websockets::client::websocket_incoming_message& in) {
+        // Only use handler for incoming messages that are strings
+        if (in.message_type() == web::websockets::client::websocket_message_type::text_message) {
+            handler(in.extract_string().get());
+            return;
+        }
+
+        // Handle non-string messages
+        web::websockets::client::websocket_outgoing_message out;
+        switch (in.message_type()) {
+            case web::websockets::client::websocket_message_type::ping: // Respond to maintain connection
+                out.set_pong_message("ws client pong");
+                ws_client.send(out);
+                break;
+            case web::websockets::client::websocket_message_type::pong: // TODO: Handle pong and binary messages.
+            case web::websockets::client::websocket_message_type::binary_message:
+                break;
+            default: // Ignore close messages
+                break;
         }
     });
 }
