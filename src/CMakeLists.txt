@@ -72,6 +72,7 @@ set(SOURCE_FILES
         models/Wallet.cpp
         pusher/PusherClient.cpp
         pusher/PusherEvent.cpp
+        pusher/PusherException.cpp
         pusher/PusherOptions.cpp
         schemas/BaseSchema.cpp
         schemas/player/PlayerSchema.cpp
