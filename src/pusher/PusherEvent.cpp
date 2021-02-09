@@ -4,6 +4,11 @@
 
 namespace enjin::pusher {
 
+static constexpr char USER_ID_KEY[] = "user_id";
+static constexpr char CHANNEL_NAME_KEY[] = "channel";
+static constexpr char EVENT_NAME_KEY[] = "event";
+static constexpr char DATA_KEY[] = "data";
+
 void PusherEvent::deserialize(const std::string& json) {
     rapidjson::Document document;
     document.Parse(json.c_str());

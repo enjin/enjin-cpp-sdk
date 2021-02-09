@@ -8,7 +8,7 @@
 namespace enjin::pusher {
 
 /// \brief TODO
-class PusherEvent : sdk::serialization::IDeserializable {
+class PusherEvent : public sdk::serialization::IDeserializable {
 public:
     PusherEvent() = default;
 
@@ -33,11 +33,6 @@ private:
     std::optional<std::string> channel_name;
     std::optional<std::string> event_name;
     std::optional<std::string> data;
-
-    constexpr static char USER_ID_KEY[] = "user_id";
-    constexpr static char CHANNEL_NAME_KEY[] = "channel";
-    constexpr static char EVENT_NAME_KEY[] = "event";
-    constexpr static char DATA_KEY[] = "data";
 };
 
 }
