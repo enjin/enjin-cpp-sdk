@@ -6,9 +6,9 @@
 #include "enjinsdk/internal/pusher/PusherClient.hpp"
 #include "enjinsdk/internal/pusher/PusherEvent.hpp"
 #include "enjinsdk/internal/pusher/ISubscriptionEventListener.hpp"
-#include <map>
 #include <memory>
 #include <optional>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -76,9 +76,7 @@ public:
 
     void set_disconnected_handler(const std::function<void()>& handler) override;
 
-    void set_error_handler(const std::function<void(const std::string&,
-                                                    const std::string&,
-                                                    const std::exception&)>& handler) override;
+    void set_error_handler(const std::function<void(const std::exception&)>& handler) override;
 
     EventListenerRegistration register_listener(std::shared_ptr<IEventListener> listener) override;
 
@@ -127,9 +125,9 @@ protected:
     cache_registration(EventListenerRegistration::RegistrationListenerConfiguration configuration);
 
 private:
-    std::optional<PusherEventListener> listener;
+    std::shared_ptr<PusherEventListener> listener;
     std::optional<models::Platform> platform;
-    std::map<std::string, pusher::PusherClient::PusherChannel> subscribed;
+    std::set<std::string> subscribed;
 
     std::unique_ptr<pusher::PusherClient> pusher_client;
     std::shared_ptr<websockets::IWebsocketClient> ws_client;
@@ -137,7 +135,7 @@ private:
     // Handlers
     std::optional<std::function<void()>> connected_handler;
     std::optional<std::function<void()>> disconnected_handler;
-    std::optional<std::function<void(const std::string&, const std::string&, const std::exception&)>> error_handler;
+    std::optional<std::function<void(const std::exception&)>> error_handler;
 
     explicit PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client);
 
@@ -147,7 +145,7 @@ private:
 
     void unsubscribe(const std::string& channel);
 
-    void bind(pusher::PusherClient::PusherChannel& channel);
+    void bind(const std::string& channel);
 
     friend std::unique_ptr<PusherEventService> PusherEventServiceBuilder::build();
 };
