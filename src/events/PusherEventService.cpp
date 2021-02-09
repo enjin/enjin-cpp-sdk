@@ -45,7 +45,7 @@ void PusherEventService::start() {
             .set_encrypted(encrypted.value());
     pusher_client = std::make_unique<pusher::PusherClient>(ws_client, key.value(), options);
 
-    listener = PusherEventListener(*this);
+    listener = std::make_shared<PusherEventListener>(*this);
 
     pusher_client->connect(
             [this](pusher::ConnectionState state) { // On connection state change
@@ -57,13 +57,11 @@ void PusherEventService::start() {
                     disconnected_handler.value()();
                 }
             },
-            [this](const std::string& message,
-                   const std::string& code,
-                   const std::exception& e) { // On error
+            [this](const std::exception& e) { // On error
                 if (error_handler.has_value()) {
-                    error_handler.value()(message, code, e);
+                    error_handler.value()(e);
                 } else {
-                    // TODO: Log error.
+                    // TODO: Log exception.
                 }
             });
 }
@@ -91,8 +89,7 @@ void PusherEventService::set_disconnected_handler(const std::function<void()>& h
     disconnected_handler = handler;
 }
 
-void PusherEventService::set_error_handler(
-        const std::function<void(const std::string&, const std::string&, const std::exception&)>& handler) {
+void PusherEventService::set_error_handler(const std::function<void(const std::exception&)>& handler) {
     error_handler = handler;
 }
 
@@ -203,9 +200,9 @@ void PusherEventService::subscribe(const std::string& channel) {
         return;
     }
 
-    pusher::PusherClient::PusherChannel pusher_channel = pusher_client->subscribe(channel).get();
-    subscribed.emplace(channel, pusher_channel);
-    bind(pusher_channel);
+    pusher_client->subscribe(channel).get();
+    subscribed.emplace(channel);
+    bind(channel);
 }
 
 void PusherEventService::unsubscribe(const std::string& channel) {
@@ -218,9 +215,9 @@ void PusherEventService::unsubscribe(const std::string& channel) {
     pusher_client->unsubscribe(channel);
 }
 
-void PusherEventService::bind(pusher::PusherClient::PusherChannel& channel) {
-    for (auto& def : EventTypeDef::filter_by_channel_types({channel.get_name()})) {
-        channel.bind(def.get_key(), listener.value());
+void PusherEventService::bind(const std::string& channel) {
+    for (auto& def : EventTypeDef::filter_by_channel_types({channel})) {
+        pusher_client->bind(def.get_key(), listener);
     }
 }
 

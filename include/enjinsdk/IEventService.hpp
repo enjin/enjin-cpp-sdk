@@ -39,11 +39,7 @@ public:
 
     /// \brief Sets a handler for when the service encounters an error.
     /// \param handler The handler.
-    /// \remarks The arguments for the handler are a standard string as the message, a standard string as the error
-    /// code, and a exception.
-    virtual void set_error_handler(const std::function<void(const std::string& message,
-                                                            const std::string& code,
-                                                            const std::exception& e)>& handler) = 0;
+    virtual void set_error_handler(const std::function<void(const std::exception& e)>& handler) = 0;
 
     /// \brief Registers a event listener and provides the registration for it.
     /// \param listener The shared listener.
