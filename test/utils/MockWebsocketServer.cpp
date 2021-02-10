@@ -184,37 +184,29 @@ public:
     void send_message(const TestWebsocketMessage& message) {
         pplx::task<void>(server_connected).wait();
         const auto& data = message.get_data();
-        auto flag = websocketpp::frame::opcode::close;
+        std::string string_message(data.begin(), data.end());
 
         switch (message.get_type()) {
             case WebsocketMessageType::WEBSOCKET_BINARY_MESSAGE_TYPE:
-                flag = websocketpp::frame::opcode::BINARY;
+                server.send(connection, string_message, websocketpp::frame::opcode::BINARY);
                 break;
             case WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE:
-                flag = websocketpp::frame::opcode::TEXT;
+                server.send(connection, string_message, websocketpp::frame::opcode::TEXT);
                 break;
             case WebsocketMessageType::WEBSOCKET_CLOSE_TYPE:
-                flag = websocketpp::frame::opcode::CLOSE;
+                close(string_message);
                 break;
             case WebsocketMessageType::WEBSOCKET_PING_TYPE:
-                flag = websocketpp::frame::opcode::PING;
+                server.ping(connection, string_message);
                 break;
             case WebsocketMessageType::WEBSOCKET_PONG_TYPE:
-                flag = websocketpp::frame::opcode::PONG;
+                server.ping(connection, string_message);
                 break;
             case WebsocketMessageType::WEBSOCKET_BINARY_FRAGMENT_TYPE:
             case WebsocketMessageType::WEBSOCKET_UTF8_FRAGMENT_TYPE:
                 throw std::runtime_error("Invalid websocket message type");
             default:
                 throw std::runtime_error("Unknown websocket message type");
-        }
-
-        std::string string_message(data.begin(), data.end());
-
-        if (message.get_type() == WebsocketMessageType::WEBSOCKET_CLOSE_TYPE) {
-            close(string_message);
-        } else {
-            server.send(connection, string_message, flag);
         }
     }
 
