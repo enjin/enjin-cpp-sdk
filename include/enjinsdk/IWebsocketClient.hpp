@@ -22,6 +22,12 @@ public:
     /// \return The future for this operation.
     virtual std::future<void> close() = 0;
 
+    /// \brief Closes the websocket connection with the provided code and message.
+    /// \param status_code The status code.
+    /// \param reason The reason message.
+    /// \return The future for this operation.
+    virtual std::future<void> close(int status_code, const std::string& reason) = 0;
+
     /// \brief Sends a websocket message to the server.
     /// \param data The message string.
     /// \return The future for this operation.

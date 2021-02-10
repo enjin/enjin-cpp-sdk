@@ -18,6 +18,10 @@ public:
 
     std::future<void> connect(const std::string& uri) override;
 
+    std::future<void> close() override;
+
+    std::future<void> close(int status_code, const std::string& reason) override;
+
     std::future<void> send(const std::string& data) override;
 
     void set_close_handler(const std::function<void(int close_status,
@@ -25,8 +29,6 @@ public:
                                                     const std::error_code& error)>& handler) override;
 
     void set_message_handler(const std::function<void(const std::string& message)>& handler) override;
-
-    std::future<void> close() override;
 
 private:
     web::web_sockets::client::websocket_callback_client ws_client;
