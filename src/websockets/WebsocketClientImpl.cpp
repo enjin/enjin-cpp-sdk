@@ -4,13 +4,20 @@ namespace enjin::sdk::websockets {
 
 std::future<void> WebsocketClientImpl::connect(const std::string& uri) {
     return std::async([this, uri]() {
-        ws_client.connect(utility::conversions::to_string_t(uri));
+        ws_client.connect(utility::conversions::to_string_t(uri)).wait();
     });
 }
 
 std::future<void> WebsocketClientImpl::close() {
     return std::async([this]() {
-        ws_client.close();
+        ws_client.close().wait();
+    });
+}
+
+std::future<void> WebsocketClientImpl::close(int status_code, const std::string& reason) {
+    return std::async([this, status_code, reason]() {
+        ws_client.close((web::websockets::client::websocket_close_status) status_code,
+                        utility::conversions::to_string_t(reason)).wait();
     });
 }
 
@@ -18,7 +25,7 @@ std::future<void> WebsocketClientImpl::send(const std::string& data) {
     return std::async([this, data]() {
         web::websockets::client::websocket_outgoing_message message;
         message.set_utf8_message(data);
-        ws_client.send(message);
+        ws_client.send(message).wait();
     });
 }
 
@@ -45,7 +52,7 @@ void WebsocketClientImpl::set_message_handler(const std::function<void(const std
         switch (in.message_type()) {
             case web::websockets::client::websocket_message_type::ping: // Respond to maintain connection
                 out.set_pong_message("ws client pong");
-                ws_client.send(out);
+                ws_client.send(out).wait();
                 break;
             case web::websockets::client::websocket_message_type::pong: // TODO: Handle pong and binary messages.
             case web::websockets::client::websocket_message_type::binary_message:
