@@ -47,7 +47,7 @@ class TestHttpRequestImpl : public ITestHttpRequest {
 public:
     TestHttpRequestImpl() = delete;
 
-    TestHttpRequestImpl(Server::connection_ptr connection) : connection(connection) {
+    explicit TestHttpRequestImpl(Server::connection_ptr connection) : connection(connection) {
     }
 
     ~TestHttpRequestImpl() override = default;
@@ -115,20 +115,22 @@ public:
 
         server.set_ping_handler([this](websocketpp::connection_hdl hdl, std::string input) {
             auto handler = mock_server->get_next_message_handler();
-            assert(handler);
+            if (handler) {
+                TestWebsocketMessage ws_message;
+                ws_message.set_data(std::vector<uint8_t>(input.begin(), input.end()));
+                ws_message.set_type(WebsocketMessageType::WEBSOCKET_PING_TYPE);
 
-            TestWebsocketMessage ws_message;
-            ws_message.set_data(std::vector<uint8_t>(input.begin(), input.end()));
-            ws_message.set_type(WebsocketMessageType::WEBSOCKET_PING_TYPE);
-
-            handler(ws_message);
+                handler(ws_message);
+            }
 
             return true;
         });
 
         server.set_pong_handler([this](websocketpp::connection_hdl hdl, std::string input) {
             auto handler = mock_server->get_next_message_handler();
-            assert(handler);
+            if (!handler) {
+                return;
+            }
 
             TestWebsocketMessage ws_message;
             ws_message.set_data(std::vector<uint8_t>(input.begin(), input.end()));
@@ -140,7 +142,9 @@ public:
         server.set_message_handler([this](websocketpp::connection_hdl hdl, Server::message_ptr message) {
             auto payload = message->get_payload();
             auto handler = mock_server->get_next_message_handler();
-            assert(handler);
+            if (!handler) {
+                return;
+            }
 
             TestWebsocketMessage ws_message;
             ws_message.set_data(std::vector<uint8_t>(payload.begin(), payload.end()));
@@ -200,7 +204,7 @@ public:
                 server.ping(connection, string_message);
                 break;
             case WebsocketMessageType::WEBSOCKET_PONG_TYPE:
-                server.ping(connection, string_message);
+                server.pong(connection, string_message);
                 break;
             case WebsocketMessageType::WEBSOCKET_BINARY_FRAGMENT_TYPE:
             case WebsocketMessageType::WEBSOCKET_UTF8_FRAGMENT_TYPE:
@@ -233,11 +237,12 @@ void MockWebsocketServer::next_message(std::function<void(TestWebsocketMessage)>
 std::function<void(TestWebsocketMessage)> MockWebsocketServer::get_next_message_handler() {
     std::lock_guard<std::mutex> guard(message_handlers_lock);
 
-    assert(!message_handlers.empty());
+    if (message_handlers.empty()) {
+        return std::function<void(TestWebsocketMessage)>();
+    }
+
     auto handler = message_handlers.front();
-    assert(handler);
     message_handlers.pop();
-    assert(handler);
 
     return handler;
 }
