@@ -5,6 +5,7 @@
 #include "enjinsdk/IWebsocketClient.hpp"
 #include <functional>
 #include <future>
+#include <optional>
 #include <string>
 
 namespace enjin::sdk::websockets {
@@ -12,7 +13,7 @@ namespace enjin::sdk::websockets {
 /// \brief Implementation class of a websocket client.
 class WebsocketClientImpl : public IWebsocketClient {
 public:
-    WebsocketClientImpl() = default;
+    WebsocketClientImpl();
 
     ~WebsocketClientImpl() override = default;
 
@@ -30,8 +31,18 @@ public:
 
     void set_message_handler(const std::function<void(const std::string& message)>& handler) override;
 
+    /// \brief Sets the ping handler that will run after the client sends its pong to the server.
+    /// \param handler The handler.
+    void set_ping_handler(const std::function<void(const std::string&)>& handler) override;
+
+    void set_pong_handler(const std::function<void(const std::string&)>& handler) override;
+
 private:
     web::web_sockets::client::websocket_callback_client ws_client;
+
+    std::optional<std::function<void(const std::string& message)>> message_handler;
+    std::optional<std::function<void(const std::string& message)>> ping_handler;
+    std::optional<std::function<void(const std::string& message)>> pong_handler;
 };
 
 }

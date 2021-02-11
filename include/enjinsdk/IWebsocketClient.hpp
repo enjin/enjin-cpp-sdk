@@ -45,6 +45,14 @@ public:
     /// \param handler The handler.
     /// \remarks The argument for the handler is expected to be the message as a standard string.
     virtual void set_message_handler(const std::function<void(const std::string& message)>& handler) = 0;
+
+    /// \brief Sets the handler for receiving pings from the server.
+    /// \param handler The handler.
+    virtual void set_ping_handler(const std::function<void(const std::string& message)>& handler) = 0;
+
+    /// \brief Sets the handler for receiving pongs from the server.
+    /// \param handler The handler.
+    virtual void set_pong_handler(const std::function<void(const std::string& message)>& handler) = 0;
 };
 
 }
