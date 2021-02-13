@@ -127,6 +127,8 @@ set(TEST_FILES
         ../utils/MockHttpServer.hpp
         ../utils/MockWebsocketServer.cpp
         ../utils/MockWebsocketServer.hpp
+        ../utils/VerificationSuite.cpp
+        ../utils/VerificationSuite.hpp
 )
 add_executable(unittests ${TEST_FILES})
 target_link_libraries(unittests
