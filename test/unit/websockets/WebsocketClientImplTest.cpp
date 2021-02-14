@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "WebsocketClientImpl.hpp"
-#include "../../utils/MockWebsocketServer.hpp"
+#include "../../mocks/MockWebsocketServer.hpp"
 #include "../../utils/VerificationSuite.hpp"
 #include <string>
 

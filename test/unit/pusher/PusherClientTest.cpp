@@ -1,9 +1,9 @@
 #include "gtest/gtest.h"
 #include "enjinsdk/internal/pusher/Constants.hpp"
 #include "enjinsdk/internal/pusher/PusherClient.hpp"
-#include "../../utils/MockSubscriptionEventListener.hpp"
-#include "../../utils/MockWebSocketClientImpl.hpp"
-#include "../../utils/MockWebsocketServer.hpp"
+#include "../../mocks/MockSubscriptionEventListener.hpp"
+#include "../../mocks/MockWebSocketClientImpl.hpp"
+#include "../../mocks/MockWebsocketServer.hpp"
 #include "../../utils/VerificationSuite.hpp"
 #include <chrono>
 #include <memory>
