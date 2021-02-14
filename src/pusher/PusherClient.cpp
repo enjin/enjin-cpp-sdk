@@ -18,10 +18,12 @@ PusherClient::PusherClient(std::shared_ptr<sdk::websockets::IWebsocketClient> ws
                            const std::string& key,
                            PusherOptions& options)
         : ws_client(std::move(ws_client)), key(key), options(options) {
-    ws_client->set_message_handler([this](const std::string& message) {
+    PusherClient::ws_client->set_message_handler([this](const std::string& message) {
         websocket_message_received(message);
     });
-    ws_client->set_close_handler([this](int close_status, const std::string& message, const std::error_code& error) {
+    PusherClient::ws_client->set_close_handler([this](int close_status,
+                                                      const std::string& message,
+                                                      const std::error_code& error) {
         websocket_closed(close_status, message, error);
     });
 }
@@ -47,7 +49,8 @@ std::future<void> PusherClient::connect(const std::function<void(ConnectionState
                 << "/app/"
                 << key
                 << "?protocol=5&client=enjin-cpp-pusher-client&version=1.0.0"
-                           ).str());
+                           ).str()).wait();
+        set_state(ConnectionState::CONNECTED);
     });
 }
 
@@ -59,9 +62,11 @@ std::future<void> PusherClient::disconnect() {
             ws_client->close().wait();
             set_state(ConnectionState::DISCONNECTED);
         });
+    } else {
+        return std::async([this]() {
+            set_state(ConnectionState::DISCONNECTED);
+        });
     }
-
-    return std::future<void>(); // Do nothing since this was not connected;
 }
 
 std::future<void> PusherClient::subscribe(const std::string& channel_name) {
@@ -77,7 +82,7 @@ std::future<void> PusherClient::subscribe(const std::string& channel_name) {
 
         channels_lock.unlock();
 
-        subscribe_to_channel(channel_name);
+        subscribe_to_channel(channel_name).wait();
     });
 }
 
