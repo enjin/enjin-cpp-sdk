@@ -1,9 +1,9 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/internal/PaginationArguments.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::shared;
 
-class PaginationArgumentsTest : public ModelsTestSuite {
+class PaginationArgumentsTest : public JsonTestSuite {
 public:
     PaginationArguments class_under_test;
 

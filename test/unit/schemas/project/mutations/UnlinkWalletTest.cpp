@@ -1,10 +1,10 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/project/UnlinkWallet.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
 
-class UnlinkWalletTest : public ModelsTestSuite {
+class UnlinkWalletTest : public JsonTestSuite {
 public:
     UnlinkWallet class_under_test;
 

@@ -1,10 +1,10 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/project/ReleaseReserve.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
 
-class ReleaseReserveTest : public ModelsTestSuite {
+class ReleaseReserveTest : public JsonTestSuite {
 public:
     ReleaseReserve class_under_test;
 

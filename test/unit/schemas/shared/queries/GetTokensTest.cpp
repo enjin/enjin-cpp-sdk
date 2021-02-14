@@ -1,10 +1,10 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/shared/GetTokens.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::shared;
 
-class GetTokensTest : public ModelsTestSuite {
+class GetTokensTest : public JsonTestSuite {
 public:
     GetTokens class_under_test;
 

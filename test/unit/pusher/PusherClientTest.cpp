@@ -4,7 +4,7 @@
 #include "../../mocks/MockSubscriptionEventListener.hpp"
 #include "../../mocks/MockWebSocketClientImpl.hpp"
 #include "../../mocks/MockWebsocketServer.hpp"
-#include "../../utils/VerificationSuite.hpp"
+#include "../../suites/VerificationTestSuite.hpp"
 #include <chrono>
 #include <memory>
 #include <sstream>
@@ -15,7 +15,7 @@ using namespace enjin::pusher;
 using namespace enjin::sdk;
 using namespace enjin::test::utils;
 
-class PusherClientTest : public VerificationSuite {
+class PusherClientTest : public VerificationTestSuite {
 public:
     static constexpr char DEFAULT_CHANNEL_NAME[] = "test.channel";
     static constexpr char DEFAULT_CLUSTER[] = "mt1";

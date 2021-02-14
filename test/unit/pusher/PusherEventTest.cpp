@@ -1,10 +1,10 @@
-#include "../models/ModelsTestSuite.hpp"
 #include "enjinsdk/internal/pusher/PusherEvent.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::pusher;
 
-class PusherEventTest : public ModelsTestSuite {
+class PusherEventTest : public JsonTestSuite {
 public:
     PusherEvent class_under_test;
 

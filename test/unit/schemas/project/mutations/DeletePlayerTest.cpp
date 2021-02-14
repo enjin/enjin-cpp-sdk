@@ -1,10 +1,10 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/project/DeletePlayer.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
 
-class DeletePlayerTest : public ModelsTestSuite {
+class DeletePlayerTest : public JsonTestSuite {
 public:
     DeletePlayer class_under_test;
 

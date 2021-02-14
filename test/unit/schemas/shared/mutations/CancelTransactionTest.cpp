@@ -1,10 +1,10 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/shared/CancelTransaction.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::shared;
 
-class CancelTransactionTest : public ModelsTestSuite {
+class CancelTransactionTest : public JsonTestSuite {
 public:
     CancelTransaction class_under_test;
 

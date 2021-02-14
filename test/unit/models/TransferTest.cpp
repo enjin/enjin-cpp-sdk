@@ -1,10 +1,10 @@
-#include "ModelsTestSuite.hpp"
 #include "enjinsdk/models/Transfer.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
 
-class TransferTest : public ModelsTestSuite {
+class TransferTest : public JsonTestSuite {
 public:
     Transfer class_under_test;
 

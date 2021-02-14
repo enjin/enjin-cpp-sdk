@@ -1,9 +1,9 @@
-#include "ModelsTestSuite.hpp"
 #include "enjinsdk/models/Project.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::models;
 
-class ProjectTest : public ModelsTestSuite {
+class ProjectTest : public JsonTestSuite {
 public:
     Project class_under_test;
 

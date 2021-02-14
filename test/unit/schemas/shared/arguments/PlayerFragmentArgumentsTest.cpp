@@ -1,9 +1,9 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/internal/PlayerFragmentArguments.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::shared;
 
-class PlayerFragmentArgumentsTest : public ModelsTestSuite {
+class PlayerFragmentArgumentsTest : public JsonTestSuite {
 public:
     PlayerFragmentArguments class_under_test;
 

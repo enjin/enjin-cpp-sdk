@@ -1,10 +1,10 @@
-#include "ModelsTestSuite.hpp"
 #include "enjinsdk/models/MintInput.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
 
-class MintInputTest : public ModelsTestSuite {
+class MintInputTest : public JsonTestSuite {
 public:
     MintInput class_under_test;
 

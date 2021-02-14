@@ -1,11 +1,11 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/project/GetWallets.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 #include <vector>
 
 using namespace enjin::sdk::project;
 
-class GetWalletsTest : public ModelsTestSuite {
+class GetWalletsTest : public JsonTestSuite {
 public:
     GetWallets class_under_test;
 

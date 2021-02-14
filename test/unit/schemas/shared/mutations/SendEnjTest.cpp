@@ -1,10 +1,10 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/shared/SendEnj.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::shared;
 
-class SendEnjTest : public ModelsTestSuite {
+class SendEnjTest : public JsonTestSuite {
 public:
     SendEnj class_under_test;
 

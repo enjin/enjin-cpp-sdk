@@ -1,9 +1,9 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/internal/TokenFragmentArguments.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::shared;
 
-class TokenFragmentArgumentsTest : public ModelsTestSuite {
+class TokenFragmentArgumentsTest : public JsonTestSuite {
 public:
     TokenFragmentArguments class_under_test;
 

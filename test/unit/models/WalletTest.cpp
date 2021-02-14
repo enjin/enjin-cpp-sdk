@@ -1,10 +1,10 @@
-#include "ModelsTestSuite.hpp"
 #include "enjinsdk/models/Wallet.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
 
-class WalletTest : public ModelsTestSuite {
+class WalletTest : public JsonTestSuite {
 public:
     Wallet class_under_test;
 

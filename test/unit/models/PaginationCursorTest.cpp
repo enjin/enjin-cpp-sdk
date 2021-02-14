@@ -1,9 +1,9 @@
-#include "ModelsTestSuite.hpp"
 #include "enjinsdk/models/PaginationCursor.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::models;
 
-class PaginationCursorTest : public ModelsTestSuite {
+class PaginationCursorTest : public JsonTestSuite {
 public:
     PaginationCursor class_under_test;
 

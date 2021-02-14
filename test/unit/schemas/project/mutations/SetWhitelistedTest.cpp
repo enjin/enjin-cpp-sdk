@@ -1,10 +1,10 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/project/SetWhitelisted.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
 
-class SetWhitelistedTest : public ModelsTestSuite {
+class SetWhitelistedTest : public JsonTestSuite {
 public:
     SetWhitelisted class_under_test;
 

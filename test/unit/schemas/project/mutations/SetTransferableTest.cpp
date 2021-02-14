@@ -1,10 +1,10 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/project/SetTransferable.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
 
-class SetTransferableTest : public ModelsTestSuite {
+class SetTransferableTest : public JsonTestSuite {
 public:
     SetTransferable class_under_test;
 

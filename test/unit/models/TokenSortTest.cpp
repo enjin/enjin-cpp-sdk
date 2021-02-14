@@ -1,9 +1,9 @@
-#include "ModelsTestSuite.hpp"
 #include "enjinsdk/models/TokenSort.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::models;
 
-class TokenSortTest : public ModelsTestSuite {
+class TokenSortTest : public JsonTestSuite {
 public:
     TokenSort class_under_test;
 

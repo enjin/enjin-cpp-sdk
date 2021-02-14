@@ -1,11 +1,11 @@
-#include "ModelsTestSuite.hpp"
 #include "enjinsdk/models/TransactionFilter.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 #include <string>
 #include <vector>
 
 using namespace enjin::sdk::models;
 
-class TransactionFilterTest : public ModelsTestSuite {
+class TransactionFilterTest : public JsonTestSuite {
 public:
     TransactionFilter class_under_test;
 

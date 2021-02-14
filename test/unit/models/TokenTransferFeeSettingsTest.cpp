@@ -1,9 +1,9 @@
-#include "ModelsTestSuite.hpp"
 #include "enjinsdk/models/TokenTransferFeeSettings.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::models;
 
-class TokenTransferFeeSettingsTest : public ModelsTestSuite {
+class TokenTransferFeeSettingsTest : public JsonTestSuite {
 public:
     TokenTransferFeeSettings class_under_test;
 

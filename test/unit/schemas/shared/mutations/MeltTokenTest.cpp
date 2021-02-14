@@ -1,11 +1,11 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/shared/MeltToken.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 #include <vector>
 
 using namespace enjin::sdk::shared;
 
-class MeltTokenTest : public ModelsTestSuite {
+class MeltTokenTest : public JsonTestSuite {
 public:
     MeltToken class_under_test;
 

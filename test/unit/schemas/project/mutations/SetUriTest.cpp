@@ -1,10 +1,10 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/project/SetUri.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
 
-class SetUriTest : public ModelsTestSuite {
+class SetUriTest : public JsonTestSuite {
 public:
     SetUri class_under_test;
 

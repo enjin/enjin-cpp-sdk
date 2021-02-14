@@ -1,9 +1,9 @@
-#include "ModelsTestSuite.hpp"
 #include "enjinsdk/models/TokenStateData.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::models;
 
-class TokenStateDataTest : public ModelsTestSuite {
+class TokenStateDataTest : public JsonTestSuite {
 public:
     TokenStateData class_under_test;
 

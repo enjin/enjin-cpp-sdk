@@ -2,7 +2,6 @@ include_directories(${ENJINCPPSDK_SOURCE_DIRECTORY}/src)
 
 set(TEST_FILES
         events/AppChannelTest.cpp
-        events/ChannelsTestSuite.hpp
         events/EventTypeDefTest.cpp
         events/EventListenerRegistrationTest.cpp
         events/PlayerChannelTest.cpp
@@ -27,7 +26,6 @@ set(TEST_FILES
         models/LinkingInfoTest.cpp
         models/MeltTest.cpp
         models/MintInputTest.cpp
-        models/ModelsTestSuite.hpp
         models/NotificationEventTest.cpp
         models/NotificationsTest.cpp
         models/PaginationCursorTest.cpp
@@ -128,10 +126,12 @@ set(TEST_FILES
         ../mocks/MockWebSocketClientImpl.hpp
         ../mocks/MockWebsocketServer.cpp
         ../mocks/MockWebsocketServer.hpp
+        ../suites/ChannelsTestSuite.hpp
+        ../suites/JsonTestSuite.hpp
+        ../suites/VerificationTestSuite.cpp
+        ../suites/VerificationTestSuite.hpp
         ../utils/DummyObject.cpp
         ../utils/DummyObject.hpp
-        ../utils/VerificationSuite.cpp
-        ../utils/VerificationSuite.hpp
 )
 add_executable(unittests ${TEST_FILES})
 target_link_libraries(unittests
