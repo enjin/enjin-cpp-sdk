@@ -120,16 +120,16 @@ set(TEST_FILES
         utils/RapidJsonUtilsTest.cpp
         utils/StringUtilsTest.cpp
         websockets/WebsocketClientImplTest.cpp
+        ../mocks/MockEventListener.hpp
+        ../mocks/MockHttpServer.cpp
+        ../mocks/MockHttpServer.hpp
+        ../mocks/MockSubscriptionEventListener.hpp
+        ../mocks/MockWebSocketClientImpl.cpp
+        ../mocks/MockWebSocketClientImpl.hpp
+        ../mocks/MockWebsocketServer.cpp
+        ../mocks/MockWebsocketServer.hpp
         ../utils/DummyObject.cpp
         ../utils/DummyObject.hpp
-        ../utils/MockEventListener.hpp
-        ../utils/MockHttpServer.cpp
-        ../utils/MockHttpServer.hpp
-        ../utils/MockSubscriptionEventListener.hpp
-        ../utils/MockWebSocketClientImpl.cpp
-        ../utils/MockWebSocketClientImpl.hpp
-        ../utils/MockWebsocketServer.cpp
-        ../utils/MockWebsocketServer.hpp
         ../utils/VerificationSuite.cpp
         ../utils/VerificationSuite.hpp
 )

@@ -1,7 +1,7 @@
 #include "gtest/gtest.h" // Load Google-Test first to avoid conflicts with CPP-REST-SDK
 
 #include "HttpClientImpl.hpp"
-#include "../../utils/MockHttpServer.hpp"
+#include "../../mocks/MockHttpServer.hpp"
 #include <string>
 
 using namespace enjin::sdk::http;

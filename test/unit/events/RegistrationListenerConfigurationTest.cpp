@@ -1,4 +1,4 @@
-#include "../../utils//MockEventListener.hpp"
+#include "../../mocks//MockEventListener.hpp"
 #include "enjinsdk/EventListenerRegistration.hpp"
 #include "gtest/gtest.h"
 #include <algorithm>
