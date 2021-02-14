@@ -1,9 +1,9 @@
-#include "ModelsTestSuite.hpp"
 #include "enjinsdk/models/AccessToken.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::models;
 
-class AccessTokenTest : public ModelsTestSuite {
+class AccessTokenTest : public JsonTestSuite {
 public:
     AccessToken class_under_test;
 

@@ -1,5 +1,5 @@
-#include "ChannelsTestSuite.hpp"
 #include "TokenChannel.hpp"
+#include "../../suites/ChannelsTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::events;

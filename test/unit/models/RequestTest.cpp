@@ -1,10 +1,10 @@
-#include "ModelsTestSuite.hpp"
 #include "enjinsdk/models/Request.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
 
-class RequestTest : public ModelsTestSuite {
+class RequestTest : public JsonTestSuite {
 public:
     Request class_under_test;
 

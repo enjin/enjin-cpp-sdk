@@ -1,11 +1,11 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/project/MintToken.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 #include <vector>
 
 using namespace enjin::sdk::project;
 
-class MintTokenTest : public ModelsTestSuite {
+class MintTokenTest : public JsonTestSuite {
 public:
     MintToken class_under_test;
 

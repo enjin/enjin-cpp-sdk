@@ -1,9 +1,9 @@
-#include "ModelsTestSuite.hpp"
 #include "enjinsdk/models/PaginationOptions.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::models;
 
-class PaginationOptionsTest : public ModelsTestSuite {
+class PaginationOptionsTest : public JsonTestSuite {
 public:
     PaginationOptions class_under_test;
 

@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_VERIFICATIONSUITE_HPP
-#define ENJINCPPSDK_VERIFICATIONSUITE_HPP
+#ifndef ENJINCPPSDK_VERIFICATIONTESTSUITE_HPP
+#define ENJINCPPSDK_VERIFICATIONTESTSUITE_HPP
 
 #include "gtest/gtest.h"
 #include <atomic>
@@ -8,7 +8,7 @@
 
 namespace enjin::test::utils {
 
-class VerificationSuite : public testing::Test {
+class VerificationTestSuite : public testing::Test {
 public:
     void set_expected_call_count(int count);
 
@@ -23,4 +23,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_VERIFICATIONSUITE_HPP
+#endif //ENJINCPPSDK_VERIFICATIONTESTSUITE_HPP

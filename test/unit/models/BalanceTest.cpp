@@ -1,10 +1,10 @@
-#include "ModelsTestSuite.hpp"
 #include "enjinsdk/models/Balance.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
 
-class BalanceTest : public ModelsTestSuite {
+class BalanceTest : public JsonTestSuite {
 public:
     Balance class_under_test;
 

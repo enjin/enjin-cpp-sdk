@@ -1,10 +1,10 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/project/InvalidateTokenMetadata.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
 
-class InvalidateTokenMetadataTest : public ModelsTestSuite {
+class InvalidateTokenMetadataTest : public JsonTestSuite {
 public:
     InvalidateTokenMetadata class_under_test;
 

@@ -1,11 +1,11 @@
-#include "ModelsTestSuite.hpp"
 #include "enjinsdk/models/TokenFilter.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 #include <string>
 #include <vector>
 
 using namespace enjin::sdk::models;
 
-class TokenFilterTest : public ModelsTestSuite {
+class TokenFilterTest : public JsonTestSuite {
 public:
     TokenFilter class_under_test;
 

@@ -1,9 +1,9 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/internal/BalanceFragmentArguments.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::shared;
 
-class BalanceFragmentArgumentsTest : public ModelsTestSuite {
+class BalanceFragmentArgumentsTest : public JsonTestSuite {
 public:
     BalanceFragmentArguments class_under_test;
 

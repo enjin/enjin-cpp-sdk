@@ -1,13 +1,13 @@
 #include "gtest/gtest.h"
 #include "WebsocketClientImpl.hpp"
 #include "../../mocks/MockWebsocketServer.hpp"
-#include "../../utils/VerificationSuite.hpp"
+#include "../../suites//VerificationTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::websockets;
 using namespace enjin::test::utils;
 
-class WebsocketClientImplTest : public VerificationSuite {
+class WebsocketClientImplTest : public VerificationTestSuite {
 public:
     static constexpr char URI[] = "ws://localhost:9980/ws";
 

@@ -1,10 +1,10 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/project/SetTransferFee.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
 
-class SetTransferFeeTest : public ModelsTestSuite {
+class SetTransferFeeTest : public JsonTestSuite {
 public:
     SetTransferFee class_under_test;
 

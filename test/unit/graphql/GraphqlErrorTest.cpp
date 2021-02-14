@@ -1,10 +1,10 @@
-#include "../models/ModelsTestSuite.hpp"
 #include "enjinsdk/GraphqlError.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::graphql;
 
-class GraphqlErrorTest : public ModelsTestSuite {
+class GraphqlErrorTest : public JsonTestSuite {
 public:
     GraphqlError class_under_test;
 

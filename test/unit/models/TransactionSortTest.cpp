@@ -1,9 +1,9 @@
-#include "ModelsTestSuite.hpp"
 #include "enjinsdk/models/TransactionSort.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::models;
 
-class TransactionSortTest : public ModelsTestSuite {
+class TransactionSortTest : public JsonTestSuite {
 public:
     TransactionSort class_under_test;
 

@@ -1,9 +1,9 @@
-#include "ModelsTestSuite.hpp"
 #include "enjinsdk/models/BlockchainData.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::models;
 
-class BlockchainDataTest : public ModelsTestSuite {
+class BlockchainDataTest : public JsonTestSuite {
 public:
     BlockchainData class_under_test;
 

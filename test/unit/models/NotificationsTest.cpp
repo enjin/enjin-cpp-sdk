@@ -1,9 +1,9 @@
-#include "ModelsTestSuite.hpp"
 #include "enjinsdk/models/Notifications.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::models;
 
-class NotificationsTest : public ModelsTestSuite {
+class NotificationsTest : public JsonTestSuite {
 public:
     Notifications class_under_test;
 

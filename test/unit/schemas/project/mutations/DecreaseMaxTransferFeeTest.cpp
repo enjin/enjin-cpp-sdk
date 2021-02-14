@@ -1,10 +1,10 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/project/DecreaseMaxTransferFee.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
 
-class DecreaseMaxTransferFeeTest : public ModelsTestSuite {
+class DecreaseMaxTransferFeeTest : public JsonTestSuite {
 public:
     DecreaseMaxTransferFee class_under_test;
 

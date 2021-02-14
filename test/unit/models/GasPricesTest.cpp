@@ -1,9 +1,9 @@
-#include "ModelsTestSuite.hpp"
 #include "enjinsdk/models/GasPrices.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::models;
 
-class GasPricesTest : public ModelsTestSuite {
+class GasPricesTest : public JsonTestSuite {
 public:
     GasPrices class_under_test;
 

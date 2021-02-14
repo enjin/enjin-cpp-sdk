@@ -1,10 +1,10 @@
-#include "ModelsTestSuite.hpp"
 #include "enjinsdk/models/LinkingInfo.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
 
-class LinkingInfoTest : public ModelsTestSuite {
+class LinkingInfoTest : public JsonTestSuite {
 public:
     LinkingInfo class_under_test;
 

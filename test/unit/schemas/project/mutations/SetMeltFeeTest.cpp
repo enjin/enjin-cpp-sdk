@@ -1,10 +1,10 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/project/SetMeltFee.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
 
-class SetMeltFeeTest : public ModelsTestSuite {
+class SetMeltFeeTest : public JsonTestSuite {
 public:
     SetMeltFee class_under_test;
 

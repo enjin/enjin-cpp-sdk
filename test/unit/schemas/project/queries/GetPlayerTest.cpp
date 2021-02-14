@@ -1,10 +1,10 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/project/GetPlayer.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
 
-class GetPlayerTest : public ModelsTestSuite {
+class GetPlayerTest : public JsonTestSuite {
 public:
     GetPlayer class_under_test;
 

@@ -1,16 +1,16 @@
-#include "VerificationSuite.hpp"
+#include "VerificationTestSuite.hpp"
 
 namespace enjin::test::utils {
 
-void VerificationSuite::set_expected_call_count(int count) {
+void VerificationTestSuite::set_expected_call_count(int count) {
     expected_count = count;
 }
 
-void VerificationSuite::increment_call_counter() {
+void VerificationTestSuite::increment_call_counter() {
     call_counter++;
 }
 
-void VerificationSuite::verify_call_count(int time) const {
+void VerificationTestSuite::verify_call_count(int time) const {
     // Waits and gives the calls an opportunity to be made if asynchronous
     std::mutex mutex;
     std::unique_lock<std::mutex> lock(mutex);

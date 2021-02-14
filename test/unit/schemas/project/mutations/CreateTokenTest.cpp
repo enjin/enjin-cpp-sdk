@@ -1,10 +1,10 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/project/CreateToken.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
 
-class CreateTokenTest : public ModelsTestSuite {
+class CreateTokenTest : public JsonTestSuite {
 public:
     CreateToken class_under_test;
 

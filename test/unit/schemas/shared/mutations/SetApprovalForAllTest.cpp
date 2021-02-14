@@ -1,10 +1,10 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/shared/SetApprovalForAll.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::shared;
 
-class SetApprovalForAllTest : public ModelsTestSuite {
+class SetApprovalForAllTest : public JsonTestSuite {
 public:
     SetApprovalForAll class_under_test;
 

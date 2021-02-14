@@ -1,9 +1,9 @@
-#include "ModelsTestSuite.hpp"
 #include "enjinsdk/models/TransactionEvent.hpp"
+#include "../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::models;
 
-class TransactionEventTest : public ModelsTestSuite {
+class TransactionEventTest : public JsonTestSuite {
 public:
     TransactionEvent class_under_test;
 

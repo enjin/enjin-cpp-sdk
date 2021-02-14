@@ -1,9 +1,9 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/shared/GetBalances.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::shared;
 
-class GetBalancesTest : public ModelsTestSuite {
+class GetBalancesTest : public JsonTestSuite {
 public:
     GetBalances class_under_test;
 

@@ -1,10 +1,10 @@
-#include "../../../models/ModelsTestSuite.hpp"
 #include "enjinsdk/project/AuthProject.hpp"
+#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
 
-class AuthProjectTest : public ModelsTestSuite {
+class AuthProjectTest : public JsonTestSuite {
 public:
     AuthProject class_under_test;
 
