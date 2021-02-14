@@ -5,12 +5,15 @@
 
 namespace enjin::pusher {
 
-/// \brief TODO
+/// \brief Interface for event listener for receiving Pusher events.
 class ISubscriptionEventListener {
 public:
+    /// \brief Default destructor.
     virtual ~ISubscriptionEventListener() = default;
 
-    virtual void on_event(const pusher::PusherEvent& event) = 0;
+    /// \brief Handler for Pusher events.
+    /// \param event The Pusher event.
+    virtual void on_event(const PusherEvent& event) = 0;
 };
 
 }

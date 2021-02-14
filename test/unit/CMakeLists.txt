@@ -125,6 +125,9 @@ set(TEST_FILES
         ../utils/MockEventListener.hpp
         ../utils/MockHttpServer.cpp
         ../utils/MockHttpServer.hpp
+        ../utils/MockSubscriptionEventListener.hpp
+        ../utils/MockWebSocketClientImpl.cpp
+        ../utils/MockWebSocketClientImpl.hpp
         ../utils/MockWebsocketServer.cpp
         ../utils/MockWebsocketServer.hpp
         ../utils/VerificationSuite.cpp
