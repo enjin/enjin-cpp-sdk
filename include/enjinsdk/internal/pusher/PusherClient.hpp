@@ -53,11 +53,6 @@ public:
     /// \return The future for this operation.
     std::future<void> unsubscribe(const std::string& channel_name);
 
-    /// \brief Determines if this client is already subscribed to or has a pending subscription for the channel.
-    /// \param channel_name The name of the channel.
-    /// \return Whether there is a subscription or pending subscription.
-    bool already_subscribed(const std::string& channel_name);
-
     /// \brief Binds a listener to the specified event.
     /// \param event_name The name of the event.
     /// \param listener The listener.
@@ -66,6 +61,21 @@ public:
     /// \brief Unbinds from the specified event.
     /// \param event_name The name of the event.
     void unbind(const std::string& event_name);
+
+    /// \brief Determines if this client is already subscribed to or has a pending subscription for the channel.
+    /// \param channel_name The name of the channel.
+    /// \return Whether there is a subscription or pending subscription.
+    bool is_subscribed_or_pending(const std::string& channel_name);
+
+    /// \brief Determines if this client is subscribed to the channel.
+    /// \param channel_name The name of the channel.
+    /// \return Whether this client is subscribed to the channel.
+    bool is_subscribed(const std::string& channel_name);
+
+    /// \brief Determines if this client has a pending subscription for the channel.
+    /// \param channel_name The name of the channel.
+    /// \return Whether this client has a pending subscription.
+    bool is_subscription_pending(const std::string& channel_name);
 
     /// \brief Returns the connection state of this client.
     /// \return The connection state.
@@ -91,6 +101,7 @@ private:
 
     // Mutex
     std::mutex channels_lock;
+    std::mutex pending_channels_lock;
     std::mutex event_listeners_lock;
     std::mutex state_lock;
 

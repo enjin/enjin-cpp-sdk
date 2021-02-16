@@ -72,15 +72,22 @@ std::future<void> PusherClient::disconnect() {
 std::future<void> PusherClient::subscribe(const std::string& channel_name) {
     return std::async([this, channel_name]() {
         channels_lock.lock();
+        pending_channels_lock.lock();
 
-        if (already_subscribed(channel_name)) {
+        bool is_pending = pending_channels.find(channel_name) != pending_channels.end();
+        auto loc = channels.find(channel_name);
+        bool is_subscribed = loc != channels.end() && loc->second.is_subscribed;
+
+        if (is_pending || is_subscribed) {
             channels_lock.unlock();
+            pending_channels_lock.unlock();
             return;
         }
 
         pending_channels.emplace(channel_name);
 
         channels_lock.unlock();
+        pending_channels_lock.unlock();
 
         subscribe_to_channel(channel_name).wait();
     });
@@ -88,7 +95,7 @@ std::future<void> PusherClient::subscribe(const std::string& channel_name) {
 
 std::future<void> PusherClient::subscribe_to_channel(const std::string& channel_name) {
     return std::async([this, channel_name]() {
-        channels_lock.lock();
+        std::lock_guard<std::mutex> guard(channels_lock);
 
         channels.try_emplace(channel_name, PusherChannel{});
 
@@ -107,8 +114,6 @@ std::future<void> PusherClient::subscribe_to_channel(const std::string& channel_
 
             ws_client->send(sdk::utils::document_to_string(document)).wait();
         }
-
-        channels_lock.unlock();
     });
 }
 
@@ -136,15 +141,6 @@ std::future<void> PusherClient::unsubscribe(const std::string& channel_name) {
     }
 
     return std::future<void>(); // Do nothing since this was not connected;
-}
-
-bool PusherClient::already_subscribed(const std::string& channel_name) {
-    if (pending_channels.find(channel_name) != pending_channels.end()) {
-        return true;
-    }
-
-    auto loc = channels.find(channel_name);
-    return loc != channels.end() && loc->second.is_subscribed;
 }
 
 void PusherClient::subscription_succeeded(const std::string& channel_name) {
@@ -181,6 +177,21 @@ void PusherClient::unbind(const std::string& event_name) {
     }
 
     event_listeners_lock.unlock();
+}
+
+bool PusherClient::is_subscribed_or_pending(const std::string& channel_name) {
+    return is_subscription_pending(channel_name) || is_subscribed(channel_name);
+}
+
+bool PusherClient::is_subscribed(const std::string& channel_name) {
+    std::lock_guard<std::mutex> guard(channels_lock);
+    auto loc = channels.find(channel_name);
+    return loc != channels.end() && loc->second.is_subscribed;
+}
+
+bool PusherClient::is_subscription_pending(const std::string& channel_name) {
+    std::lock_guard<std::mutex> guard(pending_channels_lock);
+    return pending_channels.find(channel_name) != pending_channels.end();
 }
 
 ConnectionState PusherClient::get_state() {
