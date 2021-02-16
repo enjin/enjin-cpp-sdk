@@ -119,7 +119,7 @@ TEST_F(PusherClientTest, SubscribeClientSendsMessageToServerAndSubscribesToChann
     verify_call_count(2);
 
     // Assert
-    EXPECT_TRUE(client.already_subscribed(channel_name));
+    EXPECT_TRUE(client.is_subscribed(channel_name));
 
     client.disconnect().wait();
 }
@@ -169,7 +169,7 @@ TEST_F(PusherClientTest, UnsubscribeClientSendsMessageToServerAndUnsubscribesFro
     client.subscribe(channel_name).wait();
 
     // Arrange - Expectations
-    EXPECT_TRUE(client.already_subscribed(channel_name));
+    EXPECT_TRUE(client.is_subscribed_or_pending(channel_name));
     mock_server.next_message([this](const TestWebsocketMessage& message) {
         increment_call_counter();
     });
@@ -182,7 +182,7 @@ TEST_F(PusherClientTest, UnsubscribeClientSendsMessageToServerAndUnsubscribesFro
     verify_call_count(2);
 
     // Assert
-    EXPECT_FALSE(client.already_subscribed(channel_name));
+    EXPECT_FALSE(client.is_subscribed_or_pending(channel_name));
 
     client.disconnect().wait();
 }
