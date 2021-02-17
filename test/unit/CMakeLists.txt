@@ -55,6 +55,7 @@ set(TEST_FILES
         models/TransactionSortTest.cpp
         models/TransferTest.cpp
         models/WalletTest.cpp
+        pusher/PusherClientReconnectTest.cpp
         pusher/PusherClientTest.cpp
         pusher/PusherEventTest.cpp
         schemas/BaseSchemaTest.cpp
@@ -128,6 +129,8 @@ set(TEST_FILES
         ../mocks/MockWebsocketServer.hpp
         ../suites/ChannelsTestSuite.hpp
         ../suites/JsonTestSuite.hpp
+        ../suites/PusherClientTestSuite.cpp
+        ../suites/PusherClientTestSuite.hpp
         ../suites/VerificationTestSuite.cpp
         ../suites/VerificationTestSuite.hpp
         ../utils/DummyObject.cpp

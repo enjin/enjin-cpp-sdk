@@ -32,6 +32,7 @@ class EnjinCPPSDK(ConanFile):
     def requirements(self):
         self.requires("cpprestsdk/2.10.16")
         self.requires("gtest/1.10.0")  # TODO: Require gtest only when running tests if possible.
+        self.requires("ixwebsocket/11.0.4")
         self.requires("rapidjson/1.1.0")
 
     def package_id(self):

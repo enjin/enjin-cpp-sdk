@@ -1,13 +1,10 @@
 #include "gtest/gtest.h"
-#include "enjinsdk/internal/pusher/Constants.hpp"
 #include "enjinsdk/internal/pusher/PusherClient.hpp"
 #include "../../mocks/MockSubscriptionEventListener.hpp"
-#include "../../mocks/MockWebSocketClientImpl.hpp"
-#include "../../mocks/MockWebsocketServer.hpp"
+#include "../../suites/PusherClientTestSuite.hpp"
 #include "../../suites/VerificationTestSuite.hpp"
 #include <chrono>
 #include <memory>
-#include <sstream>
 #include <string>
 #include <thread>
 
@@ -15,82 +12,39 @@ using namespace enjin::pusher;
 using namespace enjin::sdk;
 using namespace enjin::test::utils;
 
-class PusherClientTest : public VerificationTestSuite {
+class PusherClientTest : public PusherClientTestSuite,
+                         public VerificationTestSuite {
 public:
-    static constexpr char DEFAULT_CHANNEL_NAME[] = "test.channel";
-    static constexpr char DEFAULT_CLUSTER[] = "mt1";
-    static constexpr char DEFAULT_EVENT_NAME[] = "TestEvent";
-    static constexpr char DEFAULT_KEY[] = "xyz";
-
-    std::shared_ptr<MockWebSocketClientImpl> mock_ws_client = std::make_shared<MockWebSocketClientImpl>();
     std::shared_ptr<MockSubscriptionEventListener> mock_listener = std::make_shared<MockSubscriptionEventListener>();
-    MockWebsocketServer mock_server;
 
-    [[nodiscard]] PusherClient create_testable_pusher_client() const {
-        PusherOptions options = create_default_pusher_options();
-        return PusherClient(mock_ws_client, DEFAULT_KEY, options);
-    }
-
-    static std::string create_default_event(const std::string& channel = "",
-                                            const std::string& data = "null") {
-        return (std::stringstream()
-                << R"({"event":")"
-                << DEFAULT_EVENT_NAME
-                << R"(","channel":")"
-                << channel
-                << R"(","data":)"
-                << data
-                << R"(})"
-        ).str();
-    }
-
-    static PusherOptions create_default_pusher_options() {
-        PusherOptions options;
-        options.set_cluster(DEFAULT_CLUSTER);
-        options.set_encrypted(true);
-        return options;
-    }
-
-    static std::string create_subscription_success_message(const std::string& channel = "",
-                                                           const std::string& data = "null") {
-        return (std::stringstream()
-                << R"({"event":")"
-                << enjin::pusher::Constants::CHANNEL_SUBSCRIPTION_SUCCEEDED
-                << R"(","channel":")"
-                << channel
-                << R"(","data":)"
-                << data
-                << R"(})"
-        ).str();
-    }
-
-    static std::string create_subscription_error_message() {
-        return (std::stringstream()
-                << R"({"event":")"
-                << enjin::pusher::Constants::CHANNEL_SUBSCRIPTION_ERROR
-                << R"("})"
-        ).str();
+protected:
+    void SetUp() override {
+        mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
+                   .ignore_message_type(WebsocketMessageType::WEBSOCKET_PING_TYPE)
+                   .ignore_message_type(WebsocketMessageType::WEBSOCKET_PONG_TYPE);
     }
 };
 
-TEST_F(PusherClientTest, Connect) {
+TEST_F(PusherClientTest, ConnectClientConnectsToServer) {
     // Arrange
     PusherClient client = create_testable_pusher_client();
 
     // Assert
-    EXPECT_NO_THROW(client.connect([](ConnectionState state) {}, [](const std::exception& e) {}).wait());
+    EXPECT_NO_THROW(client.connect());
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
     EXPECT_EQ(ConnectionState::CONNECTED, client.get_state());
 
-    client.disconnect().wait();
+    client.disconnect();
 }
 
-TEST_F(PusherClientTest, Disconnect) {
+TEST_F(PusherClientTest, DisconnectClientDisconnectsFromServer) {
     // Arrange
     PusherClient client = create_testable_pusher_client();
-    client.connect([](ConnectionState state) {}, [](const std::exception& e) {}).wait();
+    client.connect();
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Assert
-    EXPECT_NO_THROW(client.disconnect().wait());
+    EXPECT_NO_THROW(client.disconnect());
     EXPECT_EQ(ConnectionState::DISCONNECTED, client.get_state());
 }
 
@@ -98,7 +52,8 @@ TEST_F(PusherClientTest, SubscribeClientSendsMessageToServerAndSubscribesToChann
     // Arrange - Data
     const std::string channel_name(DEFAULT_CHANNEL_NAME);
     PusherClient client = create_testable_pusher_client();
-    client.connect([](ConnectionState state) {}, [](const std::exception& e) {}).wait();
+    client.connect();
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Arrange - Expectations
     mock_server.next_message([this, channel_name](const TestWebsocketMessage& message) {
@@ -113,25 +68,28 @@ TEST_F(PusherClientTest, SubscribeClientSendsMessageToServerAndSubscribesToChann
     set_expected_call_count(1);
 
     // Act
-    client.subscribe(channel_name).wait();
+    client.subscribe(channel_name).get();
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Verify
-    verify_call_count(2);
+    verify_call_count(1);
 
     // Assert
     EXPECT_TRUE(client.is_subscribed(channel_name));
 
-    client.disconnect().wait();
+    client.disconnect();
 }
 
 TEST_F(PusherClientTest, SubscribeClientSendsMessageToServerAndRaisesErrorAfterReceivingErrorResponse) {
     // Arrange - Data
     const std::string channel_name(DEFAULT_CHANNEL_NAME);
     PusherClient client = create_testable_pusher_client();
-    client.connect([](ConnectionState state) {},
-                   [this](const std::exception& e) {
-                       increment_call_counter();
-                   }).wait();
+    client.set_on_error_handler([this](const std::exception& e) {
+        increment_call_counter();
+    });
+    client.connect();
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Arrange - Expectations
     mock_server.next_message([this](const TestWebsocketMessage& message) {
@@ -146,19 +104,22 @@ TEST_F(PusherClientTest, SubscribeClientSendsMessageToServerAndRaisesErrorAfterR
     set_expected_call_count(2);
 
     // Act
-    client.subscribe(channel_name).wait();
+    client.subscribe(channel_name).get();
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Verify
-    verify_call_count(2);
+    verify_call_count(1);
 
-    client.disconnect().wait();
+    client.disconnect();
 }
 
 TEST_F(PusherClientTest, UnsubscribeClientSendsMessageToServerAndUnsubscribesFromChannel) {
     // Arrange - Data
     const std::string channel_name(DEFAULT_CHANNEL_NAME);
     PusherClient client = create_testable_pusher_client();
-    client.connect([](ConnectionState state) {}, [](const std::exception& e) {}).wait();
+    client.connect();
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
     mock_server.next_message([this, channel_name](const TestWebsocketMessage& message) {
         const std::string success_message = create_subscription_success_message(channel_name);
         TestWebsocketMessage response;
@@ -166,7 +127,8 @@ TEST_F(PusherClientTest, UnsubscribeClientSendsMessageToServerAndUnsubscribesFro
         response.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
         mock_server.send_message(response);
     });
-    client.subscribe(channel_name).wait();
+    client.subscribe(channel_name).get();
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Arrange - Expectations
     EXPECT_TRUE(client.is_subscribed_or_pending(channel_name));
@@ -179,12 +141,12 @@ TEST_F(PusherClientTest, UnsubscribeClientSendsMessageToServerAndUnsubscribesFro
     client.unsubscribe(channel_name);
 
     // Verify
-    verify_call_count(2);
+    verify_call_count(1);
 
     // Assert
     EXPECT_FALSE(client.is_subscribed_or_pending(channel_name));
 
-    client.disconnect().wait();
+    client.disconnect();
 }
 
 TEST_F(PusherClientTest, ListenerIsCalledWhenBoundEventIsReceived) {
@@ -195,7 +157,8 @@ TEST_F(PusherClientTest, ListenerIsCalledWhenBoundEventIsReceived) {
     PusherClient client = create_testable_pusher_client();
     message.set_data(std::vector<unsigned char>(event_message.begin(), event_message.end()));
     message.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
-    client.connect([](ConnectionState state) {}, [](const std::exception& e) {}).wait();
+    client.connect();
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
     client.bind(event_name, mock_listener);
 
     // Arrange - Expectations
@@ -205,11 +168,11 @@ TEST_F(PusherClientTest, ListenerIsCalledWhenBoundEventIsReceived) {
     // Act
     mock_server.send_message(message);
 
-    std::this_thread::sleep_for(std::chrono::seconds(2));
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Assert (see: Arrange - Expectations)
 
-    client.disconnect().wait();
+    client.disconnect();
 }
 
 TEST_F(PusherClientTest, ListenerIsNotCalledWhenUnboundEventIsReceived) {
@@ -220,7 +183,8 @@ TEST_F(PusherClientTest, ListenerIsNotCalledWhenUnboundEventIsReceived) {
     PusherClient client = create_testable_pusher_client();
     message.set_data(std::vector<unsigned char>(event_message.begin(), event_message.end()));
     message.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
-    client.connect([](ConnectionState state) {}, [](const std::exception& e) {}).wait();
+    client.connect();
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
     client.bind(event_name, mock_listener);
     client.unbind(event_name);
 
@@ -231,9 +195,9 @@ TEST_F(PusherClientTest, ListenerIsNotCalledWhenUnboundEventIsReceived) {
     // Act
     mock_server.send_message(message);
 
-    std::this_thread::sleep_for(std::chrono::seconds(2));
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Assert (see: Arrange - Expectations)
 
-    client.disconnect().wait();
+    client.disconnect();
 }
