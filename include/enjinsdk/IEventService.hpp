@@ -25,9 +25,14 @@ public:
     /// \brief Shuts down this service.
     virtual void shutdown() = 0;
 
-    /// \brief Checks if this service is connected for receiving events.
+    /// \brief Determines if this service is connected for receiving events.
     /// \return Whether this service is connected.
     virtual bool is_connected() = 0;
+
+    /// \brief Determines if the the listener is registered to this service.
+    /// \param listener The listener.
+    /// \return Whether the listener is registered.
+    virtual bool is_registered(IEventListener& listener) = 0;
 
     /// \brief Sets a handler for when the service connects to the server.
     /// \param handler The handler.

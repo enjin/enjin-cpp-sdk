@@ -6,7 +6,6 @@
 #include "TokenChannel.hpp"
 #include "WalletChannel.hpp"
 #include <algorithm>
-#include <memory>
 #include <utility>
 
 namespace enjin::sdk::events {
@@ -79,6 +78,15 @@ void PusherEventService::shutdown() {
 
 bool PusherEventService::is_connected() {
     return pusher_client != nullptr && pusher_client->get_state() == pusher::ConnectionState::CONNECTED;
+}
+
+bool PusherEventService::is_registered(IEventListener& listener) {
+    auto loc = std::find_if(listeners.begin(),
+                            listeners.end(),
+                            [&listener](const std::unique_ptr<EventListenerRegistration>& r) {
+                                return &r->get_listener() == &listener;
+                            });
+    return loc != listeners.end();
 }
 
 void PusherEventService::set_connected_handler(const std::function<void()>& handler) {
@@ -156,7 +164,7 @@ void PusherEventService::unsubscribe_to_app(int app) {
 }
 
 bool PusherEventService::is_subscribed_to_app(int app) {
-    return subscribed.find(AppChannel(platform.value(), app).channel()) != subscribed.end();
+    return pusher_client->is_subscribed(AppChannel(platform.value(), app).channel());
 }
 
 void PusherEventService::subscribe_to_player(int app, const std::string& player) {
@@ -168,7 +176,7 @@ void PusherEventService::unsubscribe_to_player(int app, const std::string& playe
 }
 
 bool PusherEventService::is_subscribed_to_player(int app, const std::string& player) {
-    return subscribed.find(PlayerChannel(platform.value(), app, player).channel()) != subscribed.end();
+    return pusher_client->is_subscribed(PlayerChannel(platform.value(), app, player).channel());
 }
 
 void PusherEventService::subscribe_to_token(const std::string& token) {
@@ -180,7 +188,7 @@ void PusherEventService::unsubscribe_to_token(const std::string& token) {
 }
 
 bool PusherEventService::is_subscribed_to_token(const std::string& token) {
-    return subscribed.find(TokenChannel(platform.value(), token).channel()) != subscribed.end();
+    return pusher_client->is_subscribed(TokenChannel(platform.value(), token).channel());
 }
 
 void PusherEventService::subscribe_to_wallet(const std::string& wallet) {
@@ -192,26 +200,23 @@ void PusherEventService::unsubscribe_to_wallet(const std::string& wallet) {
 }
 
 bool PusherEventService::is_subscribed_to_wallet(const std::string& wallet) {
-    return subscribed.find(WalletChannel(platform.value(), wallet).channel()) != subscribed.end();
+    return pusher_client->is_subscribed(WalletChannel(platform.value(), wallet).channel());
 }
 
 void PusherEventService::subscribe(const std::string& channel) {
-    if (pusher_client == nullptr || subscribed.find(channel) != subscribed.end()) {
+    if (pusher_client == nullptr || pusher_client->is_subscribed_or_pending(channel)) {
         return;
     }
 
-    pusher_client->subscribe(channel).get();
-    subscribed.emplace(channel);
+    pusher_client->subscribe(channel);
     bind(channel);
 }
 
 void PusherEventService::unsubscribe(const std::string& channel) {
-    auto iter = subscribed.find(channel);
-    if (pusher_client == nullptr || iter == subscribed.end()) {
+    if (pusher_client == nullptr || !pusher_client->is_subscribed(channel)) {
         return;
     }
 
-    subscribed.erase(iter);
     pusher_client->unsubscribe(channel);
 }
 
@@ -222,25 +227,26 @@ void PusherEventService::bind(const std::string& channel) {
 }
 
 std::unique_ptr<PusherEventService> PusherEventServiceBuilder::build() {
-    if (!m_ws_client.has_value()) {
-        throw std::exception("Websocket client was not assigned before building PusherEventService");
+    if (m_ws_client == nullptr) {
+        throw std::runtime_error("Websocket client was not assigned before building PusherEventService");
     }
 
     return m_platform.has_value()
            ? std::unique_ptr<PusherEventService>(
-                    new PusherEventService(std::unique_ptr<websockets::IWebsocketClient>(m_ws_client.value()),
-                                           std::move(m_platform.value())))
+                    new PusherEventService(std::move(m_ws_client),
+                                           m_platform.value()))
            : std::unique_ptr<PusherEventService>(
-                    new PusherEventService(std::unique_ptr<websockets::IWebsocketClient>(m_ws_client.value())));
+                    new PusherEventService(std::move(m_ws_client)));
 }
 
-PusherEventServiceBuilder& PusherEventServiceBuilder::platform(models::Platform platform) {
+PusherEventServiceBuilder& PusherEventServiceBuilder::platform(const models::Platform& platform) {
     m_platform = platform;
     return *this;
 }
 
-PusherEventServiceBuilder& PusherEventServiceBuilder::ws_client(websockets::IWebsocketClient& ws_client) {
-    m_ws_client = &ws_client;
+PusherEventServiceBuilder&
+PusherEventServiceBuilder::ws_client(std::unique_ptr<websockets::IWebsocketClient> ws_client) {
+    m_ws_client = std::move(ws_client);
     return *this;
 }
 
