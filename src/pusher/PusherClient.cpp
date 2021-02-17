@@ -21,52 +21,42 @@ PusherClient::PusherClient(std::shared_ptr<sdk::websockets::IWebsocketClient> ws
     PusherClient::ws_client->set_message_handler([this](const std::string& message) {
         websocket_message_received(message);
     });
-    PusherClient::ws_client->set_close_handler([this](int close_status,
-                                                      const std::string& message,
-                                                      const std::error_code& error) {
-        websocket_closed(close_status, message, error);
+    PusherClient::ws_client->set_open_handler([this]() {
+        websocket_opened();
+    });
+    PusherClient::ws_client->set_close_handler([this](int close_status, const std::string& message) {
+        websocket_closed(close_status, message);
     });
 }
 
-std::future<void> PusherClient::connect(const std::function<void(ConnectionState state)>& on_connection_state_change,
-                                        const std::function<void(const std::exception&)>& on_error) {
-    PusherClient::on_connection_state_change = on_connection_state_change;
-    PusherClient::on_error = on_error;
+void PusherClient::connect() {
+    ws_client->set_allow_reconnecting(true);
+    set_state(ConnectionState::CONNECTING);
 
-    return std::async([this]() {
-        set_state(ConnectionState::CONNECTING);
+    std::string schema = options.is_encrypted()
+                         ? Constants::SECURE_SCHEMA
+                         : Constants::INSECURE_SCHEMA;
 
-        std::string schema = options.is_encrypted()
-                             ? Constants::SECURE_SCHEMA
-                             : Constants::INSECURE_SCHEMA;
-
-        /* TODO: The client query fragment "client=enjin-cpp-pusher-client" may not work with the server since it is not
-         *       a official Pusher client.
-         */
-        ws_client->connect((std::stringstream()
-                << schema
-                << options.host()
-                << "/app/"
-                << key
-                << "?protocol=5&client=enjin-cpp-pusher-client&version=1.0.0"
-                           ).str()).wait();
-        set_state(ConnectionState::CONNECTED);
-    });
+    /* TODO: The client query fragment "client=enjin-cpp-pusher-client" may not work with the server since it is not
+     *       a official Pusher client.
+     */
+    ws_client->connect((std::stringstream()
+            << schema
+            << options.host()
+            << "/app/"
+            << key
+            << "?protocol=5&client=enjin-cpp-pusher-client&version=1.0.0"
+                       ).str());
 }
 
-std::future<void> PusherClient::disconnect() {
-    if (get_state() == ConnectionState::CONNECTED) {
+void PusherClient::disconnect() {
+    ConnectionState present_state = get_state();
+    if (present_state == ConnectionState::CONNECTED || present_state == ConnectionState::CONNECTING) {
         set_state(ConnectionState::DISCONNECTING);
-
-        return std::async([this]() {
-            ws_client->close().wait();
-            set_state(ConnectionState::DISCONNECTED);
-        });
-    } else {
-        return std::async([this]() {
-            set_state(ConnectionState::DISCONNECTED);
-        });
+        ws_client->close();
     }
+
+    set_state(ConnectionState::DISCONNECTED);
 }
 
 std::future<void> PusherClient::subscribe(const std::string& channel_name) {
@@ -89,7 +79,7 @@ std::future<void> PusherClient::subscribe(const std::string& channel_name) {
         channels_lock.unlock();
         pending_channels_lock.unlock();
 
-        subscribe_to_channel(channel_name).wait();
+        subscribe_to_channel(channel_name).get();
     });
 }
 
@@ -112,7 +102,7 @@ std::future<void> PusherClient::subscribe_to_channel(const std::string& channel_
             v_data.AddMember(CHANNEL_KEY, v_channel, allocator);
             document.AddMember(DATA_KEY, v_data, allocator);
 
-            ws_client->send(sdk::utils::document_to_string(document)).wait();
+            ws_client->send(sdk::utils::document_to_string(document));
         }
     });
 }
@@ -132,7 +122,7 @@ std::future<void> PusherClient::unsubscribe(const std::string& channel_name) {
             v_data.AddMember(CHANNEL_KEY, v_channel, allocator);
             document.AddMember(DATA_KEY, v_data, allocator);
 
-            ws_client->send(sdk::utils::document_to_string(document)).wait();
+            ws_client->send(sdk::utils::document_to_string(document));
 
             channels_lock.lock();
             channels.erase(channel_name);
@@ -158,14 +148,12 @@ void PusherClient::subscription_succeeded(const std::string& channel_name) {
 void PusherClient::bind(const std::string& event_name, std::shared_ptr<ISubscriptionEventListener> listener) {
     std::vector<std::shared_ptr<ISubscriptionEventListener>> vector({std::move(listener)});
 
-    event_listeners_lock.lock();
+    std::lock_guard<std::mutex> guard(event_listeners_lock);
 
     // Adds the listener to the already existing vector if try-emplace fails
     if (!event_listeners.try_emplace(event_name, vector).second) {
         event_listeners[event_name].push_back(listener);
     }
-
-    event_listeners_lock.unlock();
 }
 
 void PusherClient::unbind(const std::string& event_name) {
@@ -205,7 +193,18 @@ void PusherClient::set_state(ConnectionState state) {
     state_lock.lock();
     PusherClient::state = state;
     state_lock.unlock();
-    on_connection_state_change(state);
+
+    if (on_connection_state_change.has_value()) {
+        on_connection_state_change.value()(state);
+    }
+}
+
+void PusherClient::set_on_connection_state_change_handler(const std::function<void(ConnectionState)>& handler) {
+    on_connection_state_change = handler;
+}
+
+void PusherClient::set_on_error_handler(const std::function<void(const std::exception&)>& handler) {
+    on_error = handler;
 }
 
 void PusherClient::emit_event(const PusherEvent& event) {
@@ -215,7 +214,7 @@ void PusherClient::emit_event(const PusherEvent& event) {
 
     const std::string& event_name = event.get_event_name().value();
 
-    event_listeners_lock.lock();
+    std::lock_guard<std::mutex> guard(event_listeners_lock);
 
     auto loc = event_listeners.find(event_name);
     if (loc != event_listeners.end()) {
@@ -223,8 +222,6 @@ void PusherClient::emit_event(const PusherEvent& event) {
             listener->on_event(event);
         }
     }
-
-    event_listeners_lock.unlock();
 }
 
 void PusherClient::websocket_message_received(const std::string& message) {
@@ -259,16 +256,33 @@ void PusherClient::websocket_message_received(const std::string& message) {
     if (msg.event.find(Constants::PUSHER_MESSAGE_PREFIX) == 0) {
         if (msg.event == Constants::CHANNEL_SUBSCRIPTION_SUCCEEDED) {
             subscription_succeeded(msg.channel);
-        } else if (msg.event == Constants::CHANNEL_SUBSCRIPTION_ERROR) {
-            on_error(PusherException("Error received on channel subscription: " + message,
-                                     (int) ErrorCodes::SUBSCRIPTION_ERROR));
+        } else if (msg.event == Constants::CHANNEL_SUBSCRIPTION_ERROR && on_error.has_value()) {
+            on_error.value()(PusherException("Error received on channel subscription: " + message,
+                                             (int) ErrorCodes::SUBSCRIPTION_ERROR));
         }
     }
 }
 
-void PusherClient::websocket_closed(int close_status, const std::string& message, const std::error_code& error) {
-    set_state(ConnectionState::DISCONNECTED);
-    // TODO: Try reconnecting.
+void PusherClient::websocket_opened() {
+    set_state(ConnectionState::CONNECTED);
+}
+
+void PusherClient::websocket_closed(int close_status, const std::string& message) {
+    if (get_state() == ConnectionState::DISCONNECTED) {
+        // TODO: Log warning that websocket was closed despite being disconnected.
+        return;
+    }
+
+    /* 4000-4099 codes from Pusher indicate reconnection should not be attempted.
+     * https://pusher.com/docs/pusher_protocol#error-codes
+     */
+    if (close_status >= 4000 && close_status < 4100) {
+        ws_client->set_allow_reconnecting(false);
+        set_state(ConnectionState::DISCONNECTED);
+        return;
+    }
+
+    set_state(ConnectionState::RECONNECTING);
 }
 
 }

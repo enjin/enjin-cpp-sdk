@@ -8,7 +8,7 @@ namespace enjin::test::utils {
 
 class MockWebSocketClientImpl : public sdk::websockets::WebsocketClientImpl {
 public:
-    std::future<void> connect(const std::string& uri) override;
+    void connect(const std::string& uri) override;
 };
 
 }

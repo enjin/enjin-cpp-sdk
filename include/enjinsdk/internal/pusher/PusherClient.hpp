@@ -33,15 +33,10 @@ public:
     ~PusherClient() = default;
 
     /// \brief Connects this client to the server.
-    /// \param on_connection_state_change The handler for when the connection state of this client changes.
-    /// \param on_error The handler for when this client raises an error.
-    /// \return The future for this operation.
-    std::future<void> connect(const std::function<void(ConnectionState state)>& on_connection_state_change,
-                              const std::function<void(const std::exception& e)>& on_error);
+    void connect();
 
     /// \brief Disconnects this client from the server.
-    /// \return The future for this operation.
-    std::future<void> disconnect();
+    void disconnect();
 
     /// \brief Subscribes to the channel to start receiving events for it.
     /// \param channel_name The name of the channel.
@@ -81,6 +76,14 @@ public:
     /// \return The connection state.
     ConnectionState get_state();
 
+    /// \brief Sets the handler for when the connection state changes.
+    /// \param handler The handler.
+    void set_on_connection_state_change_handler(const std::function<void(ConnectionState)>& handler);
+
+    /// \brief Sets the handler for when errors are received from the server.
+    /// \param handler The handler.
+    void set_on_error_handler(const std::function<void(const std::exception&)>& handler);
+
 private:
     struct PusherChannel {
     public:
@@ -96,8 +99,8 @@ private:
     std::string key;
     PusherOptions options;
 
-    std::function<void(ConnectionState)> on_connection_state_change;
-    std::function<void(const std::exception&)> on_error;
+    std::optional<std::function<void(ConnectionState)>> on_connection_state_change;
+    std::optional<std::function<void(const std::exception&)>> on_error;
 
     // Mutex
     std::mutex channels_lock;
@@ -115,7 +118,9 @@ private:
 
     void websocket_message_received(const std::string& message);
 
-    void websocket_closed(int close_status, const std::string& message, const std::error_code& error);
+    void websocket_opened();
+
+    void websocket_closed(int close_status, const std::string& message);
 };
 
 }

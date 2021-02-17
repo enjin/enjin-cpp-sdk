@@ -4,6 +4,7 @@
 #include "websocketpp/server.hpp"
 #include "websocketpp/config/asio_no_tls.hpp"
 #include <thread>
+#include <utility>
 
 #define WEBSOCKET_TEST_SERVER_PORT 9980
 
@@ -106,6 +107,38 @@ public:
         server.set_open_handler([this](websocketpp::connection_hdl hdl) {
             connection = hdl;
             server_connected.set();
+
+            TestWebsocketMessage ws_message;
+            ws_message.set_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE);
+
+            if (!should_handle_type(ws_message.get_type())) {
+                return;
+            }
+
+            auto handler = mock_server->get_next_message_handler();
+            if (handler) {
+                handler(ws_message);
+            } else {
+                push_unhandled_message(std::move(ws_message));
+            }
+        });
+
+        server.set_close_handler([this](websocketpp::connection_hdl hdl) {
+            connection = hdl;
+
+            TestWebsocketMessage ws_message;
+            ws_message.set_type(WebsocketMessageType::WEBSOCKET_CLOSE_TYPE);
+
+            if (!should_handle_type(ws_message.get_type())) {
+                return;
+            }
+
+            auto handler = mock_server->get_next_message_handler();
+            if (handler) {
+                handler(ws_message);
+            } else {
+                push_unhandled_message(std::move(ws_message));
+            }
         });
 
         server.set_fail_handler([this](websocketpp::connection_hdl hdl) {
@@ -114,38 +147,43 @@ public:
         });
 
         server.set_ping_handler([this](websocketpp::connection_hdl hdl, std::string input) {
+            TestWebsocketMessage ws_message;
+            ws_message.set_data(std::vector<uint8_t>(input.begin(), input.end()));
+            ws_message.set_type(WebsocketMessageType::WEBSOCKET_PING_TYPE);
+
+            if (!should_handle_type(ws_message.get_type())) {
+                return true;
+            }
+
             auto handler = mock_server->get_next_message_handler();
             if (handler) {
-                TestWebsocketMessage ws_message;
-                ws_message.set_data(std::vector<uint8_t>(input.begin(), input.end()));
-                ws_message.set_type(WebsocketMessageType::WEBSOCKET_PING_TYPE);
-
                 handler(ws_message);
+            } else {
+                push_unhandled_message(std::move(ws_message));
             }
 
             return true;
         });
 
         server.set_pong_handler([this](websocketpp::connection_hdl hdl, std::string input) {
-            auto handler = mock_server->get_next_message_handler();
-            if (!handler) {
-                return;
-            }
-
             TestWebsocketMessage ws_message;
             ws_message.set_data(std::vector<uint8_t>(input.begin(), input.end()));
             ws_message.set_type(WebsocketMessageType::WEBSOCKET_PONG_TYPE);
 
-            handler(ws_message);
+            if (!should_handle_type(ws_message.get_type())) {
+                return;
+            }
+
+            auto handler = mock_server->get_next_message_handler();
+            if (handler) {
+                handler(ws_message);
+            } else {
+                push_unhandled_message(std::move(ws_message));
+            }
         });
 
         server.set_message_handler([this](websocketpp::connection_hdl hdl, Server::message_ptr message) {
             auto payload = message->get_payload();
-            auto handler = mock_server->get_next_message_handler();
-            if (!handler) {
-                return;
-            }
-
             TestWebsocketMessage ws_message;
             ws_message.set_data(std::vector<uint8_t>(payload.begin(), payload.end()));
 
@@ -156,14 +194,20 @@ public:
                 case websocketpp::frame::opcode::TEXT:
                     ws_message.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
                     break;
-                case websocketpp::frame::opcode::CLOSE:
-                    ws_message.set_type(WebsocketMessageType::WEBSOCKET_CLOSE_TYPE);
-                    break;
                 default:
                     std::abort();
             }
 
-            handler(ws_message);
+            if (!should_handle_type(ws_message.get_type())) {
+                return;
+            }
+
+            auto handler = mock_server->get_next_message_handler();
+            if (handler) {
+                handler(ws_message);
+            } else {
+                push_unhandled_message(std::move(ws_message));
+            }
         });
 
         server.init_asio();
@@ -182,7 +226,12 @@ public:
 
     void close(const std::string& reason) {
         websocketpp::lib::error_code error_code;
-        server.close(connection, websocketpp::close::status::going_away, reason, error_code);
+        server.close(connection, websocketpp::close::status::normal, reason, error_code);
+    }
+
+    void close(int status_code, const std::string& reason) {
+        websocketpp::lib::error_code error_code;
+        server.close(connection, status_code, reason, error_code);
     }
 
     void send_message(const TestWebsocketMessage& message) {
@@ -214,6 +263,19 @@ public:
         }
     }
 
+    bool has_unhandled_messages() {
+        return !unhandled_message_queue.empty();
+    }
+
+    TestWebsocketMessage get_unhandled_message() {
+        std::lock_guard<std::mutex> guard(unhandled_message_queue_mutex);
+
+        TestWebsocketMessage ws_message = unhandled_message_queue.front();
+        unhandled_message_queue.pop();
+
+        return ws_message;
+    }
+
 private:
     MockWebsocketServer* mock_server;
 
@@ -222,6 +284,19 @@ private:
     Server server;
     websocketpp::connection_hdl connection;
     pplx::task_completion_event<void> server_connected;
+    std::queue<TestWebsocketMessage> unhandled_message_queue;
+
+    std::mutex unhandled_message_queue_mutex;
+
+    bool should_handle_type(WebsocketMessageType type) {
+        return !mock_server->is_type_ignored(type);
+    }
+
+    void push_unhandled_message(TestWebsocketMessage ws_message) {
+        std::lock_guard<std::mutex> guard(unhandled_message_queue_mutex);
+
+        unhandled_message_queue.push(ws_message);
+    }
 };
 
 MockWebsocketServer::MockWebsocketServer() : impl(std::make_shared<MockWebsocketServerImpl>(this)) {
@@ -231,7 +306,17 @@ void MockWebsocketServer::next_message(std::function<void(TestWebsocketMessage)>
     std::lock_guard<std::mutex> guard(message_handlers_lock);
 
     assert(handler);
-    message_handlers.push(handler);
+
+    if (impl->has_unhandled_messages()) {
+        handler(impl->get_unhandled_message());
+    } else {
+        message_handlers.push(handler);
+    }
+}
+
+MockWebsocketServer& MockWebsocketServer::ignore_message_type(WebsocketMessageType type) {
+    ignored_types.emplace(type);
+    return *this;
 }
 
 std::function<void(TestWebsocketMessage)> MockWebsocketServer::get_next_message_handler() {
@@ -251,12 +336,20 @@ void MockWebsocketServer::send_message(const TestWebsocketMessage& message) {
     impl->send_message(message);
 }
 
+void MockWebsocketServer::close(int status_code, const std::string& reason) {
+    impl->close(status_code, reason);
+}
+
 const HttpHandler& MockWebsocketServer::get_http_handler() const {
     return http_handler;
 }
 
 void MockWebsocketServer::set_http_handler(const HttpHandler& http_handler) {
     MockWebsocketServer::http_handler = http_handler;
+}
+
+bool MockWebsocketServer::is_type_ignored(WebsocketMessageType type) {
+    return ignored_types.find(type) != ignored_types.end();
 }
 
 }

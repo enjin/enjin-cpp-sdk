@@ -5,6 +5,7 @@
 #include <memory>
 #include <mutex>
 #include <queue>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -16,6 +17,7 @@ enum class WebsocketMessageType {
     WEBSOCKET_UTF8_MESSAGE_TYPE,
     WEBSOCKET_UTF8_FRAGMENT_TYPE,
     WEBSOCKET_CLOSE_TYPE,
+    WEBSOCKET_OPEN_TYPE,
     WEBSOCKET_PING_TYPE,
     WEBSOCKET_PONG_TYPE,
 };
@@ -74,17 +76,24 @@ public:
 
     void next_message(std::function<void(TestWebsocketMessage)> handler);
 
+    MockWebsocketServer& ignore_message_type(WebsocketMessageType type);
+
     std::function<void(TestWebsocketMessage)> get_next_message_handler();
 
     void send_message(const TestWebsocketMessage& message);
+
+    void close(int status_code, const std::string& reason);
 
     [[nodiscard]] const HttpHandler& get_http_handler() const;
 
     void set_http_handler(const HttpHandler& http_handler);
 
+    bool is_type_ignored(WebsocketMessageType type);
+
 private:
     std::mutex message_handlers_lock;
     std::queue<std::function<void(TestWebsocketMessage)>> message_handlers;
+    std::set<WebsocketMessageType> ignored_types;
 
     HttpHandler http_handler;
     std::shared_ptr<MockWebsocketServerImpl> impl;

@@ -46,23 +46,24 @@ void PusherEventService::start() {
 
     listener = std::make_shared<PusherEventListener>(*this);
 
-    pusher_client->connect(
-            [this](pusher::ConnectionState state) { // On connection state change
-                // TODO: Log event service state.
+    pusher_client->set_on_connection_state_change_handler([this](pusher::ConnectionState state) {
+        // TODO: Log event service state.
 
-                if (state == pusher::ConnectionState::CONNECTED && connected_handler.has_value()) {
-                    connected_handler.value()();
-                } else if (state == pusher::ConnectionState::DISCONNECTED && disconnected_handler.has_value()) {
-                    disconnected_handler.value()();
-                }
-            },
-            [this](const std::exception& e) { // On error
-                if (error_handler.has_value()) {
-                    error_handler.value()(e);
-                } else {
-                    // TODO: Log exception.
-                }
-            });
+        if (state == pusher::ConnectionState::CONNECTED && connected_handler.has_value()) {
+            connected_handler.value()();
+        } else if (state == pusher::ConnectionState::DISCONNECTED && disconnected_handler.has_value()) {
+            disconnected_handler.value()();
+        }
+    });
+    pusher_client->set_on_error_handler([this](const std::exception& e) {
+        if (error_handler.has_value()) {
+            error_handler.value()(e);
+        } else {
+            // TODO: Log exception.
+        }
+    });
+
+    pusher_client->connect();
 }
 
 void PusherEventService::start(models::Platform platform) {
