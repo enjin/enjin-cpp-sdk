@@ -8,7 +8,6 @@
 #include "enjinsdk/internal/pusher/ISubscriptionEventListener.hpp"
 #include <memory>
 #include <optional>
-#include <set>
 #include <string>
 #include <vector>
 
@@ -32,19 +31,21 @@ public:
     /// \brief Sets the platform model that the event service will use.
     /// \param platform The platform.
     /// \return This builder for chaining.
-    PusherEventServiceBuilder& platform(models::Platform platform);
+    PusherEventServiceBuilder& platform(const models::Platform& platform);
 
     /// \brief Sets the
     /// \param ws_client The websocket client.
     /// \return This builder for chaining.
-    PusherEventServiceBuilder& ws_client(websockets::IWebsocketClient& ws_client);
+    PusherEventServiceBuilder& ws_client(std::unique_ptr<websockets::IWebsocketClient> ws_client);
 
 private:
     std::optional<models::Platform> m_platform;
-    std::optional<websockets::IWebsocketClient*> m_ws_client;
+    std::unique_ptr<websockets::IWebsocketClient> m_ws_client;
 };
 
+/// \brief Implementation of IEventService for Pusher events.
 class PusherEventService : public IEventService {
+private:
     class PusherEventListener : public pusher::ISubscriptionEventListener {
     public:
         PusherEventListener() = delete;
@@ -71,6 +72,8 @@ public:
     void shutdown() override;
 
     bool is_connected() override;
+
+    bool is_registered(IEventListener& listener) override;
 
     void set_connected_handler(const std::function<void()>& handler) override;
 
@@ -119,15 +122,18 @@ public:
     bool is_subscribed_to_wallet(const std::string& wallet) override;
 
 protected:
+    /// \brief The registered listeners for this service.
     std::vector<std::unique_ptr<EventListenerRegistration>> listeners;
 
+    /// \brief Caches the registration created from the configuration.
+    /// \param configuration The configuration used to create the registration.
+    /// \return Reference to the created registration.
     EventListenerRegistration&
     cache_registration(EventListenerRegistration::RegistrationListenerConfiguration configuration);
 
 private:
     std::shared_ptr<PusherEventListener> listener;
     std::optional<models::Platform> platform;
-    std::set<std::string> subscribed;
 
     std::unique_ptr<pusher::PusherClient> pusher_client;
     std::shared_ptr<websockets::IWebsocketClient> ws_client;
