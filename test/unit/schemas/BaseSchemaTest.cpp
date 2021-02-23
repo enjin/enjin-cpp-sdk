@@ -5,6 +5,7 @@
 #include "../../utils/DummyObject.hpp"
 #include <memory>
 #include <sstream>
+#include <utility>
 #include <vector>
 
 using namespace enjin::sdk;
@@ -14,11 +15,11 @@ class BaseSchemaTest : public testing::Test {
 public:
     class TestableBaseSchema : public BaseSchema {
     public:
-        explicit TestableBaseSchema(const TrustedPlatformMiddleware& middleware)
-                : BaseSchema(middleware, "test") {
+        explicit TestableBaseSchema(TrustedPlatformMiddleware middleware)
+                : BaseSchema(std::move(middleware), "test") {
         }
 
-        TrustedPlatformMiddleware get_middleware() {
+        const TrustedPlatformMiddleware& get_middleware() {
             return middleware;
         }
 
@@ -64,9 +65,9 @@ protected:
         mock_server.start();
 
         std::string base_uri = utility::conversions::to_utf8string(mock_server.uri().to_string());
-        http::IHttpClient* client = new http::HttpClientImpl(base_uri);
-        TrustedPlatformMiddleware middleware(*client, false);
-        class_under_test = std::make_unique<TestableBaseSchema>(TestableBaseSchema(middleware));
+        std::unique_ptr<http::IHttpClient> http_client = std::make_unique<http::HttpClientImpl>(base_uri);
+        TrustedPlatformMiddleware middleware(std::move(http_client), false);
+        class_under_test = std::make_unique<TestableBaseSchema>(std::move(middleware));
     }
 
     void TearDown() override {

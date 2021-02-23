@@ -1,9 +1,11 @@
 #include "enjinsdk/project/ProjectSchema.hpp"
 
+#include <utility>
+
 namespace enjin::sdk::project {
 
-ProjectSchema::ProjectSchema(const TrustedPlatformMiddleware& middleware)
-        : shared::SharedSchema(middleware, "project") {
+ProjectSchema::ProjectSchema(TrustedPlatformMiddleware middleware)
+        : shared::SharedSchema(std::move(middleware), "project") {
 }
 
 std::future<graphql::GraphqlResponse<models::AccessToken>> ProjectSchema::auth_player_async(AuthPlayer& request) {

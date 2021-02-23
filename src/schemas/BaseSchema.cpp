@@ -6,8 +6,8 @@
 
 namespace enjin::sdk {
 
-BaseSchema::BaseSchema(const TrustedPlatformMiddleware& middleware, std::string schema)
-        : middleware(middleware), schema(std::move(schema)) {
+BaseSchema::BaseSchema(TrustedPlatformMiddleware middleware, std::string schema)
+        : middleware(std::move(middleware)), schema(std::move(schema)) {
 }
 
 std::string BaseSchema::create_request_body(graphql::AbstractGraphqlRequest& request) {

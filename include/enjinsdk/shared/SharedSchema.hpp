@@ -101,7 +101,7 @@ protected:
     /// \brief Constructs the schema with the middleware and name.
     /// \param middleware The middleware.
     /// \param schema The schema name.
-    SharedSchema(const TrustedPlatformMiddleware& middleware, const std::string& schema);
+    SharedSchema(TrustedPlatformMiddleware middleware, const std::string& schema);
 };
 
 }
