@@ -33,8 +33,6 @@ TEST_F(PusherClientTest, ConnectClientConnectsToServer) {
     EXPECT_NO_THROW(client.connect());
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
     EXPECT_EQ(ConnectionState::CONNECTED, client.get_state());
-
-    client.disconnect();
 }
 
 TEST_F(PusherClientTest, DisconnectClientDisconnectsFromServer) {
@@ -77,8 +75,6 @@ TEST_F(PusherClientTest, SubscribeClientSendsMessageToServerAndSubscribesToChann
 
     // Assert
     EXPECT_TRUE(client.is_subscribed(channel_name));
-
-    client.disconnect();
 }
 
 TEST_F(PusherClientTest, SubscribeClientSendsMessageToServerAndRaisesErrorAfterReceivingErrorResponse) {
@@ -110,8 +106,6 @@ TEST_F(PusherClientTest, SubscribeClientSendsMessageToServerAndRaisesErrorAfterR
 
     // Verify
     verify_call_count(1);
-
-    client.disconnect();
 }
 
 TEST_F(PusherClientTest, UnsubscribeClientSendsMessageToServerAndUnsubscribesFromChannel) {
@@ -145,8 +139,6 @@ TEST_F(PusherClientTest, UnsubscribeClientSendsMessageToServerAndUnsubscribesFro
 
     // Assert
     EXPECT_FALSE(client.is_subscribed_or_pending(channel_name));
-
-    client.disconnect();
 }
 
 TEST_F(PusherClientTest, ListenerIsCalledWhenBoundEventIsReceived) {
@@ -171,8 +163,6 @@ TEST_F(PusherClientTest, ListenerIsCalledWhenBoundEventIsReceived) {
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Assert (see: Arrange - Expectations)
-
-    client.disconnect();
 }
 
 TEST_F(PusherClientTest, ListenerIsNotCalledWhenUnboundEventIsReceived) {
@@ -198,6 +188,4 @@ TEST_F(PusherClientTest, ListenerIsNotCalledWhenUnboundEventIsReceived) {
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Assert (see: Arrange - Expectations)
-
-    client.disconnect();
 }

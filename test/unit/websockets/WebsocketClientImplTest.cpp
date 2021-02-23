@@ -26,19 +26,11 @@ protected:
         class_under_test.connect(URI);
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
-
-    void TearDown() override {
-        class_under_test.close();
-    }
 };
 
 class WebsocketClientImplConnectCloseTest : public WebsocketClientImplTest {
 protected:
     void SetUp() final {
-        // Do nothing
-    }
-
-    void TearDown() final {
         // Do nothing
     }
 };
@@ -58,8 +50,6 @@ TEST_F(WebsocketClientImplConnectCloseTest, ConnectClientOpensConnectionWithServ
     verify_call_count(1);
 
     // Assert (see: Arrange - Expectations)
-
-    class_under_test.close();
 }
 
 TEST_F(WebsocketClientImplConnectCloseTest, CloseClientClosesOpenConnectionWithServer) {
@@ -213,8 +203,6 @@ TEST_F(WebsocketClientImplConnectCloseTest, SetOpenHandlerHandlerReceivesExpecte
     verify_call_count(1);
 
     // Assert (see: Arrange - Expectations)
-
-    class_under_test.close();
 }
 
 TEST_F(WebsocketClientImplConnectCloseTest, SetCloseHandlerHandlerReceivesExpectedDataFromServer) {
