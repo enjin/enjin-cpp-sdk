@@ -8,7 +8,7 @@
 
 namespace enjin::sdk::project {
 
-/// \brief Request for setting an item's max transfer fee to a lower value.
+/// \brief Request for setting an asset's max transfer fee to a lower value.
 class DecreaseMaxTransferFee : public graphql::AbstractGraphqlRequest,
                                public shared::TransactionRequestArgumentsTemplate<DecreaseMaxTransferFee> {
 public:
@@ -19,15 +19,15 @@ public:
 
     std::string serialize() override;
 
-    /// \brief Sets the token ID.
-    /// \param token_id The ID.
+    /// \brief Sets the asset ID.
+    /// \param asset_id The ID.
     /// \return This request for chaining.
-    DecreaseMaxTransferFee& set_token_id(const std::string& token_id);
+    DecreaseMaxTransferFee& set_asset_id(const std::string& asset_id);
 
-    /// \brief Sets the index for non-fungible items.
-    /// \param token_index The index.
+    /// \brief Sets the index for non-fungible assets.
+    /// \param asset_index The index.
     /// \return This request for chaining.
-    DecreaseMaxTransferFee& set_token_index(const std::string& token_index);
+    DecreaseMaxTransferFee& set_asset_index(const std::string& asset_index);
 
     /// \brief Sets the new max transfer fee in Wei.
     /// \param max_transfer_fee The new fee.
@@ -39,8 +39,8 @@ public:
     bool operator!=(const DecreaseMaxTransferFee& rhs) const;
 
 private:
-    std::optional<std::string> token_id;
-    std::optional<std::string> token_index;
+    std::optional<std::string> asset_id;
+    std::optional<std::string> asset_index;
     std::optional<int> max_transfer_fee;
 };
 

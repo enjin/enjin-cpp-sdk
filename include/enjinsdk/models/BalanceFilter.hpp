@@ -26,15 +26,15 @@ public:
     /// \return This filter for chaining.
     BalanceFilter& set_or(const std::vector<BalanceFilter>& others);
 
-    /// \brief Sets the token (item) ID to filter for.
-    /// \param token_id The token ID.
+    /// \brief Sets the asset ID to filter for.
+    /// \param asset_id The asset ID.
     /// \return This filter for chaining.
-    BalanceFilter& set_token_id(const std::string& token_id);
+    BalanceFilter& set_asset_id(const std::string& asset_id);
 
-    /// \brief Sets the token (item) IDs to filter for.
-    /// \param token_ids The token IDs.
+    /// \brief Sets the asset IDs to filter for.
+    /// \param asset_ids The asset IDs.
     /// \return This filter for chaining.
-    BalanceFilter& set_token_id_in(const std::vector<std::string>& token_ids);
+    BalanceFilter& set_asset_id_in(const std::vector<std::string>& asset_ids);
 
     /// \brief Sets the wallet to filter by.
     /// \param wallet The wallet address.
@@ -78,8 +78,8 @@ public:
 private:
     std::optional<std::vector<BalanceFilter>> and_filters;
     std::optional<std::vector<BalanceFilter>> or_filters;
-    std::optional<std::string> token_id;
-    std::optional<std::vector<std::string>> token_id_in;
+    std::optional<std::string> asset_id;
+    std::optional<std::vector<std::string>> asset_id_in;
     std::optional<std::string> wallet;
     std::optional<std::vector<std::string>> wallet_in;
     std::optional<int> value;
@@ -90,8 +90,8 @@ private:
 
     constexpr static char AND_KEY[] = "and";
     constexpr static char OR_KEY[] = "or";
-    constexpr static char TOKEN_ID_KEY[] = "tokenId";
-    constexpr static char TOKEN_ID_IN_KEY[] = "tokenId_in";
+    constexpr static char ASSET_ID_KEY[] = "assetId";
+    constexpr static char ASSET_ID_IN_KEY[] = "assetId_in";
     constexpr static char WALLET_KEY[] = "wallet";
     constexpr static char WALLET_IN_KEY[] = "wallet_in";
     constexpr static char VALUE_KEY[] = "value";

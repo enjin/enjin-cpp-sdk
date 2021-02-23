@@ -9,7 +9,7 @@
 
 namespace enjin::sdk::models {
 
-/// \brief Models a item balance.
+/// \brief Models a asset balance.
 class Balance : public enjin::sdk::serialization::IDeserializable {
 public:
     /// \brief Default constructor.
@@ -17,19 +17,19 @@ public:
 
     void deserialize(const std::string& json) override;
 
-    /// \brief Returns the item ID for this balance.
-    /// \return The item ID.
+    /// \brief Returns the asset ID for this balance.
+    /// \return The asset ID.
     [[nodiscard]] const std::optional<std::string>& get_id() const;
 
-    /// \brief Returns the item index for this balance.
-    /// \return The item index.
+    /// \brief Returns the asset index for this balance.
+    /// \return The asset index.
     [[nodiscard]] const std::optional<std::string>& get_index() const;
 
-    /// \brief Returns the amount of the item in the balance.
-    /// \return The amount of the item.
+    /// \brief Returns the amount of the asset in the balance.
+    /// \return The amount of the asset.
     [[nodiscard]] const std::optional<int>& get_value() const;
 
-    /// \brief Returns the project the token of this balance belongs to.
+    /// \brief Returns the project the asset of this balance belongs to.
     /// \return The project.
     [[nodiscard]] const std::optional<Project>& get_project() const;
 

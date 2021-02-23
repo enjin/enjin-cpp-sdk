@@ -12,30 +12,30 @@ std::string SetTransferable::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
 
-    if (token_id.has_value()) {
-        utils::set_string_member(document, "tokenId", token_id.value());
+    if (asset_id.has_value()) {
+        utils::set_string_member(document, "assetId", asset_id.value());
     }
-    if (token_index.has_value()) {
-        utils::set_string_member(document, "tokenIndex", token_index.value());
+    if (asset_index.has_value()) {
+        utils::set_string_member(document, "assetIndex", asset_index.value());
     }
     if (transferable.has_value()) {
-        utils::set_string_member(document, "transferable", utils::serialize_token_transferable(transferable.value()));
+        utils::set_string_member(document, "transferable", utils::serialize_asset_transferable(transferable.value()));
     }
 
     return utils::document_to_string(document);
 }
 
-SetTransferable& SetTransferable::set_token_id(const std::string& token_id) {
-    SetTransferable::token_id = token_id;
+SetTransferable& SetTransferable::set_asset_id(const std::string& asset_id) {
+    SetTransferable::asset_id = asset_id;
     return *this;
 }
 
-SetTransferable& SetTransferable::set_token_index(const std::string& token_index) {
-    SetTransferable::token_index = token_index;
+SetTransferable& SetTransferable::set_asset_index(const std::string& asset_index) {
+    SetTransferable::asset_index = asset_index;
     return *this;
 }
 
-SetTransferable& SetTransferable::set_transferable(models::TokenTransferable transferable) {
+SetTransferable& SetTransferable::set_transferable(models::AssetTransferable transferable) {
     SetTransferable::transferable = transferable;
     return *this;
 }
@@ -45,8 +45,8 @@ bool SetTransferable::operator==(const SetTransferable& rhs) const {
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
            static_cast<const shared::TransactionRequestArgumentsTemplate<SetTransferable>&>(*this) ==
            static_cast<const shared::TransactionRequestArgumentsTemplate<SetTransferable>&>(rhs) &&
-           token_id == rhs.token_id &&
-           token_index == rhs.token_index &&
+           asset_id == rhs.asset_id &&
+           asset_index == rhs.asset_index &&
            transferable == rhs.transferable;
 }
 

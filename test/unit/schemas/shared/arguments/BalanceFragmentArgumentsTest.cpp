@@ -12,8 +12,8 @@ public:
 
     static BalanceFragmentArguments create_default_arguments() {
         BalanceFragmentArguments arguments;
-        arguments.set_bal_id_format(enjin::sdk::models::TokenIdFormat::HEX64);
-        arguments.set_bal_index_format(enjin::sdk::models::TokenIndexFormat::HEX64);
+        arguments.set_bal_id_format(enjin::sdk::models::AssetIdFormat::HEX64);
+        arguments.set_bal_index_format(enjin::sdk::models::AssetIndexFormat::HEX64);
         arguments.set_with_bal_project_id();
         arguments.set_with_bal_wallet_address();
         return arguments;
@@ -34,8 +34,8 @@ TEST_F(BalanceFragmentArgumentsTest, SerializeNoSetFieldsReturnsEmptyJsonObject)
 TEST_F(BalanceFragmentArgumentsTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_bal_id_format(enjin::sdk::models::TokenIdFormat::HEX64);
-    class_under_test.set_bal_index_format(enjin::sdk::models::TokenIndexFormat::HEX64);
+    class_under_test.set_bal_id_format(enjin::sdk::models::AssetIdFormat::HEX64);
+    class_under_test.set_bal_index_format(enjin::sdk::models::AssetIndexFormat::HEX64);
     class_under_test.set_with_bal_project_id();
     class_under_test.set_with_bal_wallet_address();
 

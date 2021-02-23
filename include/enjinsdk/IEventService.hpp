@@ -108,18 +108,18 @@ public:
     /// \return Whether this service is subscribed to the channel.
     virtual bool is_subscribed_to_player(int app, const std::string& player) = 0;
 
-    /// \brief Opens a channel for the specified token, allowing listeners to receive events for it.
-    /// \param token The token ID.
-    virtual void subscribe_to_token(const std::string& token) = 0;
+    /// \brief Opens a channel for the specified asset, allowing listeners to receive events for it.
+    /// \param asset The asset ID.
+    virtual void subscribe_to_asset(const std::string& asset) = 0;
 
-    /// \brief Closes a channel for the specified token, preventing listeners from receiving events for it.
-    /// \param token The token ID.
-    virtual void unsubscribe_to_token(const std::string& token) = 0;
+    /// \brief Closes a channel for the specified asset, preventing listeners from receiving events for it.
+    /// \param asset The asset ID.
+    virtual void unsubscribe_to_asset(const std::string& asset) = 0;
 
     /// \brief Determines if this service is subscribed to the specified channel.
-    /// \param token The token ID.
+    /// \param asset The asset ID.
     /// \return Whether this service is subscribed to the channel.
-    virtual bool is_subscribed_to_token(const std::string& token) = 0;
+    virtual bool is_subscribed_to_asset(const std::string& asset) = 0;
 
     /// \brief Opens a channel for the specified wallet, allowing listeners to receive events for it.
     /// \param wallet The wallet's address.

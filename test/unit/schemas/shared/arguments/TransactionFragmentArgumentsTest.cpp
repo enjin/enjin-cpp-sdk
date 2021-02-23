@@ -8,14 +8,14 @@ public:
     TransactionFragmentArguments class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"withBlockchainData":true,"withMeta":true,"withEncodedData":true,"withTokenData":true,"withSignedTxs":true,"withError":true,"withNonce":true,"withState":true,"withReceipt":true,"withReceiptLogs":true,"withLogEvent":true})";
+            R"({"withBlockchainData":true,"withMeta":true,"withEncodedData":true,"withAssetData":true,"withSignedTxs":true,"withError":true,"withNonce":true,"withState":true,"withReceipt":true,"withReceiptLogs":true,"withLogEvent":true})";
 
     static TransactionFragmentArguments create_default_arguments() {
         TransactionFragmentArguments arguments;
         arguments.set_with_blockchain_data();
         arguments.set_with_meta();
         arguments.set_with_encoded_data();
-        arguments.set_with_token_data();
+        arguments.set_with_asset_data();
         arguments.set_with_signed_txs();
         arguments.set_with_error();
         arguments.set_with_nonce();
@@ -44,7 +44,7 @@ TEST_F(TransactionFragmentArgumentsTest, SerializeSetFieldsReturnsExpectedJsonOb
     class_under_test.set_with_blockchain_data();
     class_under_test.set_with_meta();
     class_under_test.set_with_encoded_data();
-    class_under_test.set_with_token_data();
+    class_under_test.set_with_asset_data();
     class_under_test.set_with_signed_txs();
     class_under_test.set_with_error();
     class_under_test.set_with_nonce();

@@ -30,11 +30,11 @@ graphql::GraphqlResponse<models::Request> ProjectSchema::create_player_sync(Crea
     return send_request_for_one<models::Request>(request).get();
 }
 
-std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::create_token_async(CreateToken& request) {
+std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::create_asset_async(CreateAsset& request) {
     return send_request_for_one<models::Request>(request);
 }
 
-graphql::GraphqlResponse<models::Request> ProjectSchema::create_token_sync(CreateToken& request) {
+graphql::GraphqlResponse<models::Request> ProjectSchema::create_asset_sync(CreateAsset& request) {
     return send_request_for_one<models::Request>(request).get();
 }
 
@@ -100,19 +100,19 @@ graphql::GraphqlResponse<std::vector<models::Wallet>> ProjectSchema::get_wallets
 }
 
 std::future<graphql::GraphqlResponse<bool>>
-ProjectSchema::invalidate_token_metadata_async(InvalidateTokenMetadata& request) {
+ProjectSchema::invalidate_asset_metadata_async(InvalidateAssetMetadata& request) {
     return send_request_for_one<bool>(request);
 }
 
-graphql::GraphqlResponse<bool> ProjectSchema::invalidate_token_metadata_sync(InvalidateTokenMetadata& request) {
+graphql::GraphqlResponse<bool> ProjectSchema::invalidate_asset_metadata_sync(InvalidateAssetMetadata& request) {
     return send_request_for_one<bool>(request).get();
 }
 
-std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::mint_token_async(MintToken& request) {
+std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::mint_asset_async(MintAsset& request) {
     return send_request_for_one<models::Request>(request);
 }
 
-graphql::GraphqlResponse<models::Request> ProjectSchema::mint_token_sync(MintToken& request) {
+graphql::GraphqlResponse<models::Request> ProjectSchema::mint_asset_sync(MintAsset& request) {
     return send_request_for_one<models::Request>(request).get();
 }
 

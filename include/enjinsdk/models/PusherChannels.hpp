@@ -23,9 +23,9 @@ public:
     /// \return The player channel.
     [[nodiscard]] const std::optional<std::string>& get_player() const;
 
-    /// \brief Returns the token channel.
-    /// \return The token channel.
-    [[nodiscard]] const std::optional<std::string>& get_token() const;
+    /// \brief Returns the asset channel.
+    /// \return The asset channel.
+    [[nodiscard]] const std::optional<std::string>& get_asset() const;
 
     /// \brief Returns the wallet channel.
     /// \return The wallet channel.
@@ -38,12 +38,12 @@ public:
 private:
     std::optional<std::string> project;
     std::optional<std::string> player;
-    std::optional<std::string> token;
+    std::optional<std::string> asset;
     std::optional<std::string> wallet;
 
     constexpr static char PROJECT_KEY[] = "app";
     constexpr static char PLAYER_KEY[] = "player";
-    constexpr static char TOKEN_KEY[] = "token";
+    constexpr static char ASSET_KEY[] = "asset";
     constexpr static char WALLET_KEY[] = "wallet";
 };
 

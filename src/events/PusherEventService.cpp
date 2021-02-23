@@ -3,7 +3,7 @@
 #include "AppChannel.hpp"
 #include "EventTypeDef.hpp"
 #include "PlayerChannel.hpp"
-#include "TokenChannel.hpp"
+#include "AssetChannel.hpp"
 #include "WalletChannel.hpp"
 #include <algorithm>
 #include <utility>
@@ -180,16 +180,16 @@ bool PusherEventService::is_subscribed_to_player(int app, const std::string& pla
     return pusher_client->is_subscribed(PlayerChannel(platform.value(), app, player).channel());
 }
 
-void PusherEventService::subscribe_to_token(const std::string& token) {
-    subscribe(TokenChannel(platform.value(), token).channel());
+void PusherEventService::subscribe_to_asset(const std::string& asset) {
+    subscribe(AssetChannel(platform.value(), asset).channel());
 }
 
-void PusherEventService::unsubscribe_to_token(const std::string& token) {
-    unsubscribe(TokenChannel(platform.value(), token).channel());
+void PusherEventService::unsubscribe_to_asset(const std::string& asset) {
+    unsubscribe(AssetChannel(platform.value(), asset).channel());
 }
 
-bool PusherEventService::is_subscribed_to_token(const std::string& token) {
-    return pusher_client->is_subscribed(TokenChannel(platform.value(), token).channel());
+bool PusherEventService::is_subscribed_to_asset(const std::string& asset) {
+    return pusher_client->is_subscribed(AssetChannel(platform.value(), asset).channel());
 }
 
 void PusherEventService::subscribe_to_wallet(const std::string& wallet) {

@@ -1,4 +1,4 @@
-#include "enjinsdk/shared/AdvancedSendToken.hpp"
+#include "enjinsdk/shared/AdvancedSendAsset.hpp"
 #include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 
@@ -6,13 +6,13 @@ using namespace enjin::sdk::shared;
 
 class AdvancedSendTokenTest : public JsonTestSuite {
 public:
-    AdvancedSendToken class_under_test;
+    AdvancedSendAsset class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"transfers":[],"data":"1"})";
 
-    static AdvancedSendToken create_default_request() {
-        return AdvancedSendToken().set_transfers(std::vector<enjin::sdk::models::Transfer>())
+    static AdvancedSendAsset create_default_request() {
+        return AdvancedSendAsset().set_transfers(std::vector<enjin::sdk::models::Transfer>())
                                   .set_data("1");
     }
 };
@@ -43,8 +43,8 @@ TEST_F(AdvancedSendTokenTest, SerializeSetFieldsReturnsExpectedJsonObject) {
 
 TEST_F(AdvancedSendTokenTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    AdvancedSendToken lhs;
-    AdvancedSendToken rhs;
+    AdvancedSendAsset lhs;
+    AdvancedSendAsset rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -55,8 +55,8 @@ TEST_F(AdvancedSendTokenTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
 
 TEST_F(AdvancedSendTokenTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    AdvancedSendToken lhs = create_default_request();
-    AdvancedSendToken rhs = create_default_request();
+    AdvancedSendAsset lhs = create_default_request();
+    AdvancedSendAsset rhs = create_default_request();
 
     // Act
     bool actual = lhs == rhs;
@@ -67,8 +67,8 @@ TEST_F(AdvancedSendTokenTest, EqualityBothSidesArePopulatedReturnsTrue) {
 
 TEST_F(AdvancedSendTokenTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    AdvancedSendToken lhs = create_default_request();
-    AdvancedSendToken rhs;
+    AdvancedSendAsset lhs = create_default_request();
+    AdvancedSendAsset rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -79,8 +79,8 @@ TEST_F(AdvancedSendTokenTest, EqualityLeftSideIsPopulatedReturnsFalse) {
 
 TEST_F(AdvancedSendTokenTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    AdvancedSendToken lhs;
-    AdvancedSendToken rhs = create_default_request();
+    AdvancedSendAsset lhs;
+    AdvancedSendAsset rhs = create_default_request();
 
     // Act
     bool actual = lhs == rhs;

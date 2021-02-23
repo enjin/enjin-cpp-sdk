@@ -18,8 +18,8 @@ set(SOURCE_FILES
         events/channels/IChannel.hpp
         events/channels/PlayerChannel.cpp
         events/channels/PlayerChannel.hpp
-        events/channels/TokenChannel.cpp
-        events/channels/TokenChannel.hpp
+        events/channels/AssetChannel.cpp
+        events/channels/AssetChannel.hpp
         events/channels/WalletChannel.cpp
         events/channels/WalletChannel.hpp
         graphql/AbstractGraphqlRequest.cpp
@@ -55,13 +55,13 @@ set(SOURCE_FILES
         models/PusherOptions.cpp
         models/Request.cpp
         models/SupplyModels.cpp
-        models/Token.cpp
-        models/TokenConfigData.cpp
-        models/TokenFilter.cpp
-        models/TokenSort.cpp
-        models/TokenStateData.cpp
-        models/TokenTransferFeeSettings.cpp
-        models/TokenVariant.cpp
+        models/Asset.cpp
+        models/AssetConfigData.cpp
+        models/AssetFilter.cpp
+        models/AssetSort.cpp
+        models/AssetStateData.cpp
+        models/AssetTransferFeeSettings.cpp
+        models/AssetVariant.cpp
         models/Trade.cpp
         models/TransactionEvent.cpp
         models/TransactionFilter.cpp
@@ -81,12 +81,12 @@ set(SOURCE_FILES
         schemas/player/queries/GetWallet.cpp
         schemas/project/ProjectSchema.cpp
         schemas/project/mutations/CreatePlayer.cpp
-        schemas/project/mutations/CreateToken.cpp
+        schemas/project/mutations/CreateAsset.cpp
         schemas/project/mutations/DecreaseMaxMeltFee.cpp
         schemas/project/mutations/DecreaseMaxTransferFee.cpp
         schemas/project/mutations/DeletePlayer.cpp
-        schemas/project/mutations/InvalidateTokenMetadata.cpp
-        schemas/project/mutations/MintToken.cpp
+        schemas/project/mutations/InvalidateAssetMetadata.cpp
+        schemas/project/mutations/MintAsset.cpp
         schemas/project/mutations/ReleaseReserve.cpp
         schemas/project/mutations/SetMeltFee.cpp
         schemas/project/mutations/SetTransferFee.cpp
@@ -104,21 +104,21 @@ set(SOURCE_FILES
         schemas/shared/arguments/BalanceFragmentArguments.cpp
         schemas/shared/arguments/PaginationArguments.cpp
         schemas/shared/arguments/PlayerFragmentArguments.cpp
-        schemas/shared/arguments/TokenFragmentArguments.cpp
+        schemas/shared/arguments/AssetFragmentArguments.cpp
         schemas/shared/arguments/TransactionFragmentArguments.cpp
         schemas/shared/arguments/TransactionRequestArguments.cpp
         schemas/shared/arguments/WalletFragmentArguments.cpp
-        schemas/shared/mutations/AdvancedSendToken.cpp
+        schemas/shared/mutations/AdvancedSendAsset.cpp
         schemas/shared/mutations/ApproveEnj.cpp
         schemas/shared/mutations/ApproveMaxEnj.cpp
         schemas/shared/mutations/CancelTransaction.cpp
         schemas/shared/mutations/CompleteTrade.cpp
         schemas/shared/mutations/CreateTrade.cpp
-        schemas/shared/mutations/MeltToken.cpp
+        schemas/shared/mutations/MeltAsset.cpp
         schemas/shared/mutations/Message.cpp
         schemas/shared/mutations/ResetEnjApproval.cpp
         schemas/shared/mutations/SendEnj.cpp
-        schemas/shared/mutations/SendToken.cpp
+        schemas/shared/mutations/SendAsset.cpp
         schemas/shared/mutations/SetApprovalForAll.cpp
         schemas/shared/queries/GetBalances.cpp
         schemas/shared/queries/GetGasPrices.cpp
@@ -126,8 +126,8 @@ set(SOURCE_FILES
         schemas/shared/queries/GetProject.cpp
         schemas/shared/queries/GetRequest.cpp
         schemas/shared/queries/GetRequests.cpp
-        schemas/shared/queries/GetToken.cpp
-        schemas/shared/queries/GetTokens.cpp
+        schemas/shared/queries/GetAsset.cpp
+        schemas/shared/queries/GetAssets.cpp
         utils/EnumUtils.cpp
         utils/EnumUtils.hpp
         utils/RapidJsonUtils.cpp

@@ -1,11 +1,11 @@
-#include "enjinsdk/models/TokenStateData.hpp"
+#include "enjinsdk/models/AssetStateData.hpp"
 #include "../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::models;
 
 class TokenStateDataTest : public JsonTestSuite {
 public:
-    TokenStateData class_under_test;
+    AssetStateData class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"nonFungible":true,"blockHeight":1,"creator":"1","firstBlock":1,"reserve":"1","supplyModel":"FIXED","circulatingSupply":"1","mintableSupply":"1","totalSupply":"1"})";
@@ -54,7 +54,7 @@ TEST_F(TokenStateDataTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValue
     const bool expected_bool = true;
     const int expected_int = 1;
     const std::string expected_string("1");
-    const TokenSupplyModel expected_supply_model = TokenSupplyModel::FIXED;
+    const AssetSupplyModel expected_supply_model = AssetSupplyModel::FIXED;
     const std::string json(POPULATED_JSON_OBJECT);
 
     // Act
@@ -74,8 +74,8 @@ TEST_F(TokenStateDataTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValue
 
 TEST_F(TokenStateDataTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    TokenStateData lhs;
-    TokenStateData rhs;
+    AssetStateData lhs;
+    AssetStateData rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -86,8 +86,8 @@ TEST_F(TokenStateDataTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
 
 TEST_F(TokenStateDataTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    TokenStateData lhs;
-    TokenStateData rhs;
+    AssetStateData lhs;
+    AssetStateData rhs;
     lhs.deserialize(POPULATED_JSON_OBJECT);
     rhs.deserialize(POPULATED_JSON_OBJECT);
 
@@ -100,8 +100,8 @@ TEST_F(TokenStateDataTest, EqualityBothSidesArePopulatedReturnsTrue) {
 
 TEST_F(TokenStateDataTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    TokenStateData lhs;
-    TokenStateData rhs;
+    AssetStateData lhs;
+    AssetStateData rhs;
     lhs.deserialize(POPULATED_JSON_OBJECT);
 
     // Act
@@ -113,8 +113,8 @@ TEST_F(TokenStateDataTest, EqualityLeftSideIsPopulatedReturnsFalse) {
 
 TEST_F(TokenStateDataTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    TokenStateData lhs;
-    TokenStateData rhs;
+    AssetStateData lhs;
+    AssetStateData rhs;
     rhs.deserialize(POPULATED_JSON_OBJECT);
 
     // Act

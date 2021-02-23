@@ -6,16 +6,16 @@
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::utils;
 
-class TokenFieldTest : public testing::TestWithParam<std::tuple<std::string, TokenField>> {
+class TokenFieldTest : public testing::TestWithParam<std::tuple<std::string, AssetField>> {
 };
 
 TEST_P(TokenFieldTest, SerializeTokenFieldReturnsExpectedString) {
     // Arrange
     const std::string& expected = std::get<0>(GetParam());
-    TokenField value = std::get<1>(GetParam());
+    AssetField value = std::get<1>(GetParam());
 
     // Act
-    std::string actual = serialize_token_field(value);
+    std::string actual = serialize_asset_field(value);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -23,10 +23,10 @@ TEST_P(TokenFieldTest, SerializeTokenFieldReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializeTokenField,
                          TokenFieldTest,
-                         testing::Values(std::make_tuple("id", TokenField::ID),
-                                         std::make_tuple("name", TokenField::NAME),
-                                         std::make_tuple("circulatingSupply", TokenField::CIRCULATING_SUPPLY),
-                                         std::make_tuple("nonFungible", TokenField::NON_FUNGIBLE),
-                                         std::make_tuple("reserve", TokenField::RESERVE),
-                                         std::make_tuple("totalSupply", TokenField::TOTAL_SUPPLY),
-                                         std::make_tuple("createdAt", TokenField::CREATED_AT)));
+                         testing::Values(std::make_tuple("id", AssetField::ID),
+                                         std::make_tuple("name", AssetField::NAME),
+                                         std::make_tuple("circulatingSupply", AssetField::CIRCULATING_SUPPLY),
+                                         std::make_tuple("nonFungible", AssetField::NON_FUNGIBLE),
+                                         std::make_tuple("reserve", AssetField::RESERVE),
+                                         std::make_tuple("totalSupply", AssetField::TOTAL_SUPPLY),
+                                         std::make_tuple("createdAt", AssetField::CREATED_AT)));

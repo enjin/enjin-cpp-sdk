@@ -9,11 +9,11 @@ public:
     DecreaseMaxMeltFee class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"tokenId":"1","tokenIndex":"1","maxMeltFee":1})";
+            R"({"assetId":"1","assetIndex":"1","maxMeltFee":1})";
 
     static DecreaseMaxMeltFee create_default_request() {
-        return DecreaseMaxMeltFee().set_token_id("1")
-                                   .set_token_index("1")
+        return DecreaseMaxMeltFee().set_asset_id("1")
+                                   .set_asset_index("1")
                                    .set_max_melt_fee(1);
     }
 };
@@ -32,8 +32,8 @@ TEST_F(DecreaseMaxMeltFeeTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
 TEST_F(DecreaseMaxMeltFeeTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_token_id("1")
-                    .set_token_index("1")
+    class_under_test.set_asset_id("1")
+                    .set_asset_index("1")
                     .set_max_melt_fee(1);
 
     // Act

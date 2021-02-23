@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include "AppChannel.hpp"
 #include "PlayerChannel.hpp"
-#include "TokenChannel.hpp"
+#include "AssetChannel.hpp"
 #include "WalletChannel.hpp"
 #include "enjinsdk/PusherEventService.hpp"
 #include "enjinsdk/internal/pusher/Constants.hpp"
@@ -46,11 +46,11 @@ public:
             EventType::PLAYER_LINKED,
             EventType::PLAYER_UNLINKED,
             EventType::PLAYER_UPDATED,
-            EventType::TOKEN_CREATED,
-            EventType::TOKEN_MELTED,
-            EventType::TOKEN_MINTED,
-            EventType::TOKEN_TRANSFERRED,
-            EventType::TOKEN_UPDATED,
+            EventType::ASSET_CREATED,
+            EventType::ASSET_MELTED,
+            EventType::ASSET_MINTED,
+            EventType::ASSET_TRANSFERRED,
+            EventType::ASSET_UPDATED,
             EventType::TRADE_COMPLETED,
             EventType::TRADE_CREATED,
             EventType::TRANSACTION_BROADCAST,
@@ -210,7 +210,7 @@ TEST_F(PusherEventServiceTest, RegisterListenerWithMatcherRegistrationHasMatcher
         switch (type) {
             case EventType::PLAYER_CREATED:
             case EventType::PLAYER_UPDATED:
-            case EventType::TOKEN_TRANSFERRED:
+            case EventType::ASSET_TRANSFERRED:
                 return true;
             default:
                 return false;
@@ -231,7 +231,7 @@ TEST_F(PusherEventServiceTest, RegisterListenerWithMatcherRegistrationHasMatcher
 TEST_F(PusherEventServiceTest, RegisterListenerIncludingTypesRegistrationMatcherIncludesTypes) {
     // Arrange
     auto service = create_default_event_service();
-    std::vector<EventType> types = {EventType::PLAYER_CREATED, EventType::PLAYER_UPDATED, EventType::TOKEN_TRANSFERRED};
+    std::vector<EventType> types = {EventType::PLAYER_CREATED, EventType::PLAYER_UPDATED, EventType::ASSET_TRANSFERRED};
     std::shared_ptr<MockEventListener> listener = std::make_shared<MockEventListener>();
 
     // Act
@@ -248,7 +248,7 @@ TEST_F(PusherEventServiceTest, RegisterListenerIncludingTypesRegistrationMatcher
 TEST_F(PusherEventServiceTest, RegisterListenerExcludingTypesRegistrationMatcherExcludesTypes) {
     // Arrange
     auto service = create_default_event_service();
-    std::vector<EventType> types = {EventType::PLAYER_CREATED, EventType::PLAYER_UPDATED, EventType::TOKEN_TRANSFERRED};
+    std::vector<EventType> types = {EventType::PLAYER_CREATED, EventType::PLAYER_UPDATED, EventType::ASSET_TRANSFERRED};
     std::shared_ptr<MockEventListener> listener = std::make_shared<MockEventListener>();
 
     // Act
@@ -421,7 +421,7 @@ TEST_F(PusherEventServiceTest, UnsubscribeToPlayerServiceIsUnsubscribedFromChann
 TEST_F(PusherEventServiceTest, SubscribeToTokenServiceSubscribesToChannel) {
     // Arrange
     const std::string token(DEFAULT_TOKEN);
-    const std::string channel = TokenChannel(create_default_platform(), token).channel();
+    const std::string channel = AssetChannel(create_default_platform(), token).channel();
     auto service = create_default_event_service();
     MockWebsocketServer mock_server;
     mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
@@ -444,7 +444,7 @@ TEST_F(PusherEventServiceTest, SubscribeToTokenServiceSubscribesToChannel) {
     set_expected_call_count(1);
 
     // Act
-    service->subscribe_to_token(token);
+    service->subscribe_to_asset(token);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
@@ -452,13 +452,13 @@ TEST_F(PusherEventServiceTest, SubscribeToTokenServiceSubscribesToChannel) {
     verify_call_count(2);
 
     // Assert
-    EXPECT_TRUE(service->is_subscribed_to_token(token));
+    EXPECT_TRUE(service->is_subscribed_to_asset(token));
 }
 
 TEST_F(PusherEventServiceTest, UnsubscribeToTokenServiceIsUnsubscribedFromChannel) {
     // Arrange
     const std::string token(DEFAULT_TOKEN);
-    const std::string channel = TokenChannel(create_default_platform(), token).channel();
+    const std::string channel = AssetChannel(create_default_platform(), token).channel();
     auto service = create_default_event_service();
     MockWebsocketServer mock_server;
     mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
@@ -473,14 +473,14 @@ TEST_F(PusherEventServiceTest, UnsubscribeToTokenServiceIsUnsubscribedFromChanne
         response.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
         mock_server.send_message(response);
     });
-    service->subscribe_to_token(token);
+    service->subscribe_to_asset(token);
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Act
-    service->unsubscribe_to_token(token);
+    service->unsubscribe_to_asset(token);
 
     // Assert
-    EXPECT_FALSE(service->is_subscribed_to_token(token));
+    EXPECT_FALSE(service->is_subscribed_to_asset(token));
 }
 
 TEST_F(PusherEventServiceTest, SubscribeToWalletServiceSubscribesToChannel) {

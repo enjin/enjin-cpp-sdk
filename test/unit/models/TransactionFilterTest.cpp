@@ -10,7 +10,7 @@ public:
     TransactionFilter class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"and":[],"or":[],"id":"1","id_in":[],"transactionId":"1","transactionId_in":[],"tokenId":"1","tokenId_in":[],"type":"APPROVE","type_in":[],"value":1,"value_gt":1,"value_gte":1,"value_lt":1,"value_lte":1,"state":"PENDING","state_in":[],"wallet":"1","wallet_in":[]})";
+            R"({"and":[],"or":[],"id":"1","id_in":[],"transactionId":"1","transactionId_in":[],"assetId":"1","assetId_in":[],"type":"APPROVE","type_in":[],"value":1,"value_gt":1,"value_gte":1,"value_lt":1,"value_lte":1,"state":"PENDING","state_in":[],"wallet":"1","wallet_in":[]})";
 
     static TransactionFilter create_default_filter() {
         return TransactionFilter().set_and(std::vector<TransactionFilter>())
@@ -19,8 +19,8 @@ public:
                                   .set_id_in(std::vector<std::string>())
                                   .set_transaction_id("1")
                                   .set_transaction_id_in(std::vector<std::string>())
-                                  .set_token_id("1")
-                                  .set_token_id_in(std::vector<std::string>())
+                                  .set_asset_id("1")
+                                  .set_asset_id_in(std::vector<std::string>())
                                   .set_type(RequestType::APPROVE)
                                   .set_type_in(std::vector<RequestType>())
                                   .set_value(1)
@@ -55,8 +55,8 @@ TEST_F(TransactionFilterTest, SerializeSetFieldsReturnsExpectedJsonObject) {
                     .set_id_in(std::vector<std::string>())
                     .set_transaction_id("1")
                     .set_transaction_id_in(std::vector<std::string>())
-                    .set_token_id("1")
-                    .set_token_id_in(std::vector<std::string>())
+                    .set_asset_id("1")
+                    .set_asset_id_in(std::vector<std::string>())
                     .set_type(RequestType::APPROVE)
                     .set_type_in(std::vector<RequestType>())
                     .set_value(1)

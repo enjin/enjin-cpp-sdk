@@ -6,16 +6,16 @@
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::utils;
 
-class TokenTransferFeeTypeTest : public testing::TestWithParam<std::tuple<std::string, TokenTransferFeeType>> {
+class TokenTransferFeeTypeTest : public testing::TestWithParam<std::tuple<std::string, AssetTransferFeeType>> {
 };
 
 TEST_P(TokenTransferFeeTypeTest, DeserializeTokenTransferFeeTypeReturnsExpectedValue) {
     // Arrange
-    TokenTransferFeeType expected = std::get<1>(GetParam());
+    AssetTransferFeeType expected = std::get<1>(GetParam());
     const std::string& str = std::get<0>(GetParam());
 
     // Act
-    TokenTransferFeeType actual = deserialize_token_transfer_fee_type(str);
+    AssetTransferFeeType actual = deserialize_asset_transfer_fee_type(str);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -24,10 +24,10 @@ TEST_P(TokenTransferFeeTypeTest, DeserializeTokenTransferFeeTypeReturnsExpectedV
 TEST_P(TokenTransferFeeTypeTest, SerializeTokenTransferFeeTypeReturnsExpectedString) {
     // Arrange
     const std::string& expected = std::get<0>(GetParam());
-    TokenTransferFeeType value = std::get<1>(GetParam());
+    AssetTransferFeeType value = std::get<1>(GetParam());
 
     // Act
-    std::string actual = serialize_token_transfer_fee_type(value);
+    std::string actual = serialize_asset_transfer_fee_type(value);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -35,9 +35,9 @@ TEST_P(TokenTransferFeeTypeTest, SerializeTokenTransferFeeTypeReturnsExpectedStr
 
 INSTANTIATE_TEST_SUITE_P(SerializableTokenTransferFeeType,
                          TokenTransferFeeTypeTest,
-                         testing::Values(std::make_tuple("UNKNOWN", TokenTransferFeeType::UNKNOWN),
-                                         std::make_tuple("NONE", TokenTransferFeeType::NONE),
-                                         std::make_tuple("PER_TRANSFER", TokenTransferFeeType::PER_TRANSFER),
-                                         std::make_tuple("PER_CRYPTO_ITEM", TokenTransferFeeType::PER_CRYPTO_ITEM),
-                                         std::make_tuple("RATIO_CUT", TokenTransferFeeType::RATIO_CUT),
-                                         std::make_tuple("RATIO_EXTRA", TokenTransferFeeType::RATIO_EXTRA)));
+                         testing::Values(std::make_tuple("UNKNOWN", AssetTransferFeeType::UNKNOWN),
+                                         std::make_tuple("NONE", AssetTransferFeeType::NONE),
+                                         std::make_tuple("PER_TRANSFER", AssetTransferFeeType::PER_TRANSFER),
+                                         std::make_tuple("PER_CRYPTO_ITEM", AssetTransferFeeType::PER_CRYPTO_ITEM),
+                                         std::make_tuple("RATIO_CUT", AssetTransferFeeType::RATIO_CUT),
+                                         std::make_tuple("RATIO_EXTRA", AssetTransferFeeType::RATIO_EXTRA)));

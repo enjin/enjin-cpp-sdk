@@ -7,8 +7,8 @@
 #include "enjinsdk/models/Platform.hpp"
 #include "enjinsdk/models/Project.hpp"
 #include "enjinsdk/models/Request.hpp"
-#include "enjinsdk/models/Token.hpp"
-#include "enjinsdk/shared/AdvancedSendToken.hpp"
+#include "enjinsdk/models/Asset.hpp"
+#include "enjinsdk/shared/AdvancedSendAsset.hpp"
 #include "enjinsdk/shared/ApproveEnj.hpp"
 #include "enjinsdk/shared/ApproveMaxEnj.hpp"
 #include "enjinsdk/shared/CancelTransaction.hpp"
@@ -20,13 +20,13 @@
 #include "enjinsdk/shared/GetProject.hpp"
 #include "enjinsdk/shared/GetRequest.hpp"
 #include "enjinsdk/shared/GetRequests.hpp"
-#include "enjinsdk/shared/GetToken.hpp"
-#include "enjinsdk/shared/GetTokens.hpp"
-#include "enjinsdk/shared/MeltToken.hpp"
+#include "enjinsdk/shared/GetAsset.hpp"
+#include "enjinsdk/shared/GetAssets.hpp"
+#include "enjinsdk/shared/MeltAsset.hpp"
 #include "enjinsdk/shared/Message.hpp"
 #include "enjinsdk/shared/ResetEnjApproval.hpp"
 #include "enjinsdk/shared/SendEnj.hpp"
-#include "enjinsdk/shared/SendToken.hpp"
+#include "enjinsdk/shared/SendAsset.hpp"
 #include "enjinsdk/shared/SetApprovalForAll.hpp"
 #include <future>
 #include <vector>
@@ -39,16 +39,16 @@ public:
     /// \brief Default destructor.
     virtual ~ISharedSchema() = default;
 
-    /// \brief Sends AdvancedSendToken request asynchronously.
+    /// \brief Sends AdvancedSendAsset request asynchronously.
     /// \param request The request.
     /// \return The future containing the response.
     virtual std::future<graphql::GraphqlResponse<models::Request>>
-    advanced_send_token_async(AdvancedSendToken& request) = 0;
+    advanced_send_asset_async(AdvancedSendAsset& request) = 0;
 
-    /// \brief Sends AdvancedSendToken request synchronously.
+    /// \brief Sends AdvancedSendAsset request synchronously.
     /// \param request The request.
     /// \return The response.
-    virtual graphql::GraphqlResponse<models::Request> advanced_send_token_sync(AdvancedSendToken& request) = 0;
+    virtual graphql::GraphqlResponse<models::Request> advanced_send_asset_sync(AdvancedSendAsset& request) = 0;
 
     /// \brief Sends ApproveEnj request asynchronously.
     /// \param request The request.
@@ -162,35 +162,35 @@ public:
     /// \return The response.
     virtual graphql::GraphqlResponse<std::vector<models::Request>> get_requests_sync(GetRequests& request) = 0;
 
-    /// \brief Sends GetToken request asynchronously.
+    /// \brief Sends GetAsset request asynchronously.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Token>> get_token_async(GetToken& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Asset>> get_asset_async(GetAsset& request) = 0;
 
-    /// \brief Sends GetToken request synchronously.
+    /// \brief Sends GetAsset request synchronously.
     /// \param request The request.
     /// \return The response.
-    virtual graphql::GraphqlResponse<models::Token> get_token_sync(GetToken& request) = 0;
+    virtual graphql::GraphqlResponse<models::Asset> get_asset_sync(GetAsset& request) = 0;
 
-    /// \brief Sends GetTokens request asynchronously.
+    /// \brief Sends GetAssets request asynchronously.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<std::vector<models::Token>>> get_tokens_async(GetTokens& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<std::vector<models::Asset>>> get_assets_async(GetAssets& request) = 0;
 
-    /// \brief Sends GetTokens request synchronously.
+    /// \brief Sends GetAssets request synchronously.
     /// \param request The request.
     /// \return The response.
-    virtual graphql::GraphqlResponse<std::vector<models::Token>> get_tokens_sync(GetTokens& request) = 0;
+    virtual graphql::GraphqlResponse<std::vector<models::Asset>> get_assets_sync(GetAssets& request) = 0;
 
-    /// \brief Sends MeltToken request asynchronously.
+    /// \brief Sends MeltAsset request asynchronously.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> melt_token_async(MeltToken& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Request>> melt_asset_async(MeltAsset& request) = 0;
 
-    /// \brief Sends MeltToken request synchronously.
+    /// \brief Sends MeltAsset request synchronously.
     /// \param request The request.
     /// \return The response.
-    virtual graphql::GraphqlResponse<models::Request> melt_token_sync(MeltToken& request) = 0;
+    virtual graphql::GraphqlResponse<models::Request> melt_asset_sync(MeltAsset& request) = 0;
 
     /// \brief Sends Message request asynchronously.
     /// \param request The request.
@@ -223,15 +223,15 @@ public:
     /// \return The response.
     virtual graphql::GraphqlResponse<models::Request> send_enj_sync(SendEnj& request) = 0;
 
-    /// \brief Sends SendToken request asynchronously.
+    /// \brief Sends SendAsset request asynchronously.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> send_token_async(SendToken& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Request>> send_asset_async(SendAsset& request) = 0;
 
-    /// \brief Sends SendToken request synchronously.
+    /// \brief Sends SendAsset request synchronously.
     /// \param request The request.
     /// \return The response.
-    virtual graphql::GraphqlResponse<models::Request> send_token_sync(SendToken& request) = 0;
+    virtual graphql::GraphqlResponse<models::Request> send_asset_sync(SendAsset& request) = 0;
 
     /// \brief Sends SetApprovalForAll request asynchronously.
     /// \param request The request.

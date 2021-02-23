@@ -8,11 +8,11 @@ public:
     WalletFragmentArguments class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"withTokensCreated":true})";
+            R"({"withAssetsCreated":true})";
 
     static WalletFragmentArguments create_default_arguments() {
         WalletFragmentArguments arguments;
-        arguments.set_with_tokens_created();
+        arguments.set_with_assets_created();
         return arguments;
     }
 };
@@ -31,7 +31,7 @@ TEST_F(WalletFragmentArgumentsTest, SerializeNoSetFieldsReturnsEmptyJsonObject) 
 TEST_F(WalletFragmentArgumentsTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_with_tokens_created();
+    class_under_test.set_with_assets_created();
 
     // Act
     std::string actual = class_under_test.serialize();

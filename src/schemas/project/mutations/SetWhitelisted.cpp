@@ -12,8 +12,8 @@ std::string SetWhitelisted::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
 
-    if (token_id.has_value()) {
-        utils::set_string_member(document, "tokenId", token_id.value());
+    if (asset_id.has_value()) {
+        utils::set_string_member(document, "assetId", asset_id.value());
     }
     if (account_address.has_value()) {
         utils::set_string_member(document, "accountAddress", account_address.value());
@@ -31,8 +31,8 @@ std::string SetWhitelisted::serialize() {
     return utils::document_to_string(document);
 }
 
-SetWhitelisted& SetWhitelisted::set_token_id(const std::string& token_id) {
-    SetWhitelisted::token_id = token_id;
+SetWhitelisted& SetWhitelisted::set_asset_id(const std::string& asset_id) {
+    SetWhitelisted::asset_id = asset_id;
     return *this;
 }
 
@@ -61,7 +61,7 @@ bool SetWhitelisted::operator==(const SetWhitelisted& rhs) const {
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
            static_cast<const shared::TransactionRequestArgumentsTemplate<SetWhitelisted>&>(*this) ==
            static_cast<const shared::TransactionRequestArgumentsTemplate<SetWhitelisted>&>(rhs) &&
-           token_id == rhs.token_id &&
+           asset_id == rhs.asset_id &&
            account_address == rhs.account_address &&
            whitelisted == rhs.whitelisted &&
            whitelisted_address == rhs.whitelisted_address &&

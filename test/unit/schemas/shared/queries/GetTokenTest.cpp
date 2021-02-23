@@ -1,4 +1,4 @@
-#include "enjinsdk/shared/GetToken.hpp"
+#include "enjinsdk/shared/GetAsset.hpp"
 #include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 
@@ -6,13 +6,13 @@ using namespace enjin::sdk::shared;
 
 class GetTokenTest : public JsonTestSuite {
 public:
-    GetToken class_under_test;
+    GetAsset class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"id":"1"})";
 
-    static GetToken create_default_request() {
-        return GetToken().set_id("1");
+    static GetAsset create_default_request() {
+        return GetAsset().set_id("1");
     }
 };
 
@@ -41,8 +41,8 @@ TEST_F(GetTokenTest, SerializeSetFieldsReturnsExpectedJsonObject) {
 
 TEST_F(GetTokenTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    GetToken lhs;
-    GetToken rhs;
+    GetAsset lhs;
+    GetAsset rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -53,8 +53,8 @@ TEST_F(GetTokenTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
 
 TEST_F(GetTokenTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    GetToken lhs = create_default_request();
-    GetToken rhs = create_default_request();
+    GetAsset lhs = create_default_request();
+    GetAsset rhs = create_default_request();
 
     // Act
     bool actual = lhs == rhs;
@@ -65,8 +65,8 @@ TEST_F(GetTokenTest, EqualityBothSidesArePopulatedReturnsTrue) {
 
 TEST_F(GetTokenTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    GetToken lhs = create_default_request();
-    GetToken rhs;
+    GetAsset lhs = create_default_request();
+    GetAsset rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -77,8 +77,8 @@ TEST_F(GetTokenTest, EqualityLeftSideIsPopulatedReturnsFalse) {
 
 TEST_F(GetTokenTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    GetToken lhs;
-    GetToken rhs = create_default_request();
+    GetAsset lhs;
+    GetAsset rhs = create_default_request();
 
     // Act
     bool actual = lhs == rhs;

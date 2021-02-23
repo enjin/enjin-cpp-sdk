@@ -39,10 +39,10 @@ public:
         return dynamic_cast<T&>(*this);
     }
 
-    /// \brief Sets the request to include the token (item) data with the transaction.
+    /// \brief Sets the request to include the asset data with the transaction.
     /// \return This request for chaining.
-    T& set_with_token_data() {
-        impl.set_with_token_data();
+    T& set_with_asset_data() {
+        impl.set_with_asset_data();
         return dynamic_cast<T&>(*this);
     }
 

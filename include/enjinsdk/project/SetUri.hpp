@@ -8,7 +8,7 @@
 
 namespace enjin::sdk::project {
 
-/// \brief Request to set the metadata URI of an item.
+/// \brief Request to set the metadata URI of an asset.
 class SetUri : public graphql::AbstractGraphqlRequest,
                public shared::TransactionRequestArgumentsTemplate<SetUri> {
 public:
@@ -19,17 +19,17 @@ public:
 
     std::string serialize() override;
 
-    /// \brief Sets the token (item) ID.
-    /// \param token_id The ID.
+    /// \brief Sets the asset ID.
+    /// \param asset_id The ID.
     /// \return This request for chaining.
-    SetUri& set_token_id(const std::string& token_id);
+    SetUri& set_asset_id(const std::string& asset_id);
 
-    /// \brief Sets the index for non-fungible items.
-    /// \param token_index The index.
+    /// \brief Sets the index for non-fungible assets.
+    /// \param asset_index The index.
     /// \return This request for chaining.
-    SetUri& set_token_index(const std::string& token_index);
+    SetUri& set_asset_index(const std::string& asset_index);
 
-    /// \brief Sets the new URI for the item's metadata.
+    /// \brief Sets the new URI for the asset's metadata.
     /// \param uri The URI.
     /// \return This request for chaining.
     SetUri& set_uri(const std::string& uri);
@@ -39,8 +39,8 @@ public:
     bool operator!=(const SetUri& rhs) const;
 
 private:
-    std::optional<std::string> token_id;
-    std::optional<std::string> token_index;
+    std::optional<std::string> asset_id;
+    std::optional<std::string> asset_index;
     std::optional<std::string> uri;
 };
 

@@ -12,11 +12,11 @@ std::string DecreaseMaxTransferFee::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
 
-    if (token_id.has_value()) {
-        utils::set_string_member(document, "tokenId", token_id.value());
+    if (asset_id.has_value()) {
+        utils::set_string_member(document, "assetId", asset_id.value());
     }
-    if (token_index.has_value()) {
-        utils::set_string_member(document, "tokenIndex", token_index.value());
+    if (asset_index.has_value()) {
+        utils::set_string_member(document, "assetIndex", asset_index.value());
     }
     if (max_transfer_fee.has_value()) {
         utils::set_integer_member(document, "maxTransferFee", max_transfer_fee.value());
@@ -25,13 +25,13 @@ std::string DecreaseMaxTransferFee::serialize() {
     return utils::document_to_string(document);
 }
 
-DecreaseMaxTransferFee& DecreaseMaxTransferFee::set_token_id(const std::string& token_id) {
-    DecreaseMaxTransferFee::token_id = token_id;
+DecreaseMaxTransferFee& DecreaseMaxTransferFee::set_asset_id(const std::string& asset_id) {
+    DecreaseMaxTransferFee::asset_id = asset_id;
     return *this;
 }
 
-DecreaseMaxTransferFee& DecreaseMaxTransferFee::set_token_index(const std::string& token_index) {
-    DecreaseMaxTransferFee::token_index = token_index;
+DecreaseMaxTransferFee& DecreaseMaxTransferFee::set_asset_index(const std::string& asset_index) {
+    DecreaseMaxTransferFee::asset_index = asset_index;
     return *this;
 }
 
@@ -45,8 +45,8 @@ bool DecreaseMaxTransferFee::operator==(const DecreaseMaxTransferFee& rhs) const
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
            static_cast<const shared::TransactionRequestArgumentsTemplate<DecreaseMaxTransferFee>&>(*this) ==
            static_cast<const shared::TransactionRequestArgumentsTemplate<DecreaseMaxTransferFee>&>(rhs) &&
-           token_id == rhs.token_id &&
-           token_index == rhs.token_index &&
+           asset_id == rhs.asset_id &&
+           asset_index == rhs.asset_index &&
            max_transfer_fee == rhs.max_transfer_fee;
 }
 

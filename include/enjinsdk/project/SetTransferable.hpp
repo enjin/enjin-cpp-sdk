@@ -2,14 +2,14 @@
 #define ENJINCPPSDK_PROJECTSETTRANSFERABLE_HPP
 
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/models/TokenTransferable.hpp"
+#include "enjinsdk/models/AssetTransferable.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
 #include <optional>
 #include <string>
 
 namespace enjin::sdk::project {
 
-/// \brief Request for setting if a item may be transferred.
+/// \brief Request for setting if a asset may be transferred.
 class SetTransferable : public graphql::AbstractGraphqlRequest,
                         public shared::TransactionRequestArgumentsTemplate<SetTransferable> {
 public:
@@ -20,29 +20,29 @@ public:
 
     std::string serialize() override;
 
-    /// \brief Sets the token ID.
-    /// \param token_id The ID.
+    /// \brief Sets the asset ID.
+    /// \param asset_id The ID.
     /// \return This request for chaining.
-    SetTransferable& set_token_id(const std::string& token_id);
+    SetTransferable& set_asset_id(const std::string& asset_id);
 
-    /// \brief Sets the index for non-fungible items.
-    /// \param token_index The index.
+    /// \brief Sets the index for non-fungible assets.
+    /// \param asset_index The index.
     /// \return This request for chaining.
-    SetTransferable& set_token_index(const std::string& token_index);
+    SetTransferable& set_asset_index(const std::string& asset_index);
 
     /// \brief Sets the new transfer mode.
     /// \param transferable The new mode.
     /// \return This request for chaining.
-    SetTransferable& set_transferable(models::TokenTransferable transferable);
+    SetTransferable& set_transferable(models::AssetTransferable transferable);
 
     bool operator==(const SetTransferable& rhs) const;
 
     bool operator!=(const SetTransferable& rhs) const;
 
 private:
-    std::optional<std::string> token_id;
-    std::optional<std::string> token_index;
-    std::optional<models::TokenTransferable> transferable;
+    std::optional<std::string> asset_id;
+    std::optional<std::string> asset_index;
+    std::optional<models::AssetTransferable> transferable;
 };
 
 }

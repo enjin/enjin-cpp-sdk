@@ -1,17 +1,17 @@
-#include "enjinsdk/models/TokenSort.hpp"
+#include "enjinsdk/models/AssetSort.hpp"
 #include "../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::models;
 
 class TokenSortTest : public JsonTestSuite {
 public:
-    TokenSort class_under_test;
+    AssetSort class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"field":"id","direction":"asc"})";
 
-    static TokenSort create_default_sort() {
-        return TokenSort().set_field(TokenField::ID)
+    static AssetSort create_default_sort() {
+        return AssetSort().set_field(AssetField::ID)
                           .set_direction(SortDirection::ASCENDING);
     }
 };
@@ -30,7 +30,7 @@ TEST_F(TokenSortTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
 TEST_F(TokenSortTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_field(TokenField::ID)
+    class_under_test.set_field(AssetField::ID)
                     .set_direction(SortDirection::ASCENDING);
 
     // Act
@@ -42,8 +42,8 @@ TEST_F(TokenSortTest, SerializeSetFieldsReturnsExpectedJsonObject) {
 
 TEST_F(TokenSortTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    TokenSort lhs;
-    TokenSort rhs;
+    AssetSort lhs;
+    AssetSort rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -54,8 +54,8 @@ TEST_F(TokenSortTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
 
 TEST_F(TokenSortTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    TokenSort lhs = create_default_sort();
-    TokenSort rhs = create_default_sort();
+    AssetSort lhs = create_default_sort();
+    AssetSort rhs = create_default_sort();
 
     // Act
     bool actual = lhs == rhs;
@@ -66,8 +66,8 @@ TEST_F(TokenSortTest, EqualityBothSidesArePopulatedReturnsTrue) {
 
 TEST_F(TokenSortTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    TokenSort lhs = create_default_sort();
-    TokenSort rhs;
+    AssetSort lhs = create_default_sort();
+    AssetSort rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -78,8 +78,8 @@ TEST_F(TokenSortTest, EqualityLeftSideIsPopulatedReturnsFalse) {
 
 TEST_F(TokenSortTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    TokenSort lhs;
-    TokenSort rhs = create_default_sort();
+    AssetSort lhs;
+    AssetSort rhs = create_default_sort();
 
     // Act
     bool actual = lhs == rhs;

@@ -1,11 +1,11 @@
-#include "enjinsdk/models/Token.hpp"
+#include "enjinsdk/models/Asset.hpp"
 #include "../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::models;
 
 class TokenTest : public JsonTestSuite {
 public:
-    Token class_under_test;
+    Asset class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"id":"1","name":"1","stateData":{},"configData":{},"variantMode":"NONE","variants":[{}, {}, {}],"createdAt":"1","updatedAt":"1"})";
@@ -50,9 +50,9 @@ TEST_F(TokenTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
 TEST_F(TokenTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
     // Arrange
     const std::string expected_string("1");
-    const TokenStateData expected_state_data;
-    const TokenConfigData expected_config_data;
-    const TokenVariantMode expected_variant_mode = TokenVariantMode::NONE;
+    const AssetStateData expected_state_data;
+    const AssetConfigData expected_config_data;
+    const AssetVariantMode expected_variant_mode = AssetVariantMode::NONE;
     const std::string json(POPULATED_JSON_OBJECT);
 
     // Act
@@ -72,8 +72,8 @@ TEST_F(TokenTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
 
 TEST_F(TokenTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    Token lhs;
-    Token rhs;
+    Asset lhs;
+    Asset rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -84,8 +84,8 @@ TEST_F(TokenTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
 
 TEST_F(TokenTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    Token lhs;
-    Token rhs;
+    Asset lhs;
+    Asset rhs;
     lhs.deserialize(POPULATED_JSON_OBJECT);
     rhs.deserialize(POPULATED_JSON_OBJECT);
 
@@ -98,8 +98,8 @@ TEST_F(TokenTest, EqualityBothSidesArePopulatedReturnsTrue) {
 
 TEST_F(TokenTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    Token lhs;
-    Token rhs;
+    Asset lhs;
+    Asset rhs;
     lhs.deserialize(POPULATED_JSON_OBJECT);
 
     // Act
@@ -111,8 +111,8 @@ TEST_F(TokenTest, EqualityLeftSideIsPopulatedReturnsFalse) {
 
 TEST_F(TokenTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    Token lhs;
-    Token rhs;
+    Asset lhs;
+    Asset rhs;
     rhs.deserialize(POPULATED_JSON_OBJECT);
 
     // Act

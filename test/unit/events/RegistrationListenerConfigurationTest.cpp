@@ -25,11 +25,11 @@ public:
             enjin::sdk::models::EventType::PLAYER_LINKED,
             enjin::sdk::models::EventType::PLAYER_UNLINKED,
             enjin::sdk::models::EventType::PLAYER_UPDATED,
-            enjin::sdk::models::EventType::TOKEN_CREATED,
-            enjin::sdk::models::EventType::TOKEN_MELTED,
-            enjin::sdk::models::EventType::TOKEN_MINTED,
-            enjin::sdk::models::EventType::TOKEN_TRANSFERRED,
-            enjin::sdk::models::EventType::TOKEN_UPDATED,
+            enjin::sdk::models::EventType::ASSET_CREATED,
+            enjin::sdk::models::EventType::ASSET_MELTED,
+            enjin::sdk::models::EventType::ASSET_MINTED,
+            enjin::sdk::models::EventType::ASSET_TRANSFERRED,
+            enjin::sdk::models::EventType::ASSET_UPDATED,
             enjin::sdk::models::EventType::TRADE_COMPLETED,
             enjin::sdk::models::EventType::TRADE_CREATED,
             enjin::sdk::models::EventType::TRANSACTION_BROADCAST,
@@ -93,10 +93,10 @@ TEST_F(RegistrationListenerConfigurationTest, WithAllowedEventsRegistrationIsCre
             enjin::sdk::models::EventType::PLAYER_LINKED,
             enjin::sdk::models::EventType::PLAYER_UNLINKED,
             enjin::sdk::models::EventType::PLAYER_UPDATED,
-            enjin::sdk::models::EventType::TOKEN_MELTED,
-            enjin::sdk::models::EventType::TOKEN_MINTED,
-            enjin::sdk::models::EventType::TOKEN_TRANSFERRED,
-            enjin::sdk::models::EventType::TOKEN_UPDATED,
+            enjin::sdk::models::EventType::ASSET_MELTED,
+            enjin::sdk::models::EventType::ASSET_MINTED,
+            enjin::sdk::models::EventType::ASSET_TRANSFERRED,
+            enjin::sdk::models::EventType::ASSET_UPDATED,
     };
     std::shared_ptr<IEventListener> mock_listener(new MockEventListener);
     EventListenerRegistration::RegistrationListenerConfiguration configuration(mock_listener);
@@ -121,10 +121,10 @@ TEST_F(RegistrationListenerConfigurationTest, WithIgnoredEventsRegistrationIsCre
             enjin::sdk::models::EventType::PLAYER_LINKED,
             enjin::sdk::models::EventType::PLAYER_UNLINKED,
             enjin::sdk::models::EventType::PLAYER_UPDATED,
-            enjin::sdk::models::EventType::TOKEN_MELTED,
-            enjin::sdk::models::EventType::TOKEN_MINTED,
-            enjin::sdk::models::EventType::TOKEN_TRANSFERRED,
-            enjin::sdk::models::EventType::TOKEN_UPDATED,
+            enjin::sdk::models::EventType::ASSET_MELTED,
+            enjin::sdk::models::EventType::ASSET_MINTED,
+            enjin::sdk::models::EventType::ASSET_TRANSFERRED,
+            enjin::sdk::models::EventType::ASSET_UPDATED,
     };
     std::shared_ptr<IEventListener> mock_listener(new MockEventListener);
     EventListenerRegistration::RegistrationListenerConfiguration configuration(mock_listener);
