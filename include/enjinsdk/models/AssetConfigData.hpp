@@ -15,6 +15,8 @@ public:
     /// \brief Default constructor.
     AssetConfigData() = default;
 
+    ~AssetConfigData() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the melt fee ratio of the asset this config belongs too.

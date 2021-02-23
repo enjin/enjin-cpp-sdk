@@ -14,6 +14,8 @@ public:
     /// \brief Default constructor.
     Contracts() = default;
 
+    ~Contracts() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the ENJ contract address.

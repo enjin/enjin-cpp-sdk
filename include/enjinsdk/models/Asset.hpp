@@ -18,6 +18,8 @@ public:
     /// \brief Default constructor.
     Asset() = default;
 
+    ~Asset() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the ID of this asset.

@@ -13,6 +13,8 @@ public:
     /// \brief Default constructor.
     PaginationCursor() = default;
 
+    ~PaginationCursor() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the total number of items selected by this cursor.

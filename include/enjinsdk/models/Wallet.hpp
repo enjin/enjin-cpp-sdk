@@ -15,6 +15,8 @@ public:
     /// \brief Default constructor.
     Wallet() = default;
 
+    ~Wallet() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the Ethereum address of this wallet.

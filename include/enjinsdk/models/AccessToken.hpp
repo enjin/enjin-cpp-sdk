@@ -13,6 +13,8 @@ public:
     /// \brief Default constructor.
     AccessToken() = default;
 
+    ~AccessToken() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the auth token.

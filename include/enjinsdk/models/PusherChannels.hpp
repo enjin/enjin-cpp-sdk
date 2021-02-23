@@ -13,6 +13,8 @@ public:
     /// \brief Default constructor.
     PusherChannels() = default;
 
+    ~PusherChannels() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the project channel.

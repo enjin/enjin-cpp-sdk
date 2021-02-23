@@ -5,9 +5,7 @@
 #include <string>
 #include <vector>
 
-namespace enjin {
-namespace sdk {
-namespace utils {
+namespace enjin::sdk::utils {
 
 bool is_empty_or_whitespace(const std::string& str);
 
@@ -23,8 +21,6 @@ std::string replace(const std::string& str, const std::string& old_value, const 
 
 std::vector<std::string> split(const std::string& str, const std::string& separator);
 
-} // namespace utils
-} // namespace sdk
-} // enjin
+}
 
 #endif //ENJINCPPSDK_STRINGUTILS_HPP

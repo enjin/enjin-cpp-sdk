@@ -15,6 +15,8 @@ public:
     /// \brief Default constructor.
     TransactionLog() = default;
 
+    ~TransactionLog() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the block number.

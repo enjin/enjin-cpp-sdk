@@ -15,6 +15,8 @@ public:
     /// \brief Default constructor.
     Balance() = default;
 
+    ~Balance() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the asset ID for this balance.

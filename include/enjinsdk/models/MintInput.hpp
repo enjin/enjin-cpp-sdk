@@ -13,6 +13,8 @@ public:
     /// \brief Default constructor.
     MintInput() = default;
 
+    ~MintInput() override = default;
+
     std::string serialize() override;
 
     /// \brief Sets the Ethereum address to mint to.

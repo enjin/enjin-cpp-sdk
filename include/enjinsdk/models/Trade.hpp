@@ -13,6 +13,8 @@ public:
     /// \brief Default constructor.
     Trade() = default;
 
+    ~Trade() override = default;
+
     std::string serialize() override;
 
     /// Sets the asset ID to trade or ENJ if unused.

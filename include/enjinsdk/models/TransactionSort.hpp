@@ -14,6 +14,8 @@ public:
     /// \brief Default constructor.
     TransactionSort() = default;
 
+    ~TransactionSort() override = default;
+
     std::string serialize() override;
 
     /// \brief Sets the field to sort by.

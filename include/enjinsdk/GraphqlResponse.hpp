@@ -34,6 +34,8 @@ public:
         process(raw);
     };
 
+    ~GraphqlResponse() override = default;
+
     /// \brief Returns the result of the response.
     /// \return Optional for the result.
     [[nodiscard]] const std::optional<T>& get_result() const {
@@ -79,6 +81,8 @@ public:
     explicit GraphqlResponse(const std::string& raw) {
         process(raw);
     };
+
+    ~GraphqlResponse() override = default;
 
     /// \brief Returns the result of the response.
     /// \return Optional for the result.

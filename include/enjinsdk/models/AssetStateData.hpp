@@ -14,6 +14,8 @@ public:
     /// \brief Default constructor.
     AssetStateData() = default;
 
+    ~AssetStateData() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the fungible state of the asset this state belongs to.

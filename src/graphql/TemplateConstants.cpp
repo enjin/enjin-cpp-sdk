@@ -1,8 +1,6 @@
 #include "TemplateConstants.hpp"
 
-namespace enjin {
-namespace sdk {
-namespace graphql {
+namespace enjin::sdk::graphql {
 
 const std::map<std::string, std::string> TemplateConstants::templates = [] {
     std::map<std::string, std::string> templates;
@@ -22,6 +20,4 @@ const std::map<std::string, std::string> TemplateConstants::templates = [] {
     return templates;
 }();
 
-} // namespace graphql
-} // namespace sdk
-} // namespace enjin
+}

@@ -15,6 +15,8 @@ public:
     /// \brief Default constructor.
     AssetTransferFeeSettings() = default;
 
+    ~AssetTransferFeeSettings() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the transfer fee type.

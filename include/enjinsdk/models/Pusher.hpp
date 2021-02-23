@@ -15,6 +15,8 @@ public:
     /// \brief Default constructor.
     Pusher() = default;
 
+    ~Pusher() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the key for the platform.

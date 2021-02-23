@@ -14,6 +14,8 @@ public:
     /// \brief Default constructor.
     TransactionEvent() = default;
 
+    ~TransactionEvent() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the name of this event.

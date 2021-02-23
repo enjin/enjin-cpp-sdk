@@ -16,6 +16,8 @@ public:
     /// \brief Default constructor.
     Request() = default;
 
+    ~Request() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the ID of this request.

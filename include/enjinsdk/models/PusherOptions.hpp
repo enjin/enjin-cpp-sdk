@@ -13,6 +13,8 @@ public:
     /// \brief Default constructor.
     PusherOptions() = default;
 
+    ~PusherOptions() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the cluster the platform is in.

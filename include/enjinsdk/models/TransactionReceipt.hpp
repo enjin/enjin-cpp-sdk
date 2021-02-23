@@ -15,6 +15,8 @@ public:
     /// \brief Default constructor.
     TransactionReceipt() = default;
 
+    ~TransactionReceipt() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the hash of the block for the request this receipt belongs to.
