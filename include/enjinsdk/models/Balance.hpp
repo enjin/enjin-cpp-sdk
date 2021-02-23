@@ -51,7 +51,7 @@ private:
     constexpr static char ID_KEY[] = "id";
     constexpr static char INDEX_KEY[] = "index";
     constexpr static char VALUE_KEY[] = "value";
-    constexpr static char PROJECT_KEY[] = "app";
+    constexpr static char PROJECT_KEY[] = "project";
     constexpr static char WALLET_KEY[] = "wallet";
 };
 

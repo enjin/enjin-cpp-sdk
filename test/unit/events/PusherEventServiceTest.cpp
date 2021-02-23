@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "AppChannel.hpp"
+#include "ProjectChannel.hpp"
 #include "PlayerChannel.hpp"
 #include "AssetChannel.hpp"
 #include "WalletChannel.hpp"
@@ -23,7 +23,7 @@ using namespace enjin::test::utils;
 
 class PusherEventServiceTest : public VerificationTestSuite {
 public:
-    static constexpr int DEFAULT_APP = 1;
+    static constexpr int DEFAULT_PROJECT = 1;
     static constexpr char DEFAULT_PLAYER[] = "player1";
     static constexpr char DEFAULT_TOKEN[] = "0x0";
     static constexpr char DEFAULT_WALLET[] = "0x1";
@@ -32,13 +32,13 @@ public:
 
     static constexpr EventType EVENT_TYPES[] = {
             EventType::UNKNOWN,
-            EventType::APP_CREATED,
-            EventType::APP_DELETED,
-            EventType::APP_LINKED,
-            EventType::APP_LOCKED,
-            EventType::APP_UNLINKED,
-            EventType::APP_UNLOCKED,
-            EventType::APP_UPDATED,
+            EventType::PROJECT_CREATED,
+            EventType::PROJECT_DELETED,
+            EventType::PROJECT_LINKED,
+            EventType::PROJECT_LOCKED,
+            EventType::PROJECT_UNLINKED,
+            EventType::PROJECT_UNLOCKED,
+            EventType::PROJECT_UPDATED,
             EventType::BLOCKCHAIN_LOG_PROCESSED,
             EventType::MESSAGE_PROCESSED,
             EventType::PLAYER_CREATED,
@@ -286,10 +286,10 @@ TEST_F(PusherEventServiceTest, UnregisterListenerListenerWasNotUnregesteredDoesN
     ASSERT_NO_THROW(service->unregister_listener(*listener));
 }
 
-TEST_F(PusherEventServiceTest, SubscribeToAppServiceSubscribesToChannel) {
+TEST_F(PusherEventServiceTest, SubscribeToProjectServiceSubscribesToChannel) {
     // Arrange - Data
-    int app = DEFAULT_APP;
-    const std::string channel = AppChannel(create_default_platform(), app).channel();
+    int project = DEFAULT_PROJECT;
+    const std::string channel = ProjectChannel(create_default_platform(), project).channel();
     auto service = create_default_event_service();
     MockWebsocketServer mock_server;
     mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
@@ -312,7 +312,7 @@ TEST_F(PusherEventServiceTest, SubscribeToAppServiceSubscribesToChannel) {
     set_expected_call_count(1);
 
     // Act
-    service->subscribe_to_app(app);
+    service->subscribe_to_project(project);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
@@ -320,13 +320,13 @@ TEST_F(PusherEventServiceTest, SubscribeToAppServiceSubscribesToChannel) {
     verify_call_count(2);
 
     // Assert
-    EXPECT_TRUE(service->is_subscribed_to_app(app));
+    EXPECT_TRUE(service->is_subscribed_to_project(project));
 }
 
-TEST_F(PusherEventServiceTest, UnsubscribeToAppServiceIsUnsubscribedFromChannel) {
+TEST_F(PusherEventServiceTest, UnsubscribeToProjectServiceIsUnsubscribedFromChannel) {
     // Arrange
-    int app = DEFAULT_APP;
-    const std::string channel = AppChannel(create_default_platform(), app).channel();
+    int project = DEFAULT_PROJECT;
+    const std::string channel = ProjectChannel(create_default_platform(), project).channel();
     auto service = create_default_event_service();
     MockWebsocketServer mock_server;
     mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
@@ -341,21 +341,21 @@ TEST_F(PusherEventServiceTest, UnsubscribeToAppServiceIsUnsubscribedFromChannel)
         response.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
         mock_server.send_message(response);
     });
-    service->subscribe_to_app(app);
+    service->subscribe_to_project(project);
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Act
-    service->unsubscribe_to_app(app);
+    service->unsubscribe_to_project(project);
 
     // Assert
-    EXPECT_FALSE(service->is_subscribed_to_app(app));
+    EXPECT_FALSE(service->is_subscribed_to_project(project));
 }
 
 TEST_F(PusherEventServiceTest, SubscribeToPlayerServiceSubscribesToChannel) {
     // Arrange
-    int app = DEFAULT_APP;
+    int project = DEFAULT_PROJECT;
     const std::string player(DEFAULT_PLAYER);
-    const std::string channel = PlayerChannel(create_default_platform(), app, player).channel();
+    const std::string channel = PlayerChannel(create_default_platform(), project, player).channel();
     auto service = create_default_event_service();
     MockWebsocketServer mock_server;
     mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
@@ -378,7 +378,7 @@ TEST_F(PusherEventServiceTest, SubscribeToPlayerServiceSubscribesToChannel) {
     set_expected_call_count(1);
 
     // Act
-    service->subscribe_to_player(app, player);
+    service->subscribe_to_player(project, player);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
@@ -386,14 +386,14 @@ TEST_F(PusherEventServiceTest, SubscribeToPlayerServiceSubscribesToChannel) {
     verify_call_count(2);
 
     // Assert
-    EXPECT_TRUE(service->is_subscribed_to_player(app, player));
+    EXPECT_TRUE(service->is_subscribed_to_player(project, player));
 }
 
 TEST_F(PusherEventServiceTest, UnsubscribeToPlayerServiceIsUnsubscribedFromChannel) {
     // Arrange
-    int app = DEFAULT_APP;
+    int project = DEFAULT_PROJECT;
     const std::string player(DEFAULT_PLAYER);
-    const std::string channel = PlayerChannel(create_default_platform(), app, player).channel();
+    const std::string channel = PlayerChannel(create_default_platform(), project, player).channel();
     auto service = create_default_event_service();
     MockWebsocketServer mock_server;
     mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
@@ -408,14 +408,14 @@ TEST_F(PusherEventServiceTest, UnsubscribeToPlayerServiceIsUnsubscribedFromChann
         response.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
         mock_server.send_message(response);
     });
-    service->subscribe_to_player(app, player);
+    service->subscribe_to_player(project, player);
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Act
-    service->unsubscribe_to_player(app, player);
+    service->unsubscribe_to_player(project, player);
 
     // Assert
-    EXPECT_FALSE(service->is_subscribed_to_player(app, player));
+    EXPECT_FALSE(service->is_subscribed_to_player(project, player));
 }
 
 TEST_F(PusherEventServiceTest, SubscribeToTokenServiceSubscribesToChannel) {

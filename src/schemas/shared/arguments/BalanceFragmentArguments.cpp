@@ -19,7 +19,7 @@ std::string BalanceFragmentArguments::serialize() {
                                  utils::serialize_asset_index_format(bal_index_format.value()));
     }
     if (with_bal_project_id.has_value()) {
-        utils::set_boolean_member(document, "withBalAppId", with_bal_project_id.value());
+        utils::set_boolean_member(document, "withBalProjectId", with_bal_project_id.value());
     }
     if (with_bal_wallet_address.has_value()) {
         utils::set_boolean_member(document, "withBalWalletAddress", with_bal_wallet_address.value());

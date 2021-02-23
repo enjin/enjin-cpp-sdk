@@ -23,7 +23,7 @@ public:
 
     /// \brief Constructs a Pusher client with the key and options and uses the websocket client for its connections.
     /// \param ws_client The websocket client.
-    /// \param key The application key.
+    /// \param key The project key.
     /// \param options The options.
     PusherClient(std::shared_ptr<sdk::websockets::IWebsocketClient> ws_client,
                  const std::string& key,

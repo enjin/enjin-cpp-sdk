@@ -12,11 +12,11 @@ class PlayerChannel : public IChannel {
 public:
     PlayerChannel() = delete;
 
-    /// \brief Constructs a channel for the given network and player on a application (project).
+    /// \brief Constructs a channel for the given network and player on a project.
     /// \param platform The platform.
-    /// \param app_id The app (project) ID.
+    /// \param project_id The project ID.
     /// \param player_id The player ID.
-    PlayerChannel(const models::Platform& platform, int app_id, const std::string& player_id);
+    PlayerChannel(const models::Platform& platform, int project_id, const std::string& player_id);
 
     ~PlayerChannel() override = default;
 
@@ -24,7 +24,7 @@ public:
 
 private:
     models::Platform platform;
-    int app_id;
+    int project_id;
     std::string player_id;
 };
 

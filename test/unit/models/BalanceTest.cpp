@@ -9,7 +9,7 @@ public:
     Balance class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"id":"1","index":"1","value":1,"app":{},"wallet":{}})";
+            R"({"id":"1","index":"1","value":1,"project":{},"wallet":{}})";
 };
 
 TEST_F(BalanceTest, DeserializeEmptyStringFieldsDoNotHaveValues) {

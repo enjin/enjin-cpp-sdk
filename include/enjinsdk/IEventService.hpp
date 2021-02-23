@@ -79,34 +79,34 @@ public:
     /// \param listener The listener.
     virtual void unregister_listener(IEventListener& listener) = 0;
 
-    /// \brief Opens a channel for the specified application, allowing listeners to receive events for it.
-    /// \param app The app ID.
-    virtual void subscribe_to_app(int app) = 0;
+    /// \brief Opens a channel for the specified project, allowing listeners to receive events for it.
+    /// \param project The project ID.
+    virtual void subscribe_to_project(int project) = 0;
 
-    /// \brief Closes a channel for the specified application, preventing listeners from receiving events for it.
-    /// \param app The app ID.
-    virtual void unsubscribe_to_app(int app) = 0;
+    /// \brief Closes a channel for the specified project, preventing listeners from receiving events for it.
+    /// \param project The project ID.
+    virtual void unsubscribe_to_project(int project) = 0;
 
     /// \brief Determines if this service is subscribed to the specified channel.
-    /// \param app The app ID.
+    /// \param project The project ID.
     /// \return Whether this service is subscribed to the channel.
-    virtual bool is_subscribed_to_app(int app) = 0;
+    virtual bool is_subscribed_to_project(int project) = 0;
 
     /// \brief Opens a channel for the specified player, allowing listeners to receive events for it.
-    /// \param app The app ID.
+    /// \param project The project ID.
     /// \param player The player ID.
-    virtual void subscribe_to_player(int app, const std::string& player) = 0;
+    virtual void subscribe_to_player(int project, const std::string& player) = 0;
 
     /// \brief Closes a channel for the specified player, preventing listeners from receiving events for it.
-    /// \param app The app ID.
+    /// \param project The project ID.
     /// \param player The player ID.
-    virtual void unsubscribe_to_player(int app, const std::string& player) = 0;
+    virtual void unsubscribe_to_player(int project, const std::string& player) = 0;
 
     /// \brief Determines if this service is subscribed to the specified channel.
-    /// \param app The app ID.
+    /// \param project The project ID.
     /// \param player The player ID.
     /// \return Whether this service is subscribed to the channel.
-    virtual bool is_subscribed_to_player(int app, const std::string& player) = 0;
+    virtual bool is_subscribed_to_player(int project, const std::string& player) = 0;
 
     /// \brief Opens a channel for the specified asset, allowing listeners to receive events for it.
     /// \param asset The asset ID.

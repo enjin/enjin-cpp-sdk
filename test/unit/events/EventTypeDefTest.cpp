@@ -31,8 +31,8 @@ class EventTypeDefFilterByChannelTypes
 
 TEST_F(EventTypeDefTest, EqualityBothSidesAreSameDefReturnsTrue) {
     // Arrange
-    EventTypeDef lhs = EventTypeDef::get_from_name("APP_CREATED");
-    EventTypeDef rhs = EventTypeDef::get_from_name("APP_CREATED");
+    EventTypeDef lhs = EventTypeDef::get_from_name("PROJECT_CREATED");
+    EventTypeDef rhs = EventTypeDef::get_from_name("PROJECT_CREATED");
 
     // Act
     bool actual = lhs == rhs;
@@ -43,8 +43,8 @@ TEST_F(EventTypeDefTest, EqualityBothSidesAreSameDefReturnsTrue) {
 
 TEST_F(EventTypeDefTest, EqualityBothSidesAreNotSameDefReturnsFalse) {
     // Arrange
-    EventTypeDef lhs = EventTypeDef::get_from_name("APP_CREATED");
-    EventTypeDef rhs = EventTypeDef::get_from_name("APP_DELETED");
+    EventTypeDef lhs = EventTypeDef::get_from_name("PROJECT_CREATED");
+    EventTypeDef rhs = EventTypeDef::get_from_name("PROJECT_DELETED");
 
     // Act
     bool actual = lhs == rhs;
@@ -128,23 +128,24 @@ TEST_P(EventTypeDefFilterByChannelTypes, FilterByChannelTypes) {
 INSTANTIATE_TEST_SUITE_P(GetFromNameTestCases,
                          EventTypeDefGetFromNameTest,
                          testing::Values(std::make_tuple("", enjin::sdk::models::EventType::UNKNOWN),
-                                         std::make_tuple("APP_CREATED", enjin::sdk::models::EventType::APP_CREATED)));
+                                         std::make_tuple("PROJECT_CREATED",
+                                                         enjin::sdk::models::EventType::PROJECT_CREATED)));
 
 INSTANTIATE_TEST_SUITE_P(GetFromKeyTestCases,
                          EventTypeDefGetFromKeyTest,
-                         testing::Values(std::make_tuple("EnjinCloud\\Events\\AppCreated",
-                                                         enjin::sdk::models::EventType::APP_CREATED)));
+                         testing::Values(std::make_tuple("EnjinCloud\\Events\\ProjectCreated",
+                                                         enjin::sdk::models::EventType::PROJECT_CREATED)));
 
 INSTANTIATE_TEST_SUITE_P(DefInTypesTestCases,
                          EventTypeDefInTypesTest,
-                         testing::Values(std::make_tuple("APP_CREATED", std::vector<enjin::sdk::models::EventType>{
-                                 enjin::sdk::models::EventType::APP_CREATED
+                         testing::Values(std::make_tuple("PROJECT_CREATED", std::vector<enjin::sdk::models::EventType>{
+                                 enjin::sdk::models::EventType::PROJECT_CREATED
                          })));
 
 INSTANTIATE_TEST_SUITE_P(DefNotInTypesTestCases,
                          EventTypeDefNotInTypesTest,
-                         testing::Values(std::make_tuple("APP_DELETED", std::vector<enjin::sdk::models::EventType>{
-                                 enjin::sdk::models::EventType::APP_CREATED
+                         testing::Values(std::make_tuple("PROJECT_DELETED", std::vector<enjin::sdk::models::EventType>{
+                                 enjin::sdk::models::EventType::PROJECT_CREATED
                          })));
 
 INSTANTIATE_TEST_SUITE_P(FilterByChannelTypesTestCases,

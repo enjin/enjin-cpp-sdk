@@ -41,7 +41,7 @@ private:
     std::optional<std::string> asset;
     std::optional<std::string> wallet;
 
-    constexpr static char PROJECT_KEY[] = "app";
+    constexpr static char PROJECT_KEY[] = "project";
     constexpr static char PLAYER_KEY[] = "player";
     constexpr static char ASSET_KEY[] = "asset";
     constexpr static char WALLET_KEY[] = "wallet";
