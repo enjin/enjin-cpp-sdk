@@ -8,7 +8,7 @@ public:
     TokenConfigData class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"meltFeeRatio":1,"meltFeeMaxRatio":1,"meltValue":"1","metadataUri":"1","transferable":"PERMANENT","transferFeeSettings":{}})";
+            R"({"meltFeeRatio":1,"meltFeeMaxRatio":1,"meltValue":"1","metadataURI":"1","transferable":"PERMANENT","transferFeeSettings":{}})";
 };
 
 TEST_F(TokenConfigDataTest, DeserializeEmptyStringFieldsDoNotHaveValues) {

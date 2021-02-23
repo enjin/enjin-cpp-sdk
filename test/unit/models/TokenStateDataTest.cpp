@@ -8,7 +8,7 @@ public:
     TokenStateData class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"nonfungible":true,"blockHeight":1,"creator":"1","firstBlock":1,"reserve":"1","supplyModel":"FIXED","circulatingSupply":"1","mintableSupply":"1","totalSupply":"1"})";
+            R"({"nonFungible":true,"blockHeight":1,"creator":"1","firstBlock":1,"reserve":"1","supplyModel":"FIXED","circulatingSupply":"1","mintableSupply":"1","totalSupply":"1"})";
 };
 
 TEST_F(TokenStateDataTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
@@ -19,7 +19,7 @@ TEST_F(TokenStateDataTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
     class_under_test.deserialize(json);
 
     // Assert
-    EXPECT_FALSE(class_under_test.get_nonfungible().has_value());
+    EXPECT_FALSE(class_under_test.get_non_fungible().has_value());
     EXPECT_FALSE(class_under_test.get_block_height().has_value());
     EXPECT_FALSE(class_under_test.get_creator().has_value());
     EXPECT_FALSE(class_under_test.get_first_block().has_value());
@@ -38,7 +38,7 @@ TEST_F(TokenStateDataTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     class_under_test.deserialize(json);
 
     // Assert
-    EXPECT_FALSE(class_under_test.get_nonfungible().has_value());
+    EXPECT_FALSE(class_under_test.get_non_fungible().has_value());
     EXPECT_FALSE(class_under_test.get_block_height().has_value());
     EXPECT_FALSE(class_under_test.get_creator().has_value());
     EXPECT_FALSE(class_under_test.get_first_block().has_value());
@@ -61,7 +61,7 @@ TEST_F(TokenStateDataTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValue
     class_under_test.deserialize(json);
 
     // Assert
-    EXPECT_EQ(expected_bool, class_under_test.get_nonfungible().value());
+    EXPECT_EQ(expected_bool, class_under_test.get_non_fungible().value());
     EXPECT_EQ(expected_int, class_under_test.get_block_height().value());
     EXPECT_EQ(expected_string, class_under_test.get_creator().value());
     EXPECT_EQ(expected_int, class_under_test.get_first_block().value());

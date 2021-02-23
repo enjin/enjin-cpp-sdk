@@ -18,7 +18,7 @@ public:
 
     /// \brief Returns the fungible state of the item this state belongs to.
     /// \return Whether this item is fungible.
-    [[nodiscard]] const std::optional<bool>& get_nonfungible() const;
+    [[nodiscard]] const std::optional<bool>& get_non_fungible() const;
 
     /// \brief Returns the block number of the last update.
     /// \return The block number.
@@ -57,7 +57,7 @@ public:
     bool operator!=(const TokenStateData& rhs) const;
 
 private:
-    std::optional<bool> nonfungible;
+    std::optional<bool> non_fungible;
     std::optional<int> block_height;
     std::optional<std::string> creator;
     std::optional<int> first_block;
@@ -67,7 +67,7 @@ private:
     std::optional<std::string> mintable_supply;
     std::optional<std::string> total_supply;
 
-    constexpr static char NONFUNGIBLE_KEY[] = "nonfungible";
+    constexpr static char NONFUNGIBLE_KEY[] = "nonFungible";
     constexpr static char BLOCK_HEIGHT_KEY[] = "blockHeight";
     constexpr static char CREATOR_KEY[] = "creator";
     constexpr static char FIRST_BLOCK_KEY[] = "firstBlock";

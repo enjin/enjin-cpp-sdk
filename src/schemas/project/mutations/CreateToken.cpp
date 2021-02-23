@@ -38,8 +38,8 @@ std::string CreateToken::serialize() {
                                                                                   "transferFeeSettings",
                                                                                   transfer_fee_settings.value());
     }
-    if (nonfungible.has_value()) {
-        utils::set_boolean_member(document, "nonfungible", nonfungible.value());
+    if (non_fungible.has_value()) {
+        utils::set_boolean_member(document, "nonFungible", non_fungible.value());
     }
 
     return utils::document_to_string(document);
@@ -86,8 +86,8 @@ CreateToken::set_transfer_fee_settings(const models::TokenTransferFeeSettingsInp
     return *this;
 }
 
-CreateToken& CreateToken::set_nonfungible(bool nonfungible) {
-    CreateToken::nonfungible = nonfungible;
+CreateToken& CreateToken::set_non_fungible(bool non_fungible) {
+    CreateToken::non_fungible = non_fungible;
     return *this;
 }
 
@@ -104,7 +104,7 @@ bool CreateToken::operator==(const CreateToken& rhs) const {
            melt_fee_ratio == rhs.melt_fee_ratio &&
            transferable == rhs.transferable &&
            transfer_fee_settings == rhs.transfer_fee_settings &&
-           nonfungible == rhs.nonfungible;
+           non_fungible == rhs.non_fungible;
 }
 
 bool CreateToken::operator!=(const CreateToken& rhs) const {

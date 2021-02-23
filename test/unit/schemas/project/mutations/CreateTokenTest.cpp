@@ -9,7 +9,7 @@ public:
     CreateToken class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"name":"1","totalSupply":"1","initialReserve":"1","supplyModel":"FIXED","meltValue":"1","meltFeeRatio":1,"transferable":"PERMANENT","transferFeeSettings":{},"nonfungible":true})";
+            R"({"name":"1","totalSupply":"1","initialReserve":"1","supplyModel":"FIXED","meltValue":"1","meltFeeRatio":1,"transferable":"PERMANENT","transferFeeSettings":{},"nonFungible":true})";
 
     static CreateToken create_default_request() {
         return CreateToken().set_name("1")
@@ -20,7 +20,7 @@ public:
                             .set_melt_fee_ratio(1)
                             .set_transferable(enjin::sdk::models::TokenTransferable::PERMANENT)
                             .set_transfer_fee_settings(enjin::sdk::models::TokenTransferFeeSettingsInput())
-                            .set_nonfungible(true);
+                            .set_non_fungible(true);
     }
 };
 
@@ -46,7 +46,7 @@ TEST_F(CreateTokenTest, SerializeSetFieldsReturnsExpectedJsonObject) {
                     .set_melt_fee_ratio(1)
                     .set_transferable(enjin::sdk::models::TokenTransferable::PERMANENT)
                     .set_transfer_fee_settings(enjin::sdk::models::TokenTransferFeeSettingsInput())
-                    .set_nonfungible(true);
+                    .set_non_fungible(true);
 
     // Act
     std::string actual = class_under_test.serialize();

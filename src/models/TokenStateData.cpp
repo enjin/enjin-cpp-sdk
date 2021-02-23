@@ -10,7 +10,7 @@ void TokenStateData::deserialize(const std::string& json) {
     document.Parse(json.c_str());
     if (document.IsObject()) {
         if (document.HasMember(NONFUNGIBLE_KEY) && document[NONFUNGIBLE_KEY].IsBool()) {
-            nonfungible.emplace(document[NONFUNGIBLE_KEY].GetBool());
+            non_fungible.emplace(document[NONFUNGIBLE_KEY].GetBool());
         }
         if (document.HasMember(BLOCK_HEIGHT_KEY) && document[BLOCK_HEIGHT_KEY].IsInt()) {
             block_height.emplace(document[BLOCK_HEIGHT_KEY].GetInt());
@@ -39,8 +39,8 @@ void TokenStateData::deserialize(const std::string& json) {
     }
 }
 
-const std::optional<bool>& TokenStateData::get_nonfungible() const {
-    return nonfungible;
+const std::optional<bool>& TokenStateData::get_non_fungible() const {
+    return non_fungible;
 }
 
 const std::optional<int>& TokenStateData::get_block_height() const {
@@ -76,7 +76,7 @@ const std::optional<std::string>& TokenStateData::get_total_supply() const {
 }
 
 bool TokenStateData::operator==(const TokenStateData& rhs) const {
-    return nonfungible == rhs.nonfungible &&
+    return non_fungible == rhs.non_fungible &&
            block_height == rhs.block_height &&
            creator == rhs.creator &&
            first_block == rhs.first_block &&
