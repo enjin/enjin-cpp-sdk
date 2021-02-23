@@ -1,9 +1,11 @@
 #include "enjinsdk/player/PlayerSchema.hpp"
 
+#include <utility>
+
 namespace enjin::sdk::player {
 
-PlayerSchema::PlayerSchema(const TrustedPlatformMiddleware& middleware)
-        : shared::SharedSchema(middleware, "player") {
+PlayerSchema::PlayerSchema(TrustedPlatformMiddleware middleware)
+        : shared::SharedSchema(std::move(middleware), "player") {
 }
 
 std::future<graphql::GraphqlResponse<models::Player>> PlayerSchema::get_player_async(GetPlayer& request) {

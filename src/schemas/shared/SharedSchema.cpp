@@ -1,9 +1,11 @@
 #include <enjinsdk/shared/SharedSchema.hpp>
 
+#include <utility>
+
 namespace enjin::sdk::shared {
 
-SharedSchema::SharedSchema(const TrustedPlatformMiddleware& middleware, const std::string& schema)
-        : BaseSchema(middleware, schema) {
+SharedSchema::SharedSchema(TrustedPlatformMiddleware middleware, const std::string& schema)
+        : BaseSchema(std::move(middleware), schema) {
 }
 
 std::future<graphql::GraphqlResponse<models::Request>>

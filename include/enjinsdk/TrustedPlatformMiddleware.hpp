@@ -3,6 +3,7 @@
 
 #include "enjinsdk/GraphqlQueryRegistry.hpp"
 #include "enjinsdk/IHttpClient.hpp"
+#include <memory>
 #include <string>
 
 namespace enjin::sdk {
@@ -15,11 +16,11 @@ public:
     /// \brief Constructs the middleware with the underlying HTTP client and debug option.
     /// \param client The HTTP client.
     /// \param debug Whether debugging is enabled.
-    explicit TrustedPlatformMiddleware(http::IHttpClient& client, bool debug = false);
+    explicit TrustedPlatformMiddleware(std::unique_ptr<http::IHttpClient> client, bool debug = false);
 
-    /// \brief Copy constructor.
-    /// \param middleware The middleware.
-    TrustedPlatformMiddleware(const TrustedPlatformMiddleware& middleware) = default;
+    /// \brief Default move constructor.
+    /// \param middleware The middleware to move.
+    TrustedPlatformMiddleware(TrustedPlatformMiddleware&& middleware) = default;
 
     /// \brief Default destructor.
     ~TrustedPlatformMiddleware() = default;
@@ -30,11 +31,11 @@ public:
 
     /// \brief Returns the HTTP client used by the middleware.
     /// \return The HTTP client.
-    [[nodiscard]] http::IHttpClient* get_client() const;
+    [[nodiscard]] const std::unique_ptr<http::IHttpClient>& get_client() const;
 
 private:
     graphql::GraphqlQueryRegistry query_registry;
-    http::IHttpClient* client = nullptr; // TODO: Consider using a smart pointer instead for client.
+    std::unique_ptr<http::IHttpClient> client;
 };
 
 }

@@ -33,7 +33,7 @@ public:
     /// \brief Sets the underlying HTTP client implementation for the platform client to use.
     /// \param http_client The client implementation.
     /// \return This builder for chaining.
-    ProjectClientBuilder& http_client(http::IHttpClient& client);
+    ProjectClientBuilder& http_client(std::unique_ptr<http::IHttpClient> http_client);
 
     /// \brief Sets whether the client will have debugging enabled.
     /// \param debug The debug state.
@@ -42,7 +42,7 @@ public:
 
 private:
     std::optional<std::string> m_base_uri;
-    std::optional<http::IHttpClient*> m_http_client;
+    std::unique_ptr<http::IHttpClient> m_http_client;
     std::optional<bool> m_debug;
 };
 
@@ -59,7 +59,7 @@ public:
     bool is_closed() override;
 
 private:
-    explicit ProjectClient(const TrustedPlatformMiddleware& middleware);
+    explicit ProjectClient(TrustedPlatformMiddleware middleware);
 
     friend ProjectClient ProjectClientBuilder::build();
 };

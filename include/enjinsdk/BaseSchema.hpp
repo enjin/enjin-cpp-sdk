@@ -21,7 +21,7 @@ protected:
     TrustedPlatformMiddleware middleware;
     std::string schema;
 
-    BaseSchema(const TrustedPlatformMiddleware& middleware, std::string schema);
+    BaseSchema(TrustedPlatformMiddleware middleware, std::string schema);
 
     std::string create_request_body(graphql::AbstractGraphqlRequest& request);
 
