@@ -26,11 +26,11 @@ std::string TransactionFilter::serialize() {
     if (transaction_id_in.has_value()) {
         utils::set_array_member_from_string_vector(document, TRANSACTION_ID_IN_KEY, transaction_id_in.value());
     }
-    if (token_id.has_value()) {
-        utils::set_string_member(document, TOKEN_ID_KEY, token_id.value());
+    if (asset_id.has_value()) {
+        utils::set_string_member(document, ASSET_ID_KEY, asset_id.value());
     }
-    if (token_id_in.has_value()) {
-        utils::set_array_member_from_string_vector(document, TOKEN_ID_IN_KEY, token_id_in.value());
+    if (asset_id_in.has_value()) {
+        utils::set_array_member_from_string_vector(document, ASSET_ID_IN_KEY, asset_id_in.value());
     }
     if (type.has_value()) {
         utils::set_string_member(document, TYPE_KEY, utils::serialize_request_type(type.value()));
@@ -109,13 +109,13 @@ TransactionFilter& TransactionFilter::set_transaction_id_in(const std::vector<st
     return *this;
 }
 
-TransactionFilter& TransactionFilter::set_token_id(const std::string& token_id) {
-    TransactionFilter::token_id = token_id;
+TransactionFilter& TransactionFilter::set_asset_id(const std::string& asset_id) {
+    TransactionFilter::asset_id = asset_id;
     return *this;
 }
 
-TransactionFilter& TransactionFilter::set_token_id_in(const std::vector<std::string>& token_ids) {
-    token_id_in = token_ids;
+TransactionFilter& TransactionFilter::set_asset_id_in(const std::vector<std::string>& asset_ids) {
+    asset_id_in = asset_ids;
     return *this;
 }
 
@@ -181,8 +181,8 @@ bool TransactionFilter::operator==(const TransactionFilter& rhs) const {
            id_in == rhs.id_in &&
            transaction_id == rhs.transaction_id &&
            transaction_id_in == rhs.transaction_id_in &&
-           token_id == rhs.token_id &&
-           token_id_in == rhs.token_id_in &&
+           asset_id == rhs.asset_id &&
+           asset_id_in == rhs.asset_id_in &&
            type == rhs.type &&
            type_in == rhs.type_in &&
            value == rhs.value &&

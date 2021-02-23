@@ -9,13 +9,13 @@ public:
     Transfer class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"from":"1","to":"1","tokenId":"1","tokenIndex":"1","value":"1"})";
+            R"({"from":"1","to":"1","assetId":"1","assetIndex":"1","value":"1"})";
 
     static Transfer create_default_transfer() {
         return Transfer().set_from("1")
                          .set_to("1")
-                         .set_token_id("1")
-                         .set_token_index("1")
+                         .set_asset_id("1")
+                         .set_asset_index("1")
                          .set_value("1");
     }
 };
@@ -36,8 +36,8 @@ TEST_F(TransferTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_from("1")
                     .set_to("1")
-                    .set_token_id("1")
-                    .set_token_index("1")
+                    .set_asset_id("1")
+                    .set_asset_index("1")
                     .set_value("1");
 
     // Act

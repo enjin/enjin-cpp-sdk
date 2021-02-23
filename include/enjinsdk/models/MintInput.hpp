@@ -20,7 +20,7 @@ public:
     /// \return This input for chaining.
     MintInput& set_to(const std::string& address);
 
-    /// \brief Sets the amount of items to mint.
+    /// \brief Sets the amount of assets to mint.
     /// \param value The amount.
     /// \return This input for chaining.
     MintInput& set_value(const std::string& value);

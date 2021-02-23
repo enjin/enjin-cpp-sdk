@@ -8,7 +8,7 @@
 
 namespace enjin::sdk::project {
 
-/// \brief Request for setting the melt fee of an item.
+/// \brief Request for setting the melt fee of an asset.
 class SetMeltFee : public graphql::AbstractGraphqlRequest,
                    public shared::TransactionRequestArgumentsTemplate<SetMeltFee> {
 public:
@@ -19,17 +19,17 @@ public:
 
     std::string serialize() override;
 
-    /// \brief Sets the token ID.
-    /// \param token_id The ID.
+    /// \brief Sets the asset ID.
+    /// \param asset_id The ID.
     /// \return This request for chaining.
-    SetMeltFee& set_token_id(const std::string& token_id);
+    SetMeltFee& set_asset_id(const std::string& asset_id);
 
-    /// \brief Sets the index for non-fungible items.
-    /// \param token_index The index.
+    /// \brief Sets the index for non-fungible assets.
+    /// \param asset_index The index.
     /// \return This request for chaining.
-    SetMeltFee& set_token_index(const std::string& token_index);
+    SetMeltFee& set_asset_index(const std::string& asset_index);
 
-    /// \brief Sets the new melt fee for the item.
+    /// \brief Sets the new melt fee for the asset.
     /// \param melt_fee The new ratio.
     /// \return This request for chaining.
     /// \remarks The ratio is in the range 0-5000 to allow fractional ratios, e.g. 1 = 0.01%, 5000 = 50%, ect...
@@ -40,8 +40,8 @@ public:
     bool operator!=(const SetMeltFee& rhs) const;
 
 private:
-    std::optional<std::string> token_id;
-    std::optional<std::string> token_index;
+    std::optional<std::string> asset_id;
+    std::optional<std::string> asset_index;
     std::optional<int> melt_fee;
 };
 

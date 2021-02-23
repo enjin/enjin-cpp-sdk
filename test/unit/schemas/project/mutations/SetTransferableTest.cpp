@@ -9,12 +9,12 @@ public:
     SetTransferable class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"tokenId":"1","tokenIndex":"1","transferable":"PERMANENT"})";
+            R"({"assetId":"1","assetIndex":"1","transferable":"PERMANENT"})";
 
     static SetTransferable create_default_request() {
-        return SetTransferable().set_token_id("1")
-                                .set_token_index("1")
-                                .set_transferable(enjin::sdk::models::TokenTransferable::PERMANENT);
+        return SetTransferable().set_asset_id("1")
+                                .set_asset_index("1")
+                                .set_transferable(enjin::sdk::models::AssetTransferable::PERMANENT);
     }
 };
 
@@ -32,9 +32,9 @@ TEST_F(SetTransferableTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
 TEST_F(SetTransferableTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_token_id("1")
-                    .set_token_index("1")
-                    .set_transferable(enjin::sdk::models::TokenTransferable::PERMANENT);
+    class_under_test.set_asset_id("1")
+                    .set_asset_index("1")
+                    .set_transferable(enjin::sdk::models::AssetTransferable::PERMANENT);
 
     // Act
     std::string actual = class_under_test.serialize();

@@ -34,16 +34,16 @@ enjin::sdk::models::EventType deserialize_event_type(const std::string& s) noexc
         return models::EventType::PLAYER_UNLINKED;
     } else if (str == "PLAYER_UPDATED") {
         return models::EventType::PLAYER_UPDATED;
-    } else if (str == "TOKEN_CREATED") {
-        return models::EventType::TOKEN_CREATED;
-    } else if (str == "TOKEN_MELTED") {
-        return models::EventType::TOKEN_MELTED;
-    } else if (str == "TOKEN_MINTED") {
-        return models::EventType::TOKEN_MINTED;
-    } else if (str == "TOKEN_TRANSFERRED") {
-        return models::EventType::TOKEN_TRANSFERRED;
-    } else if (str == "TOKEN_UPDATED") {
-        return models::EventType::TOKEN_UPDATED;
+    } else if (str == "ASSET_CREATED") {
+        return models::EventType::ASSET_CREATED;
+    } else if (str == "ASSET_MELTED") {
+        return models::EventType::ASSET_MELTED;
+    } else if (str == "ASSET_MINTED") {
+        return models::EventType::ASSET_MINTED;
+    } else if (str == "ASSET_TRANSFERRED") {
+        return models::EventType::ASSET_TRANSFERRED;
+    } else if (str == "ASSET_UPDATED") {
+        return models::EventType::ASSET_UPDATED;
     } else if (str == "TRADE_COMPLETED") {
         return models::EventType::TRADE_COMPLETED;
     } else if (str == "TRADE_CREATED") {
@@ -147,68 +147,68 @@ enjin::sdk::models::RequestType deserialize_request_type(const std::string& s) n
     return models::RequestType::UNKNOWN;
 }
 
-enjin::sdk::models::TokenSupplyModel deserialize_token_supply_model(const std::string& s) noexcept {
+enjin::sdk::models::AssetSupplyModel deserialize_asset_supply_model(const std::string& s) noexcept {
     std::string str = to_upper(s);
     if (str == "FIXED") {
-        return models::TokenSupplyModel::FIXED;
+        return models::AssetSupplyModel::FIXED;
     } else if (str == "SETTABLE") {
-        return models::TokenSupplyModel::SETTABLE;
+        return models::AssetSupplyModel::SETTABLE;
     } else if (str == "INFINITE") {
-        return models::TokenSupplyModel::INFINITE;
+        return models::AssetSupplyModel::INFINITE;
     } else if (str == "COLLAPSING") {
-        return models::TokenSupplyModel::COLLAPSING;
+        return models::AssetSupplyModel::COLLAPSING;
     } else if (str == "ANNUAL_VALUE") {
-        return models::TokenSupplyModel::ANNUAL_VALUE;
+        return models::AssetSupplyModel::ANNUAL_VALUE;
     } else if (str == "ANNUAL_PERCENTAGE") {
-        return models::TokenSupplyModel::ANNUAL_PERCENTAGE;
+        return models::AssetSupplyModel::ANNUAL_PERCENTAGE;
     }
 
-    return models::TokenSupplyModel::UNKNOWN;
+    return models::AssetSupplyModel::UNKNOWN;
 }
 
-enjin::sdk::models::TokenTransferFeeType deserialize_token_transfer_fee_type(const std::string& s) noexcept {
+enjin::sdk::models::AssetTransferFeeType deserialize_asset_transfer_fee_type(const std::string& s) noexcept {
     std::string str = to_upper(s);
     if (str == "NONE") {
-        return models::TokenTransferFeeType::NONE;
+        return models::AssetTransferFeeType::NONE;
     } else if (str == "PER_TRANSFER") {
-        return models::TokenTransferFeeType::PER_TRANSFER;
+        return models::AssetTransferFeeType::PER_TRANSFER;
     } else if (str == "PER_CRYPTO_ITEM") {
-        return models::TokenTransferFeeType::PER_CRYPTO_ITEM;
+        return models::AssetTransferFeeType::PER_CRYPTO_ITEM;
     } else if (str == "RATIO_CUT") {
-        return models::TokenTransferFeeType::RATIO_CUT;
+        return models::AssetTransferFeeType::RATIO_CUT;
     } else if (str == "RATIO_EXTRA") {
-        return models::TokenTransferFeeType::RATIO_EXTRA;
+        return models::AssetTransferFeeType::RATIO_EXTRA;
     }
 
-    return models::TokenTransferFeeType::UNKNOWN;
+    return models::AssetTransferFeeType::UNKNOWN;
 }
 
-enjin::sdk::models::TokenTransferable deserialize_token_transferable(const std::string& s) noexcept {
+enjin::sdk::models::AssetTransferable deserialize_asset_transferable(const std::string& s) noexcept {
     std::string str = to_upper(s);
     if (str == "PERMANENT") {
-        return models::TokenTransferable::PERMANENT;
+        return models::AssetTransferable::PERMANENT;
     } else if (str == "TEMPORARY") {
-        return models::TokenTransferable::TEMPORARY;
+        return models::AssetTransferable::TEMPORARY;
     } else if (str == "BOUND") {
-        return models::TokenTransferable::BOUND;
+        return models::AssetTransferable::BOUND;
     }
 
-    return models::TokenTransferable::UNKNOWN;
+    return models::AssetTransferable::UNKNOWN;
 }
 
-enjin::sdk::models::TokenVariantMode deserialize_token_variant_mode(const std::string& s) noexcept {
+enjin::sdk::models::AssetVariantMode deserialize_asset_variant_mode(const std::string& s) noexcept {
     std::string str = to_upper(s);
     if (str == "NONE") {
-        return models::TokenVariantMode::NONE;
+        return models::AssetVariantMode::NONE;
     } else if (str == "BEAM") {
-        return models::TokenVariantMode::BEAM;
+        return models::AssetVariantMode::BEAM;
     } else if (str == "ONCE") {
-        return models::TokenVariantMode::ONCE;
+        return models::AssetVariantMode::ONCE;
     } else if (str == "ALWAYS") {
-        return models::TokenVariantMode::ALWAYS;
+        return models::AssetVariantMode::ALWAYS;
     }
 
-    return models::TokenVariantMode::UNKNOWN;
+    return models::AssetVariantMode::UNKNOWN;
 }
 
 std::string serialize_event_type(models::EventType v) noexcept {
@@ -241,16 +241,16 @@ std::string serialize_event_type(models::EventType v) noexcept {
             return "PLAYER_UNLINKED";
         case models::EventType::PLAYER_UPDATED:
             return "PLAYER_UPDATED";
-        case models::EventType::TOKEN_CREATED:
-            return "TOKEN_CREATED";
-        case models::EventType::TOKEN_MELTED:
-            return "TOKEN_MELTED";
-        case models::EventType::TOKEN_MINTED:
-            return "TOKEN_MINTED";
-        case models::EventType::TOKEN_TRANSFERRED:
-            return "TOKEN_TRANSFERRED";
-        case models::EventType::TOKEN_UPDATED:
-            return "TOKEN_UPDATED";
+        case models::EventType::ASSET_CREATED:
+            return "ASSET_CREATED";
+        case models::EventType::ASSET_MELTED:
+            return "ASSET_MELTED";
+        case models::EventType::ASSET_MINTED:
+            return "ASSET_MINTED";
+        case models::EventType::ASSET_TRANSFERRED:
+            return "ASSET_TRANSFERRED";
+        case models::EventType::ASSET_UPDATED:
+            return "ASSET_UPDATED";
         case models::EventType::TRADE_COMPLETED:
             return "TRADE_COMPLETED";
         case models::EventType::TRADE_CREATED:
@@ -365,109 +365,109 @@ std::string serialize_sort_direction(enjin::sdk::models::SortDirection v) noexce
     }
 }
 
-std::string serialize_token_field(enjin::sdk::models::TokenField v) noexcept {
+std::string serialize_asset_field(enjin::sdk::models::AssetField v) noexcept {
     switch (v) {
-        case models::TokenField::ID:
+        case models::AssetField::ID:
             return "id";
-        case models::TokenField::NAME:
+        case models::AssetField::NAME:
             return "name";
-        case models::TokenField::CIRCULATING_SUPPLY:
+        case models::AssetField::CIRCULATING_SUPPLY:
             return "circulatingSupply";
-        case models::TokenField::NON_FUNGIBLE:
+        case models::AssetField::NON_FUNGIBLE:
             return "nonFungible";
-        case models::TokenField::RESERVE:
+        case models::AssetField::RESERVE:
             return "reserve";
-        case models::TokenField::TOTAL_SUPPLY:
+        case models::AssetField::TOTAL_SUPPLY:
             return "totalSupply";
-        case models::TokenField::CREATED_AT:
+        case models::AssetField::CREATED_AT:
             return "createdAt";
         default:
             return "";
     }
 }
 
-std::string serialize_token_id_format(enjin::sdk::models::TokenIdFormat v) noexcept {
+std::string serialize_asset_id_format(enjin::sdk::models::AssetIdFormat v) noexcept {
     switch (v) {
-        case models::TokenIdFormat::HEX64:
+        case models::AssetIdFormat::HEX64:
             return "hex64";
-        case models::TokenIdFormat::HEX256:
+        case models::AssetIdFormat::HEX256:
             return "hex256";
-        case models::TokenIdFormat::UINT256:
+        case models::AssetIdFormat::UINT256:
             return "uint256";
         default:
             return "";
     }
 }
 
-std::string serialize_token_index_format(enjin::sdk::models::TokenIndexFormat v) noexcept {
+std::string serialize_asset_index_format(enjin::sdk::models::AssetIndexFormat v) noexcept {
     switch (v) {
-        case models::TokenIndexFormat::HEX64:
+        case models::AssetIndexFormat::HEX64:
             return "hex64";
-        case models::TokenIndexFormat::UINT64:
+        case models::AssetIndexFormat::UINT64:
             return "uint64";
         default:
             return "";
     }
 }
 
-std::string serialize_token_supply_model(enjin::sdk::models::TokenSupplyModel v) noexcept {
+std::string serialize_asset_supply_model(enjin::sdk::models::AssetSupplyModel v) noexcept {
     switch (v) {
-        case models::TokenSupplyModel::FIXED:
+        case models::AssetSupplyModel::FIXED:
             return "FIXED";
-        case models::TokenSupplyModel::SETTABLE:
+        case models::AssetSupplyModel::SETTABLE:
             return "SETTABLE";
-        case models::TokenSupplyModel::INFINITE:
+        case models::AssetSupplyModel::INFINITE:
             return "INFINITE";
-        case models::TokenSupplyModel::COLLAPSING:
+        case models::AssetSupplyModel::COLLAPSING:
             return "COLLAPSING";
-        case models::TokenSupplyModel::ANNUAL_VALUE:
+        case models::AssetSupplyModel::ANNUAL_VALUE:
             return "ANNUAL_VALUE";
-        case models::TokenSupplyModel::ANNUAL_PERCENTAGE:
+        case models::AssetSupplyModel::ANNUAL_PERCENTAGE:
             return "ANNUAL_PERCENTAGE";
         default:
             return "UNKNOWN";
     }
 }
 
-std::string serialize_token_transfer_fee_type(enjin::sdk::models::TokenTransferFeeType v) noexcept {
+std::string serialize_asset_transfer_fee_type(enjin::sdk::models::AssetTransferFeeType v) noexcept {
     switch (v) {
-        case models::TokenTransferFeeType::NONE:
+        case models::AssetTransferFeeType::NONE:
             return "NONE";
-        case models::TokenTransferFeeType::PER_TRANSFER:
+        case models::AssetTransferFeeType::PER_TRANSFER:
             return "PER_TRANSFER";
-        case models::TokenTransferFeeType::PER_CRYPTO_ITEM:
+        case models::AssetTransferFeeType::PER_CRYPTO_ITEM:
             return "PER_CRYPTO_ITEM";
-        case models::TokenTransferFeeType::RATIO_CUT:
+        case models::AssetTransferFeeType::RATIO_CUT:
             return "RATIO_CUT";
-        case models::TokenTransferFeeType::RATIO_EXTRA:
+        case models::AssetTransferFeeType::RATIO_EXTRA:
             return "RATIO_EXTRA";
         default:
             return "UNKNOWN";
     }
 }
 
-std::string serialize_token_transferable(enjin::sdk::models::TokenTransferable v) noexcept {
+std::string serialize_asset_transferable(enjin::sdk::models::AssetTransferable v) noexcept {
     switch (v) {
-        case models::TokenTransferable::PERMANENT:
+        case models::AssetTransferable::PERMANENT:
             return "PERMANENT";
-        case models::TokenTransferable::TEMPORARY:
+        case models::AssetTransferable::TEMPORARY:
             return "TEMPORARY";
-        case models::TokenTransferable::BOUND:
+        case models::AssetTransferable::BOUND:
             return "BOUND";
         default:
             return "UNKNOWN";
     }
 }
 
-std::string serialize_token_variant_mode(enjin::sdk::models::TokenVariantMode v) noexcept {
+std::string serialize_asset_variant_mode(enjin::sdk::models::AssetVariantMode v) noexcept {
     switch (v) {
-        case models::TokenVariantMode::NONE:
+        case models::AssetVariantMode::NONE:
             return "NONE";
-        case models::TokenVariantMode::BEAM:
+        case models::AssetVariantMode::BEAM:
             return "BEAM";
-        case models::TokenVariantMode::ONCE:
+        case models::AssetVariantMode::ONCE:
             return "ONCE";
-        case models::TokenVariantMode::ALWAYS:
+        case models::AssetVariantMode::ALWAYS:
             return "ALWAYS";
         default:
             return "UNKNOWN";

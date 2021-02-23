@@ -10,11 +10,11 @@ public:
     CreateTrade class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"askingTokens":[],"offeringTokens":[],"recipientAddress":"1"})";
+            R"({"askingAssets":[],"offeringAssets":[],"recipientAddress":"1"})";
 
     static CreateTrade create_default_request() {
-        return CreateTrade().set_asking_tokens(std::vector<enjin::sdk::models::Trade>())
-                            .set_offering_tokens(std::vector<enjin::sdk::models::Trade>())
+        return CreateTrade().set_asking_assets(std::vector<enjin::sdk::models::Trade>())
+                            .set_offering_assets(std::vector<enjin::sdk::models::Trade>())
                             .set_recipient_address("1");
     }
 };
@@ -33,8 +33,8 @@ TEST_F(CreateTradeTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
 TEST_F(CreateTradeTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_asking_tokens(std::vector<enjin::sdk::models::Trade>())
-                    .set_offering_tokens(std::vector<enjin::sdk::models::Trade>())
+    class_under_test.set_asking_assets(std::vector<enjin::sdk::models::Trade>())
+                    .set_offering_assets(std::vector<enjin::sdk::models::Trade>())
                     .set_recipient_address("1");
 
     // Act

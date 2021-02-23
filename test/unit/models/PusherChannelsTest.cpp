@@ -9,7 +9,7 @@ public:
     PusherChannels class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"app":"1","player":"1","token":"1","wallet":"1"})";
+            R"({"app":"1","player":"1","asset":"1","wallet":"1"})";
 };
 
 TEST_F(PusherChannelsTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
@@ -22,7 +22,7 @@ TEST_F(PusherChannelsTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
     // Assert
     EXPECT_FALSE(class_under_test.get_project().has_value());
     EXPECT_FALSE(class_under_test.get_player().has_value());
-    EXPECT_FALSE(class_under_test.get_token().has_value());
+    EXPECT_FALSE(class_under_test.get_asset().has_value());
     EXPECT_FALSE(class_under_test.get_wallet().has_value());
 }
 
@@ -36,7 +36,7 @@ TEST_F(PusherChannelsTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     // Assert
     EXPECT_FALSE(class_under_test.get_project().has_value());
     EXPECT_FALSE(class_under_test.get_player().has_value());
-    EXPECT_FALSE(class_under_test.get_token().has_value());
+    EXPECT_FALSE(class_under_test.get_asset().has_value());
     EXPECT_FALSE(class_under_test.get_wallet().has_value());
 }
 
@@ -51,7 +51,7 @@ TEST_F(PusherChannelsTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValue
     // Assert
     EXPECT_EQ(expected_string, class_under_test.get_project().value());
     EXPECT_EQ(expected_string, class_under_test.get_player().value());
-    EXPECT_EQ(expected_string, class_under_test.get_token().value());
+    EXPECT_EQ(expected_string, class_under_test.get_asset().value());
     EXPECT_EQ(expected_string, class_under_test.get_wallet().value());
 }
 

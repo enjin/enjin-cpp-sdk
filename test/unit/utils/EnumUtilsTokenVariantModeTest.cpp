@@ -6,16 +6,16 @@
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::utils;
 
-class TokenVariantModeTest : public testing::TestWithParam<std::tuple<std::string, TokenVariantMode>> {
+class TokenVariantModeTest : public testing::TestWithParam<std::tuple<std::string, AssetVariantMode>> {
 };
 
 TEST_P(TokenVariantModeTest, DeserializeTokenVariantModeReturnsExpectedValue) {
     // Arrange
-    TokenVariantMode expected = std::get<1>(GetParam());
+    AssetVariantMode expected = std::get<1>(GetParam());
     const std::string& str = std::get<0>(GetParam());
 
     // Act
-    TokenVariantMode actual = deserialize_token_variant_mode(str);
+    AssetVariantMode actual = deserialize_asset_variant_mode(str);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -24,10 +24,10 @@ TEST_P(TokenVariantModeTest, DeserializeTokenVariantModeReturnsExpectedValue) {
 TEST_P(TokenVariantModeTest, SerializeTokenVariantModeReturnsExpectedString) {
     // Arrange
     const std::string& expected = std::get<0>(GetParam());
-    TokenVariantMode value = std::get<1>(GetParam());
+    AssetVariantMode value = std::get<1>(GetParam());
 
     // Act
-    std::string actual = serialize_token_variant_mode(value);
+    std::string actual = serialize_asset_variant_mode(value);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -35,8 +35,8 @@ TEST_P(TokenVariantModeTest, SerializeTokenVariantModeReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializableTokenVariantMode,
                          TokenVariantModeTest,
-                         testing::Values(std::make_tuple("UNKNOWN", TokenVariantMode::UNKNOWN),
-                                         std::make_tuple("NONE", TokenVariantMode::NONE),
-                                         std::make_tuple("BEAM", TokenVariantMode::BEAM),
-                                         std::make_tuple("ONCE", TokenVariantMode::ONCE),
-                                         std::make_tuple("ALWAYS", TokenVariantMode::ALWAYS)));
+                         testing::Values(std::make_tuple("UNKNOWN", AssetVariantMode::UNKNOWN),
+                                         std::make_tuple("NONE", AssetVariantMode::NONE),
+                                         std::make_tuple("BEAM", AssetVariantMode::BEAM),
+                                         std::make_tuple("ONCE", AssetVariantMode::ONCE),
+                                         std::make_tuple("ALWAYS", AssetVariantMode::ALWAYS)));

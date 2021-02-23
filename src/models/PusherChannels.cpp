@@ -14,8 +14,8 @@ void PusherChannels::deserialize(const std::string& json) {
         if (document.HasMember(PLAYER_KEY) && document[PLAYER_KEY].IsString()) {
             player.emplace(document[PLAYER_KEY].GetString());
         }
-        if (document.HasMember(TOKEN_KEY) && document[TOKEN_KEY].IsString()) {
-            token.emplace(document[TOKEN_KEY].GetString());
+        if (document.HasMember(ASSET_KEY) && document[ASSET_KEY].IsString()) {
+            asset.emplace(document[ASSET_KEY].GetString());
         }
         if (document.HasMember(WALLET_KEY) && document[WALLET_KEY].IsString()) {
             wallet.emplace(document[WALLET_KEY].GetString());
@@ -31,8 +31,8 @@ const std::optional<std::string>& PusherChannels::get_player() const {
     return player;
 }
 
-const std::optional<std::string>& PusherChannels::get_token() const {
-    return token;
+const std::optional<std::string>& PusherChannels::get_asset() const {
+    return asset;
 }
 
 const std::optional<std::string>& PusherChannels::get_wallet() const {
@@ -42,7 +42,7 @@ const std::optional<std::string>& PusherChannels::get_wallet() const {
 bool PusherChannels::operator==(const PusherChannels& rhs) const {
     return project == rhs.project &&
            player == rhs.player &&
-           token == rhs.token &&
+           asset == rhs.asset &&
            wallet == rhs.wallet;
 }
 

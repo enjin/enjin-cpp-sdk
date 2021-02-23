@@ -7,11 +7,11 @@ SharedSchema::SharedSchema(const TrustedPlatformMiddleware& middleware, const st
 }
 
 std::future<graphql::GraphqlResponse<models::Request>>
-SharedSchema::advanced_send_token_async(AdvancedSendToken& request) {
+SharedSchema::advanced_send_asset_async(AdvancedSendAsset& request) {
     return send_request_for_one<models::Request>(request);
 }
 
-graphql::GraphqlResponse<models::Request> SharedSchema::advanced_send_token_sync(AdvancedSendToken& request) {
+graphql::GraphqlResponse<models::Request> SharedSchema::advanced_send_asset_sync(AdvancedSendAsset& request) {
     return send_request_for_one<models::Request>(request).get();
 }
 
@@ -105,27 +105,27 @@ graphql::GraphqlResponse<std::vector<models::Request>> SharedSchema::get_request
     return send_request_for_many<models::Request>(request).get();
 }
 
-std::future<graphql::GraphqlResponse<models::Token>> SharedSchema::get_token_async(GetToken& request) {
-    return send_request_for_one<models::Token>(request);
+std::future<graphql::GraphqlResponse<models::Asset>> SharedSchema::get_asset_async(GetAsset& request) {
+    return send_request_for_one<models::Asset>(request);
 }
 
-graphql::GraphqlResponse<models::Token> SharedSchema::get_token_sync(GetToken& request) {
-    return send_request_for_one<models::Token>(request).get();
+graphql::GraphqlResponse<models::Asset> SharedSchema::get_asset_sync(GetAsset& request) {
+    return send_request_for_one<models::Asset>(request).get();
 }
 
-std::future<graphql::GraphqlResponse<std::vector<models::Token>>> SharedSchema::get_tokens_async(GetTokens& request) {
-    return send_request_for_many<models::Token>(request);
+std::future<graphql::GraphqlResponse<std::vector<models::Asset>>> SharedSchema::get_assets_async(GetAssets& request) {
+    return send_request_for_many<models::Asset>(request);
 }
 
-graphql::GraphqlResponse<std::vector<models::Token>> SharedSchema::get_tokens_sync(GetTokens& request) {
-    return send_request_for_many<models::Token>(request).get();
+graphql::GraphqlResponse<std::vector<models::Asset>> SharedSchema::get_assets_sync(GetAssets& request) {
+    return send_request_for_many<models::Asset>(request).get();
 }
 
-std::future<graphql::GraphqlResponse<models::Request>> SharedSchema::melt_token_async(MeltToken& request) {
+std::future<graphql::GraphqlResponse<models::Request>> SharedSchema::melt_asset_async(MeltAsset& request) {
     return send_request_for_one<models::Request>(request);
 }
 
-graphql::GraphqlResponse<models::Request> SharedSchema::melt_token_sync(MeltToken& request) {
+graphql::GraphqlResponse<models::Request> SharedSchema::melt_asset_sync(MeltAsset& request) {
     return send_request_for_one<models::Request>(request).get();
 }
 
@@ -154,11 +154,11 @@ graphql::GraphqlResponse<models::Request> SharedSchema::send_enj_sync(SendEnj& r
     return send_request_for_one<models::Request>(request).get();
 }
 
-std::future<graphql::GraphqlResponse<models::Request>> SharedSchema::send_token_async(SendToken& request) {
+std::future<graphql::GraphqlResponse<models::Request>> SharedSchema::send_asset_async(SendAsset& request) {
     return send_request_for_one<models::Request>(request);
 }
 
-graphql::GraphqlResponse<models::Request> SharedSchema::send_token_sync(SendToken& request) {
+graphql::GraphqlResponse<models::Request> SharedSchema::send_asset_sync(SendAsset& request) {
     return send_request_for_one<models::Request>(request).get();
 }
 

@@ -1,4 +1,4 @@
-#include "enjinsdk/project/CreateToken.hpp"
+#include "enjinsdk/project/CreateAsset.hpp"
 #include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 
@@ -6,20 +6,20 @@ using namespace enjin::sdk::project;
 
 class CreateTokenTest : public JsonTestSuite {
 public:
-    CreateToken class_under_test;
+    CreateAsset class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"name":"1","totalSupply":"1","initialReserve":"1","supplyModel":"FIXED","meltValue":"1","meltFeeRatio":1,"transferable":"PERMANENT","transferFeeSettings":{},"nonFungible":true})";
 
-    static CreateToken create_default_request() {
-        return CreateToken().set_name("1")
+    static CreateAsset create_default_request() {
+        return CreateAsset().set_name("1")
                             .set_total_supply("1")
                             .set_initial_reserve("1")
-                            .set_supply_model(enjin::sdk::models::TokenSupplyModel::FIXED)
+                            .set_supply_model(enjin::sdk::models::AssetSupplyModel::FIXED)
                             .set_melt_value("1")
                             .set_melt_fee_ratio(1)
-                            .set_transferable(enjin::sdk::models::TokenTransferable::PERMANENT)
-                            .set_transfer_fee_settings(enjin::sdk::models::TokenTransferFeeSettingsInput())
+                            .set_transferable(enjin::sdk::models::AssetTransferable::PERMANENT)
+                            .set_transfer_fee_settings(enjin::sdk::models::AssetTransferFeeSettingsInput())
                             .set_non_fungible(true);
     }
 };
@@ -41,11 +41,11 @@ TEST_F(CreateTokenTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     class_under_test.set_name("1")
                     .set_total_supply("1")
                     .set_initial_reserve("1")
-                    .set_supply_model(enjin::sdk::models::TokenSupplyModel::FIXED)
+                    .set_supply_model(enjin::sdk::models::AssetSupplyModel::FIXED)
                     .set_melt_value("1")
                     .set_melt_fee_ratio(1)
-                    .set_transferable(enjin::sdk::models::TokenTransferable::PERMANENT)
-                    .set_transfer_fee_settings(enjin::sdk::models::TokenTransferFeeSettingsInput())
+                    .set_transferable(enjin::sdk::models::AssetTransferable::PERMANENT)
+                    .set_transfer_fee_settings(enjin::sdk::models::AssetTransferFeeSettingsInput())
                     .set_non_fungible(true);
 
     // Act
@@ -57,8 +57,8 @@ TEST_F(CreateTokenTest, SerializeSetFieldsReturnsExpectedJsonObject) {
 
 TEST_F(CreateTokenTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    CreateToken lhs;
-    CreateToken rhs;
+    CreateAsset lhs;
+    CreateAsset rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -69,8 +69,8 @@ TEST_F(CreateTokenTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
 
 TEST_F(CreateTokenTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    CreateToken lhs = create_default_request();
-    CreateToken rhs = create_default_request();
+    CreateAsset lhs = create_default_request();
+    CreateAsset rhs = create_default_request();
 
     // Act
     bool actual = lhs == rhs;
@@ -81,8 +81,8 @@ TEST_F(CreateTokenTest, EqualityBothSidesArePopulatedReturnsTrue) {
 
 TEST_F(CreateTokenTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    CreateToken lhs = create_default_request();
-    CreateToken rhs;
+    CreateAsset lhs = create_default_request();
+    CreateAsset rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -93,8 +93,8 @@ TEST_F(CreateTokenTest, EqualityLeftSideIsPopulatedReturnsFalse) {
 
 TEST_F(CreateTokenTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    CreateToken lhs;
-    CreateToken rhs = create_default_request();
+    CreateAsset lhs;
+    CreateAsset rhs = create_default_request();
 
     // Act
     bool actual = lhs == rhs;

@@ -20,8 +20,8 @@ void Wallet::deserialize(const std::string& json) {
         if (document.HasMember(ETH_BALANCE_KEY) && document[ETH_BALANCE_KEY].IsFloat()) {
             eth_balance.emplace(document[ETH_BALANCE_KEY].GetFloat());
         }
-        if (document.HasMember(TOKENS_CREATED_KEY) && document[TOKENS_CREATED_KEY].IsArray()) {
-            tokens_created.emplace(utils::get_array_as_type_vector<Token>(document, TOKENS_CREATED_KEY));
+        if (document.HasMember(ASSETS_CREATED_KEY) && document[ASSETS_CREATED_KEY].IsArray()) {
+            assets_created.emplace(utils::get_array_as_type_vector<Asset>(document, ASSETS_CREATED_KEY));
         }
     }
 }
@@ -42,8 +42,8 @@ const std::optional<float>& Wallet::get_eth_balance() const {
     return eth_balance;
 }
 
-const std::optional<std::vector<Token>>& Wallet::get_tokens_created() const {
-    return tokens_created;
+const std::optional<std::vector<Asset>>& Wallet::get_assets_created() const {
+    return assets_created;
 }
 
 bool Wallet::operator==(const Wallet& rhs) const {
@@ -51,7 +51,7 @@ bool Wallet::operator==(const Wallet& rhs) const {
            enj_allowance == rhs.enj_allowance &&
            enj_balance == rhs.enj_balance &&
            eth_balance == rhs.eth_balance &&
-           tokens_created == rhs.tokens_created;
+           assets_created == rhs.assets_created;
 }
 
 bool Wallet::operator!=(const Wallet& rhs) const {

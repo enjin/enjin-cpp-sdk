@@ -9,7 +9,7 @@
 
 namespace enjin::sdk::project {
 
-/// \brief Request for setting an item's whitelist.
+/// \brief Request for setting an asset's whitelist.
 class SetWhitelisted : public graphql::AbstractGraphqlRequest,
                        public shared::TransactionRequestArgumentsTemplate<SetWhitelisted> {
 public:
@@ -20,10 +20,10 @@ public:
 
     std::string serialize() override;
 
-    /// \brief Sets the token (item) ID.
-    /// \param token_id The ID.
+    /// \brief Sets the asset ID.
+    /// \param asset_id The ID.
     /// \return This request for chaining.
-    SetWhitelisted& set_token_id(const std::string& token_id);
+    SetWhitelisted& set_asset_id(const std::string& asset_id);
 
     /// \brief Sets the account address to be added to the whitelist.
     /// \param account_address The address.
@@ -50,7 +50,7 @@ public:
     bool operator!=(const SetWhitelisted& rhs) const;
 
 private:
-    std::optional<std::string> token_id;
+    std::optional<std::string> asset_id;
     std::optional<std::string> account_address;
     std::optional<models::Whitelisted> whitelisted;
     std::optional<std::string> whitelisted_address;

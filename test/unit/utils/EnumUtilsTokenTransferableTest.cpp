@@ -6,16 +6,16 @@
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::utils;
 
-class TokenTransferableTest : public testing::TestWithParam<std::tuple<std::string, TokenTransferable>> {
+class TokenTransferableTest : public testing::TestWithParam<std::tuple<std::string, AssetTransferable>> {
 };
 
 TEST_P(TokenTransferableTest, DeserializeTokenTransferableReturnsExpectedValue) {
     // Arrange
-    TokenTransferable expected = std::get<1>(GetParam());
+    AssetTransferable expected = std::get<1>(GetParam());
     const std::string& str = std::get<0>(GetParam());
 
     // Act
-    TokenTransferable actual = deserialize_token_transferable(str);
+    AssetTransferable actual = deserialize_asset_transferable(str);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -24,10 +24,10 @@ TEST_P(TokenTransferableTest, DeserializeTokenTransferableReturnsExpectedValue) 
 TEST_P(TokenTransferableTest, SerializeTokenTransferableReturnsExpectedString) {
     // Arrange
     const std::string& expected = std::get<0>(GetParam());
-    TokenTransferable value = std::get<1>(GetParam());
+    AssetTransferable value = std::get<1>(GetParam());
 
     // Act
-    std::string actual = serialize_token_transferable(value);
+    std::string actual = serialize_asset_transferable(value);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -35,7 +35,7 @@ TEST_P(TokenTransferableTest, SerializeTokenTransferableReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializableTokenTransferable,
                          TokenTransferableTest,
-                         testing::Values(std::make_tuple("UNKNOWN", TokenTransferable::UNKNOWN),
-                                         std::make_tuple("PERMANENT", TokenTransferable::PERMANENT),
-                                         std::make_tuple("TEMPORARY", TokenTransferable::TEMPORARY),
-                                         std::make_tuple("BOUND", TokenTransferable::BOUND)));
+                         testing::Values(std::make_tuple("UNKNOWN", AssetTransferable::UNKNOWN),
+                                         std::make_tuple("PERMANENT", AssetTransferable::PERMANENT),
+                                         std::make_tuple("TEMPORARY", AssetTransferable::TEMPORARY),
+                                         std::make_tuple("BOUND", AssetTransferable::BOUND)));

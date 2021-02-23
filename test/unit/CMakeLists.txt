@@ -7,7 +7,7 @@ set(TEST_FILES
         events/PlayerChannelTest.cpp
         events/PusherEventServiceTest.cpp
         events/RegistrationListenerConfigurationTest.cpp
-        events/TokenChannelTest.cpp
+        events/AssetChannelTest.cpp
         events/WalletChannelTest.cpp
         graphql/AbstractGraphqlRequestTest.cpp
         graphql/GraphqlErrorTest.cpp
@@ -44,9 +44,9 @@ set(TEST_FILES
         models/TokenConfigDataTest.cpp
         models/TokenSortTest.cpp
         models/TokenStateDataTest.cpp
-        models/TokenTransferFeeSettingsInputTest.cpp
-        models/TokenTransferFeeSettingsTest.cpp
-        models/TokenVariantTest.cpp
+        models/AssetTransferFeeSettingsInputTest.cpp
+        models/AssetTransferFeeSettingsTest.cpp
+        models/AssetVariantTest.cpp
         models/TradeTest.cpp
         models/TransactionEventTest.cpp
         models/TransactionFilterTest.cpp
@@ -65,7 +65,7 @@ set(TEST_FILES
         schemas/project/mutations/DecreaseMaxTransferFeeTest.cpp
         schemas/project/mutations/DeletePlayerTest.cpp
         schemas/project/mutations/InvalidateTokenMetadataTest.cpp
-        schemas/project/mutations/MintTokenTest.cpp
+        schemas/project/mutations/MintAssetTest.cpp
         schemas/project/mutations/ReleaseReserveTest.cpp
         schemas/project/mutations/SetMeltFeeTest.cpp
         schemas/project/mutations/SetTransferFeeTest.cpp
@@ -82,7 +82,7 @@ set(TEST_FILES
         schemas/shared/arguments/BalanceFragmentArgumentsTest.cpp
         schemas/shared/arguments/PaginationArgumentsTest.cpp
         schemas/shared/arguments/PlayerFragmentArgumentsTest.cpp
-        schemas/shared/arguments/TokenFragmentArgumentsTest.cpp
+        schemas/shared/arguments/AssetFragmentArgumentsTest.cpp
         schemas/shared/arguments/TransactionFragmentArgumentsTest.cpp
         schemas/shared/arguments/TransactionRequestArgumentsTest.cpp
         schemas/shared/arguments/WalletFragmentArgumentsTest.cpp
@@ -94,7 +94,7 @@ set(TEST_FILES
         schemas/shared/mutations/MeltTokenTest.cpp
         schemas/shared/mutations/MessageTest.cpp
         schemas/shared/mutations/SendEnjTest.cpp
-        schemas/shared/mutations/SendTokenTest.cpp
+        schemas/shared/mutations/SendAssetTest.cpp
         schemas/shared/mutations/SetApprovalForAllTest.cpp
         schemas/shared/queries/GetBalancesTest.cpp
         schemas/shared/queries/GetPlatformTest.cpp

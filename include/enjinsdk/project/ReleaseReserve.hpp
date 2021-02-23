@@ -8,7 +8,7 @@
 
 namespace enjin::sdk::project {
 
-/// \brief Request for releasing the reserve of an item.
+/// \brief Request for releasing the reserve of an asset.
 class ReleaseReserve : public graphql::AbstractGraphqlRequest,
                        public shared::TransactionRequestArgumentsTemplate<ReleaseReserve> {
 public:
@@ -19,10 +19,10 @@ public:
 
     std::string serialize() override;
 
-    /// \brief Sets the token ID.
-    /// \param token_id The ID.
+    /// \brief Sets the asset ID.
+    /// \param asset_id The ID.
     /// \return This request for chaining.
-    ReleaseReserve& set_token_id(const std::string& token_id);
+    ReleaseReserve& set_asset_id(const std::string& asset_id);
 
     /// \brief Sets the amount to release.
     /// \param value The amount.
@@ -34,7 +34,7 @@ public:
     bool operator!=(const ReleaseReserve& rhs) const;
 
 private:
-    std::optional<std::string> token_id;
+    std::optional<std::string> asset_id;
     std::optional<std::string> value;
 };
 

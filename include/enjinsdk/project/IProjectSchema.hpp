@@ -9,7 +9,7 @@
 #include "enjinsdk/project/AuthPlayer.hpp"
 #include "enjinsdk/project/AuthProject.hpp"
 #include "enjinsdk/project/CreatePlayer.hpp"
-#include "enjinsdk/project/CreateToken.hpp"
+#include "enjinsdk/project/CreateAsset.hpp"
 #include "enjinsdk/project/DecreaseMaxMeltFee.hpp"
 #include "enjinsdk/project/DecreaseMaxTransferFee.hpp"
 #include "enjinsdk/project/DeletePlayer.hpp"
@@ -17,8 +17,8 @@
 #include "enjinsdk/project/GetPlayers.hpp"
 #include "enjinsdk/project/GetWallet.hpp"
 #include "enjinsdk/project/GetWallets.hpp"
-#include "enjinsdk/project/InvalidateTokenMetadata.hpp"
-#include "enjinsdk/project/MintToken.hpp"
+#include "enjinsdk/project/InvalidateAssetMetadata.hpp"
+#include "enjinsdk/project/MintAsset.hpp"
 #include "enjinsdk/project/ReleaseReserve.hpp"
 #include "enjinsdk/project/SetMeltFee.hpp"
 #include "enjinsdk/project/SetTransferFee.hpp"
@@ -67,15 +67,15 @@ public:
     /// \return The response.
     virtual graphql::GraphqlResponse<models::Request> create_player_sync(CreatePlayer& request) = 0;
 
-    /// \brief Sends CreateToken request asynchronously.
+    /// \brief Sends CreateAsset request asynchronously.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> create_token_async(CreateToken& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Request>> create_asset_async(CreateAsset& request) = 0;
 
-    /// \brief Sends CreateToken request synchronously.
+    /// \brief Sends CreateAsset request synchronously.
     /// \param request The request.
     /// \return The response.
-    virtual graphql::GraphqlResponse<models::Request> create_token_sync(CreateToken& request) = 0;
+    virtual graphql::GraphqlResponse<models::Request> create_asset_sync(CreateAsset& request) = 0;
 
     /// \brief Sends DecreaseMaxMeltFee request asynchronously.
     /// \param request The request.
@@ -152,26 +152,26 @@ public:
     /// \return The response.
     virtual graphql::GraphqlResponse<std::vector<models::Wallet>> get_wallets_sync(GetWallets& request) = 0;
 
-    /// \brief Sends InvalidateTokenMetadata request asynchronously.
+    /// \brief Sends InvalidateAssetMetadata request asynchronously.
     /// \param request The request.
     /// \return The future containing the response.
     virtual std::future<graphql::GraphqlResponse<bool>>
-    invalidate_token_metadata_async(InvalidateTokenMetadata& request) = 0;
+    invalidate_asset_metadata_async(InvalidateAssetMetadata& request) = 0;
 
-    /// \brief Sends InvalidateTokenMetadata request synchronously.
+    /// \brief Sends InvalidateAssetMetadata request synchronously.
     /// \param request The request.
     /// \return The response.
-    virtual graphql::GraphqlResponse<bool> invalidate_token_metadata_sync(InvalidateTokenMetadata& request) = 0;
+    virtual graphql::GraphqlResponse<bool> invalidate_asset_metadata_sync(InvalidateAssetMetadata& request) = 0;
 
-    /// \brief Sends MintToken request asynchronously.
+    /// \brief Sends MintAsset request asynchronously.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> mint_token_async(MintToken& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Request>> mint_asset_async(MintAsset& request) = 0;
 
-    /// \brief Sends MintToken request synchronously.
+    /// \brief Sends MintAsset request synchronously.
     /// \param request The request.
     /// \return The response.
-    virtual graphql::GraphqlResponse<models::Request> mint_token_sync(MintToken& request) = 0;
+    virtual graphql::GraphqlResponse<models::Request> mint_asset_sync(MintAsset& request) = 0;
 
     /// \brief Sends ReleaseReserve request asynchronously.
     /// \param request The request.

@@ -20,10 +20,10 @@ public:
         return std::string();
     }
 
-    /// Sets the request to include the tokens (items) created by the wallet.
+    /// Sets the request to include the assets created by the wallet.
     /// \return This request for chaining.
-    T& set_with_tokens_created() {
-        impl.set_with_tokens_created();
+    T& set_with_assets_created() {
+        impl.set_with_assets_created();
         return dynamic_cast<T&>(*this);
     }
 

@@ -9,10 +9,10 @@ public:
     SetWhitelisted class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"tokenId":"1","accountAddress":"1","whitelisted":"NONE","whitelistedAddress":"1","on":true})";
+            R"({"assetId":"1","accountAddress":"1","whitelisted":"NONE","whitelistedAddress":"1","on":true})";
 
     static SetWhitelisted create_default_request() {
-        return SetWhitelisted().set_token_id("1")
+        return SetWhitelisted().set_asset_id("1")
                                .set_account_address("1")
                                .set_whitelisted(enjin::sdk::models::Whitelisted::NONE)
                                .set_whitelisted_address("1")
@@ -34,7 +34,7 @@ TEST_F(SetWhitelistedTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
 TEST_F(SetWhitelistedTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_token_id("1")
+    class_under_test.set_asset_id("1")
                     .set_account_address("1")
                     .set_whitelisted(enjin::sdk::models::Whitelisted::NONE)
                     .set_whitelisted_address("1")

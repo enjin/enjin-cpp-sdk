@@ -1,4 +1,4 @@
-#include "enjinsdk/shared/MeltToken.hpp"
+#include "enjinsdk/shared/MeltAsset.hpp"
 #include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 #include <vector>
@@ -7,13 +7,13 @@ using namespace enjin::sdk::shared;
 
 class MeltTokenTest : public JsonTestSuite {
 public:
-    MeltToken class_under_test;
+    MeltAsset class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"melts":[]})";
 
-    static MeltToken create_default_request() {
-        return MeltToken().set_melts(std::vector<enjin::sdk::models::Melt>());
+    static MeltAsset create_default_request() {
+        return MeltAsset().set_melts(std::vector<enjin::sdk::models::Melt>());
     }
 };
 
@@ -42,8 +42,8 @@ TEST_F(MeltTokenTest, SerializeSetFieldsReturnsExpectedJsonObject) {
 
 TEST_F(MeltTokenTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    MeltToken lhs;
-    MeltToken rhs;
+    MeltAsset lhs;
+    MeltAsset rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -54,8 +54,8 @@ TEST_F(MeltTokenTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
 
 TEST_F(MeltTokenTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    MeltToken lhs = create_default_request();
-    MeltToken rhs = create_default_request();
+    MeltAsset lhs = create_default_request();
+    MeltAsset rhs = create_default_request();
 
     // Act
     bool actual = lhs == rhs;
@@ -66,8 +66,8 @@ TEST_F(MeltTokenTest, EqualityBothSidesArePopulatedReturnsTrue) {
 
 TEST_F(MeltTokenTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    MeltToken lhs = create_default_request();
-    MeltToken rhs;
+    MeltAsset lhs = create_default_request();
+    MeltAsset rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -78,8 +78,8 @@ TEST_F(MeltTokenTest, EqualityLeftSideIsPopulatedReturnsFalse) {
 
 TEST_F(MeltTokenTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    MeltToken lhs;
-    MeltToken rhs = create_default_request();
+    MeltAsset lhs;
+    MeltAsset rhs = create_default_request();
 
     // Act
     bool actual = lhs == rhs;

@@ -1,11 +1,11 @@
-#include "enjinsdk/models/TokenConfigData.hpp"
+#include "enjinsdk/models/AssetConfigData.hpp"
 #include "../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::models;
 
 class TokenConfigDataTest : public JsonTestSuite {
 public:
-    TokenConfigData class_under_test;
+    AssetConfigData class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"meltFeeRatio":1,"meltFeeMaxRatio":1,"meltValue":"1","metadataURI":"1","transferable":"PERMANENT","transferFeeSettings":{}})";
@@ -47,8 +47,8 @@ TEST_F(TokenConfigDataTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValu
     // Arrange
     const int expected_int = 1;
     const std::string expected_string("1");
-    const TokenTransferable expected_transferable = TokenTransferable::PERMANENT;
-    const TokenTransferFeeSettings expected_transfer_fee_settings;
+    const AssetTransferable expected_transferable = AssetTransferable::PERMANENT;
+    const AssetTransferFeeSettings expected_transfer_fee_settings;
     const std::string json(POPULATED_JSON_OBJECT);
 
     // Act
@@ -65,8 +65,8 @@ TEST_F(TokenConfigDataTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValu
 
 TEST_F(TokenConfigDataTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    TokenConfigData lhs;
-    TokenConfigData rhs;
+    AssetConfigData lhs;
+    AssetConfigData rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -77,8 +77,8 @@ TEST_F(TokenConfigDataTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
 
 TEST_F(TokenConfigDataTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    TokenConfigData lhs;
-    TokenConfigData rhs;
+    AssetConfigData lhs;
+    AssetConfigData rhs;
     lhs.deserialize(POPULATED_JSON_OBJECT);
     rhs.deserialize(POPULATED_JSON_OBJECT);
 
@@ -91,8 +91,8 @@ TEST_F(TokenConfigDataTest, EqualityBothSidesArePopulatedReturnsTrue) {
 
 TEST_F(TokenConfigDataTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    TokenConfigData lhs;
-    TokenConfigData rhs;
+    AssetConfigData lhs;
+    AssetConfigData rhs;
     lhs.deserialize(POPULATED_JSON_OBJECT);
 
     // Act
@@ -104,8 +104,8 @@ TEST_F(TokenConfigDataTest, EqualityLeftSideIsPopulatedReturnsFalse) {
 
 TEST_F(TokenConfigDataTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    TokenConfigData lhs;
-    TokenConfigData rhs;
+    AssetConfigData lhs;
+    AssetConfigData rhs;
     rhs.deserialize(POPULATED_JSON_OBJECT);
 
     // Act

@@ -48,15 +48,15 @@ public:
     /// \return This filter for chaining.
     TransactionFilter& set_transaction_id_in(const std::vector<std::string>& transaction_ids);
 
-    /// \brief Sets the token (item) ID to filter for.
-    /// \param token_id The ID.
+    /// \brief Sets the asset ID to filter for.
+    /// \param asset_id The ID.
     /// \return This filter for chaining.
-    TransactionFilter& set_token_id(const std::string& token_id);
+    TransactionFilter& set_asset_id(const std::string& asset_id);
 
-    /// \brief Sets the token (item) IDs to filter for.
-    /// \param token_ids The IDs.
+    /// \brief Sets the asset IDs to filter for.
+    /// \param asset_ids The IDs.
     /// \return This filter for chaining.
-    TransactionFilter& set_token_id_in(const std::vector<std::string>& token_ids);
+    TransactionFilter& set_asset_id_in(const std::vector<std::string>& asset_ids);
 
     /// \brief Sets the transaction type to filter for.
     /// \param type The type.
@@ -125,8 +125,8 @@ private:
     std::optional<std::vector<std::string>> id_in;
     std::optional<std::string> transaction_id;
     std::optional<std::vector<std::string>> transaction_id_in;
-    std::optional<std::string> token_id;
-    std::optional<std::vector<std::string>> token_id_in;
+    std::optional<std::string> asset_id;
+    std::optional<std::vector<std::string>> asset_id_in;
     std::optional<RequestType> type;
     std::optional<std::vector<RequestType>> type_in;
     std::optional<int> value;
@@ -145,8 +145,8 @@ private:
     constexpr static char ID_IN_KEY[] = "id_in";
     constexpr static char TRANSACTION_ID_KEY[] = "transactionId";
     constexpr static char TRANSACTION_ID_IN_KEY[] = "transactionId_in";
-    constexpr static char TOKEN_ID_KEY[] = "tokenId";
-    constexpr static char TOKEN_ID_IN_KEY[] = "tokenId_in";
+    constexpr static char ASSET_ID_KEY[] = "assetId";
+    constexpr static char ASSET_ID_IN_KEY[] = "assetId_in";
     constexpr static char TYPE_KEY[] = "type";
     constexpr static char TYPE_IN_KEY[] = "type_in";
     constexpr static char VALUE_KEY[] = "value";

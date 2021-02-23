@@ -11,8 +11,8 @@ std::string ReleaseReserve::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
 
-    if (token_id.has_value()) {
-        utils::set_string_member(document, "tokenId", token_id.value());
+    if (asset_id.has_value()) {
+        utils::set_string_member(document, "assetId", asset_id.value());
     }
     if (value.has_value()) {
         utils::set_string_member(document, "value", value.value());
@@ -21,8 +21,8 @@ std::string ReleaseReserve::serialize() {
     return utils::document_to_string(document);
 }
 
-ReleaseReserve& ReleaseReserve::set_token_id(const std::string& token_id) {
-    ReleaseReserve::token_id = token_id;
+ReleaseReserve& ReleaseReserve::set_asset_id(const std::string& asset_id) {
+    ReleaseReserve::asset_id = asset_id;
     return *this;
 }
 
@@ -36,7 +36,7 @@ bool ReleaseReserve::operator==(const ReleaseReserve& rhs) const {
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
            static_cast<const shared::TransactionRequestArgumentsTemplate<ReleaseReserve>&>(*this) ==
            static_cast<const shared::TransactionRequestArgumentsTemplate<ReleaseReserve>&>(rhs) &&
-           token_id == rhs.token_id &&
+           asset_id == rhs.asset_id &&
            value == rhs.value;
 }
 

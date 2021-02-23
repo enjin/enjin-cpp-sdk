@@ -9,7 +9,7 @@ public:
     Wallet class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"ethAddress":"1","enjAllowance":1.0,"enjBalance":1.0,"ethBalance":1.0,"tokensCreated":[]})";
+            R"({"ethAddress":"1","enjAllowance":1.0,"enjBalance":1.0,"ethBalance":1.0,"assetsCreated":[]})";
 };
 
 TEST_F(WalletTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
@@ -24,7 +24,7 @@ TEST_F(WalletTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
     EXPECT_FALSE(class_under_test.get_enj_allowance().has_value());
     EXPECT_FALSE(class_under_test.get_enj_balance().has_value());
     EXPECT_FALSE(class_under_test.get_eth_balance().has_value());
-    EXPECT_FALSE(class_under_test.get_tokens_created().has_value());
+    EXPECT_FALSE(class_under_test.get_assets_created().has_value());
 }
 
 TEST_F(WalletTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
@@ -39,7 +39,7 @@ TEST_F(WalletTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     EXPECT_FALSE(class_under_test.get_enj_allowance().has_value());
     EXPECT_FALSE(class_under_test.get_enj_balance().has_value());
     EXPECT_FALSE(class_under_test.get_eth_balance().has_value());
-    EXPECT_FALSE(class_under_test.get_tokens_created().has_value());
+    EXPECT_FALSE(class_under_test.get_assets_created().has_value());
 }
 
 TEST_F(WalletTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
@@ -56,7 +56,7 @@ TEST_F(WalletTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
     EXPECT_EQ(expected_float, class_under_test.get_enj_allowance().value());
     EXPECT_EQ(expected_float, class_under_test.get_enj_balance().value());
     EXPECT_EQ(expected_float, class_under_test.get_eth_balance().value());
-    EXPECT_TRUE(class_under_test.get_tokens_created().has_value());
+    EXPECT_TRUE(class_under_test.get_assets_created().has_value());
 }
 
 TEST_F(WalletTest, EqualityNeitherSideIsPopulatedReturnsTrue) {

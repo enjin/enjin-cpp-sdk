@@ -9,11 +9,11 @@ public:
     SetMeltFee class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"tokenId":"1","tokenIndex":"1","meltFee":1})";
+            R"({"assetId":"1","assetIndex":"1","meltFee":1})";
 
     static SetMeltFee create_default_request() {
-        return SetMeltFee().set_token_id("1")
-                           .set_token_index("1")
+        return SetMeltFee().set_asset_id("1")
+                           .set_asset_index("1")
                            .set_melt_fee(1);
     }
 };
@@ -32,8 +32,8 @@ TEST_F(SetMeltFeeTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
 TEST_F(SetMeltFeeTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_token_id("1")
-                    .set_token_index("1")
+    class_under_test.set_asset_id("1")
+                    .set_asset_index("1")
                     .set_melt_fee(1);
 
     // Act

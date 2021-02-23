@@ -17,14 +17,14 @@ public:
     std::string serialize() override;
 
     /// \brief Sets the value for the associated field to true.
-    void set_with_tokens_created();
+    void set_with_assets_created();
 
     bool operator==(const WalletFragmentArguments& rhs) const;
 
     bool operator!=(const WalletFragmentArguments& rhs) const;
 
 private:
-    std::optional<bool> with_tokens_created;
+    std::optional<bool> with_assets_created;
 };
 
 }

@@ -109,11 +109,11 @@ public:
 
     bool is_subscribed_to_player(int app, const std::string& player) override;
 
-    void subscribe_to_token(const std::string& token) override;
+    void subscribe_to_asset(const std::string& asset) override;
 
-    void unsubscribe_to_token(const std::string& token) override;
+    void unsubscribe_to_asset(const std::string& asset) override;
 
-    bool is_subscribed_to_token(const std::string& token) override;
+    bool is_subscribed_to_asset(const std::string& asset) override;
 
     void subscribe_to_wallet(const std::string& wallet) override;
 

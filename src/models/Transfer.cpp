@@ -13,11 +13,11 @@ std::string Transfer::serialize() {
     if (to.has_value()) {
         utils::set_string_member(document, TO_KEY, to.value());
     }
-    if (token_id.has_value()) {
-        utils::set_string_member(document, TOKEN_ID_KEY, token_id.value());
+    if (asset_id.has_value()) {
+        utils::set_string_member(document, ASSET_ID_KEY, asset_id.value());
     }
-    if (token_index.has_value()) {
-        utils::set_string_member(document, TOKEN_INDEX_KEY, token_index.value());
+    if (asset_index.has_value()) {
+        utils::set_string_member(document, ASSET_INDEX_KEY, asset_index.value());
     }
     if (value.has_value()) {
         utils::set_string_member(document, VALUE_KEY, value.value());
@@ -36,13 +36,13 @@ Transfer& Transfer::set_to(const std::string& address) {
     return *this;
 }
 
-Transfer& Transfer::set_token_id(const std::string& id) {
-    token_id = id;
+Transfer& Transfer::set_asset_id(const std::string& id) {
+    asset_id = id;
     return *this;
 }
 
-Transfer& Transfer::set_token_index(const std::string& index) {
-    token_index = index;
+Transfer& Transfer::set_asset_index(const std::string& index) {
+    asset_index = index;
     return *this;
 }
 
@@ -54,8 +54,8 @@ Transfer& Transfer::set_value(const std::string& value) {
 bool Transfer::operator==(const Transfer& rhs) const {
     return from == rhs.from &&
            to == rhs.to &&
-           token_id == rhs.token_id &&
-           token_index == rhs.token_index &&
+           asset_id == rhs.asset_id &&
+           asset_index == rhs.asset_index &&
            value == rhs.value;
 }
 

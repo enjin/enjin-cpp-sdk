@@ -9,10 +9,10 @@ public:
     ReleaseReserve class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"tokenId":"1","value":"1"})";
+            R"({"assetId":"1","value":"1"})";
 
     static ReleaseReserve create_default_request() {
-        return ReleaseReserve().set_token_id("1")
+        return ReleaseReserve().set_asset_id("1")
                                .set_value("1");
     }
 };
@@ -31,7 +31,7 @@ TEST_F(ReleaseReserveTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
 TEST_F(ReleaseReserveTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_token_id("1")
+    class_under_test.set_asset_id("1")
                     .set_value("1");
 
     // Act

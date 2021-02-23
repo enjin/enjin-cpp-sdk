@@ -16,8 +16,8 @@ std::string TransactionFragmentArguments::serialize() {
     if (with_encoded_data.has_value()) {
         utils::set_boolean_member(document, "withEncodedData", with_encoded_data.value());
     }
-    if (with_token_data.has_value()) {
-        utils::set_boolean_member(document, "withTokenData", with_token_data.value());
+    if (with_asset_data.has_value()) {
+        utils::set_boolean_member(document, "withAssetData", with_asset_data.value());
     }
     if (with_signed_txs.has_value()) {
         utils::set_boolean_member(document, "withSignedTxs", with_signed_txs.value());
@@ -56,8 +56,8 @@ void TransactionFragmentArguments::set_with_encoded_data() {
     with_encoded_data = true;
 }
 
-void TransactionFragmentArguments::set_with_token_data() {
-    with_token_data = true;
+void TransactionFragmentArguments::set_with_asset_data() {
+    with_asset_data = true;
 }
 
 void TransactionFragmentArguments::set_with_signed_txs() {
@@ -92,7 +92,7 @@ bool TransactionFragmentArguments::operator==(const TransactionFragmentArguments
     return with_blockchain_data == rhs.with_blockchain_data &&
            with_meta == rhs.with_meta &&
            with_encoded_data == rhs.with_encoded_data &&
-           with_token_data == rhs.with_token_data &&
+           with_asset_data == rhs.with_asset_data &&
            with_signed_txs == rhs.with_signed_txs &&
            with_error == rhs.with_error &&
            with_nonce == rhs.with_nonce &&

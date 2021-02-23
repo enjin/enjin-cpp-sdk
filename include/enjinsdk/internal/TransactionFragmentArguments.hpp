@@ -26,7 +26,7 @@ public:
     void set_with_encoded_data();
 
     /// \brief Sets the value for the associated field to true.
-    void set_with_token_data();
+    void set_with_asset_data();
 
     /// \brief Sets the value for the associated field to true.
     void set_with_signed_txs();
@@ -57,7 +57,7 @@ private:
     std::optional<bool> with_blockchain_data;
     std::optional<bool> with_meta;
     std::optional<bool> with_encoded_data;
-    std::optional<bool> with_token_data;
+    std::optional<bool> with_asset_data;
     std::optional<bool> with_signed_txs;
     std::optional<bool> with_error;
     std::optional<bool> with_nonce;

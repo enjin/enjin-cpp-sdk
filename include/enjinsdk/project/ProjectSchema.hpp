@@ -24,9 +24,9 @@ public:
 
     graphql::GraphqlResponse<models::Request> create_player_sync(CreatePlayer& request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> create_token_async(CreateToken& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> create_asset_async(CreateAsset& request) override;
 
-    graphql::GraphqlResponse<models::Request> create_token_sync(CreateToken& request) override;
+    graphql::GraphqlResponse<models::Request> create_asset_sync(CreateAsset& request) override;
 
     std::future<graphql::GraphqlResponse<models::Request>>
     decrease_max_melt_fee_async(DecreaseMaxMeltFee& request) override;
@@ -59,13 +59,13 @@ public:
     graphql::GraphqlResponse<std::vector<models::Wallet>> get_wallets_sync(GetWallets& request) override;
 
     std::future<graphql::GraphqlResponse<bool>>
-    invalidate_token_metadata_async(InvalidateTokenMetadata& request) override;
+    invalidate_asset_metadata_async(InvalidateAssetMetadata& request) override;
 
-    graphql::GraphqlResponse<bool> invalidate_token_metadata_sync(InvalidateTokenMetadata& request) override;
+    graphql::GraphqlResponse<bool> invalidate_asset_metadata_sync(InvalidateAssetMetadata& request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> mint_token_async(MintToken& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> mint_asset_async(MintAsset& request) override;
 
-    graphql::GraphqlResponse<models::Request> mint_token_sync(MintToken& request) override;
+    graphql::GraphqlResponse<models::Request> mint_asset_sync(MintAsset& request) override;
 
     std::future<graphql::GraphqlResponse<models::Request>> release_reserve_async(ReleaseReserve& request) override;
 

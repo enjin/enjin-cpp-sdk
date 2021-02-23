@@ -1,7 +1,7 @@
 #ifndef ENJINCPPSDK_WALLET_HPP
 #define ENJINCPPSDK_WALLET_HPP
 
-#include "enjinsdk/models/Token.hpp"
+#include "enjinsdk/models/Asset.hpp"
 #include "enjinsdk/serialization/IDeserializable.hpp"
 #include <optional>
 #include <string>
@@ -33,9 +33,9 @@ public:
     /// \return The balance.
     [[nodiscard]] const std::optional<float>& get_eth_balance() const;
 
-    /// \brief Returns the tokens (items) this wallet has created.
-    /// \return The tokens.
-    [[nodiscard]] const std::optional<std::vector<Token>>& get_tokens_created() const;
+    /// \brief Returns the assets this wallet has created.
+    /// \return The assets.
+    [[nodiscard]] const std::optional<std::vector<Asset>>& get_assets_created() const;
 
     bool operator==(const Wallet& rhs) const;
 
@@ -46,13 +46,13 @@ private:
     std::optional<float> enj_allowance;
     std::optional<float> enj_balance;
     std::optional<float> eth_balance;
-    std::optional<std::vector<Token>> tokens_created;
+    std::optional<std::vector<Asset>> assets_created;
 
     constexpr static char ETH_ADDRESS_KEY[] = "ethAddress";
     constexpr static char ENJ_ALLOWANCE_KEY[] = "enjAllowance";
     constexpr static char ENJ_BALANCE_KEY[] = "enjBalance";
     constexpr static char ETH_BALANCE_KEY[] = "ethBalance";
-    constexpr static char TOKENS_CREATED_KEY[] = "tokensCreated";
+    constexpr static char ASSETS_CREATED_KEY[] = "assetsCreated";
 };
 
 }

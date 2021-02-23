@@ -13,11 +13,11 @@ std::string BalanceFilter::serialize() {
     if (or_filters.has_value()) {
         utils::set_array_member_from_type_vector<BalanceFilter>(document, OR_KEY, or_filters.value());
     }
-    if (token_id.has_value()) {
-        utils::set_string_member(document, TOKEN_ID_KEY, token_id.value());
+    if (asset_id.has_value()) {
+        utils::set_string_member(document, ASSET_ID_KEY, asset_id.value());
     }
-    if (token_id_in.has_value()) {
-        utils::set_array_member_from_string_vector(document, TOKEN_ID_IN_KEY, token_id_in.value());
+    if (asset_id_in.has_value()) {
+        utils::set_array_member_from_string_vector(document, ASSET_ID_IN_KEY, asset_id_in.value());
     }
     if (wallet.has_value()) {
         utils::set_string_member(document, WALLET_KEY, wallet.value());
@@ -54,13 +54,13 @@ BalanceFilter& BalanceFilter::set_or(const std::vector<BalanceFilter>& others) {
     return *this;
 }
 
-BalanceFilter& BalanceFilter::set_token_id(const std::string& token_id) {
-    BalanceFilter::token_id = token_id;
+BalanceFilter& BalanceFilter::set_asset_id(const std::string& asset_id) {
+    BalanceFilter::asset_id = asset_id;
     return *this;
 }
 
-BalanceFilter& BalanceFilter::set_token_id_in(const std::vector<std::string>& token_ids) {
-    token_id_in = token_ids;
+BalanceFilter& BalanceFilter::set_asset_id_in(const std::vector<std::string>& asset_ids) {
+    asset_id_in = asset_ids;
     return *this;
 }
 
@@ -102,8 +102,8 @@ BalanceFilter& BalanceFilter::set_value_less_than_or_equal(int value) {
 bool BalanceFilter::operator==(const BalanceFilter& rhs) const {
     return and_filters == rhs.and_filters &&
            or_filters == rhs.or_filters &&
-           token_id == rhs.token_id &&
-           token_id_in == rhs.token_id_in &&
+           asset_id == rhs.asset_id &&
+           asset_id_in == rhs.asset_id_in &&
            wallet == rhs.wallet &&
            wallet_in == rhs.wallet_in &&
            value == rhs.value &&

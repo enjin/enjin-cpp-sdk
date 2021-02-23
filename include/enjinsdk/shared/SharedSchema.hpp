@@ -14,9 +14,9 @@ public:
     ~SharedSchema() override = default;
 
     std::future<graphql::GraphqlResponse<models::Request>>
-    advanced_send_token_async(AdvancedSendToken& request) override;
+    advanced_send_asset_async(AdvancedSendAsset& request) override;
 
-    graphql::GraphqlResponse<models::Request> advanced_send_token_sync(AdvancedSendToken& request) override;
+    graphql::GraphqlResponse<models::Request> advanced_send_asset_sync(AdvancedSendAsset& request) override;
 
     std::future<graphql::GraphqlResponse<models::Request>> approve_enj_async(ApproveEnj& request) override;
 
@@ -64,17 +64,17 @@ public:
 
     graphql::GraphqlResponse<std::vector<models::Request>> get_requests_sync(GetRequests& request) override;
 
-    std::future<graphql::GraphqlResponse<models::Token>> get_token_async(GetToken& request) override;
+    std::future<graphql::GraphqlResponse<models::Asset>> get_asset_async(GetAsset& request) override;
 
-    graphql::GraphqlResponse<models::Token> get_token_sync(GetToken& request) override;
+    graphql::GraphqlResponse<models::Asset> get_asset_sync(GetAsset& request) override;
 
-    std::future<graphql::GraphqlResponse<std::vector<models::Token>>> get_tokens_async(GetTokens& request) override;
+    std::future<graphql::GraphqlResponse<std::vector<models::Asset>>> get_assets_async(GetAssets& request) override;
 
-    graphql::GraphqlResponse<std::vector<models::Token>> get_tokens_sync(GetTokens& request) override;
+    graphql::GraphqlResponse<std::vector<models::Asset>> get_assets_sync(GetAssets& request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> melt_token_async(MeltToken& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> melt_asset_async(MeltAsset& request) override;
 
-    graphql::GraphqlResponse<models::Request> melt_token_sync(MeltToken& request) override;
+    graphql::GraphqlResponse<models::Request> melt_asset_sync(MeltAsset& request) override;
 
     std::future<graphql::GraphqlResponse<models::Request>> message_async(Message& request) override;
 
@@ -88,9 +88,9 @@ public:
 
     graphql::GraphqlResponse<models::Request> send_enj_sync(SendEnj& request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> send_token_async(SendToken& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> send_asset_async(SendAsset& request) override;
 
-    graphql::GraphqlResponse<models::Request> send_token_sync(SendToken& request) override;
+    graphql::GraphqlResponse<models::Request> send_asset_sync(SendAsset& request) override;
 
     std::future<graphql::GraphqlResponse<models::Request>>
     set_approval_for_all_async(SetApprovalForAll& request) override;

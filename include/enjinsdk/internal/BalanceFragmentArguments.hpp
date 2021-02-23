@@ -1,8 +1,8 @@
 #ifndef ENJINCPPSDK_SHAREDBALANCEFRAGMENTARGUMENTS_HPP
 #define ENJINCPPSDK_SHAREDBALANCEFRAGMENTARGUMENTS_HPP
 
-#include "enjinsdk/models/TokenIdFormat.hpp"
-#include "enjinsdk/models/TokenIndexFormat.hpp"
+#include "enjinsdk/models/AssetIdFormat.hpp"
+#include "enjinsdk/models/AssetIndexFormat.hpp"
 #include "enjinsdk/serialization/ISerializable.hpp"
 #include <optional>
 
@@ -20,11 +20,11 @@ public:
 
     /// \brief Sets the value for the associated field to the passed value.
     /// \param bal_id_format The ID format.
-    void set_bal_id_format(models::TokenIdFormat bal_id_format);
+    void set_bal_id_format(models::AssetIdFormat bal_id_format);
 
     /// \brief Sets the value for the associated field to the passed value.
     /// \param bal_index_format The index format.
-    void set_bal_index_format(models::TokenIndexFormat bal_index_format);
+    void set_bal_index_format(models::AssetIndexFormat bal_index_format);
 
     /// \brief Sets the value for the associated field to true.
     void set_with_bal_project_id();
@@ -37,8 +37,8 @@ public:
     bool operator!=(const BalanceFragmentArguments& rhs) const;
 
 private:
-    std::optional<models::TokenIdFormat> bal_id_format;
-    std::optional<models::TokenIndexFormat> bal_index_format;
+    std::optional<models::AssetIdFormat> bal_id_format;
+    std::optional<models::AssetIndexFormat> bal_index_format;
     std::optional<bool> with_bal_project_id;
     std::optional<bool> with_bal_wallet_address;
 };
