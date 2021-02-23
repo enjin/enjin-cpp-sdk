@@ -1,6 +1,6 @@
 #include "enjinsdk/PusherEventService.hpp"
 
-#include "AppChannel.hpp"
+#include "ProjectChannel.hpp"
 #include "EventTypeDef.hpp"
 #include "PlayerChannel.hpp"
 #include "AssetChannel.hpp"
@@ -156,28 +156,28 @@ void PusherEventService::unregister_listener(IEventListener& listener) {
     }
 }
 
-void PusherEventService::subscribe_to_app(int app) {
-    subscribe(AppChannel(platform.value(), app).channel());
+void PusherEventService::subscribe_to_project(int project) {
+    subscribe(ProjectChannel(platform.value(), project).channel());
 }
 
-void PusherEventService::unsubscribe_to_app(int app) {
-    unsubscribe(AppChannel(platform.value(), app).channel());
+void PusherEventService::unsubscribe_to_project(int project) {
+    unsubscribe(ProjectChannel(platform.value(), project).channel());
 }
 
-bool PusherEventService::is_subscribed_to_app(int app) {
-    return pusher_client->is_subscribed(AppChannel(platform.value(), app).channel());
+bool PusherEventService::is_subscribed_to_project(int project) {
+    return pusher_client->is_subscribed(ProjectChannel(platform.value(), project).channel());
 }
 
-void PusherEventService::subscribe_to_player(int app, const std::string& player) {
-    subscribe(PlayerChannel(platform.value(), app, player).channel());
+void PusherEventService::subscribe_to_player(int project, const std::string& player) {
+    subscribe(PlayerChannel(platform.value(), project, player).channel());
 }
 
-void PusherEventService::unsubscribe_to_player(int app, const std::string& player) {
-    unsubscribe(PlayerChannel(platform.value(), app, player).channel());
+void PusherEventService::unsubscribe_to_player(int project, const std::string& player) {
+    unsubscribe(PlayerChannel(platform.value(), project, player).channel());
 }
 
-bool PusherEventService::is_subscribed_to_player(int app, const std::string& player) {
-    return pusher_client->is_subscribed(PlayerChannel(platform.value(), app, player).channel());
+bool PusherEventService::is_subscribed_to_player(int project, const std::string& player) {
+    return pusher_client->is_subscribed(PlayerChannel(platform.value(), project, player).channel());
 }
 
 void PusherEventService::subscribe_to_asset(const std::string& asset) {

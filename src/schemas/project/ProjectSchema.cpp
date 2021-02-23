@@ -3,7 +3,7 @@
 namespace enjin::sdk::project {
 
 ProjectSchema::ProjectSchema(const TrustedPlatformMiddleware& middleware)
-        : shared::SharedSchema(middleware, "app") {
+        : shared::SharedSchema(middleware, "project") {
 }
 
 std::future<graphql::GraphqlResponse<models::AccessToken>> ProjectSchema::auth_player_async(AuthPlayer& request) {

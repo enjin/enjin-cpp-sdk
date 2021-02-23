@@ -13,8 +13,8 @@ set(SOURCE_FILES
         events/EventTypeDef.cpp
         events/EventTypeDef.hpp
         events/PusherEventService.cpp
-        events/channels/AppChannel.cpp
-        events/channels/AppChannel.hpp
+        events/channels/ProjectChannel.cpp
+        events/channels/ProjectChannel.hpp
         events/channels/IChannel.hpp
         events/channels/PlayerChannel.cpp
         events/channels/PlayerChannel.hpp

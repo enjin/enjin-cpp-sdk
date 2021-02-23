@@ -9,7 +9,7 @@ public:
     PusherChannels class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"app":"1","player":"1","asset":"1","wallet":"1"})";
+            R"({"project":"1","player":"1","asset":"1","wallet":"1"})";
 };
 
 TEST_F(PusherChannelsTest, DeserializeEmptyStringFieldsDoNotHaveValues) {

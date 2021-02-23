@@ -97,17 +97,17 @@ public:
 
     void unregister_listener(IEventListener& listener) override;
 
-    void subscribe_to_app(int app) override;
+    void subscribe_to_project(int project) override;
 
-    void unsubscribe_to_app(int app) override;
+    void unsubscribe_to_project(int project) override;
 
-    bool is_subscribed_to_app(int app) override;
+    bool is_subscribed_to_project(int project) override;
 
-    void subscribe_to_player(int app, const std::string& player) override;
+    void subscribe_to_player(int project, const std::string& player) override;
 
-    void unsubscribe_to_player(int app, const std::string& player) override;
+    void unsubscribe_to_player(int project, const std::string& player) override;
 
-    bool is_subscribed_to_player(int app, const std::string& player) override;
+    bool is_subscribed_to_player(int project, const std::string& player) override;
 
     void subscribe_to_asset(const std::string& asset) override;
 

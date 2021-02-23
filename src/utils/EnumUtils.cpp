@@ -6,20 +6,20 @@ namespace enjin::sdk::utils {
 
 enjin::sdk::models::EventType deserialize_event_type(const std::string& s) noexcept {
     std::string str = to_upper(s);
-    if (str == "APP_CREATED") {
-        return models::EventType::APP_CREATED;
-    } else if (str == "APP_DELETED") {
-        return models::EventType::APP_DELETED;
-    } else if (str == "APP_LINKED") {
-        return models::EventType::APP_LINKED;
-    } else if (str == "APP_LOCKED") {
-        return models::EventType::APP_LOCKED;
-    } else if (str == "APP_UNLINKED") {
-        return models::EventType::APP_UNLINKED;
-    } else if (str == "APP_UNLOCKED") {
-        return models::EventType::APP_UNLOCKED;
-    } else if (str == "APP_UPDATED") {
-        return models::EventType::APP_UPDATED;
+    if (str == "PROJECT_CREATED") {
+        return models::EventType::PROJECT_CREATED;
+    } else if (str == "PROJECT_DELETED") {
+        return models::EventType::PROJECT_DELETED;
+    } else if (str == "PROJECT_LINKED") {
+        return models::EventType::PROJECT_LINKED;
+    } else if (str == "PROJECT_LOCKED") {
+        return models::EventType::PROJECT_LOCKED;
+    } else if (str == "PROJECT_UNLINKED") {
+        return models::EventType::PROJECT_UNLINKED;
+    } else if (str == "PROJECT_UNLOCKED") {
+        return models::EventType::PROJECT_UNLOCKED;
+    } else if (str == "PROJECT_UPDATED") {
+        return models::EventType::PROJECT_UPDATED;
     } else if (str == "BLOCKCHAIN_LOG_PROCESSED") {
         return models::EventType::BLOCKCHAIN_LOG_PROCESSED;
     } else if (str == "MESSAGE_PROCESSED") {
@@ -213,20 +213,20 @@ enjin::sdk::models::AssetVariantMode deserialize_asset_variant_mode(const std::s
 
 std::string serialize_event_type(models::EventType v) noexcept {
     switch (v) {
-        case models::EventType::APP_CREATED:
-            return "APP_CREATED";
-        case models::EventType::APP_DELETED:
-            return "APP_DELETED";
-        case models::EventType::APP_LINKED:
-            return "APP_LINKED";
-        case models::EventType::APP_LOCKED:
-            return "APP_LOCKED";
-        case models::EventType::APP_UNLINKED:
-            return "APP_UNLINKED";
-        case models::EventType::APP_UNLOCKED:
-            return "APP_UNLOCKED";
-        case models::EventType::APP_UPDATED:
-            return "APP_UPDATED";
+        case models::EventType::PROJECT_CREATED:
+            return "PROJECT_CREATED";
+        case models::EventType::PROJECT_DELETED:
+            return "PROJECT_DELETED";
+        case models::EventType::PROJECT_LINKED:
+            return "PROJECT_LINKED";
+        case models::EventType::PROJECT_LOCKED:
+            return "PROJECT_LOCKED";
+        case models::EventType::PROJECT_UNLINKED:
+            return "PROJECT_UNLINKED";
+        case models::EventType::PROJECT_UNLOCKED:
+            return "PROJECT_UNLOCKED";
+        case models::EventType::PROJECT_UPDATED:
+            return "PROJECT_UPDATED";
         case models::EventType::BLOCKCHAIN_LOG_PROCESSED:
             return "BLOCKCHAIN_LOG_PROCESSED";
         case models::EventType::MESSAGE_PROCESSED:

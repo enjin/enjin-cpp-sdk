@@ -1,7 +1,7 @@
 include_directories(${ENJINCPPSDK_SOURCE_DIRECTORY}/src)
 
 set(TEST_FILES
-        events/AppChannelTest.cpp
+        events/ProjectChannelTest.cpp
         events/EventTypeDefTest.cpp
         events/EventListenerRegistrationTest.cpp
         events/PlayerChannelTest.cpp

@@ -6,13 +6,13 @@ namespace enjin::sdk::models {
 /// \brief Enums defining the different types of notifications that may be received from the platform.
 enum class EventType {
     UNKNOWN, ///< SDK value for unknown values from the platform.
-    APP_CREATED,
-    APP_DELETED,
-    APP_LINKED,
-    APP_LOCKED,
-    APP_UNLINKED,
-    APP_UNLOCKED,
-    APP_UPDATED,
+    PROJECT_CREATED,
+    PROJECT_DELETED,
+    PROJECT_LINKED,
+    PROJECT_LOCKED,
+    PROJECT_UNLINKED,
+    PROJECT_UNLOCKED,
+    PROJECT_UPDATED,
     BLOCKCHAIN_LOG_PROCESSED,
     MESSAGE_PROCESSED,
     PLAYER_CREATED,

@@ -8,7 +8,7 @@ public:
     BalanceFragmentArguments class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"balIdFormat":"hex64","balIndexFormat":"hex64","withBalAppId":true,"withBalWalletAddress":true})";
+            R"({"balIdFormat":"hex64","balIndexFormat":"hex64","withBalProjectId":true,"withBalWalletAddress":true})";
 
     static BalanceFragmentArguments create_default_arguments() {
         BalanceFragmentArguments arguments;
