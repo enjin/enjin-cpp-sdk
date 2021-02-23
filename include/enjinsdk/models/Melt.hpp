@@ -13,6 +13,8 @@ public:
     /// \brief Default constructor.
     Melt() = default;
 
+    ~Melt() override = default;
+
     std::string serialize() override;
 
     /// Sets the asset ID to melt.

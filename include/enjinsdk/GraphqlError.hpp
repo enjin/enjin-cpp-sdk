@@ -15,6 +15,8 @@ public:
     /// \brief Default constructor.
     GraphqlError() = default;
 
+    ~GraphqlError() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the error message.

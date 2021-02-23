@@ -13,6 +13,8 @@ public:
     /// \brief Default constructor.
     Notifications() = default;
 
+    ~Notifications() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the Pusher settings of the platform.

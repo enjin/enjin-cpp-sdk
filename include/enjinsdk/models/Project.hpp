@@ -13,6 +13,8 @@ public:
     /// \brief Default constructor.
     Project() = default;
 
+    ~Project() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the ID of this project.

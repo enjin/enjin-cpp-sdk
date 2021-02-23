@@ -14,6 +14,8 @@ public:
     /// \brief Default constructor.
     BlockchainData() = default;
 
+    ~BlockchainData() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the encoded data of the request this data container belongs to.

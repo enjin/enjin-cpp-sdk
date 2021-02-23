@@ -15,13 +15,13 @@ class BaseSchema {
 public:
     BaseSchema() = delete;
 
+    ~BaseSchema() = default;
+
 protected:
     TrustedPlatformMiddleware middleware;
     std::string schema;
 
     BaseSchema(const TrustedPlatformMiddleware& middleware, std::string schema);
-
-    ~BaseSchema() = default;
 
     std::string create_request_body(graphql::AbstractGraphqlRequest& request);
 

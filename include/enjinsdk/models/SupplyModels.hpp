@@ -13,6 +13,8 @@ public:
     /// \brief Default constructor.
     SupplyModels() = default;
 
+    ~SupplyModels() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the fixed model.

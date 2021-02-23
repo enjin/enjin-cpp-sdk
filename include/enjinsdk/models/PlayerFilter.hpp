@@ -14,6 +14,8 @@ public:
     /// \brief Default constructor.
     PlayerFilter() = default;
 
+    ~PlayerFilter() override = default;
+
     std::string serialize() override;
 
     /// \brief Sets the filter to include other filters to intersect with.

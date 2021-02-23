@@ -13,6 +13,8 @@ public:
     /// \brief Default constructor.
     Transfer() = default;
 
+    ~Transfer() override = default;
+
     std::string serialize() override;
 
     /// Sets the source Ethereum address.

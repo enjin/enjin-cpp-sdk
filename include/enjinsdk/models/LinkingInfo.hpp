@@ -13,6 +13,8 @@ public:
     /// \brief Default constructor.
     LinkingInfo() = default;
 
+    ~LinkingInfo() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the linking code used to link a wallet to the player this info belongs to.

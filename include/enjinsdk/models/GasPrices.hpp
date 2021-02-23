@@ -12,6 +12,8 @@ public:
     /// \brief Default constructor.
     GasPrices() = default;
 
+    ~GasPrices() override = default;
+
     void deserialize(const std::string& json) override;
 
     /// \brief Returns the recommended safe gas price in Gwei.

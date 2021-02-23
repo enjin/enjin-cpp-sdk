@@ -12,6 +12,8 @@ public:
     /// \brief Default constructor.
     PaginationOptions() = default;
 
+    ~PaginationOptions() override = default;
+
     std::string serialize() override;
 
     /// \brief Sets the page number to start at for the pagination.
