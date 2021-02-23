@@ -29,7 +29,7 @@ std::string TokenFragmentArguments::serialize() {
         utils::set_boolean_member(document, "withMeltDetails", with_melt_details.value());
     }
     if (with_metadata_uri.has_value()) {
-        utils::set_boolean_member(document, "withMetadataUri", with_metadata_uri.value());
+        utils::set_boolean_member(document, "withMetadataURI", with_metadata_uri.value());
     }
     if (with_supply_details.has_value()) {
         utils::set_boolean_member(document, "withSupplyDetails", with_supply_details.value());

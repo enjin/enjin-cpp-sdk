@@ -8,7 +8,7 @@ public:
     TokenFragmentArguments class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"tokenIdFormat":"hex64","withStateData":true,"withConfigData":true,"withTokenBlocks":true,"withCreator":true,"withMeltDetails":true,"withMetadataUri":true,"withSupplyDetails":true,"withTransferSettings":true,"withTokenVariantMode":true,"withTokenVariants":true,"withVariantMetadata":true})";
+            R"({"tokenIdFormat":"hex64","withStateData":true,"withConfigData":true,"withTokenBlocks":true,"withCreator":true,"withMeltDetails":true,"withMetadataURI":true,"withSupplyDetails":true,"withTransferSettings":true,"withTokenVariantMode":true,"withTokenVariants":true,"withVariantMetadata":true})";
 
     static TokenFragmentArguments create_default_arguments() {
         TokenFragmentArguments arguments;

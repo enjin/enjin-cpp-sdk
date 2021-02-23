@@ -65,9 +65,9 @@ public:
     CreateToken& set_transfer_fee_settings(const models::TokenTransferFeeSettingsInput& transfer_fee_settings);
 
     /// \brief Sets the fungible state of the token.
-    /// \param nonfungible The state.
+    /// \param non_fungible The state.
     /// \return This request for chaining.
-    CreateToken& set_nonfungible(bool nonfungible);
+    CreateToken& set_non_fungible(bool non_fungible);
 
     bool operator==(const CreateToken& rhs) const;
 
@@ -82,7 +82,7 @@ private:
     std::optional<int> melt_fee_ratio;
     std::optional<models::TokenTransferable> transferable;
     std::optional<models::TokenTransferFeeSettingsInput> transfer_fee_settings;
-    std::optional<bool> nonfungible;
+    std::optional<bool> non_fungible;
 };
 
 }

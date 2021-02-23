@@ -9,7 +9,7 @@ public:
     Request class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"id":1,"transactionId":"1","title":"1","contract":"1","type":"APPROVE","value":"1","retryState":"1","state":"PENDING","accepted":true,"blockchainData":{},"tokenId":"1","createdAt":"1","updatedAt":"1"})";
+            R"({"id":1,"transactionId":"1","title":"1","contract":"1","type":"APPROVE","value":"1","retryState":"1","state":"PENDING","accepted":true,"blockchainData":{},"createdAt":"1","updatedAt":"1"})";
 };
 
 TEST_F(RequestTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
@@ -30,7 +30,6 @@ TEST_F(RequestTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
     EXPECT_FALSE(class_under_test.get_state().has_value());
     EXPECT_FALSE(class_under_test.get_accepted().has_value());
     EXPECT_FALSE(class_under_test.get_blockchain_data().has_value());
-    EXPECT_FALSE(class_under_test.get_token_id().has_value());
     EXPECT_FALSE(class_under_test.get_created_at().has_value());
     EXPECT_FALSE(class_under_test.get_updated_at().has_value());
 }
@@ -53,7 +52,6 @@ TEST_F(RequestTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     EXPECT_FALSE(class_under_test.get_state().has_value());
     EXPECT_FALSE(class_under_test.get_accepted().has_value());
     EXPECT_FALSE(class_under_test.get_blockchain_data().has_value());
-    EXPECT_FALSE(class_under_test.get_token_id().has_value());
     EXPECT_FALSE(class_under_test.get_created_at().has_value());
     EXPECT_FALSE(class_under_test.get_updated_at().has_value());
 }
@@ -83,7 +81,6 @@ TEST_F(RequestTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
     EXPECT_EQ(expected_request_state, class_under_test.get_state().value());
     EXPECT_EQ(expected_bool, class_under_test.get_accepted().value());
     EXPECT_EQ(expected_blockchain_data, class_under_test.get_blockchain_data().value());
-    EXPECT_EQ(expected_string, class_under_test.get_token_id().value());
     EXPECT_EQ(expected_string, class_under_test.get_created_at().value());
     EXPECT_EQ(expected_string, class_under_test.get_updated_at().value());
 }

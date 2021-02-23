@@ -60,7 +60,7 @@ private:
     constexpr static char MELT_FEE_RATIO_KEY[] = "meltFeeRatio";
     constexpr static char MELT_FEE_MAX_RATIO_KEY[] = "meltFeeMaxRatio";
     constexpr static char MELT_VALUE_KEY[] = "meltValue";
-    constexpr static char METADATA_URI_KEY[] = "metadataUri";
+    constexpr static char METADATA_URI_KEY[] = "metadataURI";
     constexpr static char TRANSFERABLE_KEY[] = "transferable";
     constexpr static char TRANSFER_FEE_SETTINGS_KEY[] = "transferFeeSettings";
 };

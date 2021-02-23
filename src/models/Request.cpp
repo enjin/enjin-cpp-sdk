@@ -39,9 +39,6 @@ void Request::deserialize(const std::string& json) {
         if (document.HasMember(BLOCKCHAIN_DATA_KEY) && document[BLOCKCHAIN_DATA_KEY].IsObject()) {
             blockchain_data.emplace(utils::get_object_as_type<BlockchainData>(document, BLOCKCHAIN_DATA_KEY));
         }
-        if (document.HasMember(TOKEN_ID_KEY) && document[TOKEN_ID_KEY].IsString()) {
-            token_id.emplace(document[TOKEN_ID_KEY].GetString());
-        }
         if (document.HasMember(CREATED_AT_KEY) && document[CREATED_AT_KEY].IsString()) {
             created_at.emplace(document[CREATED_AT_KEY].GetString());
         }
@@ -91,10 +88,6 @@ const std::optional<BlockchainData>& Request::get_blockchain_data() const {
     return blockchain_data;
 }
 
-const std::optional<std::string>& Request::get_token_id() const {
-    return token_id;
-}
-
 const std::optional<std::string>& Request::get_created_at() const {
     return created_at;
 }
@@ -114,7 +107,6 @@ bool Request::operator==(const Request& rhs) const {
            state == rhs.state &&
            accepted == rhs.accepted &&
            blockchain_data == rhs.blockchain_data &&
-           token_id == rhs.token_id &&
            created_at == rhs.created_at &&
            updated_at == rhs.updated_at;
 }
