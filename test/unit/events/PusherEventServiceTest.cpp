@@ -121,8 +121,6 @@ TEST_F(PusherEventServiceTest, IsConnectedServiceStartedAndConnectedToServerRetu
 
     // Assert
     EXPECT_TRUE(actual);
-
-    service->shutdown();
 }
 
 TEST_F(PusherEventServiceTest, IsRegisteredWhenNotRegisteredReturnsFalse) {
@@ -323,8 +321,6 @@ TEST_F(PusherEventServiceTest, SubscribeToAppServiceSubscribesToChannel) {
 
     // Assert
     EXPECT_TRUE(service->is_subscribed_to_app(app));
-
-    service->shutdown();
 }
 
 TEST_F(PusherEventServiceTest, UnsubscribeToAppServiceIsUnsubscribedFromChannel) {
@@ -353,8 +349,6 @@ TEST_F(PusherEventServiceTest, UnsubscribeToAppServiceIsUnsubscribedFromChannel)
 
     // Assert
     EXPECT_FALSE(service->is_subscribed_to_app(app));
-
-    service->shutdown();
 }
 
 TEST_F(PusherEventServiceTest, SubscribeToPlayerServiceSubscribesToChannel) {
@@ -393,8 +387,6 @@ TEST_F(PusherEventServiceTest, SubscribeToPlayerServiceSubscribesToChannel) {
 
     // Assert
     EXPECT_TRUE(service->is_subscribed_to_player(app, player));
-
-    service->shutdown();
 }
 
 TEST_F(PusherEventServiceTest, UnsubscribeToPlayerServiceIsUnsubscribedFromChannel) {
@@ -424,8 +416,6 @@ TEST_F(PusherEventServiceTest, UnsubscribeToPlayerServiceIsUnsubscribedFromChann
 
     // Assert
     EXPECT_FALSE(service->is_subscribed_to_player(app, player));
-
-    service->shutdown();
 }
 
 TEST_F(PusherEventServiceTest, SubscribeToTokenServiceSubscribesToChannel) {
@@ -463,8 +453,6 @@ TEST_F(PusherEventServiceTest, SubscribeToTokenServiceSubscribesToChannel) {
 
     // Assert
     EXPECT_TRUE(service->is_subscribed_to_token(token));
-
-    service->shutdown();
 }
 
 TEST_F(PusherEventServiceTest, UnsubscribeToTokenServiceIsUnsubscribedFromChannel) {
@@ -493,8 +481,6 @@ TEST_F(PusherEventServiceTest, UnsubscribeToTokenServiceIsUnsubscribedFromChanne
 
     // Assert
     EXPECT_FALSE(service->is_subscribed_to_token(token));
-
-    service->shutdown();
 }
 
 TEST_F(PusherEventServiceTest, SubscribeToWalletServiceSubscribesToChannel) {
@@ -532,8 +518,6 @@ TEST_F(PusherEventServiceTest, SubscribeToWalletServiceSubscribesToChannel) {
 
     // Assert
     EXPECT_TRUE(service->is_subscribed_to_wallet(wallet));
-
-    service->shutdown();
 }
 
 TEST_F(PusherEventServiceTest, UnsubscribeToWalletServiceIsUnsubscribedFromChannel) {
@@ -562,6 +546,4 @@ TEST_F(PusherEventServiceTest, UnsubscribeToWalletServiceIsUnsubscribedFromChann
 
     // Assert
     EXPECT_FALSE(service->is_subscribed_to_wallet(wallet));
-
-    service->shutdown();
 }

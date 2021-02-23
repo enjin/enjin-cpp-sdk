@@ -29,6 +29,10 @@ PusherClient::PusherClient(std::shared_ptr<sdk::websockets::IWebsocketClient> ws
     });
 }
 
+PusherClient::~PusherClient() {
+    ws_client->close();
+}
+
 void PusherClient::connect() {
     ws_client->set_allow_reconnecting(true);
     set_state(ConnectionState::CONNECTING);

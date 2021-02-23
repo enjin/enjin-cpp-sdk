@@ -29,8 +29,8 @@ public:
                  const std::string& key,
                  PusherOptions& options);
 
-    /// \brief Default destructor.
-    ~PusherClient() = default;
+    /// \brief Destructor for client. Attempts to close the websocket client.
+    ~PusherClient();
 
     /// \brief Connects this client to the server.
     void connect();
