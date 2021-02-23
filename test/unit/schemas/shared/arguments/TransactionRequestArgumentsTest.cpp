@@ -8,12 +8,11 @@ public:
     TransactionRequestArguments class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"ethAddress":"1","test":true,"send":true})";
+            R"({"ethAddress":"1","send":true})";
 
     static TransactionRequestArguments create_default_arguments() {
         TransactionRequestArguments arguments;
         arguments.set_eth_address("1");
-        arguments.set_test(true);
         arguments.set_send(true);
         return arguments;
     }
@@ -34,7 +33,6 @@ TEST_F(TransactionRequestArgumentsTest, SerializeSetFieldsReturnsExpectedJsonObj
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_eth_address("1");
-    class_under_test.set_test(true);
     class_under_test.set_send(true);
 
     // Act

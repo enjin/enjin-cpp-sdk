@@ -11,9 +11,6 @@ std::string TransactionRequestArguments::serialize() {
     if (eth_address.has_value()) {
         utils::set_string_member(document, "ethAddress", eth_address.value());
     }
-    if (test.has_value()) {
-        utils::set_boolean_member(document, "test", test.value());
-    }
     if (send.has_value()) {
         utils::set_boolean_member(document, "send", send.value());
     }
@@ -25,10 +22,6 @@ void TransactionRequestArguments::set_eth_address(const std::string& address) {
     TransactionRequestArguments::eth_address = address;
 }
 
-void TransactionRequestArguments::set_test(bool test) {
-    TransactionRequestArguments::test = test;
-}
-
 void TransactionRequestArguments::set_send(bool send) {
     TransactionRequestArguments::send = send;
 }
@@ -37,7 +30,6 @@ bool TransactionRequestArguments::operator==(const TransactionRequestArguments& 
     return static_cast<const TransactionFragmentArguments&>(*this) ==
            static_cast<const TransactionFragmentArguments&>(rhs) &&
            eth_address == rhs.eth_address &&
-           test == rhs.test &&
            send == rhs.send;
 }
 
