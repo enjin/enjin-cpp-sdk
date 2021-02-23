@@ -23,10 +23,6 @@ public:
     void set_eth_address(const std::string& address);
 
     /// \brief Sets the value for the associated field to the given boolean.
-    /// \param test The test state.
-    void set_test(bool test);
-
-    /// \brief Sets the value for the associated field to the given boolean.
     /// \param send The send state.
     void set_send(bool send);
 
@@ -36,7 +32,6 @@ public:
 
 private:
     std::optional<std::string> eth_address;
-    std::optional<bool> test;
     std::optional<bool> send;
 };
 

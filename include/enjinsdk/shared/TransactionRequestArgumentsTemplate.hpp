@@ -26,16 +26,6 @@ public:
         return dynamic_cast<T&>(*this);
     }
 
-    /// \brief Sets whether the request will test the transaction before creating.
-    /// \details Setting this to false will skip checks, but may run the risk of losing gas fees if the transaction
-    /// fails on the blockchain.
-    /// \param test The test state.
-    /// \return This request for chaining.
-    T& set_test(bool test) {
-        impl.set_test(test);
-        return dynamic_cast<T&>(*this);
-    }
-
     /// \brief Sets whether the request will send the transaction to the blockchain.
     /// \param send The send state.
     /// \return This request for chaining.
