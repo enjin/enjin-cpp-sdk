@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SHAREDGETPROJECT_HPP
 #define ENJINCPPSDK_SHAREDGETPROJECT_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include <optional>
 #include <string>
@@ -8,7 +9,7 @@
 namespace enjin::sdk::shared {
 
 /// \brief Request for getting a project on the platform.
-class GetProject : public graphql::AbstractGraphqlRequest {
+class ENJINSDK_EXPORT GetProject : public graphql::AbstractGraphqlRequest {
 public:
     /// \brief Default constructor.
     GetProject();

@@ -1,14 +1,15 @@
 #ifndef ENJINCPPSDK_PROJECTSCHEMA_HPP
 #define ENJINCPPSDK_PROJECTSCHEMA_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/project/IProjectSchema.hpp"
 #include "enjinsdk/shared/SharedSchema.hpp"
 
 namespace enjin::sdk::project {
 
 /// \brief Class for sending requests in the project schema.
-class ProjectSchema : public IProjectSchema,
-                      public shared::SharedSchema {
+class ENJINSDK_EXPORT ProjectSchema : public IProjectSchema,
+                                      public shared::SharedSchema {
 public:
     ~ProjectSchema() override = default;
 

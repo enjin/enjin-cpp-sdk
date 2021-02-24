@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SHAREDGETREQUESTS_HPP
 #define ENJINCPPSDK_SHAREDGETREQUESTS_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/TransactionFilter.hpp"
 #include "enjinsdk/models/TransactionSort.hpp"
@@ -11,9 +12,9 @@
 namespace enjin::sdk::shared {
 
 /// \brief Request for getting transactions on the platform.
-class GetRequests : public graphql::AbstractGraphqlRequest,
-                    public TransactionFragmentArgumentsTemplate<GetRequests>,
-                    public PaginationArgumentsTemplate<GetRequests> {
+class ENJINSDK_EXPORT GetRequests : public graphql::AbstractGraphqlRequest,
+                                    public TransactionFragmentArgumentsTemplate<GetRequests>,
+                                    public PaginationArgumentsTemplate<GetRequests> {
 public:
     /// \brief Default constructor.
     GetRequests();

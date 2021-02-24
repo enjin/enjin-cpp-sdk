@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SHAREDSCHEMA_HPP
 #define ENJINCPPSDK_SHAREDSCHEMA_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/BaseSchema.hpp"
 #include "enjinsdk/shared/ISharedSchema.hpp"
 #include <string>
@@ -8,8 +9,8 @@
 namespace enjin::sdk::shared {
 
 /// \brief Class for sending requests shared across schemas.
-class SharedSchema : public ISharedSchema,
-                     public BaseSchema {
+class ENJINSDK_EXPORT SharedSchema : public ISharedSchema,
+                                     public BaseSchema {
 public:
     ~SharedSchema() override = default;
 

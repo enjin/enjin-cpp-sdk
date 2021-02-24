@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PROJECT_HPP
 #define ENJINCPPSDK_PROJECT_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/serialization/IDeserializable.hpp"
 #include <optional>
 #include <string>
@@ -8,7 +9,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models a project on the platform.
-class Project : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT Project : public enjin::sdk::serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     Project() = default;

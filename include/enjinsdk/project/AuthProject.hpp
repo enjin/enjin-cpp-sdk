@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PROJECTAUTHPROJECT_HPP
 #define ENJINCPPSDK_PROJECTAUTHPROJECT_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include <optional>
 #include <string>
@@ -8,7 +9,7 @@
 namespace enjin::sdk::project {
 
 /// \brief Request to obtain the access token for a project.
-class AuthProject : public graphql::AbstractGraphqlRequest {
+class ENJINSDK_EXPORT AuthProject : public graphql::AbstractGraphqlRequest {
 public:
     /// \brief Default constructor.
     AuthProject();

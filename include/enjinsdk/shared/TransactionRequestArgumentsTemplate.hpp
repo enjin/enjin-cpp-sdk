@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SHAREDTRANSACTIONREQUESTARGUMENTSTEMPLATE_HPP
 #define ENJINCPPSDK_SHAREDTRANSACTIONREQUESTARGUMENTSTEMPLATE_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/internal/TransactionRequestArguments.hpp"
 #include "enjinsdk/shared/TransactionFragmentArgumentsTemplate.hpp"
 #include <string>
@@ -10,7 +11,7 @@ namespace enjin::sdk::shared {
 /// \brief Interface used to set common arguments used in transaction requests.
 /// \tparam T The type of the implementing class.
 template<class T>
-class TransactionRequestArgumentsTemplate : public TransactionFragmentArgumentsTemplate<T> {
+class ENJINSDK_EXPORT TransactionRequestArgumentsTemplate : public TransactionFragmentArgumentsTemplate<T> {
 public:
     ~TransactionRequestArgumentsTemplate() override = default;
 

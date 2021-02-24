@@ -1,13 +1,14 @@
 #ifndef ENJINCPPSDK_PUSHERPUSHEROPTIONS_HPP
 #define ENJINCPPSDK_PUSHERPUSHEROPTIONS_HPP
 
+#include "enjinsdk_export.h"
 #include <optional>
 #include <string>
 
 namespace enjin::pusher {
 
 /// \brief Class for modeling options for a Pusher client.
-class PusherOptions {
+class ENJINSDK_EXPORT PusherOptions {
 public:
     /// \brief Default constructor.
     PusherOptions() = default;

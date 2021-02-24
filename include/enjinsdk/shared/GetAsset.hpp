@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SHAREDGETASSET_HPP
 #define ENJINCPPSDK_SHAREDGETASSET_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/Asset.hpp"
 #include "enjinsdk/shared/AssetFragmentArgumentsTemplate.hpp"
@@ -10,8 +11,8 @@
 namespace enjin::sdk::shared {
 
 /// \brief Request for getting a asset on the platform.
-class GetAsset : public graphql::AbstractGraphqlRequest,
-                 public AssetFragmentArgumentsTemplate<GetAsset> {
+class ENJINSDK_EXPORT GetAsset : public graphql::AbstractGraphqlRequest,
+                                 public AssetFragmentArgumentsTemplate<GetAsset> {
 public:
     /// \brief Default constructor.
     GetAsset();

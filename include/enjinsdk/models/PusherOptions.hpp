@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PUSHEROPTIONS_HPP
 #define ENJINCPPSDK_PUSHEROPTIONS_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/serialization/IDeserializable.hpp"
 #include <optional>
 #include <string>
@@ -8,7 +9,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models Pusher options used by the platform.
-class PusherOptions : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT PusherOptions : public enjin::sdk::serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     PusherOptions() = default;

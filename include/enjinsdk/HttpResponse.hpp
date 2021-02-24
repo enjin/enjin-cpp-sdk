@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_HTTPRESPONSE_HPP
 #define ENJINCPPSDK_HTTPRESPONSE_HPP
 
+#include "enjinsdk_export.h"
 #include <optional>
 #include <string>
 
@@ -9,7 +10,7 @@ namespace enjin::sdk::http {
 class HttpResponse;
 
 /// \brief Builder class for HttpResponse class.
-class HttpResponseBuilder {
+class ENJINSDK_EXPORT HttpResponseBuilder {
 public:
     /// \brief Default constructor.
     HttpResponseBuilder() = default;
@@ -43,7 +44,7 @@ private:
 };
 
 /// \brief Container class for a HTTP response.
-class HttpResponse {
+class ENJINSDK_EXPORT HttpResponse {
 public:
     /// \brief Default constructor.
     HttpResponse() = default;

@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_GRAPHQLERROR_HPP
 #define ENJINCPPSDK_GRAPHQLERROR_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/serialization/IDeserializable.hpp"
 #include <map>
 #include <optional>
@@ -10,7 +11,7 @@
 namespace enjin::sdk::graphql {
 
 /// \brief Models the structure of a GraphQL response error.
-class GraphqlError : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT GraphqlError : public enjin::sdk::serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     GraphqlError() = default;

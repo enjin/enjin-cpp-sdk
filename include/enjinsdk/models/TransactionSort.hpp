@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_TRANSACTIONSORT_HPP
 #define ENJINCPPSDK_TRANSACTIONSORT_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/models/SortDirection.hpp"
 #include "enjinsdk/models/TransactionField.hpp"
 #include "enjinsdk/serialization/ISerializable.hpp"
@@ -9,7 +10,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models sorting input for Transactions (Requests).
-class TransactionSort : public enjin::sdk::serialization::ISerializable {
+class ENJINSDK_EXPORT TransactionSort : public enjin::sdk::serialization::ISerializable {
 public:
     /// \brief Default constructor.
     TransactionSort() = default;

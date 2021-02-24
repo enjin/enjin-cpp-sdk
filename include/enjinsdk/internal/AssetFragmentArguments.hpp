@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SHAREDASSETFRAGMENTARGUMENTS_HPP
 #define ENJINCPPSDK_SHAREDASSETFRAGMENTARGUMENTS_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/models/AssetIdFormat.hpp"
 #include "enjinsdk/serialization/ISerializable.hpp"
 #include <optional>
@@ -8,7 +9,7 @@
 namespace enjin::sdk::shared {
 
 /// \brief Internal implementation class for storing values of a GraphQL Asset fragment.
-class AssetFragmentArguments : public serialization::ISerializable {
+class ENJINSDK_EXPORT AssetFragmentArguments : public serialization::ISerializable {
 public:
     /// \brief Default constructor.
     AssetFragmentArguments() = default; // TODO: Consider making this constructor private and friend to its implementing template class.

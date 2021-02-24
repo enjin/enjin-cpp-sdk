@@ -135,12 +135,17 @@ set(SOURCE_FILES
         utils/StringUtils.cpp
         utils/StringUtils.hpp
         websockets/WebsocketClientImpl.cpp
-        websockets/WebsocketClientImpl.hpp
-)
+        websockets/WebsocketClientImpl.hpp)
 
-add_library(enjinsdk ${SOURCE_FILES})
+add_library(enjinsdk SHARED ${SOURCE_FILES})
+
+include(GenerateExportHeader)
+generate_export_header(enjinsdk)
+
+target_link_libraries(enjinsdk ${CONAN_LIBS})
 target_include_directories(enjinsdk
         PUBLIC
+        ${PROJECT_BINARY_DIR}
         $<INSTALL_INTERFACE:include> $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/events
@@ -148,5 +153,4 @@ target_include_directories(enjinsdk
         ${CMAKE_CURRENT_SOURCE_DIR}/graphql
         ${CMAKE_CURRENT_SOURCE_DIR}/http
         ${CMAKE_CURRENT_SOURCE_DIR}/utils
-        ${CMAKE_CURRENT_SOURCE_DIR}/websockets
-)
+        ${CMAKE_CURRENT_SOURCE_DIR}/websockets)

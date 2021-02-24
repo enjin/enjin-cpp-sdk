@@ -1,13 +1,14 @@
 #ifndef ENJINCPPSDK_PROJECTCHANNEL_HPP
 #define ENJINCPPSDK_PROJECTCHANNEL_HPP
 
+#include "enjinsdk_export.h"
 #include "IChannel.hpp"
 #include "enjinsdk/models/Platform.hpp"
 
 namespace enjin::sdk::events {
 
 /// \brief Represents a channel to subscribe to for Enjin Cloud project events.
-class ProjectChannel : public IChannel {
+class ENJINSDK_EXPORT ProjectChannel : public IChannel {
 public:
     ProjectChannel() = delete;
 

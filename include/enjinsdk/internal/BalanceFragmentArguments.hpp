@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SHAREDBALANCEFRAGMENTARGUMENTS_HPP
 #define ENJINCPPSDK_SHAREDBALANCEFRAGMENTARGUMENTS_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/models/AssetIdFormat.hpp"
 #include "enjinsdk/models/AssetIndexFormat.hpp"
 #include "enjinsdk/serialization/ISerializable.hpp"
@@ -9,7 +10,7 @@
 namespace enjin::sdk::shared {
 
 /// \brief Internal implementation class for storing values of a GraphQL Balance fragment.
-class BalanceFragmentArguments : serialization::ISerializable {
+class ENJINSDK_EXPORT BalanceFragmentArguments : serialization::ISerializable {
 public:
     /// \brief Default constructor.
     BalanceFragmentArguments() = default; // TODO: Consider making this constructor private and friend to its implementing template class.

@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PROJECTSETWHITELISTED_HPP
 #define ENJINCPPSDK_PROJECTSETWHITELISTED_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/Whitelisted.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
@@ -10,8 +11,8 @@
 namespace enjin::sdk::project {
 
 /// \brief Request for setting an asset's whitelist.
-class SetWhitelisted : public graphql::AbstractGraphqlRequest,
-                       public shared::TransactionRequestArgumentsTemplate<SetWhitelisted> {
+class ENJINSDK_EXPORT SetWhitelisted : public graphql::AbstractGraphqlRequest,
+                                       public shared::TransactionRequestArgumentsTemplate<SetWhitelisted> {
 public:
     /// \brief Default constructor.
     SetWhitelisted();

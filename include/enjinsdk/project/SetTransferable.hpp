@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PROJECTSETTRANSFERABLE_HPP
 #define ENJINCPPSDK_PROJECTSETTRANSFERABLE_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/AssetTransferable.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
@@ -10,8 +11,8 @@
 namespace enjin::sdk::project {
 
 /// \brief Request for setting if a asset may be transferred.
-class SetTransferable : public graphql::AbstractGraphqlRequest,
-                        public shared::TransactionRequestArgumentsTemplate<SetTransferable> {
+class ENJINSDK_EXPORT SetTransferable : public graphql::AbstractGraphqlRequest,
+                                        public shared::TransactionRequestArgumentsTemplate<SetTransferable> {
 public:
     /// \brief Default constructor.
     SetTransferable();

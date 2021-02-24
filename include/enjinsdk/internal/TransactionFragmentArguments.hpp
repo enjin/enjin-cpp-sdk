@@ -1,13 +1,14 @@
 #ifndef ENJINCPPSDK_SHAREDTRANSACTIONFRAGMENTARGUMENTS_HPP
 #define ENJINCPPSDK_SHAREDTRANSACTIONFRAGMENTARGUMENTS_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/serialization/ISerializable.hpp"
 #include <optional>
 
 namespace enjin::sdk::shared {
 
 /// \brief Internal implementation class for storing values of a GraphQL Transaction fragment.
-class TransactionFragmentArguments : public serialization::ISerializable {
+class ENJINSDK_EXPORT TransactionFragmentArguments : public serialization::ISerializable {
 public:
     /// \brief Default constructor.
     TransactionFragmentArguments() = default; // TODO: Consider making this constructor private and friend to its implementing template class.

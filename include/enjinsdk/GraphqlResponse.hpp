@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_GRAPHQLRESPONSE_HPP
 #define ENJINCPPSDK_GRAPHQLRESPONSE_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/GraphqlError.hpp"
 #include "enjinsdk/internal/AbstractGraphqlResponse.hpp"
 #include "enjinsdk/internal/GraphqlResponseImpl.hpp"

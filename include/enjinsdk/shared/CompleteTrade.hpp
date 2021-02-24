@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SHAREDCOMPLETETRADE_HPP
 #define ENJINCPPSDK_SHAREDCOMPLETETRADE_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
 #include <optional>
@@ -9,8 +10,8 @@
 namespace enjin::sdk::shared {
 
 /// \brief Request for completing a trade between two wallets.
-class CompleteTrade : public graphql::AbstractGraphqlRequest,
-                      public TransactionRequestArgumentsTemplate<CompleteTrade> {
+class ENJINSDK_EXPORT CompleteTrade : public graphql::AbstractGraphqlRequest,
+                                      public TransactionRequestArgumentsTemplate<CompleteTrade> {
 public:
     /// \brief Default constructor.
     CompleteTrade();

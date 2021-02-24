@@ -1,13 +1,14 @@
 #ifndef ENJINCPPSDK_SHAREDCANCELTRANSACTION_HPP
 #define ENJINCPPSDK_SHAREDCANCELTRANSACTION_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include <optional>
 
 namespace enjin::sdk::shared {
 
 /// \brief Request for canceling a transaction on the platform.
-class CancelTransaction : public graphql::AbstractGraphqlRequest {
+class ENJINSDK_EXPORT CancelTransaction : public graphql::AbstractGraphqlRequest {
 public:
     /// \brief Default constructor.
     CancelTransaction();

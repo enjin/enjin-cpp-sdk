@@ -1,9 +1,11 @@
 #ifndef ENJINCPPSDK_PUSHERCONSTANTS_HPP
 #define ENJINCPPSDK_PUSHERCONSTANTS_HPP
 
+#include "enjinsdk_export.h"
+
 namespace enjin::pusher {
 
-class Constants {
+class ENJINSDK_EXPORT Constants {
 public:
     static constexpr char PUSHER_MESSAGE_PREFIX[] = "pusher";
 

@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PUSHEREVENTSERVICE_HPP
 #define ENJINCPPSDK_PUSHEREVENTSERVICE_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/IEventService.hpp"
 #include "enjinsdk/IWebsocketClient.hpp"
 #include "enjinsdk/internal/pusher/PusherClient.hpp"
@@ -16,7 +17,7 @@ namespace enjin::sdk::events {
 class PusherEventService;
 
 /// \brief Builder for a Pusher event service.
-class PusherEventServiceBuilder {
+class ENJINSDK_EXPORT PusherEventServiceBuilder {
 public:
     /// \brief Default constructor.
     PusherEventServiceBuilder() = default;
@@ -44,7 +45,7 @@ private:
 };
 
 /// \brief Implementation of IEventService for Pusher events.
-class PusherEventService : public IEventService {
+class ENJINSDK_EXPORT PusherEventService : public IEventService {
 private:
     class PusherEventListener : public pusher::ISubscriptionEventListener {
     public:

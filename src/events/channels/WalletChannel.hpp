@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_WALLETCHANNEL_HPP
 #define ENJINCPPSDK_WALLETCHANNEL_HPP
 
+#include "enjinsdk_export.h"
 #include "IChannel.hpp"
 #include "enjinsdk/models/Platform.hpp"
 #include <string>
@@ -8,7 +9,7 @@
 namespace enjin::sdk::events {
 
 /// \brief Represents a channel to subscribe to for Enjin Cloud wallet events.
-class WalletChannel : public IChannel {
+class ENJINSDK_EXPORT WalletChannel : public IChannel {
 public:
     WalletChannel() = delete;
 

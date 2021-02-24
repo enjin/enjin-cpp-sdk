@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_ASSETVARIANT_HPP
 #define ENJINCPPSDK_ASSETVARIANT_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/serialization/IDeserializable.hpp"
 #include <optional>
 #include <string>
@@ -8,7 +9,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models a asset variant.
-class AssetVariant : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT AssetVariant : public enjin::sdk::serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     AssetVariant() = default;

@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PROJECTGETWALLET_HPP
 #define ENJINCPPSDK_PROJECTGETWALLET_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/WalletFragmentArgumentsTemplate.hpp"
 #include <optional>
@@ -9,8 +10,8 @@
 namespace enjin::sdk::project {
 
 /// \brief Request for getting a wallet from the platform.
-class GetWallet : public graphql::AbstractGraphqlRequest,
-                  public shared::WalletFragmentArgumentsTemplate<GetWallet> {
+class ENJINSDK_EXPORT GetWallet : public graphql::AbstractGraphqlRequest,
+                                  public shared::WalletFragmentArgumentsTemplate<GetWallet> {
 public:
     /// \brief Default constructor.
     GetWallet();

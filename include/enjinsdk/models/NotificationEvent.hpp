@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_NOTIFICATIONEVENT_HPP
 #define ENJINCPPSDK_NOTIFICATIONEVENT_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/models/EventType.hpp"
 #include <optional>
 #include <string>
@@ -8,7 +9,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Container class for notification data from the platform.
-class NotificationEvent {
+class ENJINSDK_EXPORT NotificationEvent {
 public:
     NotificationEvent() = delete;
 

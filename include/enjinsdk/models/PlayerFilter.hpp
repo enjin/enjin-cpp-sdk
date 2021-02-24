@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PLAYERFILTER_HPP
 #define ENJINCPPSDK_PLAYERFILTER_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/serialization/ISerializable.hpp"
 #include <optional>
 #include <string>
@@ -9,7 +10,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models a filter input for player queries.
-class PlayerFilter : public enjin::sdk::serialization::ISerializable {
+class ENJINSDK_EXPORT PlayerFilter : public enjin::sdk::serialization::ISerializable {
 public:
     /// \brief Default constructor.
     PlayerFilter() = default;

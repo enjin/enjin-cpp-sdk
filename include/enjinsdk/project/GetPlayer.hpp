@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PROJECTGETPLAYER_HPP
 #define ENJINCPPSDK_PROJECTGETPLAYER_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/PlayerFragmentArgumentsTemplate.hpp"
 #include <optional>
@@ -9,8 +10,8 @@
 namespace enjin::sdk::project {
 
 /// \brief Request for getting a player on the platform.
-class GetPlayer : public graphql::AbstractGraphqlRequest,
-                  public shared::PlayerFragmentArgumentsTemplate<GetPlayer> {
+class ENJINSDK_EXPORT GetPlayer : public graphql::AbstractGraphqlRequest,
+                                  public shared::PlayerFragmentArgumentsTemplate<GetPlayer> {
 public:
     /// \brief Default constructor.
     GetPlayer();

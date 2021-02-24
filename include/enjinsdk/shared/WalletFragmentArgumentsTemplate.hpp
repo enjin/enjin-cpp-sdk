@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SHAREDWALLETFRAGMENTARGUMENTSTEMPLATE_HPP
 #define ENJINCPPSDK_SHAREDWALLETFRAGMENTARGUMENTSTEMPLATE_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/internal/WalletFragmentArguments.hpp"
 #include "enjinsdk/serialization/ISerializable.hpp"
 
@@ -9,7 +10,7 @@ namespace enjin::sdk::shared {
 /// \brief Fragment interface used to request certain information from wallets returned by the platform.
 /// \tparam T The type of the implementing class.
 template<class T>
-class WalletFragmentArgumentsTemplate : public serialization::ISerializable {
+class ENJINSDK_EXPORT WalletFragmentArgumentsTemplate : public serialization::ISerializable {
 public:
     /// \brief Default constructor.
     WalletFragmentArgumentsTemplate() = default;

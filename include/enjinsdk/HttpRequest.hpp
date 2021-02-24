@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_HTTPREQUEST_HPP
 #define ENJINCPPSDK_HTTPREQUEST_HPP
 
+#include "enjinsdk_export.h"
 #include <string>
 
 namespace enjin::sdk::http {
@@ -8,7 +9,7 @@ namespace enjin::sdk::http {
 class HttpRequest;
 
 /// \brief Builder class for HttpRequest class.
-class HttpRequestBuilder {
+class ENJINSDK_EXPORT HttpRequestBuilder {
 public:
     /// \brief Default constructor.
     HttpRequestBuilder() = default;
@@ -48,7 +49,7 @@ private:
 };
 
 /// \brief Container class for a HTTP request.
-class HttpRequest {
+class ENJINSDK_EXPORT HttpRequest {
 public:
     /// \brief Default constructor.
     HttpRequest() = default;

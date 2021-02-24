@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PROJECTRELEASERESERVE_HPP
 #define ENJINCPPSDK_PROJECTRELEASERESERVE_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
 #include <optional>
@@ -9,8 +10,8 @@
 namespace enjin::sdk::project {
 
 /// \brief Request for releasing the reserve of an asset.
-class ReleaseReserve : public graphql::AbstractGraphqlRequest,
-                       public shared::TransactionRequestArgumentsTemplate<ReleaseReserve> {
+class ENJINSDK_EXPORT ReleaseReserve : public graphql::AbstractGraphqlRequest,
+                                       public shared::TransactionRequestArgumentsTemplate<ReleaseReserve> {
 public:
     /// \brief Default constructor.
     ReleaseReserve();

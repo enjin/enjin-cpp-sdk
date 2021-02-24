@@ -1,10 +1,12 @@
 #ifndef ENJINCPPSDK_ENJINHOSTS_HPP
 #define ENJINCPPSDK_ENJINHOSTS_HPP
 
+#include "enjinsdk_export.h"
+
 namespace enjin::sdk {
 
 /// \brief The networks hosts used by the Enjin Cloud.
-class EnjinHosts {
+class ENJINSDK_EXPORT EnjinHosts {
 public:
     /// \brief The URI for the kovan Enjin Cloud.
     constexpr static char KOVAN[] = "https://kovan.cloud.enjin.io/";

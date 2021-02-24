@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PLAYERCHANNEL_HPP
 #define ENJINCPPSDK_PLAYERCHANNEL_HPP
 
+#include "enjinsdk_export.h"
 #include "IChannel.hpp"
 #include "enjinsdk/models/Platform.hpp"
 #include <string>
@@ -8,7 +9,7 @@
 namespace enjin::sdk::events {
 
 /// \brief Represents a channel to subscribe to for Enjin Cloud player events.
-class PlayerChannel : public IChannel {
+class ENJINSDK_EXPORT PlayerChannel : public IChannel {
 public:
     PlayerChannel() = delete;
 

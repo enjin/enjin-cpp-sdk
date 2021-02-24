@@ -1,12 +1,13 @@
 #ifndef ENJINCPPSDK_TEMPLATECONSTANTS_HPP
 #define ENJINCPPSDK_TEMPLATECONSTANTS_HPP
 
+#include "enjinsdk_export.h"
 #include <map>
 #include <string>
 
 namespace enjin::sdk::graphql {
 
-class TemplateConstants {
+class ENJINSDK_EXPORT TemplateConstants {
 public:
     ~TemplateConstants() = default;
 

@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_IEVENTSERVICE_HPP
 #define ENJINCPPSDK_IEVENTSERVICE_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/EventListenerRegistration.hpp"
 #include "enjinsdk/models/Platform.hpp"
 #include <functional>
@@ -10,7 +11,7 @@
 namespace enjin::sdk::events {
 
 /// \brief Event service interface for subscribing to and registering for events from the Enjin Cloud.
-class IEventService {
+class ENJINSDK_EXPORT IEventService {
 public:
     /// \brief Default destructor.
     virtual ~IEventService() = default;

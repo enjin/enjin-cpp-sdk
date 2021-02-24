@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PROJECTDELETEPLAYER_HPP
 #define ENJINCPPSDK_PROJECTDELETEPLAYER_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include <optional>
 #include <string>
@@ -8,7 +9,7 @@
 namespace enjin::sdk::project {
 
 /// \brief Request for deleting a player from the platform.
-class DeletePlayer : public graphql::AbstractGraphqlRequest {
+class ENJINSDK_EXPORT DeletePlayer : public graphql::AbstractGraphqlRequest {
 public:
     /// \brief Default constructor.
     DeletePlayer();

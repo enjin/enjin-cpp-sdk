@@ -1,13 +1,14 @@
 #ifndef ENJINCPPSDK_IWEBSOCKETCLIENT_HPP
 #define ENJINCPPSDK_IWEBSOCKETCLIENT_HPP
 
+#include "enjinsdk_export.h"
 #include <functional>
 #include <string>
 
 namespace enjin::sdk::websockets {
 
 /// \brief Websocket client interface to be used for interfacing with the Enjin SDK event services.
-class IWebsocketClient {
+class ENJINSDK_EXPORT IWebsocketClient {
 public:
     /// \brief Default destructor.
     virtual ~IWebsocketClient() = default;

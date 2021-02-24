@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PLATFORM_HPP
 #define ENJINCPPSDK_PLATFORM_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/models/Contracts.hpp"
 #include "enjinsdk/models/Notifications.hpp"
 #include "enjinsdk/serialization/IDeserializable.hpp"
@@ -10,7 +11,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models data about the platform.
-class Platform : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT Platform : public enjin::sdk::serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     Platform() = default;

@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_RAPIDJSONUTILS_HPP
 #define ENJINCPPSDK_RAPIDJSONUTILS_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/serialization/IDeserializable.hpp"
 #include "enjinsdk/serialization/ISerializable.hpp"
 #include "rapidjson/document.h"
@@ -12,14 +13,18 @@
 
 namespace enjin::sdk::utils {
 
+ENJINSDK_EXPORT
 void join_serialized_object_to_document(rapidjson::Document& document,
                                         const std::string& o);
 
+ENJINSDK_EXPORT
 void join_serialized_objects_to_document(rapidjson::Document& document,
                                          const std::vector<std::string>& o);
 
+ENJINSDK_EXPORT
 std::string document_to_string(const rapidjson::Document& document);
 
+ENJINSDK_EXPORT
 std::vector<std::string> get_array_as_serialized_vector(const rapidjson::Document& document,
                                                         const std::string& key = "");
 
@@ -56,6 +61,7 @@ std::vector<T> get_array_as_type_vector(const rapidjson::Document& document,
     throw std::exception("JSON element is not an array");
 }
 
+ENJINSDK_EXPORT
 std::string get_object_as_string(const rapidjson::Document& document, const std::string& key = "");
 
 template<class T>
@@ -68,6 +74,7 @@ T get_object_as_type(const rapidjson::Document& document, const std::string& key
     return t;
 }
 
+ENJINSDK_EXPORT
 void set_member_assert(const rapidjson::Document& document, const std::string& key);
 
 template<class T>
@@ -101,14 +108,18 @@ void set_array_member_from_type_vector(rapidjson::Document& document,
     document.AddMember(v_key, v, allocator);
 }
 
+ENJINSDK_EXPORT
 void set_array_member_from_string_vector(rapidjson::Document& document,
                                          const std::string& key,
                                          const std::vector<std::string>& values);
 
+ENJINSDK_EXPORT
 void set_boolean_member(rapidjson::Document& document, const std::string& key, bool value);
 
+ENJINSDK_EXPORT
 void set_integer_member(rapidjson::Document& document, const std::string& key, int value);
 
+ENJINSDK_EXPORT
 void set_string_member(rapidjson::Document& document, const std::string& key, const std::string& value);
 
 template<class T>

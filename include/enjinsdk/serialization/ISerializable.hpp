@@ -1,12 +1,13 @@
 #ifndef ENJINCPPSDK_SERIALIZABLE_HPP
 #define ENJINCPPSDK_SERIALIZABLE_HPP
 
+#include "enjinsdk_export.h"
 #include <string>
 
 namespace enjin::sdk::serialization {
 
 /// \brief Interface for serialization.
-class ISerializable {
+class ENJINSDK_EXPORT ISerializable {
 public:
     /// \brief Default destructor.
     virtual ~ISerializable() = default;

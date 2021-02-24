@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PROJECTAUTHPLAYER_HPP
 #define ENJINCPPSDK_PROJECTAUTHPLAYER_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include <optional>
 #include <string>
@@ -8,7 +9,7 @@
 namespace enjin::sdk::project {
 
 /// \brief Request to obtain an access token for a player.
-class AuthPlayer : public graphql::AbstractGraphqlRequest {
+class ENJINSDK_EXPORT AuthPlayer : public graphql::AbstractGraphqlRequest {
 public:
     /// \brief Default constructor.
     AuthPlayer();

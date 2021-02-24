@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PROJECTGETPLAYERS_HPP
 #define ENJINCPPSDK_PROJECTGETPLAYERS_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/PlayerFilter.hpp"
 #include "enjinsdk/shared/PaginationArgumentsTemplate.hpp"
@@ -10,9 +11,9 @@
 namespace enjin::sdk::project {
 
 /// \brief Request for getting players on the platform.
-class GetPlayers : public graphql::AbstractGraphqlRequest,
-                   public shared::PlayerFragmentArgumentsTemplate<GetPlayers>,
-                   public shared::PaginationArgumentsTemplate<GetPlayers> {
+class ENJINSDK_EXPORT GetPlayers : public graphql::AbstractGraphqlRequest,
+                                   public shared::PlayerFragmentArgumentsTemplate<GetPlayers>,
+                                   public shared::PaginationArgumentsTemplate<GetPlayers> {
 public:
     /// \brief Default constructor.
     GetPlayers();

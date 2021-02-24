@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SHAREDGETREQUEST_HPP
 #define ENJINCPPSDK_SHAREDGETREQUEST_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/TransactionFragmentArgumentsTemplate.hpp"
 #include <optional>
@@ -9,8 +10,8 @@
 namespace enjin::sdk::shared {
 
 /// \brief Request for getting a transaction on the platform.
-class GetRequest : public graphql::AbstractGraphqlRequest,
-                   public TransactionFragmentArgumentsTemplate<GetRequest> {
+class ENJINSDK_EXPORT GetRequest : public graphql::AbstractGraphqlRequest,
+                                   public TransactionFragmentArgumentsTemplate<GetRequest> {
 public:
     /// \brief Default constructor.
     GetRequest();

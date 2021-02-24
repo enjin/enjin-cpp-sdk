@@ -1,13 +1,14 @@
 #ifndef ENJINCPPSDK_SHAREDGETPLATFORM_HPP
 #define ENJINCPPSDK_SHAREDGETPLATFORM_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include <optional>
 
 namespace enjin::sdk::shared {
 
 /// \brief Request for getting the platform details.
-class GetPlatform : public graphql::AbstractGraphqlRequest {
+class ENJINSDK_EXPORT GetPlatform : public graphql::AbstractGraphqlRequest {
 public:
     /// \brief Default constructor.
     GetPlatform();

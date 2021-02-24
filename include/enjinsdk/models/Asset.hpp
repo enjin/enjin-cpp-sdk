@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_ASSET_HPP
 #define ENJINCPPSDK_ASSET_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/models/AssetConfigData.hpp"
 #include "enjinsdk/models/AssetStateData.hpp"
 #include "enjinsdk/models/AssetVariant.hpp"
@@ -13,7 +14,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models a asset on the platform.
-class Asset : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT Asset : public enjin::sdk::serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     Asset() = default;

@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_BALANCE_HPP
 #define ENJINCPPSDK_BALANCE_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/models/Project.hpp"
 #include "enjinsdk/models/Wallet.hpp"
 #include "enjinsdk/serialization/IDeserializable.hpp"
@@ -10,7 +11,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models a asset balance.
-class Balance : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT Balance : public enjin::sdk::serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     Balance() = default;

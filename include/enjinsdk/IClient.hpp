@@ -1,12 +1,13 @@
 #ifndef ENJINCPPSDK_ICLIENT_HPP
 #define ENJINCPPSDK_ICLIENT_HPP
 
+#include "enjinsdk_export.h"
 #include <string>
 
 namespace enjin::sdk {
 
 /// \brief Interface for client implementation.
-class IClient {
+class ENJINSDK_EXPORT IClient {
 public:
     /// \brief Default destructor.
     virtual ~IClient() = default;

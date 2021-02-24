@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_ASSETCHANNEL_HPP
 #define ENJINCPPSDK_ASSETCHANNEL_HPP
 
+#include "enjinsdk_export.h"
 #include "IChannel.hpp"
 #include "enjinsdk/models/Platform.hpp"
 #include <string>
@@ -8,7 +9,7 @@
 namespace enjin::sdk::events {
 
 /// \brief Represents a channel to subscribe to for Enjin Cloud asset events.
-class AssetChannel : public IChannel {
+class ENJINSDK_EXPORT AssetChannel : public IChannel {
 public:
     AssetChannel() = delete;
 

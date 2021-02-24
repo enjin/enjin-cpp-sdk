@@ -1,13 +1,14 @@
 #ifndef ENJINCPPSDK_GRAPHQLQUERYREGISTRY_HPP
 #define ENJINCPPSDK_GRAPHQLQUERYREGISTRY_HPP
 
+#include "enjinsdk_export.h"
 #include <map>
 #include <string>
 
 namespace enjin::sdk::graphql {
 
 /// \brief Class for registering and storing GraphQL templates.
-class GraphqlQueryRegistry {
+class ENJINSDK_EXPORT GraphqlQueryRegistry {
 public:
     /// \brief Default constructor.
     GraphqlQueryRegistry();
