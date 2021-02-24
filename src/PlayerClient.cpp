@@ -1,7 +1,13 @@
 #include "enjinsdk/PlayerClient.hpp"
 
-#include "HttpClientImpl.hpp" // TODO: Don't include if cpprestsdk is not installed.
+#include <exception>
 #include <utility>
+
+#if ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL
+
+#include "HttpClientImpl.hpp"
+
+#endif
 
 namespace enjin::sdk {
 
@@ -23,16 +29,17 @@ bool PlayerClient::is_closed() {
 }
 
 PlayerClient PlayerClientBuilder::build() {
-    /* TODO: Use compile-time macros to only allow HttpClientImpl if cpprestsdk is installed and require a client be
-     *       passed in if not.
-     */
     if (m_http_client == nullptr) {
+#if ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL
         m_http_client = std::make_unique<http::HttpClientImpl>(m_base_uri.has_value()
                                                                ? m_base_uri.value()
                                                                : throw std::exception(
                         "No base URI was set for default HTTP client implementation"));
         TrustedPlatformMiddleware middleware(std::move(m_http_client), m_debug.has_value() && m_debug.value());
         return PlayerClient(std::move(middleware));
+#else
+        throw std::exception("Attempted building platform client without providing an HTTP client");
+#endif
     } else {
         TrustedPlatformMiddleware middleware(std::move(m_http_client), m_debug.has_value() && m_debug.value());
         return PlayerClient(std::move(middleware));
