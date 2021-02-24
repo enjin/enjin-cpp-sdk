@@ -1,6 +1,22 @@
 cmake_minimum_required(VERSION 3.17)
 project(enjincppsdk CXX)
 
+function(SET_INCLUDE_HTTP_CLIENT_IMPL)
+    if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+        add_definitions(/D ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL=${INCLUDE_HTTP_CLIENT_IMPL})
+    elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+        add_definitions(-D ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL=${INCLUDE_HTTP_CLIENT_IMPL})
+    endif ()
+endfunction()
+
+function(SET_INCLUDE_WEBSOCKET_CLIENT_IMPL)
+    if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+        add_definitions(/D ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL=${INCLUDE_WEBSOCKET_CLIENT_IMPL})
+    elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+        add_definitions(-D ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL=${INCLUDE_WEBSOCKET_CLIENT_IMPL})
+    endif ()
+endfunction()
+
 if (EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup()
@@ -9,42 +25,26 @@ else ()
     message(WARNING "Enjin: The file conanbuildinfo.cmake doesn't exist, you have to run conan install first")
 endif ()
 
+# Checks if HTTP client dependency was installed
 if (true) # TODO: Check if cpprestsdk was installed.
     message("-- Enjin: Built-in HTTP client available for platform clients")
-
-    if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-        add_definitions(/D ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL=1)
-    elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-        add_definitions(-D ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL=1)
-    endif ()
+    set(INCLUDE_HTTP_CLIENT_IMPL 1)
 else ()
     message(WARNING "Enjin: Built-in HTTP client not available for platform clients")
-
-    if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-        add_definitions(/D ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL=0)
-    elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-        add_definitions(-D ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL=0)
-    endif ()
+    set(INCLUDE_HTTP_CLIENT_IMPL 0)
 endif ()
 
-if (true) # TODO: Check if ixwebsocket was installed.
+# Checks if websocket client dependency was installed
+if (false) # TODO: Check if ixwebsocket was installed.
     message("-- Enjin: Built-in websocket client available for event services")
-
-    if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-        add_definitions(/D ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL=1)
-    elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-        add_definitions(-D ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL=1)
-    endif ()
+    set(INCLUDE_WEBSOCKET_CLIENT_IMPL 1)
 else ()
     message(WARNING "Enjin: Built-in websocket client not available for event services")
-
-    if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-        add_definitions(/D ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL=0)
-    elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-        add_definitions(-D ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL=0)
-    endif ()
+    set(INCLUDE_WEBSOCKET_CLIENT_IMPL 0)
 endif ()
 
+SET_INCLUDE_HTTP_CLIENT_IMPL()
+SET_INCLUDE_WEBSOCKET_CLIENT_IMPL()
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
