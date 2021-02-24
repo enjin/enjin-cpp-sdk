@@ -8,6 +8,12 @@
 #include <algorithm>
 #include <utility>
 
+#if ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL
+
+#include "WebsocketClientImpl.hpp"
+
+#endif
+
 namespace enjin::sdk::events {
 
 PusherEventService::PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client)
@@ -229,7 +235,11 @@ void PusherEventService::bind(const std::string& channel) {
 
 std::unique_ptr<PusherEventService> PusherEventServiceBuilder::build() {
     if (m_ws_client == nullptr) {
-        throw std::runtime_error("Websocket client was not assigned before building PusherEventService");
+#if ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL
+        m_ws_client = std::make_unique<websockets::WebsocketClientImpl>();
+#else
+        throw std::exception("Attempted building Pusher event service without providing a websocket client");
+#endif
     }
 
     return m_platform.has_value()
