@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SHAREDGETBALANCES_HPP
 #define ENJINCPPSDK_SHAREDGETBALANCES_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/BalanceFilter.hpp"
 #include "enjinsdk/shared/BalanceFragmentArgumentsTemplate.hpp"
@@ -10,9 +11,9 @@
 namespace enjin::sdk::shared {
 
 /// \brief Request for getting balances on the platform.
-class GetBalances : public graphql::AbstractGraphqlRequest,
-                    public BalanceFragmentArgumentsTemplate<GetBalances>,
-                    public PaginationArgumentsTemplate<GetBalances> {
+class ENJINSDK_EXPORT GetBalances : public graphql::AbstractGraphqlRequest,
+                                    public BalanceFragmentArgumentsTemplate<GetBalances>,
+                                    public PaginationArgumentsTemplate<GetBalances> {
 public:
     /// \brief Default constructor.
     GetBalances();

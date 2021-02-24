@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_IPLAYERSCHEMA_HPP
 #define ENJINCPPSDK_IPLAYERSCHEMA_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/GraphqlResponse.hpp"
 #include "enjinsdk/player/GetPlayer.hpp"
 #include "enjinsdk/player/GetWallet.hpp"
@@ -12,7 +13,7 @@
 namespace enjin::sdk::player {
 
 /// \brief Interface for player schema implementation.
-class IPlayerSchema {
+class ENJINSDK_EXPORT IPlayerSchema {
 public:
     /// \brief Default destructor.
     virtual ~IPlayerSchema() = default;

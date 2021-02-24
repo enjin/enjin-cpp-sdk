@@ -1,14 +1,15 @@
 #ifndef ENJINCPPSDK_PLAYERSCHEMA_HPP
 #define ENJINCPPSDK_PLAYERSCHEMA_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/player/IPlayerSchema.hpp"
 #include "enjinsdk/shared/SharedSchema.hpp"
 
 namespace enjin::sdk::player {
 
 /// \brief Class for sending requests in the player schema.
-class PlayerSchema : public IPlayerSchema,
-                     public shared::SharedSchema {
+class ENJINSDK_EXPORT PlayerSchema : public IPlayerSchema,
+                                     public shared::SharedSchema {
 public:
     ~PlayerSchema() override = default;
 

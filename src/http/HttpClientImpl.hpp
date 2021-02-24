@@ -1,13 +1,14 @@
 #ifndef ENJINCPPSDK_HTTPCLIENTIMPL_HPP
 #define ENJINCPPSDK_HTTPCLIENTIMPL_HPP
 
+#include "enjinsdk_export.h"
 #include "cpprest/http_client.h"
 #include "enjinsdk/IHttpClient.hpp"
 
 namespace enjin::sdk::http {
 
 /// \brief Implementation class for an HTTP client base on Microsoft's C++ Rest SDK.
-class HttpClientImpl : public IHttpClient {
+class ENJINSDK_EXPORT HttpClientImpl : public IHttpClient {
 public:
     HttpClientImpl() = delete;
 

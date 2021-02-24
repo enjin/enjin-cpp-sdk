@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_TRUSTEDPLATFORMMIDDLEWARE_HPP
 #define ENJINCPPSDK_TRUSTEDPLATFORMMIDDLEWARE_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/GraphqlQueryRegistry.hpp"
 #include "enjinsdk/IHttpClient.hpp"
 #include <memory>
@@ -9,7 +10,7 @@
 namespace enjin::sdk {
 
 /// \brief The middleware used by clients to communicate with the platform.
-class TrustedPlatformMiddleware {
+class ENJINSDK_EXPORT TrustedPlatformMiddleware {
 public:
     TrustedPlatformMiddleware() = delete;
 

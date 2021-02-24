@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PUSHERPUSHEREVENT_HPP
 #define ENJINCPPSDK_PUSHERPUSHEREVENT_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/serialization/IDeserializable.hpp"
 #include <optional>
 #include <string>
@@ -8,7 +9,7 @@
 namespace enjin::pusher {
 
 /// \brief Class for modeling Pusher events.
-class PusherEvent : public sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT PusherEvent : public sdk::serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     PusherEvent() = default;

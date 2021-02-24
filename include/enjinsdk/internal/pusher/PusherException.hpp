@@ -1,13 +1,14 @@
 #ifndef ENJINCPPSDK_PUSHEREXCEPTION_HPP
 #define ENJINCPPSDK_PUSHEREXCEPTION_HPP
 
+#include "enjinsdk_export.h"
 #include <exception>
 #include <string>
 
 namespace enjin::pusher {
 
 /// \brief Exception class for Pusher events.
-class PusherException : public std::exception {
+class ENJINSDK_EXPORT PusherException : public std::exception {
 public:
     /// \brief Constructs the exception with a message and error code.
     /// \param message The message.

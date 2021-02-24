@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SUPPLYMODELS_HPP
 #define ENJINCPPSDK_SUPPLYMODELS_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/serialization/IDeserializable.hpp"
 #include <optional>
 #include <string>
@@ -8,7 +9,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models the supply models used by the platform.
-class SupplyModels : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT SupplyModels : public enjin::sdk::serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     SupplyModels() = default;

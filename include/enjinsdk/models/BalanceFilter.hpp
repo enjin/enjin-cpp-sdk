@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_BALANCEFILTER_HPP
 #define ENJINCPPSDK_BALANCEFILTER_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/serialization/ISerializable.hpp"
 #include <optional>
 #include <string>
@@ -9,7 +10,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models a filter input for balance queries.
-class BalanceFilter : public enjin::sdk::serialization::ISerializable {
+class ENJINSDK_EXPORT BalanceFilter : public enjin::sdk::serialization::ISerializable {
 public:
     /// \brief Default constructor.
     BalanceFilter() = default;

@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SHAREDTRANSACTIONFRAGMENTARGUMENTSTEMPLATE_HPP
 #define ENJINCPPSDK_SHAREDTRANSACTIONFRAGMENTARGUMENTSTEMPLATE_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/internal/TransactionFragmentArguments.hpp"
 #include "enjinsdk/serialization/ISerializable.hpp"
 
@@ -9,7 +10,7 @@ namespace enjin::sdk::shared {
 /// \brief Fragment interface used to request certain information from transactions returned by the platform.
 /// \tparam T The type of the implementing class.
 template<class T>
-class TransactionFragmentArgumentsTemplate : public serialization::ISerializable {
+class ENJINSDK_EXPORT TransactionFragmentArgumentsTemplate : public serialization::ISerializable {
 public:
     ~TransactionFragmentArgumentsTemplate() override = default;
 

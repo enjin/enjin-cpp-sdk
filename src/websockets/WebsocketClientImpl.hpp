@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_WEBSOCKETCLIENTIMPL_HPP
 #define ENJINCPPSDK_WEBSOCKETCLIENTIMPL_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/IWebsocketClient.hpp"
 #include "ixwebsocket/IXWebSocket.h"
 #include <functional>
@@ -12,7 +13,7 @@
 namespace enjin::sdk::websockets {
 
 /// \brief Implementation class of a websocket client.
-class WebsocketClientImpl : public IWebsocketClient {
+class ENJINSDK_EXPORT WebsocketClientImpl : public IWebsocketClient {
 public:
     WebsocketClientImpl();
 

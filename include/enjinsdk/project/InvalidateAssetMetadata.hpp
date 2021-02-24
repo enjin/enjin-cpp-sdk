@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PROJECTINVALIDATEASSETMETADATA_HPP
 #define ENJINCPPSDK_PROJECTINVALIDATEASSETMETADATA_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include <optional>
 #include <string>
@@ -8,7 +9,7 @@
 namespace enjin::sdk::project {
 
 /// \brief Request for invalidating the cached metadata of a asset on the platform.
-class InvalidateAssetMetadata : public graphql::AbstractGraphqlRequest {
+class ENJINSDK_EXPORT InvalidateAssetMetadata : public graphql::AbstractGraphqlRequest {
 public:
     /// \brief Default constructor.
     InvalidateAssetMetadata();

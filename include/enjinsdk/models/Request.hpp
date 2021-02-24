@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_REQUEST_HPP
 #define ENJINCPPSDK_REQUEST_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/models/BlockchainData.hpp"
 #include "enjinsdk/models/RequestState.hpp"
 #include "enjinsdk/models/RequestType.hpp"
@@ -11,7 +12,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models a request on the platform.
-class Request : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT Request : public enjin::sdk::serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     Request() = default;

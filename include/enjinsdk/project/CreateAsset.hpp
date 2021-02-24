@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PROJECTCREATEASSET_HPP
 #define ENJINCPPSDK_PROJECTCREATEASSET_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/AssetSupplyModel.hpp"
 #include "enjinsdk/models/AssetTransferFeeSettings.hpp"
@@ -12,8 +13,8 @@
 namespace enjin::sdk::project {
 
 /// \brief Request for creating a asset on the platform.
-class CreateAsset : public graphql::AbstractGraphqlRequest,
-                    public shared::TransactionRequestArgumentsTemplate<CreateAsset> {
+class ENJINSDK_EXPORT CreateAsset : public graphql::AbstractGraphqlRequest,
+                                    public shared::TransactionRequestArgumentsTemplate<CreateAsset> {
 public:
     /// \brief Default constructor.
     CreateAsset();

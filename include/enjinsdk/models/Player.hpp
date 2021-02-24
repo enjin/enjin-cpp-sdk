@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PLAYER_HPP
 #define ENJINCPPSDK_PLAYER_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/models/LinkingInfo.hpp"
 #include "enjinsdk/models/Wallet.hpp"
 #include "enjinsdk/serialization/IDeserializable.hpp"
@@ -10,7 +11,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models a player on the platform.
-class Player : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT Player : public enjin::sdk::serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     Player() = default;

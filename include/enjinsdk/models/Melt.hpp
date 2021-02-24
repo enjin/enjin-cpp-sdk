@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_MELT_HPP
 #define ENJINCPPSDK_MELT_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/serialization/ISerializable.hpp"
 #include <optional>
 #include <string>
@@ -8,7 +9,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models a melt input for melt requests.
-class Melt : public enjin::sdk::serialization::ISerializable {
+class ENJINSDK_EXPORT Melt : public enjin::sdk::serialization::ISerializable {
 public:
     /// \brief Default constructor.
     Melt() = default;

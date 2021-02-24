@@ -1,12 +1,13 @@
 #ifndef ENJINCPPSDK_PUSHERISUBSCRIPTIONEVENTLISTENER_HPP
 #define ENJINCPPSDK_PUSHERISUBSCRIPTIONEVENTLISTENER_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/internal/pusher/PusherEvent.hpp"
 
 namespace enjin::pusher {
 
 /// \brief Interface for event listener for receiving Pusher events.
-class ISubscriptionEventListener {
+class ENJINSDK_EXPORT ISubscriptionEventListener {
 public:
     /// \brief Default destructor.
     virtual ~ISubscriptionEventListener() = default;

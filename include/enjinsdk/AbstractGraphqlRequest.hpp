@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_IGRAPHQLREQUEST_HPP
 #define ENJINCPPSDK_IGRAPHQLREQUEST_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/serialization/ISerializable.hpp"
 #include <string>
 #include <utility>
@@ -8,7 +9,7 @@
 namespace enjin::sdk::graphql {
 
 /// \brief Base class for representing a GraphQL request to the platform.
-class AbstractGraphqlRequest : public serialization::ISerializable {
+class ENJINSDK_EXPORT AbstractGraphqlRequest : public serialization::ISerializable {
 public:
     /// \brief Constructs a request with an empty namespace.
     AbstractGraphqlRequest() = default;

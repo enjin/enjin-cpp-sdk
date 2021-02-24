@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PROJECTCLIENT_HPP
 #define ENJINCPPSDK_PROJECTCLIENT_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/IHttpClient.hpp"
 #include "enjinsdk/IClient.hpp"
 #include "enjinsdk/TrustedPlatformMiddleware.hpp"
@@ -13,7 +14,7 @@ namespace enjin::sdk {
 class ProjectClient;
 
 /// \brief Builder class for ProjectClient.
-class ProjectClientBuilder {
+class ENJINSDK_EXPORT ProjectClientBuilder {
 public:
     /// \brief Default constructor.
     ProjectClientBuilder() = default;
@@ -47,8 +48,8 @@ private:
 };
 
 /// \brief Client for using the project schema.
-class ProjectClient : public IClient,
-                      public project::ProjectSchema {
+class ENJINSDK_EXPORT ProjectClient : public IClient,
+                                      public project::ProjectSchema {
 public:
     ~ProjectClient() override = default;
 

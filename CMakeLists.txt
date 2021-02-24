@@ -24,9 +24,6 @@ set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 
 add_subdirectory(src)
 
-include(GenerateExportHeader)
-generate_export_header(enjinsdk)
-
 enable_testing()
 add_subdirectory(test)
 add_test(NAME EnjinSDKTest COMMAND Test)

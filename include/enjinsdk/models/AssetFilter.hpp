@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_ASSETFILTER_HPP
 #define ENJINCPPSDK_ASSETFILTER_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/serialization/ISerializable.hpp"
 #include <optional>
 #include <string>
@@ -9,7 +10,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models a filter input for asset queries.
-class AssetFilter : public enjin::sdk::serialization::ISerializable {
+class ENJINSDK_EXPORT AssetFilter : public enjin::sdk::serialization::ISerializable {
 public:
     /// \brief Default constructor.
     AssetFilter() = default;

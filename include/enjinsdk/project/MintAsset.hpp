@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PROJECTMINTASSET_HPP
 #define ENJINCPPSDK_PROJECTMINTASSET_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/MintInput.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
@@ -11,8 +12,8 @@
 namespace enjin::sdk::project {
 
 /// \brief Request for minting a asset.
-class MintAsset : public graphql::AbstractGraphqlRequest,
-                  public shared::TransactionRequestArgumentsTemplate<MintAsset> {
+class ENJINSDK_EXPORT MintAsset : public graphql::AbstractGraphqlRequest,
+                                  public shared::TransactionRequestArgumentsTemplate<MintAsset> {
 public:
     /// \brief Default constructor.
     MintAsset();

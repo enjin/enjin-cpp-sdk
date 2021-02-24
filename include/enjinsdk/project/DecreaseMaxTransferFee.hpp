@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PROJECTDECREASEMAXTRANSFERFEE_HPP
 #define ENJINCPPSDK_PROJECTDECREASEMAXTRANSFERFEE_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
 #include <optional>
@@ -9,8 +10,8 @@
 namespace enjin::sdk::project {
 
 /// \brief Request for setting an asset's max transfer fee to a lower value.
-class DecreaseMaxTransferFee : public graphql::AbstractGraphqlRequest,
-                               public shared::TransactionRequestArgumentsTemplate<DecreaseMaxTransferFee> {
+class ENJINSDK_EXPORT DecreaseMaxTransferFee : public graphql::AbstractGraphqlRequest,
+                                               public shared::TransactionRequestArgumentsTemplate<DecreaseMaxTransferFee> {
 public:
     /// \brief Default constructor.
     DecreaseMaxTransferFee();

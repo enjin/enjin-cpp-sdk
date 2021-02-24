@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_EVENTLISTENERREGISTRATION_HPP
 #define ENJINCPPSDK_EVENTLISTENERREGISTRATION_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/IEventListener.hpp"
 #include "enjinsdk/models/EventType.hpp"
 #include <functional>
@@ -9,10 +10,10 @@
 namespace enjin::sdk::events {
 
 /// \brief Registration wrapper for a IEventListener.
-class EventListenerRegistration {
+class ENJINSDK_EXPORT EventListenerRegistration {
 public:
     /// \brief Configuration class for building an EventListenerRegistration. To be used internally.
-    class RegistrationListenerConfiguration {
+    class ENJINSDK_EXPORT RegistrationListenerConfiguration {
     public:
         RegistrationListenerConfiguration() = delete;
 

@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PUSHERPUSHERCLIENT_HPP
 #define ENJINCPPSDK_PUSHERPUSHERCLIENT_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/IWebsocketClient.hpp"
 #include "enjinsdk/internal/pusher/ConnectionState.hpp"
 #include "enjinsdk/internal/pusher/ISubscriptionEventListener.hpp"
@@ -17,7 +18,7 @@
 namespace enjin::pusher {
 
 /// \brief Pusher client for subscribing to Pusher channels and binding to events.
-class PusherClient {
+class ENJINSDK_EXPORT PusherClient {
 public:
     PusherClient() = delete;
 

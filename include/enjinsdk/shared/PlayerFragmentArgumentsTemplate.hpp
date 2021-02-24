@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SHAREDPLAYERFRAGMENTARGUMENTSTEMPLATE_HPP
 #define ENJINCPPSDK_SHAREDPLAYERFRAGMENTARGUMENTSTEMPLATE_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/internal/PlayerFragmentArguments.hpp"
 #include "enjinsdk/serialization/ISerializable.hpp"
 
@@ -9,7 +10,7 @@ namespace enjin::sdk::shared {
 /// \brief Fragment interface used to request certain information from players returned by the platform.
 /// \tparam T The type of the implementing class.
 template<class T>
-class PlayerFragmentArgumentsTemplate : public serialization::ISerializable {
+class ENJINSDK_EXPORT PlayerFragmentArgumentsTemplate : public serialization::ISerializable {
 public:
     /// \brief Default constructor.
     PlayerFragmentArgumentsTemplate() = default;

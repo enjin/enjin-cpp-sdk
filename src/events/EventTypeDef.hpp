@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_EVENTTYPEDEF_HPP
 #define ENJINCPPSDK_EVENTTYPEDEF_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/models/EventType.hpp"
 #include <map>
 #include <memory>
@@ -9,7 +10,7 @@
 
 namespace enjin::sdk::events {
 
-class EventTypeDef {
+class ENJINSDK_EXPORT EventTypeDef {
 public:
     EventTypeDef();
 

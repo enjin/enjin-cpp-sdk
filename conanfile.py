@@ -12,9 +12,12 @@ class EnjinCPPSDK(ConanFile):
     topics = ("conan", "enjin", "sdk", "blockchain", "cpp")
     settings = "os", "compiler", "arch", "build_type"
     generators = "cmake"
-    build_policy = "always"
-    export_sources = "include/*", "test/*", "CMakeLists.txt"
-    no_copy_source = True
+    options = {
+        "enable_cpprestsdk": [True, False]
+    }
+    default_options = {
+        "enable_cpprestsdk": True
+    }
 
     def build(self):  # Building just the tests
         cmake = CMake(self)
@@ -27,13 +30,18 @@ class EnjinCPPSDK(ConanFile):
         self.copy("*.lib", "", "bin")
 
     def package(self):
-        self.copy("*.hpp")
+        self.copy("*.h", dst="include", src="include/enjinsdk")
+        self.copy("*enjinsdk.lib", dst="lib", keep_path=False)
+        self.copy("*.dll", dst="bin", keep_path=False)
+        self.copy("*.so", dst="lib", keep_path=False)
+        self.copy("*.dylib", dst="lib", keep_path=False)
+        self.copy("*.a", dst="lib", keep_path=False)
 
     def requirements(self):
-        self.requires("cpprestsdk/2.10.16")
-        self.requires("gtest/1.10.0")  # TODO: Require gtest only when running tests if possible.
-        self.requires("ixwebsocket/11.0.4")
-        self.requires("rapidjson/1.1.0")
+        #  if self.options['include_http']:
+        self.requires("cpprestsdk/2.10.16")  # TODO: Make HTTP client optional
+        #  if self.options['include_websocket']:
+        self.requires("ixwebsocket/11.0.4")  # TODO: Make websocket client optional
 
-    def package_id(self):
-        self.info.header_only()
+        self.requires("gtest/1.10.0")  # TODO: Require gtest only when running tests if possible.
+        self.requires("rapidjson/1.1.0")

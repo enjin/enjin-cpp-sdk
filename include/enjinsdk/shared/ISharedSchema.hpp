@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_ISHAREDSCHEMA_HPP
 #define ENJINCPPSDK_ISHAREDSCHEMA_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/GraphqlResponse.hpp"
 #include "enjinsdk/models/Balance.hpp"
 #include "enjinsdk/models/GasPrices.hpp"
@@ -34,7 +35,7 @@
 namespace enjin::sdk::shared {
 
 /// \brief Interface for shared schema implementation.
-class ISharedSchema {
+class ENJINSDK_EXPORT ISharedSchema {
 public:
     /// \brief Default destructor.
     virtual ~ISharedSchema() = default;

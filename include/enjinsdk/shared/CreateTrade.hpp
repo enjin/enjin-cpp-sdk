@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SHAREDCREATETRADE_HPP
 #define ENJINCPPSDK_SHAREDCREATETRADE_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/Trade.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
@@ -11,8 +12,8 @@
 namespace enjin::sdk::shared {
 
 /// \brief Request for creating a trade between two wallets.
-class CreateTrade : public graphql::AbstractGraphqlRequest,
-                    public TransactionRequestArgumentsTemplate<CreateTrade> {
+class ENJINSDK_EXPORT CreateTrade : public graphql::AbstractGraphqlRequest,
+                                    public TransactionRequestArgumentsTemplate<CreateTrade> {
 public:
     /// \brief Default constructor.
     CreateTrade();

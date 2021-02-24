@@ -1,13 +1,14 @@
 #ifndef ENJINCPPSDK_SHAREDWALLETFRAGMENTARGUMENTS_HPP
 #define ENJINCPPSDK_SHAREDWALLETFRAGMENTARGUMENTS_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/serialization/ISerializable.hpp"
 #include <optional>
 
 namespace enjin::sdk::shared {
 
 /// \brief Internal implementation class for storing values of a GraphQL Wallet fragment.
-class WalletFragmentArguments : public serialization::ISerializable {
+class ENJINSDK_EXPORT WalletFragmentArguments : public serialization::ISerializable {
 public:
     /// \brief Default constructor.
     WalletFragmentArguments() = default;

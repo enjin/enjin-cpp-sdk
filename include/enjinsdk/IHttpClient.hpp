@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_IHTTPCLIENT_HPP
 #define ENJINCPPSDK_IHTTPCLIENT_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/HttpRequest.hpp"
 #include "enjinsdk/HttpResponse.hpp"
 #include <future>
@@ -11,7 +12,7 @@ namespace enjin::sdk::http {
 // TODO: Add constructor argument to add a HTTP interceptor/handler.
 
 /// \brief HTTP client interface to be used for interfacing with the Enjin SDK platform clients.
-class IHttpClient {
+class ENJINSDK_EXPORT IHttpClient {
 public:
     constexpr static char CONTENT_TYPE[] = "application/json; charset=utf-8"; // TODO: Move to a class for defined consts.
 

@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SHAREDPAGINATIONARGUMENTS_HPP
 #define ENJINCPPSDK_SHAREDPAGINATIONARGUMENTS_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/models/PaginationOptions.hpp"
 #include "enjinsdk/serialization/ISerializable.hpp"
 #include <optional>
@@ -8,7 +9,7 @@
 namespace enjin::sdk::shared {
 
 /// \brief Internal implementation class for storing values of a GraphQL Pagination request.
-class PaginationArguments : public serialization::ISerializable {
+class ENJINSDK_EXPORT PaginationArguments : public serialization::ISerializable {
 public:
     /// \brief Default constructor.
     PaginationArguments() = default;

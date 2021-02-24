@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SHAREDSETAPPROVALFORALL_HPP
 #define ENJINCPPSDK_SHAREDSETAPPROVALFORALL_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
 #include <optional>
@@ -8,8 +9,8 @@
 
 namespace enjin::sdk::shared {
 
-class SetApprovalForAll : public graphql::AbstractGraphqlRequest,
-                          public TransactionRequestArgumentsTemplate<SetApprovalForAll> {
+class ENJINSDK_EXPORT SetApprovalForAll : public graphql::AbstractGraphqlRequest,
+                                          public TransactionRequestArgumentsTemplate<SetApprovalForAll> {
 public:
     SetApprovalForAll();
 

@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_TRANSFER_HPP
 #define ENJINCPPSDK_TRANSFER_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/serialization/ISerializable.hpp"
 #include <optional>
 #include <string>
@@ -8,7 +9,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models a transfer input for transfer requests.
-class Transfer : public enjin::sdk::serialization::ISerializable {
+class ENJINSDK_EXPORT Transfer : public enjin::sdk::serialization::ISerializable {
 public:
     /// \brief Default constructor.
     Transfer() = default;

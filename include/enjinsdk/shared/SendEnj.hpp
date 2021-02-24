@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SHAREDSENDENJ_HPP
 #define ENJINCPPSDK_SHAREDSENDENJ_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
 #include <optional>
@@ -9,8 +10,8 @@
 namespace enjin::sdk::shared {
 
 /// \brief Request for sending send ENJ.
-class SendEnj : public graphql::AbstractGraphqlRequest,
-                public TransactionRequestArgumentsTemplate<SendEnj> {
+class ENJINSDK_EXPORT SendEnj : public graphql::AbstractGraphqlRequest,
+                                public TransactionRequestArgumentsTemplate<SendEnj> {
 public:
     /// \brief Default constructor.
     SendEnj();

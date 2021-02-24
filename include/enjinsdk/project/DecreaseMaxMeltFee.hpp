@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PROJECTDECREASEMAXMELTFEE_HPP
 #define ENJINCPPSDK_PROJECTDECREASEMAXMELTFEE_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
 #include <optional>
@@ -9,8 +10,8 @@
 namespace enjin::sdk::project {
 
 /// \brief Request for setting the max melt fee of an asset to a lower value.
-class DecreaseMaxMeltFee : public graphql::AbstractGraphqlRequest,
-                           public shared::TransactionRequestArgumentsTemplate<DecreaseMaxMeltFee> {
+class ENJINSDK_EXPORT DecreaseMaxMeltFee : public graphql::AbstractGraphqlRequest,
+                                           public shared::TransactionRequestArgumentsTemplate<DecreaseMaxMeltFee> {
 public:
     /// \brief Default constructor.
     DecreaseMaxMeltFee();

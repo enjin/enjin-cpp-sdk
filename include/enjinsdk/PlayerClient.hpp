@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PLAYERCLIENT_HPP
 #define ENJINCPPSDK_PLAYERCLIENT_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/IHttpClient.hpp"
 #include "enjinsdk/IClient.hpp"
 #include "enjinsdk/TrustedPlatformMiddleware.hpp"
@@ -14,7 +15,7 @@ namespace enjin::sdk {
 class PlayerClient;
 
 /// \brief Builder class for PlayerClient.
-class PlayerClientBuilder {
+class ENJINSDK_EXPORT PlayerClientBuilder {
 public:
     /// \brief Default constructor.
     PlayerClientBuilder() = default;
@@ -48,8 +49,8 @@ private:
 };
 
 /// \brief Client for using the player schema.
-class PlayerClient : public IClient,
-                     public player::PlayerSchema {
+class ENJINSDK_EXPORT PlayerClient : public IClient,
+                                     public player::PlayerSchema {
 public:
     ~PlayerClient() override = default;
 

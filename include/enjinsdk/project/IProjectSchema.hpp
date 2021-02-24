@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_IPROJECTSCHEMA_HPP
 #define ENJINCPPSDK_IPROJECTSCHEMA_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/GraphqlResponse.hpp"
 #include "enjinsdk/models/AccessToken.hpp"
 #include "enjinsdk/models/Player.hpp"
@@ -32,7 +33,7 @@
 namespace enjin::sdk::project {
 
 /// \brief Interface for project schema implementation.
-class IProjectSchema {
+class ENJINSDK_EXPORT IProjectSchema {
 public:
     /// \brief Default destructor.
     virtual ~IProjectSchema() = default;

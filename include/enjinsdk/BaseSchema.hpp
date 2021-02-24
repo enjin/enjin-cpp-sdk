@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_BASESCHEMA_HPP
 #define ENJINCPPSDK_BASESCHEMA_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/GraphqlResponse.hpp"
 #include "enjinsdk/TrustedPlatformMiddleware.hpp"
@@ -11,7 +12,7 @@
 namespace enjin::sdk {
 
 // TODO: Documentation
-class BaseSchema {
+class ENJINSDK_EXPORT BaseSchema {
 public:
     BaseSchema() = delete;
 

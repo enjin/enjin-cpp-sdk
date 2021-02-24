@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_ASSETTRANSFERFEESETTINGS_HPP
 #define ENJINCPPSDK_ASSETTRANSFERFEESETTINGS_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/models/AssetTransferFeeType.hpp"
 #include "enjinsdk/serialization/IDeserializable.hpp"
 #include "enjinsdk/serialization/ISerializable.hpp"
@@ -10,7 +11,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models transfer fee settings for an asset.
-class AssetTransferFeeSettings : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT AssetTransferFeeSettings : public enjin::sdk::serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     AssetTransferFeeSettings() = default;
@@ -46,8 +47,8 @@ protected:
 };
 
 /// \brief Models input for the transfer fee settings used in GraphQL requests.
-class AssetTransferFeeSettingsInput : public AssetTransferFeeSettings,
-                                      public serialization::ISerializable {
+class ENJINSDK_EXPORT AssetTransferFeeSettingsInput : public AssetTransferFeeSettings,
+                                                      public serialization::ISerializable {
 public:
     /// \brief Default constructor.
     AssetTransferFeeSettingsInput() = default;

@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SHAREDGETASSETS_HPP
 #define ENJINCPPSDK_SHAREDGETASSETS_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/Asset.hpp"
 #include "enjinsdk/models/AssetFilter.hpp"
@@ -13,9 +14,9 @@
 namespace enjin::sdk::shared {
 
 /// \brief Request for getting assets on the platform.
-class GetAssets : public graphql::AbstractGraphqlRequest,
-                  public AssetFragmentArgumentsTemplate<GetAssets>,
-                  public PaginationArgumentsTemplate<GetAssets> {
+class ENJINSDK_EXPORT GetAssets : public graphql::AbstractGraphqlRequest,
+                                  public AssetFragmentArgumentsTemplate<GetAssets>,
+                                  public PaginationArgumentsTemplate<GetAssets> {
 public:
     /// \brief Default constructor.
     GetAssets();

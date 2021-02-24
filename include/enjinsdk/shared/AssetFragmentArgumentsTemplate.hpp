@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SHAREDASSETFRAGMENTARGUMENTSTEMPLATE_HPP
 #define ENJINCPPSDK_SHAREDASSETFRAGMENTARGUMENTSTEMPLATE_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/internal/AssetFragmentArguments.hpp"
 #include "enjinsdk/models/AssetIdFormat.hpp"
 #include "enjinsdk/serialization/ISerializable.hpp"
@@ -10,7 +11,7 @@ namespace enjin::sdk::shared {
 /// \brief Fragment interface used to request certain information from assets returned by the platform.
 /// \tparam T The type of the implementing class.
 template<class T>
-class AssetFragmentArgumentsTemplate : public serialization::ISerializable {
+class ENJINSDK_EXPORT AssetFragmentArgumentsTemplate : public serialization::ISerializable {
 public:
     /// \brief Default constructor.
     AssetFragmentArgumentsTemplate() = default;

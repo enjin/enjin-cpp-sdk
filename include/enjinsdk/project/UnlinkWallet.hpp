@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PROJECTUNLINKWALLET_HPP
 #define ENJINCPPSDK_PROJECTUNLINKWALLET_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include <optional>
 #include <string>
@@ -8,7 +9,7 @@
 namespace enjin::sdk::project {
 
 /// \brief Request for unlinking a wallet from the project.
-class UnlinkWallet : public graphql::AbstractGraphqlRequest {
+class ENJINSDK_EXPORT UnlinkWallet : public graphql::AbstractGraphqlRequest {
 public:
     /// \brief Default constructor.
     UnlinkWallet();

@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SHAREDBALANCEFRAGMENTARGUMENTSTEMPLATE_HPP
 #define ENJINCPPSDK_SHAREDBALANCEFRAGMENTARGUMENTSTEMPLATE_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/internal/BalanceFragmentArguments.hpp"
 #include "enjinsdk/models/AssetIdFormat.hpp"
 #include "enjinsdk/models/AssetIndexFormat.hpp"
@@ -11,7 +12,7 @@ namespace enjin::sdk::shared {
 /// \brief Fragment interface used to request certain information from balances returned by the platform.
 /// \tparam T The type of the implementing class.
 template<class T>
-class BalanceFragmentArgumentsTemplate : public serialization::ISerializable {
+class ENJINSDK_EXPORT BalanceFragmentArgumentsTemplate : public serialization::ISerializable {
 public:
     /// \brief Default constructor.
     BalanceFragmentArgumentsTemplate() = default;

@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_TRADE_HPP
 #define ENJINCPPSDK_TRADE_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/serialization/ISerializable.hpp"
 #include <optional>
 #include <string>
@@ -8,7 +9,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models a trade input for trade requests.
-class Trade : public enjin::sdk::serialization::ISerializable {
+class ENJINSDK_EXPORT Trade : public enjin::sdk::serialization::ISerializable {
 public:
     /// \brief Default constructor.
     Trade() = default;

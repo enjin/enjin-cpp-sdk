@@ -1,13 +1,14 @@
 #ifndef ENJINCPPSDK_SHAREDPLAYERFRAGMENTARGUMENTS_HPP
 #define ENJINCPPSDK_SHAREDPLAYERFRAGMENTARGUMENTS_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/serialization/ISerializable.hpp"
 #include <optional>
 
 namespace enjin::sdk::shared {
 
 /// \brief Internal implementation class for storing values of a GraphQL Player fragment.
-class PlayerFragmentArguments : public serialization::ISerializable {
+class ENJINSDK_EXPORT PlayerFragmentArguments : public serialization::ISerializable {
 public:
     /// \brief Default constructor.
     PlayerFragmentArguments() = default;

@@ -1,11 +1,12 @@
 #ifndef ENJINCPPSDK_IEVENTLISTENER_HPP
 #define ENJINCPPSDK_IEVENTLISTENER_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/models/NotificationEvent.hpp"
 
 namespace enjin::sdk::events {
 
-class IEventListener {
+class ENJINSDK_EXPORT IEventListener {
 public:
     virtual ~IEventListener() = default;
 

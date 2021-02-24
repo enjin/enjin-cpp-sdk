@@ -1,12 +1,13 @@
 #ifndef ENJINCPPSDK_ICHANNEL_HPP
 #define ENJINCPPSDK_ICHANNEL_HPP
 
+#include "enjinsdk_export.h"
 #include <string>
 
 namespace enjin::sdk::events {
 
 /// \brief Interface for Enjin Cloud event channels.
-class IChannel {
+class ENJINSDK_EXPORT IChannel {
 public:
     /// \brief Default destructor.
     virtual ~IChannel() = default;

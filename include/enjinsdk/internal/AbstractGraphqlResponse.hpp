@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_ABSTRACTGRAPHQLRESPONSE_HPP
 #define ENJINCPPSDK_ABSTRACTGRAPHQLRESPONSE_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/GraphqlError.hpp"
 #include "enjinsdk/models/PaginationCursor.hpp"
 #include <optional>
@@ -10,7 +11,7 @@
 namespace enjin::sdk::graphql {
 
 /// \brief Base class which models common functionality for GraphQL responses.
-class AbstractGraphqlResponse {
+class ENJINSDK_EXPORT AbstractGraphqlResponse {
 public:
     /// \brief Default destructor.
     virtual ~AbstractGraphqlResponse() = default;

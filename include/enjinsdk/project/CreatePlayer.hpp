@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PROJECTCREATEPLAYER_HPP
 #define ENJINCPPSDK_PROJECTCREATEPLAYER_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include <optional>
 #include <string>
@@ -8,7 +9,7 @@
 namespace enjin::sdk::project {
 
 /// \brief Request for creating a player for the project.
-class CreatePlayer : public graphql::AbstractGraphqlRequest {
+class ENJINSDK_EXPORT CreatePlayer : public graphql::AbstractGraphqlRequest {
 public:
     /// \brief Default constructor.
     CreatePlayer();

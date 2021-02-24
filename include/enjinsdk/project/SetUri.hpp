@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_PROJECTSETURI_HPP
 #define ENJINCPPSDK_PROJECTSETURI_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
 #include <optional>
@@ -9,8 +10,8 @@
 namespace enjin::sdk::project {
 
 /// \brief Request to set the metadata URI of an asset.
-class SetUri : public graphql::AbstractGraphqlRequest,
-               public shared::TransactionRequestArgumentsTemplate<SetUri> {
+class ENJINSDK_EXPORT SetUri : public graphql::AbstractGraphqlRequest,
+                               public shared::TransactionRequestArgumentsTemplate<SetUri> {
 public:
     /// \brief Default constructor.
     SetUri();

@@ -1,6 +1,7 @@
 #ifndef ENJINCPPSDK_SHAREDPAGINATIONARGUMENTSTEMPLATE_HPP
 #define ENJINCPPSDK_SHAREDPAGINATIONARGUMENTSTEMPLATE_HPP
 
+#include "enjinsdk_export.h"
 #include "enjinsdk/internal/PaginationArguments.hpp"
 #include "enjinsdk/models/PaginationOptions.hpp"
 #include "enjinsdk/serialization/ISerializable.hpp"
@@ -11,7 +12,7 @@ namespace enjin::sdk::shared {
 /// \brief Fragment interface used to set pagination options for a pagination returned by the platform.
 /// \tparam T The type of the implementing class.
 template<class T>
-class PaginationArgumentsTemplate : public serialization::ISerializable {
+class ENJINSDK_EXPORT PaginationArgumentsTemplate : public serialization::ISerializable {
 public:
     /// \brief Default constructor.
     PaginationArgumentsTemplate() = default;
