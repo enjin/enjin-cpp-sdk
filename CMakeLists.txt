@@ -27,6 +27,25 @@ else ()
     endif ()
 endif ()
 
+if (true) # TODO: Check if ixwebsocket was installed.
+    message("-- Enjin: Built-in websocket client available for event services")
+
+    if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+        add_definitions(/D ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL=1)
+    elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+        add_definitions(-D ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL=1)
+    endif ()
+else ()
+    message(WARNING "Enjin: Built-in websocket client not available for event services")
+
+    if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+        add_definitions(/D ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL=0)
+    elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+        add_definitions(-D ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL=0)
+    endif ()
+endif ()
+
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
