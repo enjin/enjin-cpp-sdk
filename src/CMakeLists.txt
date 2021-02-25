@@ -145,7 +145,7 @@ generate_export_header(enjinsdk)
 target_link_libraries(enjinsdk ${CONAN_LIBS})
 target_include_directories(enjinsdk
         PUBLIC
-        ${PROJECT_BINARY_DIR}
+        ${CMAKE_CURRENT_BINARY_DIR}
         $<INSTALL_INTERFACE:include> $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/events
