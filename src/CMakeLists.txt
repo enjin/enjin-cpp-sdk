@@ -142,15 +142,16 @@ add_library(enjinsdk SHARED ${SOURCE_FILES})
 include(GenerateExportHeader)
 generate_export_header(enjinsdk)
 
-target_link_libraries(enjinsdk ${CONAN_LIBS})
 target_include_directories(enjinsdk
         PUBLIC
         ${CMAKE_CURRENT_BINARY_DIR}
         $<INSTALL_INTERFACE:include> $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         PRIVATE
+        ${ENJINSDK_TARGET_DIRECTORIES}
         ${CMAKE_CURRENT_SOURCE_DIR}/events
         ${CMAKE_CURRENT_SOURCE_DIR}/events/channels
         ${CMAKE_CURRENT_SOURCE_DIR}/graphql
         ${CMAKE_CURRENT_SOURCE_DIR}/http
         ${CMAKE_CURRENT_SOURCE_DIR}/utils
         ${CMAKE_CURRENT_SOURCE_DIR}/websockets)
+target_link_libraries(enjinsdk PRIVATE ${ENJINSDK_TARGET_LIBRARIES})
