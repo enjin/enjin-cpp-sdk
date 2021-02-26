@@ -98,7 +98,7 @@ TEST_F(WebsocketClientImplTest, ServerClosesConnectionClientReceivesExpected) {
 
 TEST_F(WebsocketClientImplTest, CloseNoArgsReceiveExpectedData) {
     // Arrange - Data
-    const int expected_status = (int) web::websockets::client::websocket_close_status::normal;
+    const int expected_status = 1000;
 
     // Arrange - Expectations
     class_under_test.set_close_handler([this, expected_status](int actual_status, const std::string& reason) {
@@ -118,7 +118,7 @@ TEST_F(WebsocketClientImplTest, CloseNoArgsReceiveExpectedData) {
 
 TEST_F(WebsocketClientImplTest, CloseWithArgsReceiveExpectedData) {
     // Arrange - Data
-    const int expected_status = (int) web::websockets::client::websocket_close_status::normal;
+    const int expected_status = 1000;
     const std::string expected_message("Client disconnecting");
     TestWebsocketMessage message;
     message.set_type(WebsocketMessageType::WEBSOCKET_CLOSE_TYPE);

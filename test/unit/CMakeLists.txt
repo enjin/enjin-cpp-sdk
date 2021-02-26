@@ -134,22 +134,24 @@ set(TEST_FILES
         ../suites/VerificationTestSuite.cpp
         ../suites/VerificationTestSuite.hpp
         ../utils/DummyObject.cpp
-        ../utils/DummyObject.hpp
-)
-add_executable(unittests ${TEST_FILES})
-target_link_libraries(unittests
-        PUBLIC
-        enjinsdk
-        PRIVATE
-        ${CONAN_LIBS}
-)
+        ../utils/DummyObject.hpp)
+
+add_executable(enjinsdk_tests ${TEST_FILES})
+
 target_include_directories(
-        unittests
+        enjinsdk_tests
         PRIVATE
+        ${ENJINSDK_TARGET_DIRECTORIES}
         ${PROJECT_SOURCE_DIR}/src/events
         ${PROJECT_SOURCE_DIR}/src/events/channels
         ${PROJECT_SOURCE_DIR}/src/graphql
         ${PROJECT_SOURCE_DIR}/src/http
         ${PROJECT_SOURCE_DIR}/src/utils
-        ${PROJECT_SOURCE_DIR}/src/websockets
-)
+        ${PROJECT_SOURCE_DIR}/src/websockets)
+target_link_libraries(enjinsdk_tests
+        PUBLIC
+        enjinsdk
+        PRIVATE
+        ${ENJINSDK_TARGET_LIBRARIES})
+
+add_test(NAME EnjinSDKTest COMMAND enjinsdk_tests)
