@@ -57,17 +57,18 @@ public:
         std::string serialize_string;
     };
 
-    std::unique_ptr<TestableBaseSchema> class_under_test;
     MockHttpServer mock_server;
+
+    TestableBaseSchema create_testable_base_schema() {
+        std::string base_uri = utility::conversions::to_utf8string(mock_server.uri().to_string());
+        std::unique_ptr<http::IHttpClient> http_client = std::make_unique<http::HttpClientImpl>(base_uri);
+        TrustedPlatformMiddleware middleware(std::move(http_client), false);
+        return TestableBaseSchema(std::move(middleware));
+    }
 
 protected:
     void SetUp() override {
         mock_server.start();
-
-        std::string base_uri = utility::conversions::to_utf8string(mock_server.uri().to_string());
-        std::unique_ptr<http::IHttpClient> http_client = std::make_unique<http::HttpClientImpl>(base_uri);
-        TrustedPlatformMiddleware middleware(std::move(http_client), false);
-        class_under_test = std::make_unique<TestableBaseSchema>(std::move(middleware));
     }
 
     void TearDown() override {
@@ -78,9 +79,9 @@ protected:
 TEST_F(BaseSchemaTest, SendRequestForOne) {
     // Arrange
     DummyObject expected = DummyObject::create_default_dummy_object();
-    //TestableBaseSchema class_under_test = create_testable_base_schema();
+    TestableBaseSchema schema = create_testable_base_schema();
     MockRequest fake_request(expected.serialize());
-    std::string req_body = class_under_test->create_request_body(fake_request);
+    std::string req_body = schema.create_request_body(fake_request);
     std::stringstream res_body;
     res_body << R"({"data":{"result":)"
              << expected.serialize()
@@ -98,7 +99,7 @@ TEST_F(BaseSchemaTest, SendRequestForOne) {
     mock_server.map_response_for_request(http_req, http_res);
 
     // Act
-    auto response = class_under_test->send_request_for_one<DummyObject>(fake_request).get();
+    auto response = schema.send_request_for_one<DummyObject>(fake_request).get();
 
     // Assert
     ASSERT_EQ(expected, response.get_result().value());
@@ -107,9 +108,9 @@ TEST_F(BaseSchemaTest, SendRequestForOne) {
 TEST_F(BaseSchemaTest, SendRequestForMany) {
     // Arrange
     DummyObject expected = DummyObject::create_default_dummy_object();
-    //TestableBaseSchema class_under_test = create_testable_base_schema();
+    TestableBaseSchema schema = create_testable_base_schema();
     MockRequest fake_request(expected.serialize());
-    std::string req_body = class_under_test->create_request_body(fake_request);
+    std::string req_body = schema.create_request_body(fake_request);
     std::stringstream res_body;
     res_body << R"({"data":{"result":[)"
              << expected.serialize()
@@ -129,7 +130,7 @@ TEST_F(BaseSchemaTest, SendRequestForMany) {
     mock_server.map_response_for_request(http_req, http_res);
 
     // Act
-    auto response = class_under_test->send_request_for_many<DummyObject>(fake_request).get();
+    auto response = schema.send_request_for_many<DummyObject>(fake_request).get();
 
     // Assert
     for (const auto& actual : response.get_result().value()) {

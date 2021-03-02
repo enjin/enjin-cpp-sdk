@@ -4,9 +4,7 @@
 #include <cctype>
 #include <sstream>
 
-namespace enjin {
-namespace sdk {
-namespace utils {
+namespace enjin::sdk::utils {
 
 bool is_empty_or_whitespace(const std::string& str) {
     return str.empty() || std::all_of(str.begin(), str.end(), [](unsigned char c) { return c == ' '; });
@@ -91,6 +89,4 @@ std::vector<std::string> split(const std::string& str, const std::string& separa
     }
 }
 
-} // namespace utils
-} // namespace sdk
-} // enjin
+}

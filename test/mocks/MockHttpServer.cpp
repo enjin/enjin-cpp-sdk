@@ -30,19 +30,32 @@ web::http::http_response enjin_to_casablanca_response(enjin::sdk::http::HttpResp
 }
 
 MockHttpServer::MockHttpServer() {
-    // TODO: Make the port # dynamic if necessary.
+    // TODO: Make the port # dynamic if necessary/possible.
     listener = web::http::experimental::listener::http_listener(U("http://localhost:8080/"));
 
-    // Sets the listener to support any request by replying with the response in the front of the queue
+    // TODO: Refactor to replace response map with allowing request handlers to reply to requests with a response.
     listener.support([this](const web::http::http_request& request) {
+        // Checks if a response was mapped for this request
         auto mapped_response_loc = request_response_map.find(casablanca_to_enjin_request(request));
-
         if (mapped_response_loc != request_response_map.end()) {
             enjin::sdk::http::HttpResponse response = mapped_response_loc->second;
             request.reply(enjin_to_casablanca_response(response));
-        } else {
-            request.reply(web::http::status_codes::TooManyRequests);
+            return;
         }
+
+        // Checks if a handler is queued for any unmapped requests
+        request_handlers_mutex.lock();
+        if (!request_handlers.empty()) {
+            auto handler = request_handlers.front();
+            request_handlers.pop();
+            request_handlers_mutex.unlock();
+            handler(request);
+            request.reply(web::http::status_codes::OK);
+            return;
+        }
+        request_handlers_mutex.unlock();
+
+        request.reply(web::http::status_codes::TooManyRequests);
     });
 }
 
@@ -52,6 +65,11 @@ void MockHttpServer::start() {
 
 void MockHttpServer::shutdown() {
     listener.close();
+}
+
+void MockHttpServer::next_request(const std::function<void(web::http::http_request)>& handler) {
+    std::lock_guard<std::mutex> guard(request_handlers_mutex);
+    request_handlers.push(handler);
 }
 
 void MockHttpServer::map_response_for_request(const enjin::sdk::http::HttpRequest& request,

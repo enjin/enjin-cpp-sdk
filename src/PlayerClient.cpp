@@ -15,12 +15,11 @@ PlayerClient::PlayerClient(TrustedPlatformMiddleware middleware) : PlayerSchema(
 }
 
 void PlayerClient::auth(const std::string& token) {
-    // TODO: Implement function.
+    middleware.get_handler()->set_auth_token(token);
 }
 
 bool PlayerClient::is_authenticated() {
-    // TODO: Implement function.
-    return false;
+    return middleware.get_handler()->is_authenticated();
 }
 
 bool PlayerClient::is_closed() {

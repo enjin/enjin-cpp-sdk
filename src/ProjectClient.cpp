@@ -15,12 +15,11 @@ ProjectClient::ProjectClient(TrustedPlatformMiddleware middleware) : ProjectSche
 }
 
 void ProjectClient::auth(const std::string& token) {
-    // TODO: Implement function.
+    middleware.get_handler()->set_auth_token(token);
 }
 
 bool ProjectClient::is_authenticated() {
-    // TODO: Implement function.
-    return false;
+    return middleware.get_handler()->is_authenticated();
 }
 
 bool ProjectClient::is_closed() {

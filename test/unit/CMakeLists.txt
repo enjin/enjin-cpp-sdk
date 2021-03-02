@@ -17,6 +17,7 @@ set(TEST_FILES
         http/HttpRequestBuilderTest.cpp
         http/HttpResponseBuilderTest.cpp
         http/HttpResponseTest.cpp
+        http/TrustedPlatformHandlerTest.cpp
         models/AccessTokenTest.cpp
         models/BalanceFilterTest.cpp
         models/BalanceTest.cpp

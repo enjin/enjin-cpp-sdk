@@ -5,8 +5,11 @@
 #include "enjinsdk/HttpResponse.hpp"
 #include "cpprest/http_listener.h"
 #include "cpprest/http_msg.h"
+#include <functional>
 #include <map>
+#include <mutex>
 #include <string>
+#include <queue>
 
 namespace enjin::test::utils {
 
@@ -26,6 +29,9 @@ public:
     /// \brief Method to shutdown the server.
     void shutdown();
 
+    /// \brief Queues handler for incoming unmapped requests.
+    void next_request(const std::function<void(web::http::http_request)>& handler);
+
     /// \brief Creating a mapping for an expected request and stubbed response.
     /// \param request The request to expect.
     /// \param response The response to reply with.
@@ -40,6 +46,9 @@ public:
 private:
     web::http::experimental::listener::http_listener listener;
     std::map<enjin::sdk::http::HttpRequest, enjin::sdk::http::HttpResponse> request_response_map;
+
+    std::queue<std::function<void(web::http::http_request)>> request_handlers;
+    std::mutex request_handlers_mutex;
 };
 
 }

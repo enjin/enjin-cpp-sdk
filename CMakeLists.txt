@@ -44,6 +44,18 @@ function(set_include_websocket_client_impl)
     endif ()
 endfunction()
 
+function(set_enjinsdk_version)
+    if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+        add_definitions(/D ENJINSDK_VERSION_MAJOR=${ENJINSDK_VERSION_MAJOR})
+        add_definitions(/D ENJINSDK_VERSION_MINOR=${ENJINSDK_VERSION_MINOR})
+        add_definitions(/D ENJINSDK_VERSION_PATCH=${ENJINSDK_VERSION_PATCH})
+    elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+        add_definitions(-D ENJINSDK_VERSION_MAJOR=${ENJINSDK_VERSION_MAJOR})
+        add_definitions(-D ENJINSDK_VERSION_MINOR=${ENJINSDK_VERSION_MINOR})
+        add_definitions(-D ENJINSDK_VERSION_PATCH=${ENJINSDK_VERSION_PATCH})
+    endif ()
+endfunction()
+
 if (EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup()
@@ -64,6 +76,7 @@ endif ()
 
 set_include_http_client_impl()
 set_include_websocket_client_impl()
+set_enjinsdk_version()
 
 add_subdirectory(src)
 
