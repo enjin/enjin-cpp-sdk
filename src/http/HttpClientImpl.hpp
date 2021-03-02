@@ -4,6 +4,8 @@
 #include "enjinsdk_export.h"
 #include "cpprest/http_client.h"
 #include "enjinsdk/IHttpClient.hpp"
+#include <future>
+#include <string>
 
 namespace enjin::sdk::http {
 
@@ -22,8 +24,11 @@ public:
 
     std::future<HttpResponse> send_request(const HttpRequest& request) override;
 
+    void set_trusted_platform_handler(std::shared_ptr<http::TrustedPlatformHandler> handler) override;
+
 private:
     web::http::client::http_client http_client;
+    std::shared_ptr<http::TrustedPlatformHandler> tp_handler;
 };
 
 }

@@ -4,6 +4,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/GraphqlQueryRegistry.hpp"
 #include "enjinsdk/IHttpClient.hpp"
+#include "enjinsdk/TrustedPlatformHandler.hpp"
 #include <memory>
 #include <string>
 
@@ -34,9 +35,14 @@ public:
     /// \return The HTTP client.
     [[nodiscard]] const std::unique_ptr<http::IHttpClient>& get_client() const;
 
+    /// \brief Returns the Trusted Platform handler used by the middleware.
+    /// \return The Trusted Platform handler.
+    [[nodiscard]] const std::shared_ptr<http::TrustedPlatformHandler>& get_handler() const;
+
 private:
     graphql::GraphqlQueryRegistry query_registry;
     std::unique_ptr<http::IHttpClient> client;
+    std::shared_ptr<http::TrustedPlatformHandler> handler = std::make_shared<http::TrustedPlatformHandler>();
 };
 
 }
