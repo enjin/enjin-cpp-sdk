@@ -3,6 +3,9 @@
 #include <exception>
 #include <utility>
 
+#ifndef ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL
+#define ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL 0
+#endif
 #if ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL
 
 #include "HttpClientImpl.hpp"

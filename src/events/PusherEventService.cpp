@@ -8,6 +8,9 @@
 #include <algorithm>
 #include <utility>
 
+#ifndef ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL
+#define ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL 0
+#endif
 #if ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL
 
 #include "WebsocketClientImpl.hpp"
