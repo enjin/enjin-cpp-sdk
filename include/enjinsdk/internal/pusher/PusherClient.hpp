@@ -6,6 +6,7 @@
 #include "enjinsdk/internal/pusher/ConnectionState.hpp"
 #include "enjinsdk/internal/pusher/ISubscriptionEventListener.hpp"
 #include "enjinsdk/internal/pusher/PusherOptions.hpp"
+#include <exception>
 #include <functional>
 #include <future>
 #include <map>

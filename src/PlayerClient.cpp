@@ -1,6 +1,6 @@
 #include "enjinsdk/PlayerClient.hpp"
 
-#include <exception>
+#include <stdexcept>
 #include <utility>
 
 #ifndef ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL
@@ -35,12 +35,12 @@ PlayerClient PlayerClientBuilder::build() {
 #if ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL
         m_http_client = std::make_unique<http::HttpClientImpl>(m_base_uri.has_value()
                                                                ? m_base_uri.value()
-                                                               : throw std::exception(
+                                                               : throw std::runtime_error(
                         "No base URI was set for default HTTP client implementation"));
         TrustedPlatformMiddleware middleware(std::move(m_http_client), m_debug.has_value() && m_debug.value());
         return PlayerClient(std::move(middleware));
 #else
-        throw std::exception("Attempted building platform client without providing an HTTP client");
+        throw std::runtime_error("Attempted building platform client without providing an HTTP client");
 #endif
     } else {
         TrustedPlatformMiddleware middleware(std::move(m_http_client), m_debug.has_value() && m_debug.value());

@@ -4,6 +4,7 @@
 #include "pplx/pplxtasks.h"
 #include "websocketpp/server.hpp"
 #include "websocketpp/config/asio_no_tls.hpp"
+#include <stdexcept>
 #include <thread>
 #include <utility>
 

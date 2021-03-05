@@ -6,6 +6,8 @@
 #include "AssetChannel.hpp"
 #include "WalletChannel.hpp"
 #include <algorithm>
+#include <exception>
+#include <stdexcept>
 #include <utility>
 
 #ifndef ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL
@@ -241,7 +243,7 @@ std::unique_ptr<PusherEventService> PusherEventServiceBuilder::build() {
 #if ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL
         m_ws_client = std::make_unique<websockets::WebsocketClientImpl>();
 #else
-        throw std::exception("Attempted building Pusher event service without providing a websocket client");
+        throw std::runtime_error("Attempted building Pusher event service without providing a websocket client");
 #endif
     }
 

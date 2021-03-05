@@ -1,11 +1,13 @@
 #include "RapidJsonUtils.hpp"
 
+#include <stdexcept>
+
 namespace enjin::sdk::utils {
 
 void join_serialized_object_to_document(rapidjson::Document& document,
                                         const std::string& o) {
     if (!document.IsObject()) {
-        throw std::exception("Document is not a Json Object");
+        throw std::runtime_error("Document is not a Json Object");
     }
 
     rapidjson::Document object_document;
@@ -25,7 +27,7 @@ void join_serialized_object_to_document(rapidjson::Document& document,
 void join_serialized_objects_to_document(rapidjson::Document& document,
                                          const std::vector<std::string>& o) {
     if (!document.IsObject()) {
-        throw std::exception("Document is not a Json Object");
+        throw std::runtime_error("Document is not a Json Object");
     }
 
     for (const auto& s : o) {
@@ -61,7 +63,7 @@ std::vector<std::string> get_array_as_serialized_vector(const rapidjson::Documen
         return v;
     }
 
-    throw std::exception("JSON element is not an array");
+    throw std::runtime_error("JSON element is not an array");
 }
 
 std::string get_object_as_string(const rapidjson::Document& document, const std::string& key) {
@@ -78,14 +80,14 @@ std::string get_object_as_string(const rapidjson::Document& document, const std:
         return buffer.GetString();
     }
 
-    throw std::exception("JSON element is not an object");
+    throw std::runtime_error("JSON element is not an object");
 }
 
 void set_member_assert(const rapidjson::Document& document, const std::string& key) {
     if (!document.IsObject()) {
-        throw std::exception("Document is not a Json Object");
+        throw std::runtime_error("Document is not a Json Object");
     } else if (key.empty()) {
-        throw std::exception("Key string is empty");
+        throw std::runtime_error("Key string is empty");
     }
 }
 
