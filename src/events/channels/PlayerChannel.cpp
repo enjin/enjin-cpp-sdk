@@ -10,13 +10,14 @@ PlayerChannel::PlayerChannel(const models::Platform& platform, int project_id, c
 }
 
 std::string PlayerChannel::channel() const {
-    return (std::stringstream() << "enjincloud."
-                                << utils::to_lower(platform.get_network().value())
-                                << ".project."
-                                << project_id
-                                << ".player."
-                                << player_id
-    ).str();
+    std::stringstream ss;
+    ss << "enjincloud."
+       << utils::to_lower(platform.get_network().value())
+       << ".project."
+       << project_id
+       << ".player."
+       << player_id;
+    return ss.str();
 }
 
 }

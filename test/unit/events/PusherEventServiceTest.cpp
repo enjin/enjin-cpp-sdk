@@ -77,13 +77,13 @@ public:
     }
 
     static std::string create_subscription_success_message(const std::string& channel = "") {
-        return (std::stringstream()
-                << R"({"event":")"
-                << enjin::pusher::Constants::CHANNEL_SUBSCRIPTION_SUCCEEDED
-                << R"(","channel":")"
-                << channel
-                << R"("})"
-        ).str();
+        std::stringstream ss;
+        ss << R"({"event":")"
+           << enjin::pusher::Constants::CHANNEL_SUBSCRIPTION_SUCCEEDED
+           << R"(","channel":")"
+           << channel
+           << R"("})";
+        return ss.str();
     }
 };
 

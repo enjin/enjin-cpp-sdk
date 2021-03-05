@@ -10,11 +10,12 @@ ProjectChannel::ProjectChannel(const models::Platform& platform, int project_id)
 }
 
 std::string ProjectChannel::channel() const {
-    return (std::stringstream() << "enjincloud."
-                                << utils::to_lower(platform.get_network().value())
-                                << ".project."
-                                << project_id
-    ).str();
+    std::stringstream ss;
+    ss << "enjincloud."
+       << utils::to_lower(platform.get_network().value())
+       << ".project."
+       << project_id;
+    return ss.str();
 }
 
 }

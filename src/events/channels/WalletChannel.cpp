@@ -10,11 +10,12 @@ WalletChannel::WalletChannel(const models::Platform& platform, const std::string
 }
 
 std::string WalletChannel::channel() const {
-    return (std::stringstream() << "enjincloud."
-                                << utils::to_lower(platform.get_network().value())
-                                << ".wallet."
-                                << eth_address
-    ).str();
+    std::stringstream ss;
+    ss << "enjincloud."
+       << utils::to_lower(platform.get_network().value())
+       << ".wallet."
+       << eth_address;
+    return ss.str();
 }
 
 }
