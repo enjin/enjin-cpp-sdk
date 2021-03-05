@@ -10,11 +10,12 @@ AssetChannel::AssetChannel(const models::Platform& platform, const std::string& 
 }
 
 std::string AssetChannel::channel() const {
-    return (std::stringstream() << "enjincloud."
-                                << utils::to_lower(platform.get_network().value())
-                                << ".asset."
-                                << asset_id
-    ).str();
+    std::stringstream ss;
+    ss << "enjincloud."
+       << utils::to_lower(platform.get_network().value())
+       << ".asset."
+       << asset_id;
+    return ss.str();
 }
 
 }

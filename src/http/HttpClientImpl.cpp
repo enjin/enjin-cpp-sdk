@@ -8,22 +8,22 @@ HttpClientImpl::HttpClientImpl(const std::string& base_uri) : http_client(utilit
     http_client.add_handler([this](web::http::http_request request,
                                    const std::shared_ptr<web::http::http_pipeline_stage>& pipeline_stage) {
         // Adds the default SDK user agent header using the defined SDK version if the definitions were set
-        auto user_agent_value = utility::conversions::to_string_t((std::stringstream()
-                << TrustedPlatformHandler::USER_AGENT_PREFIX
+        std::stringstream user_agent_ss;
+        user_agent_ss << TrustedPlatformHandler::USER_AGENT_PREFIX;
+
 #ifdef ENJINSDK_VERSION_MAJOR
-                << ENJINSDK_VERSION_MAJOR
+        user_agent_ss << ENJINSDK_VERSION_MAJOR;
 #ifdef ENJINSDK_VERSION_MINOR
-                << "."
-                << ENJINSDK_VERSION_MINOR
+        user_agent_ss << "." << ENJINSDK_VERSION_MINOR;
 #ifdef ENJINSDK_VERSION_PATCH
-                << "."
-                << ENJINSDK_VERSION_PATCH
+        user_agent_ss << "." << ENJINSDK_VERSION_PATCH;
 #endif // ENJINSDK_VERSION_PATCH
 #endif // ENJINSDK_VERSION_MINOR
 #else
-                << "?"
+        user_agent_ss << "?";
 #endif // ENJINSDK_VERSION_MAJOR
-                                                                  ).str());
+
+        auto user_agent_value = utility::conversions::to_string_t(user_agent_ss.str());
 
         if (request.headers().has(web::http::header_names::user_agent)) {
             request.headers().remove(web::http::header_names::user_agent);
@@ -31,12 +31,13 @@ HttpClientImpl::HttpClientImpl(const std::string& base_uri) : http_client(utilit
         request.headers().add(web::http::header_names::user_agent, user_agent_value);
 
         if (tp_handler != nullptr && tp_handler->is_authenticated()) {
+            std::stringstream header_value_ss;
+            header_value_ss << TrustedPlatformHandler::AUTHORIZATION_SCHEMA
+                            << " "
+                            << tp_handler->get_auth_token().value();
+
             auto header_name = utility::conversions::to_string_t(TrustedPlatformHandler::AUTHORIZATION);
-            auto header_value = utility::conversions::to_string_t((std::stringstream()
-                    << TrustedPlatformHandler::AUTHORIZATION_SCHEMA
-                    << " "
-                    << tp_handler->get_auth_token().value()
-                                                                  ).str());
+            auto header_value = utility::conversions::to_string_t(header_value_ss.str());
 
             request.headers().add(header_name, header_value); // Results in "Authorization: Bearer <auth_token>"
         }

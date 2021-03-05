@@ -23,11 +23,11 @@ bool PusherOptions::is_encrypted() const {
 }
 
 std::string PusherOptions::host() const {
-    return (std::stringstream()
-            << "ws-"
-            << cluster.value_or("mt1")
-            << ".pusher.com"
-    ).str();
+    std::stringstream ss;
+    ss << "ws-"
+       << cluster.value_or("mt1")
+       << ".pusher.com";
+    return ss.str();
 }
 
 }
