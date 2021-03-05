@@ -28,6 +28,7 @@ cmake-build-*/
 
 ### Visual Studio
 .vs/
+CMakeSettings.json
 
 ### Conan
 */graph_info.json
