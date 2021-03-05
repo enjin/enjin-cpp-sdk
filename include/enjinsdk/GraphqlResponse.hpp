@@ -63,7 +63,7 @@ protected:
 /// \brief Specialized member function for responses containing booleans instead of platform objects.
 /// \param data_json The JSON string of the member.
 template<>
-void GraphqlResponse<bool>::process_data(const std::string& data_json) {
+inline void GraphqlResponse<bool>::process_data(const std::string& data_json) {
     result.emplace(get_bool_result(data_json));
 }
 
