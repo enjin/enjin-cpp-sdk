@@ -26,6 +26,9 @@ out
 gen
 cmake-build-*/
 
+### Visual Studio
+.vs/
+
 ### Conan
 */graph_info.json
 */conaninfo.txt
@@ -33,5 +36,9 @@ cmake-build-*/
 */conanbuildinfo.cmake
 */conan.lock
 
+### Vcpkg
+vcpkg/
+
 ### Python
 venv/
+__pycache__/
