@@ -4,6 +4,7 @@
 #include "../../suites/PusherClientTestSuite.hpp"
 #include "../../suites/VerificationTestSuite.hpp"
 #include <chrono>
+#include <exception>
 #include <memory>
 #include <string>
 #include <thread>

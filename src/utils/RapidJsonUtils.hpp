@@ -7,6 +7,7 @@
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/writer.h"
+#include <stdexcept>
 #include <string>
 #include <type_traits>
 #include <vector>
@@ -58,7 +59,7 @@ std::vector<T> get_array_as_type_vector(const rapidjson::Document& document,
         return v;
     }
 
-    throw std::exception("JSON element is not an array");
+    throw std::runtime_error("JSON element is not an array");
 }
 
 ENJINSDK_EXPORT

@@ -4,7 +4,7 @@
 #include "enjinsdk/internal/pusher/Constants.hpp"
 #include "enjinsdk/internal/pusher/ErrorCodes.hpp"
 #include "enjinsdk/internal/pusher/PusherException.hpp"
-#include <algorithm>
+#include <exception>
 #include <sstream>
 #include <utility>
 

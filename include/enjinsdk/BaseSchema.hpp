@@ -5,6 +5,7 @@
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/GraphqlResponse.hpp"
 #include "enjinsdk/TrustedPlatformMiddleware.hpp"
+#include <exception>
 #include <future>
 #include <string>
 #include <vector>
@@ -47,9 +48,9 @@ protected:
             try {
                 http::HttpResponse response = future.get();
                 return graphql::GraphqlResponse<T>(response.get_body().value());
-            } catch (std::exception& e) {
+            } catch (std::exception e) {
                 // TODO: Create an HTTP exception class that implements std::exception and pass `e.what()`.
-                throw std::exception(e.what());
+                throw e;
             }
         });
     }
@@ -77,9 +78,9 @@ protected:
             try {
                 http::HttpResponse response = future.get();
                 return graphql::GraphqlResponse<std::vector<T>>(response.get_body().value());
-            } catch (std::exception& e) {
+            } catch (std::exception e) {
                 // TODO: Create an HTTP exception class that implements std::exception and pass `e.what()`.
-                throw std::exception(e.what());
+                throw e;
             }
         });
     }
