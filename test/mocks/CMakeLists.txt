@@ -1,0 +1,10 @@
+target_sources(${PROJECT_NAME}_tests
+        PRIVATE
+        MockEventListener.hpp
+        MockHttpServer.cpp
+        MockHttpServer.hpp
+        MockSubscriptionEventListener.hpp
+        MockWebSocketClientImpl.cpp
+        MockWebSocketClientImpl.hpp
+        MockWebsocketServer.cpp
+        MockWebsocketServer.hpp)

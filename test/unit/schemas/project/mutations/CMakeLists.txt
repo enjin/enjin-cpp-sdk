@@ -1,0 +1,16 @@
+target_sources(enjinsdk_tests
+        PRIVATE
+        CreatePlayerTest.cpp
+        CreateTokenTest.cpp
+        DecreaseMaxMeltFeeTest.cpp
+        DecreaseMaxTransferFeeTest.cpp
+        DeletePlayerTest.cpp
+        InvalidateTokenMetadataTest.cpp
+        MintAssetTest.cpp
+        ReleaseReserveTest.cpp
+        SetMeltFeeTest.cpp
+        SetTransferableTest.cpp
+        SetTransferFeeTest.cpp
+        SetUriTest.cpp
+        SetWhitelistedTest.cpp
+        UnlinkWalletTest.cpp)

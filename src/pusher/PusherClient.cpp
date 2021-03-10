@@ -41,15 +41,12 @@ void PusherClient::connect() {
                          ? Constants::SECURE_SCHEMA
                          : Constants::INSECURE_SCHEMA;
 
-    /* TODO: The client query fragment "client=enjin-cpp-pusher-client" may not work with the server since it is not
-     *       a official Pusher client.
-     */
     std::stringstream uri_ss;
     uri_ss << schema
            << options.host()
            << "/app/"
            << key
-           << "?protocol=5&client=enjin-cpp-pusher-client&version=1.0.0";
+           << "?protocol=5&client=enjin-cpp-pusher-client&version=2.0.0";
 
     ws_client->connect(uri_ss.str());
 }

@@ -1,0 +1,10 @@
+target_sources(enjinsdk_tests
+        PRIVATE
+        AssetChannelTest.cpp
+        EventListenerRegistrationTest.cpp
+        EventTypeDefTest.cpp
+        PlayerChannelTest.cpp
+        ProjectChannelTest.cpp
+        PusherEventServiceTest.cpp
+        RegistrationListenerConfigurationTest.cpp
+        WalletChannelTest.cpp)

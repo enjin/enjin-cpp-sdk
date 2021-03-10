@@ -1,0 +1,17 @@
+target_sources(enjinsdk_tests
+        PRIVATE
+        EnumUtilsEventTypeTest.cpp
+        EnumUtilsRequestStateTest.cpp
+        EnumUtilsRequestTypeTest.cpp
+        EnumUtilsSortDirectionTest.cpp
+        EnumUtilsTokenFieldTest.cpp
+        EnumUtilsTokenIdFormatTest.cpp
+        EnumUtilsTokenIndexFormatTest.cpp
+        EnumUtilsTokenSupplyModelTest.cpp
+        EnumUtilsTokenTransferableTest.cpp
+        EnumUtilsTokenTransferFeeTypeTest.cpp
+        EnumUtilsTokenVariantModeTest.cpp
+        EnumUtilsTransactionFieldTest.cpp
+        EnumUtilsWhitelistedTest.cpp
+        RapidJsonUtilsTest.cpp
+        StringUtilsTest.cpp)

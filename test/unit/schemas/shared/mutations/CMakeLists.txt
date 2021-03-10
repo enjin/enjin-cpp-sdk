@@ -1,0 +1,12 @@
+target_sources(enjinsdk_tests
+        PRIVATE
+        AdvancedSendTokenTest.cpp
+        ApproveEnjTest.cpp
+        CancelTransactionTest.cpp
+        CompleteTradeTest.cpp
+        CreateTradeTest.cpp
+        MeltTokenTest.cpp
+        MessageTest.cpp
+        SendAssetTest.cpp
+        SendEnjTest.cpp
+        SetApprovalForAllTest.cpp)

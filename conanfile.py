@@ -3,7 +3,7 @@ from conans import ConanFile, CMake, tools
 
 class EnjinCPPSDK(ConanFile):
     name = "enjincppsdk"
-    version = "0.1.0"
+    version = "2.0.0"
     description = "A C++ SDK for development on the Enjin blockchain platform."
     homepage = "https://enjin.io/"
     url = "https://github.com/enjin/Enjin-CPP-SDK"

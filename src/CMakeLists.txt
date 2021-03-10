@@ -1,158 +1,25 @@
-file(GLOB HEADERS_ENJINSDK
-        "${PROJECT_SOURCE_DIR}/include/enjinsdk/*.hpp"
-        "${PROJECT_SOURCE_DIR}/include/enjinsdk/*/*.hpp"
-        "${PROJECT_SOURCE_DIR}/include/enjinsdk/*/*/*.hpp")
-source_group("Header Files\\enjinsdk" FILES ${HEADERS_ENJINSDK})
-
-set(SOURCE_FILES
-        ${HEADERS_ENJINSDK}
+target_sources(${PROJECT_NAME}
+        PRIVATE
         PlayerClient.cpp
         ProjectClient.cpp
-        TrustedPlatformMiddleware.cpp
-        events/EventListenerRegistration.cpp
-        events/EventTypeDef.cpp
-        events/EventTypeDef.hpp
-        events/PusherEventService.cpp
-        events/channels/ProjectChannel.cpp
-        events/channels/ProjectChannel.hpp
-        events/channels/IChannel.hpp
-        events/channels/PlayerChannel.cpp
-        events/channels/PlayerChannel.hpp
-        events/channels/AssetChannel.cpp
-        events/channels/AssetChannel.hpp
-        events/channels/WalletChannel.cpp
-        events/channels/WalletChannel.hpp
-        graphql/AbstractGraphqlRequest.cpp
-        graphql/AbstractGraphqlResponse.cpp
-        graphql/GraphqlError.cpp
-        graphql/GraphqlQueryRegistry.cpp
-        graphql/GraphqlResponseImpl.cpp
-        graphql/TemplateConstants.cpp
-        graphql/TemplateConstants.hpp
-        http/HttpClientImpl.cpp
-        http/HttpClientImpl.hpp
-        http/HttpRequest.cpp
-        http/HttpResponse.cpp
-        http/TrustedPlatformHandler.cpp
-        models/AccessToken.cpp
-        models/Balance.cpp
-        models/BalanceFilter.cpp
-        models/BlockchainData.cpp
-        models/Contracts.cpp
-        models/GasPrices.cpp
-        models/LinkingInfo.cpp
-        models/Melt.cpp
-        models/MintInput.cpp
-        models/NotificationEvent.cpp
-        models/Notifications.cpp
-        models/PaginationCursor.cpp
-        models/PaginationOptions.cpp
-        models/Platform.cpp
-        models/Player.cpp
-        models/PlayerFilter.cpp
-        models/Project.cpp
-        models/Pusher.cpp
-        models/PusherChannels.cpp
-        models/PusherOptions.cpp
-        models/Request.cpp
-        models/SupplyModels.cpp
-        models/Asset.cpp
-        models/AssetConfigData.cpp
-        models/AssetFilter.cpp
-        models/AssetSort.cpp
-        models/AssetStateData.cpp
-        models/AssetTransferFeeSettings.cpp
-        models/AssetVariant.cpp
-        models/Trade.cpp
-        models/TransactionEvent.cpp
-        models/TransactionFilter.cpp
-        models/TransactionLog.cpp
-        models/TransactionReceipt.cpp
-        models/TransactionSort.cpp
-        models/Transfer.cpp
-        models/Wallet.cpp
-        pusher/PusherClient.cpp
-        pusher/PusherEvent.cpp
-        pusher/PusherException.cpp
-        pusher/PusherOptions.cpp
-        schemas/BaseSchema.cpp
-        schemas/player/PlayerSchema.cpp
-        schemas/player/mutations/UnlinkWallet.cpp
-        schemas/player/queries/GetPlayer.cpp
-        schemas/player/queries/GetWallet.cpp
-        schemas/project/ProjectSchema.cpp
-        schemas/project/mutations/CreatePlayer.cpp
-        schemas/project/mutations/CreateAsset.cpp
-        schemas/project/mutations/DecreaseMaxMeltFee.cpp
-        schemas/project/mutations/DecreaseMaxTransferFee.cpp
-        schemas/project/mutations/DeletePlayer.cpp
-        schemas/project/mutations/InvalidateAssetMetadata.cpp
-        schemas/project/mutations/MintAsset.cpp
-        schemas/project/mutations/ReleaseReserve.cpp
-        schemas/project/mutations/SetMeltFee.cpp
-        schemas/project/mutations/SetTransferFee.cpp
-        schemas/project/mutations/SetTransferable.cpp
-        schemas/project/mutations/SetUri.cpp
-        schemas/project/mutations/SetWhitelisted.cpp
-        schemas/project/mutations/UnlinkWallet.cpp
-        schemas/project/queries/AuthPlayer.cpp
-        schemas/project/queries/AuthProject.cpp
-        schemas/project/queries/GetPlayer.cpp
-        schemas/project/queries/GetPlayers.cpp
-        schemas/project/queries/GetWallet.cpp
-        schemas/project/queries/GetWallets.cpp
-        schemas/shared/SharedSchema.cpp
-        schemas/shared/arguments/BalanceFragmentArguments.cpp
-        schemas/shared/arguments/PaginationArguments.cpp
-        schemas/shared/arguments/PlayerFragmentArguments.cpp
-        schemas/shared/arguments/AssetFragmentArguments.cpp
-        schemas/shared/arguments/TransactionFragmentArguments.cpp
-        schemas/shared/arguments/TransactionRequestArguments.cpp
-        schemas/shared/arguments/WalletFragmentArguments.cpp
-        schemas/shared/mutations/AdvancedSendAsset.cpp
-        schemas/shared/mutations/ApproveEnj.cpp
-        schemas/shared/mutations/ApproveMaxEnj.cpp
-        schemas/shared/mutations/CancelTransaction.cpp
-        schemas/shared/mutations/CompleteTrade.cpp
-        schemas/shared/mutations/CreateTrade.cpp
-        schemas/shared/mutations/MeltAsset.cpp
-        schemas/shared/mutations/Message.cpp
-        schemas/shared/mutations/ResetEnjApproval.cpp
-        schemas/shared/mutations/SendEnj.cpp
-        schemas/shared/mutations/SendAsset.cpp
-        schemas/shared/mutations/SetApprovalForAll.cpp
-        schemas/shared/queries/GetBalances.cpp
-        schemas/shared/queries/GetGasPrices.cpp
-        schemas/shared/queries/GetPlatform.cpp
-        schemas/shared/queries/GetProject.cpp
-        schemas/shared/queries/GetRequest.cpp
-        schemas/shared/queries/GetRequests.cpp
-        schemas/shared/queries/GetAsset.cpp
-        schemas/shared/queries/GetAssets.cpp
-        utils/EnumUtils.cpp
-        utils/EnumUtils.hpp
-        utils/RapidJsonUtils.cpp
-        utils/RapidJsonUtils.hpp
-        utils/StringUtils.cpp
-        utils/StringUtils.hpp
-        websockets/WebsocketClientImpl.cpp
-        websockets/WebsocketClientImpl.hpp)
+        TrustedPlatformMiddleware.cpp)
 
-add_library(enjinsdk SHARED ${SOURCE_FILES})
+add_subdirectory(events)
+add_subdirectory(graphql)
+add_subdirectory(http)
+add_subdirectory(models)
+add_subdirectory(pusher)
+add_subdirectory(schemas)
+add_subdirectory(utils)
+add_subdirectory(websockets)
 
-include(GenerateExportHeader)
-generate_export_header(enjinsdk)
-
-target_include_directories(enjinsdk
-        PUBLIC
-        ${CMAKE_CURRENT_BINARY_DIR}
-        $<INSTALL_INTERFACE:include> $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+target_include_directories(${PROJECT_NAME}
         PRIVATE
-        ${ENJINSDK_TARGET_DIRECTORIES}
-        ${CMAKE_CURRENT_SOURCE_DIR}/events
-        ${CMAKE_CURRENT_SOURCE_DIR}/events/channels
-        ${CMAKE_CURRENT_SOURCE_DIR}/graphql
-        ${CMAKE_CURRENT_SOURCE_DIR}/http
-        ${CMAKE_CURRENT_SOURCE_DIR}/utils
-        ${CMAKE_CURRENT_SOURCE_DIR}/websockets)
-target_link_libraries(enjinsdk PRIVATE ${ENJINSDK_TARGET_LIBRARIES})
+        events
+        graphql
+        http
+        models
+        pusher
+        schemas
+        utils
+        websockets)

@@ -1,0 +1,9 @@
+target_sources(enjinsdk_tests
+        PRIVATE
+        AssetFragmentArgumentsTest.cpp
+        BalanceFragmentArgumentsTest.cpp
+        PaginationArgumentsTest.cpp
+        PlayerFragmentArgumentsTest.cpp
+        TransactionFragmentArgumentsTest.cpp
+        TransactionRequestArgumentsTest.cpp
+        WalletFragmentArgumentsTest.cpp)
