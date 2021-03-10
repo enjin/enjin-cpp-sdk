@@ -1,0 +1,9 @@
+target_sources(${PROJECT_NAME}
+        PRIVATE
+        AssetFragmentArguments.cpp
+        BalanceFragmentArguments.cpp
+        PaginationArguments.cpp
+        PlayerFragmentArguments.cpp
+        TransactionFragmentArguments.cpp
+        TransactionRequestArguments.cpp
+        WalletFragmentArguments.cpp)

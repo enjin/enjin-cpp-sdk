@@ -1,0 +1,9 @@
+target_sources(enjinsdk_tests
+        PRIVATE
+        GetBalancesTest.cpp
+        GetPlatformTest.cpp
+        GetProjectTest.cpp
+        GetRequestsTest.cpp
+        GetRequestTest.cpp
+        GetTokensTest.cpp
+        GetTokenTest.cpp)

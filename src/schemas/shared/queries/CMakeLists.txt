@@ -1,0 +1,10 @@
+target_sources(${PROJECT_NAME}
+        PRIVATE
+        GetAsset.cpp
+        GetAssets.cpp
+        GetBalances.cpp
+        GetGasPrices.cpp
+        GetPlatform.cpp
+        GetProject.cpp
+        GetRequest.cpp
+        GetRequests.cpp)

@@ -1,0 +1,16 @@
+target_sources(${PROJECT_NAME}
+        PRIVATE
+        CreateAsset.cpp
+        CreatePlayer.cpp
+        DecreaseMaxMeltFee.cpp
+        DecreaseMaxTransferFee.cpp
+        DeletePlayer.cpp
+        InvalidateAssetMetadata.cpp
+        MintAsset.cpp
+        ReleaseReserve.cpp
+        SetMeltFee.cpp
+        SetTransferFee.cpp
+        SetTransferable.cpp
+        SetUri.cpp
+        SetWhitelisted.cpp
+        UnlinkWallet.cpp)

@@ -11,17 +11,11 @@ HttpClientImpl::HttpClientImpl(const std::string& base_uri) : http_client(utilit
         std::stringstream user_agent_ss;
         user_agent_ss << TrustedPlatformHandler::USER_AGENT_PREFIX;
 
-#ifdef ENJINSDK_VERSION_MAJOR
-        user_agent_ss << ENJINSDK_VERSION_MAJOR;
-#ifdef ENJINSDK_VERSION_MINOR
-        user_agent_ss << "." << ENJINSDK_VERSION_MINOR;
-#ifdef ENJINSDK_VERSION_PATCH
-        user_agent_ss << "." << ENJINSDK_VERSION_PATCH;
-#endif // ENJINSDK_VERSION_PATCH
-#endif // ENJINSDK_VERSION_MINOR
+#ifdef ENJINSDK_VERSION
+        user_agent_ss << ENJINSDK_VERSION;
 #else
         user_agent_ss << "?";
-#endif // ENJINSDK_VERSION_MAJOR
+#endif
 
         auto user_agent_value = utility::conversions::to_string_t(user_agent_ss.str());
 
