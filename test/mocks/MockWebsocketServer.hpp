@@ -22,35 +22,6 @@ enum class WebsocketMessageType {
     WEBSOCKET_PONG_TYPE,
 };
 
-class ITestHttpRequest {
-public:
-    virtual ~ITestHttpRequest() = default;
-    virtual const std::string& get_username() = 0;
-    virtual const std::string& get_password() = 0;
-    virtual const std::string& get_header_value(const std::string& header_name) = 0;
-};
-
-typedef std::unique_ptr<ITestHttpRequest> TestHttpRequest;
-
-class TestHttpResponse {
-public:
-    [[nodiscard]] const std::string& get_realm() const;
-
-    [[nodiscard]] unsigned short get_status_code() const;
-
-    void set_realm(const std::string& realm);
-
-    void set_status_code(unsigned short status_code);
-
-public:
-
-private:
-    std::string realm;
-    unsigned short status_code;
-};
-
-typedef std::function<TestHttpResponse __cdecl(TestHttpRequest)> HttpHandler;
-
 class TestWebsocketMessage {
 public:
     [[nodiscard]] const std::vector<unsigned char>& get_data() const;
@@ -74,7 +45,7 @@ public:
 
     ~MockWebsocketServer() = default;
 
-    void next_message(std::function<void(TestWebsocketMessage)> handler);
+    void next_message(const std::function<void(TestWebsocketMessage)>& handler);
 
     MockWebsocketServer& ignore_message_type(WebsocketMessageType type);
 
@@ -82,11 +53,7 @@ public:
 
     void send_message(const TestWebsocketMessage& message);
 
-    void close(int status_code, const std::string& reason);
-
-    [[nodiscard]] const HttpHandler& get_http_handler() const;
-
-    void set_http_handler(const HttpHandler& http_handler);
+    void close(int code, const std::string& reason);
 
     bool is_type_ignored(WebsocketMessageType type);
 
@@ -95,7 +62,6 @@ private:
     std::queue<std::function<void(TestWebsocketMessage)>> message_handlers;
     std::set<WebsocketMessageType> ignored_types;
 
-    HttpHandler http_handler;
     std::shared_ptr<MockWebsocketServerImpl> impl;
 };
 

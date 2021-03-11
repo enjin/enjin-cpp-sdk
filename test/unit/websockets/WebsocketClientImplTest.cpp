@@ -12,7 +12,7 @@ using namespace enjin::test::utils;
 
 class WebsocketClientImplTest : public VerificationTestSuite {
 public:
-    static constexpr char URI[] = "ws://localhost:9980/ws";
+    static constexpr char URI[] = "ws://127.0.0.1:9980/ws";
 
     WebsocketClientImpl class_under_test;
     MockWebsocketServer mock_server;
