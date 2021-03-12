@@ -8,11 +8,11 @@ constexpr char DATA_KEY[] = "data";
 constexpr char ERROR_KEY[] = "error";
 constexpr char ERRORS_KEY[] = "errors";
 
-std::optional<std::vector<GraphqlError>> AbstractGraphqlResponse::get_errors() {
+const std::optional<std::vector<GraphqlError>>& AbstractGraphqlResponse::get_errors() const {
     return errors;
 }
 
-std::optional<enjin::sdk::models::PaginationCursor> AbstractGraphqlResponse::get_cursor() {
+const std::optional<enjin::sdk::models::PaginationCursor>& AbstractGraphqlResponse::get_cursor() const {
     return cursor;
 }
 
