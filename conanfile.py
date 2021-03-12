@@ -39,7 +39,7 @@ class EnjinCPPSDK(ConanFile):
 
     def requirements(self):
         #  if self.options['include_http']:
-        self.requires("cpprestsdk/2.10.16")  # TODO: Make HTTP client optional
+        self.requires("cpprestsdk/2.10.18")  # TODO: Make HTTP client optional
         #  if self.options['include_websocket']:
         self.requires("ixwebsocket/11.0.4")  # TODO: Make websocket client optional
 
