@@ -17,6 +17,10 @@ protected:
                    .ignore_message_type(WebsocketMessageType::WEBSOCKET_PING_TYPE)
                    .ignore_message_type(WebsocketMessageType::WEBSOCKET_PONG_TYPE);
     }
+
+    void TearDown() override {
+        mock_server.close(1000, "Teardown");
+    }
 };
 
 TEST_F(PusherClientReconnectTest, ReceivesGenericClosingCodeDoesReconnectToServer) {

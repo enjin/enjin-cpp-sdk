@@ -1,10 +1,11 @@
 #include "MockWebsocketServer.hpp"
 
+#include "ixwebsocket/IXNetSystem.h"
 #include "ixwebsocket/IXWebSocketServer.h"
 #include <algorithm>
 #include <stdexcept>
 
-#define WEBSOCKET_TEST_SERVER_PORT 9980
+#define WEBSOCKET_TEST_SERVER_PORT 8080
 
 namespace enjin::test::utils {
 
@@ -28,19 +29,23 @@ class MockWebsocketServerImpl {
 public:
     MockWebsocketServerImpl() = delete;
 
-    explicit MockWebsocketServerImpl(MockWebsocketServer* mock_server) : mock_server(mock_server) {
+    explicit MockWebsocketServerImpl(MockWebsocketServer* mock_server)
+            : mock_server(mock_server) {
         connect();
     }
 
     ~MockWebsocketServerImpl() {
         close("Destructor");
-        server.stop();
     }
 
     void connect() {
+#ifdef WIN32
+        ix::initNetSystem();
+#endif
+
         server.setOnClientMessageCallback([this](const std::shared_ptr<ix::ConnectionState>& connection_state,
-                                          ix::WebSocket& ws,
-                                          const ix::WebSocketMessagePtr& msg) {
+                                                 ix::WebSocket& ws,
+                                                 const ix::WebSocketMessagePtr& msg) {
             switch (msg->type) {
                 case ix::WebSocketMessageType::Open:
                     handle_open();
@@ -73,8 +78,8 @@ public:
         std::for_each(clients.begin(),
                       clients.end(),
                       [code, reason](const std::shared_ptr<ix::WebSocket>& c) {
-            c->close(code, reason);
-        });
+                          c->close(code, reason);
+                      });
     }
 
     void send_message(const TestWebsocketMessage& message) {
@@ -86,15 +91,15 @@ public:
                 std::for_each(clients.begin(),
                               clients.end(),
                               [data](const std::shared_ptr<ix::WebSocket>& c) {
-                    c->sendBinary(data);
-                });
+                                  c->sendBinary(data);
+                              });
                 break;
             case WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE:
                 std::for_each(clients.begin(),
                               clients.end(),
                               [data](const std::shared_ptr<ix::WebSocket>& c) {
-                    c->sendText(data);
-                });
+                                  c->sendText(data);
+                              });
                 break;
             case WebsocketMessageType::WEBSOCKET_CLOSE_TYPE:
                 close(data);
@@ -125,6 +130,9 @@ public:
 private:
     MockWebsocketServer* mock_server;
 
+    /* Note: The destructor for ixwebsocket's ix::WebSocketServer causes a double free to take place in its latest
+     * version (v11.0.4) at the time of this note was written.
+     */
     ix::WebSocketServer server = ix::WebSocketServer(WEBSOCKET_TEST_SERVER_PORT);
     std::queue<TestWebsocketMessage> unhandled_message_queue;
 

@@ -1,7 +1,7 @@
 #include "enjinsdk/HttpResponse.hpp"
 
-#include <utility>
 #include "rapidjson/document.h"
+#include <utility>
 
 namespace enjin::sdk::http {
 
@@ -60,29 +60,9 @@ std::optional<std::string> HttpResponse::get_content_type() {
 }
 
 bool HttpResponse::operator==(const HttpResponse& rhs) const {
-    bool eq_code = false;
-    bool eq_body = false;
-    bool eq_content_type = false;
-
-    if (code.has_value() && rhs.code.has_value()) {
-        eq_code = code.value() == rhs.code.value();
-    } else if (!code.has_value() && !rhs.code.has_value()) {
-        eq_code = true;
-    }
-
-    if (body.has_value() && rhs.body.has_value()) {
-        eq_body = body.value() == rhs.body.value();
-    } else if (!body.has_value() && !rhs.body.has_value()) {
-        eq_body = true;
-    }
-
-    if (content_type.has_value() && rhs.content_type.has_value()) {
-        eq_content_type = content_type.value() == rhs.content_type.value();
-    } else if (!content_type.has_value() && !rhs.content_type.has_value()) {
-        eq_content_type = true;
-    }
-
-    return eq_code && eq_body && eq_content_type;
+    return code == rhs.code &&
+           body == rhs.body &&
+           content_type == rhs.content_type;
 }
 
 bool HttpResponse::operator!=(const HttpResponse& rhs) const {
