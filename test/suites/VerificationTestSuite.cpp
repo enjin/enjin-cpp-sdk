@@ -1,6 +1,11 @@
 #include "VerificationTestSuite.hpp"
 
+#include <condition_variable>
+
 namespace enjin::test::utils {
+
+VerificationTestSuite::VerificationTestSuite() : call_counter(0), expected_count(0) {
+}
 
 void VerificationTestSuite::set_expected_call_count(int count) {
     expected_count = count;
