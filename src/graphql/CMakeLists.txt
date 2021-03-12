@@ -6,4 +6,4 @@ target_sources(${PROJECT_NAME}
         GraphqlQueryRegistry.cpp
         GraphqlResponseImpl.cpp
         TemplateConstants.cpp
-        TemplateConstants.hpp)
+        TemplateConstants.hpp) # TODO: Move TemplateConstants.hpp to 'src/include' directory.

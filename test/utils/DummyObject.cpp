@@ -1,4 +1,5 @@
 #include "DummyObject.hpp"
+
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 

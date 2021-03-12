@@ -1,8 +1,7 @@
 #include "gtest/gtest.h" // Load Google-Test first to avoid conflicts with CPP-REST-SDK
-
 #include "HttpClientImpl.hpp"
-#include "../../mocks/MockHttpServer.hpp"
-#include "../../suites/VerificationTestSuite.hpp"
+#include "MockHttpServer.hpp"
+#include "VerificationTestSuite.hpp"
 #include <memory>
 #include <string>
 

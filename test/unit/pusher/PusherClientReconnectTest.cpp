@@ -1,7 +1,5 @@
-#include "gtest/gtest.h"
-#include "enjinsdk/internal/pusher/PusherClient.hpp"
-#include "../../suites/PusherClientTestSuite.hpp"
-#include "../../suites/VerificationTestSuite.hpp"
+#include "PusherClientTestSuite.hpp"
+#include "VerificationTestSuite.hpp"
 #include <chrono>
 #include <string>
 #include <thread>

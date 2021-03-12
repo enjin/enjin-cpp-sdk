@@ -1,5 +1,5 @@
 #include "enjinsdk/GraphqlError.hpp"
-#include "../../suites/JsonTestSuite.hpp"
+#include "JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::graphql;

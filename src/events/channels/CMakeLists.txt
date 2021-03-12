@@ -1,11 +1,6 @@
 target_sources(${PROJECT_NAME}
         PRIVATE
         AssetChannel.cpp
-        AssetChannel.hpp
-        IChannel.hpp
         PlayerChannel.cpp
-        PlayerChannel.hpp
         ProjectChannel.cpp
-        ProjectChannel.hpp
-        WalletChannel.cpp
-        WalletChannel.hpp)
+        WalletChannel.cpp)

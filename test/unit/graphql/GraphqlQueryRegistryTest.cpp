@@ -1,5 +1,4 @@
 #include "enjinsdk/GraphqlQueryRegistry.hpp"
-
 #include "gtest/gtest.h"
 
 using namespace enjin::sdk::graphql;

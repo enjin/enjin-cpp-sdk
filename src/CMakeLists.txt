@@ -1,3 +1,8 @@
+target_include_directories(${PROJECT_NAME}
+        PRIVATE
+        $<INSTALL_INTERFACE:include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>/include)
+
 target_sources(${PROJECT_NAME}
         PRIVATE
         PlayerClient.cpp
@@ -12,14 +17,3 @@ add_subdirectory(pusher)
 add_subdirectory(schemas)
 add_subdirectory(utils)
 add_subdirectory(websockets)
-
-target_include_directories(${PROJECT_NAME}
-        PRIVATE
-        events
-        graphql
-        http
-        models
-        pusher
-        schemas
-        utils
-        websockets)

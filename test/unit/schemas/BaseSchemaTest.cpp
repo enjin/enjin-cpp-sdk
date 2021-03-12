@@ -1,10 +1,11 @@
 #include "gtest/gtest.h" // Load Google-Test first to avoid conflicts with CPP-REST-SDK
 #include "HttpClientImpl.hpp"
+#include "MockHttpServer.hpp"
+#include "DummyObject.hpp"
 #include "enjinsdk/BaseSchema.hpp"
-#include "../../mocks/MockHttpServer.hpp"
-#include "../../utils/DummyObject.hpp"
 #include <memory>
 #include <sstream>
+#include <string>
 #include <utility>
 #include <vector>
 

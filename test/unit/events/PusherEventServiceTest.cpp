@@ -3,12 +3,12 @@
 #include "PlayerChannel.hpp"
 #include "AssetChannel.hpp"
 #include "WalletChannel.hpp"
+#include "MockEventListener.hpp"
+#include "MockWebSocketClientImpl.hpp"
+#include "MockWebsocketServer.hpp"
+#include "VerificationTestSuite.hpp"
 #include "enjinsdk/PusherEventService.hpp"
 #include "enjinsdk/internal/pusher/Constants.hpp"
-#include "../../mocks/MockEventListener.hpp"
-#include "../../mocks/MockWebSocketClientImpl.hpp"
-#include "../../mocks/MockWebsocketServer.hpp"
-#include "../../suites/VerificationTestSuite.hpp"
 #include <algorithm>
 #include <chrono>
 #include <functional>

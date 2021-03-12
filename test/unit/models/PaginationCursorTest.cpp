@@ -1,5 +1,6 @@
+#include "JsonTestSuite.hpp"
 #include "enjinsdk/models/PaginationCursor.hpp"
-#include "../../suites/JsonTestSuite.hpp"
+#include <string>
 
 using namespace enjin::sdk::models;
 
@@ -13,7 +14,7 @@ public:
 
 TEST_F(PaginationCursorTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
     // Arrange
-    const char* json = "";
+    const std::string json;
 
     // Act
     class_under_test.deserialize(json);
@@ -31,7 +32,7 @@ TEST_F(PaginationCursorTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
 
 TEST_F(PaginationCursorTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     // Arrange
-    const char* json = EMPTY_JSON_OBJECT;
+    const std::string json(EMPTY_JSON_OBJECT);
 
     // Act
     class_under_test.deserialize(json);
@@ -51,7 +52,7 @@ TEST_F(PaginationCursorTest, DeserializePopulatedJsonObjectFieldsHaveExpectedVal
     // Arrange
     const int expected_int = 1;
     const bool expected_bool = true;
-    const char* json = POPULATED_JSON_OBJECT;
+    const std::string json(POPULATED_JSON_OBJECT);
 
     // Act
     class_under_test.deserialize(json);
