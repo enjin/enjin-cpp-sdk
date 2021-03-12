@@ -166,9 +166,13 @@ export(EXPORT ${PROJECT_NAME}Targets
         FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Targets.cmake"
         NAMESPACE ${PROJECT_NAME}::)
 
-if (True) # TODO: Check if tests should be enabled.
-    enable_testing()
-    add_subdirectory(test)
+if (${CMAKE_PROJECT_NAME} STREQUAL ${PROJECT_NAME})
+    include(CTest)
+
+    if (${BUILD_TESTING})
+        enable_testing()
+        add_subdirectory(test)
+    endif ()
 endif ()
 
 unset(ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL)
