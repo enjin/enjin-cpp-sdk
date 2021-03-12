@@ -1,6 +1,5 @@
 #include "gtest/gtest.h"
 #include "WebsocketClientImpl.hpp"
-#include "cpprest/ws_client.h"
 #include "../../mocks/MockWebsocketServer.hpp"
 #include "../../suites/VerificationTestSuite.hpp"
 #include <chrono>
@@ -12,7 +11,7 @@ using namespace enjin::test::utils;
 
 class WebsocketClientImplTest : public VerificationTestSuite {
 public:
-    static constexpr char URI[] = "ws://127.0.0.1:9980/ws";
+    static constexpr char URI[] = "ws://127.0.0.1:8080/ws";
 
     WebsocketClientImpl class_under_test;
     MockWebsocketServer mock_server;
@@ -25,6 +24,10 @@ protected:
                    .ignore_message_type(WebsocketMessageType::WEBSOCKET_PONG_TYPE);
         class_under_test.connect(URI);
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    }
+
+    void TearDown() override {
+        mock_server.close(1000, "Teardown");
     }
 };
 

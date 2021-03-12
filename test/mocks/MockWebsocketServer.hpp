@@ -12,6 +12,7 @@
 namespace enjin::test::utils {
 
 enum class WebsocketMessageType {
+    UNKNOWN,
     WEBSOCKET_BINARY_MESSAGE_TYPE,
     WEBSOCKET_BINARY_FRAGMENT_TYPE,
     WEBSOCKET_UTF8_MESSAGE_TYPE,
@@ -24,6 +25,10 @@ enum class WebsocketMessageType {
 
 class TestWebsocketMessage {
 public:
+    TestWebsocketMessage() = default;
+
+    ~TestWebsocketMessage() = default;
+
     [[nodiscard]] const std::vector<unsigned char>& get_data() const;
 
     [[nodiscard]] WebsocketMessageType get_type() const;
@@ -34,7 +39,7 @@ public:
 
 private:
     std::vector<unsigned char> data;
-    WebsocketMessageType type;
+    WebsocketMessageType type = WebsocketMessageType::UNKNOWN;
 };
 
 class MockWebsocketServerImpl;

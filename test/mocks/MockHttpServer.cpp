@@ -6,12 +6,21 @@ enjin::sdk::http::HttpRequest casablanca_to_enjin_request(web::http::http_reques
     return enjin::sdk::http::HttpRequestBuilder()
             .method(utility::conversions::to_utf8string(casablanca_req.method()))
             .path_query_fragment(utility::conversions::to_utf8string(casablanca_req.request_uri().to_string()))
+                    /* Note: A double free takes place in cpprestsdk as a result of extracting the request string in the
+                     * latest version (v2.10.18) at the time of this note was written.
+                     */
             .body(casablanca_req.extract_utf8string().get())
+                    /* Note: A double free takes place in cpprestsdk as a result of getting the content type header of
+                     * the request in the latest version (v2.10.18) at the time of this note was written.
+                     */
             .content_type(utility::conversions::to_utf8string(casablanca_req.headers().content_type()))
             .build();
 }
 
 web::http::http_response enjin_to_casablanca_response(enjin::sdk::http::HttpResponse enjin_res) {
+    /* Note: The destructor for cpprestsdk's web::http::http_response causes a double free to take place in its latest
+     * version (v2.10.18) at the time of this note was written.
+     */
     web::http::http_response casablanca_res;
 
     if (enjin_res.get_code().has_value()) {

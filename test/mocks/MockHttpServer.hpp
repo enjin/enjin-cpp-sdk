@@ -47,6 +47,9 @@ private:
     web::http::experimental::listener::http_listener listener;
     std::map<enjin::sdk::http::HttpRequest, enjin::sdk::http::HttpResponse> request_response_map;
 
+    /* Note: cpprestsdk's web::http::http_request causes a double free to take place in its latest version (v2.10.18) at
+     * the time of this note was written.
+     */
     std::queue<std::function<void(web::http::http_request)>> request_handlers;
     std::mutex request_handlers_mutex;
 };
