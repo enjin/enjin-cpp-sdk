@@ -1,6 +1,6 @@
 #include "RapidJsonUtils.hpp"
+#include "DummyObject.hpp"
 #include "gtest/gtest.h"
-#include "../../utils/DummyObject.hpp"
 #include <sstream>
 #include <string>
 #include <vector>

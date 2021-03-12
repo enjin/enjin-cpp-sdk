@@ -1,10 +1,10 @@
 #ifndef ENJINCPPSDK_PUSHERCLIENTTESTSUITE_HPP
 #define ENJINCPPSDK_PUSHERCLIENTTESTSUITE_HPP
 
+#include "MockWebSocketClientImpl.hpp"
+#include "MockWebsocketServer.hpp"
 #include "enjinsdk/internal/pusher/Constants.hpp"
 #include "enjinsdk/internal/pusher/PusherClient.hpp"
-#include "../mocks/MockWebSocketClientImpl.hpp"
-#include "../mocks/MockWebsocketServer.hpp"
 #include <memory>
 #include <sstream>
 #include <string>

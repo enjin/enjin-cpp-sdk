@@ -1,4 +1,4 @@
-#include "../../utils/DummyObject.hpp"
+#include "DummyObject.hpp"
 #include "enjinsdk/GraphqlResponse.hpp"
 #include "gtest/gtest.h"
 #include <sstream>

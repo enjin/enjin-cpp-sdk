@@ -1,5 +1,4 @@
 #include "StringUtils.hpp"
-
 #include "gtest/gtest.h"
 #include <string>
 

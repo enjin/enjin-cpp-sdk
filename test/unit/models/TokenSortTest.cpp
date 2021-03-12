@@ -1,5 +1,5 @@
+#include "JsonTestSuite.hpp"
 #include "enjinsdk/models/AssetSort.hpp"
-#include "../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::models;
 

@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include "WebsocketClientImpl.hpp"
-#include "../../mocks/MockWebsocketServer.hpp"
-#include "../../suites/VerificationTestSuite.hpp"
+#include "MockWebsocketServer.hpp"
+#include "VerificationTestSuite.hpp"
 #include <chrono>
 #include <string>
 #include <thread>

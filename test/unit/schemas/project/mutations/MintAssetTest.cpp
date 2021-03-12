@@ -1,5 +1,5 @@
+#include "JsonTestSuite.hpp"
 #include "enjinsdk/project/MintAsset.hpp"
-#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 #include <vector>
 

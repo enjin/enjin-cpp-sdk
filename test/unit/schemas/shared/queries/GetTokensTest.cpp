@@ -1,5 +1,5 @@
+#include "JsonTestSuite.hpp"
 #include "enjinsdk/shared/GetAssets.hpp"
-#include "../../../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::shared;

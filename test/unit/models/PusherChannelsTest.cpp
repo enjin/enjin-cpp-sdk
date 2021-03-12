@@ -1,5 +1,5 @@
+#include "JsonTestSuite.hpp"
 #include "enjinsdk/models/PusherChannels.hpp"
-#include "../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;

@@ -1,8 +1,6 @@
-#include "gtest/gtest.h"
-#include "enjinsdk/internal/pusher/PusherClient.hpp"
-#include "../../mocks/MockSubscriptionEventListener.hpp"
-#include "../../suites/PusherClientTestSuite.hpp"
-#include "../../suites/VerificationTestSuite.hpp"
+#include "MockSubscriptionEventListener.hpp"
+#include "PusherClientTestSuite.hpp"
+#include "VerificationTestSuite.hpp"
 #include <chrono>
 #include <exception>
 #include <memory>

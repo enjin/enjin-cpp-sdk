@@ -56,19 +56,10 @@ endif ()
 target_link_libraries(${PROJECT_NAME}_tests PRIVATE ${PROJECT_NAME})
 target_include_directories(${PROJECT_NAME}_tests
         PRIVATE
-        mocks
-        suites
-        utils
         ${PROJECT_BINARY_DIR}
-        ${PROJECT_SOURCE_DIR}/src/events
-        ${PROJECT_SOURCE_DIR}/src/events/channels
-        ${PROJECT_SOURCE_DIR}/src/graphql
-        ${PROJECT_SOURCE_DIR}/src/http
-        ${PROJECT_SOURCE_DIR}/src/models
-        ${PROJECT_SOURCE_DIR}/src/pusher
-        ${PROJECT_SOURCE_DIR}/src/schemas
-        ${PROJECT_SOURCE_DIR}/src/utils
-        ${PROJECT_SOURCE_DIR}/src/websockets)
+        $<INSTALL_INTERFACE:include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>/include
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>/src/include)
 
 add_subdirectory(mocks)
 add_subdirectory(suites)

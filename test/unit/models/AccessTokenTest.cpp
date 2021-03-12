@@ -1,5 +1,5 @@
+#include "JsonTestSuite.hpp"
 #include "enjinsdk/models/AccessToken.hpp"
-#include "../../suites/JsonTestSuite.hpp"
 
 using namespace enjin::sdk::models;
 

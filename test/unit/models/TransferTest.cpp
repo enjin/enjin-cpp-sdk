@@ -1,5 +1,5 @@
+#include "JsonTestSuite.hpp"
 #include "enjinsdk/models/Transfer.hpp"
-#include "../../suites/JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;

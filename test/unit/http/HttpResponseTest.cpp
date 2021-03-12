@@ -1,4 +1,4 @@
-#include "../../utils/DummyObject.hpp"
+#include "DummyObject.hpp"
 #include "gtest/gtest.h"
 #include "enjinsdk/HttpResponse.hpp"
 

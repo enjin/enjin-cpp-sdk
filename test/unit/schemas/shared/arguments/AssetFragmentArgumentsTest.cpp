@@ -1,5 +1,6 @@
+#include "JsonTestSuite.hpp"
 #include "enjinsdk/internal/AssetFragmentArguments.hpp"
-#include "../../../../suites/JsonTestSuite.hpp"
+#include <string>
 
 using namespace enjin::sdk::shared;
 
