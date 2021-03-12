@@ -10,6 +10,8 @@ namespace enjin::test::utils {
 
 class VerificationTestSuite : public testing::Test {
 public:
+    VerificationTestSuite();
+
     void set_expected_call_count(int count);
 
     void increment_call_counter();
@@ -17,8 +19,8 @@ public:
     void verify_call_count(int time = 0) const;
 
 private:
-    std::atomic_int call_counter = 0;
-    int expected_count = 0;
+    std::atomic_int call_counter;
+    int expected_count;
 };
 
 }
