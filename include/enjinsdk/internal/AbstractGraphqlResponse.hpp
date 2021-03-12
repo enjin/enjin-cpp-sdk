@@ -18,11 +18,11 @@ public:
 
     /// \brief Returns the GraphQL errors.
     /// \return Optional for the errors.
-    std::optional<std::vector<GraphqlError>> get_errors();
+    [[nodiscard]] const std::optional<std::vector<GraphqlError>>& get_errors() const;
 
     /// \brief Returns the pagination cursor.
     /// \return Optional for the cursor.
-    std::optional<enjin::sdk::models::PaginationCursor> get_cursor();
+    [[nodiscard]] const std::optional<enjin::sdk::models::PaginationCursor>& get_cursor() const;
 
     /// \brief Determines if the response has errors or not.
     /// \return Whether this response has errors.
