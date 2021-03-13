@@ -93,6 +93,7 @@ function(install_headers_in_rel_path path rel_path)
     endforeach ()
 endfunction()
 
+# Attempt to setup Conan
 if (EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup()
@@ -108,14 +109,15 @@ if (EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 endif ()
 
 add_library(${PROJECT_NAME} SHARED "")
-
 generate_export_header(${PROJECT_NAME})
 
+# Set SDK properties
 set_property(TARGET ${PROJECT_NAME} PROPERTY VERSION ${PROJECT_VERSION})
 set_property(TARGET ${PROJECT_NAME} PROPERTY SOVERSION 2)
 set_property(TARGET ${PROJECT_NAME} PROPERTY INTERFACE_${PROJECT_NAME}_MAJOR_VERSION 2)
 set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY COMPATIBLE_INTERFACE_STRING ${PROJECT_NAME}_MAJOR_VERSION)
 
+# Dependency setup
 if (${ENJINSDK_USING_CONAN})
     target_link_libraries(${PROJECT_NAME} PRIVATE ${CONAN_LIBS})
 else ()
@@ -146,11 +148,10 @@ else ()
     ###### RapidJson client setup end
 endif ()
 
+# Call macros to set preprocessor directives
 set_include_http_client_impl_macro()
 set_include_websocket_client_impl_macro()
 set_version_macro()
-
-generate_export_header(${PROJECT_NAME})
 
 target_include_directories(${PROJECT_NAME}
         PUBLIC
@@ -160,23 +161,21 @@ target_include_directories(${PROJECT_NAME}
 
 add_subdirectory(src)
 
+# Install and export package
 install(FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}_export.h DESTINATION include/${PROJECT_NAME})
 install_headers_in_rel_path("${PROJECT_SOURCE_DIR}" "include")
-
 install(TARGETS ${PROJECT_NAME}
         EXPORT ${PROJECT_NAME}Targets
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib
         RUNTIME DESTINATION bin
         INCLUDES DESTINATION include)
-
 configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
         "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
         INSTALL_DESTINATION share/${PROJECT_NAME})
 write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
         VERSION "${PROJECT_VERSION}"
         COMPATIBILITY SameMajorVersion)
-
 install(FILES
         "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
         "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
@@ -185,6 +184,7 @@ export(EXPORT ${PROJECT_NAME}Targets
         FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Targets.cmake"
         NAMESPACE ${PROJECT_NAME}::)
 
+# Setup tests
 if (${CMAKE_PROJECT_NAME} STREQUAL ${PROJECT_NAME})
     include(CTest)
 
