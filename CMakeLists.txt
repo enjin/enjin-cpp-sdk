@@ -12,6 +12,9 @@ set(ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL 0)
 set(ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL 0)
 set(ENJINSDK_USING_CONAN 0)
 
+option(ENJINSDK_ALLOW_DEFAULT_HTTP "ENJINSDK_ALLOW_DEFAULT_HTTP" OFF)
+option(ENJINSDK_ALLOW_DEFAULT_WEBSOCKET "ENJINSDK_ALLOW_DEFAULT_WEBSOCKET" OFF)
+
 ### Setup output directories start
 message(STATUS "Setting up output directories")
 
@@ -94,6 +97,13 @@ if (EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup()
 
+    if ("cpprestsdk" IN_LIST CONAN_DEPENDENCIES)
+        set(ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL 1)
+    endif ()
+    if ("ixwebsocket" IN_LIST CONAN_DEPENDENCIES)
+        set(ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL 1)
+    endif ()
+
     set(ENJINSDK_USING_CONAN 1)
 endif ()
 
@@ -108,17 +118,16 @@ set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY COMPATIBLE_INTERFACE_STRING 
 
 if (${ENJINSDK_USING_CONAN})
     target_link_libraries(${PROJECT_NAME} PRIVATE ${CONAN_LIBS})
-
-    # TODO: Check if these dependencies were included.
-    set(ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL 1)
-    set(ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL 1)
 else ()
-    include(cmake/enjinsdk_find_cpprestsdk.cmake)
-    include(cmake/enjinsdk_find_ixwebsocket.cmake)
+    if (${ENJINSDK_ALLOW_DEFAULT_HTTP})
+        include(cmake/enjinsdk_find_cpprestsdk.cmake)
+    endif ()
+    if (${ENJINSDK_ALLOW_DEFAULT_WEBSOCKET})
+        include(cmake/enjinsdk_find_ixwebsocket.cmake)
+    endif ()
     include(cmake/enjinsdk_find_rapidjson.cmake)
     include(CheckIncludeFiles)
     include(GNUInstallDirs)
-
 
     ###### HTTP client setup start
     if (${ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL})
@@ -188,3 +197,5 @@ endif ()
 unset(ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL)
 unset(ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL)
 unset(ENJINSDK_USING_CONAN)
+unset(ENJINSDK_ALLOW_DEFAULT_HTTP CACHE)
+unset(ENJINSDK_ALLOW_DEFAULT_WEBSOCKET CACHE)
