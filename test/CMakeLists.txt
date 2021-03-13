@@ -40,11 +40,15 @@ else ()
     ###### GoogleTest setup end
 
     ###### HTTP client setup start
-    target_link_libraries(${PROJECT_NAME}_tests PRIVATE cpprestsdk::cpprest)
+    if (${ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL})
+        target_link_libraries(${PROJECT_NAME}_tests PRIVATE cpprestsdk::cpprest)
+    endif ()
     ###### HTTP client setup end
 
     ###### Websocket client setup start
-    target_link_libraries(${PROJECT_NAME}_tests PRIVATE ixwebsocket::ixwebsocket)
+    if (${ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL})
+        target_link_libraries(${PROJECT_NAME}_tests PRIVATE ixwebsocket::ixwebsocket)
+    endif ()
     ###### Websocket client setup end
 
     ###### RapidJson setup start

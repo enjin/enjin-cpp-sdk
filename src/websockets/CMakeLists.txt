@@ -1,3 +1,5 @@
-target_sources(${PROJECT_NAME}
-        PRIVATE
-        WebsocketClientImpl.cpp)
+if (${ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL})
+    target_sources(${PROJECT_NAME}
+            PRIVATE
+            WebsocketClientImpl.cpp)
+endif ()

@@ -1,6 +1,11 @@
 target_sources(${PROJECT_NAME}
         PRIVATE
-        HttpClientImpl.cpp
         HttpRequest.cpp
         HttpResponse.cpp
         TrustedPlatformHandler.cpp)
+
+if (${ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL})
+    target_sources(${PROJECT_NAME}
+            PRIVATE
+            HttpClientImpl.cpp)
+endif ()
