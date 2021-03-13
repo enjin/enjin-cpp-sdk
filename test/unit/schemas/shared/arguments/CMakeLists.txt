@@ -1,4 +1,4 @@
-target_sources(enjinsdk_tests
+target_sources(${PROJECT_NAME}_tests
         PRIVATE
         AssetFragmentArgumentsTest.cpp
         BalanceFragmentArgumentsTest.cpp

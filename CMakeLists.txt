@@ -60,10 +60,8 @@ macro(set_include_websocket_client_impl_macro)
 
     if (${ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL})
         message(STATUS "Enjin: Built-in websocket client available for event services")
-        set(INCLUDE_WEBSOCKET_CLIENT_IMPL 1)
     else ()
         message(STATUS "Enjin: Built-in websocket client not available for event services")
-        set(INCLUDE_WEBSOCKET_CLIENT_IMPL 0)
     endif ()
 endmacro()
 
@@ -121,10 +119,22 @@ else ()
     include(CheckIncludeFiles)
     include(GNUInstallDirs)
 
-    target_link_libraries(${PROJECT_NAME} PRIVATE
-            cpprestsdk::cpprest
-            ixwebsocket::ixwebsocket)
+
+    ###### HTTP client setup start
+    if (${ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL})
+        target_link_libraries(${PROJECT_NAME} PRIVATE cpprestsdk::cpprest)
+    endif ()
+    ###### HTTP client setup end
+
+    ###### Websocket client setup start
+    if (${ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL})
+        target_link_libraries(${PROJECT_NAME} PRIVATE ixwebsocket::ixwebsocket)
+    endif ()
+    ###### Websocket client setup end
+
+    ###### RapidJson setup start
     target_include_directories(${PROJECT_NAME} PRIVATE ${RAPIDJSON_INCLUDE_DIRS})
+    ###### RapidJson client setup end
 endif ()
 
 set_include_http_client_impl_macro()
