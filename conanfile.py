@@ -13,10 +13,12 @@ class EnjinCPPSDK(ConanFile):
     settings = "os", "compiler", "arch", "build_type"
     generators = "cmake"
     options = {
-        "enable_cpprestsdk": [True, False]
+        "enable_default_http_client": [True, False],
+        "enable_default_ws_client": [True, False],
     }
     default_options = {
-        "enable_cpprestsdk": True
+        "enable_default_http_client": False,
+        "enable_default_ws_client": False,
     }
 
     def build(self):  # Building just the tests
@@ -38,10 +40,10 @@ class EnjinCPPSDK(ConanFile):
         self.copy("*.a", dst="lib", keep_path=False)
 
     def requirements(self):
-        #  if self.options['include_http']:
-        self.requires("cpprestsdk/2.10.18")  # TODO: Make HTTP client optional
-        #  if self.options['include_websocket']:
-        self.requires("ixwebsocket/11.0.4")  # TODO: Make websocket client optional
+        if self.options.enable_default_http_client:
+            self.requires("cpprestsdk/2.10.18")
+        if self.options.enable_default_ws_client:
+            self.requires("ixwebsocket/11.0.4")
 
         self.requires("gtest/1.10.0")  # TODO: Require gtest only when running tests if possible.
         self.requires("rapidjson/1.1.0")
