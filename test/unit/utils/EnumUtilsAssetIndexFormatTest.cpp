@@ -6,10 +6,10 @@
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::utils;
 
-class TokenIndexFormatTest : public testing::TestWithParam<std::tuple<std::string, AssetIndexFormat>> {
+class AssetIndexFormatTest : public testing::TestWithParam<std::tuple<std::string, AssetIndexFormat>> {
 };
 
-TEST_P(TokenIndexFormatTest, SerializeTokenIndexFormatReturnsExpectedString) {
+TEST_P(AssetIndexFormatTest, SerializeAssetIndexFormatReturnsExpectedString) {
     // Arrange
     const std::string& expected = std::get<0>(GetParam());
     AssetIndexFormat value = std::get<1>(GetParam());
@@ -21,7 +21,7 @@ TEST_P(TokenIndexFormatTest, SerializeTokenIndexFormatReturnsExpectedString) {
     ASSERT_EQ(expected, actual);
 }
 
-INSTANTIATE_TEST_SUITE_P(SerializeTokenIndexFormat,
-                         TokenIndexFormatTest,
+INSTANTIATE_TEST_SUITE_P(SerializeAssetIndexFormat,
+                         AssetIndexFormatTest,
                          testing::Values(std::make_tuple("hex64", AssetIndexFormat::HEX64),
                                          std::make_tuple("uint64", AssetIndexFormat::UINT64)));

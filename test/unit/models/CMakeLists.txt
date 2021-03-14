@@ -25,11 +25,11 @@ target_sources(${PROJECT_NAME}_tests
         PusherTest.cpp
         RequestTest.cpp
         SupplyModelsTest.cpp
-        TokenConfigDataTest.cpp
-        TokenFilterTest.cpp
-        TokenSortTest.cpp
-        TokenStateDataTest.cpp
-        TokenTest.cpp
+        AssetConfigDataTest.cpp
+        AssetFilterTest.cpp
+        AssetSortTest.cpp
+        AssetStateDataTest.cpp
+        AssetTest.cpp
         TradeTest.cpp
         TransactionEventTest.cpp
         TransactionFilterTest.cpp

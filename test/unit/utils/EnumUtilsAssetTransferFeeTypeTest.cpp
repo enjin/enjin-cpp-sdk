@@ -6,10 +6,10 @@
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::utils;
 
-class TokenTransferFeeTypeTest : public testing::TestWithParam<std::tuple<std::string, AssetTransferFeeType>> {
+class AssetTransferFeeTypeTest : public testing::TestWithParam<std::tuple<std::string, AssetTransferFeeType>> {
 };
 
-TEST_P(TokenTransferFeeTypeTest, DeserializeTokenTransferFeeTypeReturnsExpectedValue) {
+TEST_P(AssetTransferFeeTypeTest, DeserializeAssetTransferFeeTypeReturnsExpectedValue) {
     // Arrange
     AssetTransferFeeType expected = std::get<1>(GetParam());
     const std::string& str = std::get<0>(GetParam());
@@ -21,7 +21,7 @@ TEST_P(TokenTransferFeeTypeTest, DeserializeTokenTransferFeeTypeReturnsExpectedV
     ASSERT_EQ(expected, actual);
 }
 
-TEST_P(TokenTransferFeeTypeTest, SerializeTokenTransferFeeTypeReturnsExpectedString) {
+TEST_P(AssetTransferFeeTypeTest, SerializeAssetTransferFeeTypeReturnsExpectedString) {
     // Arrange
     const std::string& expected = std::get<0>(GetParam());
     AssetTransferFeeType value = std::get<1>(GetParam());
@@ -33,8 +33,8 @@ TEST_P(TokenTransferFeeTypeTest, SerializeTokenTransferFeeTypeReturnsExpectedStr
     ASSERT_EQ(expected, actual);
 }
 
-INSTANTIATE_TEST_SUITE_P(SerializableTokenTransferFeeType,
-                         TokenTransferFeeTypeTest,
+INSTANTIATE_TEST_SUITE_P(SerializableAssetTransferFeeType,
+                         AssetTransferFeeTypeTest,
                          testing::Values(std::make_tuple("UNKNOWN", AssetTransferFeeType::UNKNOWN),
                                          std::make_tuple("NONE", AssetTransferFeeType::NONE),
                                          std::make_tuple("PER_TRANSFER", AssetTransferFeeType::PER_TRANSFER),

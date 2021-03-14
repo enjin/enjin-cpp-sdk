@@ -3,7 +3,7 @@
 
 using namespace enjin::sdk::models;
 
-class TokenSortTest : public JsonTestSuite {
+class AssetSortTest : public JsonTestSuite {
 public:
     AssetSort class_under_test;
 
@@ -16,7 +16,7 @@ public:
     }
 };
 
-TEST_F(TokenSortTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
+TEST_F(AssetSortTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EMPTY_JSON_OBJECT);
 
@@ -27,7 +27,7 @@ TEST_F(TokenSortTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(TokenSortTest, SerializeSetFieldsReturnsExpectedJsonObject) {
+TEST_F(AssetSortTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_field(AssetField::ID)
@@ -40,7 +40,7 @@ TEST_F(TokenSortTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(TokenSortTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(AssetSortTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
     AssetSort lhs;
     AssetSort rhs;
@@ -52,7 +52,7 @@ TEST_F(TokenSortTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(TokenSortTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(AssetSortTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
     AssetSort lhs = create_default_sort();
     AssetSort rhs = create_default_sort();
@@ -64,7 +64,7 @@ TEST_F(TokenSortTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(TokenSortTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(AssetSortTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
     AssetSort lhs = create_default_sort();
     AssetSort rhs;
@@ -76,7 +76,7 @@ TEST_F(TokenSortTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(TokenSortTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(AssetSortTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
     AssetSort lhs;
     AssetSort rhs = create_default_sort();

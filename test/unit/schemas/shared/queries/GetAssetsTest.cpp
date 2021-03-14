@@ -4,7 +4,7 @@
 
 using namespace enjin::sdk::shared;
 
-class GetTokensTest : public JsonTestSuite {
+class GetAssetsTest : public JsonTestSuite {
 public:
     GetAssets class_under_test;
 
@@ -17,7 +17,7 @@ public:
     }
 };
 
-TEST_F(GetTokensTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
+TEST_F(GetAssetsTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EMPTY_JSON_OBJECT);
 
@@ -28,7 +28,7 @@ TEST_F(GetTokensTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(GetTokensTest, SerializeSetFieldsReturnsExpectedJsonObject) {
+TEST_F(GetAssetsTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_filter(enjin::sdk::models::AssetFilter())
@@ -41,7 +41,7 @@ TEST_F(GetTokensTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(GetTokensTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(GetAssetsTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
     GetAssets lhs;
     GetAssets rhs;
@@ -53,7 +53,7 @@ TEST_F(GetTokensTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(GetTokensTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(GetAssetsTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
     GetAssets lhs = create_default_request();
     GetAssets rhs = create_default_request();
@@ -65,7 +65,7 @@ TEST_F(GetTokensTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(GetTokensTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(GetAssetsTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
     GetAssets lhs = create_default_request();
     GetAssets rhs;
@@ -77,7 +77,7 @@ TEST_F(GetTokensTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(GetTokensTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(GetAssetsTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
     GetAssets lhs;
     GetAssets rhs = create_default_request();

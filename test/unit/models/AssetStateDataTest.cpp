@@ -3,7 +3,7 @@
 
 using namespace enjin::sdk::models;
 
-class TokenStateDataTest : public JsonTestSuite {
+class AssetStateDataTest : public JsonTestSuite {
 public:
     AssetStateData class_under_test;
 
@@ -11,7 +11,7 @@ public:
             R"({"nonFungible":true,"blockHeight":1,"creator":"1","firstBlock":1,"reserve":"1","supplyModel":"FIXED","circulatingSupply":"1","mintableSupply":"1","totalSupply":"1"})";
 };
 
-TEST_F(TokenStateDataTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
+TEST_F(AssetStateDataTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
     // Arrange
     const std::string json;
 
@@ -30,7 +30,7 @@ TEST_F(TokenStateDataTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
     EXPECT_FALSE(class_under_test.get_total_supply().has_value());
 }
 
-TEST_F(TokenStateDataTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
+TEST_F(AssetStateDataTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     // Arrange
     const std::string json(EMPTY_JSON_OBJECT);
 
@@ -49,7 +49,7 @@ TEST_F(TokenStateDataTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     EXPECT_FALSE(class_under_test.get_total_supply().has_value());
 }
 
-TEST_F(TokenStateDataTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
+TEST_F(AssetStateDataTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
     // Arrange
     const bool expected_bool = true;
     const int expected_int = 1;
@@ -72,7 +72,7 @@ TEST_F(TokenStateDataTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValue
     EXPECT_EQ(expected_string, class_under_test.get_total_supply().value());
 }
 
-TEST_F(TokenStateDataTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(AssetStateDataTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
     AssetStateData lhs;
     AssetStateData rhs;
@@ -84,7 +84,7 @@ TEST_F(TokenStateDataTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(TokenStateDataTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(AssetStateDataTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
     AssetStateData lhs;
     AssetStateData rhs;
@@ -98,7 +98,7 @@ TEST_F(TokenStateDataTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(TokenStateDataTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(AssetStateDataTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
     AssetStateData lhs;
     AssetStateData rhs;
@@ -111,7 +111,7 @@ TEST_F(TokenStateDataTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(TokenStateDataTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(AssetStateDataTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
     AssetStateData lhs;
     AssetStateData rhs;

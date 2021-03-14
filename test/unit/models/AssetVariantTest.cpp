@@ -46,7 +46,7 @@ TEST_F(AssetVariantTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
 TEST_F(AssetVariantTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
     // Arrange
     const int expected_id = 1;
-    const std::string expected_token_id("1");
+    const std::string expected_asset_id("1");
     const std::string expected_variant_metadata("{}");
     const int expected_usage_count = 1;
     const std::string expected_created_at("1");
@@ -58,7 +58,7 @@ TEST_F(AssetVariantTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues)
 
     // Assert
     EXPECT_EQ(expected_id, class_under_test.get_id().value());
-    EXPECT_EQ(expected_token_id, class_under_test.get_asset_id().value());
+    EXPECT_EQ(expected_asset_id, class_under_test.get_asset_id().value());
     EXPECT_EQ(expected_variant_metadata, class_under_test.get_variant_metadata().value());
     EXPECT_EQ(expected_usage_count, class_under_test.get_usage_count().value());
     EXPECT_EQ(expected_created_at, class_under_test.get_created_at().value());

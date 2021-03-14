@@ -5,7 +5,7 @@
 
 using namespace enjin::sdk::models;
 
-class TokenFilterTest : public JsonTestSuite {
+class AssetFilterTest : public JsonTestSuite {
 public:
     AssetFilter class_under_test;
 
@@ -27,7 +27,7 @@ public:
     }
 };
 
-TEST_F(TokenFilterTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
+TEST_F(AssetFilterTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EMPTY_JSON_OBJECT);
 
@@ -38,7 +38,7 @@ TEST_F(TokenFilterTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(TokenFilterTest, SerializeSetFieldsReturnsExpectedJsonObject) {
+TEST_F(AssetFilterTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_and(std::vector<AssetFilter>())
@@ -60,7 +60,7 @@ TEST_F(TokenFilterTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(TokenFilterTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(AssetFilterTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
     AssetFilter lhs;
     AssetFilter rhs;
@@ -72,7 +72,7 @@ TEST_F(TokenFilterTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(TokenFilterTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(AssetFilterTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
     AssetFilter lhs = create_default_filter();
     AssetFilter rhs = create_default_filter();
@@ -84,7 +84,7 @@ TEST_F(TokenFilterTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(TokenFilterTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(AssetFilterTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
     AssetFilter lhs = create_default_filter();
     AssetFilter rhs;
@@ -96,7 +96,7 @@ TEST_F(TokenFilterTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(TokenFilterTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(AssetFilterTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
     AssetFilter lhs;
     AssetFilter rhs = create_default_filter();

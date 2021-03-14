@@ -4,7 +4,7 @@
 
 using namespace enjin::sdk::project;
 
-class InvalidateTokenMetadataTest : public JsonTestSuite {
+class InvalidateAssetMetadataTest : public JsonTestSuite {
 public:
     InvalidateAssetMetadata class_under_test;
 
@@ -16,7 +16,7 @@ public:
     }
 };
 
-TEST_F(InvalidateTokenMetadataTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
+TEST_F(InvalidateAssetMetadataTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EMPTY_JSON_OBJECT);
 
@@ -27,7 +27,7 @@ TEST_F(InvalidateTokenMetadataTest, SerializeNoSetFieldsReturnsEmptyJsonObject) 
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(InvalidateTokenMetadataTest, SerializeSetFieldsReturnsExpectedJsonObject) {
+TEST_F(InvalidateAssetMetadataTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_id("1");
@@ -39,7 +39,7 @@ TEST_F(InvalidateTokenMetadataTest, SerializeSetFieldsReturnsExpectedJsonObject)
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(InvalidateTokenMetadataTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(InvalidateAssetMetadataTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
     InvalidateAssetMetadata lhs;
     InvalidateAssetMetadata rhs;
@@ -51,7 +51,7 @@ TEST_F(InvalidateTokenMetadataTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(InvalidateTokenMetadataTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(InvalidateAssetMetadataTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
     InvalidateAssetMetadata lhs = create_default_request();
     InvalidateAssetMetadata rhs = create_default_request();
@@ -63,7 +63,7 @@ TEST_F(InvalidateTokenMetadataTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(InvalidateTokenMetadataTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(InvalidateAssetMetadataTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
     InvalidateAssetMetadata lhs = create_default_request();
     InvalidateAssetMetadata rhs;
@@ -75,7 +75,7 @@ TEST_F(InvalidateTokenMetadataTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(InvalidateTokenMetadataTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(InvalidateAssetMetadataTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
     InvalidateAssetMetadata lhs;
     InvalidateAssetMetadata rhs = create_default_request();

@@ -6,10 +6,10 @@
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::utils;
 
-class TokenTransferableTest : public testing::TestWithParam<std::tuple<std::string, AssetTransferable>> {
+class AssetTransferableTest : public testing::TestWithParam<std::tuple<std::string, AssetTransferable>> {
 };
 
-TEST_P(TokenTransferableTest, DeserializeTokenTransferableReturnsExpectedValue) {
+TEST_P(AssetTransferableTest, DeserializeAssetTransferableReturnsExpectedValue) {
     // Arrange
     AssetTransferable expected = std::get<1>(GetParam());
     const std::string& str = std::get<0>(GetParam());
@@ -21,7 +21,7 @@ TEST_P(TokenTransferableTest, DeserializeTokenTransferableReturnsExpectedValue) 
     ASSERT_EQ(expected, actual);
 }
 
-TEST_P(TokenTransferableTest, SerializeTokenTransferableReturnsExpectedString) {
+TEST_P(AssetTransferableTest, SerializeAssetTransferableReturnsExpectedString) {
     // Arrange
     const std::string& expected = std::get<0>(GetParam());
     AssetTransferable value = std::get<1>(GetParam());
@@ -33,8 +33,8 @@ TEST_P(TokenTransferableTest, SerializeTokenTransferableReturnsExpectedString) {
     ASSERT_EQ(expected, actual);
 }
 
-INSTANTIATE_TEST_SUITE_P(SerializableTokenTransferable,
-                         TokenTransferableTest,
+INSTANTIATE_TEST_SUITE_P(SerializableAssetTransferable,
+                         AssetTransferableTest,
                          testing::Values(std::make_tuple("UNKNOWN", AssetTransferable::UNKNOWN),
                                          std::make_tuple("PERMANENT", AssetTransferable::PERMANENT),
                                          std::make_tuple("TEMPORARY", AssetTransferable::TEMPORARY),

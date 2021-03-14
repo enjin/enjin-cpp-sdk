@@ -4,13 +4,13 @@ target_sources(${PROJECT_NAME}_tests
         EnumUtilsRequestStateTest.cpp
         EnumUtilsRequestTypeTest.cpp
         EnumUtilsSortDirectionTest.cpp
-        EnumUtilsTokenFieldTest.cpp
-        EnumUtilsTokenIdFormatTest.cpp
-        EnumUtilsTokenIndexFormatTest.cpp
-        EnumUtilsTokenSupplyModelTest.cpp
-        EnumUtilsTokenTransferableTest.cpp
-        EnumUtilsTokenTransferFeeTypeTest.cpp
-        EnumUtilsTokenVariantModeTest.cpp
+        EnumUtilsAssetFieldTest.cpp
+        EnumUtilsAssetIdFormatTest.cpp
+        EnumUtilsAssetIndexFormatTest.cpp
+        EnumUtilsAssetSupplyModelTest.cpp
+        EnumUtilsAssetTransferableTest.cpp
+        EnumUtilsAssetTransferFeeTypeTest.cpp
+        EnumUtilsAssetVariantModeTest.cpp
         EnumUtilsTransactionFieldTest.cpp
         EnumUtilsWhitelistedTest.cpp
         RapidJsonUtilsTest.cpp

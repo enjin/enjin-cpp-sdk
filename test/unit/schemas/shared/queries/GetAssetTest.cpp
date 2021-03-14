@@ -4,7 +4,7 @@
 
 using namespace enjin::sdk::shared;
 
-class GetTokenTest : public JsonTestSuite {
+class GetAssetTest : public JsonTestSuite {
 public:
     GetAsset class_under_test;
 
@@ -16,7 +16,7 @@ public:
     }
 };
 
-TEST_F(GetTokenTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
+TEST_F(GetAssetTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EMPTY_JSON_OBJECT);
 
@@ -27,7 +27,7 @@ TEST_F(GetTokenTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(GetTokenTest, SerializeSetFieldsReturnsExpectedJsonObject) {
+TEST_F(GetAssetTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_id("1");
@@ -39,7 +39,7 @@ TEST_F(GetTokenTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(GetTokenTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(GetAssetTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
     GetAsset lhs;
     GetAsset rhs;
@@ -51,7 +51,7 @@ TEST_F(GetTokenTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(GetTokenTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(GetAssetTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
     GetAsset lhs = create_default_request();
     GetAsset rhs = create_default_request();
@@ -63,7 +63,7 @@ TEST_F(GetTokenTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(GetTokenTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(GetAssetTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
     GetAsset lhs = create_default_request();
     GetAsset rhs;
@@ -75,7 +75,7 @@ TEST_F(GetTokenTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(GetTokenTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(GetAssetTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
     GetAsset lhs;
     GetAsset rhs = create_default_request();

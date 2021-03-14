@@ -5,7 +5,7 @@
 
 using namespace enjin::sdk::shared;
 
-class MeltTokenTest : public JsonTestSuite {
+class MeltAssetTest : public JsonTestSuite {
 public:
     MeltAsset class_under_test;
 
@@ -17,7 +17,7 @@ public:
     }
 };
 
-TEST_F(MeltTokenTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
+TEST_F(MeltAssetTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EMPTY_JSON_OBJECT);
 
@@ -28,7 +28,7 @@ TEST_F(MeltTokenTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(MeltTokenTest, SerializeSetFieldsReturnsExpectedJsonObject) {
+TEST_F(MeltAssetTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_melts(std::vector<enjin::sdk::models::Melt>());
@@ -40,7 +40,7 @@ TEST_F(MeltTokenTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(MeltTokenTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(MeltAssetTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
     MeltAsset lhs;
     MeltAsset rhs;
@@ -52,7 +52,7 @@ TEST_F(MeltTokenTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(MeltTokenTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(MeltAssetTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
     MeltAsset lhs = create_default_request();
     MeltAsset rhs = create_default_request();
@@ -64,7 +64,7 @@ TEST_F(MeltTokenTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(MeltTokenTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(MeltAssetTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
     MeltAsset lhs = create_default_request();
     MeltAsset rhs;
@@ -76,7 +76,7 @@ TEST_F(MeltTokenTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(MeltTokenTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(MeltAssetTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
     MeltAsset lhs;
     MeltAsset rhs = create_default_request();
