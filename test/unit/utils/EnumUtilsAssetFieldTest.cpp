@@ -6,10 +6,10 @@
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::utils;
 
-class TokenFieldTest : public testing::TestWithParam<std::tuple<std::string, AssetField>> {
+class AssetFieldTest : public testing::TestWithParam<std::tuple<std::string, AssetField>> {
 };
 
-TEST_P(TokenFieldTest, SerializeTokenFieldReturnsExpectedString) {
+TEST_P(AssetFieldTest, SerializeAssetFieldReturnsExpectedString) {
     // Arrange
     const std::string& expected = std::get<0>(GetParam());
     AssetField value = std::get<1>(GetParam());
@@ -21,8 +21,8 @@ TEST_P(TokenFieldTest, SerializeTokenFieldReturnsExpectedString) {
     ASSERT_EQ(expected, actual);
 }
 
-INSTANTIATE_TEST_SUITE_P(SerializeTokenField,
-                         TokenFieldTest,
+INSTANTIATE_TEST_SUITE_P(SerializeAssetField,
+                         AssetFieldTest,
                          testing::Values(std::make_tuple("id", AssetField::ID),
                                          std::make_tuple("name", AssetField::NAME),
                                          std::make_tuple("circulatingSupply", AssetField::CIRCULATING_SUPPLY),

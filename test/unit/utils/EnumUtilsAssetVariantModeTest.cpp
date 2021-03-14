@@ -6,10 +6,10 @@
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::utils;
 
-class TokenVariantModeTest : public testing::TestWithParam<std::tuple<std::string, AssetVariantMode>> {
+class AssetVariantModeTest : public testing::TestWithParam<std::tuple<std::string, AssetVariantMode>> {
 };
 
-TEST_P(TokenVariantModeTest, DeserializeTokenVariantModeReturnsExpectedValue) {
+TEST_P(AssetVariantModeTest, DeserializeAssetVariantModeReturnsExpectedValue) {
     // Arrange
     AssetVariantMode expected = std::get<1>(GetParam());
     const std::string& str = std::get<0>(GetParam());
@@ -21,7 +21,7 @@ TEST_P(TokenVariantModeTest, DeserializeTokenVariantModeReturnsExpectedValue) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_P(TokenVariantModeTest, SerializeTokenVariantModeReturnsExpectedString) {
+TEST_P(AssetVariantModeTest, SerializeAssetVariantModeReturnsExpectedString) {
     // Arrange
     const std::string& expected = std::get<0>(GetParam());
     AssetVariantMode value = std::get<1>(GetParam());
@@ -33,8 +33,8 @@ TEST_P(TokenVariantModeTest, SerializeTokenVariantModeReturnsExpectedString) {
     ASSERT_EQ(expected, actual);
 }
 
-INSTANTIATE_TEST_SUITE_P(SerializableTokenVariantMode,
-                         TokenVariantModeTest,
+INSTANTIATE_TEST_SUITE_P(SerializableAssetVariantMode,
+                         AssetVariantModeTest,
                          testing::Values(std::make_tuple("UNKNOWN", AssetVariantMode::UNKNOWN),
                                          std::make_tuple("NONE", AssetVariantMode::NONE),
                                          std::make_tuple("BEAM", AssetVariantMode::BEAM),

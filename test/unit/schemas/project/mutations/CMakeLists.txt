@@ -1,11 +1,11 @@
 target_sources(${PROJECT_NAME}_tests
         PRIVATE
         CreatePlayerTest.cpp
-        CreateTokenTest.cpp
+        CreateAssetTest.cpp
         DecreaseMaxMeltFeeTest.cpp
         DecreaseMaxTransferFeeTest.cpp
         DeletePlayerTest.cpp
-        InvalidateTokenMetadataTest.cpp
+        InvalidateAssetMetadataTest.cpp
         MintAssetTest.cpp
         ReleaseReserveTest.cpp
         SetMeltFeeTest.cpp

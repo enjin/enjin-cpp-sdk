@@ -4,7 +4,7 @@
 
 using namespace enjin::sdk::project;
 
-class CreateTokenTest : public JsonTestSuite {
+class CreateAssetTest : public JsonTestSuite {
 public:
     CreateAsset class_under_test;
 
@@ -24,7 +24,7 @@ public:
     }
 };
 
-TEST_F(CreateTokenTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
+TEST_F(CreateAssetTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EMPTY_JSON_OBJECT);
 
@@ -35,7 +35,7 @@ TEST_F(CreateTokenTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(CreateTokenTest, SerializeSetFieldsReturnsExpectedJsonObject) {
+TEST_F(CreateAssetTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_name("1")
@@ -55,7 +55,7 @@ TEST_F(CreateTokenTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(CreateTokenTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(CreateAssetTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
     CreateAsset lhs;
     CreateAsset rhs;
@@ -67,7 +67,7 @@ TEST_F(CreateTokenTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(CreateTokenTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(CreateAssetTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
     CreateAsset lhs = create_default_request();
     CreateAsset rhs = create_default_request();
@@ -79,7 +79,7 @@ TEST_F(CreateTokenTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(CreateTokenTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(CreateAssetTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
     CreateAsset lhs = create_default_request();
     CreateAsset rhs;
@@ -91,7 +91,7 @@ TEST_F(CreateTokenTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(CreateTokenTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(CreateAssetTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
     CreateAsset lhs;
     CreateAsset rhs = create_default_request();

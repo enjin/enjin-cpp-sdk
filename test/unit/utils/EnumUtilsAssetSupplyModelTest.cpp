@@ -6,10 +6,10 @@
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::utils;
 
-class TokenSupplyModelTest : public testing::TestWithParam<std::tuple<std::string, AssetSupplyModel>> {
+class AssetSupplyModelTest : public testing::TestWithParam<std::tuple<std::string, AssetSupplyModel>> {
 };
 
-TEST_P(TokenSupplyModelTest, DeserializeTokenSupplyModelReturnsExpectedValue) {
+TEST_P(AssetSupplyModelTest, DeserializeAssetSupplyModelReturnsExpectedValue) {
     // Arrange
     AssetSupplyModel expected = std::get<1>(GetParam());
     const std::string& str = std::get<0>(GetParam());
@@ -21,7 +21,7 @@ TEST_P(TokenSupplyModelTest, DeserializeTokenSupplyModelReturnsExpectedValue) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_P(TokenSupplyModelTest, SerializeTokenSupplyModelReturnsExpectedString) {
+TEST_P(AssetSupplyModelTest, SerializeAssetSupplyModelReturnsExpectedString) {
     // Arrange
     const std::string& expected = std::get<0>(GetParam());
     AssetSupplyModel value = std::get<1>(GetParam());
@@ -33,8 +33,8 @@ TEST_P(TokenSupplyModelTest, SerializeTokenSupplyModelReturnsExpectedString) {
     ASSERT_EQ(expected, actual);
 }
 
-INSTANTIATE_TEST_SUITE_P(SerializableTokenSupplyModel,
-                         TokenSupplyModelTest,
+INSTANTIATE_TEST_SUITE_P(SerializableAssetSupplyModel,
+                         AssetSupplyModelTest,
                          testing::Values(std::make_tuple("UNKNOWN", AssetSupplyModel::UNKNOWN),
                                          std::make_tuple("FIXED", AssetSupplyModel::FIXED),
                                          std::make_tuple("SETTABLE", AssetSupplyModel::SETTABLE),

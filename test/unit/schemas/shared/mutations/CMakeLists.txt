@@ -1,11 +1,11 @@
 target_sources(${PROJECT_NAME}_tests
         PRIVATE
-        AdvancedSendTokenTest.cpp
+        AdvancedSendAssetTest.cpp
         ApproveEnjTest.cpp
         CancelTransactionTest.cpp
         CompleteTradeTest.cpp
         CreateTradeTest.cpp
-        MeltTokenTest.cpp
+        MeltAssetTest.cpp
         MessageTest.cpp
         SendAssetTest.cpp
         SendEnjTest.cpp

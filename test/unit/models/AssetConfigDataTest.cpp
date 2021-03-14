@@ -3,7 +3,7 @@
 
 using namespace enjin::sdk::models;
 
-class TokenConfigDataTest : public JsonTestSuite {
+class AssetConfigDataTest : public JsonTestSuite {
 public:
     AssetConfigData class_under_test;
 
@@ -11,7 +11,7 @@ public:
             R"({"meltFeeRatio":1,"meltFeeMaxRatio":1,"meltValue":"1","metadataURI":"1","transferable":"PERMANENT","transferFeeSettings":{}})";
 };
 
-TEST_F(TokenConfigDataTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
+TEST_F(AssetConfigDataTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
     // Arrange
     const std::string json;
 
@@ -27,7 +27,7 @@ TEST_F(TokenConfigDataTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
     EXPECT_FALSE(class_under_test.get_transfer_fee_settings().has_value());
 }
 
-TEST_F(TokenConfigDataTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
+TEST_F(AssetConfigDataTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     // Arrange
     const std::string json(EMPTY_JSON_OBJECT);
 
@@ -43,7 +43,7 @@ TEST_F(TokenConfigDataTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     EXPECT_FALSE(class_under_test.get_transfer_fee_settings().has_value());
 }
 
-TEST_F(TokenConfigDataTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
+TEST_F(AssetConfigDataTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
     // Arrange
     const int expected_int = 1;
     const std::string expected_string("1");
@@ -63,7 +63,7 @@ TEST_F(TokenConfigDataTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValu
     EXPECT_EQ(expected_transfer_fee_settings, class_under_test.get_transfer_fee_settings().value());
 }
 
-TEST_F(TokenConfigDataTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(AssetConfigDataTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
     AssetConfigData lhs;
     AssetConfigData rhs;
@@ -75,7 +75,7 @@ TEST_F(TokenConfigDataTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(TokenConfigDataTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(AssetConfigDataTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
     AssetConfigData lhs;
     AssetConfigData rhs;
@@ -89,7 +89,7 @@ TEST_F(TokenConfigDataTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(TokenConfigDataTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(AssetConfigDataTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
     AssetConfigData lhs;
     AssetConfigData rhs;
@@ -102,7 +102,7 @@ TEST_F(TokenConfigDataTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(TokenConfigDataTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(AssetConfigDataTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
     AssetConfigData lhs;
     AssetConfigData rhs;

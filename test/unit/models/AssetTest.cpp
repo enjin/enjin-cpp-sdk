@@ -3,7 +3,7 @@
 
 using namespace enjin::sdk::models;
 
-class TokenTest : public JsonTestSuite {
+class AssetTest : public JsonTestSuite {
 public:
     Asset class_under_test;
 
@@ -11,7 +11,7 @@ public:
             R"({"id":"1","name":"1","stateData":{},"configData":{},"variantMode":"NONE","variants":[{}, {}, {}],"createdAt":"1","updatedAt":"1"})";
 };
 
-TEST_F(TokenTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
+TEST_F(AssetTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
     // Arrange
     const std::string json;
 
@@ -29,7 +29,7 @@ TEST_F(TokenTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
     EXPECT_FALSE(class_under_test.get_updated_at().has_value());
 }
 
-TEST_F(TokenTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
+TEST_F(AssetTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     // Arrange
     const std::string json(EMPTY_JSON_OBJECT);
 
@@ -47,7 +47,7 @@ TEST_F(TokenTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     EXPECT_FALSE(class_under_test.get_updated_at().has_value());
 }
 
-TEST_F(TokenTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
+TEST_F(AssetTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
     // Arrange
     const std::string expected_string("1");
     const AssetStateData expected_state_data;
@@ -70,7 +70,7 @@ TEST_F(TokenTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
     EXPECT_EQ(expected_string, class_under_test.get_updated_at().value());
 }
 
-TEST_F(TokenTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(AssetTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
     Asset lhs;
     Asset rhs;
@@ -82,7 +82,7 @@ TEST_F(TokenTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(TokenTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(AssetTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
     Asset lhs;
     Asset rhs;
@@ -96,7 +96,7 @@ TEST_F(TokenTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(TokenTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(AssetTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
     Asset lhs;
     Asset rhs;
@@ -109,7 +109,7 @@ TEST_F(TokenTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(TokenTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(AssetTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
     Asset lhs;
     Asset rhs;

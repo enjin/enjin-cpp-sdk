@@ -5,5 +5,5 @@ target_sources(${PROJECT_NAME}_tests
         GetProjectTest.cpp
         GetRequestsTest.cpp
         GetRequestTest.cpp
-        GetTokensTest.cpp
-        GetTokenTest.cpp)
+        GetAssetsTest.cpp
+        GetAssetTest.cpp)
