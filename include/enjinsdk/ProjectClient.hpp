@@ -23,7 +23,7 @@ public:
     ~ProjectClientBuilder() = default;
 
     /// \brief Builds the client.
-    /// \return The clients.
+    /// \return The client.
     ProjectClient build();
 
     /// \brief Sets the base URI of the underlying HTTP client if one is not provided.

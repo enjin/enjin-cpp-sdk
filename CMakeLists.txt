@@ -121,31 +121,38 @@ set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY COMPATIBLE_INTERFACE_STRING 
 if (${ENJINSDK_USING_CONAN})
     target_link_libraries(${PROJECT_NAME} PRIVATE ${CONAN_LIBS})
 else ()
+    include(CheckIncludeFiles)
+    include(GNUInstallDirs)
+
     if (${ENJINSDK_ALLOW_DEFAULT_HTTP})
         include(cmake/enjinsdk_find_cpprestsdk.cmake)
     endif ()
     if (${ENJINSDK_ALLOW_DEFAULT_WEBSOCKET})
         include(cmake/enjinsdk_find_ixwebsocket.cmake)
     endif ()
-    include(cmake/enjinsdk_find_rapidjson.cmake)
-    include(CheckIncludeFiles)
-    include(GNUInstallDirs)
 
-    ###### HTTP client setup start
+    include(cmake/enjinsdk_find_rapidjson.cmake)
+    include(cmake/enjinsdk_find_spdlog.cmake)
+
+    ###### HTTP client setup
     if (${ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL})
         target_link_libraries(${PROJECT_NAME} PRIVATE cpprestsdk::cpprest)
     endif ()
-    ###### HTTP client setup end
+    ######
 
-    ###### Websocket client setup start
+    ###### Websocket client setup
     if (${ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL})
         target_link_libraries(${PROJECT_NAME} PRIVATE ixwebsocket::ixwebsocket)
     endif ()
-    ###### Websocket client setup end
+    ######
 
-    ###### RapidJson setup start
+    ###### RapidJson setup
     target_include_directories(${PROJECT_NAME} PRIVATE ${RAPIDJSON_INCLUDE_DIRS})
-    ###### RapidJson client setup end
+    ######
+
+    ###### SpdLog setup
+    target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog_header_only)
+    ######
 endif ()
 
 # Call macros to set preprocessor directives
