@@ -13,5 +13,6 @@ target_sources(${PROJECT_NAME}_tests
         EnumUtilsAssetVariantModeTest.cpp
         EnumUtilsTransactionFieldTest.cpp
         EnumUtilsWhitelistedTest.cpp
+        LoggerTest.cpp
         RapidJsonUtilsTest.cpp
         StringUtilsTest.cpp)

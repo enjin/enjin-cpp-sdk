@@ -47,3 +47,4 @@ class EnjinCPPSDK(ConanFile):
 
         self.requires("gtest/1.10.0")  # TODO: Require gtest only when running tests if possible.
         self.requires("rapidjson/1.1.0")
+        self.requires("spdlog/1.8.2")

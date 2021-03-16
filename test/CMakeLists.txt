@@ -39,21 +39,21 @@ else ()
             gmock_main)
     ###### GoogleTest setup end
 
-    ###### HTTP client setup start
+    ###### HTTP client setup
     if (${ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL})
         target_link_libraries(${PROJECT_NAME}_tests PRIVATE cpprestsdk::cpprest)
     endif ()
-    ###### HTTP client setup end
+    ######
 
-    ###### Websocket client setup start
+    ###### Websocket client setup
     if (${ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL})
         target_link_libraries(${PROJECT_NAME}_tests PRIVATE ixwebsocket::ixwebsocket)
     endif ()
-    ###### Websocket client setup end
+    ######
 
-    ###### RapidJson setup start
+    ###### RapidJson setup
     target_include_directories(${PROJECT_NAME}_tests PRIVATE ${RAPIDJSON_INCLUDE_DIRS})
-    ###### RapidJson client setup end
+    ######
 endif ()
 ### Dependencies setup done
 
