@@ -1,4 +1,4 @@
-#include "enjinsdk/internal/pusher/PusherOptions.hpp"
+#include "PusherOptions.hpp"
 
 #include <sstream>
 

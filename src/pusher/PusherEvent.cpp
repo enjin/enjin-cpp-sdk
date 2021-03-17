@@ -1,4 +1,4 @@
-#include "enjinsdk/internal/pusher/PusherEvent.hpp"
+#include "PusherEvent.hpp"
 
 #include "RapidJsonUtils.hpp"
 

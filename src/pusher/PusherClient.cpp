@@ -1,9 +1,9 @@
-#include "enjinsdk/internal/pusher/PusherClient.hpp"
+#include "PusherClient.hpp"
 
 #include "RapidJsonUtils.hpp"
-#include "enjinsdk/internal/pusher/Constants.hpp"
-#include "enjinsdk/internal/pusher/ErrorCodes.hpp"
-#include "enjinsdk/internal/pusher/PusherException.hpp"
+#include "Constants.hpp"
+#include "ErrorCodes.hpp"
+#include "PusherException.hpp"
 #include <exception>
 #include <sstream>
 #include <utility>
@@ -15,11 +15,11 @@ static constexpr char DATA_KEY[] = "data";
 static constexpr char EVENT_KEY[] = "event";
 
 PusherClient::PusherClient(std::shared_ptr<sdk::websockets::IWebsocketClient> ws_client,
-                           const std::string& key,
-                           PusherOptions& options,
-                           std::shared_ptr<sdk::utils::Logger>  logger)
+                           std::string key,
+                           const PusherOptions& options,
+                           std::shared_ptr<sdk::utils::Logger> logger)
         : ws_client(std::move(ws_client)),
-          key(key),
+          key(std::move(key)),
           options(options),
           logger(std::move(logger)) {
     PusherClient::ws_client->set_message_handler([this](const std::string& message) {

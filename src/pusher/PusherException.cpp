@@ -1,4 +1,4 @@
-#include "enjinsdk/internal/pusher/PusherException.hpp"
+#include "PusherException.hpp"
 
 namespace enjin::pusher {
 

@@ -5,15 +5,15 @@
 #include "enjinsdk/IEventService.hpp"
 #include "enjinsdk/IWebsocketClient.hpp"
 #include "enjinsdk/Logger.hpp"
-#include "enjinsdk/internal/pusher/PusherClient.hpp"
-#include "enjinsdk/internal/pusher/PusherEvent.hpp"
-#include "enjinsdk/internal/pusher/ISubscriptionEventListener.hpp"
 #include <memory>
 #include <optional>
 #include <string>
 #include <vector>
 
 namespace enjin::sdk::events {
+
+/// \brief Implementation of the Pusher event service used internally.
+class ENJINSDK_EXPORT PusherEventServiceImpl;
 
 class PusherEventService;
 
@@ -53,21 +53,6 @@ private:
 
 /// \brief Implementation of IEventService for Pusher events.
 class ENJINSDK_EXPORT PusherEventService : public IEventService {
-private:
-    class PusherEventListener : public pusher::ISubscriptionEventListener {
-    public:
-        PusherEventListener() = delete;
-
-        explicit PusherEventListener(PusherEventService& service);
-
-        ~PusherEventListener() override = default;
-
-        void on_event(const pusher::PusherEvent& event) override;
-
-    private:
-        PusherEventService* service;
-    };
-
 public:
     PusherEventService() = delete;
 
@@ -89,17 +74,17 @@ public:
 
     void set_error_handler(const std::function<void(const std::exception&)>& handler) override;
 
-    EventListenerRegistration register_listener(std::shared_ptr<IEventListener> listener) override;
+    EventListenerRegistration& register_listener(std::shared_ptr<IEventListener> listener) override;
 
-    EventListenerRegistration
+    EventListenerRegistration&
     register_listener_with_matcher(std::shared_ptr<IEventListener> listener,
                                    std::function<bool(models::EventType)> matcher) override;
 
-    EventListenerRegistration
+    EventListenerRegistration&
     register_listener_including_types(std::shared_ptr<IEventListener> listener,
                                       const std::vector<models::EventType>& types) override;
 
-    EventListenerRegistration
+    EventListenerRegistration&
     register_listener_excluding_types(std::shared_ptr<IEventListener> listener,
                                       const std::vector<models::EventType>& types) override;
 
@@ -131,7 +116,7 @@ public:
 
 protected:
     /// \brief The registered listeners for this service.
-    std::vector<std::unique_ptr<EventListenerRegistration>> listeners;
+    std::vector<std::shared_ptr<EventListenerRegistration>> listeners;
 
     /// \brief Caches the registration created from the configuration.
     /// \param configuration The configuration used to create the registration.
@@ -140,17 +125,13 @@ protected:
     cache_registration(EventListenerRegistration::RegistrationListenerConfiguration configuration);
 
 private:
+    class PusherEventListener;
+
+    std::shared_ptr<PusherEventServiceImpl> impl;
     std::shared_ptr<PusherEventListener> listener;
+
     std::optional<models::Platform> platform;
     std::shared_ptr<utils::Logger> logger;
-
-    std::unique_ptr<pusher::PusherClient> pusher_client;
-    std::shared_ptr<websockets::IWebsocketClient> ws_client;
-
-    // Handlers
-    std::optional<std::function<void()>> connected_handler;
-    std::optional<std::function<void()>> disconnected_handler;
-    std::optional<std::function<void(const std::exception&)>> error_handler;
 
     explicit PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client,
                                 std::shared_ptr<utils::Logger> logger);

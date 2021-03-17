@@ -2,11 +2,11 @@
 #define ENJINCPPSDK_PUSHERPUSHERCLIENT_HPP
 
 #include "enjinsdk_export.h"
+#include "ISubscriptionEventListener.hpp"
+#include "ConnectionState.hpp"
+#include "PusherOptions.hpp"
 #include "enjinsdk/IWebsocketClient.hpp"
 #include "enjinsdk/Logger.hpp"
-#include "enjinsdk/internal/pusher/ConnectionState.hpp"
-#include "enjinsdk/internal/pusher/ISubscriptionEventListener.hpp"
-#include "enjinsdk/internal/pusher/PusherOptions.hpp"
 #include <exception>
 #include <functional>
 #include <future>
@@ -30,9 +30,9 @@ public:
     /// \param options The options.
     /// \param logger The logger.
     PusherClient(std::shared_ptr<sdk::websockets::IWebsocketClient> ws_client,
-                 const std::string& key,
-                 PusherOptions& options,
-                 std::shared_ptr<sdk::utils::Logger>  logger = nullptr);
+                 std::string key,
+                 const PusherOptions& options,
+                 std::shared_ptr<sdk::utils::Logger> logger = nullptr);
 
     /// \brief Destructor for client. Attempts to close the websocket client.
     ~PusherClient();

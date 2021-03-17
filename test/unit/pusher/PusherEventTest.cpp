@@ -1,5 +1,5 @@
 #include "JsonTestSuite.hpp"
-#include "enjinsdk/internal/pusher/PusherEvent.hpp"
+#include "PusherEvent.hpp"
 #include <string>
 
 using namespace enjin::pusher;

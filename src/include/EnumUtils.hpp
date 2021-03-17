@@ -2,6 +2,7 @@
 #define ENJINCPPSDK_ENUMUTILS_HPP
 
 #include "enjinsdk_export.h"
+#include "ConnectionState.hpp"
 #include "enjinsdk/models/EventType.hpp"
 #include "enjinsdk/models/RequestState.hpp"
 #include "enjinsdk/models/RequestType.hpp"
@@ -15,7 +16,6 @@
 #include "enjinsdk/models/AssetVariantMode.hpp"
 #include "enjinsdk/models/TransactionField.hpp"
 #include "enjinsdk/models/Whitelisted.hpp"
-#include "enjinsdk/internal/pusher/ConnectionState.hpp"
 #include <string>
 
 namespace enjin::sdk::utils {

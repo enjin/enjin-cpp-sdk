@@ -1,7 +1,7 @@
 #ifndef ENJINCPPSDK_MOCKSUBSCRIPTIONEVENTLISTENER_HPP
 #define ENJINCPPSDK_MOCKSUBSCRIPTIONEVENTLISTENER_HPP
 
-#include "enjinsdk/internal/pusher/ISubscriptionEventListener.hpp"
+#include "ISubscriptionEventListener.hpp"
 #include "gmock/gmock.h"
 
 namespace enjin::test::utils {
