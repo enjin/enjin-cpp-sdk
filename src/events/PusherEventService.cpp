@@ -1,5 +1,7 @@
 #include "enjinsdk/PusherEventService.hpp"
 
+#include "EnumUtils.hpp"
+#include "StringUtils.hpp"
 #include "ProjectChannel.hpp"
 #include "EventTypeDef.hpp"
 #include "PlayerChannel.hpp"
@@ -8,6 +10,7 @@
 #include <algorithm>
 #include <exception>
 #include <stdexcept>
+#include <sstream>
 #include <utility>
 
 #ifndef ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL
@@ -21,13 +24,67 @@
 
 namespace enjin::sdk::events {
 
-PusherEventService::PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client)
-        : ws_client(std::move(ws_client)) {
+PusherEventService::PusherEventListener::PusherEventListener(PusherEventService& service) : service(&service) {
+}
+
+void PusherEventService::PusherEventListener::on_event(const pusher::PusherEvent& event) {
+    const std::string& key = event.get_event_name().has_value()
+                             ? event.get_event_name().value()
+                             : std::string();
+    const std::string& channel = event.get_channel_name().has_value()
+                                 ? event.get_channel_name().value()
+                                 : std::string();
+    const std::string& message = event.get_data().has_value()
+                                 ? event.get_data().value()
+                                 : std::string();
+
+    // Log event received
+    if (service->logger != nullptr) {
+        std::stringstream ss;
+        ss << "Received event " << key << " on channel " << channel << " with results " << message;
+        service->logger->log(utils::LogLevel::INFO, ss.str());
+    }
+
+    if (service->listeners.empty()) {
+        if (service->logger != nullptr) {
+            service->logger->log(utils::LogLevel::INFO, "No registered listener when event was received");
+        }
+
+        return;
+    }
+
+    EventTypeDef def = EventTypeDef::get_from_key(key);
+    if (def.get_type() == models::EventType::UNKNOWN) {
+        if (service->logger != nullptr) {
+            std::stringstream ss;
+            ss << "Unknown event type for key " << def.get_key();
+            service->logger->log(utils::LogLevel::WARN, ss.str());
+        }
+
+        return;
+    }
+
+    models::NotificationEvent notification_event(def.get_type(), channel, message);
+
+    for (auto& registration : service->listeners) {
+        if (registration->get_matcher()(notification_event.get_type())) {
+            registration->get_listener().notification_received(notification_event);
+        }
+    }
 }
 
 PusherEventService::PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client,
+                                       std::shared_ptr<utils::Logger> logger)
+        : ws_client(std::move(ws_client)),
+          logger(std::move(logger)) {
+}
+
+PusherEventService::PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client,
+                                       std::shared_ptr<utils::Logger> logger,
                                        models::Platform platform)
-        : ws_client(std::move(ws_client)), platform(std::move(platform)) {
+        : ws_client(std::move(ws_client)),
+          logger(std::move(logger)),
+          platform(std::move(platform)) {
 }
 
 void PusherEventService::start() {
@@ -53,12 +110,16 @@ void PusherEventService::start() {
     pusher::PusherOptions options = pusher::PusherOptions()
             .set_cluster(cluster.value())
             .set_encrypted(encrypted.value());
-    pusher_client = std::make_unique<pusher::PusherClient>(ws_client, key.value(), options);
+    pusher_client = std::make_unique<pusher::PusherClient>(ws_client, key.value(), options, logger);
 
     listener = std::make_shared<PusherEventListener>(*this);
 
     pusher_client->set_on_connection_state_change_handler([this](pusher::ConnectionState state) {
-        // TODO: Log event service state.
+        if (logger != nullptr && state != pusher::ConnectionState::ALL) {
+            std::stringstream ss;
+            ss << "Pusher client " << utils::to_lower(utils::serialize_pusher_connection_state(state));
+            logger->log(ss.str());
+        }
 
         if (state == pusher::ConnectionState::CONNECTED && connected_handler.has_value()) {
             connected_handler.value()();
@@ -67,10 +128,14 @@ void PusherEventService::start() {
         }
     });
     pusher_client->set_on_error_handler([this](const std::exception& e) {
+        if (logger != nullptr) {
+            std::stringstream ss;
+            ss << "Error on Pusher client: " << e.what();
+            logger->log(utils::LogLevel::SEVERE, ss.str());
+        }
+
         if (error_handler.has_value()) {
             error_handler.value()(e);
-        } else {
-            // TODO: Log exception.
         }
     });
 
@@ -241,7 +306,7 @@ void PusherEventService::bind(const std::string& channel) {
 std::unique_ptr<PusherEventService> PusherEventServiceBuilder::build() {
     if (m_ws_client == nullptr) {
 #if ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL
-        m_ws_client = std::make_unique<websockets::WebsocketClientImpl>();
+        m_ws_client = std::make_unique<websockets::WebsocketClientImpl>(m_logger);
 #else
         throw std::runtime_error("Attempted building Pusher event service without providing a websocket client");
 #endif
@@ -249,10 +314,9 @@ std::unique_ptr<PusherEventService> PusherEventServiceBuilder::build() {
 
     return m_platform.has_value()
            ? std::unique_ptr<PusherEventService>(
-                    new PusherEventService(std::move(m_ws_client),
-                                           m_platform.value()))
+                    new PusherEventService(std::move(m_ws_client), m_logger, m_platform.value()))
            : std::unique_ptr<PusherEventService>(
-                    new PusherEventService(std::move(m_ws_client)));
+                    new PusherEventService(std::move(m_ws_client), m_logger));
 }
 
 PusherEventServiceBuilder& PusherEventServiceBuilder::platform(const models::Platform& platform) {
@@ -266,40 +330,9 @@ PusherEventServiceBuilder::ws_client(std::unique_ptr<websockets::IWebsocketClien
     return *this;
 }
 
-PusherEventService::PusherEventListener::PusherEventListener(PusherEventService& service) : service(&service) {
-}
-
-void PusherEventService::PusherEventListener::on_event(const pusher::PusherEvent& event) {
-    const std::string& key = event.get_event_name().has_value()
-                             ? event.get_event_name().value()
-                             : std::string();
-    const std::string& channel = event.get_channel_name().has_value()
-                                 ? event.get_channel_name().value()
-                                 : std::string();
-    const std::string& message = event.get_data().has_value()
-                                 ? event.get_data().value()
-                                 : std::string();
-
-    // TODO: Log that event was received in logger if implemented.
-
-    if (service->listeners.empty()) {
-        // TODO: Log that no listeners were registered when event was received.
-        return;
-    }
-
-    EventTypeDef def = EventTypeDef::get_from_key(key);
-    if (def.get_type() == models::EventType::UNKNOWN) {
-        // TODO: Log that an unknown event was received.
-        return;
-    }
-
-    models::NotificationEvent notification_event(def.get_type(), channel, message);
-
-    for (auto& registration : service->listeners) {
-        if (registration->get_matcher()(notification_event.get_type())) {
-            registration->get_listener().notification_received(notification_event);
-        }
-    }
+PusherEventServiceBuilder& PusherEventServiceBuilder::logger(std::shared_ptr<utils::Logger> logger) {
+    m_logger = std::move(logger);
+    return *this;
 }
 
 }

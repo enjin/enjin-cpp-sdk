@@ -1,8 +1,10 @@
 #include "WebsocketClientImpl.hpp"
 
+#include <sstream>
+
 namespace enjin::sdk::websockets {
 
-WebsocketClientImpl::WebsocketClientImpl() {
+WebsocketClientImpl::WebsocketClientImpl(std::shared_ptr<utils::Logger> logger) : logger(std::move(logger)) {
     ws.enableAutomaticReconnection();
     ws.enablePong();
     ws.setPingInterval(120); // Ping every 2 minutes
@@ -17,9 +19,14 @@ WebsocketClientImpl::WebsocketClientImpl() {
             open_handler.value()();
         } else if (type == ix::WebSocketMessageType::Close && close_handler.has_value()) {
             close_handler.value()(msg->closeInfo.code, msg->closeInfo.reason);
+        } else if (type == ix::WebSocketMessageType::Error && WebsocketClientImpl::logger != nullptr) {
+            std::stringstream ss;
+            ss << "Error received from websocket server: "
+               << msg->errorInfo.http_status
+               << " "
+               << msg->errorInfo.reason;
+            WebsocketClientImpl::logger->log(utils::LogLevel::WARN, ss.str());
         }
-
-        // TODO: Log errors received from the server.
     });
 }
 

@@ -23,7 +23,6 @@ public:
               using_stdout(use_stdout.first),
               using_stderr(use_stderr.first) {
         logger = std::make_unique<spdlog::logger>(spdlog::logger(logger_name));
-        auto sinks = logger->sinks();
 
         // Add log files
         for (const auto& pair : log_filenames) {
@@ -35,7 +34,7 @@ public:
                 sink->set_pattern(pattern);
             }
 
-            sinks.push_back(sink);
+            logger->sinks().push_back(sink);
             LoggerImpl::log_filenames.emplace(filename);
         }
 
@@ -49,7 +48,7 @@ public:
                 sink->set_pattern(pattern);
             }
 
-            sinks.push_back(sink);
+            logger->sinks().push_back(sink);
             LoggerImpl::ostreams.emplace(ostream);
         }
 
@@ -64,7 +63,7 @@ public:
                     sink->set_pattern(pattern);
                 }
 
-                sinks.push_back(sink);
+                logger->sinks().push_back(sink);
             } else {
                 auto sink = std::make_shared<spdlog::sinks::stdout_sink_mt>();
 
@@ -72,7 +71,7 @@ public:
                     sink->set_pattern(pattern);
                 }
 
-                sinks.push_back(sink);
+                logger->sinks().push_back(sink);
             }
         }
 
@@ -87,7 +86,7 @@ public:
                     sink->set_pattern(pattern);
                 }
 
-                sinks.push_back(sink);
+                logger->sinks().push_back(sink);
             } else {
                 auto sink = std::make_shared<spdlog::sinks::stderr_sink_mt>();
 
@@ -95,7 +94,7 @@ public:
                     sink->set_pattern(pattern);
                 }
 
-                sinks.push_back(sink);
+                logger->sinks().push_back(sink);
             }
         }
     };

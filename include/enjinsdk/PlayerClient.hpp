@@ -42,10 +42,16 @@ public:
     /// \return This builder for chaining.
     PlayerClientBuilder& debug(int debug);
 
+    /// \brief Sets the logger to be used by the client.
+    /// \param logger The logger.
+    /// \return This builder for chaining.
+    PlayerClientBuilder& logger(std::shared_ptr<utils::Logger> logger);
+
 private:
     std::optional<std::string> m_base_uri;
     std::unique_ptr<http::IHttpClient> m_http_client;
     std::optional<bool> m_debug;
+    std::shared_ptr<utils::Logger> m_logger;
 };
 
 /// \brief Client for using the player schema.
@@ -61,7 +67,7 @@ public:
     bool is_closed() override;
 
 private:
-    explicit PlayerClient(TrustedPlatformMiddleware middleware);
+    explicit PlayerClient(TrustedPlatformMiddleware middleware, std::shared_ptr<utils::Logger> logger);
 
     friend PlayerClient PlayerClientBuilder::build();
 };

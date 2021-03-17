@@ -41,10 +41,16 @@ public:
     /// \return This builder for chaining.
     ProjectClientBuilder& debug(bool debug);
 
+    /// \brief Sets the logger to be used by the client.
+    /// \param logger The logger.
+    /// \return This builder for chaining.
+    ProjectClientBuilder& logger(std::shared_ptr<utils::Logger> logger);
+
 private:
     std::optional<std::string> m_base_uri;
     std::unique_ptr<http::IHttpClient> m_http_client;
     std::optional<bool> m_debug;
+    std::shared_ptr<utils::Logger> m_logger;
 };
 
 /// \brief Client for using the project schema.
@@ -60,7 +66,7 @@ public:
     bool is_closed() override;
 
 private:
-    explicit ProjectClient(TrustedPlatformMiddleware middleware);
+    explicit ProjectClient(TrustedPlatformMiddleware middleware, std::shared_ptr<utils::Logger> logger);
 
     friend ProjectClient ProjectClientBuilder::build();
 };

@@ -4,6 +4,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/IEventService.hpp"
 #include "enjinsdk/IWebsocketClient.hpp"
+#include "enjinsdk/Logger.hpp"
 #include "enjinsdk/internal/pusher/PusherClient.hpp"
 #include "enjinsdk/internal/pusher/PusherEvent.hpp"
 #include "enjinsdk/internal/pusher/ISubscriptionEventListener.hpp"
@@ -34,14 +35,20 @@ public:
     /// \return This builder for chaining.
     PusherEventServiceBuilder& platform(const models::Platform& platform);
 
-    /// \brief Sets the
+    /// \brief Sets the websocket client.
     /// \param ws_client The websocket client.
     /// \return This builder for chaining.
     PusherEventServiceBuilder& ws_client(std::unique_ptr<websockets::IWebsocketClient> ws_client);
 
+    /// \brief Sets the logger.
+    /// \param logger The logger.
+    /// \return This builder for chaining.
+    PusherEventServiceBuilder& logger(std::shared_ptr<utils::Logger> logger);
+
 private:
     std::optional<models::Platform> m_platform;
     std::unique_ptr<websockets::IWebsocketClient> m_ws_client;
+    std::shared_ptr<utils::Logger> m_logger;
 };
 
 /// \brief Implementation of IEventService for Pusher events.
@@ -135,6 +142,7 @@ protected:
 private:
     std::shared_ptr<PusherEventListener> listener;
     std::optional<models::Platform> platform;
+    std::shared_ptr<utils::Logger> logger;
 
     std::unique_ptr<pusher::PusherClient> pusher_client;
     std::shared_ptr<websockets::IWebsocketClient> ws_client;
@@ -144,9 +152,12 @@ private:
     std::optional<std::function<void()>> disconnected_handler;
     std::optional<std::function<void(const std::exception&)>> error_handler;
 
-    explicit PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client);
+    explicit PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client,
+                                std::shared_ptr<utils::Logger> logger);
 
-    PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client, models::Platform platform);
+    PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client,
+                       std::shared_ptr<utils::Logger> logger,
+                       models::Platform platform);
 
     void subscribe(const std::string& channel);
 

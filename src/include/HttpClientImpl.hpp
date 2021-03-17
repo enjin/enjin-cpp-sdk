@@ -9,7 +9,9 @@
 #include "enjinsdk_export.h"
 #include "cpprest/http_client.h"
 #include "enjinsdk/IHttpClient.hpp"
+#include "enjinsdk/Logger.hpp"
 #include <future>
+#include <memory>
 #include <string>
 
 namespace enjin::sdk::http {
@@ -19,9 +21,10 @@ class ENJINSDK_EXPORT HttpClientImpl : public IHttpClient {
 public:
     HttpClientImpl() = delete;
 
-    /// \brief Creates the HTTP client and assigns a base URI.
+    /// \brief Creates the HTTP client with the base URI.
     /// \param base_uri The base URI for the client.
-    explicit HttpClientImpl(const std::string& base_uri);
+    /// \param logger The logger. Null pointer by default.
+    explicit HttpClientImpl(const std::string& base_uri, std::shared_ptr<utils::Logger> logger = nullptr);
 
     ~HttpClientImpl() override = default;
 
@@ -34,6 +37,7 @@ public:
 private:
     web::http::client::http_client http_client;
     std::shared_ptr<http::TrustedPlatformHandler> tp_handler;
+    std::shared_ptr<utils::Logger> logger;
 };
 
 }

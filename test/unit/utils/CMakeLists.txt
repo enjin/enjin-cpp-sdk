@@ -1,6 +1,7 @@
 target_sources(${PROJECT_NAME}_tests
         PRIVATE
         EnumUtilsEventTypeTest.cpp
+        EnumUtilsPusherConnectionStateTest.cpp
         EnumUtilsRequestStateTest.cpp
         EnumUtilsRequestTypeTest.cpp
         EnumUtilsSortDirectionTest.cpp

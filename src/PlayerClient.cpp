@@ -14,7 +14,8 @@
 
 namespace enjin::sdk {
 
-PlayerClient::PlayerClient(TrustedPlatformMiddleware middleware) : PlayerSchema(std::move(middleware)) {
+PlayerClient::PlayerClient(TrustedPlatformMiddleware middleware, std::shared_ptr<utils::Logger> logger)
+        : PlayerSchema(std::move(middleware), std::move(logger)) {
 }
 
 void PlayerClient::auth(const std::string& token) {
@@ -36,15 +37,16 @@ PlayerClient PlayerClientBuilder::build() {
         m_http_client = std::make_unique<http::HttpClientImpl>(m_base_uri.has_value()
                                                                ? m_base_uri.value()
                                                                : throw std::runtime_error(
-                        "No base URI was set for default HTTP client implementation"));
+                        "No base URI was set for default HTTP client implementation"),
+                                                               m_logger);
         TrustedPlatformMiddleware middleware(std::move(m_http_client), m_debug.has_value() && m_debug.value());
-        return PlayerClient(std::move(middleware));
+        return PlayerClient(std::move(middleware), m_logger);
 #else
         throw std::runtime_error("Attempted building platform client without providing an HTTP client");
 #endif
     } else {
         TrustedPlatformMiddleware middleware(std::move(m_http_client), m_debug.has_value() && m_debug.value());
-        return PlayerClient(std::move(middleware));
+        return PlayerClient(std::move(middleware), m_logger);
     }
 }
 
@@ -60,6 +62,11 @@ PlayerClientBuilder& PlayerClientBuilder::http_client(std::unique_ptr<http::IHtt
 
 PlayerClientBuilder& PlayerClientBuilder::debug(int debug) {
     m_debug = debug;
+    return *this;
+}
+
+PlayerClientBuilder& PlayerClientBuilder::logger(std::shared_ptr<utils::Logger> logger) {
+    m_logger = std::move(logger);
     return *this;
 }
 

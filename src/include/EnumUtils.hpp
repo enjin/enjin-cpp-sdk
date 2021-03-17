@@ -15,6 +15,7 @@
 #include "enjinsdk/models/AssetVariantMode.hpp"
 #include "enjinsdk/models/TransactionField.hpp"
 #include "enjinsdk/models/Whitelisted.hpp"
+#include "enjinsdk/internal/pusher/ConnectionState.hpp"
 #include <string>
 
 namespace enjin::sdk::utils {
@@ -42,6 +43,9 @@ enjin::sdk::models::AssetVariantMode deserialize_asset_variant_mode(const std::s
 
 ENJINSDK_EXPORT
 std::string serialize_event_type(enjin::sdk::models::EventType v) noexcept;
+
+ENJINSDK_EXPORT
+std::string serialize_pusher_connection_state(pusher::ConnectionState v) noexcept;
 
 ENJINSDK_EXPORT
 std::string serialize_request_state(enjin::sdk::models::RequestState v) noexcept;

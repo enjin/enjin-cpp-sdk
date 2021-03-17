@@ -6,6 +6,7 @@
 #include "MockWebSocketClientImpl.hpp"
 #include "MockWebsocketServer.hpp"
 #include "VerificationTestSuite.hpp"
+#include "enjinsdk/Logger.hpp"
 #include "enjinsdk/PusherEventService.hpp"
 #include "enjinsdk/internal/pusher/Constants.hpp"
 #include <chrono>
@@ -16,6 +17,7 @@
 
 using namespace enjin::sdk::events;
 using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 using namespace enjin::test::utils;
 
 class PusherEventServiceWebsocketTest : public VerificationTestSuite {

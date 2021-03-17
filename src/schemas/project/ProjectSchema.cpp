@@ -4,8 +4,8 @@
 
 namespace enjin::sdk::project {
 
-ProjectSchema::ProjectSchema(TrustedPlatformMiddleware middleware)
-        : shared::SharedSchema(std::move(middleware), "project") {
+ProjectSchema::ProjectSchema(TrustedPlatformMiddleware middleware, std::shared_ptr<utils::Logger> logger)
+        : shared::SharedSchema(std::move(middleware), "project", std::move(logger)) {
 }
 
 std::future<graphql::GraphqlResponse<models::AccessToken>> ProjectSchema::auth_player_async(AuthPlayer& request) {
