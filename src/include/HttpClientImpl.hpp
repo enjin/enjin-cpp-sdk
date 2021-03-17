@@ -24,20 +24,21 @@ public:
     /// \brief Creates the HTTP client with the base URI.
     /// \param base_uri The base URI for the client.
     /// \param logger The logger. Null pointer by default.
-    explicit HttpClientImpl(const std::string& base_uri, std::shared_ptr<utils::Logger> logger = nullptr);
+    explicit HttpClientImpl(std::string base_uri, std::shared_ptr<utils::Logger> logger = nullptr);
 
     ~HttpClientImpl() override = default;
-
-    void close() override;
 
     std::future<HttpResponse> send_request(const HttpRequest& request) override;
 
     void set_trusted_platform_handler(std::shared_ptr<http::TrustedPlatformHandler> handler) override;
 
 private:
+    std::string base_uri;
     web::http::client::http_client http_client;
     std::shared_ptr<http::TrustedPlatformHandler> tp_handler;
     std::shared_ptr<utils::Logger> logger;
+
+    web::http::client::http_client create_http_client();
 };
 
 }

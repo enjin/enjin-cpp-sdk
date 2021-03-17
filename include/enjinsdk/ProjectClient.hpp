@@ -63,8 +63,6 @@ public:
 
     bool is_authenticated() override;
 
-    bool is_closed() override;
-
 private:
     explicit ProjectClient(TrustedPlatformMiddleware middleware, std::shared_ptr<utils::Logger> logger);
 

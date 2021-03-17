@@ -5,11 +5,46 @@
 
 namespace enjin::sdk::http {
 
-HttpClientImpl::HttpClientImpl(const std::string& base_uri, std::shared_ptr<utils::Logger> logger)
-        : http_client(utility::conversions::to_string_t(base_uri)),
+HttpClientImpl::HttpClientImpl(std::string base_uri, std::shared_ptr<utils::Logger> logger)
+        : base_uri(std::move(base_uri)),
+          http_client(create_http_client()),
           logger(std::move(logger)) {
-    http_client.add_handler([this](web::http::http_request request,
-                                   const std::shared_ptr<web::http::http_pipeline_stage>& pipeline_stage) {
+}
+
+std::future<HttpResponse> HttpClientImpl::send_request(const HttpRequest& request) {
+    return std::async([this, request] {
+        try {
+            auto method = utility::conversions::to_string_t(request.get_method());
+            auto task = http_client.request(method,
+                                            request.get_path_query_fragment(),
+                                            request.get_body(),
+                                            request.get_content_type());
+
+            web::http::http_response response = task.get();
+
+            return HttpResponseBuilder()
+                    .code(response.status_code())
+                    .body(response.extract_utf8string().get())
+                    .content_type(utility::conversions::to_utf8string(response.headers().content_type()))
+                    .build();
+        } catch (const std::exception& e) {
+            std::stringstream ss;
+            ss << "HTTP request failed: " << e.what();
+            logger->log(utils::LogLevel::SEVERE, ss.str());
+            throw e;
+        }
+    });
+}
+
+void HttpClientImpl::set_trusted_platform_handler(std::shared_ptr<http::TrustedPlatformHandler> handler) {
+    tp_handler = handler;
+}
+
+web::http::client::http_client HttpClientImpl::create_http_client() {
+    web::http::client::http_client client(utility::conversions::to_string_t(base_uri));
+
+    client.add_handler([this](web::http::http_request request,
+                              const std::shared_ptr<web::http::http_pipeline_stage>& pipeline_stage) {
         // Adds the default SDK user agent header using the defined SDK version if the definitions were set
         std::stringstream user_agent_ss;
         user_agent_ss << TrustedPlatformHandler::USER_AGENT_PREFIX;
@@ -41,40 +76,8 @@ HttpClientImpl::HttpClientImpl(const std::string& base_uri, std::shared_ptr<util
 
         return pipeline_stage->propagate(request);
     });
-}
 
-void HttpClientImpl::close() {
-    // TODO: Implement close method.
-}
-
-std::future<HttpResponse> HttpClientImpl::send_request(const HttpRequest& request) {
-    // TODO: Determine if 'this->http_client' introduces unsafe thread behavior.
-    return std::async([this, request] {
-        try {
-            auto method = utility::conversions::to_string_t(request.get_method());
-            auto task = http_client.request(method,
-                                            request.get_path_query_fragment(),
-                                            request.get_body(),
-                                            request.get_content_type());
-
-            web::http::http_response response = task.get();
-
-            return HttpResponseBuilder()
-                    .code(response.status_code())
-                    .body(response.extract_utf8string().get())
-                    .content_type(utility::conversions::to_utf8string(response.headers().content_type()))
-                    .build();
-        } catch (std::exception e) {
-            std::stringstream ss;
-            ss << "HTTP request failed: " << e.what();
-            logger->log(utils::LogLevel::SEVERE, ss.str());
-            throw e;
-        }
-    });
-}
-
-void HttpClientImpl::set_trusted_platform_handler(std::shared_ptr<http::TrustedPlatformHandler> handler) {
-    tp_handler = handler;
+    return client;
 }
 
 }

@@ -21,13 +21,10 @@ public:
     /// \remarks The destructor does not necessarily close the client.
     virtual ~IHttpClient() = default;
 
-    /// \brief Closes the connection and releases resources.
-    virtual void close() = 0;
-
     /// \brief Sends an HTTP request asynchronously.
     /// \param request The HTTP request.
     /// \return The future for accessing the response.
-    virtual std::future<HttpResponse> send_request(const HttpRequest& request) = 0; // TODO: Consider if this should return just the response body instead.
+    virtual std::future<HttpResponse> send_request(const HttpRequest& request) = 0;
 
     /// \brief Sets the Trusted Platform handler for the HTTP client.
     /// \param handler The handler.
