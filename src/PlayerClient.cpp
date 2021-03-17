@@ -26,11 +26,6 @@ bool PlayerClient::is_authenticated() {
     return middleware.get_handler()->is_authenticated();
 }
 
-bool PlayerClient::is_closed() {
-    // TODO: Implement function.
-    return false;
-}
-
 PlayerClient PlayerClientBuilder::build() {
     if (m_http_client == nullptr) {
 #if ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL

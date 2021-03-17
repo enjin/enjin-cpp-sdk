@@ -19,10 +19,6 @@ public:
     /// \brief Determines if this client is authenticated.
     /// \return Whether this client is authenticated.
     virtual bool is_authenticated() = 0;
-
-    /// \brief Determines if this client has is closed.
-    /// \return Whether this client is closed.
-    virtual bool is_closed() = 0; // TODO: Add function to close client.
 };
 
 }

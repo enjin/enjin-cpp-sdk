@@ -11,8 +11,9 @@ using namespace enjin::test::utils;
 class HttpClientImplTest : public VerificationTestSuite {
 public:
     HttpClientImpl class_under_test = HttpClientImpl("http://localhost/");
-    MockHttpServer mock_server;
+
     std::string base_uri;
+    MockHttpServer mock_server;
 
     static HttpRequest create_default_request() {
         return HttpRequestBuilder()
@@ -32,7 +33,6 @@ protected:
     }
 
     void TearDown() override {
-        class_under_test.close();
         mock_server.shutdown();
     }
 };
@@ -53,8 +53,6 @@ TEST_F(HttpClientImplTest, SendRequestReceivesExpectedResponse) {
 
     // Assert
     ASSERT_EQ(expected, actual);
-
-    client.close();
 }
 
 TEST_F(HttpClientImplTest, SetsAuthorizationHeaderWhenTrustedPlatformHandlerIsAuthenticated) {
@@ -69,7 +67,7 @@ TEST_F(HttpClientImplTest, SetsAuthorizationHeaderWhenTrustedPlatformHandlerIsAu
 
     // Arrange - Expectations
     mock_server.next_request([this, expected_header_name, expected_header_value]
-    (const web::http::http_request& request) {
+                                     (const web::http::http_request& request) {
         increment_call_counter();
 
         EXPECT_TRUE(request.headers().has(expected_header_name));
@@ -91,8 +89,6 @@ TEST_F(HttpClientImplTest, SetsAuthorizationHeaderWhenTrustedPlatformHandlerIsAu
     verify_call_count(1);
 
     // Assert (see: Arrange - Expectations)
-
-    client.close();
 }
 
 TEST_F(HttpClientImplTest, DoesNotSetAuthorizationHeaderWhenTrustedPlatformHandlerIsNotAuthenticated) {
@@ -118,8 +114,6 @@ TEST_F(HttpClientImplTest, DoesNotSetAuthorizationHeaderWhenTrustedPlatformHandl
     verify_call_count(1);
 
     // Assert (see: Arrange - Expectations)
-
-    client.close();
 }
 
 TEST_F(HttpClientImplTest, SetsUserAgentHeaderWithExpectedPrefix) {
@@ -152,6 +146,4 @@ TEST_F(HttpClientImplTest, SetsUserAgentHeaderWithExpectedPrefix) {
     verify_call_count(1);
 
     // Assert (see: Arrange - Expectations)
-
-    client.close();
 }
