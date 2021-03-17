@@ -50,13 +50,13 @@ public:
     /// \brief Registers a event listener and provides the registration for it.
     /// \param listener The shared listener.
     /// \return The registration.
-    virtual EventListenerRegistration register_listener(std::shared_ptr<IEventListener> listener) = 0;
+    virtual EventListenerRegistration& register_listener(std::shared_ptr<IEventListener> listener) = 0;
 
     /// \brief Registers a event listener with a function for event matcher and provides the registration for it.
     /// \param listener The shared listener.
     /// \param matcher The event matcher.
     /// \return The registration.
-    virtual EventListenerRegistration
+    virtual EventListenerRegistration&
     register_listener_with_matcher(std::shared_ptr<IEventListener> listener,
                                    std::function<bool(models::EventType)> matcher) = 0;
 
@@ -64,7 +64,7 @@ public:
     /// \param listener The shared listener.
     /// \param types The event types to allow.
     /// \return The registration.
-    virtual EventListenerRegistration
+    virtual EventListenerRegistration&
     register_listener_including_types(std::shared_ptr<IEventListener> listener,
                                       const std::vector<models::EventType>& types) = 0;
 
@@ -72,7 +72,7 @@ public:
     /// \param listener The shared listener.
     /// \param types The event types to ignore.
     /// \return The registration.
-    virtual EventListenerRegistration
+    virtual EventListenerRegistration&
     register_listener_excluding_types(std::shared_ptr<IEventListener> listener,
                                       const std::vector<models::EventType>& types) = 0;
 

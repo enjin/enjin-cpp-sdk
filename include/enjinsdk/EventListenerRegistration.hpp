@@ -73,7 +73,7 @@ public:
 protected:
     explicit EventListenerRegistration(std::shared_ptr<IEventListener> listener);
 
-    EventListenerRegistration(std::shared_ptr<IEventListener> listener, std::function<bool(models::EventType)>  matcher);
+    EventListenerRegistration(std::shared_ptr<IEventListener> listener, std::function<bool(models::EventType)> matcher);
 
 private:
     std::shared_ptr<IEventListener> listener;

@@ -2,7 +2,7 @@
 #define ENJINCPPSDK_PUSHERISUBSCRIPTIONEVENTLISTENER_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/internal/pusher/PusherEvent.hpp"
+#include "PusherEvent.hpp"
 
 namespace enjin::pusher {
 
