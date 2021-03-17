@@ -4,8 +4,10 @@
 
 namespace enjin::sdk::shared {
 
-SharedSchema::SharedSchema(TrustedPlatformMiddleware middleware, const std::string& schema)
-        : BaseSchema(std::move(middleware), schema) {
+SharedSchema::SharedSchema(TrustedPlatformMiddleware middleware,
+                           const std::string& schema,
+                           std::shared_ptr<utils::Logger> logger)
+        : BaseSchema(std::move(middleware), schema, std::move(logger)) {
 }
 
 std::future<graphql::GraphqlResponse<models::Request>>

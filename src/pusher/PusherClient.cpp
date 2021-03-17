@@ -16,8 +16,12 @@ static constexpr char EVENT_KEY[] = "event";
 
 PusherClient::PusherClient(std::shared_ptr<sdk::websockets::IWebsocketClient> ws_client,
                            const std::string& key,
-                           PusherOptions& options)
-        : ws_client(std::move(ws_client)), key(key), options(options) {
+                           PusherOptions& options,
+                           std::shared_ptr<sdk::utils::Logger>  logger)
+        : ws_client(std::move(ws_client)),
+          key(key),
+          options(options),
+          logger(std::move(logger)) {
     PusherClient::ws_client->set_message_handler([this](const std::string& message) {
         websocket_message_received(message);
     });
@@ -271,7 +275,7 @@ void PusherClient::websocket_opened() {
 
 void PusherClient::websocket_closed(int close_status, const std::string& message) {
     if (get_state() == ConnectionState::DISCONNECTED) {
-        // TODO: Log warning that websocket was closed despite being disconnected.
+        logger->log(sdk::utils::LogLevel::WARN, "Pusher client received close message while disconnected");
         return;
     }
 

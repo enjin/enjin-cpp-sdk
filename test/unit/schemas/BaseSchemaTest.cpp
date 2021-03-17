@@ -17,7 +17,7 @@ public:
     class TestableBaseSchema : public BaseSchema {
     public:
         explicit TestableBaseSchema(TrustedPlatformMiddleware middleware)
-                : BaseSchema(std::move(middleware), "test") {
+                : BaseSchema(std::move(middleware), "test", nullptr) {
         }
 
         const TrustedPlatformMiddleware& get_middleware() {

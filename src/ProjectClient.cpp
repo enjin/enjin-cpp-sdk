@@ -14,7 +14,8 @@
 
 namespace enjin::sdk {
 
-ProjectClient::ProjectClient(TrustedPlatformMiddleware middleware) : ProjectSchema(std::move(middleware)) {
+ProjectClient::ProjectClient(TrustedPlatformMiddleware middleware, std::shared_ptr<utils::Logger> logger)
+        : ProjectSchema(std::move(middleware), std::move(logger)) {
 }
 
 void ProjectClient::auth(const std::string& token) {
@@ -36,15 +37,16 @@ ProjectClient ProjectClientBuilder::build() {
         m_http_client = std::make_unique<http::HttpClientImpl>(m_base_uri.has_value()
                                                                ? m_base_uri.value()
                                                                : throw std::runtime_error(
-                        "No base URI was set for default HTTP client implementation"));
+                        "No base URI was set for default HTTP client implementation"),
+                                                               m_logger);
         TrustedPlatformMiddleware middleware(std::move(m_http_client), m_debug.has_value() && m_debug.value());
-        return ProjectClient(std::move(middleware));
+        return ProjectClient(std::move(middleware), m_logger);
 #else
         throw std::runtime_error("Attempted building platform client without providing an HTTP client");
 #endif
     } else {
         TrustedPlatformMiddleware middleware(std::move(m_http_client), m_debug.has_value() && m_debug.value());
-        return ProjectClient(std::move(middleware));
+        return ProjectClient(std::move(middleware), m_logger);
     }
 }
 
@@ -60,6 +62,11 @@ ProjectClientBuilder& ProjectClientBuilder::http_client(std::unique_ptr<http::IH
 
 ProjectClientBuilder& ProjectClientBuilder::debug(bool debug) {
     m_debug = debug;
+    return *this;
+}
+
+ProjectClientBuilder& ProjectClientBuilder::logger(std::shared_ptr<utils::Logger> logger) {
+    m_logger = std::move(logger);
     return *this;
 }
 

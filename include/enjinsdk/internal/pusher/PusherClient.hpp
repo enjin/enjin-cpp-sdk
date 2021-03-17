@@ -3,6 +3,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IWebsocketClient.hpp"
+#include "enjinsdk/Logger.hpp"
 #include "enjinsdk/internal/pusher/ConnectionState.hpp"
 #include "enjinsdk/internal/pusher/ISubscriptionEventListener.hpp"
 #include "enjinsdk/internal/pusher/PusherOptions.hpp"
@@ -27,9 +28,11 @@ public:
     /// \param ws_client The websocket client.
     /// \param key The project key.
     /// \param options The options.
+    /// \param logger The logger.
     PusherClient(std::shared_ptr<sdk::websockets::IWebsocketClient> ws_client,
                  const std::string& key,
-                 PusherOptions& options);
+                 PusherOptions& options,
+                 std::shared_ptr<sdk::utils::Logger>  logger = nullptr);
 
     /// \brief Destructor for client. Attempts to close the websocket client.
     ~PusherClient();
@@ -97,6 +100,7 @@ private:
     std::set<std::string> pending_channels;
     std::map<std::string, std::vector<std::shared_ptr<ISubscriptionEventListener>>> event_listeners;
     ConnectionState state = ConnectionState::DISCONNECTED;
+    std::shared_ptr<sdk::utils::Logger> logger;
 
     std::string key;
     PusherOptions options;

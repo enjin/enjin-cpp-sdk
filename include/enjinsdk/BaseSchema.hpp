@@ -4,9 +4,12 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/GraphqlResponse.hpp"
+#include "enjinsdk/Logger.hpp"
 #include "enjinsdk/TrustedPlatformMiddleware.hpp"
 #include <exception>
 #include <future>
+#include <memory>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -19,11 +22,16 @@ public:
 
     ~BaseSchema() = default;
 
+    [[nodiscard]] const std::shared_ptr<utils::Logger>& get_logger() const;
+
 protected:
     TrustedPlatformMiddleware middleware;
+    std::shared_ptr<utils::Logger> logger;
     std::string schema;
 
-    BaseSchema(TrustedPlatformMiddleware middleware, std::string schema);
+    BaseSchema(TrustedPlatformMiddleware middleware,
+               std::string schema,
+               std::shared_ptr<utils::Logger> logger);
 
     std::string create_request_body(graphql::AbstractGraphqlRequest& request);
 
@@ -43,13 +51,12 @@ protected:
                 .build();
 
         return std::async([this, http_request] {
-            auto future = middleware.get_client()->send_request(http_request);
+            http::HttpResponse response = middleware.get_client()->send_request(http_request).get();
 
             try {
-                http::HttpResponse response = future.get();
                 return graphql::GraphqlResponse<T>(response.get_body().value());
             } catch (std::exception e) {
-                // TODO: Create an HTTP exception class that implements std::exception and pass `e.what()`.
+                log_graphql_exception(e);
                 throw e;
             }
         });
@@ -72,18 +79,19 @@ protected:
                 .build();
 
         return std::async([this, http_request]() {
-            auto future = middleware.get_client()->send_request(http_request);
-            future.wait();
+            http::HttpResponse response = middleware.get_client()->send_request(http_request).get();
 
             try {
-                http::HttpResponse response = future.get();
                 return graphql::GraphqlResponse<std::vector<T>>(response.get_body().value());
             } catch (std::exception e) {
-                // TODO: Create an HTTP exception class that implements std::exception and pass `e.what()`.
+                log_graphql_exception(e);
                 throw e;
             }
         });
     }
+
+private:
+    void log_graphql_exception(const std::exception& e);
 };
 
 }

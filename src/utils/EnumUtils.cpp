@@ -276,6 +276,25 @@ std::string serialize_event_type(models::EventType v) noexcept {
     }
 }
 
+std::string serialize_pusher_connection_state(pusher::ConnectionState v) noexcept {
+    switch (v) {
+        case pusher::ConnectionState::ALL:
+            return "ALL";
+        case pusher::ConnectionState::CONNECTING:
+            return "CONNECTING";
+        case pusher::ConnectionState::CONNECTED:
+            return "CONNECTED";
+        case pusher::ConnectionState::DISCONNECTED:
+            return "DISCONNECTED";
+        case pusher::ConnectionState::DISCONNECTING:
+            return "DISCONNECTING";
+        case pusher::ConnectionState::RECONNECTING:
+            return "RECONNECTING";
+        default:
+            return "";
+    }
+}
+
 std::string serialize_request_state(enjin::sdk::models::RequestState v) noexcept {
     switch (v) {
         case models::RequestState::PENDING:
