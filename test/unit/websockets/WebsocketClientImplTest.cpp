@@ -7,9 +7,11 @@
 #include <thread>
 
 using namespace enjin::sdk::websockets;
+using namespace enjin::test::suites;
 using namespace enjin::test::utils;
 
-class WebsocketClientImplTest : public VerificationTestSuite {
+class WebsocketClientImplTest : public VerificationTestSuite,
+                                public testing::Test {
 public:
     static constexpr char URI[] = "ws://127.0.0.1:8080/ws";
 

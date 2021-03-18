@@ -1,14 +1,13 @@
 #ifndef ENJINCPPSDK_VERIFICATIONTESTSUITE_HPP
 #define ENJINCPPSDK_VERIFICATIONTESTSUITE_HPP
 
-#include "gtest/gtest.h"
 #include <atomic>
 #include <chrono>
 #include <mutex>
 
-namespace enjin::test::utils {
+namespace enjin::test::suites {
 
-class VerificationTestSuite : public testing::Test {
+class VerificationTestSuite {
 public:
     VerificationTestSuite();
 

@@ -1,3 +1,4 @@
+#include "gtest/gtest.h"
 #include "MockSubscriptionEventListener.hpp"
 #include "PusherClientTestSuite.hpp"
 #include "VerificationTestSuite.hpp"
@@ -9,10 +10,12 @@
 
 using namespace enjin::pusher;
 using namespace enjin::sdk;
+using namespace enjin::test::suites;
 using namespace enjin::test::utils;
 
 class PusherClientTest : public PusherClientTestSuite,
-                         public VerificationTestSuite {
+                         public VerificationTestSuite,
+                         public testing::Test {
 public:
     std::shared_ptr<MockSubscriptionEventListener> mock_listener = std::make_shared<MockSubscriptionEventListener>();
 

@@ -1,3 +1,4 @@
+#include "gtest/gtest.h"
 #include "PusherClientTestSuite.hpp"
 #include "VerificationTestSuite.hpp"
 #include <chrono>
@@ -5,10 +6,12 @@
 #include <thread>
 
 using namespace enjin::pusher;
+using namespace enjin::test::suites;
 using namespace enjin::test::utils;
 
 class PusherClientReconnectTest : public PusherClientTestSuite,
-                                  public VerificationTestSuite {
+                                  public VerificationTestSuite,
+                                  public testing::Test {
 protected:
     void SetUp() override {
         mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_CLOSE_TYPE)
