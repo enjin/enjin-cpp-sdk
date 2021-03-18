@@ -1,4 +1,4 @@
-#include "enjinsdk/internal/GraphqlResponseImpl.hpp"
+#include "enjinsdk/internal/GraphqlResponseUtils.hpp"
 
 #include "RapidJsonUtils.hpp"
 

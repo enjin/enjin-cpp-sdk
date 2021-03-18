@@ -3,4 +3,5 @@ target_sources(${PROJECT_NAME}_tests
         AbstractGraphqlRequestTest.cpp
         GraphqlErrorTest.cpp
         GraphqlQueryRegistryTest.cpp
-        GraphqlResponseTest.cpp)
+        GraphqlResponseTest.cpp
+        GraphqlResponseUtilsTest.cpp)
