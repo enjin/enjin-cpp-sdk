@@ -14,7 +14,7 @@
 #include <string>
 #include <vector>
 
-namespace enjin::test::utils {
+namespace enjin::test::mocks {
 
 enum class WebsocketMessageType {
     UNKNOWN,

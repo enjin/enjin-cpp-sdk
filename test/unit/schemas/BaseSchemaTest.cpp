@@ -10,6 +10,7 @@
 #include <vector>
 
 using namespace enjin::sdk;
+using namespace enjin::test::mocks;
 using namespace enjin::test::utils;
 
 class BaseSchemaTest : public testing::Test {

@@ -9,7 +9,7 @@
 
 using namespace enjin::sdk::events;
 using namespace enjin::sdk::models;
-using namespace enjin::test::utils;
+using namespace enjin::test::mocks;
 
 class PusherEventServiceTest : public testing::Test {
 public:

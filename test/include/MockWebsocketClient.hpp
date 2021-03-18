@@ -6,9 +6,9 @@
 #include <functional>
 #include <string>
 
-namespace enjin::test::utils {
+namespace enjin::test::mocks {
 
-class MockWebsocketClient : public enjin::sdk::websockets::IWebsocketClient {
+class MockWebsocketClient : public sdk::websockets::IWebsocketClient {
 public:
     MOCK_METHOD(void, connect, (const std::string& uri), (override));
 

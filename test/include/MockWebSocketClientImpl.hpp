@@ -9,7 +9,7 @@
 #include "WebsocketClientImpl.hpp"
 #include <string>
 
-namespace enjin::test::utils {
+namespace enjin::test::mocks {
 
 class MockWebSocketClientImpl : public sdk::websockets::WebsocketClientImpl {
 public:

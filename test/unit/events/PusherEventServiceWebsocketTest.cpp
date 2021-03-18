@@ -16,8 +16,8 @@
 
 using namespace enjin::sdk::events;
 using namespace enjin::sdk::models;
+using namespace enjin::test::mocks;
 using namespace enjin::test::suites;
-using namespace enjin::test::utils;
 
 class PusherEventServiceWebsocketTest : public VerificationTestSuite,
                                         public testing::Test {

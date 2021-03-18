@@ -6,8 +6,8 @@
 #include <string>
 
 using namespace enjin::sdk::http;
+using namespace enjin::test::mocks;
 using namespace enjin::test::suites;
-using namespace enjin::test::utils;
 
 class HttpClientImplTest : public VerificationTestSuite,
                            public testing::Test {

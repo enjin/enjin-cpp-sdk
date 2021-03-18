@@ -7,7 +7,7 @@
 
 #define WEBSOCKET_TEST_SERVER_PORT 8080
 
-namespace enjin::test::utils {
+namespace enjin::test::mocks {
 
 const std::vector<unsigned char>& TestWebsocketMessage::get_data() const {
     return data;

@@ -6,8 +6,8 @@
 #include <thread>
 
 using namespace enjin::pusher;
+using namespace enjin::test::mocks;
 using namespace enjin::test::suites;
-using namespace enjin::test::utils;
 
 class PusherClientReconnectTest : public PusherClientTestSuite,
                                   public VerificationTestSuite,
