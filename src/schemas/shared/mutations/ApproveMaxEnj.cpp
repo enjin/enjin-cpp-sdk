@@ -6,14 +6,14 @@ ApproveMaxEnj::ApproveMaxEnj() : graphql::AbstractGraphqlRequest("enjin.sdk.shar
 }
 
 std::string ApproveMaxEnj::serialize() {
-    return TransactionRequestArgumentsTemplate::serialize();
+    return TransactionRequestArguments::serialize();
 }
 
 bool ApproveMaxEnj::operator==(const ApproveMaxEnj& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const TransactionRequestArgumentsTemplate<ApproveMaxEnj>&>(*this) ==
-           static_cast<const TransactionRequestArgumentsTemplate<ApproveMaxEnj>&>(rhs);
+           static_cast<const TransactionRequestArguments<ApproveMaxEnj>&>(*this) ==
+           static_cast<const TransactionRequestArguments<ApproveMaxEnj>&>(rhs);
 }
 
 bool ApproveMaxEnj::operator!=(const ApproveMaxEnj& rhs) const {

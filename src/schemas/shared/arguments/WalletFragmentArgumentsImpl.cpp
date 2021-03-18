@@ -1,10 +1,10 @@
-#include "enjinsdk/internal/WalletFragmentArguments.hpp"
+#include "enjinsdk/internal/WalletFragmentArgumentsImpl.hpp"
 
 #include "RapidJsonUtils.hpp"
 
 namespace enjin::sdk::shared {
 
-std::string WalletFragmentArguments::serialize() {
+std::string WalletFragmentArgumentsImpl::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (with_assets_created.has_value()) {
@@ -14,15 +14,15 @@ std::string WalletFragmentArguments::serialize() {
     return utils::document_to_string(document);
 }
 
-void WalletFragmentArguments::set_with_assets_created() {
+void WalletFragmentArgumentsImpl::set_with_assets_created() {
     with_assets_created = true;
 }
 
-bool WalletFragmentArguments::operator==(const WalletFragmentArguments& rhs) const {
+bool WalletFragmentArgumentsImpl::operator==(const WalletFragmentArgumentsImpl& rhs) const {
     return with_assets_created == rhs.with_assets_created;
 }
 
-bool WalletFragmentArguments::operator!=(const WalletFragmentArguments& rhs) const {
+bool WalletFragmentArgumentsImpl::operator!=(const WalletFragmentArgumentsImpl& rhs) const {
     return !(rhs == *this);
 }
 

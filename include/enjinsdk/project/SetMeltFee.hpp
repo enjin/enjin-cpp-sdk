@@ -3,7 +3,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
+#include "enjinsdk/shared/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -11,7 +11,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for setting the melt fee of an asset.
 class ENJINSDK_EXPORT SetMeltFee : public graphql::AbstractGraphqlRequest,
-                                   public shared::TransactionRequestArgumentsTemplate<SetMeltFee> {
+                                   public shared::TransactionRequestArguments<SetMeltFee> {
 public:
     /// \brief Default constructor.
     SetMeltFee();

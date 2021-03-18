@@ -10,8 +10,8 @@ GetWallets::GetWallets() : graphql::AbstractGraphqlRequest("enjin.sdk.project.Ge
 std::string GetWallets::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_objects_to_document(document, {
-            WalletFragmentArgumentsTemplate::serialize(),
-            PaginationArgumentsTemplate::serialize()
+            WalletFragmentArguments::serialize(),
+            PaginationArguments::serialize()
     });
 
     if (user_ids.has_value()) {
@@ -37,10 +37,10 @@ GetWallets& GetWallets::set_eth_addresses(const std::vector<std::string>& eth_ad
 bool GetWallets::operator==(const GetWallets& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::WalletFragmentArgumentsTemplate<GetWallets>&>(*this) ==
-           static_cast<const shared::WalletFragmentArgumentsTemplate<GetWallets>&>(rhs) &&
-           static_cast<const shared::PaginationArgumentsTemplate<GetWallets>&>(*this) ==
-           static_cast<const shared::PaginationArgumentsTemplate<GetWallets>&>(rhs) &&
+           static_cast<const shared::WalletFragmentArguments<GetWallets>&>(*this) ==
+           static_cast<const shared::WalletFragmentArguments<GetWallets>&>(rhs) &&
+           static_cast<const shared::PaginationArguments<GetWallets>&>(*this) ==
+           static_cast<const shared::PaginationArguments<GetWallets>&>(rhs) &&
            user_ids == rhs.user_ids &&
            eth_addresses == rhs.eth_addresses;
 }

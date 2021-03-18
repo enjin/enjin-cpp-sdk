@@ -6,14 +6,14 @@ GetWallet::GetWallet() : graphql::AbstractGraphqlRequest("enjin.sdk.player.GetWa
 }
 
 std::string GetWallet::serialize() {
-    return WalletFragmentArgumentsTemplate::serialize();
+    return WalletFragmentArguments::serialize();
 }
 
 bool GetWallet::operator==(const GetWallet& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::WalletFragmentArgumentsTemplate<GetWallet>&>(*this) ==
-           static_cast<const shared::WalletFragmentArgumentsTemplate<GetWallet>&>(rhs);
+           static_cast<const shared::WalletFragmentArguments<GetWallet>&>(*this) ==
+           static_cast<const shared::WalletFragmentArguments<GetWallet>&>(rhs);
 }
 
 bool GetWallet::operator!=(const GetWallet& rhs) const {

@@ -3,13 +3,13 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/WalletFragmentArgumentsTemplate.hpp"
+#include "enjinsdk/shared/WalletFragmentArguments.hpp"
 
 namespace enjin::sdk::player {
 
 /// \brief Request for getting the player's wallet.
 class ENJINSDK_EXPORT GetWallet : public graphql::AbstractGraphqlRequest,
-                                  public shared::WalletFragmentArgumentsTemplate<GetWallet> {
+                                  public shared::WalletFragmentArguments<GetWallet> {
 public:
     /// \brief Default constructor.
     GetWallet();

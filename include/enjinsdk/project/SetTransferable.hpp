@@ -4,7 +4,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/AssetTransferable.hpp"
-#include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
+#include "enjinsdk/shared/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -12,7 +12,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for setting if a asset may be transferred.
 class ENJINSDK_EXPORT SetTransferable : public graphql::AbstractGraphqlRequest,
-                                        public shared::TransactionRequestArgumentsTemplate<SetTransferable> {
+                                        public shared::TransactionRequestArguments<SetTransferable> {
 public:
     /// \brief Default constructor.
     SetTransferable();

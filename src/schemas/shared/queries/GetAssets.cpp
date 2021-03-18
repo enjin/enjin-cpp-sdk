@@ -10,8 +10,8 @@ GetAssets::GetAssets() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.GetAs
 std::string GetAssets::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_objects_to_document(document, {
-            AssetFragmentArgumentsTemplate::serialize(),
-            PaginationArgumentsTemplate::serialize()
+            AssetFragmentArguments::serialize(),
+            PaginationArguments::serialize()
     });
 
     if (filter.has_value()) {
@@ -37,10 +37,10 @@ GetAssets& GetAssets::set_sort(const models::AssetSort& sort) {
 bool GetAssets::operator==(const GetAssets& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const AssetFragmentArgumentsTemplate<GetAssets>&>(*this) ==
-           static_cast<const AssetFragmentArgumentsTemplate<GetAssets>&>(rhs) &&
-           static_cast<const PaginationArgumentsTemplate<GetAssets>&>(*this) ==
-           static_cast<const PaginationArgumentsTemplate<GetAssets>&>(rhs) &&
+           static_cast<const AssetFragmentArguments<GetAssets>&>(*this) ==
+           static_cast<const AssetFragmentArguments<GetAssets>&>(rhs) &&
+           static_cast<const PaginationArguments<GetAssets>&>(*this) ==
+           static_cast<const PaginationArguments<GetAssets>&>(rhs) &&
            filter == rhs.filter &&
            sort == rhs.sort;
 }

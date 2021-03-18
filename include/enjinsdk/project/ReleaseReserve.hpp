@@ -3,7 +3,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
+#include "enjinsdk/shared/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -11,7 +11,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for releasing the reserve of an asset.
 class ENJINSDK_EXPORT ReleaseReserve : public graphql::AbstractGraphqlRequest,
-                                       public shared::TransactionRequestArgumentsTemplate<ReleaseReserve> {
+                                       public shared::TransactionRequestArguments<ReleaseReserve> {
 public:
     /// \brief Default constructor.
     ReleaseReserve();

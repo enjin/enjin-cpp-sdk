@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_SHAREDPLAYERFRAGMENTARGUMENTS_HPP
-#define ENJINCPPSDK_SHAREDPLAYERFRAGMENTARGUMENTS_HPP
+#ifndef ENJINCPPSDK_SHAREDPLAYERFRAGMENTARGUMENTSIMPL_HPP
+#define ENJINCPPSDK_SHAREDPLAYERFRAGMENTARGUMENTSIMPL_HPP
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/serialization/ISerializable.hpp"
@@ -8,12 +8,12 @@
 namespace enjin::sdk::shared {
 
 /// \brief Internal implementation class for storing values of a GraphQL Player fragment.
-class ENJINSDK_EXPORT PlayerFragmentArguments : public serialization::ISerializable {
+class ENJINSDK_EXPORT PlayerFragmentArgumentsImpl : public serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    PlayerFragmentArguments() = default;
+    /// \brief Default constructor to be used internally.
+    PlayerFragmentArgumentsImpl() = default;
 
-    ~PlayerFragmentArguments() override = default;
+    ~PlayerFragmentArgumentsImpl() override = default;
 
     std::string serialize() override;
 
@@ -27,9 +27,9 @@ public:
     /// \brief Sets the value for the associated field to true.
     void set_with_wallet();
 
-    bool operator==(const PlayerFragmentArguments& rhs) const;
+    bool operator==(const PlayerFragmentArgumentsImpl& rhs) const;
 
-    bool operator!=(const PlayerFragmentArguments& rhs) const;
+    bool operator!=(const PlayerFragmentArgumentsImpl& rhs) const;
 
 private:
     std::optional<bool> with_linking_info;
@@ -39,4 +39,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_SHAREDPLAYERFRAGMENTARGUMENTS_HPP
+#endif //ENJINCPPSDK_SHAREDPLAYERFRAGMENTARGUMENTSIMPL_HPP

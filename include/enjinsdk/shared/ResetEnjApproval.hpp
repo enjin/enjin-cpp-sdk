@@ -3,14 +3,14 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
+#include "enjinsdk/shared/TransactionRequestArguments.hpp"
 #include <optional>
 
 namespace enjin::sdk::shared {
 
 /// \brief Request for resetting the crypto items contract approval for ENJ.
 class ENJINSDK_EXPORT ResetEnjApproval : public graphql::AbstractGraphqlRequest,
-                                         public TransactionRequestArgumentsTemplate<ResetEnjApproval> {
+                                         public TransactionRequestArguments<ResetEnjApproval> {
 public:
     /// \brief Default constructor.
     ResetEnjApproval();

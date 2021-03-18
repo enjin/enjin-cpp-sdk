@@ -3,7 +3,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
+#include "enjinsdk/shared/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -11,7 +11,7 @@ namespace enjin::sdk::shared {
 
 /// \brief Request for approving the crypto items contract to spend ENJ.
 class ENJINSDK_EXPORT ApproveEnj : public graphql::AbstractGraphqlRequest,
-                                   public TransactionRequestArgumentsTemplate<ApproveEnj> {
+                                   public TransactionRequestArguments<ApproveEnj> {
 public:
     /// \brief Default constructor.
     ApproveEnj();

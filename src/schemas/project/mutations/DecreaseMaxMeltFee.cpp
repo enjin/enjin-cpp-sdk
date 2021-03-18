@@ -9,7 +9,7 @@ DecreaseMaxMeltFee::DecreaseMaxMeltFee() : graphql::AbstractGraphqlRequest("enji
 
 std::string DecreaseMaxMeltFee::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
+    utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 
     if (asset_id.has_value()) {
         utils::set_string_member(document, "assetId", asset_id.value());
@@ -42,8 +42,8 @@ DecreaseMaxMeltFee& DecreaseMaxMeltFee::set_max_melt_fee(int max_melt_fee) {
 bool DecreaseMaxMeltFee::operator==(const DecreaseMaxMeltFee& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionRequestArgumentsTemplate<DecreaseMaxMeltFee>&>(*this) ==
-           static_cast<const shared::TransactionRequestArgumentsTemplate<DecreaseMaxMeltFee>&>(rhs) &&
+           static_cast<const shared::TransactionRequestArguments<DecreaseMaxMeltFee>&>(*this) ==
+           static_cast<const shared::TransactionRequestArguments<DecreaseMaxMeltFee>&>(rhs) &&
            asset_id == rhs.asset_id &&
            asset_index == rhs.asset_index &&
            max_melt_fee == rhs.max_melt_fee;

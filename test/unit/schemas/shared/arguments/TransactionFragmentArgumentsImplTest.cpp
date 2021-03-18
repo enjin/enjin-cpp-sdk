@@ -1,18 +1,18 @@
 #include "JsonTestSuite.hpp"
-#include "enjinsdk/internal/TransactionFragmentArguments.hpp"
+#include "enjinsdk/internal/TransactionFragmentArgumentsImpl.hpp"
 #include <string>
 
 using namespace enjin::sdk::shared;
 
-class TransactionFragmentArgumentsTest : public JsonTestSuite {
+class TransactionFragmentArgumentsImplTest : public JsonTestSuite {
 public:
-    TransactionFragmentArguments class_under_test;
+    TransactionFragmentArgumentsImpl class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"withBlockchainData":true,"withMeta":true,"withEncodedData":true,"withAssetData":true,"withSignedTxs":true,"withError":true,"withNonce":true,"withState":true,"withReceipt":true,"withReceiptLogs":true,"withLogEvent":true})";
 
-    static TransactionFragmentArguments create_default_arguments() {
-        TransactionFragmentArguments arguments;
+    static TransactionFragmentArgumentsImpl create_default_arguments() {
+        TransactionFragmentArgumentsImpl arguments;
         arguments.set_with_blockchain_data();
         arguments.set_with_meta();
         arguments.set_with_encoded_data();
@@ -28,7 +28,7 @@ public:
     }
 };
 
-TEST_F(TransactionFragmentArgumentsTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
+TEST_F(TransactionFragmentArgumentsImplTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EMPTY_JSON_OBJECT);
 
@@ -39,7 +39,7 @@ TEST_F(TransactionFragmentArgumentsTest, SerializeNoSetFieldsReturnsEmptyJsonObj
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(TransactionFragmentArgumentsTest, SerializeSetFieldsReturnsExpectedJsonObject) {
+TEST_F(TransactionFragmentArgumentsImplTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_with_blockchain_data();
@@ -61,10 +61,10 @@ TEST_F(TransactionFragmentArgumentsTest, SerializeSetFieldsReturnsExpectedJsonOb
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(TransactionFragmentArgumentsTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(TransactionFragmentArgumentsImplTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    TransactionFragmentArguments lhs;
-    TransactionFragmentArguments rhs;
+    TransactionFragmentArgumentsImpl lhs;
+    TransactionFragmentArgumentsImpl rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -73,10 +73,10 @@ TEST_F(TransactionFragmentArgumentsTest, EqualityNeitherSideIsPopulatedReturnsTr
     ASSERT_TRUE(actual);
 }
 
-TEST_F(TransactionFragmentArgumentsTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(TransactionFragmentArgumentsImplTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    TransactionFragmentArguments lhs = create_default_arguments();
-    TransactionFragmentArguments rhs = create_default_arguments();
+    TransactionFragmentArgumentsImpl lhs = create_default_arguments();
+    TransactionFragmentArgumentsImpl rhs = create_default_arguments();
 
     // Act
     bool actual = lhs == rhs;
@@ -85,10 +85,10 @@ TEST_F(TransactionFragmentArgumentsTest, EqualityBothSidesArePopulatedReturnsTru
     ASSERT_TRUE(actual);
 }
 
-TEST_F(TransactionFragmentArgumentsTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(TransactionFragmentArgumentsImplTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    TransactionFragmentArguments lhs = create_default_arguments();
-    TransactionFragmentArguments rhs;
+    TransactionFragmentArgumentsImpl lhs = create_default_arguments();
+    TransactionFragmentArgumentsImpl rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -97,10 +97,10 @@ TEST_F(TransactionFragmentArgumentsTest, EqualityLeftSideIsPopulatedReturnsFalse
     ASSERT_FALSE(actual);
 }
 
-TEST_F(TransactionFragmentArgumentsTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(TransactionFragmentArgumentsImplTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    TransactionFragmentArguments lhs;
-    TransactionFragmentArguments rhs = create_default_arguments();
+    TransactionFragmentArgumentsImpl lhs;
+    TransactionFragmentArgumentsImpl rhs = create_default_arguments();
 
     // Act
     bool actual = lhs == rhs;

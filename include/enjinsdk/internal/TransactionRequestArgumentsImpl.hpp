@@ -1,21 +1,21 @@
-#ifndef ENJINCPPSDK_SHAREDTRANSACTIONREQUESTARGUMENTS_HPP
-#define ENJINCPPSDK_SHAREDTRANSACTIONREQUESTARGUMENTS_HPP
+#ifndef ENJINCPPSDK_SHAREDTRANSACTIONREQUESTARGUMENTSIMPL_HPP
+#define ENJINCPPSDK_SHAREDTRANSACTIONREQUESTARGUMENTSIMPL_HPP
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/serialization/ISerializable.hpp"
-#include "enjinsdk/internal/TransactionFragmentArguments.hpp"
+#include "enjinsdk/internal/TransactionFragmentArgumentsImpl.hpp"
 #include <optional>
 #include <string>
 
 namespace enjin::sdk::shared {
 
 /// \brief Internal implementation class for storing values of a GraphQL Transaction request.
-class ENJINSDK_EXPORT TransactionRequestArguments : public TransactionFragmentArguments {
+class ENJINSDK_EXPORT TransactionRequestArgumentsImpl : public TransactionFragmentArgumentsImpl {
 public:
     /// \brief Default constructor.
-    TransactionRequestArguments() = default; // TODO: Consider making this constructor private and friend to its implementing template class.
+    TransactionRequestArgumentsImpl() = default;
 
-    ~TransactionRequestArguments() override = default;
+    ~TransactionRequestArgumentsImpl() override = default;
 
     std::string serialize() override;
 
@@ -27,9 +27,9 @@ public:
     /// \param send The send state.
     void set_send(bool send);
 
-    bool operator==(const TransactionRequestArguments& rhs) const;
+    bool operator==(const TransactionRequestArgumentsImpl& rhs) const;
 
-    bool operator!=(const TransactionRequestArguments& rhs) const;
+    bool operator!=(const TransactionRequestArgumentsImpl& rhs) const;
 
 private:
     std::optional<std::string> eth_address;
@@ -38,4 +38,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_SHAREDTRANSACTIONREQUESTARGUMENTS_HPP
+#endif //ENJINCPPSDK_SHAREDTRANSACTIONREQUESTARGUMENTSIMPL_HPP

@@ -3,7 +3,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/PlayerFragmentArgumentsTemplate.hpp"
+#include "enjinsdk/shared/PlayerFragmentArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -11,7 +11,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for getting a player on the platform.
 class ENJINSDK_EXPORT GetPlayer : public graphql::AbstractGraphqlRequest,
-                                  public shared::PlayerFragmentArgumentsTemplate<GetPlayer> {
+                                  public shared::PlayerFragmentArguments<GetPlayer> {
 public:
     /// \brief Default constructor.
     GetPlayer();

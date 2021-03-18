@@ -1,18 +1,18 @@
 #include "JsonTestSuite.hpp"
-#include "enjinsdk/internal/PlayerFragmentArguments.hpp"
+#include "enjinsdk/internal/PlayerFragmentArgumentsImpl.hpp"
 #include <string>
 
 using namespace enjin::sdk::shared;
 
-class PlayerFragmentArgumentsTest : public JsonTestSuite {
+class PlayerFragmentArgumentsImplTest : public JsonTestSuite {
 public:
-    PlayerFragmentArguments class_under_test;
+    PlayerFragmentArgumentsImpl class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"withLinkingInfo":true,"linkingCodeQrSize":1,"withPlayerWallet":true})";
 
-    static PlayerFragmentArguments create_default_arguments() {
-        PlayerFragmentArguments arguments;
+    static PlayerFragmentArgumentsImpl create_default_arguments() {
+        PlayerFragmentArgumentsImpl arguments;
         arguments.set_with_linking_info();
         arguments.set_qr_size(1);
         arguments.set_with_wallet();
@@ -20,7 +20,7 @@ public:
     }
 };
 
-TEST_F(PlayerFragmentArgumentsTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
+TEST_F(PlayerFragmentArgumentsImplTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EMPTY_JSON_OBJECT);
 
@@ -31,7 +31,7 @@ TEST_F(PlayerFragmentArgumentsTest, SerializeNoSetFieldsReturnsEmptyJsonObject) 
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(PlayerFragmentArgumentsTest, SerializeSetFieldsReturnsExpectedJsonObject) {
+TEST_F(PlayerFragmentArgumentsImplTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_with_linking_info();
@@ -45,10 +45,10 @@ TEST_F(PlayerFragmentArgumentsTest, SerializeSetFieldsReturnsExpectedJsonObject)
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(PlayerFragmentArgumentsTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(PlayerFragmentArgumentsImplTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    PlayerFragmentArguments lhs;
-    PlayerFragmentArguments rhs;
+    PlayerFragmentArgumentsImpl lhs;
+    PlayerFragmentArgumentsImpl rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -57,10 +57,10 @@ TEST_F(PlayerFragmentArgumentsTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(PlayerFragmentArgumentsTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(PlayerFragmentArgumentsImplTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    PlayerFragmentArguments lhs = create_default_arguments();
-    PlayerFragmentArguments rhs = create_default_arguments();
+    PlayerFragmentArgumentsImpl lhs = create_default_arguments();
+    PlayerFragmentArgumentsImpl rhs = create_default_arguments();
 
     // Act
     bool actual = lhs == rhs;
@@ -69,10 +69,10 @@ TEST_F(PlayerFragmentArgumentsTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(PlayerFragmentArgumentsTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(PlayerFragmentArgumentsImplTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    PlayerFragmentArguments lhs = create_default_arguments();
-    PlayerFragmentArguments rhs;
+    PlayerFragmentArgumentsImpl lhs = create_default_arguments();
+    PlayerFragmentArgumentsImpl rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -81,10 +81,10 @@ TEST_F(PlayerFragmentArgumentsTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(PlayerFragmentArgumentsTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(PlayerFragmentArgumentsImplTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    PlayerFragmentArguments lhs;
-    PlayerFragmentArguments rhs = create_default_arguments();
+    PlayerFragmentArgumentsImpl lhs;
+    PlayerFragmentArgumentsImpl rhs = create_default_arguments();
 
     // Act
     bool actual = lhs == rhs;

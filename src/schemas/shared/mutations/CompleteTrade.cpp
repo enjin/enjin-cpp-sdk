@@ -9,7 +9,7 @@ CompleteTrade::CompleteTrade() : graphql::AbstractGraphqlRequest("enjin.sdk.shar
 
 std::string CompleteTrade::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
+    utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 
     if (trade_id.has_value()) {
         utils::set_string_member(document, "tradeId", trade_id.value());
@@ -26,8 +26,8 @@ CompleteTrade& CompleteTrade::set_trade_id(const std::string& id) {
 bool CompleteTrade::operator==(const CompleteTrade& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const TransactionRequestArgumentsTemplate<CompleteTrade>&>(*this) ==
-           static_cast<const TransactionRequestArgumentsTemplate<CompleteTrade>&>(rhs) &&
+           static_cast<const TransactionRequestArguments<CompleteTrade>&>(*this) ==
+           static_cast<const TransactionRequestArguments<CompleteTrade>&>(rhs) &&
            trade_id == rhs.trade_id;
 }
 

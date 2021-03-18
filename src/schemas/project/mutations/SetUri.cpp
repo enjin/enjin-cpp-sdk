@@ -9,7 +9,7 @@ SetUri::SetUri() : graphql::AbstractGraphqlRequest("enjin.sdk.project.SetUri") {
 
 std::string SetUri::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
+    utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 
     if (asset_id.has_value()) {
         utils::set_string_member(document, "assetId", asset_id.value());
@@ -42,8 +42,8 @@ SetUri& SetUri::set_uri(const std::string& uri) {
 bool SetUri::operator==(const SetUri& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionRequestArgumentsTemplate<SetUri>&>(*this) ==
-           static_cast<const shared::TransactionRequestArgumentsTemplate<SetUri>&>(rhs) &&
+           static_cast<const shared::TransactionRequestArguments<SetUri>&>(*this) ==
+           static_cast<const shared::TransactionRequestArguments<SetUri>&>(rhs) &&
            asset_id == rhs.asset_id &&
            asset_index == rhs.asset_index &&
            uri == rhs.uri;

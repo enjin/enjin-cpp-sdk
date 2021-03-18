@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_SHAREDPAGINATIONARGUMENTS_HPP
-#define ENJINCPPSDK_SHAREDPAGINATIONARGUMENTS_HPP
+#ifndef ENJINCPPSDK_SHAREDPAGINATIONARGUMENTSIMPL_HPP
+#define ENJINCPPSDK_SHAREDPAGINATIONARGUMENTSIMPL_HPP
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/models/PaginationOptions.hpp"
@@ -9,12 +9,12 @@
 namespace enjin::sdk::shared {
 
 /// \brief Internal implementation class for storing values of a GraphQL Pagination request.
-class ENJINSDK_EXPORT PaginationArguments : public serialization::ISerializable {
+class ENJINSDK_EXPORT PaginationArgumentsImpl : public serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    PaginationArguments() = default;
+    /// \brief Default constructor to be used internally.
+    PaginationArgumentsImpl() = default;
 
-    ~PaginationArguments() override = default;
+    ~PaginationArgumentsImpl() override = default;
 
     std::string serialize() override;
 
@@ -27,9 +27,9 @@ public:
     /// \param limit The limit value for the options.
     void set_pagination(int page, int limit);
 
-    bool operator==(const PaginationArguments& rhs) const;
+    bool operator==(const PaginationArgumentsImpl& rhs) const;
 
-    bool operator!=(const PaginationArguments& rhs) const;
+    bool operator!=(const PaginationArgumentsImpl& rhs) const;
 
 private:
     std::optional<models::PaginationOptions> pagination;
@@ -37,4 +37,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_SHAREDPAGINATIONARGUMENTS_HPP
+#endif //ENJINCPPSDK_SHAREDPAGINATIONARGUMENTSIMPL_HPP

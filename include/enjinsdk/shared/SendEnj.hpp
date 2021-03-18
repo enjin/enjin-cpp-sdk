@@ -3,7 +3,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
+#include "enjinsdk/shared/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -11,7 +11,7 @@ namespace enjin::sdk::shared {
 
 /// \brief Request for sending send ENJ.
 class ENJINSDK_EXPORT SendEnj : public graphql::AbstractGraphqlRequest,
-                                public TransactionRequestArgumentsTemplate<SendEnj> {
+                                public TransactionRequestArguments<SendEnj> {
 public:
     /// \brief Default constructor.
     SendEnj();

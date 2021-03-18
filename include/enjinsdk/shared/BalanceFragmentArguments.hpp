@@ -1,8 +1,8 @@
-#ifndef ENJINCPPSDK_SHAREDBALANCEFRAGMENTARGUMENTSTEMPLATE_HPP
-#define ENJINCPPSDK_SHAREDBALANCEFRAGMENTARGUMENTSTEMPLATE_HPP
+#ifndef ENJINCPPSDK_SHAREDBALANCEFRAGMENTARGUMENTS_HPP
+#define ENJINCPPSDK_SHAREDBALANCEFRAGMENTARGUMENTS_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/internal/BalanceFragmentArguments.hpp"
+#include "enjinsdk/internal/BalanceFragmentArgumentsImpl.hpp"
 #include "enjinsdk/models/AssetIdFormat.hpp"
 #include "enjinsdk/models/AssetIndexFormat.hpp"
 #include "enjinsdk/serialization/ISerializable.hpp"
@@ -12,12 +12,9 @@ namespace enjin::sdk::shared {
 /// \brief Fragment interface used to request certain information from balances returned by the platform.
 /// \tparam T The type of the implementing class.
 template<class T>
-class ENJINSDK_EXPORT BalanceFragmentArgumentsTemplate : public serialization::ISerializable {
+class ENJINSDK_EXPORT BalanceFragmentArguments : public serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    BalanceFragmentArgumentsTemplate() = default;
-
-    ~BalanceFragmentArgumentsTemplate() override = default;
+    ~BalanceFragmentArguments() override = default;
 
     std::string serialize() override {
         return impl.serialize();
@@ -53,18 +50,22 @@ public:
         return dynamic_cast<T&>(*this);
     }
 
-    bool operator==(const BalanceFragmentArgumentsTemplate& rhs) const {
+    bool operator==(const BalanceFragmentArguments& rhs) const {
         return impl == rhs.impl;
     }
 
-    bool operator!=(const BalanceFragmentArgumentsTemplate& rhs) const {
+    bool operator!=(const BalanceFragmentArguments& rhs) const {
         return rhs != *this;
     }
 
+protected:
+    /// \brief Default constructor.
+    BalanceFragmentArguments() = default;
+
 private:
-    BalanceFragmentArguments impl;
+    BalanceFragmentArgumentsImpl impl;
 };
 
 }
 
-#endif //ENJINCPPSDK_SHAREDBALANCEFRAGMENTARGUMENTSTEMPLATE_HPP
+#endif //ENJINCPPSDK_SHAREDBALANCEFRAGMENTARGUMENTS_HPP

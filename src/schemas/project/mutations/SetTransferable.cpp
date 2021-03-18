@@ -10,7 +10,7 @@ SetTransferable::SetTransferable() : graphql::AbstractGraphqlRequest("enjin.sdk.
 
 std::string SetTransferable::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
+    utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 
     if (asset_id.has_value()) {
         utils::set_string_member(document, "assetId", asset_id.value());
@@ -43,8 +43,8 @@ SetTransferable& SetTransferable::set_transferable(models::AssetTransferable tra
 bool SetTransferable::operator==(const SetTransferable& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionRequestArgumentsTemplate<SetTransferable>&>(*this) ==
-           static_cast<const shared::TransactionRequestArgumentsTemplate<SetTransferable>&>(rhs) &&
+           static_cast<const shared::TransactionRequestArguments<SetTransferable>&>(*this) ==
+           static_cast<const shared::TransactionRequestArguments<SetTransferable>&>(rhs) &&
            asset_id == rhs.asset_id &&
            asset_index == rhs.asset_index &&
            transferable == rhs.transferable;

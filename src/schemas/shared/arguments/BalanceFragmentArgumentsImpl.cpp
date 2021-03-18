@@ -1,11 +1,11 @@
-#include "enjinsdk/internal/BalanceFragmentArguments.hpp"
+#include "enjinsdk/internal/BalanceFragmentArgumentsImpl.hpp"
 
 #include "EnumUtils.hpp"
 #include "RapidJsonUtils.hpp"
 
 namespace enjin::sdk::shared {
 
-std::string BalanceFragmentArguments::serialize() {
+std::string BalanceFragmentArgumentsImpl::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (bal_id_format.has_value()) {
@@ -28,30 +28,30 @@ std::string BalanceFragmentArguments::serialize() {
     return utils::document_to_string(document);
 }
 
-void BalanceFragmentArguments::set_bal_id_format(models::AssetIdFormat bal_id_format) {
-    BalanceFragmentArguments::bal_id_format = bal_id_format;
+void BalanceFragmentArgumentsImpl::set_bal_id_format(models::AssetIdFormat bal_id_format) {
+    BalanceFragmentArgumentsImpl::bal_id_format = bal_id_format;
 }
 
-void BalanceFragmentArguments::set_bal_index_format(models::AssetIndexFormat bal_index_format) {
-    BalanceFragmentArguments::bal_index_format = bal_index_format;
+void BalanceFragmentArgumentsImpl::set_bal_index_format(models::AssetIndexFormat bal_index_format) {
+    BalanceFragmentArgumentsImpl::bal_index_format = bal_index_format;
 }
 
-void BalanceFragmentArguments::set_with_bal_project_id() {
+void BalanceFragmentArgumentsImpl::set_with_bal_project_id() {
     with_bal_project_id = true;
 }
 
-void BalanceFragmentArguments::set_with_bal_wallet_address() {
+void BalanceFragmentArgumentsImpl::set_with_bal_wallet_address() {
     with_bal_wallet_address = true;
 }
 
-bool BalanceFragmentArguments::operator==(const BalanceFragmentArguments& rhs) const {
+bool BalanceFragmentArgumentsImpl::operator==(const BalanceFragmentArgumentsImpl& rhs) const {
     return bal_id_format == rhs.bal_id_format &&
            bal_index_format == rhs.bal_index_format &&
            with_bal_project_id == rhs.with_bal_project_id &&
            with_bal_wallet_address == rhs.with_bal_wallet_address;
 }
 
-bool BalanceFragmentArguments::operator!=(const BalanceFragmentArguments& rhs) const {
+bool BalanceFragmentArgumentsImpl::operator!=(const BalanceFragmentArgumentsImpl& rhs) const {
     return !(rhs == *this);
 }
 

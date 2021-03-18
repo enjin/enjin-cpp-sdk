@@ -10,8 +10,8 @@ GetRequests::GetRequests() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.G
 std::string GetRequests::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_objects_to_document(document, {
-            TransactionFragmentArgumentsTemplate::serialize(),
-            PaginationArgumentsTemplate::serialize()
+            TransactionFragmentArguments::serialize(),
+            PaginationArguments::serialize()
     });
 
     if (filter.has_value()) {
@@ -37,10 +37,10 @@ GetRequests& GetRequests::set_sort(const models::TransactionSort& sort) {
 bool GetRequests::operator==(const GetRequests& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const TransactionFragmentArgumentsTemplate<GetRequests>&>(*this) ==
-           static_cast<const TransactionFragmentArgumentsTemplate<GetRequests>&>(rhs) &&
-           static_cast<const PaginationArgumentsTemplate<GetRequests>&>(*this) ==
-           static_cast<const PaginationArgumentsTemplate<GetRequests>&>(rhs) &&
+           static_cast<const TransactionFragmentArguments<GetRequests>&>(*this) ==
+           static_cast<const TransactionFragmentArguments<GetRequests>&>(rhs) &&
+           static_cast<const PaginationArguments<GetRequests>&>(*this) ==
+           static_cast<const PaginationArguments<GetRequests>&>(rhs) &&
            filter == rhs.filter &&
            sort == rhs.sort;
 }

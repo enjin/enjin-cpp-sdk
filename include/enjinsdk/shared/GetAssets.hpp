@@ -6,8 +6,8 @@
 #include "enjinsdk/models/Asset.hpp"
 #include "enjinsdk/models/AssetFilter.hpp"
 #include "enjinsdk/models/AssetSort.hpp"
-#include "enjinsdk/shared/PaginationArgumentsTemplate.hpp"
-#include "enjinsdk/shared/AssetFragmentArgumentsTemplate.hpp"
+#include "enjinsdk/shared/PaginationArguments.hpp"
+#include "enjinsdk/shared/AssetFragmentArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -15,8 +15,8 @@ namespace enjin::sdk::shared {
 
 /// \brief Request for getting assets on the platform.
 class ENJINSDK_EXPORT GetAssets : public graphql::AbstractGraphqlRequest,
-                                  public AssetFragmentArgumentsTemplate<GetAssets>,
-                                  public PaginationArgumentsTemplate<GetAssets> {
+                                  public AssetFragmentArguments<GetAssets>,
+                                  public PaginationArguments<GetAssets> {
 public:
     /// \brief Default constructor.
     GetAssets();

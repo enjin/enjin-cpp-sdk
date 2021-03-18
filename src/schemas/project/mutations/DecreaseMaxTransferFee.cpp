@@ -10,7 +10,7 @@ DecreaseMaxTransferFee::DecreaseMaxTransferFee()
 
 std::string DecreaseMaxTransferFee::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
+    utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 
     if (asset_id.has_value()) {
         utils::set_string_member(document, "assetId", asset_id.value());
@@ -43,8 +43,8 @@ DecreaseMaxTransferFee& DecreaseMaxTransferFee::set_max_transfer_fee(int max_tra
 bool DecreaseMaxTransferFee::operator==(const DecreaseMaxTransferFee& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionRequestArgumentsTemplate<DecreaseMaxTransferFee>&>(*this) ==
-           static_cast<const shared::TransactionRequestArgumentsTemplate<DecreaseMaxTransferFee>&>(rhs) &&
+           static_cast<const shared::TransactionRequestArguments<DecreaseMaxTransferFee>&>(*this) ==
+           static_cast<const shared::TransactionRequestArguments<DecreaseMaxTransferFee>&>(rhs) &&
            asset_id == rhs.asset_id &&
            asset_index == rhs.asset_index &&
            max_transfer_fee == rhs.max_transfer_fee;

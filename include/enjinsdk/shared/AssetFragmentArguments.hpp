@@ -1,8 +1,8 @@
-#ifndef ENJINCPPSDK_SHAREDASSETFRAGMENTARGUMENTSTEMPLATE_HPP
-#define ENJINCPPSDK_SHAREDASSETFRAGMENTARGUMENTSTEMPLATE_HPP
+#ifndef ENJINCPPSDK_SHAREDASSETFRAGMENTARGUMENTS_HPP
+#define ENJINCPPSDK_SHAREDASSETFRAGMENTARGUMENTS_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/internal/AssetFragmentArguments.hpp"
+#include "enjinsdk/internal/AssetFragmentArgumentsImpl.hpp"
 #include "enjinsdk/models/AssetIdFormat.hpp"
 #include "enjinsdk/serialization/ISerializable.hpp"
 
@@ -11,12 +11,9 @@ namespace enjin::sdk::shared {
 /// \brief Fragment interface used to request certain information from assets returned by the platform.
 /// \tparam T The type of the implementing class.
 template<class T>
-class ENJINSDK_EXPORT AssetFragmentArgumentsTemplate : public serialization::ISerializable {
+class ENJINSDK_EXPORT AssetFragmentArguments : public serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    AssetFragmentArgumentsTemplate() = default;
-
-    ~AssetFragmentArgumentsTemplate() override = default;
+    ~AssetFragmentArguments() override = default;
 
     std::string serialize() override {
         return impl.serialize();
@@ -110,18 +107,22 @@ public:
         return dynamic_cast<T&>(*this);
     }
 
-    bool operator==(const AssetFragmentArgumentsTemplate& rhs) const {
+    bool operator==(const AssetFragmentArguments& rhs) const {
         return impl == rhs.impl;
     }
 
-    bool operator!=(const AssetFragmentArgumentsTemplate& rhs) const {
+    bool operator!=(const AssetFragmentArguments& rhs) const {
         return rhs != *this;
     }
 
+protected:
+    /// \brief Default constructor.
+    AssetFragmentArguments() = default;
+
 private:
-    AssetFragmentArguments impl;
+    AssetFragmentArgumentsImpl impl;
 };
 
 }
 
-#endif //ENJINCPPSDK_SHAREDASSETFRAGMENTARGUMENTSTEMPLATE_HPP
+#endif //ENJINCPPSDK_SHAREDASSETFRAGMENTARGUMENTS_HPP

@@ -3,8 +3,8 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/PaginationArgumentsTemplate.hpp"
-#include "enjinsdk/shared/WalletFragmentArgumentsTemplate.hpp"
+#include "enjinsdk/shared/PaginationArguments.hpp"
+#include "enjinsdk/shared/WalletFragmentArguments.hpp"
 #include <optional>
 #include <string>
 #include <vector>
@@ -13,8 +13,8 @@ namespace enjin::sdk::project {
 
 /// \brief Request for getting wallets from the platform.
 class ENJINSDK_EXPORT GetWallets : public graphql::AbstractGraphqlRequest,
-                                   public shared::WalletFragmentArgumentsTemplate<GetWallets>,
-                                   public shared::PaginationArgumentsTemplate<GetWallets> {
+                                   public shared::WalletFragmentArguments<GetWallets>,
+                                   public shared::PaginationArguments<GetWallets> {
 public:
     /// \brief Default constructor.
     GetWallets();
