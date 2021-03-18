@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_GRAPHQLRESPONSEIMPL_HPP
-#define ENJINCPPSDK_GRAPHQLRESPONSEIMPL_HPP
+#ifndef ENJINCPPSDK_GRAPHQLRESPONSEUTILS_HPP
+#define ENJINCPPSDK_GRAPHQLRESPONSEUTILS_HPP
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/models/PaginationCursor.hpp"
@@ -43,4 +43,4 @@ bool is_json_paginated(const std::string& data_json);
 
 }
 
-#endif //ENJINCPPSDK_GRAPHQLRESPONSEIMPL_HPP
+#endif //ENJINCPPSDK_GRAPHQLRESPONSEUTILS_HPP

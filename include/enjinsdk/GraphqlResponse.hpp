@@ -4,7 +4,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/GraphqlError.hpp"
 #include "enjinsdk/internal/AbstractGraphqlResponse.hpp"
-#include "enjinsdk/internal/GraphqlResponseImpl.hpp"
+#include "enjinsdk/internal/GraphqlResponseUtils.hpp"
 #include "enjinsdk/models/PaginationCursor.hpp"
 #include "enjinsdk/serialization/IDeserializable.hpp"
 #include <optional>
