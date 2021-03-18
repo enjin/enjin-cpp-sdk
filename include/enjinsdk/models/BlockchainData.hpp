@@ -2,15 +2,15 @@
 #define ENJINCPPSDK_BLOCKCHAINDATA_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/TransactionReceipt.hpp"
-#include "enjinsdk/serialization/IDeserializable.hpp"
 #include <optional>
 #include <string>
 
 namespace enjin::sdk::models {
 
 /// \brief Models the blockchain data of a request.
-class ENJINSDK_EXPORT BlockchainData : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT BlockchainData : public serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     BlockchainData() = default;

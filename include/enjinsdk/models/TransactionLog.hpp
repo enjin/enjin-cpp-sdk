@@ -2,8 +2,8 @@
 #define ENJINCPPSDK_TRANSACTIONLOG_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/TransactionEvent.hpp"
-#include "enjinsdk/serialization/IDeserializable.hpp"
 #include <optional>
 #include <string>
 #include <vector>
@@ -11,7 +11,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models a blockchain transaction log.
-class ENJINSDK_EXPORT TransactionLog : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT TransactionLog : public serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     TransactionLog() = default;

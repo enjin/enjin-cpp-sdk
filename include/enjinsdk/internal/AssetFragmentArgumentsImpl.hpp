@@ -2,8 +2,8 @@
 #define ENJINCPPSDK_SHAREDASSETFRAGMENTARGUMENTSIMPL_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/models/AssetIdFormat.hpp"
-#include "enjinsdk/serialization/ISerializable.hpp"
 #include <optional>
 
 namespace enjin::sdk::shared {

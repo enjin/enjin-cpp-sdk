@@ -2,7 +2,7 @@
 #define ENJINCPPSDK_SHAREDWALLETFRAGMENTARGUMENTSIMPL_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/serialization/ISerializable.hpp"
+#include "enjinsdk/ISerializable.hpp"
 #include <optional>
 
 namespace enjin::sdk::shared {

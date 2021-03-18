@@ -2,7 +2,7 @@
 #define ENJINCPPSDK_PUSHERPUSHEREVENT_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/serialization/IDeserializable.hpp"
+#include "enjinsdk/IDeserializable.hpp"
 #include <optional>
 #include <string>
 

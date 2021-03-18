@@ -2,14 +2,14 @@
 #define ENJINCPPSDK_LINKINGINFO_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/serialization/IDeserializable.hpp"
+#include "enjinsdk/IDeserializable.hpp"
 #include <optional>
 #include <string>
 
 namespace enjin::sdk::models {
 
 /// \brief Models the linking information for a player.
-class ENJINSDK_EXPORT LinkingInfo : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT LinkingInfo : public serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     LinkingInfo() = default;

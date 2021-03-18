@@ -2,7 +2,7 @@
 #define ENJINCPPSDK_TRANSACTIONEVENT_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/serialization/IDeserializable.hpp"
+#include "enjinsdk/IDeserializable.hpp"
 #include <optional>
 #include <string>
 #include <vector>
@@ -10,7 +10,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models a blockchain transaction event.
-class ENJINSDK_EXPORT TransactionEvent : enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT TransactionEvent : public serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     TransactionEvent() = default;

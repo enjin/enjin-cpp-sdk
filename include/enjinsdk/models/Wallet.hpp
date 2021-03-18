@@ -2,8 +2,8 @@
 #define ENJINCPPSDK_WALLET_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/Asset.hpp"
-#include "enjinsdk/serialization/IDeserializable.hpp"
 #include <optional>
 #include <string>
 #include <vector>
@@ -11,7 +11,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models a wallet on the platform.
-class ENJINSDK_EXPORT Wallet : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT Wallet : public serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     Wallet() = default;

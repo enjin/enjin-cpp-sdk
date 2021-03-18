@@ -2,10 +2,10 @@
 #define ENJINCPPSDK_SHAREDBALANCEFRAGMENTARGUMENTS_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/internal/BalanceFragmentArgumentsImpl.hpp"
 #include "enjinsdk/models/AssetIdFormat.hpp"
 #include "enjinsdk/models/AssetIndexFormat.hpp"
-#include "enjinsdk/serialization/ISerializable.hpp"
 
 namespace enjin::sdk::shared {
 

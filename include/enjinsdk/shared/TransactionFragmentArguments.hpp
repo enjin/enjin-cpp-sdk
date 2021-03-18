@@ -2,8 +2,8 @@
 #define ENJINCPPSDK_SHAREDTRANSACTIONFRAGMENTARGUMENTS_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/internal/TransactionFragmentArgumentsImpl.hpp"
-#include "enjinsdk/serialization/ISerializable.hpp"
 
 namespace enjin::sdk::shared {
 

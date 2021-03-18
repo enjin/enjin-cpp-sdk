@@ -2,13 +2,13 @@
 #define ENJINCPPSDK_PAGINATIONOPTIONS_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/serialization/ISerializable.hpp"
+#include "enjinsdk/ISerializable.hpp"
 #include <optional>
 
 namespace enjin::sdk::models {
 
 /// \brief Models a pagination input for pagination requests.
-class ENJINSDK_EXPORT PaginationOptions : public enjin::sdk::serialization::ISerializable {
+class ENJINSDK_EXPORT PaginationOptions : public serialization::ISerializable {
 public:
     /// \brief Default constructor.
     PaginationOptions() = default;

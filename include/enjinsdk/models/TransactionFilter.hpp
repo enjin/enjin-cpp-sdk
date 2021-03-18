@@ -2,9 +2,9 @@
 #define ENJINCPPSDK_TRANSACTIONFILTER_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/models/RequestState.hpp"
 #include "enjinsdk/models/RequestType.hpp"
-#include "enjinsdk/serialization/ISerializable.hpp"
 #include <optional>
 #include <string>
 #include <vector>
@@ -12,7 +12,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models a filter input for transaction queries.
-class ENJINSDK_EXPORT TransactionFilter : public enjin::sdk::serialization::ISerializable {
+class ENJINSDK_EXPORT TransactionFilter : public serialization::ISerializable {
 public:
     /// \brief Default constructor.
     TransactionFilter() = default;
