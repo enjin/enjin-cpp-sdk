@@ -7,8 +7,8 @@
 #include <thread>
 
 using namespace enjin::sdk::websockets;
+using namespace enjin::test::mocks;
 using namespace enjin::test::suites;
-using namespace enjin::test::utils;
 
 class WebsocketClientImplTest : public VerificationTestSuite,
                                 public testing::Test {

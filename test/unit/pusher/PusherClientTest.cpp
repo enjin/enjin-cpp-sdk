@@ -10,8 +10,8 @@
 
 using namespace enjin::pusher;
 using namespace enjin::sdk;
+using namespace enjin::test::mocks;
 using namespace enjin::test::suites;
-using namespace enjin::test::utils;
 
 class PusherClientTest : public PusherClientTestSuite,
                          public VerificationTestSuite,

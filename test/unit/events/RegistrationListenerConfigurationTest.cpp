@@ -1,11 +1,12 @@
+#include "gtest/gtest.h"
 #include "MockEventListener.hpp"
 #include "enjinsdk/EventListenerRegistration.hpp"
-#include "gtest/gtest.h"
 #include <algorithm>
 #include <functional>
 #include <vector>
 
 using namespace enjin::sdk::events;
+using namespace enjin::test::mocks;
 
 class RegistrationListenerConfigurationTest : public testing::Test {
 public:

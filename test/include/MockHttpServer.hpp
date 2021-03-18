@@ -16,7 +16,7 @@
 #include <string>
 #include <queue>
 
-namespace enjin::test::utils {
+namespace enjin::test::mocks {
 
 /// \brief Mock HTTP server built on Microsoft's C++ Rest SDK for testing HTTP client implementation.
 class MockHttpServer {
@@ -40,8 +40,8 @@ public:
     /// \brief Creating a mapping for an expected request and stubbed response.
     /// \param request The request to expect.
     /// \param response The response to reply with.
-    void map_response_for_request(const enjin::sdk::http::HttpRequest& request,
-                                  const enjin::sdk::http::HttpResponse& response);
+    void map_response_for_request(const sdk::http::HttpRequest& request,
+                                  const sdk::http::HttpResponse& response);
 
     /// \brief Returns the URI for this server.
     /// \param path Optional path to extend the URI by.
@@ -50,7 +50,7 @@ public:
 
 private:
     web::http::experimental::listener::http_listener listener;
-    std::map<enjin::sdk::http::HttpRequest, enjin::sdk::http::HttpResponse> request_response_map;
+    std::map<sdk::http::HttpRequest, sdk::http::HttpResponse> request_response_map;
 
     /* Note: cpprestsdk's web::http::http_request causes a double free to take place in its latest version (v2.10.18) at
      * the time of this note was written.

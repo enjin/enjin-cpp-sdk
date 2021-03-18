@@ -4,11 +4,11 @@
 #include "ISubscriptionEventListener.hpp"
 #include "gmock/gmock.h"
 
-namespace enjin::test::utils {
+namespace enjin::test::mocks {
 
-class MockSubscriptionEventListener : public enjin::pusher::ISubscriptionEventListener {
+class MockSubscriptionEventListener : public pusher::ISubscriptionEventListener {
 public:
-    MOCK_METHOD(void, on_event, (const enjin::pusher::PusherEvent& event), (override));
+    MOCK_METHOD(void, on_event, (const pusher::PusherEvent& event), (override));
 };
 
 }

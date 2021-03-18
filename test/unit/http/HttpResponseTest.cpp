@@ -1,12 +1,14 @@
 #include "DummyObject.hpp"
+#include "JsonTestSuite.hpp"
 #include "gtest/gtest.h"
 #include "enjinsdk/HttpResponse.hpp"
 
 using namespace enjin::sdk::http;
+using namespace enjin::test::suites;
+using namespace enjin::test::utils;
 
-class HttpResponseTest : public testing::Test {
-public:
-    constexpr static char EMPTY_JSON_OBJECT[] = "{}";
+class HttpResponseTest : public JsonTestSuite,
+                         public testing::Test {
 };
 
 class HttpResponseStatusCodeFailed100To199Test : public testing::TestWithParam<int> {
@@ -107,7 +109,7 @@ TEST_F(HttpResponseTest, IsEmptyBodyIsEmptyJsonObjectReturnsTrue) {
 
 TEST_F(HttpResponseTest, IsEmptyBodyIsPopulatedJsonObjectReturnsFalse) {
     // Arrange
-    enjin::test::utils::DummyObject dummy_object = enjin::test::utils::DummyObject::create_default_dummy_object();
+    DummyObject dummy_object = DummyObject::create_default_dummy_object();
     HttpResponse response = HttpResponseBuilder()
             .body(dummy_object.serialize())
             .build();

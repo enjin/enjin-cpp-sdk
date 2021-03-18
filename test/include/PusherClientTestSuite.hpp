@@ -23,8 +23,8 @@ public:
     static constexpr char DEFAULT_EVENT_NAME[] = "TestEvent";
     static constexpr char DEFAULT_KEY[] = "xyz";
 
-    std::shared_ptr<utils::MockWebSocketClientImpl> mock_ws_client = std::make_shared<utils::MockWebSocketClientImpl>();
-    utils::MockWebsocketServer mock_server;
+    std::shared_ptr<mocks::MockWebSocketClientImpl> mock_ws_client = std::make_shared<mocks::MockWebSocketClientImpl>();
+    mocks::MockWebsocketServer mock_server;
 
     enjin::pusher::PusherClient create_testable_pusher_client();
 

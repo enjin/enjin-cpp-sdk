@@ -1,6 +1,6 @@
 #include "MockHttpServer.hpp"
 
-namespace enjin::test::utils {
+namespace enjin::test::mocks {
 
 enjin::sdk::http::HttpRequest casablanca_to_enjin_request(web::http::http_request casablanca_req) {
     return enjin::sdk::http::HttpRequestBuilder()
