@@ -2,13 +2,13 @@
 #define ENJINCPPSDK_GASPRICES_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/serialization/IDeserializable.hpp"
+#include "enjinsdk/IDeserializable.hpp"
 #include <optional>
 
 namespace enjin::sdk::models {
 
 /// \brief Models gas prices on the platform.
-class ENJINSDK_EXPORT GasPrices : enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT GasPrices : public serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     GasPrices() = default;

@@ -2,15 +2,15 @@
 #define ENJINCPPSDK_CONTRACTS_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/SupplyModels.hpp"
-#include "enjinsdk/serialization/IDeserializable.hpp"
 #include <optional>
 #include <string>
 
 namespace enjin::sdk::models {
 
 /// \brief Models a smart contract used by the platform.
-class ENJINSDK_EXPORT Contracts : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT Contracts : public serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     Contracts() = default;

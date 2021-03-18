@@ -2,17 +2,17 @@
 #define ENJINCPPSDK_REQUEST_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/BlockchainData.hpp"
 #include "enjinsdk/models/RequestState.hpp"
 #include "enjinsdk/models/RequestType.hpp"
-#include "enjinsdk/serialization/IDeserializable.hpp"
 #include <optional>
 #include <string>
 
 namespace enjin::sdk::models {
 
 /// \brief Models a request on the platform.
-class ENJINSDK_EXPORT Request : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT Request : public serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     Request() = default;

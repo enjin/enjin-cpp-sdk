@@ -2,16 +2,16 @@
 #define ENJINCPPSDK_PUSHER_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/PusherChannels.hpp"
 #include "enjinsdk/models/PusherOptions.hpp"
-#include "enjinsdk/serialization/IDeserializable.hpp"
 #include <optional>
 #include <string>
 
 namespace enjin::sdk::models {
 
 /// \brief Models Pusher settings for the platform.
-class ENJINSDK_EXPORT Pusher : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT Pusher : public serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     Pusher() = default;

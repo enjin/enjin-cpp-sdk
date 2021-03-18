@@ -2,14 +2,14 @@
 #define ENJINCPPSDK_MINTINPUT_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/serialization/ISerializable.hpp"
+#include "enjinsdk/ISerializable.hpp"
 #include <optional>
 #include <string>
 
 namespace enjin::sdk::models {
 
 /// \brief Models a mint input for mint requests.
-class ENJINSDK_EXPORT MintInput : public enjin::sdk::serialization::ISerializable {
+class ENJINSDK_EXPORT MintInput : public serialization::ISerializable {
 public:
     /// \brief Default constructor.
     MintInput() = default;

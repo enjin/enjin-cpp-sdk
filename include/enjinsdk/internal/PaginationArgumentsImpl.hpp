@@ -2,8 +2,8 @@
 #define ENJINCPPSDK_SHAREDPAGINATIONARGUMENTSIMPL_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/models/PaginationOptions.hpp"
-#include "enjinsdk/serialization/ISerializable.hpp"
 #include <optional>
 
 namespace enjin::sdk::shared {

@@ -2,7 +2,7 @@
 #define ENJINCPPSDK_IGRAPHQLREQUEST_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/serialization/ISerializable.hpp"
+#include "enjinsdk/ISerializable.hpp"
 #include <string>
 #include <utility>
 

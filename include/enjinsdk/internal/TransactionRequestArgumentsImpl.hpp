@@ -2,7 +2,7 @@
 #define ENJINCPPSDK_SHAREDTRANSACTIONREQUESTARGUMENTSIMPL_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/serialization/ISerializable.hpp"
+#include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/internal/TransactionFragmentArgumentsImpl.hpp"
 #include <optional>
 #include <string>

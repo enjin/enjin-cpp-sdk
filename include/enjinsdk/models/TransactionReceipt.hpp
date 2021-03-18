@@ -2,8 +2,8 @@
 #define ENJINCPPSDK_TRANSACTIONRECEIPT_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/TransactionLog.hpp"
-#include "enjinsdk/serialization/IDeserializable.hpp"
 #include <optional>
 #include <string>
 #include <vector>
@@ -11,7 +11,7 @@
 namespace enjin::sdk::models {
 
 /// \brief Models a receipt for a blockchain request.
-class ENJINSDK_EXPORT TransactionReceipt : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT TransactionReceipt : public serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     TransactionReceipt() = default;

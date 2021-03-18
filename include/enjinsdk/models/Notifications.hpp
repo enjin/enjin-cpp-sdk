@@ -2,14 +2,14 @@
 #define ENJINCPPSDK_NOTIFICATIONS_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/Pusher.hpp"
-#include "enjinsdk/serialization/IDeserializable.hpp"
 #include <optional>
 
 namespace enjin::sdk::models {
 
 /// \brief Models the notification drivers and settings for the platform.
-class ENJINSDK_EXPORT Notifications : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT Notifications : public serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     Notifications() = default;

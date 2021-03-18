@@ -2,16 +2,16 @@
 #define ENJINCPPSDK_ASSETCONFIGDATA_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/AssetTransferFeeSettings.hpp"
 #include "enjinsdk/models/AssetTransferable.hpp"
-#include "enjinsdk/serialization/IDeserializable.hpp"
 #include <optional>
 #include <string>
 
 namespace enjin::sdk::models {
 
 /// \brief Models the configuration data of a asset.
-class ENJINSDK_EXPORT AssetConfigData : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT AssetConfigData : public serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     AssetConfigData() = default;

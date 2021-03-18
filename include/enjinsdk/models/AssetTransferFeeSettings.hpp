@@ -2,16 +2,16 @@
 #define ENJINCPPSDK_ASSETTRANSFERFEESETTINGS_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/IDeserializable.hpp"
+#include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/models/AssetTransferFeeType.hpp"
-#include "enjinsdk/serialization/IDeserializable.hpp"
-#include "enjinsdk/serialization/ISerializable.hpp"
 #include <optional>
 #include <string>
 
 namespace enjin::sdk::models {
 
 /// \brief Models transfer fee settings for an asset.
-class ENJINSDK_EXPORT AssetTransferFeeSettings : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT AssetTransferFeeSettings : public serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     AssetTransferFeeSettings() = default;

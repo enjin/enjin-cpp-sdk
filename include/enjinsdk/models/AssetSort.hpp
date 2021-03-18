@@ -2,15 +2,15 @@
 #define ENJINCPPSDK_ASSETSORT_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/models/SortDirection.hpp"
 #include "enjinsdk/models/AssetField.hpp"
-#include "enjinsdk/serialization/ISerializable.hpp"
 #include <optional>
 
 namespace enjin::sdk::models {
 
 /// \brief Models sorting input for Assets.
-class ENJINSDK_EXPORT AssetSort : public enjin::sdk::serialization::ISerializable {
+class ENJINSDK_EXPORT AssetSort : public serialization::ISerializable {
 public:
     /// \brief Default constructor.
     AssetSort() = default;

@@ -1,15 +1,15 @@
 #ifndef ENJINCPPSDK_DUMMYOBJECT_HPP
 #define ENJINCPPSDK_DUMMYOBJECT_HPP
 
-#include "enjinsdk/serialization/IDeserializable.hpp"
-#include "enjinsdk/serialization/ISerializable.hpp"
+#include "enjinsdk/IDeserializable.hpp"
+#include "enjinsdk/ISerializable.hpp"
 #include <optional>
 #include <string>
 
 namespace enjin::test::utils {
 
-class DummyObject : public enjin::sdk::serialization::IDeserializable,
-                    public enjin::sdk::serialization::ISerializable {
+class DummyObject : public sdk::serialization::IDeserializable,
+                    public sdk::serialization::ISerializable {
 public:
     std::optional<int> id;
 

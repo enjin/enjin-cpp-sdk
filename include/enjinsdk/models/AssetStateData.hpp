@@ -2,15 +2,15 @@
 #define ENJINCPPSDK_ASSETSTATEDATA_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/AssetSupplyModel.hpp"
-#include "enjinsdk/serialization/IDeserializable.hpp"
 #include <optional>
 #include <string>
 
 namespace enjin::sdk::models {
 
 /// \brief Models the state data of a asset.
-class ENJINSDK_EXPORT AssetStateData : public enjin::sdk::serialization::IDeserializable {
+class ENJINSDK_EXPORT AssetStateData : public serialization::IDeserializable {
 public:
     /// \brief Default constructor.
     AssetStateData() = default;

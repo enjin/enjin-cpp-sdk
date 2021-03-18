@@ -2,8 +2,8 @@
 #define ENJINCPPSDK_SHAREDPLAYERFRAGMENTARGUMENTS_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/internal/PlayerFragmentArgumentsImpl.hpp"
-#include "enjinsdk/serialization/ISerializable.hpp"
 
 namespace enjin::sdk::shared {
 
