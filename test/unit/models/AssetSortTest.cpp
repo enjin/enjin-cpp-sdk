@@ -1,9 +1,12 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/AssetSort.hpp"
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class AssetSortTest : public JsonTestSuite {
+class AssetSortTest : public JsonTestSuite,
+                      public testing::Test {
 public:
     AssetSort class_under_test;
 

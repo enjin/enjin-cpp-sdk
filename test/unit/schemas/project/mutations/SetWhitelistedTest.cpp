@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/project/SetWhitelisted.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
+using namespace enjin::test::suites;
 
-class SetWhitelistedTest : public JsonTestSuite {
+class SetWhitelistedTest : public JsonTestSuite,
+                           public testing::Test {
 public:
     SetWhitelisted class_under_test;
 

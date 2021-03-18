@@ -7,8 +7,10 @@
 
 using namespace enjin::sdk::graphql;
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class GraphqlResponseUtilsTest : public JsonTestSuite {
+class GraphqlResponseUtilsTest : public JsonTestSuite,
+                                 public testing::Test {
 public:
     constexpr static char DEFAULT_CURSOR_JSON[] =
             R"({"total":1,"perPage":1,"currentPage":1,"hasPages":true,"from":1,"to":1,"lastPage":1,"hasMorePages":true})";

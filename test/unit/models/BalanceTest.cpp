@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/Balance.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class BalanceTest : public JsonTestSuite {
+class BalanceTest : public JsonTestSuite,
+                    public testing::Test {
 public:
     Balance class_under_test;
 

@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/TransactionLog.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class TransactionLogTest : public JsonTestSuite {
+class TransactionLogTest : public JsonTestSuite,
+                           public testing::Test {
 public:
     TransactionLog class_under_test;
 

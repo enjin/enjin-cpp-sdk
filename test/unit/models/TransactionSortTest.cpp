@@ -1,9 +1,12 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/TransactionSort.hpp"
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class TransactionSortTest : public JsonTestSuite {
+class TransactionSortTest : public JsonTestSuite,
+                            public testing::Test {
 public:
     TransactionSort class_under_test;
 

@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/internal/TransactionRequestArgumentsImpl.hpp"
 #include <string>
 
 using namespace enjin::sdk::shared;
+using namespace enjin::test::suites;
 
-class TransactionRequestArgumentsImplTest : public JsonTestSuite {
+class TransactionRequestArgumentsImplTest : public JsonTestSuite,
+                                            public testing::Test {
 public:
     TransactionRequestArgumentsImpl class_under_test;
 

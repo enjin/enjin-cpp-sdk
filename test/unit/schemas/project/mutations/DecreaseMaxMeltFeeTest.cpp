@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/project/DecreaseMaxMeltFee.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
+using namespace enjin::test::suites;
 
-class DecreaseMaxMeltFeeTest : public JsonTestSuite {
+class DecreaseMaxMeltFeeTest : public JsonTestSuite,
+                               public testing::Test {
 public:
     DecreaseMaxMeltFee class_under_test;
 

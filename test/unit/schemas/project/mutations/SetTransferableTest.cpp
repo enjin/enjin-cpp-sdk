@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/project/SetTransferable.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
+using namespace enjin::test::suites;
 
-class SetTransferableTest : public JsonTestSuite {
+class SetTransferableTest : public JsonTestSuite,
+                            public testing::Test {
 public:
     SetTransferable class_under_test;
 

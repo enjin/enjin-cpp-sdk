@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/MintInput.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class MintInputTest : public JsonTestSuite {
+class MintInputTest : public JsonTestSuite,
+                      public testing::Test {
 public:
     MintInput class_under_test;
 

@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/internal/TransactionFragmentArgumentsImpl.hpp"
 #include <string>
 
 using namespace enjin::sdk::shared;
+using namespace enjin::test::suites;
 
-class TransactionFragmentArgumentsImplTest : public JsonTestSuite {
+class TransactionFragmentArgumentsImplTest : public JsonTestSuite,
+                                             public testing::Test {
 public:
     TransactionFragmentArgumentsImpl class_under_test;
 

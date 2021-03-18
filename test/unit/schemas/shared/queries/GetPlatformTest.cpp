@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/shared/GetPlatform.hpp"
 #include <string>
 
 using namespace enjin::sdk::shared;
+using namespace enjin::test::suites;
 
-class GetPlatformTest : public JsonTestSuite {
+class GetPlatformTest : public JsonTestSuite,
+                        public testing::Test {
 public:
     GetPlatform class_under_test;
 

@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/project/InvalidateAssetMetadata.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
+using namespace enjin::test::suites;
 
-class InvalidateAssetMetadataTest : public JsonTestSuite {
+class InvalidateAssetMetadataTest : public JsonTestSuite,
+                                    public testing::Test {
 public:
     InvalidateAssetMetadata class_under_test;
 

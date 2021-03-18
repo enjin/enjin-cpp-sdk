@@ -1,11 +1,14 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/TransactionFilter.hpp"
 #include <string>
 #include <vector>
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class TransactionFilterTest : public JsonTestSuite {
+class TransactionFilterTest : public JsonTestSuite,
+                              public testing::Test {
 public:
     TransactionFilter class_under_test;
 

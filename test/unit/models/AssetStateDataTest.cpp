@@ -1,9 +1,12 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/AssetStateData.hpp"
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class AssetStateDataTest : public JsonTestSuite {
+class AssetStateDataTest : public JsonTestSuite,
+                           public testing::Test {
 public:
     AssetStateData class_under_test;
 

@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/project/SetUri.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
+using namespace enjin::test::suites;
 
-class SetUriTest : public JsonTestSuite {
+class SetUriTest : public JsonTestSuite,
+                   public testing::Test {
 public:
     SetUri class_under_test;
 

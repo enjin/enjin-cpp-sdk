@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/shared/Message.hpp"
 #include <string>
 
 using namespace enjin::sdk::shared;
+using namespace enjin::test::suites;
 
-class MessageTest : public JsonTestSuite {
+class MessageTest : public JsonTestSuite,
+                    public testing::Test {
 public:
     Message class_under_test;
 

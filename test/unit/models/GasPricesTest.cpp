@@ -1,9 +1,12 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/GasPrices.hpp"
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class GasPricesTest : public JsonTestSuite {
+class GasPricesTest : public JsonTestSuite,
+                      public testing::Test {
 public:
     GasPrices class_under_test;
 

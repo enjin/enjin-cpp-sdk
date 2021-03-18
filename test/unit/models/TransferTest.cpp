@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/Transfer.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class TransferTest : public JsonTestSuite {
+class TransferTest : public JsonTestSuite,
+                     public testing::Test {
 public:
     Transfer class_under_test;
 

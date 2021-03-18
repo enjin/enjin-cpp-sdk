@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/shared/ApproveEnj.hpp"
 #include <string>
 
 using namespace enjin::sdk::shared;
+using namespace enjin::test::suites;
 
-class ApproveEnjTest : public JsonTestSuite {
+class ApproveEnjTest : public JsonTestSuite,
+                       public testing::Test {
 public:
     ApproveEnj class_under_test;
 

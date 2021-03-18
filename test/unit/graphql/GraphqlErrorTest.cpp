@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "enjinsdk/GraphqlError.hpp"
 #include "JsonTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::graphql;
+using namespace enjin::test::suites;
 
-class GraphqlErrorTest : public JsonTestSuite {
+class GraphqlErrorTest : public JsonTestSuite,
+                         public testing::Test {
 public:
     GraphqlError class_under_test;
 

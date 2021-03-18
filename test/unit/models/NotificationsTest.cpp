@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/Notifications.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class NotificationsTest : public JsonTestSuite {
+class NotificationsTest : public JsonTestSuite,
+                          public testing::Test {
 public:
     Notifications class_under_test;
 

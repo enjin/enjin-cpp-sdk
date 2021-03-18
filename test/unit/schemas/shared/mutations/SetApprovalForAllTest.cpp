@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/shared/SetApprovalForAll.hpp"
 #include <string>
 
 using namespace enjin::sdk::shared;
+using namespace enjin::test::suites;
 
-class SetApprovalForAllTest : public JsonTestSuite {
+class SetApprovalForAllTest : public JsonTestSuite,
+                              public testing::Test {
 public:
     SetApprovalForAll class_under_test;
 

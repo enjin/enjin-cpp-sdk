@@ -1,11 +1,14 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/PlayerFilter.hpp"
 #include <string>
 #include <vector>
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class PlayerFilterTest : public JsonTestSuite {
+class PlayerFilterTest : public JsonTestSuite,
+                         public testing::Test {
 public:
     PlayerFilter class_under_test;
 
