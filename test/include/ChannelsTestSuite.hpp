@@ -2,9 +2,10 @@
 #define ENJINCPPSDK_CHANNELSTESTSUITE_HPP
 
 #include "enjinsdk/models/Platform.hpp"
-#include "gtest/gtest.h"
 
-class ChannelsTestSuite : public testing::Test {
+namespace enjin::test::suites {
+
+class ChannelsTestSuite {
 public:
     constexpr static char PLATFORM_JSON[] = R"({"id":1,"name":"","network":"kovan","contracts":{},"notifications":{}})";
 
@@ -14,5 +15,7 @@ public:
         return platform;
     }
 };
+
+}
 
 #endif //ENJINCPPSDK_CHANNELSTESTSUITE_HPP

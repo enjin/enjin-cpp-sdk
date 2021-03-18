@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "AssetChannel.hpp"
 #include "ChannelsTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::events;
+using namespace enjin::test::suites;
 
-class AssetChannelTest : public ChannelsTestSuite {
+class AssetChannelTest : public ChannelsTestSuite,
+                         public testing::Test {
 };
 
 TEST_F(AssetChannelTest, ChannelReturnsExpectedString) {
