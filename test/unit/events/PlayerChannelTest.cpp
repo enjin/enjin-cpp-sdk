@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "PlayerChannel.hpp"
 #include "ChannelsTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::events;
+using namespace enjin::test::suites;
 
-class PlayerChannelTest : public ChannelsTestSuite {
+class PlayerChannelTest : public ChannelsTestSuite,
+                          public testing::Test {
 };
 
 TEST_F(PlayerChannelTest, ChannelReturnsExpectedString) {

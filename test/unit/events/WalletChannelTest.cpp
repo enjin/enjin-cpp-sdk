@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "WalletChannel.hpp"
 #include "ChannelsTestSuite.hpp"
 #include <string>
 
 using namespace enjin::sdk::events;
+using namespace enjin::test::suites;
 
-class WalletChannelTest : public ChannelsTestSuite {
+class WalletChannelTest : public ChannelsTestSuite,
+                          public testing::Test {
 };
 
 TEST_F(WalletChannelTest, ChannelReturnsExpectedString) {
