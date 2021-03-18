@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/Player.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class PlayerTest : public JsonTestSuite {
+class PlayerTest : public JsonTestSuite,
+                   public testing::Test {
 public:
     Player class_under_test;
 

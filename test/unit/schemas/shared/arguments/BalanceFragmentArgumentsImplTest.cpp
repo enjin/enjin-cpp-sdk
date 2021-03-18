@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/internal/BalanceFragmentArgumentsImpl.hpp"
 #include <string>
 
 using namespace enjin::sdk::shared;
+using namespace enjin::test::suites;
 
-class BalanceFragmentArgumentsImplTest : public JsonTestSuite {
+class BalanceFragmentArgumentsImplTest : public JsonTestSuite,
+                                         public testing::Test {
 public:
     BalanceFragmentArgumentsImpl class_under_test;
 

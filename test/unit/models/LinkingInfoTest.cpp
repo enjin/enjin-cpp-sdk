@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/LinkingInfo.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class LinkingInfoTest : public JsonTestSuite {
+class LinkingInfoTest : public JsonTestSuite,
+                        public testing::Test {
 public:
     LinkingInfo class_under_test;
 

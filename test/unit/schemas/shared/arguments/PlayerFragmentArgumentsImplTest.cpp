@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/internal/PlayerFragmentArgumentsImpl.hpp"
 #include <string>
 
 using namespace enjin::sdk::shared;
+using namespace enjin::test::suites;
 
-class PlayerFragmentArgumentsImplTest : public JsonTestSuite {
+class PlayerFragmentArgumentsImplTest : public JsonTestSuite,
+                                        public testing::Test {
 public:
     PlayerFragmentArgumentsImpl class_under_test;
 

@@ -1,9 +1,12 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/TransactionEvent.hpp"
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class TransactionEventTest : public JsonTestSuite {
+class TransactionEventTest : public JsonTestSuite,
+                             public testing::Test {
 public:
     TransactionEvent class_under_test;
 

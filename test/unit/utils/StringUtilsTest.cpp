@@ -4,7 +4,7 @@
 
 using namespace enjin::sdk::utils;
 
-class StringUtilTest : public ::testing::Test {
+class StringUtilTest : public testing::Test {
 
 };
 

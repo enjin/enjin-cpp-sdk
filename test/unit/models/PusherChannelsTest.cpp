@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/PusherChannels.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class PusherChannelsTest : public JsonTestSuite {
+class PusherChannelsTest : public JsonTestSuite,
+                           public testing::Test {
 public:
     PusherChannels class_under_test;
 

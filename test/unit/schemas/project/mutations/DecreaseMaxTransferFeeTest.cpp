@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/project/DecreaseMaxTransferFee.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
+using namespace enjin::test::suites;
 
-class DecreaseMaxTransferFeeTest : public JsonTestSuite {
+class DecreaseMaxTransferFeeTest : public JsonTestSuite,
+                                   public testing::Test {
 public:
     DecreaseMaxTransferFee class_under_test;
 

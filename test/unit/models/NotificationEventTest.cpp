@@ -4,10 +4,6 @@
 using namespace enjin::sdk::models;
 
 class NotificationEventTest : public testing::Test {
-public:
-    static NotificationEvent create_default_notification_event() {
-        return NotificationEvent(EventType::PROJECT_CREATED, "project", "xyz");
-    }
 };
 
 TEST_F(NotificationEventTest, EqualityBothSidesAreSameDefReturnsTrue) {

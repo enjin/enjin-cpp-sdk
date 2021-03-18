@@ -1,11 +1,14 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/BalanceFilter.hpp"
 #include <string>
 #include <vector>
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class BalanceFilterTest : public JsonTestSuite {
+class BalanceFilterTest : public JsonTestSuite,
+                          public testing::Test {
 public:
     BalanceFilter class_under_test;
 

@@ -1,11 +1,14 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/shared/MeltAsset.hpp"
 #include <string>
 #include <vector>
 
 using namespace enjin::sdk::shared;
+using namespace enjin::test::suites;
 
-class MeltAssetTest : public JsonTestSuite {
+class MeltAssetTest : public JsonTestSuite,
+                      public testing::Test {
 public:
     MeltAsset class_under_test;
 

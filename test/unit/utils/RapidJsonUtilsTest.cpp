@@ -1,17 +1,19 @@
 #include "RapidJsonUtils.hpp"
 #include "DummyObject.hpp"
+#include "JsonTestSuite.hpp"
 #include "gtest/gtest.h"
 #include <sstream>
 #include <string>
 #include <vector>
 
 using namespace enjin::sdk::utils;
+using namespace enjin::test::suites;
 using namespace enjin::test::utils;
 
-class RapidJsonUtilsTest : public testing::Test {
+class RapidJsonUtilsTest : public JsonTestSuite,
+                           public testing::Test {
 public:
     constexpr static char DEFAULT_KEY[] = "key";
-    constexpr static char EMPTY_JSON_OBJECT_KEY[] = "{}";
 
     static rapidjson::Document create_object_document() {
         return rapidjson::Document(rapidjson::kObjectType);
@@ -33,7 +35,7 @@ TEST_F(RapidJsonUtilsTest, JoinSerializedObjectToDocumentDocumentIsNotObjectThro
 
 TEST_F(RapidJsonUtilsTest, JoinSerializedObjectToDocumentJsonIsNotObjectDoesNothing) {
     // Arrange
-    const std::string expected(EMPTY_JSON_OBJECT_KEY);
+    const std::string expected(EMPTY_JSON_OBJECT);
     const std::string json(R"("1":1)");
     rapidjson::Document document;
     document.Parse(expected.c_str());
@@ -49,7 +51,7 @@ TEST_F(RapidJsonUtilsTest, JoinSerializedObjectToDocumentDocumentIsObjectAddsMem
     // Arrange
     const std::string expected_key(DEFAULT_KEY);
     rapidjson::Document document;
-    document.Parse(EMPTY_JSON_OBJECT_KEY);
+    document.Parse(EMPTY_JSON_OBJECT);
     std::stringstream s;
     s << R"({")"
       << expected_key
@@ -84,7 +86,7 @@ TEST_F(RapidJsonUtilsTest, JoinSerializedObjectsToDocumentDocumentIsNotObjectThr
 
 TEST_F(RapidJsonUtilsTest, JoinSerializedObjectsToDocumentJsonsAreNotObjectsDoesNothing) {
     // Arrange
-    const std::string expected(EMPTY_JSON_OBJECT_KEY);
+    const std::string expected(EMPTY_JSON_OBJECT);
     const std::vector<std::string> jsons({R"("1":1)"});
     rapidjson::Document document;
     document.Parse(expected.c_str());
@@ -101,11 +103,11 @@ TEST_F(RapidJsonUtilsTest, JoinSerializedObjectsToDocumentDocumentIsObjectAddsMe
     const std::string expected_key1("key1");
     const std::string expected_key2("key2");
     rapidjson::Document document;
-    document.Parse(EMPTY_JSON_OBJECT_KEY);
+    document.Parse(EMPTY_JSON_OBJECT);
     std::stringstream s1;
     s1 << R"({")"
-      << expected_key1
-      << R"(":1})";
+       << expected_key1
+       << R"(":1})";
     std::stringstream s2;
     s2 << R"({")"
        << expected_key2

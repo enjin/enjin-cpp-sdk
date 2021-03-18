@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/Melt.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class MeltTest : public JsonTestSuite {
+class MeltTest : public JsonTestSuite,
+                 public testing::Test {
 public:
     Melt class_under_test;
 

@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/PaginationOptions.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class PaginationOptionsTest : public JsonTestSuite {
+class PaginationOptionsTest : public JsonTestSuite,
+                              public testing::Test {
 public:
     PaginationOptions class_under_test;
 

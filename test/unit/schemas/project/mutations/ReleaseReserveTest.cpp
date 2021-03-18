@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/project/ReleaseReserve.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
+using namespace enjin::test::suites;
 
-class ReleaseReserveTest : public JsonTestSuite {
+class ReleaseReserveTest : public JsonTestSuite,
+                           public testing::Test {
 public:
     ReleaseReserve class_under_test;
 

@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/shared/CancelTransaction.hpp"
 #include <string>
 
 using namespace enjin::sdk::shared;
+using namespace enjin::test::suites;
 
-class CancelTransactionTest : public JsonTestSuite {
+class CancelTransactionTest : public JsonTestSuite,
+                              public testing::Test {
 public:
     CancelTransaction class_under_test;
 

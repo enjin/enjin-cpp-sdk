@@ -1,4 +1,5 @@
 #include "DummyObject.hpp"
+#include "JsonTestSuite.hpp"
 #include "enjinsdk/GraphqlResponse.hpp"
 #include "gtest/gtest.h"
 #include <sstream>
@@ -6,13 +7,16 @@
 #include <vector>
 
 using namespace enjin::sdk::graphql;
+using namespace enjin::test::suites;
 using namespace enjin::test::utils;
 
-class GraphqlResponseTest : public testing::Test {
+class GraphqlResponseTest : public JsonTestSuite,
+                            public testing::Test {
 public:
-    constexpr static char EMPTY_JSON_OBJECT[] = "{}";
-    constexpr static char POPULATED_CURSOR_JSON[] = R"({"total":1,"perPage":1,"currentPage":1,"hasPages":true,"from":1,"to":1,"lastPage":1,"hasMorePages":true})";
-    constexpr static char POPULATED_ERROR_JSON[] = R"({"message":"xyz","code":1,"details":"xyz","locations":[{"key":1}]})";
+    constexpr static char POPULATED_CURSOR_JSON[] =
+            R"({"total":1,"perPage":1,"currentPage":1,"hasPages":true,"from":1,"to":1,"lastPage":1,"hasMorePages":true})";
+    constexpr static char POPULATED_ERROR_JSON[] =
+            R"({"message":"xyz","code":1,"details":"xyz","locations":[{"key":1}]})";
 
     static enjin::sdk::models::PaginationCursor create_default_pagination_cursor() {
         enjin::sdk::models::PaginationCursor cursor;

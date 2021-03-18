@@ -1,9 +1,12 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/AccessToken.hpp"
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class AccessTokenTest : public JsonTestSuite {
+class AccessTokenTest : public JsonTestSuite,
+                        public testing::Test {
 public:
     AccessToken class_under_test;
 

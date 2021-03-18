@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/Wallet.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class WalletTest : public JsonTestSuite {
+class WalletTest : public JsonTestSuite,
+                   public testing::Test {
 public:
     Wallet class_under_test;
 

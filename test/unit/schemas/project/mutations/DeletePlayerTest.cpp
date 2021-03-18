@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/project/DeletePlayer.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
+using namespace enjin::test::suites;
 
-class DeletePlayerTest : public JsonTestSuite {
+class DeletePlayerTest : public JsonTestSuite,
+                         public testing::Test {
 public:
     DeletePlayer class_under_test;
 

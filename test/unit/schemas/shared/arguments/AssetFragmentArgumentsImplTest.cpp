@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/internal/AssetFragmentArgumentsImpl.hpp"
 #include <string>
 
 using namespace enjin::sdk::shared;
+using namespace enjin::test::suites;
 
-class AssetFragmentArgumentsImplTest : public JsonTestSuite {
+class AssetFragmentArgumentsImplTest : public JsonTestSuite,
+                                       public testing::Test {
 public:
     AssetFragmentArgumentsImpl class_under_test;
 

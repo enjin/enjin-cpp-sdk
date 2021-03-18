@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/AssetTransferFeeSettings.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class AssetTransferFeeSettingsInputTest : public JsonTestSuite {
+class AssetTransferFeeSettingsInputTest : public JsonTestSuite,
+                                          public testing::Test {
 public:
     AssetTransferFeeSettingsInput class_under_test;
 

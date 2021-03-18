@@ -1,10 +1,13 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/project/UnlinkWallet.hpp"
 #include <string>
 
 using namespace enjin::sdk::project;
+using namespace enjin::test::suites;
 
-class UnlinkWalletTest : public JsonTestSuite {
+class UnlinkWalletTest : public JsonTestSuite,
+                         public testing::Test {
 public:
     UnlinkWallet class_under_test;
 

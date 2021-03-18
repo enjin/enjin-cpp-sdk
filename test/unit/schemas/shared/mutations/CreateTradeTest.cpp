@@ -1,11 +1,14 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/shared/CreateTrade.hpp"
 #include <string>
 #include <vector>
 
 using namespace enjin::sdk::shared;
+using namespace enjin::test::suites;
 
-class CreateTradeTest : public JsonTestSuite {
+class CreateTradeTest : public JsonTestSuite,
+                        public testing::Test {
 public:
     CreateTrade class_under_test;
 

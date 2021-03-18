@@ -1,9 +1,12 @@
+#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/AssetVariant.hpp"
 
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 
-class AssetVariantTest : public JsonTestSuite {
+class AssetVariantTest : public JsonTestSuite,
+                         public testing::Test {
 public:
     AssetVariant class_under_test;
 
