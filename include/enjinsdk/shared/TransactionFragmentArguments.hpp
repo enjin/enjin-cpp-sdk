@@ -1,8 +1,8 @@
-#ifndef ENJINCPPSDK_SHAREDTRANSACTIONFRAGMENTARGUMENTSTEMPLATE_HPP
-#define ENJINCPPSDK_SHAREDTRANSACTIONFRAGMENTARGUMENTSTEMPLATE_HPP
+#ifndef ENJINCPPSDK_SHAREDTRANSACTIONFRAGMENTARGUMENTS_HPP
+#define ENJINCPPSDK_SHAREDTRANSACTIONFRAGMENTARGUMENTS_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/internal/TransactionFragmentArguments.hpp"
+#include "enjinsdk/internal/TransactionFragmentArgumentsImpl.hpp"
 #include "enjinsdk/serialization/ISerializable.hpp"
 
 namespace enjin::sdk::shared {
@@ -10,9 +10,9 @@ namespace enjin::sdk::shared {
 /// \brief Fragment interface used to request certain information from transactions returned by the platform.
 /// \tparam T The type of the implementing class.
 template<class T>
-class ENJINSDK_EXPORT TransactionFragmentArgumentsTemplate : public serialization::ISerializable {
+class ENJINSDK_EXPORT TransactionFragmentArguments : public serialization::ISerializable {
 public:
-    ~TransactionFragmentArgumentsTemplate() override = default;
+    ~TransactionFragmentArguments() override = default;
 
     std::string serialize() override {
         return impl.serialize();
@@ -97,22 +97,22 @@ public:
         return dynamic_cast<T&>(*this);
     }
 
-    bool operator==(const TransactionFragmentArgumentsTemplate& rhs) const {
+    bool operator==(const TransactionFragmentArguments& rhs) const {
         return impl == rhs.impl;
     }
 
-    bool operator!=(const TransactionFragmentArgumentsTemplate& rhs) const {
+    bool operator!=(const TransactionFragmentArguments& rhs) const {
         return rhs != *this;
     }
 
 protected:
     /// \brief Default constructor.
-    TransactionFragmentArgumentsTemplate() = default;
+    TransactionFragmentArguments() = default;
 
 private:
-    TransactionFragmentArguments impl;
+    TransactionFragmentArgumentsImpl impl;
 };
 
 }
 
-#endif //ENJINCPPSDK_SHAREDTRANSACTIONFRAGMENTARGUMENTSTEMPLATE_HPP
+#endif //ENJINCPPSDK_SHAREDTRANSACTIONFRAGMENTARGUMENTS_HPP

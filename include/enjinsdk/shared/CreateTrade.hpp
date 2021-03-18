@@ -4,7 +4,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/Trade.hpp"
-#include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
+#include "enjinsdk/shared/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 #include <vector>
@@ -13,7 +13,7 @@ namespace enjin::sdk::shared {
 
 /// \brief Request for creating a trade between two wallets.
 class ENJINSDK_EXPORT CreateTrade : public graphql::AbstractGraphqlRequest,
-                                    public TransactionRequestArgumentsTemplate<CreateTrade> {
+                                    public TransactionRequestArguments<CreateTrade> {
 public:
     /// \brief Default constructor.
     CreateTrade();

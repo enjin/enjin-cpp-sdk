@@ -6,7 +6,7 @@
 #include "enjinsdk/models/AssetSupplyModel.hpp"
 #include "enjinsdk/models/AssetTransferFeeSettings.hpp"
 #include "enjinsdk/models/AssetTransferable.hpp"
-#include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
+#include "enjinsdk/shared/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -14,7 +14,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for creating a asset on the platform.
 class ENJINSDK_EXPORT CreateAsset : public graphql::AbstractGraphqlRequest,
-                                    public shared::TransactionRequestArgumentsTemplate<CreateAsset> {
+                                    public shared::TransactionRequestArguments<CreateAsset> {
 public:
     /// \brief Default constructor.
     CreateAsset();

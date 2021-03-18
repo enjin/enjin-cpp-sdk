@@ -4,7 +4,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/Asset.hpp"
-#include "enjinsdk/shared/AssetFragmentArgumentsTemplate.hpp"
+#include "enjinsdk/shared/AssetFragmentArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -12,7 +12,7 @@ namespace enjin::sdk::shared {
 
 /// \brief Request for getting a asset on the platform.
 class ENJINSDK_EXPORT GetAsset : public graphql::AbstractGraphqlRequest,
-                                 public AssetFragmentArgumentsTemplate<GetAsset> {
+                                 public AssetFragmentArguments<GetAsset> {
 public:
     /// \brief Default constructor.
     GetAsset();

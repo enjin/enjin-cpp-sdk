@@ -3,7 +3,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
+#include "enjinsdk/shared/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -11,7 +11,7 @@ namespace enjin::sdk::shared {
 
 /// \brief Request to sign a message to prove wallet ownership.
 class ENJINSDK_EXPORT Message : public graphql::AbstractGraphqlRequest,
-                                public TransactionRequestArgumentsTemplate<Message> {
+                                public TransactionRequestArguments<Message> {
 public:
     /// \brief Default constructor.
     Message();

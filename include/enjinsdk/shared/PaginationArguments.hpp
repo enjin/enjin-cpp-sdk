@@ -1,8 +1,8 @@
-#ifndef ENJINCPPSDK_SHAREDPAGINATIONARGUMENTSTEMPLATE_HPP
-#define ENJINCPPSDK_SHAREDPAGINATIONARGUMENTSTEMPLATE_HPP
+#ifndef ENJINCPPSDK_SHAREDPAGINATIONARGUMENTS_HPP
+#define ENJINCPPSDK_SHAREDPAGINATIONARGUMENTS_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/internal/PaginationArguments.hpp"
+#include "enjinsdk/internal/PaginationArgumentsImpl.hpp"
 #include "enjinsdk/models/PaginationOptions.hpp"
 #include "enjinsdk/serialization/ISerializable.hpp"
 #include <utility>
@@ -12,12 +12,9 @@ namespace enjin::sdk::shared {
 /// \brief Fragment interface used to set pagination options for a pagination returned by the platform.
 /// \tparam T The type of the implementing class.
 template<class T>
-class ENJINSDK_EXPORT PaginationArgumentsTemplate : public serialization::ISerializable {
+class ENJINSDK_EXPORT PaginationArguments : public serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    PaginationArgumentsTemplate() = default;
-
-    ~PaginationArgumentsTemplate() override = default;
+    ~PaginationArguments() override = default;
 
     std::string serialize() override {
         return std::string();
@@ -40,18 +37,22 @@ public:
         return dynamic_cast<T&>(*this);
     }
 
-    bool operator==(const PaginationArgumentsTemplate& rhs) const {
+    bool operator==(const PaginationArguments& rhs) const {
         return impl == rhs.impl;
     }
 
-    bool operator!=(const PaginationArgumentsTemplate& rhs) const {
+    bool operator!=(const PaginationArguments& rhs) const {
         return rhs != *this;
     }
 
+protected:
+    /// \brief Default constructor.
+    PaginationArguments() = default;
+
 private:
-    PaginationArguments impl;
+    PaginationArgumentsImpl impl;
 };
 
 }
 
-#endif //ENJINCPPSDK_SHAREDPAGINATIONARGUMENTSTEMPLATE_HPP
+#endif //ENJINCPPSDK_SHAREDPAGINATIONARGUMENTS_HPP

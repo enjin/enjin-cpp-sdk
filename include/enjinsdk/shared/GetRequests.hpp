@@ -5,16 +5,16 @@
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/TransactionFilter.hpp"
 #include "enjinsdk/models/TransactionSort.hpp"
-#include "enjinsdk/shared/PaginationArgumentsTemplate.hpp"
-#include "enjinsdk/shared/TransactionFragmentArgumentsTemplate.hpp"
+#include "enjinsdk/shared/PaginationArguments.hpp"
+#include "enjinsdk/shared/TransactionFragmentArguments.hpp"
 #include <optional>
 
 namespace enjin::sdk::shared {
 
 /// \brief Request for getting transactions on the platform.
 class ENJINSDK_EXPORT GetRequests : public graphql::AbstractGraphqlRequest,
-                                    public TransactionFragmentArgumentsTemplate<GetRequests>,
-                                    public PaginationArgumentsTemplate<GetRequests> {
+                                    public TransactionFragmentArguments<GetRequests>,
+                                    public PaginationArguments<GetRequests> {
 public:
     /// \brief Default constructor.
     GetRequests();

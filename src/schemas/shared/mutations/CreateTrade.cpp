@@ -10,7 +10,7 @@ CreateTrade::CreateTrade() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.C
 
 std::string CreateTrade::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
+    utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 
     if (asking_assets.has_value()) {
         utils::set_array_member_from_type_vector<models::Trade>(document, "askingAssets", asking_assets.value());
@@ -43,8 +43,8 @@ CreateTrade& CreateTrade::set_recipient_address(const std::string& recipient_add
 bool CreateTrade::operator==(const CreateTrade& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const TransactionRequestArgumentsTemplate<CreateTrade>&>(*this) ==
-           static_cast<const TransactionRequestArgumentsTemplate<CreateTrade>&>(rhs) &&
+           static_cast<const TransactionRequestArguments<CreateTrade>&>(*this) ==
+           static_cast<const TransactionRequestArguments<CreateTrade>&>(rhs) &&
            asking_assets == rhs.asking_assets &&
            offering_assets == rhs.offering_assets &&
            recipient_address == rhs.recipient_address;

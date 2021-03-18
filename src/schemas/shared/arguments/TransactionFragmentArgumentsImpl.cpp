@@ -1,10 +1,10 @@
-#include "enjinsdk/internal/TransactionFragmentArguments.hpp"
+#include "enjinsdk/internal/TransactionFragmentArgumentsImpl.hpp"
 
 #include "RapidJsonUtils.hpp"
 
 namespace enjin::sdk::shared {
 
-std::string TransactionFragmentArguments::serialize() {
+std::string TransactionFragmentArgumentsImpl::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (with_blockchain_data.has_value()) {
@@ -44,51 +44,51 @@ std::string TransactionFragmentArguments::serialize() {
     return utils::document_to_string(document);
 }
 
-void TransactionFragmentArguments::set_with_blockchain_data() {
+void TransactionFragmentArgumentsImpl::set_with_blockchain_data() {
     with_blockchain_data = true;
 }
 
-void TransactionFragmentArguments::set_with_meta() {
+void TransactionFragmentArgumentsImpl::set_with_meta() {
     with_meta = true;
 }
 
-void TransactionFragmentArguments::set_with_encoded_data() {
+void TransactionFragmentArgumentsImpl::set_with_encoded_data() {
     with_encoded_data = true;
 }
 
-void TransactionFragmentArguments::set_with_asset_data() {
+void TransactionFragmentArgumentsImpl::set_with_asset_data() {
     with_asset_data = true;
 }
 
-void TransactionFragmentArguments::set_with_signed_txs() {
+void TransactionFragmentArgumentsImpl::set_with_signed_txs() {
     with_signed_txs = true;
 }
 
-void TransactionFragmentArguments::set_with_error() {
+void TransactionFragmentArgumentsImpl::set_with_error() {
     with_error = true;
 }
 
-void TransactionFragmentArguments::set_with_nonce() {
+void TransactionFragmentArgumentsImpl::set_with_nonce() {
     with_nonce = true;
 }
 
-void TransactionFragmentArguments::set_with_state() {
+void TransactionFragmentArgumentsImpl::set_with_state() {
     with_state = true;
 }
 
-void TransactionFragmentArguments::set_with_receipt() {
+void TransactionFragmentArgumentsImpl::set_with_receipt() {
     with_receipt = true;
 }
 
-void TransactionFragmentArguments::set_with_receipt_logs() {
+void TransactionFragmentArgumentsImpl::set_with_receipt_logs() {
     with_receipt_logs = true;
 }
 
-void TransactionFragmentArguments::set_with_log_event() {
+void TransactionFragmentArgumentsImpl::set_with_log_event() {
     with_log_event = true;
 }
 
-bool TransactionFragmentArguments::operator==(const TransactionFragmentArguments& rhs) const {
+bool TransactionFragmentArgumentsImpl::operator==(const TransactionFragmentArgumentsImpl& rhs) const {
     return with_blockchain_data == rhs.with_blockchain_data &&
            with_meta == rhs.with_meta &&
            with_encoded_data == rhs.with_encoded_data &&
@@ -102,7 +102,7 @@ bool TransactionFragmentArguments::operator==(const TransactionFragmentArguments
            with_log_event == rhs.with_log_event;
 }
 
-bool TransactionFragmentArguments::operator!=(const TransactionFragmentArguments& rhs) const {
+bool TransactionFragmentArgumentsImpl::operator!=(const TransactionFragmentArgumentsImpl& rhs) const {
     return !(rhs == *this);
 }
 

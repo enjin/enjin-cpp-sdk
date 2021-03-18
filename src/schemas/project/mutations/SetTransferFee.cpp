@@ -9,7 +9,7 @@ SetTransferFee::SetTransferFee() : graphql::AbstractGraphqlRequest("enjin.sdk.pr
 
 std::string SetTransferFee::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
+    utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 
     if (asset_id.has_value()) {
         utils::set_string_member(document, "assetId", asset_id.value());
@@ -42,8 +42,8 @@ SetTransferFee& SetTransferFee::set_transfer_fee(const std::string& transfer_fee
 bool SetTransferFee::operator==(const SetTransferFee& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionRequestArgumentsTemplate<SetTransferFee>&>(*this) ==
-           static_cast<const shared::TransactionRequestArgumentsTemplate<SetTransferFee>&>(rhs) &&
+           static_cast<const shared::TransactionRequestArguments<SetTransferFee>&>(*this) ==
+           static_cast<const shared::TransactionRequestArguments<SetTransferFee>&>(rhs) &&
            asset_id == rhs.asset_id &&
            asset_index == rhs.asset_index &&
            transfer_fee == rhs.transfer_fee;

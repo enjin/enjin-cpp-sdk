@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_SHAREDASSETFRAGMENTARGUMENTS_HPP
-#define ENJINCPPSDK_SHAREDASSETFRAGMENTARGUMENTS_HPP
+#ifndef ENJINCPPSDK_SHAREDASSETFRAGMENTARGUMENTSIMPL_HPP
+#define ENJINCPPSDK_SHAREDASSETFRAGMENTARGUMENTSIMPL_HPP
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/models/AssetIdFormat.hpp"
@@ -9,12 +9,12 @@
 namespace enjin::sdk::shared {
 
 /// \brief Internal implementation class for storing values of a GraphQL Asset fragment.
-class ENJINSDK_EXPORT AssetFragmentArguments : public serialization::ISerializable {
+class ENJINSDK_EXPORT AssetFragmentArgumentsImpl : public serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    AssetFragmentArguments() = default; // TODO: Consider making this constructor private and friend to its implementing template class.
+    /// \brief Default constructor to be used internally.
+    AssetFragmentArgumentsImpl() = default;
 
-    ~AssetFragmentArguments() override = default;
+    ~AssetFragmentArgumentsImpl() override = default;
 
     std::string serialize() override;
 
@@ -55,9 +55,9 @@ public:
     /// \brief Sets the value for the associated field to true.
     void set_with_variant_metadata();
 
-    bool operator==(const AssetFragmentArguments& rhs) const;
+    bool operator==(const AssetFragmentArgumentsImpl& rhs) const;
 
-    bool operator!=(const AssetFragmentArguments& rhs) const;
+    bool operator!=(const AssetFragmentArgumentsImpl& rhs) const;
 
 private:
     std::optional<models::AssetIdFormat> asset_id_format;
@@ -76,4 +76,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_SHAREDASSETFRAGMENTARGUMENTS_HPP
+#endif //ENJINCPPSDK_SHAREDASSETFRAGMENTARGUMENTSIMPL_HPP

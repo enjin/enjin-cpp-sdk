@@ -9,7 +9,7 @@ GetAsset::GetAsset() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.GetAsse
 
 std::string GetAsset::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, AssetFragmentArgumentsTemplate::serialize());
+    utils::join_serialized_object_to_document(document, AssetFragmentArguments::serialize());
 
     if (id.has_value()) {
         utils::set_string_member(document, "id", id.value());
@@ -26,8 +26,8 @@ GetAsset& GetAsset::set_id(const std::string& id) {
 bool GetAsset::operator==(const GetAsset& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const AssetFragmentArgumentsTemplate<GetAsset>&>(*this) ==
-           static_cast<const AssetFragmentArgumentsTemplate<GetAsset>&>(rhs) &&
+           static_cast<const AssetFragmentArguments<GetAsset>&>(*this) ==
+           static_cast<const AssetFragmentArguments<GetAsset>&>(rhs) &&
            id == rhs.id;
 }
 

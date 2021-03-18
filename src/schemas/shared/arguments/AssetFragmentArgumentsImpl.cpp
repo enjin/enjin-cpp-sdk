@@ -1,11 +1,11 @@
-#include "enjinsdk/internal/AssetFragmentArguments.hpp"
+#include "enjinsdk/internal/AssetFragmentArgumentsImpl.hpp"
 
 #include "EnumUtils.hpp"
 #include "RapidJsonUtils.hpp"
 
 namespace enjin::sdk::shared {
 
-std::string AssetFragmentArguments::serialize() {
+std::string AssetFragmentArgumentsImpl::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (asset_id_format.has_value()) {
@@ -50,55 +50,55 @@ std::string AssetFragmentArguments::serialize() {
     return utils::document_to_string(document);
 }
 
-void AssetFragmentArguments::set_asset_id_format(models::AssetIdFormat asset_id_format) {
-    AssetFragmentArguments::asset_id_format = asset_id_format;
+void AssetFragmentArgumentsImpl::set_asset_id_format(models::AssetIdFormat asset_id_format) {
+    AssetFragmentArgumentsImpl::asset_id_format = asset_id_format;
 }
 
-void AssetFragmentArguments::set_with_state_data() {
+void AssetFragmentArgumentsImpl::set_with_state_data() {
     with_state_data = true;
 }
 
-void AssetFragmentArguments::set_with_config_data() {
+void AssetFragmentArgumentsImpl::set_with_config_data() {
     with_config_data = true;
 }
 
-void AssetFragmentArguments::set_with_asset_blocks() {
+void AssetFragmentArgumentsImpl::set_with_asset_blocks() {
     with_asset_blocks = true;
 }
 
-void AssetFragmentArguments::set_with_creator() {
+void AssetFragmentArgumentsImpl::set_with_creator() {
     with_creator = true;
 }
 
-void AssetFragmentArguments::set_with_melt_details() {
+void AssetFragmentArgumentsImpl::set_with_melt_details() {
     with_melt_details = true;
 }
 
-void AssetFragmentArguments::set_with_metadata_uri() {
+void AssetFragmentArgumentsImpl::set_with_metadata_uri() {
     with_metadata_uri = true;
 }
 
-void AssetFragmentArguments::set_with_supply_details() {
+void AssetFragmentArgumentsImpl::set_with_supply_details() {
     with_supply_details = true;
 }
 
-void AssetFragmentArguments::set_with_transfer_settings() {
+void AssetFragmentArgumentsImpl::set_with_transfer_settings() {
     with_transfer_settings = true;
 }
 
-void AssetFragmentArguments::set_with_asset_variant_mode() {
+void AssetFragmentArgumentsImpl::set_with_asset_variant_mode() {
     with_asset_variant_mode = true;
 }
 
-void AssetFragmentArguments::set_with_asset_variants() {
+void AssetFragmentArgumentsImpl::set_with_asset_variants() {
     with_asset_variants = true;
 }
 
-void AssetFragmentArguments::set_with_variant_metadata() {
+void AssetFragmentArgumentsImpl::set_with_variant_metadata() {
     with_variant_metadata = true;
 }
 
-bool AssetFragmentArguments::operator==(const AssetFragmentArguments& rhs) const {
+bool AssetFragmentArgumentsImpl::operator==(const AssetFragmentArgumentsImpl& rhs) const {
     return asset_id_format == rhs.asset_id_format &&
            with_state_data == rhs.with_state_data &&
            with_config_data == rhs.with_config_data &&
@@ -113,7 +113,7 @@ bool AssetFragmentArguments::operator==(const AssetFragmentArguments& rhs) const
            with_variant_metadata == rhs.with_variant_metadata;
 }
 
-bool AssetFragmentArguments::operator!=(const AssetFragmentArguments& rhs) const {
+bool AssetFragmentArgumentsImpl::operator!=(const AssetFragmentArgumentsImpl& rhs) const {
     return !(rhs == *this);
 }
 

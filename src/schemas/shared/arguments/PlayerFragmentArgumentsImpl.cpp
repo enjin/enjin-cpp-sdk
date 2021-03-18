@@ -1,10 +1,10 @@
-#include "enjinsdk/internal/PlayerFragmentArguments.hpp"
+#include "enjinsdk/internal/PlayerFragmentArgumentsImpl.hpp"
 
 #include "RapidJsonUtils.hpp"
 
 namespace enjin::sdk::shared {
 
-std::string PlayerFragmentArguments::serialize() {
+std::string PlayerFragmentArgumentsImpl::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (with_linking_info.has_value()) {
@@ -20,25 +20,25 @@ std::string PlayerFragmentArguments::serialize() {
     return utils::document_to_string(document);
 }
 
-void PlayerFragmentArguments::set_with_linking_info() {
+void PlayerFragmentArgumentsImpl::set_with_linking_info() {
     with_linking_info = true;
 }
 
-void PlayerFragmentArguments::set_qr_size(int size) {
+void PlayerFragmentArgumentsImpl::set_qr_size(int size) {
     qr_size = size;
 }
 
-void PlayerFragmentArguments::set_with_wallet() {
+void PlayerFragmentArgumentsImpl::set_with_wallet() {
     with_wallet = true;
 }
 
-bool PlayerFragmentArguments::operator==(const PlayerFragmentArguments& rhs) const {
+bool PlayerFragmentArgumentsImpl::operator==(const PlayerFragmentArgumentsImpl& rhs) const {
     return with_linking_info == rhs.with_linking_info &&
            qr_size == rhs.qr_size &&
            with_wallet == rhs.with_wallet;
 }
 
-bool PlayerFragmentArguments::operator!=(const PlayerFragmentArguments& rhs) const {
+bool PlayerFragmentArgumentsImpl::operator!=(const PlayerFragmentArgumentsImpl& rhs) const {
     return !(rhs == *this);
 }
 

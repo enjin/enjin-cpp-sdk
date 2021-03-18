@@ -3,14 +3,14 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
+#include "enjinsdk/shared/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
 namespace enjin::sdk::shared {
 
 class ENJINSDK_EXPORT SetApprovalForAll : public graphql::AbstractGraphqlRequest,
-                                          public TransactionRequestArgumentsTemplate<SetApprovalForAll> {
+                                          public TransactionRequestArguments<SetApprovalForAll> {
 public:
     SetApprovalForAll();
 

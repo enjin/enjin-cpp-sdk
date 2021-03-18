@@ -1,18 +1,18 @@
 #include "JsonTestSuite.hpp"
-#include "enjinsdk/internal/BalanceFragmentArguments.hpp"
+#include "enjinsdk/internal/BalanceFragmentArgumentsImpl.hpp"
 #include <string>
 
 using namespace enjin::sdk::shared;
 
-class BalanceFragmentArgumentsTest : public JsonTestSuite {
+class BalanceFragmentArgumentsImplTest : public JsonTestSuite {
 public:
-    BalanceFragmentArguments class_under_test;
+    BalanceFragmentArgumentsImpl class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"balIdFormat":"hex64","balIndexFormat":"hex64","withBalProjectId":true,"withBalWalletAddress":true})";
 
-    static BalanceFragmentArguments create_default_arguments() {
-        BalanceFragmentArguments arguments;
+    static BalanceFragmentArgumentsImpl create_default_arguments() {
+        BalanceFragmentArgumentsImpl arguments;
         arguments.set_bal_id_format(enjin::sdk::models::AssetIdFormat::HEX64);
         arguments.set_bal_index_format(enjin::sdk::models::AssetIndexFormat::HEX64);
         arguments.set_with_bal_project_id();
@@ -21,7 +21,7 @@ public:
     }
 };
 
-TEST_F(BalanceFragmentArgumentsTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
+TEST_F(BalanceFragmentArgumentsImplTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EMPTY_JSON_OBJECT);
 
@@ -32,7 +32,7 @@ TEST_F(BalanceFragmentArgumentsTest, SerializeNoSetFieldsReturnsEmptyJsonObject)
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(BalanceFragmentArgumentsTest, SerializeSetFieldsReturnsExpectedJsonObject) {
+TEST_F(BalanceFragmentArgumentsImplTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_bal_id_format(enjin::sdk::models::AssetIdFormat::HEX64);
@@ -47,10 +47,10 @@ TEST_F(BalanceFragmentArgumentsTest, SerializeSetFieldsReturnsExpectedJsonObject
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(BalanceFragmentArgumentsTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(BalanceFragmentArgumentsImplTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    BalanceFragmentArguments lhs;
-    BalanceFragmentArguments rhs;
+    BalanceFragmentArgumentsImpl lhs;
+    BalanceFragmentArgumentsImpl rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -59,10 +59,10 @@ TEST_F(BalanceFragmentArgumentsTest, EqualityNeitherSideIsPopulatedReturnsTrue) 
     ASSERT_TRUE(actual);
 }
 
-TEST_F(BalanceFragmentArgumentsTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(BalanceFragmentArgumentsImplTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    BalanceFragmentArguments lhs = create_default_arguments();
-    BalanceFragmentArguments rhs = create_default_arguments();
+    BalanceFragmentArgumentsImpl lhs = create_default_arguments();
+    BalanceFragmentArgumentsImpl rhs = create_default_arguments();
 
     // Act
     bool actual = lhs == rhs;
@@ -71,10 +71,10 @@ TEST_F(BalanceFragmentArgumentsTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(BalanceFragmentArgumentsTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(BalanceFragmentArgumentsImplTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    BalanceFragmentArguments lhs = create_default_arguments();
-    BalanceFragmentArguments rhs;
+    BalanceFragmentArgumentsImpl lhs = create_default_arguments();
+    BalanceFragmentArgumentsImpl rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -83,10 +83,10 @@ TEST_F(BalanceFragmentArgumentsTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(BalanceFragmentArgumentsTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(BalanceFragmentArgumentsImplTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    BalanceFragmentArguments lhs;
-    BalanceFragmentArguments rhs = create_default_arguments();
+    BalanceFragmentArgumentsImpl lhs;
+    BalanceFragmentArgumentsImpl rhs = create_default_arguments();
 
     // Act
     bool actual = lhs == rhs;

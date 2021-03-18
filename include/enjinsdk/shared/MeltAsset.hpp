@@ -4,7 +4,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/Melt.hpp"
-#include "enjinsdk/shared/TransactionRequestArgumentsTemplate.hpp"
+#include "enjinsdk/shared/TransactionRequestArguments.hpp"
 #include <optional>
 #include <vector>
 
@@ -12,7 +12,7 @@ namespace enjin::sdk::shared {
 
 /// \brief Request for melting a asset.
 class ENJINSDK_EXPORT MeltAsset : public graphql::AbstractGraphqlRequest,
-                                  public TransactionRequestArgumentsTemplate<MeltAsset> {
+                                  public TransactionRequestArguments<MeltAsset> {
 public:
     /// \brief Default constructor.
     MeltAsset();

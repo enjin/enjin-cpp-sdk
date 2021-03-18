@@ -10,7 +10,7 @@ SetWhitelisted::SetWhitelisted() : graphql::AbstractGraphqlRequest("enjin.sdk.pr
 
 std::string SetWhitelisted::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
+    utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 
     if (asset_id.has_value()) {
         utils::set_string_member(document, "assetId", asset_id.value());
@@ -59,8 +59,8 @@ SetWhitelisted& SetWhitelisted::set_on(bool on) {
 bool SetWhitelisted::operator==(const SetWhitelisted& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionRequestArgumentsTemplate<SetWhitelisted>&>(*this) ==
-           static_cast<const shared::TransactionRequestArgumentsTemplate<SetWhitelisted>&>(rhs) &&
+           static_cast<const shared::TransactionRequestArguments<SetWhitelisted>&>(*this) ==
+           static_cast<const shared::TransactionRequestArguments<SetWhitelisted>&>(rhs) &&
            asset_id == rhs.asset_id &&
            account_address == rhs.account_address &&
            whitelisted == rhs.whitelisted &&

@@ -9,7 +9,7 @@ GetWallet::GetWallet() : graphql::AbstractGraphqlRequest("enjin.sdk.project.GetW
 
 std::string GetWallet::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, WalletFragmentArgumentsTemplate::serialize());
+    utils::join_serialized_object_to_document(document, WalletFragmentArguments::serialize());
 
     if (user_id.has_value()) {
         utils::set_string_member(document, "userId", user_id.value());
@@ -34,8 +34,8 @@ GetWallet& GetWallet::set_eth_address(const std::string& eth_address) {
 bool GetWallet::operator==(const GetWallet& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::WalletFragmentArgumentsTemplate<GetWallet>&>(*this) ==
-           static_cast<const shared::WalletFragmentArgumentsTemplate<GetWallet>&>(rhs) &&
+           static_cast<const shared::WalletFragmentArguments<GetWallet>&>(*this) ==
+           static_cast<const shared::WalletFragmentArguments<GetWallet>&>(rhs) &&
            user_id == rhs.user_id &&
            eth_address == rhs.eth_address;
 }

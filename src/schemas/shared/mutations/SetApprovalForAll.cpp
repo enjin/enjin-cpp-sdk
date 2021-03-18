@@ -9,7 +9,7 @@ SetApprovalForAll::SetApprovalForAll() : graphql::AbstractGraphqlRequest("enjin.
 
 std::string SetApprovalForAll::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
+    utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 
     if (operator_address.has_value()) {
         utils::set_string_member(document, "operatorAddress", operator_address.value());
@@ -34,8 +34,8 @@ SetApprovalForAll& SetApprovalForAll::set_approved(bool approved) {
 bool SetApprovalForAll::operator==(const SetApprovalForAll& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const TransactionRequestArgumentsTemplate<SetApprovalForAll>&>(*this) ==
-           static_cast<const TransactionRequestArgumentsTemplate<SetApprovalForAll>&>(rhs) &&
+           static_cast<const TransactionRequestArguments<SetApprovalForAll>&>(*this) ==
+           static_cast<const TransactionRequestArguments<SetApprovalForAll>&>(rhs) &&
            operator_address == rhs.operator_address &&
            approved == rhs.approved;
 }

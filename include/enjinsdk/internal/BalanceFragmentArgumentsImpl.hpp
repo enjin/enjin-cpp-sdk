@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_SHAREDBALANCEFRAGMENTARGUMENTS_HPP
-#define ENJINCPPSDK_SHAREDBALANCEFRAGMENTARGUMENTS_HPP
+#ifndef ENJINCPPSDK_SHAREDBALANCEFRAGMENTARGUMENTSIMPL_HPP
+#define ENJINCPPSDK_SHAREDBALANCEFRAGMENTARGUMENTSIMPL_HPP
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/models/AssetIdFormat.hpp"
@@ -10,12 +10,12 @@
 namespace enjin::sdk::shared {
 
 /// \brief Internal implementation class for storing values of a GraphQL Balance fragment.
-class ENJINSDK_EXPORT BalanceFragmentArguments : serialization::ISerializable {
+class ENJINSDK_EXPORT BalanceFragmentArgumentsImpl : serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    BalanceFragmentArguments() = default; // TODO: Consider making this constructor private and friend to its implementing template class.
+    /// \brief Default constructor to be used internally.
+    BalanceFragmentArgumentsImpl() = default;
 
-    ~BalanceFragmentArguments() override = default;
+    ~BalanceFragmentArgumentsImpl() override = default;
 
     std::string serialize() override;
 
@@ -33,9 +33,9 @@ public:
     /// \brief Sets the value for the associated field to true.
     void set_with_bal_wallet_address();
 
-    bool operator==(const BalanceFragmentArguments& rhs) const;
+    bool operator==(const BalanceFragmentArgumentsImpl& rhs) const;
 
-    bool operator!=(const BalanceFragmentArguments& rhs) const;
+    bool operator!=(const BalanceFragmentArgumentsImpl& rhs) const;
 
 private:
     std::optional<models::AssetIdFormat> bal_id_format;
@@ -46,4 +46,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_SHAREDBALANCEFRAGMENTARGUMENTS_HPP
+#endif //ENJINCPPSDK_SHAREDBALANCEFRAGMENTARGUMENTSIMPL_HPP

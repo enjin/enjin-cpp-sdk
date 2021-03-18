@@ -10,8 +10,8 @@ GetPlayers::GetPlayers() : graphql::AbstractGraphqlRequest("enjin.sdk.project.Ge
 std::string GetPlayers::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_objects_to_document(document, {
-        PlayerFragmentArgumentsTemplate::serialize(),
-        PaginationArgumentsTemplate::serialize()
+            PlayerFragmentArguments::serialize(),
+            PaginationArguments::serialize()
     });
 
     if (filter.has_value()) {
@@ -29,10 +29,10 @@ GetPlayers& GetPlayers::set_filter(const models::PlayerFilter& filter) {
 bool GetPlayers::operator==(const GetPlayers& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::PlayerFragmentArgumentsTemplate<GetPlayers>&>(*this) ==
-           static_cast<const shared::PlayerFragmentArgumentsTemplate<GetPlayers>&>(rhs) &&
-           static_cast<const shared::PaginationArgumentsTemplate<GetPlayers>&>(*this) ==
-           static_cast<const shared::PaginationArgumentsTemplate<GetPlayers>&>(rhs) &&
+           static_cast<const shared::PlayerFragmentArguments<GetPlayers>&>(*this) ==
+           static_cast<const shared::PlayerFragmentArguments<GetPlayers>&>(rhs) &&
+           static_cast<const shared::PaginationArguments<GetPlayers>&>(*this) ==
+           static_cast<const shared::PaginationArguments<GetPlayers>&>(rhs) &&
            filter == rhs.filter;
 }
 

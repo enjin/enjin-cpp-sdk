@@ -1,18 +1,18 @@
 #include "JsonTestSuite.hpp"
-#include "enjinsdk/internal/AssetFragmentArguments.hpp"
+#include "enjinsdk/internal/AssetFragmentArgumentsImpl.hpp"
 #include <string>
 
 using namespace enjin::sdk::shared;
 
-class AssetFragmentArgumentsTest : public JsonTestSuite {
+class AssetFragmentArgumentsImplTest : public JsonTestSuite {
 public:
-    AssetFragmentArguments class_under_test;
+    AssetFragmentArgumentsImpl class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"assetIdFormat":"hex64","withStateData":true,"withConfigData":true,"withAssetBlocks":true,"withCreator":true,"withMeltDetails":true,"withMetadataURI":true,"withSupplyDetails":true,"withTransferSettings":true,"withAssetVariantMode":true,"withAssetVariants":true,"withVariantMetadata":true})";
 
-    static AssetFragmentArguments create_default_arguments() {
-        AssetFragmentArguments arguments;
+    static AssetFragmentArgumentsImpl create_default_arguments() {
+        AssetFragmentArgumentsImpl arguments;
         arguments.set_asset_id_format(enjin::sdk::models::AssetIdFormat::HEX64);
         arguments.set_with_state_data();
         arguments.set_with_config_data();
@@ -29,7 +29,7 @@ public:
     }
 };
 
-TEST_F(AssetFragmentArgumentsTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
+TEST_F(AssetFragmentArgumentsImplTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EMPTY_JSON_OBJECT);
 
@@ -40,7 +40,7 @@ TEST_F(AssetFragmentArgumentsTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(AssetFragmentArgumentsTest, SerializeSetFieldsReturnsExpectedJsonObject) {
+TEST_F(AssetFragmentArgumentsImplTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_asset_id_format(enjin::sdk::models::AssetIdFormat::HEX64);
@@ -63,10 +63,10 @@ TEST_F(AssetFragmentArgumentsTest, SerializeSetFieldsReturnsExpectedJsonObject) 
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(AssetFragmentArgumentsTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(AssetFragmentArgumentsImplTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    AssetFragmentArguments lhs;
-    AssetFragmentArguments rhs;
+    AssetFragmentArgumentsImpl lhs;
+    AssetFragmentArgumentsImpl rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -75,10 +75,10 @@ TEST_F(AssetFragmentArgumentsTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(AssetFragmentArgumentsTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(AssetFragmentArgumentsImplTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    AssetFragmentArguments lhs = create_default_arguments();
-    AssetFragmentArguments rhs = create_default_arguments();
+    AssetFragmentArgumentsImpl lhs = create_default_arguments();
+    AssetFragmentArgumentsImpl rhs = create_default_arguments();
 
     // Act
     bool actual = lhs == rhs;
@@ -87,10 +87,10 @@ TEST_F(AssetFragmentArgumentsTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(AssetFragmentArgumentsTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(AssetFragmentArgumentsImplTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    AssetFragmentArguments lhs = create_default_arguments();
-    AssetFragmentArguments rhs;
+    AssetFragmentArgumentsImpl lhs = create_default_arguments();
+    AssetFragmentArgumentsImpl rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -99,10 +99,10 @@ TEST_F(AssetFragmentArgumentsTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(AssetFragmentArgumentsTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(AssetFragmentArgumentsImplTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    AssetFragmentArguments lhs;
-    AssetFragmentArguments rhs = create_default_arguments();
+    AssetFragmentArgumentsImpl lhs;
+    AssetFragmentArgumentsImpl rhs = create_default_arguments();
 
     // Act
     bool actual = lhs == rhs;

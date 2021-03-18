@@ -1,5 +1,5 @@
-#ifndef ENJINCPPSDK_SHAREDTRANSACTIONFRAGMENTARGUMENTS_HPP
-#define ENJINCPPSDK_SHAREDTRANSACTIONFRAGMENTARGUMENTS_HPP
+#ifndef ENJINCPPSDK_SHAREDTRANSACTIONFRAGMENTARGUMENTSIMPL_HPP
+#define ENJINCPPSDK_SHAREDTRANSACTIONFRAGMENTARGUMENTSIMPL_HPP
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/serialization/ISerializable.hpp"
@@ -8,12 +8,12 @@
 namespace enjin::sdk::shared {
 
 /// \brief Internal implementation class for storing values of a GraphQL Transaction fragment.
-class ENJINSDK_EXPORT TransactionFragmentArguments : public serialization::ISerializable {
+class ENJINSDK_EXPORT TransactionFragmentArgumentsImpl : public serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    TransactionFragmentArguments() = default; // TODO: Consider making this constructor private and friend to its implementing template class.
+    /// \brief Default constructor to be used internally.
+    TransactionFragmentArgumentsImpl() = default;
 
-    ~TransactionFragmentArguments() override = default;
+    ~TransactionFragmentArgumentsImpl() override = default;
 
     std::string serialize() override;
 
@@ -50,9 +50,9 @@ public:
     /// \brief Sets the value for the associated field to true.
     void set_with_log_event();
 
-    bool operator==(const TransactionFragmentArguments& rhs) const;
+    bool operator==(const TransactionFragmentArgumentsImpl& rhs) const;
 
-    bool operator!=(const TransactionFragmentArguments& rhs) const;
+    bool operator!=(const TransactionFragmentArgumentsImpl& rhs) const;
 
 private:
     std::optional<bool> with_blockchain_data;
@@ -70,4 +70,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_SHAREDTRANSACTIONFRAGMENTARGUMENTS_HPP
+#endif //ENJINCPPSDK_SHAREDTRANSACTIONFRAGMENTARGUMENTSIMPL_HPP

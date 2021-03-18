@@ -4,16 +4,16 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/BalanceFilter.hpp"
-#include "enjinsdk/shared/BalanceFragmentArgumentsTemplate.hpp"
-#include "enjinsdk/shared/PaginationArgumentsTemplate.hpp"
+#include "enjinsdk/shared/BalanceFragmentArguments.hpp"
+#include "enjinsdk/shared/PaginationArguments.hpp"
 #include <optional>
 
 namespace enjin::sdk::shared {
 
 /// \brief Request for getting balances on the platform.
 class ENJINSDK_EXPORT GetBalances : public graphql::AbstractGraphqlRequest,
-                                    public BalanceFragmentArgumentsTemplate<GetBalances>,
-                                    public PaginationArgumentsTemplate<GetBalances> {
+                                    public BalanceFragmentArguments<GetBalances>,
+                                    public PaginationArguments<GetBalances> {
 public:
     /// \brief Default constructor.
     GetBalances();

@@ -6,14 +6,14 @@ GetPlayer::GetPlayer() : graphql::AbstractGraphqlRequest("enjin.sdk.player.GetPl
 }
 
 std::string GetPlayer::serialize() {
-    return PlayerFragmentArgumentsTemplate::serialize();
+    return PlayerFragmentArguments::serialize();
 }
 
 bool GetPlayer::operator==(const GetPlayer& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::PlayerFragmentArgumentsTemplate<GetPlayer>&>(*this) ==
-           static_cast<const shared::PlayerFragmentArgumentsTemplate<GetPlayer>&>(rhs);
+           static_cast<const shared::PlayerFragmentArguments<GetPlayer>&>(*this) ==
+           static_cast<const shared::PlayerFragmentArguments<GetPlayer>&>(rhs);
 }
 
 bool GetPlayer::operator!=(const GetPlayer& rhs) const {

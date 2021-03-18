@@ -1,8 +1,8 @@
-#ifndef ENJINCPPSDK_SHAREDWALLETFRAGMENTARGUMENTSTEMPLATE_HPP
-#define ENJINCPPSDK_SHAREDWALLETFRAGMENTARGUMENTSTEMPLATE_HPP
+#ifndef ENJINCPPSDK_SHAREDWALLETFRAGMENTARGUMENTS_HPP
+#define ENJINCPPSDK_SHAREDWALLETFRAGMENTARGUMENTS_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/internal/WalletFragmentArguments.hpp"
+#include "enjinsdk/internal/WalletFragmentArgumentsImpl.hpp"
 #include "enjinsdk/serialization/ISerializable.hpp"
 
 namespace enjin::sdk::shared {
@@ -10,12 +10,12 @@ namespace enjin::sdk::shared {
 /// \brief Fragment interface used to request certain information from wallets returned by the platform.
 /// \tparam T The type of the implementing class.
 template<class T>
-class ENJINSDK_EXPORT WalletFragmentArgumentsTemplate : public serialization::ISerializable {
+class ENJINSDK_EXPORT WalletFragmentArguments : public serialization::ISerializable {
 public:
     /// \brief Default constructor.
-    WalletFragmentArgumentsTemplate() = default;
+    WalletFragmentArguments() = default;
 
-    ~WalletFragmentArgumentsTemplate() override = default;
+    ~WalletFragmentArguments() override = default;
 
     std::string serialize() override {
         return std::string();
@@ -28,18 +28,18 @@ public:
         return dynamic_cast<T&>(*this);
     }
 
-    bool operator==(const WalletFragmentArgumentsTemplate& rhs) const {
+    bool operator==(const WalletFragmentArguments& rhs) const {
         return impl == rhs.impl;
     }
 
-    bool operator!=(const WalletFragmentArgumentsTemplate& rhs) const {
+    bool operator!=(const WalletFragmentArguments& rhs) const {
         return rhs != *this;
     }
 
 private:
-    WalletFragmentArguments impl;
+    WalletFragmentArgumentsImpl impl;
 };
 
 }
 
-#endif //ENJINCPPSDK_SHAREDWALLETFRAGMENTARGUMENTSTEMPLATE_HPP
+#endif //ENJINCPPSDK_SHAREDWALLETFRAGMENTARGUMENTS_HPP

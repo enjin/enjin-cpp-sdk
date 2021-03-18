@@ -1,8 +1,8 @@
-#ifndef ENJINCPPSDK_SHAREDPLAYERFRAGMENTARGUMENTSTEMPLATE_HPP
-#define ENJINCPPSDK_SHAREDPLAYERFRAGMENTARGUMENTSTEMPLATE_HPP
+#ifndef ENJINCPPSDK_SHAREDPLAYERFRAGMENTARGUMENTS_HPP
+#define ENJINCPPSDK_SHAREDPLAYERFRAGMENTARGUMENTS_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/internal/PlayerFragmentArguments.hpp"
+#include "enjinsdk/internal/PlayerFragmentArgumentsImpl.hpp"
 #include "enjinsdk/serialization/ISerializable.hpp"
 
 namespace enjin::sdk::shared {
@@ -10,12 +10,9 @@ namespace enjin::sdk::shared {
 /// \brief Fragment interface used to request certain information from players returned by the platform.
 /// \tparam T The type of the implementing class.
 template<class T>
-class ENJINSDK_EXPORT PlayerFragmentArgumentsTemplate : public serialization::ISerializable {
+class ENJINSDK_EXPORT PlayerFragmentArguments : public serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    PlayerFragmentArgumentsTemplate() = default;
-
-    ~PlayerFragmentArgumentsTemplate() override = default;
+    ~PlayerFragmentArguments() override = default;
 
     std::string serialize() override {
         return impl.serialize();
@@ -43,18 +40,22 @@ public:
         return dynamic_cast<T&>(*this);
     }
 
-    bool operator==(const PlayerFragmentArgumentsTemplate& rhs) const {
+    bool operator==(const PlayerFragmentArguments& rhs) const {
         return impl == rhs.impl;
     }
 
-    bool operator!=(const PlayerFragmentArgumentsTemplate& rhs) const {
+    bool operator!=(const PlayerFragmentArguments& rhs) const {
         return rhs != *this;
     }
 
+protected:
+    /// \brief Default constructor.
+    PlayerFragmentArguments() = default;
+
 private:
-    PlayerFragmentArguments impl;
+    PlayerFragmentArgumentsImpl impl;
 };
 
 }
 
-#endif //ENJINCPPSDK_SHAREDPLAYERFRAGMENTARGUMENTSTEMPLATE_HPP
+#endif //ENJINCPPSDK_SHAREDPLAYERFRAGMENTARGUMENTS_HPP

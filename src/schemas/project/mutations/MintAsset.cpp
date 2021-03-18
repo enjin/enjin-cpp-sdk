@@ -9,7 +9,7 @@ MintAsset::MintAsset() : graphql::AbstractGraphqlRequest("enjin.sdk.project.Mint
 
 std::string MintAsset::serialize() {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionRequestArgumentsTemplate::serialize());
+    utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 
     if (asset_id.has_value()) {
         utils::set_string_member(document, "assetId", asset_id.value());
@@ -34,8 +34,8 @@ MintAsset& MintAsset::set_mints(const std::vector<models::MintInput>& mints) {
 bool MintAsset::operator==(const MintAsset& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionRequestArgumentsTemplate<MintAsset>&>(*this) ==
-           static_cast<const shared::TransactionRequestArgumentsTemplate<MintAsset>&>(rhs) &&
+           static_cast<const shared::TransactionRequestArguments<MintAsset>&>(*this) ==
+           static_cast<const shared::TransactionRequestArguments<MintAsset>&>(rhs) &&
            asset_id == rhs.asset_id &&
            mints == rhs.mints;
 }
