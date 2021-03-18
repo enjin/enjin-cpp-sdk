@@ -14,7 +14,7 @@
 #include <sstream>
 #include <string>
 
-namespace enjin::test::utils {
+namespace enjin::test::suites {
 
 class PusherClientTestSuite {
 public:
@@ -23,8 +23,8 @@ public:
     static constexpr char DEFAULT_EVENT_NAME[] = "TestEvent";
     static constexpr char DEFAULT_KEY[] = "xyz";
 
-    std::shared_ptr<MockWebSocketClientImpl> mock_ws_client = std::make_shared<MockWebSocketClientImpl>();
-    MockWebsocketServer mock_server;
+    std::shared_ptr<utils::MockWebSocketClientImpl> mock_ws_client = std::make_shared<utils::MockWebSocketClientImpl>();
+    utils::MockWebsocketServer mock_server;
 
     enjin::pusher::PusherClient create_testable_pusher_client();
 

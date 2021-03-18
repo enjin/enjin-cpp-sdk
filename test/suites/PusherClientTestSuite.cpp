@@ -1,6 +1,6 @@
 #include "PusherClientTestSuite.hpp"
 
-namespace enjin::test::utils {
+namespace enjin::test::suites {
 
 enjin::pusher::PusherClient PusherClientTestSuite::create_testable_pusher_client() {
     pusher::PusherOptions options = create_default_pusher_options();
