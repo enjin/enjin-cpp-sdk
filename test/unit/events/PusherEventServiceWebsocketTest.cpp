@@ -16,9 +16,11 @@
 
 using namespace enjin::sdk::events;
 using namespace enjin::sdk::models;
+using namespace enjin::test::suites;
 using namespace enjin::test::utils;
 
-class PusherEventServiceWebsocketTest : public VerificationTestSuite {
+class PusherEventServiceWebsocketTest : public VerificationTestSuite,
+                                        public testing::Test {
 public:
     static constexpr int DEFAULT_PROJECT = 1;
     static constexpr char DEFAULT_PLAYER[] = "player1";

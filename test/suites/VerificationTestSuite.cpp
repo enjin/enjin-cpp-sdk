@@ -1,8 +1,9 @@
 #include "VerificationTestSuite.hpp"
 
+#include "gtest/gtest.h"
 #include <condition_variable>
 
-namespace enjin::test::utils {
+namespace enjin::test::suites {
 
 VerificationTestSuite::VerificationTestSuite() : call_counter(0), expected_count(0) {
 }
