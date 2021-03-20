@@ -1,6 +1,6 @@
 #include "WalletChannel.hpp"
 
-#include "StringUtils.hpp"
+#include "enjinsdk_utils/StringUtils.hpp"
 #include <sstream>
 
 namespace enjin::sdk::events {

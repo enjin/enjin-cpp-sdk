@@ -108,6 +108,8 @@ if (EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     set(ENJINSDK_USING_CONAN 1)
 endif ()
 
+add_subdirectory(utils)
+
 add_library(${PROJECT_NAME} SHARED "")
 generate_export_header(${PROJECT_NAME})
 
@@ -160,6 +162,7 @@ set_include_http_client_impl_macro()
 set_include_websocket_client_impl_macro()
 set_version_macro()
 
+target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_utils)
 target_include_directories(${PROJECT_NAME}
         PUBLIC
         $<INSTALL_INTERFACE:include>
