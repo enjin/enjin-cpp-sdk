@@ -1,11 +1,11 @@
 #include "EnumUtils.hpp"
 
-#include "StringUtils.hpp"
+#include "enjinsdk_utils/StringUtils.hpp"
 
 namespace enjin::sdk::utils {
 
 enjin::sdk::models::EventType deserialize_event_type(const std::string& s) noexcept {
-    std::string str = to_upper(s);
+    std::string str = enjin::utils::to_upper(s);
     if (str == "PROJECT_CREATED") {
         return models::EventType::PROJECT_CREATED;
     } else if (str == "PROJECT_DELETED") {
@@ -70,7 +70,7 @@ enjin::sdk::models::EventType deserialize_event_type(const std::string& s) noexc
 }
 
 enjin::sdk::models::RequestState deserialize_request_state(const std::string& s) noexcept {
-    std::string str = to_upper(s);
+    std::string str = enjin::utils::to_upper(s);
     if (str == "PENDING") {
         return models::RequestState::PENDING;
     } else if (str == "BROADCAST") {
@@ -93,7 +93,7 @@ enjin::sdk::models::RequestState deserialize_request_state(const std::string& s)
 }
 
 enjin::sdk::models::RequestType deserialize_request_type(const std::string& s) noexcept {
-    std::string str = to_upper(s);
+    std::string str = enjin::utils::to_upper(s);
     if (str == "APPROVE") {
         return models::RequestType::APPROVE;
     } else if (str == "CREATE") {
@@ -148,7 +148,7 @@ enjin::sdk::models::RequestType deserialize_request_type(const std::string& s) n
 }
 
 enjin::sdk::models::AssetSupplyModel deserialize_asset_supply_model(const std::string& s) noexcept {
-    std::string str = to_upper(s);
+    std::string str = enjin::utils::to_upper(s);
     if (str == "FIXED") {
         return models::AssetSupplyModel::FIXED;
     } else if (str == "SETTABLE") {
@@ -167,7 +167,7 @@ enjin::sdk::models::AssetSupplyModel deserialize_asset_supply_model(const std::s
 }
 
 enjin::sdk::models::AssetTransferFeeType deserialize_asset_transfer_fee_type(const std::string& s) noexcept {
-    std::string str = to_upper(s);
+    std::string str = enjin::utils::to_upper(s);
     if (str == "NONE") {
         return models::AssetTransferFeeType::NONE;
     } else if (str == "PER_TRANSFER") {
@@ -184,7 +184,7 @@ enjin::sdk::models::AssetTransferFeeType deserialize_asset_transfer_fee_type(con
 }
 
 enjin::sdk::models::AssetTransferable deserialize_asset_transferable(const std::string& s) noexcept {
-    std::string str = to_upper(s);
+    std::string str = enjin::utils::to_upper(s);
     if (str == "PERMANENT") {
         return models::AssetTransferable::PERMANENT;
     } else if (str == "TEMPORARY") {
@@ -197,7 +197,7 @@ enjin::sdk::models::AssetTransferable deserialize_asset_transferable(const std::
 }
 
 enjin::sdk::models::AssetVariantMode deserialize_asset_variant_mode(const std::string& s) noexcept {
-    std::string str = to_upper(s);
+    std::string str = enjin::utils::to_upper(s);
     if (str == "NONE") {
         return models::AssetVariantMode::NONE;
     } else if (str == "BEAM") {

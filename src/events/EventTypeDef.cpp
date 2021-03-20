@@ -1,7 +1,7 @@
 #include "EventTypeDef.hpp"
 
 #include "EnumUtils.hpp"
-#include "StringUtils.hpp"
+#include "enjinsdk_utils/StringUtils.hpp"
 #include <algorithm>
 #include <utility>
 
@@ -60,7 +60,7 @@ std::vector<EventTypeDef> EventTypeDef::filter_by_channel_types(const std::vecto
 
     for (auto& channel : channels) {
         for (auto& def : EventTypeDef::values()) {
-            auto iter = std::find(def.channels.begin(), def.channels.end(), utils::to_lower(channel));
+            auto iter = std::find(def.channels.begin(), def.channels.end(), enjin::utils::to_lower(channel));
             if (iter != def.channels.end()) {
                 defs.push_back(def);
             }

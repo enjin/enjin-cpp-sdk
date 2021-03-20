@@ -1,6 +1,6 @@
 #include "enjinsdk/TrustedPlatformHandler.hpp"
 
-#include "StringUtils.hpp"
+#include "enjinsdk_utils/StringUtils.hpp"
 
 namespace enjin::sdk::http {
 

@@ -1,10 +1,10 @@
-#include "StringUtils.hpp"
+#include "enjinsdk_utils/StringUtils.hpp"
 
 #include <algorithm>
 #include <cctype>
 #include <sstream>
 
-namespace enjin::sdk::utils {
+namespace enjin::utils {
 
 bool is_empty_or_whitespace(const std::string& str) {
     return str.empty() || std::all_of(str.begin(), str.end(), [](unsigned char c) { return c == ' '; });

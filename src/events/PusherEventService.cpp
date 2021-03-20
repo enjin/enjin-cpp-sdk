@@ -8,8 +8,8 @@
 #include "ProjectChannel.hpp"
 #include "PusherClient.hpp"
 #include "PusherEvent.hpp"
-#include "StringUtils.hpp"
 #include "WalletChannel.hpp"
+#include "enjinsdk_utils/StringUtils.hpp"
 #include <algorithm>
 #include <exception>
 #include <stdexcept>
@@ -105,7 +105,7 @@ public:
         client->set_on_connection_state_change_handler([this, logger](pusher::ConnectionState state) {
             if (logger != nullptr && state != pusher::ConnectionState::ALL) {
                 std::stringstream ss;
-                ss << "Pusher client " << utils::to_lower(utils::serialize_pusher_connection_state(state));
+                ss << "Pusher client " << enjin::utils::to_lower(utils::serialize_pusher_connection_state(state));
                 logger->log(ss.str());
             }
 

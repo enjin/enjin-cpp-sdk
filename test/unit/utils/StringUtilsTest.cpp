@@ -1,8 +1,8 @@
-#include "StringUtils.hpp"
+#include "enjinsdk_utils/StringUtils.hpp"
 #include "gtest/gtest.h"
 #include <string>
 
-using namespace enjin::sdk::utils;
+using namespace enjin::utils;
 
 class StringUtilTest : public testing::Test {
 

@@ -57,7 +57,10 @@ else ()
 endif ()
 ### Dependencies setup done
 
-target_link_libraries(${PROJECT_NAME}_tests PRIVATE ${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME}_tests
+        PRIVATE
+        ${PROJECT_NAME}
+        ${PROJECT_NAME}_utils)
 target_include_directories(${PROJECT_NAME}_tests
         PRIVATE
         ${PROJECT_BINARY_DIR}
