@@ -10,7 +10,7 @@ bool is_empty_or_whitespace(const std::string& str) {
     return str.empty() || std::all_of(str.begin(), str.end(), [](unsigned char c) { return c == ' '; });
 }
 
-std::string join(const std::string& separator, const std::list<std::string>& values) {
+std::string join(const std::string& separator, const std::vector<std::string>& values) {
     std::stringstream stream;
 
     size_t count = 0;
@@ -41,6 +41,10 @@ std::string to_upper(const std::string& str) {
 }
 
 std::string trim(const std::string& str) {
+    if (str.empty()) {
+        return "";
+    }
+
     size_t left = 0;
     size_t right = str.size() - 1;
 
