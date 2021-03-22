@@ -45,7 +45,7 @@ TEST_F(StringUtilTest, JoinReturnsStringWithJoinedValues) {
     // Arrange
     std::string expected("aaa.bbb.ccc");
     std::string separator(".");
-    std::list<std::string> input;
+    std::vector<std::string> input;
     input.emplace_back("aaa");
     input.emplace_back("bbb");
     input.emplace_back("ccc");
@@ -151,6 +151,17 @@ TEST_F(StringUtilTest, TrimInputDoesNotHaveWhitespaceReturnsInputString) {
 TEST_F(StringUtilTest, TrimInputIsOnlyWhitespaceReturnsEmptyString) {
     // Arrange
     const std::string input(" ");
+
+    // Act
+    std::string actual = trim(input);
+
+    // Assert
+    ASSERT_TRUE(actual.empty());
+}
+
+TEST_F(StringUtilTest, TrimInputIsEmptyReturnsEmptyString) {
+    // Arrange
+    const std::string input;
 
     // Act
     std::string actual = trim(input);

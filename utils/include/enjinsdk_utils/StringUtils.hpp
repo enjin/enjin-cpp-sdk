@@ -1,7 +1,6 @@
 #ifndef ENJINCPPSDK_STRINGUTILS_HPP
 #define ENJINCPPSDK_STRINGUTILS_HPP
 
-#include <list>
 #include <string>
 #include <vector>
 
@@ -9,7 +8,7 @@ namespace enjin::utils {
 
 bool is_empty_or_whitespace(const std::string& str);
 
-std::string join(const std::string& separator, const std::list<std::string>& values);
+std::string join(const std::string& separator, const std::vector<std::string>& values);
 
 std::string to_lower(const std::string& str);
 
