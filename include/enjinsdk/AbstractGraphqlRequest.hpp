@@ -11,10 +11,8 @@ namespace enjin::sdk::graphql {
 /// \brief Base class for representing a GraphQL request to the platform.
 class ENJINSDK_EXPORT AbstractGraphqlRequest : public serialization::ISerializable {
 public:
-    /// \brief Constructs a request with an empty namespace.
-    AbstractGraphqlRequest() = default;
+    AbstractGraphqlRequest() = delete;
 
-    /// \brief Default destructor.
     ~AbstractGraphqlRequest() override = default;
 
     /// \brief Gets the namespace of the request.
@@ -26,8 +24,8 @@ public:
     bool operator!=(const AbstractGraphqlRequest& rhs) const;
 
 protected:
-    /// \brief Constructs a request and moves the passed template key (namespace).
-    /// \param template_key The template key to be moved.
+    /// \brief Constructs a request with the passed template key (namespace).
+    /// \param template_key The template key.
     explicit AbstractGraphqlRequest(std::string template_key);
 
 private:
