@@ -43,13 +43,14 @@ public:
         }
     };
 
-    class MockRequest : public graphql::AbstractGraphqlRequest {
+    class FakeRequest : public graphql::AbstractGraphqlRequest {
     public:
-        explicit MockRequest(std::string serialize_string = "")
-                : graphql::AbstractGraphqlRequest(), serialize_string(std::move(serialize_string)) {
+        explicit FakeRequest(std::string serialize_string = "")
+                : graphql::AbstractGraphqlRequest("test"),
+                  serialize_string(std::move(serialize_string)) {
         };
 
-        ~MockRequest() override = default;
+        ~FakeRequest() override = default;
 
         std::string serialize() override {
             return serialize_string;
@@ -84,7 +85,7 @@ TEST_F(BaseSchemaTest, SendRequestForOne) {
     // Arrange
     DummyObject expected = DummyObject::create_default_dummy_object();
     TestableBaseSchema schema = create_testable_base_schema();
-    MockRequest fake_request(expected.serialize());
+    FakeRequest fake_request(expected.serialize());
     std::string req_body = schema.create_request_body(fake_request);
     std::stringstream res_body;
     res_body << R"({"data":{"result":)"
@@ -113,7 +114,7 @@ TEST_F(BaseSchemaTest, SendRequestForMany) {
     // Arrange
     DummyObject expected = DummyObject::create_default_dummy_object();
     TestableBaseSchema schema = create_testable_base_schema();
-    MockRequest fake_request(expected.serialize());
+    FakeRequest fake_request(expected.serialize());
     std::string req_body = schema.create_request_body(fake_request);
     std::stringstream res_body;
     res_body << R"({"data":{"result":[)"
