@@ -15,8 +15,6 @@ namespace enjin::sdk::http {
 /// \brief HTTP client interface to be used for interfacing with the Enjin SDK platform clients.
 class ENJINSDK_EXPORT IHttpClient {
 public:
-    constexpr static char CONTENT_TYPE[] = "application/json; charset=utf-8"; // TODO: Move to a class for defined consts.
-
     /// \brief Default destructor.
     /// \remarks The destructor does not necessarily close the client.
     virtual ~IHttpClient() = default;

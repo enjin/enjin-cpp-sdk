@@ -59,6 +59,8 @@ public:
         std::string serialize_string;
     };
 
+    static constexpr char JSON[] = "application/json; charset=utf-8";
+
     MockHttpServer mock_server;
 
     TestableBaseSchema create_testable_base_schema() {
@@ -88,7 +90,7 @@ TEST_F(BaseSchemaTest, SendRequestForOne) {
     res_body << R"({"data":{"result":)"
              << expected.serialize()
              << R"(}})";
-    std::string content_type = http::IHttpClient::CONTENT_TYPE;
+    std::string content_type = JSON;
     http::HttpRequest http_req = http::HttpRequestBuilder().method("POST")
                                                            .path_query_fragment("/graphql/test")
                                                            .content_type(content_type)
@@ -119,7 +121,7 @@ TEST_F(BaseSchemaTest, SendRequestForMany) {
              << R"(,)"
              << expected.serialize()
              << R"(]}})";
-    std::string content_type = http::IHttpClient::CONTENT_TYPE;
+    std::string content_type = JSON;
     http::HttpRequest http_req = http::HttpRequestBuilder().method("POST")
                                                            .path_query_fragment("/graphql/test")
                                                            .content_type(content_type)

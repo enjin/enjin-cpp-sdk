@@ -12,6 +12,8 @@ using namespace enjin::test::suites;
 class HttpClientImplTest : public VerificationTestSuite,
                            public testing::Test {
 public:
+    static constexpr char JSON[] = "application/json; charset=utf-8";
+
     HttpClientImpl class_under_test = HttpClientImpl("http://localhost/");
 
     std::string base_uri;
@@ -22,7 +24,7 @@ public:
                 .method(utility::conversions::to_utf8string(web::http::methods::POST))
                 .path_query_fragment("/")
                 .body("{}")
-                .content_type(enjin::sdk::http::IHttpClient::CONTENT_TYPE)
+                .content_type(JSON)
                 .build();
     }
 
@@ -45,7 +47,7 @@ TEST_F(HttpClientImplTest, SendRequestReceivesExpectedResponse) {
     HttpResponse expected = HttpResponseBuilder()
             .code(200)
             .body("EXPECTED RESPONSE")
-            .content_type(enjin::sdk::http::IHttpClient::CONTENT_TYPE)
+            .content_type(JSON)
             .build();
     HttpRequest dummy_request = create_default_request();
     mock_server.map_response_for_request(dummy_request, expected);

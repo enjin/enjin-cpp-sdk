@@ -51,16 +51,11 @@ protected:
     /// \return The future containing the response.
     template<class T>
     std::future<graphql::GraphqlResponse<T>> send_request_for_one(graphql::AbstractGraphqlRequest& request) {
-        auto method = "POST";
-        auto path = std::string("/graphql/").append(schema);
-        auto content = http::IHttpClient::CONTENT_TYPE;
-        auto body = create_request_body(request);
-
         http::HttpRequest http_request = http::HttpRequestBuilder()
-                .method(method)
-                .path_query_fragment(path)
-                .content_type(content)
-                .body(body)
+                .method("POST")
+                .path_query_fragment(std::string("/graphql/").append(schema))
+                .content_type(JSON)
+                .body(create_request_body(request))
                 .build();
 
         return std::async([this, http_request] {
@@ -82,16 +77,11 @@ protected:
     template<class T>
     std::future<graphql::GraphqlResponse<std::vector<T>>>
     send_request_for_many(graphql::AbstractGraphqlRequest& request) {
-        auto method = "POST";
-        auto path = std::string("/graphql/").append(schema);
-        auto content = http::IHttpClient::CONTENT_TYPE;
-        auto body = create_request_body(request);
-
         http::HttpRequest http_request = http::HttpRequestBuilder()
-                .method(method)
-                .path_query_fragment(path)
-                .content_type(content)
-                .body(body)
+                .method("POST")
+                .path_query_fragment(std::string("/graphql/").append(schema))
+                .content_type(JSON)
+                .body(create_request_body(request))
                 .build();
 
         return std::async([this, http_request]() {
@@ -107,6 +97,8 @@ protected:
     }
 
 private:
+    inline static constexpr char JSON[] = "application/json; charset=utf-8";
+
     void log_graphql_exception(const std::exception& e);
 };
 
