@@ -108,9 +108,20 @@ if (EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     set(ENJINSDK_USING_CONAN 1)
 endif ()
 
+# Command to generate template constants
+add_custom_command(
+        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp
+        COMMAND template_generator ${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp ${PROJECT_SOURCE_DIR}/src/graphql/templates
+        DEPENDS template_generator
+        COMMENT "Generating generated file"
+)
+
+# Add supporting executables and libraries
 add_subdirectory(utils)
+add_subdirectory(scripts)
 
 add_library(${PROJECT_NAME} SHARED "")
+add_dependencies(${PROJECT_NAME} template_generator)
 generate_export_header(${PROJECT_NAME})
 
 # Set SDK properties
@@ -162,6 +173,7 @@ set_include_http_client_impl_macro()
 set_include_websocket_client_impl_macro()
 set_version_macro()
 
+target_sources(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp)
 target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_utils)
 target_include_directories(${PROJECT_NAME}
         PUBLIC
