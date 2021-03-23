@@ -1,4 +1,4 @@
-#include "enjinsdk/AbstractGraphqlRequest.hpp"
+#include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "gtest/gtest.h"
 #include <string>
 

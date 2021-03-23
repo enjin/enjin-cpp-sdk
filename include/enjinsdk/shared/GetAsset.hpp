@@ -2,7 +2,7 @@
 #define ENJINCPPSDK_SHAREDGETASSET_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/AbstractGraphqlRequest.hpp"
+#include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/Asset.hpp"
 #include "enjinsdk/shared/AssetFragmentArguments.hpp"
 #include <optional>

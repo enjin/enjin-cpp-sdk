@@ -2,7 +2,7 @@
 #define ENJINCPPSDK_SHAREDGETREQUESTS_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/AbstractGraphqlRequest.hpp"
+#include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/TransactionFilter.hpp"
 #include "enjinsdk/models/TransactionSort.hpp"
 #include "enjinsdk/shared/PaginationArguments.hpp"

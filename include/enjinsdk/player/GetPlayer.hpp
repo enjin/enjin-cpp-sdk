@@ -2,7 +2,7 @@
 #define ENJINCPPSDK_PLAYERGETPLAYER_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/AbstractGraphqlRequest.hpp"
+#include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/PlayerFragmentArguments.hpp"
 
 namespace enjin::sdk::player {

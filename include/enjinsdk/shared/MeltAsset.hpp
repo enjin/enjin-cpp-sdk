@@ -2,7 +2,7 @@
 #define ENJINCPPSDK_SHAREDMELTASSET_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/AbstractGraphqlRequest.hpp"
+#include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/Melt.hpp"
 #include "enjinsdk/shared/TransactionRequestArguments.hpp"
 #include <optional>

@@ -2,7 +2,7 @@
 #define ENJINCPPSDK_SHAREDAPPROVEMAXENJ_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/AbstractGraphqlRequest.hpp"
+#include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/TransactionRequestArguments.hpp"
 
 namespace enjin::sdk::shared {

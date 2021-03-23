@@ -2,7 +2,7 @@
 #define ENJINCPPSDK_PROJECTGETPLAYERS_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/AbstractGraphqlRequest.hpp"
+#include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/PlayerFilter.hpp"
 #include "enjinsdk/shared/PaginationArguments.hpp"
 #include "enjinsdk/shared/PlayerFragmentArguments.hpp"

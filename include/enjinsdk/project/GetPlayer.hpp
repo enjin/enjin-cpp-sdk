@@ -2,7 +2,7 @@
 #define ENJINCPPSDK_PROJECTGETPLAYER_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/AbstractGraphqlRequest.hpp"
+#include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/PlayerFragmentArguments.hpp"
 #include <optional>
 #include <string>
