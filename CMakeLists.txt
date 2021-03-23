@@ -37,6 +37,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_MINSIZEREL ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 ### Setup output directories end
 
+include(cmake/enjinsdk_git_submodule.cmake)
 include(CMakePackageConfigHelpers)
 include(GenerateExportHeader)
 
@@ -116,7 +117,8 @@ add_custom_command(
         COMMENT "Generating generated file"
 )
 
-# Add supporting executables and libraries
+# Add supporting submodules, executables, and libraries
+init_git_submodules()
 add_subdirectory(utils)
 add_subdirectory(scripts)
 
