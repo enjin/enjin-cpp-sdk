@@ -2,7 +2,7 @@
 #define ENJINCPPSDK_SHAREDCANCELTRANSACTION_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/AbstractGraphqlRequest.hpp"
+#include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include <optional>
 
 namespace enjin::sdk::shared {

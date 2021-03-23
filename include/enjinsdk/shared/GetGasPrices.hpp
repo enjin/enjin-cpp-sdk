@@ -2,7 +2,7 @@
 #define ENJINCPPSDK_SHAREDGETGASPRICES_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/AbstractGraphqlRequest.hpp"
+#include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 
 namespace enjin::sdk::shared {
 

@@ -2,7 +2,7 @@
 #define ENJINCPPSDK_PROJECTSETTRANSFERABLE_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/AbstractGraphqlRequest.hpp"
+#include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/AssetTransferable.hpp"
 #include "enjinsdk/shared/TransactionRequestArguments.hpp"
 #include <optional>

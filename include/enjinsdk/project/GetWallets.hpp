@@ -2,7 +2,7 @@
 #define ENJINCPPSDK_PROJECTGETWALLETS_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/AbstractGraphqlRequest.hpp"
+#include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/PaginationArguments.hpp"
 #include "enjinsdk/shared/WalletFragmentArguments.hpp"
 #include <optional>

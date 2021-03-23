@@ -2,10 +2,10 @@
 #define ENJINCPPSDK_BASESCHEMA_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/GraphqlResponse.hpp"
 #include "enjinsdk/Logger.hpp"
 #include "enjinsdk/TrustedPlatformMiddleware.hpp"
+#include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include <exception>
 #include <future>
 #include <memory>

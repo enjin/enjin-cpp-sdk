@@ -2,7 +2,7 @@
 #define ENJINCPPSDK_PROJECTCREATEASSET_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/AbstractGraphqlRequest.hpp"
+#include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/AssetSupplyModel.hpp"
 #include "enjinsdk/models/AssetTransferFeeSettings.hpp"
 #include "enjinsdk/models/AssetTransferable.hpp"

@@ -2,7 +2,7 @@
 #define ENJINCPPSDK_SHAREDGETBALANCES_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/AbstractGraphqlRequest.hpp"
+#include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/BalanceFilter.hpp"
 #include "enjinsdk/shared/BalanceFragmentArguments.hpp"
 #include "enjinsdk/shared/PaginationArguments.hpp"

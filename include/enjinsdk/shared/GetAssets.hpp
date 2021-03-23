@@ -2,7 +2,7 @@
 #define ENJINCPPSDK_SHAREDGETASSETS_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/AbstractGraphqlRequest.hpp"
+#include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/Asset.hpp"
 #include "enjinsdk/models/AssetFilter.hpp"
 #include "enjinsdk/models/AssetSort.hpp"
