@@ -1,1 +1,5 @@
-find_package(RapidJSON CONFIG REQUIRED)
+find_package(RapidJSON
+        1.1.0
+        QUIET
+        CONFIG
+        REQUIRED)
