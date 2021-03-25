@@ -79,6 +79,8 @@ TEST_F(PusherEventServiceWebsocketTest, IsConnectedServiceNotStartedReturnsFalse
 
     // Assert
     EXPECT_FALSE(actual);
+
+    service->shutdown();
 }
 
 TEST_F(PusherEventServiceWebsocketTest, IsConnectedServiceStartedAndConnectedToServerReturnsTrue) {
@@ -92,6 +94,8 @@ TEST_F(PusherEventServiceWebsocketTest, IsConnectedServiceStartedAndConnectedToS
 
     // Assert
     EXPECT_TRUE(actual);
+
+    service->shutdown();
 }
 
 TEST_F(PusherEventServiceWebsocketTest, SubscribeToProjectServiceSubscribesToChannel) {
@@ -128,6 +132,8 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToProjectServiceSubscribesToCha
 
     // Assert
     EXPECT_TRUE(service->is_subscribed_to_project(project));
+
+    service->shutdown();
 }
 
 TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToProjectServiceIsUnsubscribedFromChannel) {
@@ -155,6 +161,8 @@ TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToProjectServiceIsUnsubscribe
 
     // Assert
     EXPECT_FALSE(service->is_subscribed_to_project(project));
+
+    service->shutdown();
 }
 
 TEST_F(PusherEventServiceWebsocketTest, SubscribeToPlayerServiceSubscribesToChannel) {
@@ -192,6 +200,8 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToPlayerServiceSubscribesToChan
 
     // Assert
     EXPECT_TRUE(service->is_subscribed_to_player(project, player));
+
+    service->shutdown();
 }
 
 TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToPlayerServiceIsUnsubscribedFromChannel) {
@@ -220,6 +230,8 @@ TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToPlayerServiceIsUnsubscribed
 
     // Assert
     EXPECT_FALSE(service->is_subscribed_to_player(project, player));
+
+    service->shutdown();
 }
 
 TEST_F(PusherEventServiceWebsocketTest, SubscribeToAssetServiceSubscribesToChannel) {
@@ -256,6 +268,8 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToAssetServiceSubscribesToChann
 
     // Assert
     EXPECT_TRUE(service->is_subscribed_to_asset(asset));
+
+    service->shutdown();
 }
 
 TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToAssetServiceIsUnsubscribedFromChannel) {
@@ -283,6 +297,8 @@ TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToAssetServiceIsUnsubscribedF
 
     // Assert
     EXPECT_FALSE(service->is_subscribed_to_asset(asset));
+
+    service->shutdown();
 }
 
 TEST_F(PusherEventServiceWebsocketTest, SubscribeToWalletServiceSubscribesToChannel) {
@@ -319,6 +335,8 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToWalletServiceSubscribesToChan
 
     // Assert
     EXPECT_TRUE(service->is_subscribed_to_wallet(wallet));
+
+    service->shutdown();
 }
 
 TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToWalletServiceIsUnsubscribedFromChannel) {
@@ -346,4 +364,6 @@ TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToWalletServiceIsUnsubscribed
 
     // Assert
     EXPECT_FALSE(service->is_subscribed_to_wallet(wallet));
+
+    service->shutdown();
 }
