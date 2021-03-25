@@ -27,7 +27,7 @@ protected:
     }
 
     void TearDown() override {
-        mock_server.close(1000, "Teardown");
+        mock_ws_client->close();
     }
 };
 

@@ -29,7 +29,7 @@ protected:
     }
 
     void TearDown() override {
-        mock_server.close(1000, "Teardown");
+        class_under_test.close();
     }
 };
 
