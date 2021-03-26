@@ -6,6 +6,7 @@
 #include "enjinsdk/IClient.hpp"
 #include "enjinsdk/TrustedPlatformMiddleware.hpp"
 #include "enjinsdk/project/ProjectSchema.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -22,9 +23,9 @@ public:
     /// \brief Default destructor.
     ~ProjectClientBuilder() = default;
 
-    /// \brief Builds the client.
+    /// \brief Builds the client and provides the unique pointer for it.
     /// \return The client.
-    ProjectClient build();
+    std::unique_ptr<ProjectClient> build();
 
     /// \brief Sets the base URI of the underlying HTTP client if one is not provided.
     /// \param base_uri The base URI.
@@ -66,7 +67,7 @@ public:
 private:
     explicit ProjectClient(TrustedPlatformMiddleware middleware, std::shared_ptr<utils::Logger> logger);
 
-    friend ProjectClient ProjectClientBuilder::build();
+    friend std::unique_ptr<ProjectClient> ProjectClientBuilder::build();
 };
 
 }

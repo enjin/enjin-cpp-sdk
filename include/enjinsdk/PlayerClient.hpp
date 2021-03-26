@@ -23,9 +23,9 @@ public:
     /// \brief Default destructor.
     ~PlayerClientBuilder() = default;
 
-    /// \brief Builds the client.
+    /// \brief Builds the client and provides the unique pointer for it.
     /// \return The client.
-    PlayerClient build();
+    std::unique_ptr<PlayerClient> build();
 
     /// \brief Sets the base URI of the underlying HTTP client if one is not provided.
     /// \param base_uri The base URI.
@@ -67,7 +67,7 @@ public:
 private:
     explicit PlayerClient(TrustedPlatformMiddleware middleware, std::shared_ptr<utils::Logger> logger);
 
-    friend PlayerClient PlayerClientBuilder::build();
+    friend std::unique_ptr<PlayerClient> PlayerClientBuilder::build();
 };
 
 }

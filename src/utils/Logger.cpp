@@ -227,19 +227,19 @@ LogLevel Logger::get_default_level() const noexcept {
     return default_level;
 }
 
-Logger LoggerBuilder::build() {
+std::unique_ptr<Logger> LoggerBuilder::build() {
     auto logger_name = m_logger_name.value_or(LoggerImpl::generate_next_logger_name());
     auto use_stdout = m_use_stdout.value_or(LoggerImpl::default_std_stream_value());
     auto use_stderr = m_use_stderr.value_or(LoggerImpl::default_std_stream_value());
     auto default_level = m_default_level.value_or(LogLevel::INFO);
 
-    return Logger(logger_name,
-                  log_filenames,
-                  ostreams,
-                  use_color,
-                  use_stdout,
-                  use_stderr,
-                  default_level);
+    return std::unique_ptr<Logger>(new Logger(logger_name,
+                                              log_filenames,
+                                              ostreams,
+                                              use_color,
+                                              use_stdout,
+                                              use_stderr,
+                                              default_level));
 }
 
 LoggerBuilder& LoggerBuilder::enable_color() {
