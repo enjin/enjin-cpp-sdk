@@ -54,6 +54,7 @@ PusherClient::~PusherClient() {
 }
 
 void PusherClient::connect() {
+    ws_client_closed = false;
     ws_client->set_allow_reconnecting(true);
     set_state(ConnectionState::CONNECTING);
 
@@ -75,6 +76,7 @@ void PusherClient::disconnect() {
     ConnectionState present_state = get_state();
     if (present_state == ConnectionState::CONNECTED || present_state == ConnectionState::CONNECTING) {
         set_state(ConnectionState::DISCONNECTING);
+        ws_client_closed = true;
         ws_client->close();
     }
 
@@ -296,7 +298,9 @@ void PusherClient::websocket_closed(int close_status, const std::string& message
         return;
     }
 
-    set_state(ConnectionState::RECONNECTING);
+    if (!ws_client_closed) {
+        set_state(ConnectionState::RECONNECTING);
+    }
 }
 
 }

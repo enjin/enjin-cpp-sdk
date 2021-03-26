@@ -7,6 +7,7 @@
 #include "PusherOptions.hpp"
 #include "enjinsdk/IWebsocketClient.hpp"
 #include "enjinsdk/Logger.hpp"
+#include <atomic>
 #include <exception>
 #include <functional>
 #include <future>
@@ -113,6 +114,9 @@ private:
     std::mutex pending_channels_lock;
     std::mutex event_listeners_lock;
     std::mutex state_lock;
+
+    // Flags
+    std::atomic_bool ws_client_closed = true;
 
     std::future<void> subscribe_to_channel(const std::string& channel_name);
 
