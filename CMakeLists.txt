@@ -114,7 +114,7 @@ add_custom_command(
         OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp
         COMMAND template_generator ${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp ${PROJECT_SOURCE_DIR}/src/graphql/templates
         DEPENDS template_generator
-        COMMENT "Generating generated file"
+        COMMENT "Generating TemplateConstants source file"
 )
 
 # Add supporting submodules, executables, and libraries
