@@ -359,7 +359,7 @@ void PusherEventService::unsubscribe(const std::string& channel) {
 
 void PusherEventService::bind(const std::string& channel) {
     auto& pusher_client = impl->get_client();
-    for (auto& def : EventTypeDef::filter_by_channel_types({channel})) {
+    for (auto& def : EventTypeDef::filter_by_channel_type({channel})) {
         pusher_client->bind(def.get_key(), listener);
     }
 }
@@ -374,10 +374,11 @@ std::unique_ptr<PusherEventService> PusherEventServiceBuilder::build() {
     }
 
     return m_platform.has_value()
-           ? std::unique_ptr<PusherEventService>(
-                    new PusherEventService(std::move(m_ws_client), m_logger, m_platform.value()))
-           : std::unique_ptr<PusherEventService>(
-                    new PusherEventService(std::move(m_ws_client), m_logger));
+           ? std::unique_ptr<PusherEventService>(new PusherEventService(std::move(m_ws_client),
+                                                                        m_logger,
+                                                                        m_platform.value()))
+           : std::unique_ptr<PusherEventService>(new PusherEventService(std::move(m_ws_client),
+                                                                        m_logger));
 }
 
 PusherEventServiceBuilder& PusherEventServiceBuilder::platform(const models::Platform& platform) {

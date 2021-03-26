@@ -1,10 +1,15 @@
 #include "WebsocketClientImpl.hpp"
 
+#include "ixwebsocket/IXNetSystem.h"
 #include <sstream>
 
 namespace enjin::sdk::websockets {
 
 WebsocketClientImpl::WebsocketClientImpl(std::shared_ptr<utils::Logger> logger) : logger(std::move(logger)) {
+#ifdef WIN32
+    ix::initNetSystem();
+#endif
+
     ws.enableAutomaticReconnection();
     ws.enablePong();
     ws.setPingInterval(120); // Ping every 2 minutes

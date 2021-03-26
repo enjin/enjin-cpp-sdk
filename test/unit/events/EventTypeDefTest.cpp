@@ -26,7 +26,7 @@ class EventTypeDefNotInTypesTest
 };
 
 class EventTypeDefFilterByChannelTypes
-        : public testing::TestWithParam<std::vector<std::string>> {
+        : public testing::TestWithParam<std::string> {
 };
 
 TEST_F(EventTypeDefTest, EqualityBothSidesAreSameDefReturnsTrue) {
@@ -105,19 +105,18 @@ TEST_P(EventTypeDefNotInTypesTest, InDefIsNotInTypes) {
 
 TEST_P(EventTypeDefFilterByChannelTypes, FilterByChannelTypes) {
     // Arrange
-    const std::vector<std::string>& channels = GetParam();
+    const std::string channel = GetParam();
     std::vector<EventTypeDef> defs = EventTypeDef::values();
 
     // Act
-    std::vector<EventTypeDef> filtered_defs = EventTypeDef::filter_by_channel_types(channels);
+    std::vector<EventTypeDef> filtered_defs = EventTypeDef::filter_by_channel_type(channel);
 
     // Assert
     for (const EventTypeDef& def : defs) {
-        // Set expectation for if Def contains the channel
-        bool expected = std::find_if(def.get_channels().begin(), def.get_channels().end(),
-                                     [channels](const std::string& c) {
-                                         return std::find(channels.begin(), channels.end(), c) != channels.end();
-                                     }) != def.get_channels().end();
+        // Set expectation for if Definition contains the channel
+        bool expected = std::find(def.get_channels().begin(),
+                                  def.get_channels().end(),
+                                  channel) != def.get_channels().end();
         // Set actual for if the filtered Defs contains the Def
         bool actual = std::find(filtered_defs.begin(), filtered_defs.end(), def) != filtered_defs.end();
 
@@ -150,4 +149,4 @@ INSTANTIATE_TEST_SUITE_P(DefNotInTypesTestCases,
 
 INSTANTIATE_TEST_SUITE_P(FilterByChannelTypesTestCases,
                          EventTypeDefFilterByChannelTypes,
-                         testing::Values(std::vector<std::string>{"player"}));
+                         testing::Values("player"));
