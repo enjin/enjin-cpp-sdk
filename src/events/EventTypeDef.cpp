@@ -55,14 +55,14 @@ std::vector<EventTypeDef> EventTypeDef::values() {
     return values;
 }
 
-std::vector<EventTypeDef> EventTypeDef::filter_by_channel_types(const std::vector<std::string>& channels) {
+std::vector<EventTypeDef> EventTypeDef::filter_by_channel_type(const std::string& channel) {
     std::vector<EventTypeDef> defs;
 
-    for (auto& channel : channels) {
-        for (auto& def : EventTypeDef::values()) {
-            auto iter = std::find(def.channels.begin(), def.channels.end(), enjin::utils::to_lower(channel));
-            if (iter != def.channels.end()) {
+    for (const auto& def : EventTypeDef::values()) {
+        for (const auto& key : def.channels) {
+            if (enjin::utils::to_lower(channel).find(key) != std::string::npos) {
                 defs.push_back(def);
+                break;
             }
         }
     }

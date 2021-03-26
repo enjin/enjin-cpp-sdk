@@ -34,7 +34,7 @@ public:
 
     static std::vector<EventTypeDef> values();
 
-    static std::vector<EventTypeDef> filter_by_channel_types(const std::vector<std::string>& channels);
+    static std::vector<EventTypeDef> filter_by_channel_type(const std::string& channel);
 
     static EventTypeDef get_from_name(const std::string& name);
 

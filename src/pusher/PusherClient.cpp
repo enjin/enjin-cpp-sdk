@@ -14,6 +14,22 @@ static constexpr char CHANNEL_KEY[] = "channel";
 static constexpr char DATA_KEY[] = "data";
 static constexpr char EVENT_KEY[] = "event";
 
+std::string get_subscription_message_for_channel_name(const std::string& channel_name) {
+    rapidjson::Document document(rapidjson::kObjectType);
+    auto& allocator = document.GetAllocator();
+
+    sdk::utils::set_string_member(document, EVENT_KEY, Constants::CHANNEL_SUBSCRIBE);
+
+    rapidjson::Value v_data(rapidjson::kObjectType);
+    rapidjson::Value v_channel;
+    v_channel.SetString(channel_name.c_str(), allocator);
+
+    v_data.AddMember(CHANNEL_KEY, v_channel, allocator);
+    document.AddMember(DATA_KEY, v_data, allocator);
+
+    return sdk::utils::document_to_string(document);
+}
+
 PusherClient::PusherClient(std::shared_ptr<sdk::websockets::IWebsocketClient> ws_client,
                            std::string key,
                            const PusherOptions& options,
@@ -95,48 +111,35 @@ std::future<void> PusherClient::subscribe_to_channel(const std::string& channel_
 
         channels.try_emplace(channel_name, PusherChannel{});
 
+        // Determines if message can be sent immediately
         if (get_state() == ConnectionState::CONNECTED) {
-            rapidjson::Document document(rapidjson::kObjectType);
-            auto& allocator = document.GetAllocator();
-
-            sdk::utils::set_string_member(document, EVENT_KEY, Constants::CHANNEL_SUBSCRIBE);
-
-            rapidjson::Value v_data(rapidjson::kObjectType);
-            rapidjson::Value v_channel;
-            v_channel.SetString(channel_name.c_str(), allocator);
-
-            v_data.AddMember(CHANNEL_KEY, v_channel, allocator);
-            document.AddMember(DATA_KEY, v_data, allocator);
-
-            ws_client->send(sdk::utils::document_to_string(document));
+            ws_client->send(get_subscription_message_for_channel_name(channel_name));
         }
     });
 }
 
 std::future<void> PusherClient::unsubscribe(const std::string& channel_name) {
-    if (get_state() == ConnectionState::CONNECTED) {
-        return std::async([this, channel_name]() {
-            rapidjson::Document document(rapidjson::kObjectType);
-            auto& allocator = document.GetAllocator();
+    return std::async([this, channel_name]() {
+        rapidjson::Document document(rapidjson::kObjectType);
+        auto& allocator = document.GetAllocator();
 
-            sdk::utils::set_string_member(document, EVENT_KEY, Constants::CHANNEL_UNSUBSCRIBE);
+        sdk::utils::set_string_member(document, EVENT_KEY, Constants::CHANNEL_UNSUBSCRIBE);
 
-            rapidjson::Value v_data(rapidjson::kObjectType);
-            rapidjson::Value v_channel;
-            v_channel.SetString(channel_name.c_str(), allocator);
+        rapidjson::Value v_data(rapidjson::kObjectType);
+        rapidjson::Value v_channel;
+        v_channel.SetString(channel_name.c_str(), allocator);
 
-            v_data.AddMember(CHANNEL_KEY, v_channel, allocator);
-            document.AddMember(DATA_KEY, v_data, allocator);
+        v_data.AddMember(CHANNEL_KEY, v_channel, allocator);
+        document.AddMember(DATA_KEY, v_data, allocator);
 
+        if (get_state() == ConnectionState::CONNECTED) {
             ws_client->send(sdk::utils::document_to_string(document));
+        }
 
-            channels_lock.lock();
-            channels.erase(channel_name);
-            channels_lock.unlock();
-        });
-    }
-
-    return std::future<void>(); // Do nothing since this was not connected;
+        channels_lock.lock();
+        channels.erase(channel_name);
+        channels_lock.unlock();
+    });
 }
 
 void PusherClient::subscription_succeeded(const std::string& channel_name) {
@@ -271,6 +274,11 @@ void PusherClient::websocket_message_received(const std::string& message) {
 
 void PusherClient::websocket_opened() {
     set_state(ConnectionState::CONNECTED);
+
+    std::lock_guard<std::mutex> guard(channels_lock);
+    for (const auto& entry : channels) {
+        ws_client->send(get_subscription_message_for_channel_name(entry.first));
+    }
 }
 
 void PusherClient::websocket_closed(int close_status, const std::string& message) {

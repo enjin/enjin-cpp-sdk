@@ -138,7 +138,7 @@ TEST_F(PusherClientTest, UnsubscribeClientSendsMessageToServerAndUnsubscribesFro
     set_expected_call_count(1);
 
     // Act
-    client.unsubscribe(channel_name);
+    client.unsubscribe(channel_name).get();
 
     // Verify
     verify_call_count(1);
@@ -194,4 +194,59 @@ TEST_F(PusherClientTest, ListenerIsNotCalledWhenUnboundEventIsReceived) {
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Assert (see: Arrange - Expectations)
+}
+
+TEST_F(PusherClientTest, ClientSendsCachedSubscribeMessageAfterConnecting) {
+    // Arrange - Data
+    const std::string channel_name(DEFAULT_CHANNEL_NAME);
+    PusherClient client = create_testable_pusher_client();
+    client.subscribe(channel_name).get();
+
+    // Arrange - Expectations
+    mock_server.next_message([this, channel_name](const TestWebsocketMessage& message) {
+        increment_call_counter();
+
+        const std::string success_message = create_subscription_success_message(channel_name);
+        TestWebsocketMessage response;
+        response.set_data(std::vector<unsigned char>(success_message.begin(), success_message.end()));
+        response.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
+        mock_server.send_message(response);
+    });
+    set_expected_call_count(1);
+
+    // Act
+    client.connect();
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
+    // Verify
+    verify_call_count(1);
+
+    // Assert
+    EXPECT_TRUE(client.is_subscribed(channel_name));
+}
+
+TEST_F(PusherClientTest, ClientUncachesAndDoesNotSendSubscribeMessageAfterConnecting) {
+    // Arrange - Data
+    const std::string channel_name(DEFAULT_CHANNEL_NAME);
+    PusherClient client = create_testable_pusher_client();
+    client.subscribe(channel_name).get();
+    client.unsubscribe(channel_name).get();
+
+    // Arrange - Expectations
+    mock_server.next_message([this, channel_name](const TestWebsocketMessage& message) {
+        increment_call_counter();
+    });
+    set_expected_call_count(0);
+
+    // Act
+    client.connect();
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
+    // Verify
+    verify_call_count(1);
+
+    // Assert
+    EXPECT_FALSE(client.is_subscribed(channel_name));
 }
