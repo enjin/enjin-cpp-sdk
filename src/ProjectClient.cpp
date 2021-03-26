@@ -26,7 +26,7 @@ bool ProjectClient::is_authenticated() {
     return middleware.get_handler()->is_authenticated();
 }
 
-ProjectClient ProjectClientBuilder::build() {
+std::unique_ptr<ProjectClient> ProjectClientBuilder::build() {
     if (m_http_client == nullptr) {
 #if ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL
         m_http_client = std::make_unique<http::HttpClientImpl>(m_base_uri.has_value()
@@ -35,13 +35,13 @@ ProjectClient ProjectClientBuilder::build() {
                         "No base URI was set for default HTTP client implementation"),
                                                                m_logger);
         TrustedPlatformMiddleware middleware(std::move(m_http_client), m_debug.has_value() && m_debug.value());
-        return ProjectClient(std::move(middleware), m_logger);
+        return std::unique_ptr<ProjectClient>(new ProjectClient(std::move(middleware), m_logger));
 #else
         throw std::runtime_error("Attempted building platform client without providing an HTTP client");
 #endif
     } else {
         TrustedPlatformMiddleware middleware(std::move(m_http_client), m_debug.has_value() && m_debug.value());
-        return ProjectClient(std::move(middleware), m_logger);
+        return std::unique_ptr<ProjectClient>(new ProjectClient(std::move(middleware), m_logger));
     }
 }
 

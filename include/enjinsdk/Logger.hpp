@@ -35,9 +35,9 @@ public:
     /// \brief Default destructor.
     ~LoggerBuilder() = default;
 
-    /// \brief Builds the logger.
+    /// \brief Builds the logger and provides the unique pointer for it.
     /// \return The logger.
-    Logger build();
+    std::unique_ptr<Logger> build();
 
     /// \brief Enables color on the logger for sinks which support the feature.
     /// \return This builder for chaining.
@@ -148,7 +148,7 @@ private:
            const std::pair<bool, std::string>& use_stderr,
            LogLevel default_level);
 
-    friend Logger LoggerBuilder::build();
+    friend std::unique_ptr<Logger> LoggerBuilder::build();
 };
 
 }
