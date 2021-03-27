@@ -103,7 +103,7 @@ TEST_P(EventTypeDefNotInTypesTest, InDefIsNotInTypes) {
     ASSERT_FALSE(actual);
 }
 
-TEST_P(EventTypeDefFilterByChannelTypes, FilterByChannelTypes) {
+TEST_P(EventTypeDefFilterByChannelTypes, FilterByChannelTypesReturnsDefsWithChannelTypesSubstringToChannelParam) {
     // Arrange
     const std::string channel = GetParam();
     std::vector<EventTypeDef> defs = EventTypeDef::values();
@@ -114,9 +114,11 @@ TEST_P(EventTypeDefFilterByChannelTypes, FilterByChannelTypes) {
     // Assert
     for (const EventTypeDef& def : defs) {
         // Set expectation for if Definition contains the channel
-        bool expected = std::find(def.get_channels().begin(),
-                                  def.get_channels().end(),
-                                  channel) != def.get_channels().end();
+        bool expected = std::find_if(def.get_channels().begin(),
+                                     def.get_channels().end(),
+                                     [channel](const std::string& c) {
+                                         return channel.find(c) != std::string::npos;
+                                     }) != def.get_channels().end();
         // Set actual for if the filtered Defs contains the Def
         bool actual = std::find(filtered_defs.begin(), filtered_defs.end(), def) != filtered_defs.end();
 
@@ -149,4 +151,7 @@ INSTANTIATE_TEST_SUITE_P(DefNotInTypesTestCases,
 
 INSTANTIATE_TEST_SUITE_P(FilterByChannelTypesTestCases,
                          EventTypeDefFilterByChannelTypes,
-                         testing::Values("player"));
+                         testing::Values("player",
+                                         "enjincloud.kovan.wallet.0x0",
+                                         "enjincloud.mainnet.project.1234",
+                                         "xyz"));
