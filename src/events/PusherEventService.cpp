@@ -236,45 +236,45 @@ void PusherEventService::set_error_handler(const std::function<void(const std::e
     impl->set_error_handler(handler);
 }
 
-EventListenerRegistration& PusherEventService::register_listener(std::shared_ptr<IEventListener> listener) {
+std::shared_ptr<EventListenerRegistration>
+PusherEventService::register_listener(std::shared_ptr<IEventListener> listener) {
     return cache_registration(EventListenerRegistration::RegistrationListenerConfiguration(listener));
 }
 
-EventListenerRegistration&
+std::shared_ptr<EventListenerRegistration>
 PusherEventService::register_listener_with_matcher(std::shared_ptr<IEventListener> listener,
                                                    std::function<bool(models::EventType)> matcher) {
     return cache_registration(EventListenerRegistration::RegistrationListenerConfiguration(listener)
                                       .with_matcher(matcher));
 }
 
-EventListenerRegistration&
+std::shared_ptr<EventListenerRegistration>
 PusherEventService::register_listener_including_types(std::shared_ptr<IEventListener> listener,
                                                       const std::vector<models::EventType>& types) {
     return cache_registration(EventListenerRegistration::RegistrationListenerConfiguration(listener)
                                       .with_allowed_events(types));
 }
 
-EventListenerRegistration&
+std::shared_ptr<EventListenerRegistration>
 PusherEventService::register_listener_excluding_types(std::shared_ptr<IEventListener> listener,
                                                       const std::vector<models::EventType>& types) {
     return cache_registration(EventListenerRegistration::RegistrationListenerConfiguration(listener)
                                       .with_ignored_events(types));
 }
 
-EventListenerRegistration&
+std::shared_ptr<EventListenerRegistration>
 PusherEventService::cache_registration(EventListenerRegistration::RegistrationListenerConfiguration configuration) {
     // Check if a registration for the listener already exists
-    for (auto& r : listeners) {
+    for (const auto& r : listeners) {
         if (&r->get_listener() == &configuration.get_listener()) {
-            return *r;
+            return r;
         }
     }
 
     std::shared_ptr<EventListenerRegistration> registration = configuration.create();
-    EventListenerRegistration& ref = *registration;
-    listeners.push_back(std::move(registration));
+    listeners.push_back(registration);
 
-    return ref;
+    return registration;
 }
 
 void PusherEventService::unregister_listener(IEventListener& listener) {
