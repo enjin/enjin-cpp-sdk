@@ -139,7 +139,20 @@ TEST_F(PusherEventServiceTest, RegisterListenerRegistrationHasListener) {
     auto registration = service->register_listener(listener);
 
     // Assert
-    ASSERT_EQ(listener.get(), &registration.get_listener());
+    ASSERT_EQ(listener.get(), &registration->get_listener());
+}
+
+TEST_F(PusherEventServiceTest, RegisterListenerReturnsSameRegistrationWhenGivenSameListener) {
+    // Arrange
+    auto service = create_default_event_service();
+    std::shared_ptr<MockEventListener> listener = std::make_shared<MockEventListener>();
+    auto expected = service->register_listener(listener);
+
+    // Act
+    auto actual = service->register_listener(listener);
+
+    // Assert
+    ASSERT_EQ(expected, actual);
 }
 
 TEST_F(PusherEventServiceTest, RegisterListenerWithMatcherRegistrationHasMatcher) {
@@ -163,7 +176,7 @@ TEST_F(PusherEventServiceTest, RegisterListenerWithMatcherRegistrationHasMatcher
     // Assert
     for (EventType type : EVENT_TYPES) {
         bool expected = matcher(type);
-        bool actual = registration.get_matcher()(type);
+        bool actual = registration->get_matcher()(type);
         EXPECT_EQ(expected, actual);
     }
 }
@@ -180,7 +193,7 @@ TEST_F(PusherEventServiceTest, RegisterListenerIncludingTypesRegistrationMatcher
     // Assert
     for (EventType type : EVENT_TYPES) {
         bool expected = std::find(types.begin(), types.end(), type) != types.end();
-        bool actual = registration.get_matcher()(type);
+        bool actual = registration->get_matcher()(type);
         EXPECT_EQ(expected, actual);
     }
 }
@@ -197,7 +210,7 @@ TEST_F(PusherEventServiceTest, RegisterListenerExcludingTypesRegistrationMatcher
     // Assert
     for (EventType type : EVENT_TYPES) {
         bool expected = std::find(types.begin(), types.end(), type) == types.end();
-        bool actual = registration.get_matcher()(type);
+        bool actual = registration->get_matcher()(type);
         EXPECT_EQ(expected, actual);
     }
 }
@@ -208,7 +221,7 @@ TEST_F(PusherEventServiceTest, UnregisterListenerListenerIsUnregestered) {
     std::shared_ptr<MockEventListener> listener = std::make_shared<MockEventListener>();
     auto registration = service->register_listener(listener);
 
-    EXPECT_EQ(listener.get(), &registration.get_listener());
+    EXPECT_EQ(listener.get(), &registration->get_listener());
 
     // Act
     service->unregister_listener(*listener);

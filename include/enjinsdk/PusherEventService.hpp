@@ -74,17 +74,17 @@ public:
 
     void set_error_handler(const std::function<void(const std::exception&)>& handler) override;
 
-    EventListenerRegistration& register_listener(std::shared_ptr<IEventListener> listener) override;
+    std::shared_ptr<EventListenerRegistration> register_listener(std::shared_ptr<IEventListener> listener) override;
 
-    EventListenerRegistration&
+    std::shared_ptr<EventListenerRegistration>
     register_listener_with_matcher(std::shared_ptr<IEventListener> listener,
                                    std::function<bool(models::EventType)> matcher) override;
 
-    EventListenerRegistration&
+    std::shared_ptr<EventListenerRegistration>
     register_listener_including_types(std::shared_ptr<IEventListener> listener,
                                       const std::vector<models::EventType>& types) override;
 
-    EventListenerRegistration&
+    std::shared_ptr<EventListenerRegistration>
     register_listener_excluding_types(std::shared_ptr<IEventListener> listener,
                                       const std::vector<models::EventType>& types) override;
 
@@ -120,8 +120,8 @@ protected:
 
     /// \brief Caches the registration created from the configuration.
     /// \param configuration The configuration used to create the registration.
-    /// \return Reference to the created registration.
-    EventListenerRegistration&
+    /// \return Pointer to the created registration.
+    std::shared_ptr<EventListenerRegistration>
     cache_registration(EventListenerRegistration::RegistrationListenerConfiguration configuration);
 
 private:
