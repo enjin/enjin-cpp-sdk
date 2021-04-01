@@ -15,8 +15,7 @@ set(ENJINSDK_USING_CONAN 0)
 option(ENJINSDK_ALLOW_DEFAULT_HTTP "ENJINSDK_ALLOW_DEFAULT_HTTP" OFF)
 option(ENJINSDK_ALLOW_DEFAULT_WEBSOCKET "ENJINSDK_ALLOW_DEFAULT_WEBSOCKET" OFF)
 
-include(cmake/enjinsdk_git_submodules.cmake)
-include(CMakePackageConfigHelpers)
+include("cmake/enjinsdk_git_submodules.cmake")
 include(GenerateExportHeader)
 
 macro(set_include_http_client_impl_macro)
@@ -102,8 +101,8 @@ function(install_headers_in_rel_path path rel_path)
 endfunction()
 
 # Attempt to setup Conan
-if (EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+if (EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
+    include("${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
     conan_basic_setup()
 
     if ("cpprestsdk" IN_LIST CONAN_DEPENDENCIES)
@@ -121,8 +120,8 @@ setup_output_directories()
 
 # Command to generate template constants
 add_custom_command(
-        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp
-        COMMAND template_generator ${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp ${PROJECT_SOURCE_DIR}/src/graphql/templates
+        OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp"
+        COMMAND template_generator "${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp" "${PROJECT_SOURCE_DIR}/src/graphql/templates"
         DEPENDS template_generator
         COMMENT "Generating TemplateConstants source file"
 )
@@ -150,14 +149,14 @@ else ()
     include(GNUInstallDirs)
 
     if (${ENJINSDK_ALLOW_DEFAULT_HTTP})
-        include(cmake/enjinsdk_find_cpprestsdk.cmake)
+        include("cmake/enjinsdk_find_cpprestsdk.cmake")
     endif ()
     if (${ENJINSDK_ALLOW_DEFAULT_WEBSOCKET})
-        include(cmake/enjinsdk_find_ixwebsocket.cmake)
+        include("cmake/enjinsdk_find_ixwebsocket.cmake")
     endif ()
 
-    include(cmake/enjinsdk_find_rapidjson.cmake)
-    include(cmake/enjinsdk_find_spdlog.cmake)
+    include("cmake/enjinsdk_find_rapidjson.cmake")
+    include("cmake/enjinsdk_find_spdlog.cmake")
 
     ###### HTTP client setup
     if (${ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL})
@@ -185,38 +184,15 @@ set_include_http_client_impl_macro()
 set_include_websocket_client_impl_macro()
 set_version_macro()
 
-target_sources(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp)
+target_sources(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp")
 target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_utils)
 target_include_directories(${PROJECT_NAME}
         PUBLIC
-        $<INSTALL_INTERFACE:include>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>/include)
+        "$<INSTALL_INTERFACE:include>"
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>"
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>/include")
 
 add_subdirectory(src)
-
-# Install and export package
-install(FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}_export.h DESTINATION include/${PROJECT_NAME})
-install_headers_in_rel_path("${PROJECT_SOURCE_DIR}" "include")
-install(TARGETS ${PROJECT_NAME}
-        EXPORT ${PROJECT_NAME}Targets
-        LIBRARY DESTINATION lib
-        ARCHIVE DESTINATION lib
-        RUNTIME DESTINATION bin
-        INCLUDES DESTINATION include)
-configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
-        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-        INSTALL_DESTINATION share/${PROJECT_NAME})
-write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-        VERSION "${PROJECT_VERSION}"
-        COMPATIBILITY SameMajorVersion)
-install(FILES
-        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-        DESTINATION share/${PROJECT_NAME})
-export(EXPORT ${PROJECT_NAME}Targets
-        FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Targets.cmake"
-        NAMESPACE ${PROJECT_NAME}::)
 
 # Setup tests
 if (${CMAKE_PROJECT_NAME} STREQUAL ${PROJECT_NAME})
