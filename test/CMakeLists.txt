@@ -9,16 +9,16 @@ else ()
 
     ###### GoogleTest setup start
     # Download and unpack GoogleTest at configure time
-    configure_file(CMakeLists.txt.in ${CMAKE_CURRENT_BINARY_DIR}/googletest-download/CMakeLists.txt)
+    configure_file(CMakeLists.txt.in "${CMAKE_CURRENT_BINARY_DIR}/googletest-download/CMakeLists.txt")
     execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
             RESULT_VARIABLE result
-            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download)
+            WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/googletest-download")
     if (result)
         message(FATAL_ERROR "CMake step for googletest failed: ${result}")
     endif ()
     execute_process(COMMAND ${CMAKE_COMMAND} --build .
             RESULT_VARIABLE result
-            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download)
+            WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/googletest-download")
     if (result)
         message(FATAL_ERROR "Build step for googletest failed: ${result}")
     endif ()
@@ -27,8 +27,8 @@ else ()
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
     # Add GoogleTest directly to the build
-    add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
-            ${CMAKE_CURRENT_BINARY_DIR}/googletest-build
+    add_subdirectory("${CMAKE_CURRENT_BINARY_DIR}/googletest-src"
+            "${CMAKE_CURRENT_BINARY_DIR}/googletest-build"
             EXCLUDE_FROM_ALL)
 
     target_link_libraries(${PROJECT_NAME}_tests
@@ -63,10 +63,10 @@ target_link_libraries(${PROJECT_NAME}_tests
         ${PROJECT_NAME}_utils)
 target_include_directories(${PROJECT_NAME}_tests
         PRIVATE
-        ${PROJECT_BINARY_DIR}
-        $<INSTALL_INTERFACE:include>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>/include
-        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>/src/include)
+        "${PROJECT_BINARY_DIR}"
+        "$<INSTALL_INTERFACE:include>"
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>/include"
+        "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>/src/include")
 
 add_subdirectory(mocks)
 add_subdirectory(suites)
