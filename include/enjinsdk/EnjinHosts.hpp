@@ -13,6 +13,9 @@ public:
 
     /// \brief The URI for the main Enjin Cloud.
     constexpr static char MAIN_NET[] = "https://cloud.enjin.io/";
+
+    /// \brief The URI for the JumpNet network.
+    constexpr static char JUMP_NET[] = "https://jumpnet.cloud.enjin.io/";
 };
 
 }
