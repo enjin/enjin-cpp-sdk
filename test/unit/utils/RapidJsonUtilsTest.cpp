@@ -467,7 +467,35 @@ TEST_F(RapidJsonUtilsTest, SetStringMemberMemberIsSet) {
     ASSERT_EQ(expected_value, document[expected_key].GetString());
 }
 
-TEST_F(RapidJsonUtilsTest, SetObjectMemberMemberFromTypeIsSet) {
+TEST_F(RapidJsonUtilsTest, SetObjectMemberFromStringStringIsJsonObjectMemberIsSet) {
+    // Arrange
+    const char* expected_key = "key";
+    const std::string expected_value = DummyObject::create_default_dummy_object().serialize();
+    rapidjson::Document document = create_object_document();
+
+    // Act
+    set_object_member_from_string(document, expected_key, expected_value);
+
+    // Assert
+    ASSERT_TRUE(document.HasMember(expected_key));
+    ASSERT_TRUE(document[expected_key].IsObject());
+    ASSERT_EQ(expected_value, get_object_as_string(document, expected_key));
+}
+
+TEST_F(RapidJsonUtilsTest, SetObjectMemberFromStringStringIsNotJsonObjectMemberIsNotSet) {
+    // Arrange
+    const char* expected_key = "key";
+    const std::string value;
+    rapidjson::Document document = create_object_document();
+
+    // Act
+    set_object_member_from_string(document, expected_key, value);
+
+    // Assert
+    ASSERT_FALSE(document.HasMember(expected_key));
+}
+
+TEST_F(RapidJsonUtilsTest, SetObjectMemberFromTypeMemberIsSet) {
     // Arrange
     const char* expected_key = DEFAULT_KEY;
     const DummyObject expected_value = DummyObject::create_default_dummy_object();
