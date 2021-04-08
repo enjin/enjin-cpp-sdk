@@ -9,11 +9,14 @@
 #include <string>
 
 using namespace enjin::sdk;
+using namespace enjin::sdk::http;
 using namespace enjin::test::mocks;
 using namespace enjin::test::utils;
 
 class BaseSchemaHttpTest : public testing::Test {
 public:
+    static constexpr HttpMethod HTTP_METHOD = HttpMethod::Post;
+    static constexpr char DEFAULT_PATH_QUERY_FRAGMENT[] = "/graphql/test";
     static constexpr char JSON[] = "application/json; charset=utf-8";
 
     MockHttpServer mock_server;
@@ -45,15 +48,15 @@ TEST_F(BaseSchemaHttpTest, SendRequestForOne) {
     res_body << R"({"data":{"result":)"
              << expected.serialize()
              << R"(}})";
-    http::HttpRequest http_req = http::HttpRequestBuilder().method("POST")
-                                                           .path_query_fragment("/graphql/test")
-                                                           .content_type(JSON)
-                                                           .body(req_body)
-                                                           .build();
-    http::HttpResponse http_res = http::HttpResponseBuilder().code(200)
-                                                             .content_type(JSON)
-                                                             .body(res_body.str())
-                                                             .build();
+    HttpRequest http_req = http::HttpRequestBuilder().method(HTTP_METHOD)
+                                                     .path_query_fragment(DEFAULT_PATH_QUERY_FRAGMENT)
+                                                     .content_type(JSON)
+                                                     .body(req_body)
+                                                     .build();
+    HttpResponse http_res = http::HttpResponseBuilder().code(200)
+                                                       .content_type(JSON)
+                                                       .body(res_body.str())
+                                                       .build();
 
     // Arrange - Stubbing
     mock_server.given(http_req)
@@ -78,15 +81,15 @@ TEST_F(BaseSchemaHttpTest, SendRequestForMany) {
              << R"(,)"
              << expected.serialize()
              << R"(]}})";
-    http::HttpRequest http_req = http::HttpRequestBuilder().method("POST")
-                                                           .path_query_fragment("/graphql/test")
-                                                           .content_type(JSON)
-                                                           .body(req_body)
-                                                           .build();
-    http::HttpResponse http_res = http::HttpResponseBuilder().code(200)
-                                                             .content_type(JSON)
-                                                             .body(res_body.str())
-                                                             .build();
+    HttpRequest http_req = http::HttpRequestBuilder().method(HTTP_METHOD)
+                                                     .path_query_fragment(DEFAULT_PATH_QUERY_FRAGMENT)
+                                                     .content_type(JSON)
+                                                     .body(req_body)
+                                                     .build();
+    HttpResponse http_res = http::HttpResponseBuilder().code(200)
+                                                       .content_type(JSON)
+                                                       .body(res_body.str())
+                                                       .build();
 
     // Arrange - Stubbing
     mock_server.given(http_req)

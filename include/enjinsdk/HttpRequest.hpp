@@ -2,10 +2,24 @@
 #define ENJINCPPSDK_HTTPREQUEST_HPP
 
 #include "enjinsdk_export.h"
+#include <optional>
 #include <map>
 #include <string>
 
 namespace enjin::sdk::http {
+
+/// \brief Enums representing HTTP methods.
+enum class HttpMethod {
+    Get,
+    Head,
+    Post,
+    Put,
+    Delete,
+    Connect,
+    Options,
+    Trace,
+    Patch,
+};
 
 class HttpRequest;
 
@@ -20,12 +34,13 @@ public:
 
     /// \brief Builds the request.
     /// \return The built request.
+    /// \throws runtime_error If no HTTP method was set.
     HttpRequest build();
 
     /// \brief Sets the HTTP method the request will be built with.
     /// \param method The HTTP method.
     /// \return This builder for chaining.
-    HttpRequestBuilder& method(const std::string& method);
+    HttpRequestBuilder& method(HttpMethod method);
 
     /// \brief Sets the path query fragment the request will be built with.
     /// \param path_query_fragment The path query fragment.
@@ -49,7 +64,7 @@ public:
     HttpRequestBuilder& add_header(const std::string& name, const std::string& value);
 
 private:
-    std::string m_method;
+    std::optional<HttpMethod> m_method;
     std::string m_path_query_fragment;
     std::string m_body;
     std::string m_content_type;
@@ -66,7 +81,7 @@ public:
 
     /// \brief Returns the HTTP method of this request.
     /// \return The HTTP method.
-    [[nodiscard]] std::string get_method() const;
+    [[nodiscard]] HttpMethod get_method() const;
 
     /// \brief Returns the path query fragment of this request.
     /// \return The path query fragment.
@@ -87,7 +102,7 @@ public:
     /// \brief Returns the value for the header.
     /// \param name The header name.
     /// \return The header value.
-    /// \throws Throws std::out_of_range if no value is mapped for the header.
+    /// \throws out_of_range If no value is mapped for the header.
     [[nodiscard]] std::string get_header_value(const std::string& name) const;
 
     /// \brief Determines if a value exists for the provided header name.
@@ -108,13 +123,13 @@ public:
     bool operator>=(const HttpRequest& rhs) const;
 
 private:
-    const std::string method;
+    const HttpMethod method;
     const std::string path_query_fragment;
     const std::string body;
     const std::string content_type;
     const std::map<std::string, std::string> headers;
 
-    HttpRequest(std::string method,
+    HttpRequest(HttpMethod method,
                 std::string path_query_fragment,
                 std::string body_data,
                 std::string content_type,

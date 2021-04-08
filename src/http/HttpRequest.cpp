@@ -1,18 +1,23 @@
 #include "enjinsdk/HttpRequest.hpp"
 
+#include <stdexcept>
 #include <utility>
 
 namespace enjin::sdk::http {
 
 HttpRequest HttpRequestBuilder::build() {
-    return HttpRequest(m_method,
+    if (!m_method.has_value()) {
+        throw std::runtime_error("No defined method for built request");
+    }
+
+    return HttpRequest(m_method.value(),
                        m_path_query_fragment,
                        m_body,
                        m_content_type,
                        headers);
 }
 
-HttpRequestBuilder& HttpRequestBuilder::method(const std::string& method) {
+HttpRequestBuilder& HttpRequestBuilder::method(HttpMethod method) {
     m_method = method;
     return *this;
 }
@@ -37,19 +42,19 @@ HttpRequestBuilder& HttpRequestBuilder::add_header(const std::string& name, cons
     return *this;
 }
 
-HttpRequest::HttpRequest(std::string method,
+HttpRequest::HttpRequest(HttpMethod method,
                          std::string path_query_fragment,
                          std::string body_data,
                          std::string content_type,
                          std::map<std::string, std::string> headers) :
-        method(std::move(method)),
+        method(method),
         path_query_fragment(std::move(path_query_fragment)),
         body(std::move(body_data)),
         content_type(std::move(content_type)),
         headers(std::move(headers)) {
 }
 
-std::string HttpRequest::get_method() const {
+HttpMethod HttpRequest::get_method() const {
     return method;
 }
 
