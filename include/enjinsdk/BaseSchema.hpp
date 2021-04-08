@@ -9,7 +9,6 @@
 #include <exception>
 #include <future>
 #include <memory>
-#include <sstream>
 #include <string>
 #include <vector>
 
@@ -28,8 +27,13 @@ public:
     [[nodiscard]] const std::shared_ptr<utils::Logger>& get_logger() const;
 
 protected:
+    /// \brief The middleware for communicating with the platform.
     TrustedPlatformMiddleware middleware;
+
+    /// \brief The logger for logging messages.
     std::shared_ptr<utils::Logger> logger;
+
+    /// \brief The name of this schema.
     std::string schema;
 
     /// \brief The sole constructor for a base schema.
@@ -45,18 +49,18 @@ protected:
     /// \return The serialized request body.
     std::string create_request_body(graphql::AbstractGraphqlRequest& request);
 
+    /// \brief Creates an HTTP request with the passed GraphQL request as its body.
+    /// \param request The GraphQL request.
+    /// \return The HTTP request.
+    http::HttpRequest create_request(graphql::AbstractGraphqlRequest& request);
+
     /// \brief Sends a request for one object from the platform.
     /// \tparam T The type contained by the response.
     /// \param request The request to being sent.
     /// \return The future containing the response.
     template<class T>
     std::future<graphql::GraphqlResponse<T>> send_request_for_one(graphql::AbstractGraphqlRequest& request) {
-        http::HttpRequest http_request = http::HttpRequestBuilder()
-                .method("POST")
-                .path_query_fragment(std::string("/graphql/").append(schema))
-                .content_type(JSON)
-                .body(create_request_body(request))
-                .build();
+        http::HttpRequest http_request = create_request(request);
 
         return std::async([this, http_request] {
             http::HttpResponse response = middleware.get_client()->send_request(http_request).get();
@@ -77,12 +81,7 @@ protected:
     template<class T>
     std::future<graphql::GraphqlResponse<std::vector<T>>>
     send_request_for_many(graphql::AbstractGraphqlRequest& request) {
-        http::HttpRequest http_request = http::HttpRequestBuilder()
-                .method("POST")
-                .path_query_fragment(std::string("/graphql/").append(schema))
-                .content_type(JSON)
-                .body(create_request_body(request))
-                .build();
+        http::HttpRequest http_request = create_request(request);
 
         return std::async([this, http_request]() {
             http::HttpResponse response = middleware.get_client()->send_request(http_request).get();

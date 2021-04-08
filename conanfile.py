@@ -41,7 +41,7 @@ class EnjinCPPSDK(ConanFile):
 
     def requirements(self):
         if self.options.enable_default_http_client:
-            self.requires("cpprestsdk/2.10.18")
+            self.requires("cpp-httplib/0.8.5")
         if self.options.enable_default_ws_client:
             self.requires("ixwebsocket/11.0.4")
 

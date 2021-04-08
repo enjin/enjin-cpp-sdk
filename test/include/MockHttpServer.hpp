@@ -1,6 +1,7 @@
 #ifndef ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL
 #define ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL 0
 #endif
+
 #if ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL
 
 #ifndef ENJINCPPSDK_MOCKHTTPSERVER_HPP
@@ -8,15 +9,35 @@
 
 #include "enjinsdk/HttpRequest.hpp"
 #include "enjinsdk/HttpResponse.hpp"
-#include "cpprest/http_listener.h"
-#include "cpprest/http_msg.h"
-#include <functional>
-#include <map>
-#include <mutex>
+#include <memory>
+#include <optional>
 #include <string>
-#include <queue>
 
 namespace enjin::test::mocks {
+
+/// \brief Provider for stubbed responses.
+class ResponseProvider {
+public:
+    /// \brief Default constructor.
+    ResponseProvider() = default;
+
+    /// \brief Default destructor.
+    ~ResponseProvider() = default;
+
+    /// \brief Sets the response to be stubbed.
+    /// \param response The stubbed response.
+    void respond_with(const sdk::http::HttpResponse& response);
+
+    /// \brief Returns the response stored by this provider.
+    /// \return The optional for the response.
+    [[nodiscard]] const std::optional<sdk::http::HttpResponse>& get_response() const;
+
+private:
+    std::optional<sdk::http::HttpResponse> response;
+};
+
+/// \brief Internal implementation for MockHttpServer.
+class MockHttpServerImpl;
 
 /// \brief Mock HTTP server built on Microsoft's C++ Rest SDK for testing HTTP client implementation.
 class MockHttpServer {
@@ -25,41 +46,30 @@ public:
     MockHttpServer();
 
     /// \brief Default destructor.
-    /// \remarks Does not shutdown the server.
     ~MockHttpServer() = default;
 
     /// \brief Method to start the server.
     void start();
 
-    /// \brief Method to shutdown the server.
-    void shutdown();
+    /// \brief Method to stop the server.
+    void stop();
 
-    /// \brief Queues handler for incoming unmapped requests.
-    void next_request(const std::function<void(web::http::http_request)>& handler);
-
-    /// \brief Creating a mapping for an expected request and stubbed response.
-    /// \param request The request to expect.
-    /// \param response The response to reply with.
-    void map_response_for_request(const sdk::http::HttpRequest& request,
-                                  const sdk::http::HttpResponse& response);
+    /// \brief Sets this server to respond for a given request.
+    /// \param request The request.
+    /// \return The response provider to be setup with the stubbed response.
+    ResponseProvider& given(const sdk::http::HttpRequest& request);
 
     /// \brief Returns the URI for this server.
     /// \param path Optional path to extend the URI by.
     /// \return The URI.
-    web::http::uri uri(const std::string& path = "/");
+    std::string uri();
 
 private:
-    web::http::experimental::listener::http_listener listener;
-    std::map<sdk::http::HttpRequest, sdk::http::HttpResponse> request_response_map;
-
-    /* Note: cpprestsdk's web::http::http_request causes a double free to take place in its latest version (v2.10.18) at
-     * the time of this note was written.
-     */
-    std::queue<std::function<void(web::http::http_request)>> request_handlers;
-    std::mutex request_handlers_mutex;
+    std::shared_ptr<MockHttpServerImpl> impl;
 };
 
 }
 
 #endif //ENJINCPPSDK_MOCKHTTPSERVER_HPP
+
 #endif

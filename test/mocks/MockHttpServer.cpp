@@ -1,95 +1,132 @@
 #include "MockHttpServer.hpp"
 
+#include "httplib.h"
+#include <map>
+#include <sstream>
+#include <stdexcept>
+#include <thread>
+
 namespace enjin::test::mocks {
 
-enjin::sdk::http::HttpRequest casablanca_to_enjin_request(web::http::http_request casablanca_req) {
-    return enjin::sdk::http::HttpRequestBuilder()
-            .method(utility::conversions::to_utf8string(casablanca_req.method()))
-            .path_query_fragment(utility::conversions::to_utf8string(casablanca_req.request_uri().to_string()))
-                    /* Note: A double free takes place in cpprestsdk as a result of extracting the request string in the
-                     * latest version (v2.10.18) at the time of this note was written.
-                     */
-            .body(casablanca_req.extract_utf8string().get())
-                    /* Note: A double free takes place in cpprestsdk as a result of getting the content type header of
-                     * the request in the latest version (v2.10.18) at the time of this note was written.
-                     */
-            .content_type(utility::conversions::to_utf8string(casablanca_req.headers().content_type()))
-            .build();
+void ResponseProvider::respond_with(const sdk::http::HttpResponse& response) {
+    if (!response.get_body().has_value()) {
+        throw std::runtime_error("Stub response does not have a body");
+    } else if (!response.get_content_type().has_value()) {
+        throw std::runtime_error("Stub response does not have content-type");
+    }
+
+    ResponseProvider::response.emplace(response);
 }
 
-web::http::http_response enjin_to_casablanca_response(enjin::sdk::http::HttpResponse enjin_res) {
-    /* Note: The destructor for cpprestsdk's web::http::http_response causes a double free to take place in its latest
-     * version (v2.10.18) at the time of this note was written.
-     */
-    web::http::http_response casablanca_res;
+const std::optional<sdk::http::HttpResponse>& ResponseProvider::get_response() const {
+    return response;
+}
 
-    if (enjin_res.get_code().has_value()) {
-        casablanca_res.set_status_code(enjin_res.get_code().value());
+class MockHttpServerImpl {
+public:
+    MockHttpServerImpl() {
+        if (!server.set_mount_point("/", "./")) {
+            throw std::runtime_error("The base directory does not exist");
+        } else if (!server.is_valid()) {
+            throw std::runtime_error("Server is not valid");
+        }
     }
-    if (enjin_res.get_body().has_value()) {
-        if (enjin_res.get_content_type().has_value() && !enjin_res.get_content_type().value().empty()) {
-            casablanca_res.set_body(enjin_res.get_body().value(),
-                                    enjin_res.get_content_type().value());
+
+    ~MockHttpServerImpl() {
+        stop();
+    }
+
+    void start() {
+        stop();
+
+        std::lock_guard<std::mutex> guard(server_mutex);
+        port = server.bind_to_any_port("localhost");
+        server_thread = std::thread([this]() {
+            server.listen_after_bind();
+        });
+    }
+
+    void stop() {
+        std::lock_guard<std::mutex> guard(server_mutex);
+
+        if (server.is_running()) {
+            port.reset();
+            server.stop();
+            server_thread.join();
+        }
+    }
+
+    ResponseProvider& given(const sdk::http::HttpRequest& request) {
+        std::lock_guard<std::mutex> guard(server_mutex);
+
+        response_provider_map[request.get_path_query_fragment()] = std::make_unique<ResponseProvider>();
+        auto& provider = response_provider_map[request.get_path_query_fragment()];
+        auto handler = create_handler(provider);
+
+        if (request.get_method() == "GET") {
+            server.Get(request.get_path_query_fragment().c_str(), handler);
+        } else if (request.get_method() == "POST") {
+            server.Post(request.get_path_query_fragment().c_str(), handler);
+        } else if (request.get_method() == "PUT") {
+            server.Put(request.get_path_query_fragment().c_str(), handler);
+        } else if (request.get_method() == "DELETE") {
+            server.Delete(request.get_path_query_fragment().c_str(), handler);
         } else {
-            casablanca_res.set_body(enjin_res.get_body().value());
+            // TODO: Handle other HTTP methods.
         }
+
+        return *provider;
     }
 
-    return casablanca_res;
-}
+    std::string uri() {
+        std::lock_guard<std::mutex> guard(server_mutex);
 
-MockHttpServer::MockHttpServer() {
-    // TODO: Make the port # dynamic if necessary/possible.
-    listener = web::http::experimental::listener::http_listener(U("http://localhost:8080/"));
-
-    // TODO: Refactor to replace response map with allowing request handlers to reply to requests with a response.
-    listener.support([this](const web::http::http_request& request) {
-        // Checks if a response was mapped for this request
-        auto mapped_response_loc = request_response_map.find(casablanca_to_enjin_request(request));
-        if (mapped_response_loc != request_response_map.end()) {
-            enjin::sdk::http::HttpResponse response = mapped_response_loc->second;
-            request.reply(enjin_to_casablanca_response(response));
-            return;
+        if (!port.has_value()) {
+            throw std::runtime_error("Port number is not set");
         }
 
-        // Checks if a handler is queued for any unmapped requests
-        request_handlers_mutex.lock();
-        if (!request_handlers.empty()) {
-            auto handler = request_handlers.front();
-            request_handlers.pop();
-            request_handlers_mutex.unlock();
-            handler(request);
-            request.reply(web::http::status_codes::OK);
-            return;
-        }
-        request_handlers_mutex.unlock();
+        std::stringstream ss;
+        ss << "http://localhost:" << port.value();
+        return ss.str();
+    }
 
-        request.reply(web::http::status_codes::TooManyRequests);
-    });
+private:
+    httplib::Server server;
+    std::map<std::string, std::unique_ptr<ResponseProvider>> response_provider_map;
+    std::optional<int> port;
+
+    std::thread server_thread;
+    std::mutex server_mutex;
+
+    static httplib::Server::Handler create_handler(const std::unique_ptr<ResponseProvider>& provider) {
+        return httplib::Server::Handler([&provider](const httplib::Request& req, httplib::Response& res) {
+            if (!provider->get_response().has_value()) {
+                return;
+            }
+
+            res.set_content(provider->get_response()->get_body().value(),
+                            provider->get_response()->get_content_type()->c_str());
+        });
+    }
+};
+
+MockHttpServer::MockHttpServer() : impl(std::make_shared<MockHttpServerImpl>()) {
 }
 
 void MockHttpServer::start() {
-    listener.open().wait();
+    impl->start();
 }
 
-void MockHttpServer::shutdown() {
-    listener.close();
+void MockHttpServer::stop() {
+    impl->stop();
 }
 
-void MockHttpServer::next_request(const std::function<void(web::http::http_request)>& handler) {
-    std::lock_guard<std::mutex> guard(request_handlers_mutex);
-    request_handlers.push(handler);
+ResponseProvider& MockHttpServer::given(const sdk::http::HttpRequest& request) {
+    return impl->given(request);
 }
 
-void MockHttpServer::map_response_for_request(const enjin::sdk::http::HttpRequest& request,
-                                              const enjin::sdk::http::HttpResponse& response) {
-    request_response_map.try_emplace(request, response);
-}
-
-web::http::uri MockHttpServer::uri(const std::string& path) {
-    return web::http::uri_builder(listener.uri())
-            .append_path(utility::conversions::to_string_t(path))
-            .to_uri();
+std::string MockHttpServer::uri() {
+    return impl->uri();
 }
 
 }

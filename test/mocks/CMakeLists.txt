@@ -1,8 +1,11 @@
 #[=[
-Double frees exist in MockHttpServer.cpp and MockWebsocketServer.cpp as a result of:
-- cpprestsdk (v2.10.18)
+Double frees exist in MockWebsocketServer.cpp as a result of:
 - ixwebsocket (v11.0.4)
 #]=]
+
+target_sources(${PROJECT_NAME}_tests
+        PRIVATE
+        FakeGraphqlRequest.cpp)
 
 if (${ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL})
     target_sources(${PROJECT_NAME}_tests

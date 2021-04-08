@@ -43,7 +43,7 @@ not necessary to link to by your own project:
 
 * [RapidJSON (1.1.0+)](https://github.com/Tencent/rapidjson) for processing JSON
 * [spdlog (1.8.0+)](https://github.com/gabime/spdlog) for the logger class
-* (optional) [C++ REST SDK (2.10.18+)](https://github.com/microsoft/cpprestsdk) for a default HTTP client implementation
+* (optional) [cpp-httplib (0.8.5+)](https://github.com/yhirose/cpp-httplib) for a default HTTP client implementation
 * (optional) [IXWebSocket (11.0.4+)](https://github.com/machinezone/IXWebSocket) for a default websocket client
   implementation
 * [Googletest (1.10.0+)](https://github.com/google/googletest) for testing
