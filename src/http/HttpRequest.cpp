@@ -8,7 +8,8 @@ HttpRequest HttpRequestBuilder::build() {
     return HttpRequest(m_method,
                        m_path_query_fragment,
                        m_body,
-                       m_content_type);
+                       m_content_type,
+                       headers);
 }
 
 HttpRequestBuilder& HttpRequestBuilder::method(const std::string& method) {
@@ -31,14 +32,21 @@ HttpRequestBuilder& HttpRequestBuilder::content_type(const std::string& content_
     return *this;
 }
 
-HttpRequest::HttpRequest(std::string  method,
-                         std::string  path_query_fragment,
-                         std::string  body_data,
-                         std::string  content_type) :
+HttpRequestBuilder& HttpRequestBuilder::add_header(const std::string& name, const std::string& value) {
+    headers.emplace(name, value);
+    return *this;
+}
+
+HttpRequest::HttpRequest(std::string method,
+                         std::string path_query_fragment,
+                         std::string body_data,
+                         std::string content_type,
+                         std::map<std::string, std::string> headers) :
         method(std::move(method)),
         path_query_fragment(std::move(path_query_fragment)),
         body(std::move(body_data)),
-        content_type(std::move(content_type)) {
+        content_type(std::move(content_type)),
+        headers(std::move(headers)) {
 }
 
 std::string HttpRequest::get_method() const {
@@ -57,11 +65,24 @@ std::string HttpRequest::get_content_type() const {
     return content_type;
 }
 
+const std::map<std::string, std::string>& HttpRequest::get_headers() const {
+    return headers;
+}
+
+std::string HttpRequest::get_header_value(const std::string& name) const {
+    return headers.at(name);
+}
+
+bool HttpRequest::has_header(const std::string& name) const noexcept {
+    return headers.find(name) != headers.end();
+}
+
 bool HttpRequest::operator==(const HttpRequest& rhs) const {
     return method == rhs.method &&
            path_query_fragment == rhs.path_query_fragment &&
            body == rhs.body &&
-           content_type == rhs.content_type;
+           content_type == rhs.content_type &&
+           headers == rhs.headers;
 }
 
 bool HttpRequest::operator!=(const HttpRequest& rhs) const {
