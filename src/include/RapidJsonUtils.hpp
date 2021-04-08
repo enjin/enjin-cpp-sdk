@@ -123,6 +123,9 @@ void set_integer_member(rapidjson::Document& document, const std::string& key, i
 ENJINSDK_EXPORT
 void set_string_member(rapidjson::Document& document, const std::string& key, const std::string& value);
 
+ENJINSDK_EXPORT
+void set_object_member_from_string(rapidjson::Document& document, const std::string& key, const std::string& value);
+
 template<class T>
 void set_object_member_from_type(rapidjson::Document& document,
                                  const std::string& key,
@@ -135,8 +138,8 @@ void set_object_member_from_type(rapidjson::Document& document,
     auto& allocator = document.GetAllocator();
     rapidjson::Value v(rapidjson::kObjectType);
 
-    /* Serializes the value into a JSON document to dynamically acquire its member name and values to convert
-     * into a JSON object that may then be stored in the JSON array.
+    /* Serializes the value into a JSON document to dynamically acquire its member name and values to convert into a
+     * JSON object that may then be stored.
      */
     rapidjson::Document e_document;
     e_document.Parse(value.serialize().c_str());
