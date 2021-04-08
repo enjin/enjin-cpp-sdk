@@ -59,8 +59,7 @@ private:
 /// \brief Container class for a HTTP request.
 class ENJINSDK_EXPORT HttpRequest {
 public:
-    /// \brief Default constructor.
-    HttpRequest() = default;
+    HttpRequest() = delete;
 
     /// \brief Default destructor.
     ~HttpRequest() = default;
@@ -113,7 +112,7 @@ private:
     const std::string path_query_fragment;
     const std::string body;
     const std::string content_type;
-    std::map<std::string, std::string> headers;
+    const std::map<std::string, std::string> headers;
 
     HttpRequest(std::string method,
                 std::string path_query_fragment,
