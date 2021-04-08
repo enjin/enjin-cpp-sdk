@@ -54,23 +54,23 @@ public:
 
     /// \brief True if the status code is in the range [200-300).
     /// \return True if 2xx, false otherwise.
-    bool is_success();
+    [[nodiscard]] bool is_success() const;
 
     /// \brief Determines if the response body is empty.
     /// \return Whether the response body is empty.
-    bool is_empty();
+    [[nodiscard]] bool is_empty() const;
 
     /// \brief Returns the optional with the status code.
     /// \return The status code optional.
-    [[nodiscard]] std::optional<unsigned short> get_code();
+    [[nodiscard]] const std::optional<unsigned short>& get_code() const;
 
     /// \brief Returns the optional with the response body.
     /// \return The response body optional.
-    [[nodiscard]] std::optional<std::string> get_body();
+    [[nodiscard]] const std::optional<std::string>& get_body() const;
 
     /// \brief Returns the optional with the content type header.
     /// \return The content type optional.
-    [[nodiscard]] std::optional<std::string> get_content_type();
+    [[nodiscard]] const std::optional<std::string>& get_content_type() const;
 
     bool operator==(const HttpResponse& rhs) const;
 

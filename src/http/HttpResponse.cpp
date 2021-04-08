@@ -32,11 +32,11 @@ HttpResponse::HttpResponse(std::optional<uint16_t> code,
         content_type(std::move(content_type)) {
 }
 
-bool HttpResponse::is_success() {
+bool HttpResponse::is_success() const {
     return code.has_value() && code.value() >= 200 && code.value() < 300;
 }
 
-bool HttpResponse::is_empty() {
+bool HttpResponse::is_empty() const {
     if (!body.has_value()) {
         return true;
     }
@@ -47,15 +47,15 @@ bool HttpResponse::is_empty() {
     return body.value().empty() || (document.IsObject() && document.ObjectEmpty());
 }
 
-std::optional<uint16_t> HttpResponse::get_code() {
+const std::optional<unsigned short>& HttpResponse::get_code() const {
     return code;
 }
 
-std::optional<std::string> HttpResponse::get_body() {
+const std::optional<std::string>& HttpResponse::get_body() const {
     return body;
 }
 
-std::optional<std::string> HttpResponse::get_content_type() {
+const std::optional<std::string>& HttpResponse::get_content_type() const {
     return content_type;
 }
 
