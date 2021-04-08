@@ -76,3 +76,17 @@ TEST_F(HttpRequestBuilderTest, ContentTypeValueIsSetBuiltRequestHasExpectedValue
     // Assert
     ASSERT_EQ(expected, actual);
 }
+
+TEST_F(HttpRequestBuilderTest, AddHeaderBuiltRequestHasHeader) {
+    // Arrange
+    const std::string expected_name("name");
+    const std::string expected_value("value");
+
+    // Act
+    HttpRequest request = class_under_test.add_header(expected_name, expected_value)
+                                          .build();
+
+    // Assert
+    ASSERT_TRUE(request.has_header(expected_name));
+    ASSERT_EQ(expected_value, request.get_header_value(expected_name));
+}

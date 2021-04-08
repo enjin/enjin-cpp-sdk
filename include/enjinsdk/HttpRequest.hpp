@@ -2,6 +2,7 @@
 #define ENJINCPPSDK_HTTPREQUEST_HPP
 
 #include "enjinsdk_export.h"
+#include <map>
 #include <string>
 
 namespace enjin::sdk::http {
@@ -41,11 +42,18 @@ public:
     /// \return This builder for chaining.
     HttpRequestBuilder& content_type(const std::string& content_type);
 
+    /// \brief Adds a header for the request.
+    /// \param name The header name.
+    /// \param value The header value.
+    /// \return This builder for chaining.
+    HttpRequestBuilder& add_header(const std::string& name, const std::string& value);
+
 private:
     std::string m_method;
     std::string m_path_query_fragment;
     std::string m_body;
     std::string m_content_type;
+    std::map<std::string, std::string> headers;
 };
 
 /// \brief Container class for a HTTP request.
@@ -73,6 +81,21 @@ public:
     /// \return The content type.
     [[nodiscard]] std::string get_content_type() const;
 
+    /// \brief Returns the map for the HTTP headers.
+    /// \return The headers.
+    [[nodiscard]] const std::map<std::string, std::string>& get_headers() const;
+
+    /// \brief Returns the value for the header.
+    /// \param name The header name.
+    /// \return The header value.
+    /// \throws Throws std::out_of_range if no value is mapped for the header.
+    [[nodiscard]] std::string get_header_value(const std::string& name) const;
+
+    /// \brief Determines if a value exists for the provided header name.
+    /// \param name The header name.
+    /// \return Whether a value exists.
+    [[nodiscard]] bool has_header(const std::string& name) const noexcept;
+
     bool operator==(const HttpRequest& rhs) const;
 
     bool operator!=(const HttpRequest& rhs) const;
@@ -90,11 +113,13 @@ private:
     const std::string path_query_fragment;
     const std::string body;
     const std::string content_type;
+    std::map<std::string, std::string> headers;
 
     HttpRequest(std::string method,
                 std::string path_query_fragment,
                 std::string body_data,
-                std::string content_type);
+                std::string content_type,
+                std::map<std::string, std::string> headers);
 
     friend HttpRequest HttpRequestBuilder::build();
 };
