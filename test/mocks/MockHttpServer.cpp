@@ -63,16 +63,27 @@ public:
         auto& provider = response_provider_map[request.get_path_query_fragment()];
         auto handler = create_handler(provider);
 
-        if (request.get_method() == "GET") {
-            server.Get(request.get_path_query_fragment().c_str(), handler);
-        } else if (request.get_method() == "POST") {
-            server.Post(request.get_path_query_fragment().c_str(), handler);
-        } else if (request.get_method() == "PUT") {
-            server.Put(request.get_path_query_fragment().c_str(), handler);
-        } else if (request.get_method() == "DELETE") {
-            server.Delete(request.get_path_query_fragment().c_str(), handler);
-        } else {
-            // TODO: Handle other HTTP methods.
+        switch (request.get_method()) {
+            case sdk::http::HttpMethod::Get:
+                server.Get(request.get_path_query_fragment().c_str(), handler);
+                break;
+            case sdk::http::HttpMethod::Post:
+                server.Post(request.get_path_query_fragment().c_str(), handler);
+                break;
+            case sdk::http::HttpMethod::Put:
+                server.Put(request.get_path_query_fragment().c_str(), handler);
+                break;
+            case sdk::http::HttpMethod::Delete:
+                server.Delete(request.get_path_query_fragment().c_str(), handler);
+                break;
+            case sdk::http::HttpMethod::Options:
+                server.Options(request.get_path_query_fragment().c_str(), handler);
+                break;
+            case sdk::http::HttpMethod::Patch:
+                server.Patch(request.get_path_query_fragment().c_str(), handler);
+                break;
+            default:
+                throw std::runtime_error("Unsupported HTTP method");
         }
 
         return *provider;

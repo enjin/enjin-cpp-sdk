@@ -26,11 +26,14 @@ void HttpClientImpl::stop() {
 
 std::future<HttpResponse> HttpClientImpl::send_request(const HttpRequest& request) {
     return std::async([this, request] {
+        if (request.get_method() != HttpMethod::Post) {
+            throw std::runtime_error("HTTP method for request is not 'POST'");
+        }
+
         auto res = http_client->Post(request.get_path_query_fragment().c_str(),
                                      create_headers(request),
                                      request.get_body(),
                                      request.get_content_type().c_str());
-
         if (res) {
             return HttpResponseBuilder()
                     .code(res->status)
