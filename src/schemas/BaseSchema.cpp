@@ -19,7 +19,7 @@ std::string BaseSchema::create_request_body(graphql::AbstractGraphqlRequest& req
     utils::set_string_member(document,
                              "query",
                              middleware.get_query_registry().get_operation_for_name(request.get_namespace()));
-    utils::set_string_member(document, "variables", request.serialize());
+    utils::set_object_member_from_string(document, "variables", request.serialize());
 
     return utils::document_to_string(document);
 }
