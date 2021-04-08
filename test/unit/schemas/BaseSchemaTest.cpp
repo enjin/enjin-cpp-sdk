@@ -1,144 +1,62 @@
-#include "gtest/gtest.h" // Load Google-Test first to avoid conflicts with CPP-REST-SDK
-#include "HttpClientImpl.hpp"
-#include "MockHttpServer.hpp"
-#include "DummyObject.hpp"
-#include "enjinsdk/BaseSchema.hpp"
-#include <memory>
-#include <sstream>
+#include "FakeGraphqlRequest.hpp"
+#include "TestableBaseSchema.hpp"
+#include "gtest/gtest.h"
 #include <string>
-#include <utility>
-#include <vector>
 
 using namespace enjin::sdk;
+using namespace enjin::sdk::http;
 using namespace enjin::test::mocks;
 using namespace enjin::test::utils;
 
 class BaseSchemaTest : public testing::Test {
 public:
-    class TestableBaseSchema : public BaseSchema {
-    public:
-        explicit TestableBaseSchema(TrustedPlatformMiddleware middleware)
-                : BaseSchema(std::move(middleware), "test", nullptr) {
-        }
-
-        const TrustedPlatformMiddleware& get_middleware() {
-            return middleware;
-        }
-
-        ~TestableBaseSchema() = default;
-
-        std::string create_request_body(graphql::AbstractGraphqlRequest& request) {
-            return BaseSchema::create_request_body(request);
-        }
-
-        template<class T>
-        std::future<graphql::GraphqlResponse<T>> send_request_for_one(graphql::AbstractGraphqlRequest& request) {
-            return BaseSchema::send_request_for_one<T>(request);
-        }
-
-        template<class T>
-        std::future<graphql::GraphqlResponse<std::vector<T>>>
-        send_request_for_many(graphql::AbstractGraphqlRequest& request) {
-            return BaseSchema::send_request_for_many<T>(request);
-        }
-    };
-
-    class FakeRequest : public graphql::AbstractGraphqlRequest {
-    public:
-        explicit FakeRequest(std::string serialize_string = "")
-                : graphql::AbstractGraphqlRequest("test"),
-                  serialize_string(std::move(serialize_string)) {
-        };
-
-        ~FakeRequest() override = default;
-
-        std::string serialize() override {
-            return serialize_string;
-        }
-
-    private:
-        std::string serialize_string;
-    };
-
-    static constexpr char JSON[] = "application/json; charset=utf-8";
-
-    MockHttpServer mock_server;
-
-    TestableBaseSchema create_testable_base_schema() {
-        std::string base_uri = utility::conversions::to_utf8string(mock_server.uri().to_string());
-        std::unique_ptr<http::IHttpClient> http_client = std::make_unique<http::HttpClientImpl>(base_uri);
-        TrustedPlatformMiddleware middleware(std::move(http_client), false);
-        return TestableBaseSchema(std::move(middleware));
+    [[nodiscard]] static TestableBaseSchema create_testable_base_schema() {
+        return TestableBaseSchema(TrustedPlatformMiddleware(nullptr, false));
     }
 
-protected:
-    void SetUp() override {
-        mock_server.start();
-    }
-
-    void TearDown() override {
-        mock_server.shutdown();
+    [[nodiscard]] static FakeGraphqlRequest create_default_fake_request() {
+        return FakeGraphqlRequest("");
     }
 };
 
-TEST_F(BaseSchemaTest, SendRequestForOne) {
+TEST_F(BaseSchemaTest, CreateRequestBody) {
     // Arrange
-    DummyObject expected = DummyObject::create_default_dummy_object();
+    const std::string expected(R"({"query":"","variables":{"var":1}})");
     TestableBaseSchema schema = create_testable_base_schema();
-    FakeRequest fake_request(expected.serialize());
-    std::string req_body = schema.create_request_body(fake_request);
-    std::stringstream res_body;
-    res_body << R"({"data":{"result":)"
-             << expected.serialize()
-             << R"(}})";
-    std::string content_type = JSON;
-    http::HttpRequest http_req = http::HttpRequestBuilder().method("POST")
-                                                           .path_query_fragment("/graphql/test")
-                                                           .content_type(content_type)
-                                                           .body(req_body)
-                                                           .build();
-    http::HttpResponse http_res = http::HttpResponseBuilder().code(200)
-                                                             .content_type(content_type)
-                                                             .body(res_body.str())
-                                                             .build();
-    mock_server.map_response_for_request(http_req, http_res);
+    FakeGraphqlRequest fake_request(R"({"var":1})");
 
     // Act
-    auto response = schema.send_request_for_one<DummyObject>(fake_request).get();
+    std::string actual = schema.create_request_body(fake_request);
 
-    // Assert
-    ASSERT_EQ(expected, response.get_result().value());
+    // Asert
+    ASSERT_EQ(expected, actual);
 }
 
-TEST_F(BaseSchemaTest, SendRequestForMany) {
+TEST_F(BaseSchemaTest, CreateRequestHandlerIsNotAuthenticatedRequestDoesNotHaveAuthorizationHeader) {
     // Arrange
-    DummyObject expected = DummyObject::create_default_dummy_object();
     TestableBaseSchema schema = create_testable_base_schema();
-    FakeRequest fake_request(expected.serialize());
-    std::string req_body = schema.create_request_body(fake_request);
-    std::stringstream res_body;
-    res_body << R"({"data":{"result":[)"
-             << expected.serialize()
-             << R"(,)"
-             << expected.serialize()
-             << R"(]}})";
-    std::string content_type = JSON;
-    http::HttpRequest http_req = http::HttpRequestBuilder().method("POST")
-                                                           .path_query_fragment("/graphql/test")
-                                                           .content_type(content_type)
-                                                           .body(req_body)
-                                                           .build();
-    http::HttpResponse http_res = http::HttpResponseBuilder().code(200)
-                                                             .content_type(content_type)
-                                                             .body(res_body.str())
-                                                             .build();
-    mock_server.map_response_for_request(http_req, http_res);
+    FakeGraphqlRequest dummy_request = create_default_fake_request();
+
+    EXPECT_FALSE(schema.get_middleware().get_handler()->is_authenticated());
 
     // Act
-    auto response = schema.send_request_for_many<DummyObject>(fake_request).get();
+    HttpRequest request = schema.create_request(dummy_request);
 
-    // Assert
-    for (const auto& actual : response.get_result().value()) {
-        EXPECT_EQ(expected, actual);
-    }
+    // Asert
+    ASSERT_FALSE(request.has_header(TrustedPlatformHandler::AUTHORIZATION));
+}
+
+TEST_F(BaseSchemaTest, CreateRequestHandlerIsAuthenticatedRequestHasAuthorizationHeader) {
+    // Arrange
+    TestableBaseSchema schema = create_testable_base_schema();
+    FakeGraphqlRequest dummy_request = create_default_fake_request();
+    schema.get_middleware().get_handler()->set_auth_token("xyz");
+
+    EXPECT_TRUE(schema.get_middleware().get_handler()->is_authenticated());
+
+    // Act
+    HttpRequest request = schema.create_request(dummy_request);
+
+    // Asert
+    ASSERT_TRUE(request.has_header(TrustedPlatformHandler::AUTHORIZATION));
 }

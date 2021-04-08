@@ -149,7 +149,7 @@ else ()
     include(GNUInstallDirs)
 
     if (${ENJINSDK_ALLOW_DEFAULT_HTTP})
-        include("cmake/enjinsdk_find_cpprestsdk.cmake")
+        include("cmake/enjinsdk_find_cpp_httplib.cmake")
     endif ()
     if (${ENJINSDK_ALLOW_DEFAULT_WEBSOCKET})
         include("cmake/enjinsdk_find_ixwebsocket.cmake")
@@ -160,7 +160,7 @@ else ()
 
     ###### HTTP client setup
     if (${ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL})
-        target_link_libraries(${PROJECT_NAME} PRIVATE cpprestsdk::cpprest)
+        target_include_directories(${PROJECT_NAME} PRIVATE ${CPP_HTTPLIB_INCLUDE_DIRS})
     endif ()
     ######
 

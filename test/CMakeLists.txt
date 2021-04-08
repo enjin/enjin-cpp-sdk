@@ -41,7 +41,7 @@ else ()
 
     ###### HTTP client setup
     if (${ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL})
-        target_link_libraries(${PROJECT_NAME}_tests PRIVATE cpprestsdk::cpprest)
+        target_include_directories(${PROJECT_NAME}_tests PRIVATE ${CPP_HTTPLIB_INCLUDE_DIRS})
     endif ()
     ######
 
