@@ -121,7 +121,7 @@ void HttpClientImpl::start() {
 }
 
 void HttpClientImpl::stop() {
-    http_client->stop(); // TODO: Check if client is running.
+    http_client->stop();
 }
 
 std::future<HttpResponse> HttpClientImpl::send_request(const HttpRequest& request) {
