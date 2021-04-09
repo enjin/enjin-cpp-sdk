@@ -17,7 +17,7 @@ public:
     ~PaginationArguments() override = default;
 
     std::string serialize() override {
-        return std::string();
+        return impl.serialize();
     }
 
     /// \brief Sets the pagination options via a move.
