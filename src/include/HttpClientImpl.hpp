@@ -17,7 +17,7 @@
 
 namespace enjin::sdk::http {
 
-/// \brief Implementation class for an HTTP client base on Microsoft's C++ Rest SDK.
+/// \brief Implementation class for an HTTP client using cpp-httplib.
 class ENJINSDK_EXPORT HttpClientImpl : public IHttpClient {
 public:
     HttpClientImpl() = delete;
@@ -35,11 +35,17 @@ public:
 
     std::future<HttpResponse> send_request(const HttpRequest& request) override;
 
+    /// \brief Returns the base URI of this client.
+    /// \return The URI.
+    [[nodiscard]] const std::string& get_base_uri() const;
+
 private:
     const std::string base_uri;
 
     std::unique_ptr<httplib::Client> http_client;
     std::shared_ptr<utils::Logger> logger;
+
+    void log_error(const std::string& message);
 
     static httplib::Headers create_headers(const HttpRequest& request);
 };
