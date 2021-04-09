@@ -12,13 +12,10 @@ namespace enjin::sdk::shared {
 template<class T>
 class ENJINSDK_EXPORT WalletFragmentArguments : public serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    WalletFragmentArguments() = default;
-
     ~WalletFragmentArguments() override = default;
 
     std::string serialize() override {
-        return std::string();
+        return impl.serialize();
     }
 
     /// Sets the request to include the assets created by the wallet.
@@ -35,6 +32,10 @@ public:
     bool operator!=(const WalletFragmentArguments& rhs) const {
         return rhs != *this;
     }
+
+protected:
+    /// \brief Default constructor.
+    WalletFragmentArguments() = default;
 
 private:
     WalletFragmentArgumentsImpl impl;
