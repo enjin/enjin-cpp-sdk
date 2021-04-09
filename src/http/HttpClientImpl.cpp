@@ -106,6 +106,7 @@ HttpClientImpl::~HttpClientImpl() {
 
 void HttpClientImpl::start() {
     http_client = std::make_unique<httplib::Client>(base_uri.c_str());
+    http_client->set_follow_location(true);
     http_client->set_keep_alive(true);
 
     if (logger != nullptr) {
