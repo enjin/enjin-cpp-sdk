@@ -1,12 +1,14 @@
-#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
+#include "TransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/project/SetMeltFee.hpp"
+#include "gtest/gtest.h"
 #include <string>
 
 using namespace enjin::sdk::project;
 using namespace enjin::test::suites;
 
-class SetMeltFeeTest : public JsonTestSuite,
+class SetMeltFeeTest : public TransactionRequestArgumentsTestSuite<SetMeltFee>,
+                       public JsonTestSuite,
                        public testing::Test {
 public:
     SetMeltFee class_under_test;
@@ -15,9 +17,12 @@ public:
             R"({"assetId":"1","assetIndex":"1","meltFee":1})";
 
     static SetMeltFee create_default_request() {
-        return SetMeltFee().set_asset_id("1")
-                           .set_asset_index("1")
-                           .set_melt_fee(1);
+        SetMeltFee request = SetMeltFee()
+                .set_asset_id("1")
+                .set_asset_index("1")
+                .set_melt_fee(1);
+        set_transaction_request_arguments(request);
+        return request;
     }
 };
 

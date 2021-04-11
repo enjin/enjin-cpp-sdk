@@ -1,12 +1,14 @@
-#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
+#include "TransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/shared/SetApprovalForAll.hpp"
+#include "gtest/gtest.h"
 #include <string>
 
 using namespace enjin::sdk::shared;
 using namespace enjin::test::suites;
 
-class SetApprovalForAllTest : public JsonTestSuite,
+class SetApprovalForAllTest : public TransactionRequestArgumentsTestSuite<SetApprovalForAll>,
+                              public JsonTestSuite,
                               public testing::Test {
 public:
     SetApprovalForAll class_under_test;
@@ -15,8 +17,11 @@ public:
             R"({"operatorAddress":"1","approved":true})";
 
     static SetApprovalForAll create_default_request() {
-        return SetApprovalForAll().set_operator_address("1")
-                                  .set_approved(true);
+        SetApprovalForAll request = SetApprovalForAll()
+                .set_operator_address("1")
+                .set_approved(true);
+        set_transaction_request_arguments(request);
+        return request;
     }
 };
 

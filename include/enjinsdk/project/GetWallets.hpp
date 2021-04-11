@@ -44,4 +44,16 @@ private:
 
 }
 
+namespace enjin::sdk::shared {
+
+template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_assets_created();
+
+template ENJINSDK_EXPORT project::GetWallets&
+PaginationArguments<project::GetWallets>::set_pagination(models::PaginationOptions pagination);
+
+template ENJINSDK_EXPORT project::GetWallets&
+PaginationArguments<project::GetWallets>::set_pagination(int page, int limit);
+
+}
+
 #endif //ENJINCPPSDK_PROJECTGETWALLETS_HPP

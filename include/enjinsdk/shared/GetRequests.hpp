@@ -42,6 +42,33 @@ private:
     std::optional<models::TransactionSort> sort;
 };
 
+template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_blockchain_data();
+
+template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_meta();
+
+template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_encoded_data();
+
+template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_asset_data();
+
+template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_signed_txs();
+
+template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_error();
+
+template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_nonce();
+
+template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_state();
+
+template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_receipt();
+
+template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_receipt_logs();
+
+template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_log_event();
+
+template ENJINSDK_EXPORT GetRequests&
+PaginationArguments<GetRequests>::set_pagination(models::PaginationOptions pagination);
+
+template ENJINSDK_EXPORT GetRequests& PaginationArguments<GetRequests>::set_pagination(int page, int limit);
+
 }
 
 #endif //ENJINCPPSDK_SHAREDGETREQUESTS_HPP

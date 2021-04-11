@@ -35,4 +35,14 @@ private:
 
 }
 
+namespace enjin::sdk::shared {
+
+template ENJINSDK_EXPORT project::GetPlayer& PlayerFragmentArguments<project::GetPlayer>::set_with_linking_info();
+
+template ENJINSDK_EXPORT project::GetPlayer& PlayerFragmentArguments<project::GetPlayer>::set_qr_size(int size);
+
+template ENJINSDK_EXPORT project::GetPlayer& PlayerFragmentArguments<project::GetPlayer>::set_with_wallet();
+
+}
+
 #endif //ENJINCPPSDK_PROJECTGETPLAYER_HPP

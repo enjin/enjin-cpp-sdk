@@ -1,12 +1,14 @@
-#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
+#include "TransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/shared/SendAsset.hpp"
+#include "gtest/gtest.h"
 #include <string>
 
 using namespace enjin::sdk::shared;
 using namespace enjin::test::suites;
 
-class SendAssetTest : public JsonTestSuite,
+class SendAssetTest : public TransactionRequestArgumentsTestSuite<SendAsset>,
+                      public JsonTestSuite,
                       public testing::Test {
 public:
     SendAsset class_under_test;
@@ -15,11 +17,14 @@ public:
             R"({"recipientAddress":"1","assetId":"1","assetIndex":"1","value":"1","data":"1"})";
 
     static SendAsset create_default_request() {
-        return SendAsset().set_recipient_address("1")
-                          .set_asset_id("1")
-                          .set_asset_index("1")
-                          .set_value("1")
-                          .set_data("1");
+        SendAsset request = SendAsset()
+                .set_recipient_address("1")
+                .set_asset_id("1")
+                .set_asset_index("1")
+                .set_value("1")
+                .set_data("1");
+        set_transaction_request_arguments(request);
+        return request;
     }
 };
 

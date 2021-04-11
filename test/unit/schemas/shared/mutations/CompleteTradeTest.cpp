@@ -1,12 +1,14 @@
-#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
+#include "TransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/shared/CompleteTrade.hpp"
+#include "gtest/gtest.h"
 #include <string>
 
 using namespace enjin::sdk::shared;
 using namespace enjin::test::suites;
 
-class CompleteTradeTest : public JsonTestSuite,
+class CompleteTradeTest : public TransactionRequestArgumentsTestSuite<CompleteTrade>,
+                          public JsonTestSuite,
                           public testing::Test {
 public:
     CompleteTrade class_under_test;
@@ -15,7 +17,10 @@ public:
             R"({"tradeId":"1"})";
 
     static CompleteTrade create_default_request() {
-        return CompleteTrade().set_trade_id("1");
+        CompleteTrade request = CompleteTrade()
+                .set_trade_id("1");
+        set_transaction_request_arguments(request);
+        return request;
     }
 };
 

@@ -37,4 +37,20 @@ private:
 
 }
 
+namespace enjin::sdk::shared {
+
+template ENJINSDK_EXPORT project::GetPlayers& PlayerFragmentArguments<project::GetPlayers>::set_with_linking_info();
+
+template ENJINSDK_EXPORT project::GetPlayers& PlayerFragmentArguments<project::GetPlayers>::set_qr_size(int size);
+
+template ENJINSDK_EXPORT project::GetPlayers& PlayerFragmentArguments<project::GetPlayers>::set_with_wallet();
+
+template ENJINSDK_EXPORT project::GetPlayers&
+PaginationArguments<project::GetPlayers>::set_pagination(models::PaginationOptions pagination);
+
+template ENJINSDK_EXPORT project::GetPlayers&
+PaginationArguments<project::GetPlayers>::set_pagination(int page, int limit);
+
+}
+
 #endif //ENJINCPPSDK_PROJECTGETPLAYERS_HPP

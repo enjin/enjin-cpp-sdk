@@ -44,6 +44,36 @@ private:
     std::optional<models::AssetSort> sort;
 };
 
+template ENJINSDK_EXPORT GetAssets&
+AssetFragmentArguments<GetAssets>::set_asset_id_format(models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_state_data();
+
+template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_config_data();
+
+template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_asset_blocks();
+
+template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_creator();
+
+template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_melt_details();
+
+template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_metadata_uri();
+
+template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_supply_details();
+
+template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_transfer_settings();
+
+template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_asset_variant_mode();
+
+template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_asset_variants();
+
+template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_variant_metadata();
+
+template ENJINSDK_EXPORT GetAssets&
+PaginationArguments<GetAssets>::set_pagination(models::PaginationOptions pagination);
+
+template ENJINSDK_EXPORT GetAssets& PaginationArguments<GetAssets>::set_pagination(int page, int limit);
+
 }
 
 #endif //ENJINCPPSDK_SHAREDGETASSETS_HPP

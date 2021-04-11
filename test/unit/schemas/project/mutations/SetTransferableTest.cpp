@@ -1,12 +1,15 @@
-#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
+#include "TransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/project/SetTransferable.hpp"
+#include "gtest/gtest.h"
 #include <string>
 
+using namespace enjin::sdk::models;
 using namespace enjin::sdk::project;
 using namespace enjin::test::suites;
 
-class SetTransferableTest : public JsonTestSuite,
+class SetTransferableTest : public TransactionRequestArgumentsTestSuite<SetTransferable>,
+                            public JsonTestSuite,
                             public testing::Test {
 public:
     SetTransferable class_under_test;
@@ -15,9 +18,12 @@ public:
             R"({"assetId":"1","assetIndex":"1","transferable":"PERMANENT"})";
 
     static SetTransferable create_default_request() {
-        return SetTransferable().set_asset_id("1")
-                                .set_asset_index("1")
-                                .set_transferable(enjin::sdk::models::AssetTransferable::PERMANENT);
+        SetTransferable request = SetTransferable()
+                .set_asset_id("1")
+                .set_asset_index("1")
+                .set_transferable(AssetTransferable::PERMANENT);
+        set_transaction_request_arguments(request);
+        return request;
     }
 };
 
@@ -37,7 +43,7 @@ TEST_F(SetTransferableTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_asset_id("1")
                     .set_asset_index("1")
-                    .set_transferable(enjin::sdk::models::AssetTransferable::PERMANENT);
+                    .set_transferable(AssetTransferable::PERMANENT);
 
     // Act
     std::string actual = class_under_test.serialize();

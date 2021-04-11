@@ -1,12 +1,14 @@
-#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
+#include "TransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/project/SetUri.hpp"
+#include "gtest/gtest.h"
 #include <string>
 
 using namespace enjin::sdk::project;
 using namespace enjin::test::suites;
 
-class SetUriTest : public JsonTestSuite,
+class SetUriTest : public TransactionRequestArgumentsTestSuite<SetUri>,
+                   public JsonTestSuite,
                    public testing::Test {
 public:
     SetUri class_under_test;
@@ -15,9 +17,12 @@ public:
             R"({"assetId":"1","assetIndex":"1","uri":"1"})";
 
     static SetUri create_default_request() {
-        return SetUri().set_asset_id("1")
-                       .set_asset_index("1")
-                       .set_uri("1");
+        SetUri request = SetUri()
+                .set_asset_id("1")
+                .set_asset_index("1")
+                .set_uri("1");
+        set_transaction_request_arguments(request);
+        return request;
     }
 };
 

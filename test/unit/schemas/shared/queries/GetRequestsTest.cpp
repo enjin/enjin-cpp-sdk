@@ -1,12 +1,17 @@
-#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
+#include "PaginationArgumentsTestSuite.hpp"
+#include "TransactionFragmentArgumentsTestSuite.hpp"
 #include "enjinsdk/shared/GetRequests.hpp"
+#include "gtest/gtest.h"
 #include <string>
 
+using namespace enjin::sdk::models;
 using namespace enjin::sdk::shared;
 using namespace enjin::test::suites;
 
-class GetRequestsTest : public JsonTestSuite,
+class GetRequestsTest : public TransactionFragmentArgumentsTestSuite<GetRequests>,
+                        public PaginationArgumentsTestSuite<GetRequests>,
+                        public JsonTestSuite,
                         public testing::Test {
 public:
     GetRequests class_under_test;
@@ -15,8 +20,12 @@ public:
             R"({"filter":{},"sort":{}})";
 
     static GetRequests create_default_request() {
-        return GetRequests().set_filter(enjin::sdk::models::TransactionFilter())
-                            .set_sort(enjin::sdk::models::TransactionSort());
+        GetRequests requests = GetRequests()
+                .set_filter(TransactionFilter())
+                .set_sort(TransactionSort());
+        set_transaction_fragment_arguments(requests);
+        set_pagination_arguments(requests);
+        return requests;
     }
 };
 
@@ -34,8 +43,8 @@ TEST_F(GetRequestsTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
 TEST_F(GetRequestsTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_filter(enjin::sdk::models::TransactionFilter())
-                    .set_sort(enjin::sdk::models::TransactionSort());
+    class_under_test.set_filter(TransactionFilter())
+                    .set_sort(TransactionSort());
 
     // Act
     std::string actual = class_under_test.serialize();

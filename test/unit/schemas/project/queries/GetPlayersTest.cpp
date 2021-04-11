@@ -1,12 +1,17 @@
-#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
+#include "PaginationArgumentsTestSuite.hpp"
+#include "PlayerFragmentArgumentsTestSuite.hpp"
 #include "enjinsdk/project/GetPlayers.hpp"
+#include "gtest/gtest.h"
 #include <string>
 
+using namespace enjin::sdk::models;
 using namespace enjin::sdk::project;
 using namespace enjin::test::suites;
 
-class GetPlayersTest : public JsonTestSuite,
+class GetPlayersTest : public PlayerFragmentArgumentsTestSuite<GetPlayers>,
+                       public PaginationArgumentsTestSuite<GetPlayers>,
+                       public JsonTestSuite,
                        public testing::Test {
 public:
     GetPlayers class_under_test;
@@ -15,7 +20,11 @@ public:
             R"({"filter":{}})";
 
     static GetPlayers create_default_request() {
-        return GetPlayers().set_filter(enjin::sdk::models::PlayerFilter());
+        GetPlayers request = GetPlayers()
+                .set_filter(PlayerFilter());
+        set_player_fragment_arguments(request);
+        set_pagination_arguments(request);
+        return request;
     }
 };
 
@@ -33,7 +42,7 @@ TEST_F(GetPlayersTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
 TEST_F(GetPlayersTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_filter(enjin::sdk::models::PlayerFilter());
+    class_under_test.set_filter(PlayerFilter());
 
     // Act
     std::string actual = class_under_test.serialize();

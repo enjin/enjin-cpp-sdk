@@ -1,13 +1,16 @@
-#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
+#include "TransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/shared/CreateTrade.hpp"
+#include "gtest/gtest.h"
 #include <string>
 #include <vector>
 
+using namespace enjin::sdk::models;
 using namespace enjin::sdk::shared;
 using namespace enjin::test::suites;
 
-class CreateTradeTest : public JsonTestSuite,
+class CreateTradeTest : public TransactionRequestArgumentsTestSuite<CreateTrade>,
+                        public JsonTestSuite,
                         public testing::Test {
 public:
     CreateTrade class_under_test;
@@ -16,9 +19,12 @@ public:
             R"({"askingAssets":[],"offeringAssets":[],"recipientAddress":"1"})";
 
     static CreateTrade create_default_request() {
-        return CreateTrade().set_asking_assets(std::vector<enjin::sdk::models::Trade>())
-                            .set_offering_assets(std::vector<enjin::sdk::models::Trade>())
-                            .set_recipient_address("1");
+        CreateTrade request = CreateTrade()
+                .set_asking_assets(std::vector<Trade>())
+                .set_offering_assets(std::vector<Trade>())
+                .set_recipient_address("1");
+        set_transaction_request_arguments(request);
+        return request;
     }
 };
 
@@ -36,8 +42,8 @@ TEST_F(CreateTradeTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
 TEST_F(CreateTradeTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_asking_assets(std::vector<enjin::sdk::models::Trade>())
-                    .set_offering_assets(std::vector<enjin::sdk::models::Trade>())
+    class_under_test.set_asking_assets(std::vector<Trade>())
+                    .set_offering_assets(std::vector<Trade>())
                     .set_recipient_address("1");
 
     // Act

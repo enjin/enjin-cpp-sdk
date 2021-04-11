@@ -35,6 +35,21 @@ private:
     std::optional<models::BalanceFilter> filter;
 };
 
+template ENJINSDK_EXPORT GetBalances&
+BalanceFragmentArguments<GetBalances>::set_bal_id_format(models::AssetIdFormat bal_id_format);
+
+template ENJINSDK_EXPORT GetBalances&
+BalanceFragmentArguments<GetBalances>::set_bal_index_format(models::AssetIndexFormat bal_index_format);
+
+template ENJINSDK_EXPORT GetBalances& BalanceFragmentArguments<GetBalances>::set_with_bal_project_id();
+
+template ENJINSDK_EXPORT GetBalances& BalanceFragmentArguments<GetBalances>::set_with_bal_wallet_address();
+
+template ENJINSDK_EXPORT GetBalances&
+PaginationArguments<GetBalances>::set_pagination(models::PaginationOptions pagination);
+
+template ENJINSDK_EXPORT GetBalances& PaginationArguments<GetBalances>::set_pagination(int page, int limit);
+
 }
 
 #endif //ENJINCPPSDK_SHAREDGETBALANCES_HPP

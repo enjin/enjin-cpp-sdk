@@ -1,12 +1,14 @@
-#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
+#include "TransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/shared/Message.hpp"
+#include "gtest/gtest.h"
 #include <string>
 
 using namespace enjin::sdk::shared;
 using namespace enjin::test::suites;
 
-class MessageTest : public JsonTestSuite,
+class MessageTest : public TransactionRequestArgumentsTestSuite<Message>,
+                    public JsonTestSuite,
                     public testing::Test {
 public:
     Message class_under_test;
@@ -15,7 +17,10 @@ public:
             R"({"message":"1"})";
 
     static Message create_default_request() {
-        return Message().set_message("1");
+        Message request = Message()
+                .set_message("1");
+        set_transaction_request_arguments(request);
+        return request;
     }
 };
 

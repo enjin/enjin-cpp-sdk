@@ -1,12 +1,14 @@
-#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
+#include "TransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/project/ReleaseReserve.hpp"
+#include "gtest/gtest.h"
 #include <string>
 
 using namespace enjin::sdk::project;
 using namespace enjin::test::suites;
 
-class ReleaseReserveTest : public JsonTestSuite,
+class ReleaseReserveTest : public TransactionRequestArgumentsTestSuite<ReleaseReserve>,
+                           public JsonTestSuite,
                            public testing::Test {
 public:
     ReleaseReserve class_under_test;
@@ -15,8 +17,11 @@ public:
             R"({"assetId":"1","value":"1"})";
 
     static ReleaseReserve create_default_request() {
-        return ReleaseReserve().set_asset_id("1")
-                               .set_value("1");
+        ReleaseReserve request = ReleaseReserve()
+                .set_asset_id("1")
+                .set_value("1");
+        set_transaction_request_arguments(request);
+        return request;
     }
 };
 

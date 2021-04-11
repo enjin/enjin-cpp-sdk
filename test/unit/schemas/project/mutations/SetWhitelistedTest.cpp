@@ -1,12 +1,15 @@
-#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
+#include "TransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/project/SetWhitelisted.hpp"
+#include "gtest/gtest.h"
 #include <string>
 
+using namespace enjin::sdk::models;
 using namespace enjin::sdk::project;
 using namespace enjin::test::suites;
 
-class SetWhitelistedTest : public JsonTestSuite,
+class SetWhitelistedTest : public TransactionRequestArgumentsTestSuite<SetWhitelisted>,
+                           public JsonTestSuite,
                            public testing::Test {
 public:
     SetWhitelisted class_under_test;
@@ -15,11 +18,14 @@ public:
             R"({"assetId":"1","accountAddress":"1","whitelisted":"NONE","whitelistedAddress":"1","on":true})";
 
     static SetWhitelisted create_default_request() {
-        return SetWhitelisted().set_asset_id("1")
-                               .set_account_address("1")
-                               .set_whitelisted(enjin::sdk::models::Whitelisted::NONE)
-                               .set_whitelisted_address("1")
-                               .set_on(true);
+        SetWhitelisted request = SetWhitelisted()
+                .set_asset_id("1")
+                .set_account_address("1")
+                .set_whitelisted(Whitelisted::NONE)
+                .set_whitelisted_address("1")
+                .set_on(true);
+        set_transaction_request_arguments(request);
+        return request;
     }
 };
 
@@ -39,7 +45,7 @@ TEST_F(SetWhitelistedTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_asset_id("1")
                     .set_account_address("1")
-                    .set_whitelisted(enjin::sdk::models::Whitelisted::NONE)
+                    .set_whitelisted(Whitelisted::NONE)
                     .set_whitelisted_address("1")
                     .set_on(true);
 

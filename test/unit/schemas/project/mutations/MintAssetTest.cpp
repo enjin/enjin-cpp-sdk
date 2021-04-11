@@ -1,13 +1,16 @@
-#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
+#include "TransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/project/MintAsset.hpp"
+#include "gtest/gtest.h"
 #include <string>
 #include <vector>
 
+using namespace enjin::sdk::models;
 using namespace enjin::sdk::project;
 using namespace enjin::test::suites;
 
-class MintAssetTest : public JsonTestSuite,
+class MintAssetTest : public TransactionRequestArgumentsTestSuite<MintAsset>,
+                      public JsonTestSuite,
                       public testing::Test {
 public:
     MintAsset class_under_test;
@@ -16,8 +19,11 @@ public:
             R"({"assetId":"1","mints":[]})";
 
     static MintAsset create_default_request() {
-        return MintAsset().set_asset_id("1")
-                          .set_mints(std::vector<enjin::sdk::models::MintInput>());
+        MintAsset request = MintAsset()
+                .set_asset_id("1")
+                .set_mints(std::vector<MintInput>());
+        set_transaction_request_arguments(request);
+        return request;
     }
 };
 
@@ -36,7 +42,7 @@ TEST_F(MintAssetTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_asset_id("1")
-                    .set_mints(std::vector<enjin::sdk::models::MintInput>());
+                    .set_mints(std::vector<MintInput>());
 
     // Act
     std::string actual = class_under_test.serialize();

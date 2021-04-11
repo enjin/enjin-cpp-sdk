@@ -8,5 +8,6 @@ if (${ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL})
             BaseSchemaHttpTest.cpp)
 endif ()
 
+add_subdirectory(player)
 add_subdirectory(project)
 add_subdirectory(shared)

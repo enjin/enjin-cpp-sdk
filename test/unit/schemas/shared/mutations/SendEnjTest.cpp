@@ -1,12 +1,14 @@
-#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
+#include "TransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/shared/SendEnj.hpp"
+#include "gtest/gtest.h"
 #include <string>
 
 using namespace enjin::sdk::shared;
 using namespace enjin::test::suites;
 
-class SendEnjTest : public JsonTestSuite,
+class SendEnjTest : public TransactionRequestArgumentsTestSuite<SendEnj>,
+                    public JsonTestSuite,
                     public testing::Test {
 public:
     SendEnj class_under_test;
@@ -15,8 +17,11 @@ public:
             R"({"recipientAddress":"1","value":"1"})";
 
     static SendEnj create_default_request() {
-        return SendEnj().set_recipient_address("1")
-                        .set_value("1");
+        SendEnj request = SendEnj()
+                .set_recipient_address("1")
+                .set_value("1");
+        set_transaction_request_arguments(request);
+        return request;
     }
 };
 

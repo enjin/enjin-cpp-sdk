@@ -1,12 +1,17 @@
 #include "gtest/gtest.h"
+#include "AssetFragmentArgumentsTestSuite.hpp"
 #include "JsonTestSuite.hpp"
+#include "PaginationArgumentsTestSuite.hpp"
 #include "enjinsdk/shared/GetAssets.hpp"
 #include <string>
 
+using namespace enjin::sdk::models;
 using namespace enjin::sdk::shared;
 using namespace enjin::test::suites;
 
-class GetAssetsTest : public JsonTestSuite,
+class GetAssetsTest : public AssetFragmentArgumentsTestSuite<GetAssets>,
+                      public PaginationArgumentsTestSuite<GetAssets>,
+                      public JsonTestSuite,
                       public testing::Test {
 public:
     GetAssets class_under_test;
@@ -15,8 +20,12 @@ public:
             R"({"filter":{},"sort":{}})";
 
     static GetAssets create_default_request() {
-        return GetAssets().set_filter(enjin::sdk::models::AssetFilter())
-                          .set_sort(enjin::sdk::models::AssetSort());
+        GetAssets request = GetAssets()
+                .set_filter(AssetFilter())
+                .set_sort(AssetSort());
+        set_asset_fragment_arguments(request);
+        set_pagination_arguments(request);
+        return request;
     }
 };
 
@@ -34,8 +43,8 @@ TEST_F(GetAssetsTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
 TEST_F(GetAssetsTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_filter(enjin::sdk::models::AssetFilter())
-                    .set_sort(enjin::sdk::models::AssetSort());
+    class_under_test.set_filter(AssetFilter())
+                    .set_sort(AssetSort());
 
     // Act
     std::string actual = class_under_test.serialize();
