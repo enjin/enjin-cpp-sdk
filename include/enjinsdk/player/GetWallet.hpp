@@ -25,4 +25,10 @@ public:
 
 }
 
+namespace enjin::sdk::shared {
+
+template ENJINSDK_EXPORT player::GetWallet& WalletFragmentArguments<player::GetWallet>::set_with_assets_created();
+
+}
+
 #endif //ENJINCPPSDK_PLAYERGETWALLET_HPP

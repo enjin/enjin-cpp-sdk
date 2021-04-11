@@ -1,12 +1,14 @@
-#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
+#include "TransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/shared/ApproveEnj.hpp"
+#include "gtest/gtest.h"
 #include <string>
 
 using namespace enjin::sdk::shared;
 using namespace enjin::test::suites;
 
-class ApproveEnjTest : public JsonTestSuite,
+class ApproveEnjTest : public TransactionRequestArgumentsTestSuite<ApproveEnj>,
+                       public JsonTestSuite,
                        public testing::Test {
 public:
     ApproveEnj class_under_test;
@@ -15,7 +17,10 @@ public:
             R"({"value":"1"})";
 
     static ApproveEnj create_default_request() {
-        return ApproveEnj().set_value("1");
+        ApproveEnj request = ApproveEnj()
+                .set_value("1");
+        set_transaction_request_arguments(request);
+        return request;
     }
 };
 

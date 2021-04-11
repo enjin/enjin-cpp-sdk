@@ -41,4 +41,10 @@ private:
 
 }
 
+namespace enjin::sdk::shared {
+
+template ENJINSDK_EXPORT project::GetWallet& WalletFragmentArguments<project::GetWallet>::set_with_assets_created();
+
+}
+
 #endif //ENJINCPPSDK_PROJECTGETWALLET_HPP

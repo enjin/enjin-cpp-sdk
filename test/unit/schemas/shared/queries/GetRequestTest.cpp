@@ -1,12 +1,14 @@
-#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
+#include "TransactionFragmentArgumentsTestSuite.hpp"
 #include "enjinsdk/shared/GetRequest.hpp"
+#include "gtest/gtest.h"
 #include <string>
 
 using namespace enjin::sdk::shared;
 using namespace enjin::test::suites;
 
-class GetRequestTest : public JsonTestSuite,
+class GetRequestTest : public TransactionFragmentArgumentsTestSuite<GetRequest>,
+                       public JsonTestSuite,
                        public testing::Test {
 public:
     GetRequest class_under_test;
@@ -15,8 +17,11 @@ public:
             R"({"id":1,"transactionId":"1"})";
 
     static GetRequest create_default_request() {
-        return GetRequest().set_id(1)
-                           .set_transaction_id("1");
+        GetRequest request = GetRequest()
+                .set_id(1)
+                .set_transaction_id("1");
+        set_transaction_fragment_arguments(request);
+        return request;
     }
 };
 

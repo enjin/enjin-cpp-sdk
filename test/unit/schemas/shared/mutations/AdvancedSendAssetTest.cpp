@@ -1,12 +1,15 @@
-#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
+#include "TransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/shared/AdvancedSendAsset.hpp"
+#include "gtest/gtest.h"
 #include <string>
 
+using namespace enjin::sdk::models;
 using namespace enjin::sdk::shared;
 using namespace enjin::test::suites;
 
-class AdvancedSendAssetTest : public JsonTestSuite,
+class AdvancedSendAssetTest : public TransactionRequestArgumentsTestSuite<AdvancedSendAsset>,
+                              public JsonTestSuite,
                               public testing::Test {
 public:
     AdvancedSendAsset class_under_test;
@@ -15,8 +18,11 @@ public:
             R"({"transfers":[],"data":"1"})";
 
     static AdvancedSendAsset create_default_request() {
-        return AdvancedSendAsset().set_transfers(std::vector<enjin::sdk::models::Transfer>())
-                                  .set_data("1");
+        AdvancedSendAsset request = AdvancedSendAsset()
+                .set_transfers(std::vector<Transfer>())
+                .set_data("1");
+        set_transaction_request_arguments(request);
+        return request;
     }
 };
 
@@ -34,7 +40,7 @@ TEST_F(AdvancedSendAssetTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
 TEST_F(AdvancedSendAssetTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_transfers(std::vector<enjin::sdk::models::Transfer>())
+    class_under_test.set_transfers(std::vector<Transfer>())
                     .set_data("1");
 
     // Act

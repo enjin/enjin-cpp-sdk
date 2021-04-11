@@ -1,12 +1,14 @@
-#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
+#include "TransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/project/SetTransferFee.hpp"
+#include "gtest/gtest.h"
 #include <string>
 
 using namespace enjin::sdk::project;
 using namespace enjin::test::suites;
 
-class SetTransferFeeTest : public JsonTestSuite,
+class SetTransferFeeTest : public TransactionRequestArgumentsTestSuite<SetTransferFee>,
+                           public JsonTestSuite,
                            public testing::Test {
 public:
     SetTransferFee class_under_test;
@@ -15,9 +17,12 @@ public:
             R"({"assetId":"1","assetIndex":"1","transferFee":"1"})";
 
     static SetTransferFee create_default_request() {
-        return SetTransferFee().set_asset_id("1")
-                               .set_asset_index("1")
-                               .set_transfer_fee("1");
+        SetTransferFee request = SetTransferFee()
+                .set_asset_id("1")
+                .set_asset_index("1")
+                .set_transfer_fee("1");
+        set_transaction_request_arguments(request);
+        return request;
     }
 };
 

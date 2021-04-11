@@ -1,30 +1,26 @@
 #include "JsonTestSuite.hpp"
 #include "PlayerFragmentArgumentsTestSuite.hpp"
-#include "enjinsdk/project/GetPlayer.hpp"
+#include "enjinsdk/player/GetPlayer.hpp"
 #include "gtest/gtest.h"
 #include <string>
 
-using namespace enjin::sdk::project;
+using namespace enjin::sdk::player;
 using namespace enjin::test::suites;
 
-class GetPlayerTest : public PlayerFragmentArgumentsTestSuite<GetPlayer>,
-                      public JsonTestSuite,
-                      public testing::Test {
+class PlayerGetPlayerTest : public PlayerFragmentArgumentsTestSuite<GetPlayer>,
+                            public JsonTestSuite,
+                            public testing::Test {
 public:
     GetPlayer class_under_test;
 
-    constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"id":"1"})";
-
     static GetPlayer create_default_request() {
-        GetPlayer request = GetPlayer()
-                .set_id("1");
+        GetPlayer request;
         set_player_fragment_arguments(request);
         return request;
     }
 };
 
-TEST_F(GetPlayerTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
+TEST_F(PlayerGetPlayerTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EMPTY_JSON_OBJECT);
 
@@ -35,19 +31,7 @@ TEST_F(GetPlayerTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(GetPlayerTest, SerializeSetFieldsReturnsExpectedJsonObject) {
-    // Arrange
-    const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_id("1");
-
-    // Act
-    std::string actual = class_under_test.serialize();
-
-    // Assert
-    ASSERT_EQ(expected, actual);
-}
-
-TEST_F(GetPlayerTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(PlayerGetPlayerTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
     GetPlayer lhs;
     GetPlayer rhs;
@@ -59,7 +43,7 @@ TEST_F(GetPlayerTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(GetPlayerTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(PlayerGetPlayerTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
     GetPlayer lhs = create_default_request();
     GetPlayer rhs = create_default_request();
@@ -71,7 +55,7 @@ TEST_F(GetPlayerTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(GetPlayerTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(PlayerGetPlayerTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
     GetPlayer lhs = create_default_request();
     GetPlayer rhs;
@@ -83,7 +67,7 @@ TEST_F(GetPlayerTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(GetPlayerTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(PlayerGetPlayerTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
     GetPlayer lhs;
     GetPlayer rhs = create_default_request();

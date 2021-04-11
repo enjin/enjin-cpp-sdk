@@ -1,13 +1,16 @@
-#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
+#include "TransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/shared/MeltAsset.hpp"
+#include "gtest/gtest.h"
 #include <string>
 #include <vector>
 
+using namespace enjin::sdk::models;
 using namespace enjin::sdk::shared;
 using namespace enjin::test::suites;
 
-class MeltAssetTest : public JsonTestSuite,
+class MeltAssetTest : public TransactionRequestArgumentsTestSuite<MeltAsset>,
+                      public JsonTestSuite,
                       public testing::Test {
 public:
     MeltAsset class_under_test;
@@ -16,7 +19,10 @@ public:
             R"({"melts":[]})";
 
     static MeltAsset create_default_request() {
-        return MeltAsset().set_melts(std::vector<enjin::sdk::models::Melt>());
+        MeltAsset request = MeltAsset()
+                .set_melts(std::vector<Melt>());
+        set_transaction_request_arguments(request);
+        return request;
     }
 };
 
@@ -34,7 +40,7 @@ TEST_F(MeltAssetTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
 TEST_F(MeltAssetTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_melts(std::vector<enjin::sdk::models::Melt>());
+    class_under_test.set_melts(std::vector<Melt>());
 
     // Act
     std::string actual = class_under_test.serialize();

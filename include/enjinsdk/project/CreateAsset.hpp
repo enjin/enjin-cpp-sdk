@@ -88,4 +88,40 @@ private:
 
 }
 
+namespace enjin::sdk::shared {
+
+template ENJINSDK_EXPORT project::CreateAsset&
+TransactionFragmentArguments<project::CreateAsset>::set_with_blockchain_data();
+
+template ENJINSDK_EXPORT project::CreateAsset& TransactionFragmentArguments<project::CreateAsset>::set_with_meta();
+
+template ENJINSDK_EXPORT project::CreateAsset&
+TransactionFragmentArguments<project::CreateAsset>::set_with_encoded_data();
+
+template ENJINSDK_EXPORT project::CreateAsset&
+TransactionFragmentArguments<project::CreateAsset>::set_with_asset_data();
+
+template ENJINSDK_EXPORT project::CreateAsset&
+TransactionFragmentArguments<project::CreateAsset>::set_with_signed_txs();
+
+template ENJINSDK_EXPORT project::CreateAsset& TransactionFragmentArguments<project::CreateAsset>::set_with_error();
+
+template ENJINSDK_EXPORT project::CreateAsset& TransactionFragmentArguments<project::CreateAsset>::set_with_nonce();
+
+template ENJINSDK_EXPORT project::CreateAsset& TransactionFragmentArguments<project::CreateAsset>::set_with_state();
+
+template ENJINSDK_EXPORT project::CreateAsset& TransactionFragmentArguments<project::CreateAsset>::set_with_receipt();
+
+template ENJINSDK_EXPORT project::CreateAsset&
+TransactionFragmentArguments<project::CreateAsset>::set_with_receipt_logs();
+
+template ENJINSDK_EXPORT project::CreateAsset& TransactionFragmentArguments<project::CreateAsset>::set_with_log_event();
+
+template ENJINSDK_EXPORT project::CreateAsset&
+TransactionRequestArguments<project::CreateAsset>::set_eth_address(const std::string& address);
+
+template ENJINSDK_EXPORT project::CreateAsset& TransactionRequestArguments<project::CreateAsset>::set_send(bool send);
+
+}
+
 #endif //ENJINCPPSDK_PROJECTCREATEASSET_HPP

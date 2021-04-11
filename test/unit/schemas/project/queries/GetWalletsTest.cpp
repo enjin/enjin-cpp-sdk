@@ -1,13 +1,17 @@
-#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
+#include "PaginationArgumentsTestSuite.hpp"
+#include "WalletFragmentArgumentsTestSuite.hpp"
 #include "enjinsdk/project/GetWallets.hpp"
+#include "gtest/gtest.h"
 #include <string>
 #include <vector>
 
 using namespace enjin::sdk::project;
 using namespace enjin::test::suites;
 
-class GetWalletsTest : public JsonTestSuite,
+class GetWalletsTest : public WalletFragmentArgumentsTestSuite<GetWallets>,
+                       public PaginationArgumentsTestSuite<GetWallets>,
+                       public JsonTestSuite,
                        public testing::Test {
 public:
     GetWallets class_under_test;
@@ -16,8 +20,12 @@ public:
             R"({"userIds":[],"ethAddresses":[]})";
 
     static GetWallets create_default_request() {
-        return GetWallets().set_user_ids(std::vector<std::string>())
-                           .set_eth_addresses(std::vector<std::string>());
+        GetWallets request = GetWallets()
+                .set_user_ids(std::vector<std::string>())
+                .set_eth_addresses(std::vector<std::string>());
+        set_wallet_fragment_arguments(request);
+        set_pagination_arguments(request);
+        return request;
     }
 };
 

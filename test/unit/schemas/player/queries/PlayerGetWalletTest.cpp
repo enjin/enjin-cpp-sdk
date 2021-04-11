@@ -1,31 +1,26 @@
 #include "JsonTestSuite.hpp"
 #include "WalletFragmentArgumentsTestSuite.hpp"
-#include "enjinsdk/project/GetWallet.hpp"
+#include "enjinsdk/player/GetWallet.hpp"
 #include "gtest/gtest.h"
 #include <string>
 
-using namespace enjin::sdk::project;
+using namespace enjin::sdk::player;
 using namespace enjin::test::suites;
 
-class GetWalletTest : public WalletFragmentArgumentsTestSuite<GetWallet>,
-                      public JsonTestSuite,
-                      public testing::Test {
+class PlayerGetWalletTest : public WalletFragmentArgumentsTestSuite<GetWallet>,
+                            public JsonTestSuite,
+                            public testing::Test {
 public:
     GetWallet class_under_test;
 
-    constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"userId":"1","ethAddress":"1"})";
-
     static GetWallet create_default_request() {
-        GetWallet request = GetWallet()
-                .set_user_id("1")
-                .set_eth_address("1");
+        GetWallet request;
         set_wallet_fragment_arguments(request);
         return request;
     }
 };
 
-TEST_F(GetWalletTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
+TEST_F(PlayerGetWalletTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EMPTY_JSON_OBJECT);
 
@@ -36,20 +31,7 @@ TEST_F(GetWalletTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(GetWalletTest, SerializeSetFieldsReturnsExpectedJsonObject) {
-    // Arrange
-    const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_user_id("1")
-                    .set_eth_address("1");
-
-    // Act
-    std::string actual = class_under_test.serialize();
-
-    // Assert
-    ASSERT_EQ(expected, actual);
-}
-
-TEST_F(GetWalletTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(PlayerGetWalletTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
     GetWallet lhs;
     GetWallet rhs;
@@ -61,7 +43,7 @@ TEST_F(GetWalletTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(GetWalletTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(PlayerGetWalletTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
     GetWallet lhs = create_default_request();
     GetWallet rhs = create_default_request();
@@ -73,7 +55,7 @@ TEST_F(GetWalletTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(GetWalletTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(PlayerGetWalletTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
     GetWallet lhs = create_default_request();
     GetWallet rhs;
@@ -85,7 +67,7 @@ TEST_F(GetWalletTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(GetWalletTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(PlayerGetWalletTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
     GetWallet lhs;
     GetWallet rhs = create_default_request();

@@ -1,4 +1,5 @@
 #include "gtest/gtest.h"
+#include "AssetFragmentArgumentsTestSuite.hpp"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/shared/GetAsset.hpp"
 #include <string>
@@ -6,7 +7,8 @@
 using namespace enjin::sdk::shared;
 using namespace enjin::test::suites;
 
-class GetAssetTest : public JsonTestSuite,
+class GetAssetTest : public AssetFragmentArgumentsTestSuite<GetAsset>,
+                     public JsonTestSuite,
                      public testing::Test {
 public:
     GetAsset class_under_test;
@@ -15,7 +17,9 @@ public:
             R"({"id":"1"})";
 
     static GetAsset create_default_request() {
-        return GetAsset().set_id("1");
+        GetAsset request = GetAsset().set_id("1");
+        set_asset_fragment_arguments(request);
+        return request;
     }
 };
 

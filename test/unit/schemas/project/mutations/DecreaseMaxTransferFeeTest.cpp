@@ -1,12 +1,14 @@
-#include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
+#include "TransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/project/DecreaseMaxTransferFee.hpp"
+#include "gtest/gtest.h"
 #include <string>
 
 using namespace enjin::sdk::project;
 using namespace enjin::test::suites;
 
-class DecreaseMaxTransferFeeTest : public JsonTestSuite,
+class DecreaseMaxTransferFeeTest : public TransactionRequestArgumentsTestSuite<DecreaseMaxTransferFee>,
+                                   public JsonTestSuite,
                                    public testing::Test {
 public:
     DecreaseMaxTransferFee class_under_test;
@@ -15,9 +17,12 @@ public:
             R"({"assetId":"1","assetIndex":"1","maxTransferFee":1})";
 
     static DecreaseMaxTransferFee create_default_request() {
-        return DecreaseMaxTransferFee().set_asset_id("1")
-                                       .set_asset_index("1")
-                                       .set_max_transfer_fee(1);
+        DecreaseMaxTransferFee request = DecreaseMaxTransferFee()
+                .set_asset_id("1")
+                .set_asset_index("1")
+                .set_max_transfer_fee(1);
+        set_transaction_request_arguments(request);
+        return request;
     }
 };
 
