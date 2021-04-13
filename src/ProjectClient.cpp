@@ -18,12 +18,24 @@ ProjectClient::ProjectClient(TrustedPlatformMiddleware middleware, std::shared_p
         : ProjectSchema(std::move(middleware), std::move(logger)) {
 }
 
+ProjectClient::~ProjectClient() {
+    close();
+}
+
 void ProjectClient::auth(const std::string& token) {
     middleware.get_handler()->set_auth_token(token);
 }
 
+void ProjectClient::close() {
+    middleware.get_client()->stop();
+}
+
 bool ProjectClient::is_authenticated() {
     return middleware.get_handler()->is_authenticated();
+}
+
+bool ProjectClient::is_closed() {
+    return !middleware.get_client()->is_open();
 }
 
 std::unique_ptr<ProjectClient> ProjectClientBuilder::build() {

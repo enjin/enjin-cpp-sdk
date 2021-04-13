@@ -58,11 +58,15 @@ private:
 class ENJINSDK_EXPORT ProjectClient : public IClient,
                                       public project::ProjectSchema {
 public:
-    ~ProjectClient() override = default;
+    ~ProjectClient() override;
 
     void auth(const std::string& token) override;
 
+    void close() override;
+
     bool is_authenticated() override;
+
+    bool is_closed() override;
 
 private:
     explicit ProjectClient(TrustedPlatformMiddleware middleware, std::shared_ptr<utils::Logger> logger);

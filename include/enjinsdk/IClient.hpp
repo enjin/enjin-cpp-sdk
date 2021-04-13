@@ -12,6 +12,9 @@ public:
     /// \brief Default destructor.
     virtual ~IClient() = default;
 
+    /// \brief Closes this client.
+    virtual void close() = 0;
+
     /// \brief Authenticates this client with the given token.
     /// \param token The auth token.
     virtual void auth(const std::string& token) = 0;
@@ -19,6 +22,10 @@ public:
     /// \brief Determines if this client is authenticated.
     /// \return Whether this client is authenticated.
     virtual bool is_authenticated() = 0;
+
+    /// \brief Determines if this client is closed.
+    /// \return Whether this client is closed.
+    virtual bool is_closed() = 0;
 };
 
 }

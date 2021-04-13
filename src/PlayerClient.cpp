@@ -18,12 +18,24 @@ PlayerClient::PlayerClient(TrustedPlatformMiddleware middleware, std::shared_ptr
         : PlayerSchema(std::move(middleware), std::move(logger)) {
 }
 
+PlayerClient::~PlayerClient() {
+    close();
+}
+
 void PlayerClient::auth(const std::string& token) {
     middleware.get_handler()->set_auth_token(token);
 }
 
+void PlayerClient::close() {
+    middleware.get_client()->stop();
+}
+
 bool PlayerClient::is_authenticated() {
     return middleware.get_handler()->is_authenticated();
+}
+
+bool PlayerClient::is_closed() {
+    return !middleware.get_client()->is_open();
 }
 
 std::unique_ptr<PlayerClient> PlayerClientBuilder::build() {
