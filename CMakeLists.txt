@@ -1,4 +1,11 @@
 cmake_minimum_required(VERSION 3.16)
+
+include("cmake/enjinsdk_git_submodules.cmake")
+include("cmake/enjinsdk_macros.cmake")
+include(GenerateExportHeader)
+
+####################################################################################################################
+### Define project and set properties
 project(enjinsdk
         LANGUAGES CXX
         VERSION 2.0.0)
@@ -14,91 +21,6 @@ set(ENJINSDK_USING_CONAN 0)
 
 option(ENJINSDK_ALLOW_DEFAULT_HTTP "ENJINSDK_ALLOW_DEFAULT_HTTP" OFF)
 option(ENJINSDK_ALLOW_DEFAULT_WEBSOCKET "ENJINSDK_ALLOW_DEFAULT_WEBSOCKET" OFF)
-
-include("cmake/enjinsdk_git_submodules.cmake")
-include(GenerateExportHeader)
-
-macro(set_include_http_client_impl_macro)
-    if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-        add_definitions(/D ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL=${ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL})
-    elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-        add_definitions(-D ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL=${ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL})
-    endif ()
-
-    if (${ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL})
-        message(STATUS "Enjin: Built-in HTTP client available for platform clients")
-    else ()
-        message(STATUS "Enjin: Built-in HTTP client not available for platform clients")
-    endif ()
-endmacro()
-
-macro(set_include_websocket_client_impl_macro)
-    if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-        add_definitions(/D ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL=${ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL})
-    elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-        add_definitions(-D ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL=${ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL})
-    endif ()
-
-    if (${ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL})
-        message(STATUS "Enjin: Built-in websocket client available for event services")
-    else ()
-        message(STATUS "Enjin: Built-in websocket client not available for event services")
-    endif ()
-endmacro()
-
-macro(set_version_macro)
-    if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-        add_definitions(/D ENJINSDK_VERSION="\\"${PROJECT_VERSION}\\"")
-    elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-        add_definitions(-D ENJINSDK_VERSION="\\"${PROJECT_VERSION}\\"")
-    endif ()
-endmacro()
-
-macro(setup_output_directories)
-    if (NOT DEFINED CMAKE_RUNTIME_OUTPUT_DIRECTORY)
-        message(STATUS "Enjin: Setting up runtime output directories")
-        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
-        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_MINSIZEREL ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-    endif ()
-
-    if (NOT DEFINED CMAKE_LIBRARY_OUTPUT_DIRECTORY)
-        message(STATUS "Enjin: Setting up library output directories")
-        set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
-        set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
-        set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELWITHDEBINFO ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
-        set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_MINSIZEREL ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
-        set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
-    endif ()
-
-    if (NOT DEFINED CMAKE_ARCHIVE_OUTPUT_DIRECTORY)
-        message(STATUS "Enjin: Setting up archive output directories")
-        set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
-        set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY})
-        set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELWITHDEBINFO ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY})
-        set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_MINSIZEREL ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY})
-        set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY})
-    endif ()
-endmacro()
-
-function(install_headers_in_rel_path path rel_path)
-    file(GLOB _children "${path}/${rel_path}/*")
-
-    foreach (_child ${_children})
-        if (IS_DIRECTORY ${_child})
-            get_filename_component(_subdir ${_child} NAME)
-            install_headers_in_rel_path("${path}" "${rel_path}/${_subdir}")
-            continue()
-        endif ()
-
-        get_filename_component(_ext ${_child} EXT)
-        if (_ext STREQUAL ".h" OR _ext STREQUAL ".hpp")
-            install(FILES "${_child}" DESTINATION "${rel_path}") # Install the header file in its relative path
-        endif ()
-    endforeach ()
-endfunction()
 
 # Attempt to setup Conan
 if (EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
@@ -146,7 +68,6 @@ if (${ENJINSDK_USING_CONAN})
     target_link_libraries(${PROJECT_NAME} PRIVATE ${CONAN_LIBS})
 else ()
     include(CheckIncludeFiles)
-    include(GNUInstallDirs)
 
     if (${ENJINSDK_ALLOW_DEFAULT_HTTP})
         include("cmake/enjinsdk_find_cpp_httplib.cmake")
