@@ -105,9 +105,14 @@ HttpClientImpl::~HttpClientImpl() {
 }
 
 void HttpClientImpl::start() {
+    if (is_open()) {
+        return;
+    }
+
     http_client = std::make_unique<httplib::Client>(base_uri.c_str());
     http_client->set_follow_location(true);
     http_client->set_keep_alive(true);
+    open = true;
 
     if (logger != nullptr) {
         http_client->set_logger([this](const httplib::Request& req, const httplib::Response& res) {
@@ -121,7 +126,12 @@ void HttpClientImpl::start() {
 }
 
 void HttpClientImpl::stop() {
+    if (!is_open()) {
+        return;
+    }
+
     http_client->stop();
+    open = false;
 }
 
 std::future<HttpResponse> HttpClientImpl::send_request(const HttpRequest& request) {
@@ -158,6 +168,10 @@ void HttpClientImpl::log_error(const std::string& message) {
 
 const std::string& HttpClientImpl::get_base_uri() const {
     return base_uri;
+}
+
+bool HttpClientImpl::is_open() const {
+    return open;
 }
 
 httplib::Headers HttpClientImpl::create_headers(const HttpRequest& request) {
