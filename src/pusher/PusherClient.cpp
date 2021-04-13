@@ -66,7 +66,11 @@ void PusherClient::connect() {
            << options.host()
            << "/app/"
            << key
-           << "?protocol=5&client=enjin-cpp-pusher-client&version=2.0.0";
+           << "?protocol=5&client=enjin-cpp-pusher-client";
+
+#ifdef ENJINSDK_VERSION
+    uri_ss << "&version=" << ENJINSDK_VERSION;
+#endif
 
     ws_client->connect(uri_ss.str());
 }
