@@ -18,7 +18,7 @@ public:
 
     ~Message() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the message to sign.
     /// \param message The message.

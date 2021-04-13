@@ -16,7 +16,7 @@ class ENJINSDK_EXPORT BalanceFragmentArguments : public serialization::ISerializ
 public:
     ~BalanceFragmentArguments() override = default;
 
-    std::string serialize() override {
+    [[nodiscard]] std::string serialize() const override {
         return impl.serialize();
     }
 

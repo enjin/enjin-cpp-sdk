@@ -16,7 +16,7 @@ public:
 
     ~Melt() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// Sets the asset ID to melt.
     /// \param id The ID.

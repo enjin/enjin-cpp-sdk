@@ -7,7 +7,7 @@ namespace enjin::sdk::shared {
 AdvancedSendAsset::AdvancedSendAsset() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.AdvancedSendAsset") {
 }
 
-std::string AdvancedSendAsset::serialize() {
+std::string AdvancedSendAsset::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 

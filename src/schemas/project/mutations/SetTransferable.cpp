@@ -8,7 +8,7 @@ namespace enjin::sdk::project {
 SetTransferable::SetTransferable() : graphql::AbstractGraphqlRequest("enjin.sdk.project.SetTransferable") {
 }
 
-std::string SetTransferable::serialize() {
+std::string SetTransferable::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 

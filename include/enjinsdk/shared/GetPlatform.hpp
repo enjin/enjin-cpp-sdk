@@ -15,7 +15,7 @@ public:
 
     ~GetPlatform() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the request to include the contracts with the platform.
     /// \return This request for chaining.

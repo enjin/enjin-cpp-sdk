@@ -14,7 +14,7 @@ class ENJINSDK_EXPORT PlayerFragmentArguments : public serialization::ISerializa
 public:
     ~PlayerFragmentArguments() override = default;
 
-    std::string serialize() override {
+    [[nodiscard]] std::string serialize() const override {
         return impl.serialize();
     }
 

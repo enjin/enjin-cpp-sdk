@@ -4,7 +4,7 @@
 
 namespace enjin::sdk::shared {
 
-std::string TransactionRequestArgumentsImpl::serialize() {
+std::string TransactionRequestArgumentsImpl::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, TransactionFragmentArgumentsImpl::serialize());
 

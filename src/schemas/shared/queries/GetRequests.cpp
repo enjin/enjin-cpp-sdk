@@ -7,7 +7,7 @@ namespace enjin::sdk::shared {
 GetRequests::GetRequests() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.GetRequests") {
 }
 
-std::string GetRequests::serialize() {
+std::string GetRequests::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_objects_to_document(document, {
             TransactionFragmentArguments::serialize(),

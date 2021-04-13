@@ -7,7 +7,7 @@ namespace enjin::sdk::project {
 CreatePlayer::CreatePlayer() : graphql::AbstractGraphqlRequest("enjin.sdk.project.CreatePlayer") {
 }
 
-std::string CreatePlayer::serialize() {
+std::string CreatePlayer::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (id.has_value()) {

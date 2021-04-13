@@ -17,7 +17,7 @@ public:
 
     ~BalanceFragmentArgumentsImpl() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the value for the associated field to the passed value.
     /// \param bal_id_format The ID format.

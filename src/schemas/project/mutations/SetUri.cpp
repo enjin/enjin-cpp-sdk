@@ -7,7 +7,7 @@ namespace enjin::sdk::project {
 SetUri::SetUri() : graphql::AbstractGraphqlRequest("enjin.sdk.project.SetUri") {
 }
 
-std::string SetUri::serialize() {
+std::string SetUri::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 

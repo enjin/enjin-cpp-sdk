@@ -4,7 +4,7 @@
 
 namespace enjin::sdk::shared {
 
-std::string PaginationArgumentsImpl::serialize() {
+std::string PaginationArgumentsImpl::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (pagination.has_value()) {

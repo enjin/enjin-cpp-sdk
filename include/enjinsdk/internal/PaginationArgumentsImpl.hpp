@@ -16,7 +16,7 @@ public:
 
     ~PaginationArgumentsImpl() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the value for the associated field to the passed value.
     /// \param pagination The options.

@@ -5,7 +5,7 @@ namespace enjin::sdk::player {
 GetWallet::GetWallet() : graphql::AbstractGraphqlRequest("enjin.sdk.player.GetWallet") {
 }
 
-std::string GetWallet::serialize() {
+std::string GetWallet::serialize() const {
     return WalletFragmentArguments::serialize();
 }
 

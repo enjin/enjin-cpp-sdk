@@ -8,7 +8,7 @@ InvalidateAssetMetadata::InvalidateAssetMetadata()
         : graphql::AbstractGraphqlRequest("enjin.sdk.project.InvalidateAssetMetadata") {
 }
 
-std::string InvalidateAssetMetadata::serialize() {
+std::string InvalidateAssetMetadata::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (id.has_value()) {

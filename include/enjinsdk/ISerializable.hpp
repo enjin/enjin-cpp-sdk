@@ -15,7 +15,7 @@ public:
     /// \brief Returns a JSON string with this object's data.
     /// \return This object as a JSON string.
     /// \remark Null fields are to be omitted from the JSON string.
-    virtual std::string serialize() = 0;
+    [[nodiscard]] virtual std::string serialize() const = 0;
 };
 
 }

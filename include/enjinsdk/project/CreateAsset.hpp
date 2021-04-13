@@ -21,7 +21,7 @@ public:
 
     ~CreateAsset() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the name of the asset.
     /// \param name The name.

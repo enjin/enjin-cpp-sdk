@@ -5,7 +5,7 @@ namespace enjin::sdk::player {
 GetPlayer::GetPlayer() : graphql::AbstractGraphqlRequest("enjin.sdk.player.GetPlayer") {
 }
 
-std::string GetPlayer::serialize() {
+std::string GetPlayer::serialize() const {
     return PlayerFragmentArguments::serialize();
 }
 

@@ -7,7 +7,7 @@ namespace enjin::sdk::shared {
 CompleteTrade::CompleteTrade() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.CompleteTrade") {
 }
 
-std::string CompleteTrade::serialize() {
+std::string CompleteTrade::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 

@@ -7,7 +7,7 @@ namespace enjin::sdk::shared {
 GetPlatform::GetPlatform() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.GetPlatform") {
 }
 
-std::string GetPlatform::serialize() {
+std::string GetPlatform::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (with_contracts.has_value()) {

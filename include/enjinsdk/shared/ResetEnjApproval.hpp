@@ -17,7 +17,7 @@ public:
 
     ~ResetEnjApproval() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     bool operator==(const ResetEnjApproval& rhs) const;
 

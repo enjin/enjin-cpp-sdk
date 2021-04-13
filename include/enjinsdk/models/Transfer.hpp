@@ -16,7 +16,7 @@ public:
 
     ~Transfer() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// Sets the source Ethereum address.
     /// \param address The source.

@@ -16,7 +16,7 @@ public:
 
     ~GetPlayer() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     bool operator==(const GetPlayer& rhs) const;
 

@@ -7,7 +7,7 @@ namespace enjin::sdk::shared {
 GetGasPrices::GetGasPrices() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.GetGasPrices") {
 }
 
-std::string GetGasPrices::serialize() {
+std::string GetGasPrices::serialize() const {
     return utils::document_to_string(rapidjson::Document(rapidjson::kObjectType));
 }
 

@@ -4,7 +4,7 @@
 
 namespace enjin::sdk::shared {
 
-std::string TransactionFragmentArgumentsImpl::serialize() {
+std::string TransactionFragmentArgumentsImpl::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (with_blockchain_data.has_value()) {

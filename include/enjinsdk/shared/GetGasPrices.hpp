@@ -14,7 +14,7 @@ public:
 
     ~GetGasPrices() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     bool operator==(const GetGasPrices& rhs) const;
 

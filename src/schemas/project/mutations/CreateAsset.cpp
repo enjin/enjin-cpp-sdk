@@ -8,7 +8,7 @@ namespace enjin::sdk::project {
 CreateAsset::CreateAsset() : graphql::AbstractGraphqlRequest("enjin.sdk.project.CreateAsset") {
 }
 
-std::string CreateAsset::serialize() {
+std::string CreateAsset::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 

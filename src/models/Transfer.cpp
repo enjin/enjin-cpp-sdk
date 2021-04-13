@@ -4,7 +4,7 @@
 
 namespace enjin::sdk::models {
 
-std::string Transfer::serialize() {
+std::string Transfer::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (from.has_value()) {

@@ -8,7 +8,7 @@ namespace enjin::sdk::project {
 SetWhitelisted::SetWhitelisted() : graphql::AbstractGraphqlRequest("enjin.sdk.project.SetWhitelisted") {
 }
 
-std::string SetWhitelisted::serialize() {
+std::string SetWhitelisted::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 

@@ -15,7 +15,7 @@ public:
 
     ~CancelTransaction() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the ID of the transaction to cancel.
     /// \param id The ID.

@@ -7,7 +7,7 @@ namespace enjin::sdk::shared {
 ApproveEnj::ApproveEnj() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.ApproveEnj") {
 }
 
-std::string ApproveEnj::serialize() {
+std::string ApproveEnj::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 

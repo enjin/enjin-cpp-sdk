@@ -18,7 +18,7 @@ public:
 
     ~GetRequest() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the transaction ID.
     /// \param id The ID.

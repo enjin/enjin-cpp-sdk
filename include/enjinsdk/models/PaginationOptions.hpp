@@ -15,7 +15,7 @@ public:
 
     ~PaginationOptions() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the page number to start at for the pagination.
     /// \param page The page number.

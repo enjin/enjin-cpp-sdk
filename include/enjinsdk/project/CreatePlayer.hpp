@@ -16,7 +16,7 @@ public:
 
     ~CreatePlayer() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the ID of the player.
     /// \param id The ID.

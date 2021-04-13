@@ -8,7 +8,7 @@ DecreaseMaxTransferFee::DecreaseMaxTransferFee()
         : graphql::AbstractGraphqlRequest("enjin.sdk.project.DecreaseMaxTransferFee") {
 }
 
-std::string DecreaseMaxTransferFee::serialize() {
+std::string DecreaseMaxTransferFee::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 

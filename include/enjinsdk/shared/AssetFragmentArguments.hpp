@@ -15,7 +15,7 @@ class ENJINSDK_EXPORT AssetFragmentArguments : public serialization::ISerializab
 public:
     ~AssetFragmentArguments() override = default;
 
-    std::string serialize() override {
+    [[nodiscard]] std::string serialize() const override {
         return impl.serialize();
     }
 

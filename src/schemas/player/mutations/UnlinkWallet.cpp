@@ -7,7 +7,7 @@ namespace enjin::sdk::player {
 UnlinkWallet::UnlinkWallet() : graphql::AbstractGraphqlRequest("enjin.sdk.player.UnlinkWallet") {
 }
 
-std::string UnlinkWallet::serialize() {
+std::string UnlinkWallet::serialize() const {
     return utils::document_to_string(rapidjson::Document(rapidjson::kObjectType));
 }
 

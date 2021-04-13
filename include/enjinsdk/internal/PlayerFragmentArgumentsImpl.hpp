@@ -15,7 +15,7 @@ public:
 
     ~PlayerFragmentArgumentsImpl() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the value for the associated field to true.
     void set_with_linking_info();

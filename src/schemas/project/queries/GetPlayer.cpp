@@ -7,7 +7,7 @@ namespace enjin::sdk::project {
 enjin::sdk::project::GetPlayer::GetPlayer() : graphql::AbstractGraphqlRequest("enjin.sdk.project.GetPlayer") {
 }
 
-std::string GetPlayer::serialize() {
+std::string GetPlayer::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, PlayerFragmentArguments::serialize());
 

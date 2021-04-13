@@ -7,7 +7,7 @@ namespace enjin::sdk::shared {
 GetAssets::GetAssets() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.GetAssets") {
 }
 
-std::string GetAssets::serialize() {
+std::string GetAssets::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_objects_to_document(document, {
             AssetFragmentArguments::serialize(),

@@ -5,7 +5,7 @@
 
 namespace enjin::sdk::models {
 
-std::string TransactionFilter::serialize() {
+std::string TransactionFilter::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (and_filters.has_value()) {

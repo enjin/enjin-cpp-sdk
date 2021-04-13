@@ -4,7 +4,7 @@
 
 namespace enjin::sdk::models {
 
-std::string Melt::serialize() {
+std::string Melt::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (asset_id.has_value()) {

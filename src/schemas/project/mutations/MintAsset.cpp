@@ -7,7 +7,7 @@ namespace enjin::sdk::project {
 MintAsset::MintAsset() : graphql::AbstractGraphqlRequest("enjin.sdk.project.MintAsset") {
 }
 
-std::string MintAsset::serialize() {
+std::string MintAsset::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 

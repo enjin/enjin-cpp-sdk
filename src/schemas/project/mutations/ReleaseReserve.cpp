@@ -7,7 +7,7 @@ namespace enjin::sdk::project {
 ReleaseReserve::ReleaseReserve() : graphql::AbstractGraphqlRequest("enjin.sdk.project.ReleaseReserve") {
 }
 
-std::string ReleaseReserve::serialize() {
+std::string ReleaseReserve::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 

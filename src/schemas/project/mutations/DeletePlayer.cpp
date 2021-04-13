@@ -7,7 +7,7 @@ namespace enjin::sdk::project {
 DeletePlayer::DeletePlayer() : graphql::AbstractGraphqlRequest("enjin.sdk.project.DeletePlayer") {
 }
 
-std::string DeletePlayer::serialize() {
+std::string DeletePlayer::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (id.has_value()) {

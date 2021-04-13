@@ -7,7 +7,7 @@ namespace enjin::sdk::shared {
 MeltAsset::MeltAsset() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.MeltAsset") {
 }
 
-std::string MeltAsset::serialize() {
+std::string MeltAsset::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 

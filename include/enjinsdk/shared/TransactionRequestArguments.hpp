@@ -15,7 +15,7 @@ class ENJINSDK_EXPORT TransactionRequestArguments : public TransactionFragmentAr
 public:
     ~TransactionRequestArguments() override = default;
 
-    std::string serialize() override {
+    [[nodiscard]] std::string serialize() const override {
         return impl.serialize();
     }
 

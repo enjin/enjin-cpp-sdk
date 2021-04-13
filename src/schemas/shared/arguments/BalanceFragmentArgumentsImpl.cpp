@@ -5,7 +5,7 @@
 
 namespace enjin::sdk::shared {
 
-std::string BalanceFragmentArgumentsImpl::serialize() {
+std::string BalanceFragmentArgumentsImpl::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (bal_id_format.has_value()) {

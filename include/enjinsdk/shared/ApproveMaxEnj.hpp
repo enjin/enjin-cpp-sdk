@@ -16,7 +16,7 @@ public:
 
     ~ApproveMaxEnj() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     bool operator==(const ApproveMaxEnj& rhs) const;
 

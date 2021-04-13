@@ -16,7 +16,7 @@ public:
 
     ~UnlinkWallet() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the Ethereum address of the wallet to unlink.
     /// \param eth_address The address.
