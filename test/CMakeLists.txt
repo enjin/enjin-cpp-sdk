@@ -63,7 +63,6 @@ target_link_libraries(${PROJECT_NAME}_tests
         ${PROJECT_NAME}_utils)
 target_include_directories(${PROJECT_NAME}_tests
         PRIVATE
-        "${PROJECT_BINARY_DIR}"
         "$<INSTALL_INTERFACE:include>"
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>/include"
         "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>/src/include")

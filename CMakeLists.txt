@@ -53,9 +53,20 @@ init_git_submodules()
 add_subdirectory(utils)
 add_subdirectory(scripts)
 
+# Create the SDK target
 add_library(${PROJECT_NAME} SHARED "")
 add_dependencies(${PROJECT_NAME} template_generator)
 generate_export_header(${PROJECT_NAME})
+
+# Sets compiler specific flags
+if (${CMAKE_PROJECT_NAME} STREQUAL ${PROJECT_NAME})
+    if (${CMAKE_CXX_COMPILER_ID} MATCHES "GNU" OR ${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")
+        target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra)
+    elseif (${CMAKE_CXX_COMPILER_ID} MATCHES "MSVC")
+        target_compile_options(${PROJECT_NAME} PRIVATE /EHsc /MTd /W2 /c)
+        target_compile_definitions(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_EXPORTS)
+    endif ()
+endif ()
 
 # Set SDK properties
 set_property(TARGET ${PROJECT_NAME} PROPERTY VERSION ${PROJECT_VERSION})
@@ -63,7 +74,8 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY SOVERSION 2)
 set_property(TARGET ${PROJECT_NAME} PROPERTY INTERFACE_${PROJECT_NAME}_MAJOR_VERSION 2)
 set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY COMPATIBLE_INTERFACE_STRING ${PROJECT_NAME}_MAJOR_VERSION)
 
-# Dependency setup
+####################################################################################################################
+### Link dependency
 if (${ENJINSDK_USING_CONAN})
     target_link_libraries(${PROJECT_NAME} PRIVATE ${CONAN_LIBS})
 else ()
@@ -100,13 +112,16 @@ else ()
     ######
 endif ()
 
+target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_utils)
+
 # Call macros to set preprocessor directives
 set_include_http_client_impl_macro()
 set_include_websocket_client_impl_macro()
 set_version_macro()
 
+####################################################################################################################
+### Target sources
 target_sources(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp")
-target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_utils)
 target_include_directories(${PROJECT_NAME}
         PUBLIC
         "$<INSTALL_INTERFACE:include>"
@@ -115,7 +130,50 @@ target_include_directories(${PROJECT_NAME}
 
 add_subdirectory(src)
 
-# Setup tests
+####################################################################################################################
+### Install library and export package
+include(CMakePackageConfigHelpers)
+include(GNUInstallDirs)
+
+if (WIN32)
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+endif ()
+
+install(DIRECTORY "include/" DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+install(TARGETS ${PROJECT_NAME}
+        EXPORT ${PROJECT_NAME}
+        LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
+        INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+
+install(FILES "${PROJECT_SOURCE_DIR}/include/*" DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+
+install(EXPORT ${PROJECT_NAME}
+        FILE ${PROJECT_NAME}.cmake
+        NAMESPACE ${PROJECT_NAME}::
+        DESTINATION "${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}")
+
+configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in"
+        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+        INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}")
+
+write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+        VERSION ${PROJECT_VERSION}
+        COMPATIBILITY SameMajorVersion)
+
+install(FILES
+        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+        DESTINATION "${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}")
+
+# Exports target from build tree
+export(EXPORT ${PROJECT_NAME}
+        FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.cmake"
+        NAMESPACE ${PROJECT_NAME}::)
+
+####################################################################################################################
+### Setup tests
 if (${CMAKE_PROJECT_NAME} STREQUAL ${PROJECT_NAME})
     include(CTest)
 
@@ -125,6 +183,8 @@ if (${CMAKE_PROJECT_NAME} STREQUAL ${PROJECT_NAME})
     endif ()
 endif ()
 
+####################################################################################################################
+### Unset variables
 unset(ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL)
 unset(ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL)
 unset(ENJINSDK_USING_CONAN)
