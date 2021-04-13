@@ -66,7 +66,7 @@ public:
     [[nodiscard]] const std::function<bool(models::EventType)>& get_matcher() const;
 
     /// \brief A matcher that returns true for any event type.
-    inline static std::function<bool(models::EventType)> const ALLOW_ALL_MATCHER = [](models::EventType type) {
+    inline static std::function<bool(models::EventType)> const ALLOW_ALL_MATCHER = [](models::EventType) {
         return true;
     };
 

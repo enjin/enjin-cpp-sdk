@@ -6,7 +6,6 @@
 #include "PusherException.hpp"
 #include <exception>
 #include <sstream>
-#include <utility>
 
 namespace enjin::pusher {
 
@@ -35,9 +34,9 @@ PusherClient::PusherClient(std::shared_ptr<sdk::websockets::IWebsocketClient> ws
                            const PusherOptions& options,
                            std::shared_ptr<sdk::utils::Logger> logger)
         : ws_client(std::move(ws_client)),
+          logger(std::move(logger)),
           key(std::move(key)),
-          options(options),
-          logger(std::move(logger)) {
+          options(options) {
     PusherClient::ws_client->set_message_handler([this](const std::string& message) {
         websocket_message_received(message);
     });
@@ -283,7 +282,7 @@ void PusherClient::websocket_opened() {
     }
 }
 
-void PusherClient::websocket_closed(int close_status, const std::string& message) {
+void PusherClient::websocket_closed(int close_status, const std::string&) {
     if (get_state() == ConnectionState::DISCONNECTED) {
         logger->log(sdk::utils::LogLevel::WARN, "Pusher client received close message while disconnected");
         return;
