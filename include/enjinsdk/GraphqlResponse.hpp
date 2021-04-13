@@ -43,7 +43,7 @@ public:
         return result;
     }
 
-    bool is_empty() noexcept override {
+    [[nodiscard]] bool is_empty() const noexcept override {
         return !result.has_value();
     }
 
@@ -91,7 +91,7 @@ public:
         return result;
     }
 
-    bool is_empty() noexcept override {
+    [[nodiscard]] bool is_empty() const noexcept override {
         return !result.has_value();
     }
 

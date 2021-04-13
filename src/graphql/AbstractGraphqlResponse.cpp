@@ -16,15 +16,15 @@ const std::optional<enjin::sdk::models::PaginationCursor>& AbstractGraphqlRespon
     return cursor;
 }
 
-bool AbstractGraphqlResponse::has_errors() noexcept {
+bool AbstractGraphqlResponse::has_errors() const noexcept {
     return errors.has_value() && !errors.value().empty();
 }
 
-bool AbstractGraphqlResponse::is_successful() noexcept {
+bool AbstractGraphqlResponse::is_successful() const noexcept {
     return !(is_empty() || has_errors());
 }
 
-bool AbstractGraphqlResponse::is_paginated() noexcept {
+bool AbstractGraphqlResponse::is_paginated() const noexcept {
     return cursor.has_value();
 }
 

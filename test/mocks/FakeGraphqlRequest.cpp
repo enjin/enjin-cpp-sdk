@@ -1,7 +1,5 @@
 #include "FakeGraphqlRequest.hpp"
 
-#include <utility>
-
 namespace enjin::test::mocks {
 
 FakeGraphqlRequest::FakeGraphqlRequest(std::string serialize_string)
@@ -9,7 +7,7 @@ FakeGraphqlRequest::FakeGraphqlRequest(std::string serialize_string)
           serialize_string(std::move(serialize_string)) {
 };
 
-std::string FakeGraphqlRequest::serialize() {
+std::string FakeGraphqlRequest::serialize() const {
     return serialize_string;
 }
 

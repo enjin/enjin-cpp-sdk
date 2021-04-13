@@ -13,7 +13,7 @@ public:
         explicit TestableGraphqlRequest(const std::string& template_key) : AbstractGraphqlRequest(template_key) {
         }
 
-        std::string serialize() override {
+        [[nodiscard]] std::string serialize() const override {
             return std::string();
         }
     };
