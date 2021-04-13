@@ -42,7 +42,7 @@ std::string request_2_string(const httplib::Request& req, const HttpClientImpl& 
     return ss.str();
 }
 
-std::string response_2_string(const httplib::Response& res, const HttpClientImpl& client) {
+std::string response_2_string(const httplib::Response& res, const HttpClientImpl&) {
     std::stringstream ss;
     ss << "Response Code: " << res.status << ",\n"
        << "Response Headers: " << headers_2_string(res.headers) << ",\n"

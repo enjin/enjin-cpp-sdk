@@ -10,8 +10,8 @@ BaseSchema::BaseSchema(TrustedPlatformMiddleware middleware,
                        std::string schema,
                        std::shared_ptr<utils::Logger> logger)
         : middleware(std::move(middleware)),
-          schema(std::move(schema)),
-          logger(std::move(logger)) {
+          logger(std::move(logger)),
+          schema(std::move(schema)) {
 }
 
 std::string BaseSchema::create_request_body(graphql::AbstractGraphqlRequest& request) {

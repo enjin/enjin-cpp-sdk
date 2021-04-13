@@ -67,7 +67,7 @@ protected:
 
             try {
                 return graphql::GraphqlResponse<T>(response.get_body().value());
-            } catch (std::exception e) {
+            } catch (const std::exception& e) {
                 log_graphql_exception(e);
                 throw e;
             }
@@ -88,7 +88,7 @@ protected:
 
             try {
                 return graphql::GraphqlResponse<std::vector<T>>(response.get_body().value());
-            } catch (std::exception e) {
+            } catch (const std::exception& e) {
                 log_graphql_exception(e);
                 throw e;
             }

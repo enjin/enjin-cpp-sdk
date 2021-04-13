@@ -4,7 +4,7 @@
 
 namespace enjin::sdk {
 
-TrustedPlatformMiddleware::TrustedPlatformMiddleware(std::unique_ptr<http::IHttpClient> client, bool debug)
+TrustedPlatformMiddleware::TrustedPlatformMiddleware(std::unique_ptr<http::IHttpClient> client, bool)
         : client(std::move(client)) {
 }
 

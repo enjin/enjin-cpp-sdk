@@ -3,7 +3,6 @@
 #include "EnumUtils.hpp"
 #include "enjinsdk_utils/StringUtils.hpp"
 #include <algorithm>
-#include <utility>
 
 namespace enjin::sdk::events {
 
@@ -191,7 +190,7 @@ std::map<models::EventType, std::unique_ptr<EventTypeDef>> EventTypeDef::create_
                                                                "EnjinCloud\\Events\\TransactionUpdated",
                                                                {"project", "asset", "wallet"}));
 
-    return std::move(map);
+    return map;
 }
 
 }

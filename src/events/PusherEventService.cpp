@@ -166,8 +166,8 @@ PusherEventService::PusherEventService(std::unique_ptr<websockets::IWebsocketCli
                                        std::shared_ptr<utils::Logger> logger,
                                        models::Platform platform)
         : impl(std::make_shared<PusherEventServiceImpl>(std::move(ws_client))),
-          logger(std::move(logger)),
-          platform(std::move(platform)) {
+          platform(std::move(platform)),
+          logger(std::move(logger)) {
 }
 
 void PusherEventService::start() {
