@@ -14,7 +14,7 @@ public:
 
     ~FakeGraphqlRequest() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
 private:
     std::string serialize_string;

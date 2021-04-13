@@ -26,20 +26,20 @@ public:
 
     /// \brief Determines if the response has errors or not.
     /// \return Whether this response has errors.
-    bool has_errors() noexcept;
+    [[nodiscard]] bool has_errors() const noexcept;
 
     /// \brief Determines if the response is empty or not.
     /// \return Whether this response does not have a result.
-    virtual bool is_empty() noexcept = 0;
+    [[nodiscard]] virtual bool is_empty() const noexcept = 0;
 
     /// \brief Determines if the response is successful or not.
     /// \return Whether this response is successful.
     /// \remark A response is considered successful if it has no errors and is not empty.
-    bool is_successful() noexcept;
+    [[nodiscard]] bool is_successful() const noexcept;
 
     /// \brief Determines if the response is paginated or not.
     /// \return Whether this response is paginated.
-    bool is_paginated() noexcept;
+    [[nodiscard]] bool is_paginated() const noexcept;
 
 protected:
     std::optional<std::vector<GraphqlError>> errors;
