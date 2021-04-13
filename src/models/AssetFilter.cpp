@@ -4,7 +4,7 @@
 
 namespace enjin::sdk::models {
 
-std::string AssetFilter::serialize() {
+std::string AssetFilter::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (and_filters.has_value()) {

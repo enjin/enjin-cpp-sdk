@@ -4,7 +4,7 @@
 
 namespace enjin::sdk::models {
 
-std::string MintInput::serialize() {
+std::string MintInput::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (to.has_value()) {

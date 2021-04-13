@@ -5,7 +5,7 @@ namespace enjin::sdk::shared {
 ResetEnjApproval::ResetEnjApproval() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.ResetEnjApproval") {
 }
 
-std::string ResetEnjApproval::serialize() {
+std::string ResetEnjApproval::serialize() const {
     return TransactionRequestArguments::serialize();
 }
 

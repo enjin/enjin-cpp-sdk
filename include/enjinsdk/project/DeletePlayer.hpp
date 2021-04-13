@@ -16,7 +16,7 @@ public:
 
     ~DeletePlayer() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the ID for the player to be deleted.
     /// \param id The ID.

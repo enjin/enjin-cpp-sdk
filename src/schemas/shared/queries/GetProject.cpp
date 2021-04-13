@@ -7,7 +7,7 @@ namespace enjin::sdk::shared {
 GetProject::GetProject() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.GetProject") {
 }
 
-std::string GetProject::serialize() {
+std::string GetProject::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (id.has_value()) {

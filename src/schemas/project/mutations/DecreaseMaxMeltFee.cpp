@@ -7,7 +7,7 @@ namespace enjin::sdk::project {
 DecreaseMaxMeltFee::DecreaseMaxMeltFee() : graphql::AbstractGraphqlRequest("enjin.sdk.project.DecreaseMaxMeltFee") {
 }
 
-std::string DecreaseMaxMeltFee::serialize() {
+std::string DecreaseMaxMeltFee::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 

@@ -20,7 +20,7 @@ public:
 
     ~GetBalances() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the balance filter the request will use.
     /// \param filter The filter.

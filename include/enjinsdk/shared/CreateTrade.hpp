@@ -20,7 +20,7 @@ public:
 
     ~CreateTrade() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the assets the sender is asking for.
     /// \param assets The assets.

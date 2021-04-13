@@ -23,7 +23,7 @@ public:
 
     void deserialize(const std::string& json) override;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     bool operator==(const DummyObject& rhs) const;
 

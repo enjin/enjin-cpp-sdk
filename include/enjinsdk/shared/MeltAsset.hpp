@@ -19,7 +19,7 @@ public:
 
     ~MeltAsset() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// Sets the melts to be performed.
     /// \param melts The melts.

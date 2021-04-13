@@ -7,7 +7,7 @@ namespace enjin::sdk::project {
 SetMeltFee::SetMeltFee() : graphql::AbstractGraphqlRequest("enjin.sdk.project.SetMeltFee") {
 }
 
-std::string SetMeltFee::serialize() {
+std::string SetMeltFee::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 

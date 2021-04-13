@@ -14,7 +14,7 @@ class ENJINSDK_EXPORT WalletFragmentArguments : public serialization::ISerializa
 public:
     ~WalletFragmentArguments() override = default;
 
-    std::string serialize() override {
+    [[nodiscard]] std::string serialize() const override {
         return impl.serialize();
     }
 

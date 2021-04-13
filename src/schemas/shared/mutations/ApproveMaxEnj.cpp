@@ -5,7 +5,7 @@ namespace enjin::sdk::shared {
 ApproveMaxEnj::ApproveMaxEnj() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.ApproveMaxEnj") {
 }
 
-std::string ApproveMaxEnj::serialize() {
+std::string ApproveMaxEnj::serialize() const {
     return TransactionRequestArguments::serialize();
 }
 

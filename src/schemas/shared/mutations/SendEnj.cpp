@@ -7,7 +7,7 @@ namespace enjin::sdk::shared {
 SendEnj::SendEnj() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.SendEnj") {
 }
 
-std::string SendEnj::serialize() {
+std::string SendEnj::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 

@@ -7,7 +7,7 @@ namespace enjin::sdk::shared {
 SetApprovalForAll::SetApprovalForAll() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.SetApprovalForAll") {
 }
 
-std::string SetApprovalForAll::serialize() {
+std::string SetApprovalForAll::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 

@@ -18,7 +18,7 @@ public:
 
     ~ApproveEnj() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the amount of ENJ to approve.
     /// \param value The value.

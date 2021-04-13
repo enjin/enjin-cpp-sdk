@@ -16,7 +16,7 @@ public:
 
     ~SetApprovalForAll() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     SetApprovalForAll& set_operator_address(const std::string& operator_address);
 

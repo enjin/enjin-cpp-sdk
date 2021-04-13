@@ -4,7 +4,7 @@
 
 namespace enjin::sdk::shared {
 
-std::string WalletFragmentArgumentsImpl::serialize() {
+std::string WalletFragmentArgumentsImpl::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (with_assets_created.has_value()) {

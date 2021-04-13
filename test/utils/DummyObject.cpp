@@ -19,7 +19,7 @@ void DummyObject::deserialize(const std::string& json) {
     }
 }
 
-std::string DummyObject::serialize() {
+std::string DummyObject::serialize() const {
     rapidjson::Document document;
     document.SetObject();
     rapidjson::Document::AllocatorType& allocator = document.GetAllocator();

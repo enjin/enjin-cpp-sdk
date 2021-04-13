@@ -8,7 +8,7 @@ CreateTrade::CreateTrade() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.C
 
 }
 
-std::string CreateTrade::serialize() {
+std::string CreateTrade::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
 

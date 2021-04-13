@@ -7,7 +7,7 @@ namespace enjin::sdk::project {
 GetWallets::GetWallets() : graphql::AbstractGraphqlRequest("enjin.sdk.project.GetWallets") {
 }
 
-std::string GetWallets::serialize() {
+std::string GetWallets::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_objects_to_document(document, {
             WalletFragmentArguments::serialize(),

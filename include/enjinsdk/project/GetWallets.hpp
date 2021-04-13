@@ -21,7 +21,7 @@ public:
 
     ~GetWallets() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the user IDs owning the wallets to get.
     /// \param user_ids The IDs.

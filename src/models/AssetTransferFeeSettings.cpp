@@ -43,7 +43,7 @@ bool AssetTransferFeeSettings::operator!=(const AssetTransferFeeSettings& rhs) c
     return !(rhs == *this);
 }
 
-std::string AssetTransferFeeSettingsInput::serialize() {
+std::string AssetTransferFeeSettingsInput::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (type.has_value()) {

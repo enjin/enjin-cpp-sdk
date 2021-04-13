@@ -4,7 +4,7 @@
 
 namespace enjin::sdk::models {
 
-std::string PaginationOptions::serialize() {
+std::string PaginationOptions::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (page.has_value()) {

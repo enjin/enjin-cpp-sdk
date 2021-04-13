@@ -4,7 +4,7 @@
 
 namespace enjin::sdk::models {
 
-std::string Trade::serialize() {
+std::string Trade::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (asset_id.has_value()) {

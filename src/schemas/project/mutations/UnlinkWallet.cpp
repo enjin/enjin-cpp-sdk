@@ -7,7 +7,7 @@ namespace enjin::sdk::project {
 UnlinkWallet::UnlinkWallet() : graphql::AbstractGraphqlRequest("enjin.sdk.project.UnlinkWallet") {
 }
 
-std::string UnlinkWallet::serialize() {
+std::string UnlinkWallet::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (eth_address.has_value()) {

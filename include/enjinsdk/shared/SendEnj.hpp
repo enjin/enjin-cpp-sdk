@@ -18,7 +18,7 @@ public:
 
     ~SendEnj() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the wallet address of the recipient.
     /// \param recipient_address The address.

@@ -7,7 +7,7 @@ namespace enjin::sdk::shared {
 GetBalances::GetBalances() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.GetBalances") {
 }
 
-std::string GetBalances::serialize() {
+std::string GetBalances::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_objects_to_document(document, {
             BalanceFragmentArguments::serialize(),

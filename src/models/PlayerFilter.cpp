@@ -4,7 +4,7 @@
 
 namespace enjin::sdk::models {
 
-std::string PlayerFilter::serialize() {
+std::string PlayerFilter::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (and_filters.has_value()) {

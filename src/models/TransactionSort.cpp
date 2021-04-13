@@ -5,7 +5,7 @@
 
 namespace enjin::sdk::models {
 
-std::string TransactionSort::serialize() {
+std::string TransactionSort::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (field.has_value()) {

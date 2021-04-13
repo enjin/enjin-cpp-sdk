@@ -16,7 +16,7 @@ public:
 
     ~Trade() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// Sets the asset ID to trade or ENJ if unused.
     /// \param id The ID.

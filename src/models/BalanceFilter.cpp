@@ -4,7 +4,7 @@
 
 namespace enjin::sdk::models {
 
-std::string BalanceFilter::serialize() {
+std::string BalanceFilter::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (and_filters.has_value()) {

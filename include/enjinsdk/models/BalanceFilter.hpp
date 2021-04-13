@@ -17,7 +17,7 @@ public:
 
     ~BalanceFilter() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the filter to include other filters to intersect with.
     /// \param others The other filters.

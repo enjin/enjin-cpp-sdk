@@ -55,7 +55,7 @@ public:
 
     ~AssetTransferFeeSettingsInput() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the transfer type for this input.
     /// \param type The type.

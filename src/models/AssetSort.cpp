@@ -5,7 +5,7 @@
 
 namespace enjin::sdk::models {
 
-std::string AssetSort::serialize() {
+std::string AssetSort::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (field.has_value()) {

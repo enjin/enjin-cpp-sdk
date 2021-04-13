@@ -7,7 +7,7 @@ namespace enjin::sdk::shared {
 CancelTransaction::CancelTransaction() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.CancelTransaction") {
 }
 
-std::string CancelTransaction::serialize() {
+std::string CancelTransaction::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (id.has_value()) {

@@ -4,7 +4,7 @@
 
 namespace enjin::sdk::shared {
 
-std::string PlayerFragmentArgumentsImpl::serialize() {
+std::string PlayerFragmentArgumentsImpl::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (with_linking_info.has_value()) {

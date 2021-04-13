@@ -17,7 +17,7 @@ public:
 
     ~TransactionSort() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the field to sort by.
     /// \param field The field.

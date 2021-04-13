@@ -16,7 +16,7 @@ class ENJINSDK_EXPORT PaginationArguments : public serialization::ISerializable 
 public:
     ~PaginationArguments() override = default;
 
-    std::string serialize() override {
+    [[nodiscard]] std::string serialize() const override {
         return impl.serialize();
     }
 

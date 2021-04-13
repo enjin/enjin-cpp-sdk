@@ -5,7 +5,7 @@
 
 namespace enjin::sdk::shared {
 
-std::string AssetFragmentArgumentsImpl::serialize() {
+std::string AssetFragmentArgumentsImpl::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (asset_id_format.has_value()) {

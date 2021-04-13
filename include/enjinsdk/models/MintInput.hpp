@@ -16,7 +16,7 @@ public:
 
     ~MintInput() override = default;
 
-    std::string serialize() override;
+    [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the Ethereum address to mint to.
     /// \param address The address.
