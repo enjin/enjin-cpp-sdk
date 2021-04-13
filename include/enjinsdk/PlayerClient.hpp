@@ -58,11 +58,15 @@ private:
 class ENJINSDK_EXPORT PlayerClient : public IClient,
                                      public player::PlayerSchema {
 public:
-    ~PlayerClient() override = default;
+    ~PlayerClient() override;
 
     void auth(const std::string& token) override;
 
+    void close() override;
+
     bool is_authenticated() override;
+
+    bool is_closed() override;
 
 private:
     explicit PlayerClient(TrustedPlatformMiddleware middleware, std::shared_ptr<utils::Logger> logger);
