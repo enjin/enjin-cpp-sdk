@@ -58,3 +58,41 @@ TEST_F(HttpClientImplTest, SendRequestReceivesExpectedResponse) {
     // Assert
     ASSERT_EQ(expected, actual);
 }
+
+TEST_F(HttpClientImplTest, IsOpenClientHasNotBeenStartedReturnsFalse) {
+    // Arrange
+    HttpClientImpl client = create_client();
+
+    // Act
+    bool actual = client.is_open();
+
+    // Assert
+    ASSERT_FALSE(actual);
+
+    client.start(); // Start the client to prevent the server from throwing an exception
+}
+
+TEST_F(HttpClientImplTest, IsOpenClientHasBeenStartedReturnsTrue) {
+    // Arrange
+    HttpClientImpl client = create_client();
+    client.start();
+
+    // Act
+    bool actual = client.is_open();
+
+    // Assert
+    ASSERT_TRUE(actual);
+}
+
+TEST_F(HttpClientImplTest, IsOpenClientHasBeenStoppedAfterStartingReturnsFalse) {
+    // Arrange
+    HttpClientImpl client = create_client();
+    client.start();
+    client.stop();
+
+    // Act
+    bool actual = client.is_open();
+
+    // Assert
+    ASSERT_FALSE(actual);
+}

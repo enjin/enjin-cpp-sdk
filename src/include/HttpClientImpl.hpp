@@ -39,8 +39,12 @@ public:
     /// \return The URI.
     [[nodiscard]] const std::string& get_base_uri() const;
 
+    [[nodiscard]] bool is_open() const override;
+
 private:
     const std::string base_uri;
+
+    bool open = false;
 
     std::unique_ptr<httplib::Client> http_client;
     std::shared_ptr<utils::Logger> logger;

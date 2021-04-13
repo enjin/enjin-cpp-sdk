@@ -14,16 +14,20 @@ public:
     /// \brief Default destructor.
     virtual ~IHttpClient() = default;
 
-    /// \brief Starts the client.
+    /// \brief Starts this client.
     virtual void start() = 0;
 
-    /// \brief Stops the client.
+    /// \brief Stops this client.
     virtual void stop() = 0;
 
     /// \brief Sends an HTTP request asynchronously.
     /// \param request The HTTP request.
     /// \return The future for accessing the response.
     virtual std::future<HttpResponse> send_request(const HttpRequest& request) = 0;
+
+    /// \brief Determines if this client is open.
+    /// \return Whether this client is open.
+    [[nodiscard]] virtual bool is_open() const = 0;
 };
 
 }
