@@ -8,8 +8,6 @@ GraphqlQueryRegistry::GraphqlQueryRegistry() {
     register_template_constants();
 }
 
-GraphqlQueryRegistry::~GraphqlQueryRegistry() = default;
-
 bool GraphqlQueryRegistry::register_template(const std::string& name, const std::string& query) {
     if (registered.find(name) == registered.end()) {
         registered.emplace(name, query);
@@ -25,7 +23,7 @@ void GraphqlQueryRegistry::register_template_constants() {
     }
 }
 
-bool GraphqlQueryRegistry::has_operation_for_name(const std::string& name) {
+bool GraphqlQueryRegistry::has_operation_for_name(const std::string& name) const {
     return registered.find(name) != registered.end();
 }
 

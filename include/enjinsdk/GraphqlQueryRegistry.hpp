@@ -14,7 +14,7 @@ public:
     GraphqlQueryRegistry();
 
     /// \brief Default destructor.
-    ~GraphqlQueryRegistry();
+    ~GraphqlQueryRegistry() = default;
 
     /// \brief Registers a new template if one with the given name does not already exist.
     /// \param name The template name.
@@ -25,7 +25,7 @@ public:
     /// \brief Returns true if this registry contains a template with the given name.
     /// \param name The template name.
     /// \return True if the name is registered, false otherwise.
-    bool has_operation_for_name(const std::string& name);
+    [[nodiscard]] bool has_operation_for_name(const std::string& name) const;
 
     /// \brief Returns the template string if the registry contains the template or an empty string if not.
     /// \param name The template name.
