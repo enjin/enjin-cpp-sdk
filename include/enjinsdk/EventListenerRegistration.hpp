@@ -41,7 +41,7 @@ public:
 
         /// \brief Creates the registration and provides the unique pointer for it.
         /// \return The unique pointer for the registration.
-        std::unique_ptr<EventListenerRegistration> create();
+        [[nodiscard]] std::unique_ptr<EventListenerRegistration> create();
 
         /// \brief Returns a reference to the listener.
         /// \return The reference to the listener.
