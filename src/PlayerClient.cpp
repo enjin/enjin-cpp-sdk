@@ -30,23 +30,23 @@ void PlayerClient::close() {
     middleware.get_client()->stop();
 }
 
-bool PlayerClient::is_authenticated() {
+bool PlayerClient::is_authenticated() const {
     return middleware.get_handler()->is_authenticated();
 }
 
-bool PlayerClient::is_closed() {
+bool PlayerClient::is_closed() const {
     return !middleware.get_client()->is_open();
 }
 
 std::unique_ptr<PlayerClient> PlayerClientBuilder::build() {
     if (m_http_client == nullptr) {
 #if ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL
-        m_http_client = std::make_unique<http::HttpClientImpl>(m_base_uri.has_value()
-                                                               ? m_base_uri.value()
-                                                               : throw std::runtime_error(
-                        "No base URI was set for default HTTP client implementation"),
-                                                               m_logger);
-        TrustedPlatformMiddleware middleware(std::move(m_http_client), m_debug.has_value() && m_debug.value());
+        if (!m_base_uri.has_value()) {
+            throw std::runtime_error("No base URI was set for default HTTP client implementation");
+        }
+
+        TrustedPlatformMiddleware middleware(std::make_unique<http::HttpClientImpl>(m_base_uri.value(), m_logger),
+                                             m_debug.has_value() && m_debug.value());
         return std::unique_ptr<PlayerClient>(new PlayerClient(std::move(middleware), m_logger));
 #else
         throw std::runtime_error("Attempted building platform client without providing an HTTP client");

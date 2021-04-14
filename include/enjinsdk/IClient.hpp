@@ -21,11 +21,11 @@ public:
 
     /// \brief Determines if this client is authenticated.
     /// \return Whether this client is authenticated.
-    virtual bool is_authenticated() = 0;
+    [[nodiscard]] virtual bool is_authenticated() const = 0;
 
     /// \brief Determines if this client is closed.
     /// \return Whether this client is closed.
-    virtual bool is_closed() = 0;
+    [[nodiscard]] virtual bool is_closed() const = 0;
 };
 
 }
