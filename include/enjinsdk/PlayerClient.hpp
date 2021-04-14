@@ -25,7 +25,7 @@ public:
 
     /// \brief Builds the client and provides the unique pointer for it.
     /// \return The client.
-    std::unique_ptr<PlayerClient> build();
+    [[nodiscard]] std::unique_ptr<PlayerClient> build();
 
     /// \brief Sets the base URI of the underlying HTTP client if one is not provided.
     /// \param base_uri The base URI.
@@ -58,15 +58,17 @@ private:
 class ENJINSDK_EXPORT PlayerClient : public IClient,
                                      public player::PlayerSchema {
 public:
+    PlayerClient() = delete;
+
     ~PlayerClient() override;
 
     void auth(const std::string& token) override;
 
     void close() override;
 
-    bool is_authenticated() override;
+    [[nodiscard]] bool is_authenticated() const override;
 
-    bool is_closed() override;
+    [[nodiscard]] bool is_closed() const override;
 
 private:
     explicit PlayerClient(TrustedPlatformMiddleware middleware, std::shared_ptr<utils::Logger> logger);
