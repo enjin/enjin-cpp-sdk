@@ -20,7 +20,7 @@ public:
 
     /// \brief Builds the response.
     /// \return The built response.
-    HttpResponse build();
+    [[nodiscard]] HttpResponse build();
 
     /// \brief Sets the status code the response will be built with.
     /// \param code The status code.

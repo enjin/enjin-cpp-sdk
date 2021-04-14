@@ -35,7 +35,7 @@ public:
     /// \brief Builds the request.
     /// \return The built request.
     /// \throws runtime_error If no HTTP method was set.
-    HttpRequest build();
+    [[nodiscard]] HttpRequest build();
 
     /// \brief Sets the HTTP method the request will be built with.
     /// \param method The HTTP method.

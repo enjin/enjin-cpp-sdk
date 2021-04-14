@@ -24,7 +24,7 @@ TEST_F(HttpRequestBuilderTest, BuildMethodValueIsNotSetThrowsException) {
                     .body(DEFAULT_BODY);
 
     // Assert
-    ASSERT_ANY_THROW(class_under_test.build());
+    ASSERT_ANY_THROW(HttpRequest request = class_under_test.build());
 }
 
 TEST_F(HttpRequestBuilderTest, BuildMethodValueIsSetDoThrowsException) {
@@ -36,7 +36,7 @@ TEST_F(HttpRequestBuilderTest, BuildMethodValueIsSetDoThrowsException) {
                     .body(DEFAULT_BODY);
 
     // Assert
-    ASSERT_NO_THROW(class_under_test.build());
+    ASSERT_NO_THROW(HttpRequest request = class_under_test.build());
 }
 
 TEST_F(HttpRequestBuilderTest, MethodValueIsSetBuiltRequestHasExpectedValue) {
