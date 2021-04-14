@@ -18,7 +18,7 @@ public:
 
     ~EventTypeDef() = default;
 
-    bool in(const std::vector<models::EventType>& types);
+    [[nodiscard]] bool in(const std::vector<models::EventType>& types) const;
 
     [[nodiscard]] models::EventType get_type() const;
 
