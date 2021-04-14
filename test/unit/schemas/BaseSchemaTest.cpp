@@ -11,7 +11,7 @@ using namespace enjin::test::utils;
 class BaseSchemaTest : public testing::Test {
 public:
     [[nodiscard]] static TestableBaseSchema create_testable_base_schema() {
-        return TestableBaseSchema(TrustedPlatformMiddleware(nullptr, false));
+        return TestableBaseSchema(TrustedPlatformMiddleware(nullptr));
     }
 
     [[nodiscard]] static FakeGraphqlRequest create_default_fake_request() {

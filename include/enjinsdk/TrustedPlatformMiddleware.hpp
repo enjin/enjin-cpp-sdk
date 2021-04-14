@@ -17,8 +17,7 @@ public:
 
     /// \brief Constructs the middleware with the underlying HTTP client and debug option.
     /// \param client The HTTP client.
-    /// \param debug Whether debugging is enabled.
-    explicit TrustedPlatformMiddleware(std::unique_ptr<http::IHttpClient> client, bool debug = false);
+    explicit TrustedPlatformMiddleware(std::unique_ptr<http::IHttpClient> client);
 
     /// \brief Default move constructor.
     /// \param middleware The middleware to move.

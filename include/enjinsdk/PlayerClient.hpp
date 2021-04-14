@@ -37,11 +37,6 @@ public:
     /// \return This builder for chaining.
     PlayerClientBuilder& http_client(std::unique_ptr<http::IHttpClient> http_client);
 
-    /// \brief Sets whether the client will have debugging enabled.
-    /// \param debug The debug state.
-    /// \return This builder for chaining.
-    PlayerClientBuilder& debug(int debug);
-
     /// \brief Sets the logger to be used by the client.
     /// \param logger The logger.
     /// \return This builder for chaining.
@@ -50,7 +45,6 @@ public:
 private:
     std::optional<std::string> m_base_uri;
     std::unique_ptr<http::IHttpClient> m_http_client;
-    std::optional<bool> m_debug;
     std::shared_ptr<utils::Logger> m_logger;
 };
 
