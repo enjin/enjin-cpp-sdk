@@ -158,16 +158,20 @@ private:
 
 PusherEventService::PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client,
                                        std::shared_ptr<utils::Logger> logger)
-        : impl(std::make_shared<PusherEventServiceImpl>(std::move(ws_client))),
+        : impl(new PusherEventServiceImpl(std::move(ws_client))),
           logger(std::move(logger)) {
 }
 
 PusherEventService::PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client,
                                        std::shared_ptr<utils::Logger> logger,
                                        models::Platform platform)
-        : impl(std::make_shared<PusherEventServiceImpl>(std::move(ws_client))),
+        : impl(new PusherEventServiceImpl(std::move(ws_client))),
           platform(std::move(platform)),
           logger(std::move(logger)) {
+}
+
+PusherEventService::~PusherEventService() {
+    delete impl;
 }
 
 void PusherEventService::start() {

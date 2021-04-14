@@ -56,7 +56,7 @@ class ENJINSDK_EXPORT PusherEventService : public IEventService {
 public:
     PusherEventService() = delete;
 
-    ~PusherEventService() override = default;
+    ~PusherEventService() override;
 
     void start() override;
 
@@ -127,7 +127,7 @@ protected:
 private:
     class PusherEventListener;
 
-    std::shared_ptr<PusherEventServiceImpl> impl;
+    PusherEventServiceImpl* impl;
     std::shared_ptr<PusherEventListener> listener;
 
     std::optional<models::Platform> platform;
