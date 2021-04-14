@@ -55,8 +55,9 @@ EventListenerRegistration::RegistrationListenerConfiguration::with_ignored_event
     return *this;
 }
 
-std::unique_ptr<EventListenerRegistration> EventListenerRegistration::RegistrationListenerConfiguration::create() {
-    return std::unique_ptr<EventListenerRegistration>(new EventListenerRegistration(listener, matcher));
+std::unique_ptr<EventListenerRegistration>
+EventListenerRegistration::RegistrationListenerConfiguration::create() {
+    return std::unique_ptr<EventListenerRegistration>(new EventListenerRegistration(std::move(listener), matcher));
 }
 
 const IEventListener& EventListenerRegistration::RegistrationListenerConfiguration::get_listener() const {
