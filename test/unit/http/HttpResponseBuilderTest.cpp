@@ -11,7 +11,7 @@ public:
 
 TEST_F(HttpResponseBuilderTest, BuildDoesNotThrowException) {
     // Arrange
-    ASSERT_NO_THROW(class_under_test.build());
+    ASSERT_NO_THROW(HttpResponse response = class_under_test.build());
 }
 
 TEST_F(HttpResponseBuilderTest, BuildNoSetValuesBuiltRequestIsEmpty) {

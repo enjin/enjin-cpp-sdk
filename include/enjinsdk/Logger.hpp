@@ -37,7 +37,7 @@ public:
 
     /// \brief Builds the logger and provides the unique pointer for it.
     /// \return The logger.
-    std::unique_ptr<Logger> build();
+    [[nodiscard]] std::unique_ptr<Logger> build();
 
     /// \brief Enables color on the logger for sinks which support the feature.
     /// \return This builder for chaining.
