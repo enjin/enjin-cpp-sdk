@@ -13,7 +13,7 @@ EventTypeDef::EventTypeDef(models::EventType type, std::string key, std::vector<
         : type(type), key(std::move(key)), channels(std::move(channels)), name(utils::serialize_event_type(type)) {
 }
 
-bool EventTypeDef::in(const std::vector<models::EventType>& types) {
+bool EventTypeDef::in(const std::vector<models::EventType>& types) const {
     return std::find_if(types.begin(), types.end(), [this](models::EventType t) {
         return t == type;
     }) != types.end();
