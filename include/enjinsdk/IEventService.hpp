@@ -29,12 +29,12 @@ public:
 
     /// \brief Determines if this service is connected for receiving events.
     /// \return Whether this service is connected.
-    virtual bool is_connected() = 0;
+    [[nodiscard]] virtual bool is_connected() const = 0;
 
     /// \brief Determines if the the listener is registered to this service.
     /// \param listener The listener.
     /// \return Whether the listener is registered.
-    virtual bool is_registered(IEventListener& listener) = 0;
+    [[nodiscard]] virtual bool is_registered(IEventListener& listener) const = 0;
 
     /// \brief Sets a handler for when the service connects to the server.
     /// \param handler The handler.
@@ -92,7 +92,7 @@ public:
     /// \brief Determines if this service is subscribed to the specified channel.
     /// \param project The project ID.
     /// \return Whether this service is subscribed to the channel.
-    virtual bool is_subscribed_to_project(int project) = 0;
+    [[nodiscard]] virtual bool is_subscribed_to_project(int project) const = 0;
 
     /// \brief Opens a channel for the specified player, allowing listeners to receive events for it.
     /// \param project The project ID.
@@ -108,7 +108,7 @@ public:
     /// \param project The project ID.
     /// \param player The player ID.
     /// \return Whether this service is subscribed to the channel.
-    virtual bool is_subscribed_to_player(int project, const std::string& player) = 0;
+    [[nodiscard]] virtual bool is_subscribed_to_player(int project, const std::string& player) const = 0;
 
     /// \brief Opens a channel for the specified asset, allowing listeners to receive events for it.
     /// \param asset The asset ID.
@@ -121,7 +121,7 @@ public:
     /// \brief Determines if this service is subscribed to the specified channel.
     /// \param asset The asset ID.
     /// \return Whether this service is subscribed to the channel.
-    virtual bool is_subscribed_to_asset(const std::string& asset) = 0;
+    [[nodiscard]] virtual bool is_subscribed_to_asset(const std::string& asset) const = 0;
 
     /// \brief Opens a channel for the specified wallet, allowing listeners to receive events for it.
     /// \param wallet The wallet's address.
@@ -134,7 +134,7 @@ public:
     /// \brief Determines if this service is subscribed to the specified channel.
     /// \param wallet The address.
     /// \return Whether this service is subscribed to the channel.
-    virtual bool is_subscribed_to_wallet(const std::string& wallet) = 0;
+    [[nodiscard]] virtual bool is_subscribed_to_wallet(const std::string& wallet) const = 0;
 };
 
 }
