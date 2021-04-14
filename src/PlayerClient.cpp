@@ -45,14 +45,13 @@ std::unique_ptr<PlayerClient> PlayerClientBuilder::build() {
             throw std::runtime_error("No base URI was set for default HTTP client implementation");
         }
 
-        TrustedPlatformMiddleware middleware(std::make_unique<http::HttpClientImpl>(m_base_uri.value(), m_logger),
-                                             m_debug.has_value() && m_debug.value());
+        TrustedPlatformMiddleware middleware(std::make_unique<http::HttpClientImpl>(m_base_uri.value(), m_logger));
         return std::unique_ptr<PlayerClient>(new PlayerClient(std::move(middleware), m_logger));
 #else
         throw std::runtime_error("Attempted building platform client without providing an HTTP client");
 #endif
     } else {
-        TrustedPlatformMiddleware middleware(std::move(m_http_client), m_debug.has_value() && m_debug.value());
+        TrustedPlatformMiddleware middleware(std::move(m_http_client));
         return std::unique_ptr<PlayerClient>(new PlayerClient(std::move(middleware), m_logger));
     }
 }
@@ -64,11 +63,6 @@ PlayerClientBuilder& PlayerClientBuilder::base_uri(const std::string& base_uri) 
 
 PlayerClientBuilder& PlayerClientBuilder::http_client(std::unique_ptr<http::IHttpClient> http_client) {
     m_http_client = std::move(http_client);
-    return *this;
-}
-
-PlayerClientBuilder& PlayerClientBuilder::debug(int debug) {
-    m_debug = debug;
     return *this;
 }
 

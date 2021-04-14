@@ -5,7 +5,7 @@
 namespace enjin::test::utils {
 
 TestableBaseSchema::TestableBaseSchema()
-        : TestableBaseSchema(sdk::TrustedPlatformMiddleware(nullptr, false)) {
+        : TestableBaseSchema(sdk::TrustedPlatformMiddleware(nullptr)) {
 }
 
 TestableBaseSchema::TestableBaseSchema(sdk::TrustedPlatformMiddleware middleware)

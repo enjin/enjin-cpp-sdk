@@ -25,7 +25,7 @@ public:
         auto client = std::make_unique<http::HttpClientImpl>(mock_server.uri());
         client->start();
 
-        return TestableBaseSchema(TrustedPlatformMiddleware(std::move(client), false));
+        return TestableBaseSchema(TrustedPlatformMiddleware(std::move(client)));
     }
 
 protected:
