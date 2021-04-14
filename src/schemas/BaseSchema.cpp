@@ -14,7 +14,7 @@ BaseSchema::BaseSchema(TrustedPlatformMiddleware middleware,
           schema(std::move(schema)) {
 }
 
-std::string BaseSchema::create_request_body(graphql::AbstractGraphqlRequest& request) {
+std::string BaseSchema::create_request_body(graphql::AbstractGraphqlRequest& request) const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     utils::set_string_member(document,
@@ -25,7 +25,7 @@ std::string BaseSchema::create_request_body(graphql::AbstractGraphqlRequest& req
     return utils::document_to_string(document);
 }
 
-http::HttpRequest BaseSchema::create_request(graphql::AbstractGraphqlRequest& request) {
+http::HttpRequest BaseSchema::create_request(graphql::AbstractGraphqlRequest& request) const {
     http::HttpRequestBuilder builder;
     builder.method(http::HttpMethod::Post)
            .path_query_fragment(std::string("/graphql/").append(schema))
@@ -45,7 +45,7 @@ http::HttpRequest BaseSchema::create_request(graphql::AbstractGraphqlRequest& re
     builder.add_header(http::TrustedPlatformHandler::USER_AGENT, user_agent_ss.str());
 
     // Adds authorization header if SDK has been authenticated
-    auto tp_handler = middleware.get_handler();
+    auto& tp_handler = middleware.get_handler();
     if (tp_handler != nullptr && tp_handler->is_authenticated()) {
         std::stringstream authorization_ss;
         authorization_ss << http::TrustedPlatformHandler::AUTHORIZATION_SCHEMA

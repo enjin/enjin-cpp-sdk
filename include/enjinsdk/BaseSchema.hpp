@@ -47,12 +47,12 @@ protected:
     /// \brief Creates the serialized request body to be sent to the platform.
     /// \param request The request.
     /// \return The serialized request body.
-    std::string create_request_body(graphql::AbstractGraphqlRequest& request);
+    [[nodiscard]] std::string create_request_body(graphql::AbstractGraphqlRequest& request) const;
 
     /// \brief Creates an HTTP request with the passed GraphQL request as its body.
     /// \param request The GraphQL request.
     /// \return The HTTP request.
-    http::HttpRequest create_request(graphql::AbstractGraphqlRequest& request);
+    [[nodiscard]] http::HttpRequest create_request(graphql::AbstractGraphqlRequest& request) const;
 
     /// \brief Sends a request for one object from the platform.
     /// \tparam T The type contained by the response.
