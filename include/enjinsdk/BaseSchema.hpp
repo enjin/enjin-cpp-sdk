@@ -96,7 +96,7 @@ protected:
     }
 
 private:
-    inline static constexpr char JSON[] = "application/json; charset=utf-8";
+    static constexpr char JSON[] = "application/json; charset=utf-8";
 
     void log_graphql_exception(const std::exception& e);
 };
