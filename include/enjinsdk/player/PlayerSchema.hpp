@@ -11,6 +11,8 @@ namespace enjin::sdk::player {
 class ENJINSDK_EXPORT PlayerSchema : public IPlayerSchema,
                                      public shared::SharedSchema {
 public:
+    PlayerSchema() = delete;
+
     ~PlayerSchema() override = default;
 
     std::future<graphql::GraphqlResponse<models::Player>> get_player_async(GetPlayer& request) override;

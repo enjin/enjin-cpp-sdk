@@ -12,6 +12,8 @@ namespace enjin::sdk::shared {
 class ENJINSDK_EXPORT SharedSchema : public ISharedSchema,
                                      public BaseSchema {
 public:
+    SharedSchema() = delete;
+
     ~SharedSchema() override = default;
 
     std::future<graphql::GraphqlResponse<models::Request>>
