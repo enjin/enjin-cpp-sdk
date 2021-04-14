@@ -9,6 +9,9 @@
 
 namespace enjin::sdk::utils {
 
+static constexpr char LOGGER_PREFIX[] = "enjinsdk_logger_";
+static unsigned int id = 0;
+
 class LoggerImpl {
 public:
     LoggerImpl() = delete;
@@ -150,7 +153,7 @@ public:
 
     static std::string generate_next_logger_name() {
         std::stringstream ss;
-        ss << LOGGER_PREFIX << (LoggerImpl::id++);
+        ss << LOGGER_PREFIX << (id++);
         return ss.str();
     }
 
@@ -166,9 +169,6 @@ private:
     bool using_stderr;
 
     std::unique_ptr<spdlog::logger> logger;
-
-    inline static unsigned int id = 0;
-    static constexpr char LOGGER_PREFIX[] = "enjinsdk_logger_";
 };
 
 Logger::Logger(const std::string& logger_name,
