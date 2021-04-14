@@ -28,7 +28,7 @@ public:
 
     /// \brief Builds the event service.
     /// \return The unique pointer for the service.
-    std::unique_ptr<PusherEventService> build();
+    [[nodiscard]] std::unique_ptr<PusherEventService> build();
 
     /// \brief Sets the platform model that the event service will use.
     /// \param platform The platform.
@@ -64,9 +64,9 @@ public:
 
     void shutdown() override;
 
-    bool is_connected() override;
+    [[nodiscard]] bool is_connected() const override;
 
-    bool is_registered(IEventListener& listener) override;
+    [[nodiscard]] bool is_registered(IEventListener& listener) const override;
 
     void set_connected_handler(const std::function<void()>& handler) override;
 
@@ -94,25 +94,25 @@ public:
 
     void unsubscribe_to_project(int project) override;
 
-    bool is_subscribed_to_project(int project) override;
+    [[nodiscard]] bool is_subscribed_to_project(int project) const override;
 
     void subscribe_to_player(int project, const std::string& player) override;
 
     void unsubscribe_to_player(int project, const std::string& player) override;
 
-    bool is_subscribed_to_player(int project, const std::string& player) override;
+    [[nodiscard]] bool is_subscribed_to_player(int project, const std::string& player) const override;
 
     void subscribe_to_asset(const std::string& asset) override;
 
     void unsubscribe_to_asset(const std::string& asset) override;
 
-    bool is_subscribed_to_asset(const std::string& asset) override;
+    [[nodiscard]] bool is_subscribed_to_asset(const std::string& asset) const override;
 
     void subscribe_to_wallet(const std::string& wallet) override;
 
     void unsubscribe_to_wallet(const std::string& wallet) override;
 
-    bool is_subscribed_to_wallet(const std::string& wallet) override;
+    [[nodiscard]] bool is_subscribed_to_wallet(const std::string& wallet) const override;
 
 protected:
     /// \brief The registered listeners for this service.

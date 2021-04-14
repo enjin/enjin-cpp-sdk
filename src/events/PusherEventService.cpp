@@ -210,12 +210,12 @@ void PusherEventService::shutdown() {
     }
 }
 
-bool PusherEventService::is_connected() {
+bool PusherEventService::is_connected() const {
     auto& pusher_client = impl->get_client();
     return pusher_client != nullptr && pusher_client->get_state() == pusher::ConnectionState::CONNECTED;
 }
 
-bool PusherEventService::is_registered(IEventListener& listener) {
+bool PusherEventService::is_registered(IEventListener& listener) const {
     auto loc = std::find_if(listeners.begin(),
                             listeners.end(),
                             [&listener](const std::shared_ptr<EventListenerRegistration>& r) {
@@ -298,7 +298,7 @@ void PusherEventService::unsubscribe_to_project(int project) {
     unsubscribe(ProjectChannel(platform.value(), project).channel());
 }
 
-bool PusherEventService::is_subscribed_to_project(int project) {
+bool PusherEventService::is_subscribed_to_project(int project) const {
     return impl->get_client()->is_subscribed(ProjectChannel(platform.value(), project).channel());
 }
 
@@ -310,7 +310,7 @@ void PusherEventService::unsubscribe_to_player(int project, const std::string& p
     unsubscribe(PlayerChannel(platform.value(), project, player).channel());
 }
 
-bool PusherEventService::is_subscribed_to_player(int project, const std::string& player) {
+bool PusherEventService::is_subscribed_to_player(int project, const std::string& player) const {
     return impl->get_client()->is_subscribed(PlayerChannel(platform.value(), project, player).channel());
 }
 
@@ -322,7 +322,7 @@ void PusherEventService::unsubscribe_to_asset(const std::string& asset) {
     unsubscribe(AssetChannel(platform.value(), asset).channel());
 }
 
-bool PusherEventService::is_subscribed_to_asset(const std::string& asset) {
+bool PusherEventService::is_subscribed_to_asset(const std::string& asset) const {
     return impl->get_client()->is_subscribed(AssetChannel(platform.value(), asset).channel());
 }
 
@@ -334,7 +334,7 @@ void PusherEventService::unsubscribe_to_wallet(const std::string& wallet) {
     unsubscribe(WalletChannel(platform.value(), wallet).channel());
 }
 
-bool PusherEventService::is_subscribed_to_wallet(const std::string& wallet) {
+bool PusherEventService::is_subscribed_to_wallet(const std::string& wallet) const {
     return impl->get_client()->is_subscribed(WalletChannel(platform.value(), wallet).channel());
 }
 
