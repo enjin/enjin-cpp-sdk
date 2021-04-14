@@ -90,7 +90,7 @@ private:
 class ENJINSDK_EXPORT Logger {
 public:
     /// \brief Default destructor.
-    ~Logger() = default;
+    ~Logger();
 
     /// \brief Logs the message at the default level.
     /// \param message The message.
@@ -138,7 +138,7 @@ public:
 private:
     LogLevel default_level;
 
-    std::shared_ptr<LoggerImpl> impl;
+    LoggerImpl* impl;
 
     Logger(const std::string& logger_name,
            const std::set<std::pair<std::string, std::string>>& log_filenames,

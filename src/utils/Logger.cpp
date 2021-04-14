@@ -179,12 +179,16 @@ Logger::Logger(const std::string& logger_name,
                const std::pair<bool, std::string>& use_stderr,
                LogLevel default_level)
         : default_level(default_level),
-          impl(std::make_shared<LoggerImpl>(logger_name,
-                                            log_filenames,
-                                            ostreams,
-                                            use_color,
-                                            use_stdout,
-                                            use_stderr)) {
+          impl(new LoggerImpl(logger_name,
+                              log_filenames,
+                              ostreams,
+                              use_color,
+                              use_stdout,
+                              use_stderr)) {
+}
+
+Logger::~Logger() {
+    delete impl;
 }
 
 void Logger::log(const std::string& message) {
