@@ -66,21 +66,21 @@ public:
     /// \brief Determines if this client is already subscribed to or has a pending subscription for the channel.
     /// \param channel_name The name of the channel.
     /// \return Whether there is a subscription or pending subscription.
-    bool is_subscribed_or_pending(const std::string& channel_name);
+    [[nodiscard]] bool is_subscribed_or_pending(const std::string& channel_name) const;
 
     /// \brief Determines if this client is subscribed to the channel.
     /// \param channel_name The name of the channel.
     /// \return Whether this client is subscribed to the channel.
-    bool is_subscribed(const std::string& channel_name);
+    [[nodiscard]] bool is_subscribed(const std::string& channel_name) const;
 
     /// \brief Determines if this client has a pending subscription for the channel.
     /// \param channel_name The name of the channel.
     /// \return Whether this client has a pending subscription.
-    bool is_subscription_pending(const std::string& channel_name);
+    [[nodiscard]] bool is_subscription_pending(const std::string& channel_name) const;
 
     /// \brief Returns the connection state of this client.
     /// \return The connection state.
-    ConnectionState get_state();
+    [[nodiscard]] ConnectionState get_state() const;
 
     /// \brief Sets the handler for when the connection state changes.
     /// \param handler The handler.
@@ -110,10 +110,10 @@ private:
     std::optional<std::function<void(const std::exception&)>> on_error;
 
     // Mutex
-    std::mutex channels_lock;
-    std::mutex pending_channels_lock;
-    std::mutex event_listeners_lock;
-    std::mutex state_lock;
+    mutable std::mutex channels_lock;
+    mutable std::mutex pending_channels_lock;
+    mutable std::mutex event_listeners_lock;
+    mutable std::mutex state_lock;
 
     // Flags
     std::atomic_bool ws_client_closed = true;

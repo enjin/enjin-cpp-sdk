@@ -181,25 +181,23 @@ void PusherClient::unbind(const std::string& event_name) {
     event_listeners_lock.unlock();
 }
 
-bool PusherClient::is_subscribed_or_pending(const std::string& channel_name) {
+bool PusherClient::is_subscribed_or_pending(const std::string& channel_name) const {
     return is_subscription_pending(channel_name) || is_subscribed(channel_name);
 }
 
-bool PusherClient::is_subscribed(const std::string& channel_name) {
+bool PusherClient::is_subscribed(const std::string& channel_name) const {
     std::lock_guard<std::mutex> guard(channels_lock);
     auto loc = channels.find(channel_name);
     return loc != channels.end() && loc->second.is_subscribed;
 }
 
-bool PusherClient::is_subscription_pending(const std::string& channel_name) {
+bool PusherClient::is_subscription_pending(const std::string& channel_name) const {
     std::lock_guard<std::mutex> guard(pending_channels_lock);
     return pending_channels.find(channel_name) != pending_channels.end();
 }
 
-ConnectionState PusherClient::get_state() {
-    state_lock.lock();
-    ConnectionState state = PusherClient::state;
-    state_lock.unlock();
+ConnectionState PusherClient::get_state() const {
+    std::lock_guard<std::mutex> guard(state_lock);
     return state;
 }
 

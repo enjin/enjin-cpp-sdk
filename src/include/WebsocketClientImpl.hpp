@@ -52,7 +52,8 @@ private:
     std::optional<std::function<void(int, const std::string&)>> close_handler;
     std::optional<std::function<void(const std::string&)>> message_handler;
 
-    std::mutex handler_mutex;
+    // Mutex
+    mutable std::mutex handler_mutex;
 };
 
 }
