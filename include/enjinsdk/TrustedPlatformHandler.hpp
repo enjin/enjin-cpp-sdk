@@ -31,7 +31,7 @@ public:
 
     /// \brief Determines if the handler is authenticated.
     /// \return Whether the handler is authenticated.
-    [[nodiscard]] bool is_authenticated();
+    [[nodiscard]] bool is_authenticated() const;
 
     /// \brief Sets the auth token for the handler.
     /// \param auth_token The auth token.
@@ -39,11 +39,13 @@ public:
 
     /// \brief Returns the auth token for the handler.
     /// \return The optional with containing the auth token.
-    [[nodiscard]] const std::optional<std::string>& get_auth_token();
+    [[nodiscard]] const std::optional<std::string>& get_auth_token() const;
 
 private:
     std::optional<std::string> auth_token;
-    std::mutex auth_token_mutex;
+
+    // Mutex
+    mutable std::mutex auth_token_mutex;
 };
 
 }
