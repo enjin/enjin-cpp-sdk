@@ -11,6 +11,8 @@ namespace enjin::sdk::project {
 class ENJINSDK_EXPORT ProjectSchema : public IProjectSchema,
                                       public shared::SharedSchema {
 public:
+    ProjectSchema() = delete;
+
     ~ProjectSchema() override = default;
 
     std::future<graphql::GraphqlResponse<models::AccessToken>> auth_player_async(AuthPlayer& request) override;
