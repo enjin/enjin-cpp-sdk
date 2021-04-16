@@ -23,7 +23,7 @@ macro(set_include_websocket_client_impl_macro)
 endmacro()
 
 macro(set_version_macro)
-    target_compile_definitions(${PROJECT_NAME} PRIVATE ENJINSDK_VERSION="\\"${PROJECT_VERSION}\\"")
+    target_compile_definitions(${PROJECT_NAME} PRIVATE ENJINSDK_VERSION="${PROJECT_VERSION}")
 endmacro()
 
 macro(setup_output_directories)
