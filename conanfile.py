@@ -7,8 +7,8 @@ class EnjinCPPSDK(ConanFile):
     description = "A C++ SDK for development on the Enjin blockchain platform."
     homepage = "https://enjin.io/"
     url = "https://github.com/enjin/Enjin-CPP-SDK"
-    license = ""  # TODO: Add license.
-    author = "Enjin PTE LTD"
+    license = "Apache-2.0"
+    author = "Enjin Pte Ltd."
     topics = ("conan", "enjin", "sdk", "blockchain", "cpp")
     settings = "os", "compiler", "arch", "build_type"
     generators = "cmake"
