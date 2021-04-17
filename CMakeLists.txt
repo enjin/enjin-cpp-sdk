@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
 
-include("cmake/enjinsdk_git_submodules.cmake")
 include("cmake/enjinsdk_macros.cmake")
 include(GenerateExportHeader)
 
@@ -49,7 +48,6 @@ add_custom_command(
 )
 
 # Add supporting submodules, executables, and libraries
-init_git_submodules()
 add_subdirectory(utils)
 add_subdirectory(scripts)
 

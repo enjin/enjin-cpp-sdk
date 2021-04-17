@@ -1,4 +1,0 @@
-[submodule "src/graphql/templates"]
-	path = src/graphql/templates
-	url = https://github.com/enjin/Enjin-SDK-GraphQL-Templates
-	branch = refactor/v2
