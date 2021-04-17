@@ -1,0 +1,43 @@
+#namespace enjin.sdk.shared.GetPlatform
+
+#arg withContracts Boolean false
+#arg withNotificationDrivers Boolean false
+
+query {
+    result: GetPlatform {
+        id
+        name
+        network
+        contracts @include(if: $withContracts) {
+            enj
+            cryptoItems
+            platformRegistry
+            supplyModels {
+                fixed
+                settable
+                infinite
+                collapsing
+                annualValue
+                annualPercentage
+            }
+        }
+        notifications @include(if: $withNotificationDrivers) {
+            pusher {
+                key
+                namespace
+                channels {
+                    app
+                    project
+                    player
+                    token
+                    asset
+                    wallet
+                }
+                options {
+                    cluster
+                    encrypted
+                }
+            }
+        }
+    }
+}
