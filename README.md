@@ -15,6 +15,7 @@ or [Mainnet (Production)](https://cloud.enjin.io/)
 
 * [Compatibility](#compatibility)
 * [Installation](#installation)
+    * [Tests](#tests)
 * [Contributing](#contributing)
     * [Issues](#issues)
     * [Pull Requests](#pull-requests)
@@ -36,7 +37,6 @@ The SDK is a **shared** (dynamic) C++ library.
 The following dependencies are used for building the SDK:
 
 * [CMake (3.16+)](https://cmake.org/) as a build tool
-* [Git](https://git-scm.com/) for submodule(s)
 
 The following libraries are used by the SDK to create its functionality and must be installed on your machine, but are
 not necessary to link to by your own project:
@@ -46,8 +46,10 @@ not necessary to link to by your own project:
 * (optional) [cpp-httplib (0.8.5+)](https://github.com/yhirose/cpp-httplib) for a default HTTP client implementation
 * (optional) [IXWebSocket (11.0.4+)](https://github.com/machinezone/IXWebSocket) for a default websocket client
   implementation
-* [Googletest (1.10.0+)](https://github.com/google/googletest) for testing
-    * Is acquired using CMake's `ExternalProject_Add()` function with git.
+
+For running unit tests [Git (1.6.5+)](https://git-scm.com/) is required so that CMake may run its
+`ExternalProject_Add()` function to acquire [Googletest (1.10.0+)](https://github.com/google/googletest) to be used as
+the testing framework.
 
 To have the SDK build its default HTTP and websocket clients use the `ENJINSDK_ALLOW_DEFAULT_HTTP`
 and `ENJINSDK_ALLOW_DEFAULT_WEBSOCKET` as CMake arguments and set them to be "on" (off by default).
@@ -64,6 +66,11 @@ then add the following to your project's CMakeLists file:
 add_subdirectory(Enjin-CPP-SDK)
 target_link_libraries(my_target PRIVATE enjinsdk)
 ```
+
+### Tests
+
+To include the test executable when building the library, set the CMake argument `ENJINSDK_BUILD_TESTS` option to `ON`
+and leave the `BUILD_TESTING` option from CTest enabled.
 
 ## Contributing
 

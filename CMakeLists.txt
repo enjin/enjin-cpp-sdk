@@ -18,6 +18,7 @@ set(ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL 0)
 set(ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL 0)
 set(ENJINSDK_USING_CONAN 0)
 
+option(ENJINSDK_BUILD_TESTS "ENJINSDK_BUILD_TESTS" OFF)
 option(ENJINSDK_ALLOW_DEFAULT_HTTP "ENJINSDK_ALLOW_DEFAULT_HTTP" OFF)
 option(ENJINSDK_ALLOW_DEFAULT_WEBSOCKET "ENJINSDK_ALLOW_DEFAULT_WEBSOCKET" OFF)
 
@@ -47,7 +48,7 @@ add_custom_command(
         COMMENT "Generating TemplateConstants source file"
 )
 
-# Add supporting submodules, executables, and libraries
+# Add supporting executables and libraries
 add_subdirectory(utils)
 add_subdirectory(scripts)
 
@@ -73,7 +74,7 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY INTERFACE_${PROJECT_NAME}_MAJOR_VER
 set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY COMPATIBLE_INTERFACE_STRING ${PROJECT_NAME}_MAJOR_VERSION)
 
 ####################################################################################################################
-### Link dependency
+### Link dependencies
 if (${ENJINSDK_USING_CONAN})
     target_link_libraries(${PROJECT_NAME} PRIVATE ${CONAN_LIBS})
 else ()
@@ -172,13 +173,13 @@ export(EXPORT ${PROJECT_NAME}
 
 ####################################################################################################################
 ### Setup tests
-if (${CMAKE_PROJECT_NAME} STREQUAL ${PROJECT_NAME})
-    include(CTest)
+include(CTest)
 
-    if (${BUILD_TESTING})
-        enable_testing()
-        add_subdirectory(test)
-    endif ()
+if (${BUILD_TESTING} AND ${ENJINSDK_BUILD_TESTS})
+    message(STATUS "Enjin: Building tests")
+
+    enable_testing()
+    add_subdirectory(test)
 endif ()
 
 ####################################################################################################################
@@ -186,5 +187,6 @@ endif ()
 unset(ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL)
 unset(ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL)
 unset(ENJINSDK_USING_CONAN)
+unset(ENJINSDK_BUILD_TESTS CACHE)
 unset(ENJINSDK_ALLOW_DEFAULT_HTTP CACHE)
 unset(ENJINSDK_ALLOW_DEFAULT_WEBSOCKET CACHE)
