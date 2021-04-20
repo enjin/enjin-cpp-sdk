@@ -38,8 +38,8 @@ The following dependencies are used for building the SDK:
 
 * [CMake (3.16+)](https://cmake.org/) as a build tool
 
-The following libraries are used by the SDK to create its functionality and must be installed on your machine, but are
-not necessary to link to by your own project:
+The following libraries are used by the SDK for some of its functionality and must be locatable by CMake's
+`find_package()` function, however these libraries are not necessary to link to your own target to use this SDK:
 
 * [RapidJSON (1.1.0+)](https://github.com/Tencent/rapidjson) for processing JSON
 * [spdlog (1.8.0+)](https://github.com/gabime/spdlog) for the logger class
@@ -47,30 +47,41 @@ not necessary to link to by your own project:
 * (optional) [IXWebSocket (11.0.4+)](https://github.com/machinezone/IXWebSocket) for a default websocket client
   implementation
 
-For running unit tests [Git (1.6.5+)](https://git-scm.com/) is required so that CMake may run its
-`ExternalProject_Add()` function to acquire [Googletest (1.10.0+)](https://github.com/google/googletest) to be used as
-the testing framework.
-
 To have the SDK build its default HTTP and websocket clients use the `ENJINSDK_ALLOW_DEFAULT_HTTP`
 and `ENJINSDK_ALLOW_DEFAULT_WEBSOCKET` as CMake arguments and set them to be "on" (off by default).
 
-You may include the SDK in your project by first cloning it into your project hierarchy with:
+To utilize this SDK you may clone the it into your project tree with:
 
-```commandline
-git clone https://github.com/enjin/Enjin-CPP-SDK.git
+```console
+$ git clone https://github.com/enjin/Enjin-CPP-SDK.git
 ```
 
-then add the following to your project's CMakeLists file:
+Then use the following in your project's CMakeLists file:
 
 ```cmake
 add_subdirectory(Enjin-CPP-SDK)
-target_link_libraries(my_target PRIVATE enjinsdk)
+target_link_libraries(my_target PRIVATE enjinsdk::enjinsdk)
 ```
+
+#### Linux
+
+Alternatively, on Linux you may include the SDK in your project by cloning and building it with the following commands:
+
+```console
+$ git clone https://github.com/enjin/Enjin-CPP-SDK.git
+$ cmake ./Enjin-CPP-SDK [options] && make -j -C ./Enjin-CPP-SDK
+```
+
+From here, you may use CMake's `find_package()` function to find `enjinsdk` and link the library, `enjinsdk::enjinsdk`
+to your target.
 
 ### Tests
 
-To include the test executable when building the library, set the CMake argument `ENJINSDK_BUILD_TESTS` option to `ON`
-and leave the `BUILD_TESTING` option from CTest enabled.
+For running unit tests [Git (1.6.5+)](https://git-scm.com/) is required to run CMake's `ExternalProject_Add()` function
+to acquire [Googletest (1.10.0+)](https://github.com/google/googletest) to be used as the testing framework.
+
+To have the test executable built, set the CMake argument `ENJINSDK_BUILD_TESTS` to `ON` and leave the `BUILD_TESTING`
+option from CTest enabled.
 
 ## Contributing
 

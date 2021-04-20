@@ -54,6 +54,7 @@ add_subdirectory(scripts)
 
 # Create the SDK target
 add_library(${PROJECT_NAME} SHARED "")
+add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 add_dependencies(${PROJECT_NAME} template_generator)
 generate_export_header(${PROJECT_NAME})
 
