@@ -1,6 +1,6 @@
 # Blockchain SDK by Enjin for C++
 
-Create blockchain video games and applications using the Java programming language.
+Create blockchain video games and applications using the C++ programming language.
 
 [Learn more](https://enjin.io/) about the Enjin blockchain platform.
 
@@ -50,7 +50,7 @@ The following libraries are used by the SDK for some of its functionality and mu
 To have the SDK build its default HTTP and websocket clients use the `ENJINSDK_ALLOW_DEFAULT_HTTP`
 and `ENJINSDK_ALLOW_DEFAULT_WEBSOCKET` as CMake arguments and set them to be "on" (off by default).
 
-To utilize this SDK you may clone the it into your project tree with:
+To utilize this SDK you may clone it into your project tree with:
 
 ```console
 $ git clone https://github.com/enjin/Enjin-CPP-SDK.git
