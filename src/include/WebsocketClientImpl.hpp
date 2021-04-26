@@ -23,7 +23,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IWebsocketClient.hpp"
-#include "enjinsdk/Logger.hpp"
+#include "enjinsdk/LoggerProvider.hpp"
 #include "ixwebsocket/IXWebSocket.h"
 #include <functional>
 #include <future>
@@ -38,8 +38,8 @@ namespace enjin::sdk::websockets {
 class ENJINSDK_EXPORT WebsocketClientImpl : public IWebsocketClient {
 public:
     /// \brief Creates the websocket client.
-    /// \param logger The logger. Null pointer by default.
-    explicit WebsocketClientImpl(std::shared_ptr<utils::Logger> logger = nullptr);
+    /// \param logger_provider The logger provider. Null pointer by default.
+    explicit WebsocketClientImpl(std::shared_ptr<utils::LoggerProvider> logger_provider = nullptr);
 
     ~WebsocketClientImpl() override;
 
@@ -61,7 +61,7 @@ public:
 
 private:
     ix::WebSocket ws;
-    std::shared_ptr<utils::Logger> logger;
+    std::shared_ptr<utils::LoggerProvider> logger_provider;
 
     std::optional<std::function<void()>> open_handler;
     std::optional<std::function<void(int, const std::string&)>> close_handler;

@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/GraphqlResponse.hpp"
-#include "enjinsdk/Logger.hpp"
+#include "enjinsdk/LoggerProvider.hpp"
 #include "enjinsdk/TrustedPlatformMiddleware.hpp"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include <exception>
@@ -37,16 +37,16 @@ public:
     /// \brief Default destructor.
     ~BaseSchema() = default;
 
-    /// \brief Returns the logger for this schema.
-    /// \return The logger.
-    [[nodiscard]] const std::shared_ptr<utils::Logger>& get_logger() const;
+    /// \brief Returns the logger provider used by this schema.
+    /// \return The logger provider.
+    [[nodiscard]] const std::shared_ptr<utils::LoggerProvider>& get_logger_provider() const;
 
 protected:
     /// \brief The middleware for communicating with the platform.
     TrustedPlatformMiddleware middleware;
 
-    /// \brief The logger for logging messages.
-    std::shared_ptr<utils::Logger> logger;
+    /// \brief The logger provider.
+    std::shared_ptr<utils::LoggerProvider> logger_provider;
 
     /// \brief The name of this schema.
     std::string schema;
@@ -54,10 +54,10 @@ protected:
     /// \brief The sole constructor for a base schema.
     /// \param middleware The platform middleware.
     /// \param schema The name of the schema.
-    /// \param logger The logger. Null pointer by default.
+    /// \param logger_provider The logger provider. Null pointer by default.
     BaseSchema(TrustedPlatformMiddleware middleware,
                std::string schema,
-               std::shared_ptr<utils::Logger> logger = nullptr);
+               std::shared_ptr<utils::LoggerProvider> logger_provider = nullptr);
 
     /// \brief Creates the serialized request body to be sent to the platform.
     /// \param request The request.

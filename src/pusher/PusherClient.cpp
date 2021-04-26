@@ -47,9 +47,9 @@ std::string get_subscription_message_for_channel_name(const std::string& channel
 PusherClient::PusherClient(std::shared_ptr<sdk::websockets::IWebsocketClient> ws_client,
                            std::string key,
                            const PusherOptions& options,
-                           std::shared_ptr<sdk::utils::Logger> logger)
+                           std::shared_ptr<sdk::utils::LoggerProvider> logger_provider)
         : ws_client(std::move(ws_client)),
-          logger(std::move(logger)),
+          logger_provider(std::move(logger_provider)),
           key(std::move(key)),
           options(options) {
     PusherClient::ws_client->set_message_handler([this](const std::string& message) {
@@ -301,7 +301,7 @@ void PusherClient::websocket_opened() {
 
 void PusherClient::websocket_closed(int close_status, const std::string&) {
     if (get_state() == ConnectionState::DISCONNECTED) {
-        logger->log(sdk::utils::LogLevel::WARN, "Pusher client received close message while disconnected");
+        logger_provider->log(sdk::utils::LogLevel::WARN, "Pusher client received close message while disconnected");
         return;
     }
 

@@ -23,9 +23,9 @@ namespace enjin::sdk {
 
 BaseSchema::BaseSchema(TrustedPlatformMiddleware middleware,
                        std::string schema,
-                       std::shared_ptr<utils::Logger> logger)
+                       std::shared_ptr<utils::LoggerProvider> logger_provider)
         : middleware(std::move(middleware)),
-          logger(std::move(logger)),
+          logger_provider(std::move(logger_provider)),
           schema(std::move(schema)) {
 }
 
@@ -64,8 +64,8 @@ http::HttpRequest BaseSchema::create_request(graphql::AbstractGraphqlRequest& re
     if (tp_handler != nullptr && tp_handler->is_authenticated()) {
         std::stringstream authorization_ss;
         authorization_ss << http::TrustedPlatformHandler::AUTHORIZATION_SCHEMA
-                        << " "
-                        << tp_handler->get_auth_token().value();
+                         << " "
+                         << tp_handler->get_auth_token().value();
 
         builder.add_header(http::TrustedPlatformHandler::AUTHORIZATION, authorization_ss.str());
     }
@@ -73,14 +73,14 @@ http::HttpRequest BaseSchema::create_request(graphql::AbstractGraphqlRequest& re
     return builder.build();
 }
 
-const std::shared_ptr<utils::Logger>& BaseSchema::get_logger() const {
-    return logger;
+const std::shared_ptr<utils::LoggerProvider>& BaseSchema::get_logger_provider() const {
+    return logger_provider;
 }
 
 void BaseSchema::log_graphql_exception(const std::exception& e) {
     std::stringstream ss;
     ss << "An exception occurred processing GraphQL response: " << e.what();
-    logger->log(utils::LogLevel::SEVERE, ss.str());
+    logger_provider->log(utils::LogLevel::SEVERE, ss.str());
 }
 
 }

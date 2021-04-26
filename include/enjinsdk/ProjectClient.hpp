@@ -52,15 +52,15 @@ public:
     /// \return This builder for chaining.
     ProjectClientBuilder& http_client(std::unique_ptr<http::IHttpClient> http_client);
 
-    /// \brief Sets the logger to be used by the client.
-    /// \param logger The logger.
+    /// \brief Sets the logger provider to be used by the client.
+    /// \param logger_provider The logger provider.
     /// \return This builder for chaining.
-    ProjectClientBuilder& logger(std::shared_ptr<utils::Logger> logger);
+    ProjectClientBuilder& logger_provider(std::shared_ptr<utils::LoggerProvider> logger_provider);
 
 private:
     std::optional<std::string> m_base_uri;
     std::unique_ptr<http::IHttpClient> m_http_client;
-    std::shared_ptr<utils::Logger> m_logger;
+    std::shared_ptr<utils::LoggerProvider> m_logger_provider;
 };
 
 /// \brief Client for using the project schema.
@@ -80,7 +80,7 @@ public:
     [[nodiscard]] bool is_closed() const override;
 
 private:
-    explicit ProjectClient(TrustedPlatformMiddleware middleware, std::shared_ptr<utils::Logger> logger);
+    ProjectClient(TrustedPlatformMiddleware middleware, std::shared_ptr<utils::LoggerProvider> logger_provider);
 
     friend std::unique_ptr<ProjectClient> ProjectClientBuilder::build();
 };
