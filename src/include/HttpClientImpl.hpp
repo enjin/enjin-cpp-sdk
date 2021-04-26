@@ -25,7 +25,7 @@
 #include "enjinsdk_export.h"
 #include "httplib.h"
 #include "enjinsdk/IHttpClient.hpp"
-#include "enjinsdk/Logger.hpp"
+#include "enjinsdk/LoggerProvider.hpp"
 #include <future>
 #include <memory>
 #include <string>
@@ -39,8 +39,8 @@ public:
 
     /// \brief Creates the HTTP client with the base URI.
     /// \param base_uri The base URI for the client.
-    /// \param logger The logger. Null pointer by default.
-    explicit HttpClientImpl(std::string base_uri, std::shared_ptr<utils::Logger> logger = nullptr);
+    /// \param logger_provider The logger provider. Null pointer by default.
+    explicit HttpClientImpl(std::string base_uri, std::shared_ptr<utils::LoggerProvider> logger_provider = nullptr);
 
     ~HttpClientImpl() override;
 
@@ -62,7 +62,7 @@ private:
     bool open = false;
 
     std::unique_ptr<httplib::Client> http_client;
-    std::shared_ptr<utils::Logger> logger;
+    std::shared_ptr<utils::LoggerProvider> logger_provider;
 
     void log_error(const std::string& message);
 

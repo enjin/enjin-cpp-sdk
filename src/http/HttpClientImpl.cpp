@@ -110,9 +110,9 @@ std::string error_result_2_string(const httplib::Result& result) {
     return ss.str();
 }
 
-HttpClientImpl::HttpClientImpl(std::string base_uri, std::shared_ptr<utils::Logger> logger)
+HttpClientImpl::HttpClientImpl(std::string base_uri, std::shared_ptr<utils::LoggerProvider> logger_provider)
         : base_uri(std::move(base_uri)),
-          logger(std::move(logger)) {
+          logger_provider(std::move(logger_provider)) {
 }
 
 HttpClientImpl::~HttpClientImpl() {
@@ -129,13 +129,13 @@ void HttpClientImpl::start() {
     http_client->set_keep_alive(true);
     open = true;
 
-    if (logger != nullptr) {
+    if (logger_provider != nullptr) {
         http_client->set_logger([this](const httplib::Request& req, const httplib::Response& res) {
             std::stringstream ss;
             ss << "\n"
                << request_2_string(req, *this) << ",\n"
                << response_2_string(res, *this);
-            logger->log(utils::LogLevel::INFO, ss.str());
+            logger_provider->log(utils::LogLevel::INFO, ss.str());
         });
     }
 }
@@ -176,8 +176,8 @@ std::future<HttpResponse> HttpClientImpl::send_request(const HttpRequest& reques
 }
 
 void HttpClientImpl::log_error(const std::string& message) {
-    if (logger != nullptr) {
-        logger->log(utils::LogLevel::SEVERE, message);
+    if (logger_provider != nullptr) {
+        logger_provider->log(utils::LogLevel::ERR, message);
     }
 }
 

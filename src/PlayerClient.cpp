@@ -29,8 +29,8 @@
 
 namespace enjin::sdk {
 
-PlayerClient::PlayerClient(TrustedPlatformMiddleware middleware, std::shared_ptr<utils::Logger> logger)
-        : PlayerSchema(std::move(middleware), std::move(logger)) {
+PlayerClient::PlayerClient(TrustedPlatformMiddleware middleware, std::shared_ptr<utils::LoggerProvider> logger_provider)
+        : PlayerSchema(std::move(middleware), std::move(logger_provider)) {
 }
 
 PlayerClient::~PlayerClient() {
@@ -60,14 +60,15 @@ std::unique_ptr<PlayerClient> PlayerClientBuilder::build() {
             throw std::runtime_error("No base URI was set for default HTTP client implementation");
         }
 
-        TrustedPlatformMiddleware middleware(std::make_unique<http::HttpClientImpl>(m_base_uri.value(), m_logger));
-        return std::unique_ptr<PlayerClient>(new PlayerClient(std::move(middleware), m_logger));
+        TrustedPlatformMiddleware middleware(std::make_unique<http::HttpClientImpl>(m_base_uri.value(),
+                                                                                    m_logger_provider));
+        return std::unique_ptr<PlayerClient>(new PlayerClient(std::move(middleware), m_logger_provider));
 #else
         throw std::runtime_error("Attempted building platform client without providing an HTTP client");
 #endif
     } else {
         TrustedPlatformMiddleware middleware(std::move(m_http_client));
-        return std::unique_ptr<PlayerClient>(new PlayerClient(std::move(middleware), m_logger));
+        return std::unique_ptr<PlayerClient>(new PlayerClient(std::move(middleware), m_logger_provider));
     }
 }
 
@@ -81,8 +82,8 @@ PlayerClientBuilder& PlayerClientBuilder::http_client(std::unique_ptr<http::IHtt
     return *this;
 }
 
-PlayerClientBuilder& PlayerClientBuilder::logger(std::shared_ptr<utils::Logger> logger) {
-    m_logger = std::move(logger);
+PlayerClientBuilder& PlayerClientBuilder::logger_provider(std::shared_ptr<utils::LoggerProvider> logger_provider) {
+    m_logger_provider = std::move(logger_provider);
     return *this;
 }
 

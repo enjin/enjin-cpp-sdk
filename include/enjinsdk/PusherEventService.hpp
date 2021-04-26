@@ -19,7 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/IEventService.hpp"
 #include "enjinsdk/IWebsocketClient.hpp"
-#include "enjinsdk/Logger.hpp"
+#include "enjinsdk/LoggerProvider.hpp"
 #include <memory>
 #include <optional>
 #include <string>
@@ -55,15 +55,15 @@ public:
     /// \return This builder for chaining.
     PusherEventServiceBuilder& ws_client(std::unique_ptr<websockets::IWebsocketClient> ws_client);
 
-    /// \brief Sets the logger.
-    /// \param logger The logger.
+    /// \brief Sets the logger provider to be used by the event service.
+    /// \param logger_provider The logger provider.
     /// \return This builder for chaining.
-    PusherEventServiceBuilder& logger(std::shared_ptr<utils::Logger> logger);
+    PusherEventServiceBuilder& logger_provider(std::shared_ptr<utils::LoggerProvider> logger_provider);
 
 private:
     std::optional<models::Platform> m_platform;
     std::unique_ptr<websockets::IWebsocketClient> m_ws_client;
-    std::shared_ptr<utils::Logger> m_logger;
+    std::shared_ptr<utils::LoggerProvider> m_provider;
 };
 
 /// \brief Implementation of IEventService for Pusher events.
@@ -129,6 +129,10 @@ public:
 
     [[nodiscard]] bool is_subscribed_to_wallet(const std::string& wallet) const override;
 
+    /// \brief Returns the logger provider used by this service.
+    /// \return The logger provider.
+    [[nodiscard]] const std::shared_ptr<utils::LoggerProvider>& get_logger_provider() const;
+
 protected:
     /// \brief The registered listeners for this service.
     std::vector<std::shared_ptr<EventListenerRegistration>> listeners;
@@ -146,13 +150,13 @@ private:
     std::shared_ptr<PusherEventListener> listener;
 
     std::optional<models::Platform> platform;
-    std::shared_ptr<utils::Logger> logger;
+    std::shared_ptr<utils::LoggerProvider> logger_provider;
 
     explicit PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client,
-                                std::shared_ptr<utils::Logger> logger);
+                                std::shared_ptr<utils::LoggerProvider> logger_provider);
 
     PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client,
-                       std::shared_ptr<utils::Logger> logger,
+                       std::shared_ptr<utils::LoggerProvider> logger,
                        models::Platform platform);
 
     void subscribe(const std::string& channel);

@@ -19,8 +19,9 @@
 
 namespace enjin::sdk::player {
 
-PlayerSchema::PlayerSchema(TrustedPlatformMiddleware middleware, std::shared_ptr<utils::Logger> logger)
-        : shared::SharedSchema(std::move(middleware), "player", std::move(logger)) {
+PlayerSchema::PlayerSchema(TrustedPlatformMiddleware middleware,
+                           std::shared_ptr<utils::LoggerProvider> logger_provider)
+        : shared::SharedSchema(std::move(middleware), "player", std::move(logger_provider)) {
 }
 
 std::future<graphql::GraphqlResponse<models::Player>> PlayerSchema::get_player_async(GetPlayer& request) {

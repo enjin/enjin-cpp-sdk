@@ -29,8 +29,9 @@
 
 namespace enjin::sdk {
 
-ProjectClient::ProjectClient(TrustedPlatformMiddleware middleware, std::shared_ptr<utils::Logger> logger)
-        : ProjectSchema(std::move(middleware), std::move(logger)) {
+ProjectClient::ProjectClient(TrustedPlatformMiddleware middleware,
+                             std::shared_ptr<utils::LoggerProvider> logger_provider)
+        : ProjectSchema(std::move(middleware), std::move(logger_provider)) {
 }
 
 ProjectClient::~ProjectClient() {
@@ -60,14 +61,15 @@ std::unique_ptr<ProjectClient> ProjectClientBuilder::build() {
             throw std::runtime_error("No base URI was set for default HTTP client implementation");
         }
 
-        TrustedPlatformMiddleware middleware(std::make_unique<http::HttpClientImpl>(m_base_uri.value(), m_logger));
-        return std::unique_ptr<ProjectClient>(new ProjectClient(std::move(middleware), m_logger));
+        TrustedPlatformMiddleware middleware(std::make_unique<http::HttpClientImpl>(m_base_uri.value(),
+                                                                                    m_logger_provider));
+        return std::unique_ptr<ProjectClient>(new ProjectClient(std::move(middleware), m_logger_provider));
 #else
         throw std::runtime_error("Attempted building platform client without providing an HTTP client");
 #endif
     } else {
         TrustedPlatformMiddleware middleware(std::move(m_http_client));
-        return std::unique_ptr<ProjectClient>(new ProjectClient(std::move(middleware), m_logger));
+        return std::unique_ptr<ProjectClient>(new ProjectClient(std::move(middleware), m_logger_provider));
     }
 }
 
@@ -81,8 +83,8 @@ ProjectClientBuilder& ProjectClientBuilder::http_client(std::unique_ptr<http::IH
     return *this;
 }
 
-ProjectClientBuilder& ProjectClientBuilder::logger(std::shared_ptr<utils::Logger> logger) {
-    m_logger = std::move(logger);
+ProjectClientBuilder& ProjectClientBuilder::logger_provider(std::shared_ptr<utils::LoggerProvider> logger_provider) {
+    m_logger_provider = std::move(logger_provider);
     return *this;
 }
 

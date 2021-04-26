@@ -63,15 +63,15 @@ public:
                                      : std::string();
 
         // Log event received
-        if (service->logger != nullptr) {
+        if (service->logger_provider != nullptr) {
             std::stringstream ss;
             ss << "Received event " << key << " on channel " << channel << " with results " << message;
-            service->logger->log(utils::LogLevel::INFO, ss.str());
+            service->logger_provider->log(utils::LogLevel::INFO, ss.str());
         }
 
         if (service->listeners.empty()) {
-            if (service->logger != nullptr) {
-                service->logger->log(utils::LogLevel::INFO, "No registered listener when event was received");
+            if (service->logger_provider != nullptr) {
+                service->logger_provider->log(utils::LogLevel::INFO, "No registered listener when event was received");
             }
 
             return;
@@ -79,10 +79,10 @@ public:
 
         EventTypeDef def = EventTypeDef::get_from_key(key);
         if (def.get_type() == models::EventType::UNKNOWN) {
-            if (service->logger != nullptr) {
+            if (service->logger_provider != nullptr) {
                 std::stringstream ss;
                 ss << "Unknown event type for key " << def.get_key();
-                service->logger->log(utils::LogLevel::WARN, ss.str());
+                service->logger_provider->log(utils::LogLevel::WARN, ss.str());
             }
 
             return;
@@ -114,14 +114,14 @@ public:
 
     void init_client(const std::string& key,
                      const pusher::PusherOptions& options,
-                     const std::shared_ptr<utils::Logger>& logger = nullptr) {
-        client = std::make_unique<pusher::PusherClient>(ws_client, key, options, logger);
+                     const std::shared_ptr<utils::LoggerProvider>& logger_provider = nullptr) {
+        client = std::make_unique<pusher::PusherClient>(ws_client, key, options, logger_provider);
 
-        client->set_on_connection_state_change_handler([this, logger](pusher::ConnectionState state) {
-            if (logger != nullptr && state != pusher::ConnectionState::ALL) {
+        client->set_on_connection_state_change_handler([this, logger_provider](pusher::ConnectionState state) {
+            if (logger_provider != nullptr && state != pusher::ConnectionState::ALL) {
                 std::stringstream ss;
                 ss << "Pusher client " << enjin::utils::to_lower(utils::serialize_pusher_connection_state(state));
-                logger->log(ss.str());
+                logger_provider->log(utils::LogLevel::INFO, ss.str());
             }
 
             if (state == pusher::ConnectionState::CONNECTED && connected_handler.has_value()) {
@@ -130,11 +130,12 @@ public:
                 disconnected_handler.value()();
             }
         });
-        client->set_on_error_handler([this, logger](const std::exception& e) {
-            if (logger != nullptr) {
+
+        client->set_on_error_handler([this, logger_provider](const std::exception& e) {
+            if (logger_provider != nullptr) {
                 std::stringstream ss;
                 ss << "Error on Pusher client: " << e.what();
-                logger->log(utils::LogLevel::SEVERE, ss.str());
+                logger_provider->log(utils::LogLevel::SEVERE, ss.str());
             }
 
             if (error_handler.has_value()) {
@@ -172,17 +173,17 @@ private:
 };
 
 PusherEventService::PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client,
-                                       std::shared_ptr<utils::Logger> logger)
+                                       std::shared_ptr<utils::LoggerProvider> logger_provider)
         : impl(new PusherEventServiceImpl(std::move(ws_client))),
-          logger(std::move(logger)) {
+          logger_provider(std::move(logger_provider)) {
 }
 
 PusherEventService::PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client,
-                                       std::shared_ptr<utils::Logger> logger,
+                                       std::shared_ptr<utils::LoggerProvider> logger_provider,
                                        models::Platform platform)
         : impl(new PusherEventServiceImpl(std::move(ws_client))),
           platform(std::move(platform)),
-          logger(std::move(logger)) {
+          logger_provider(std::move(logger_provider)) {
 }
 
 PusherEventService::~PusherEventService() {
@@ -214,7 +215,7 @@ void PusherEventService::start() {
             .set_encrypted(encrypted.value());
 
     listener = std::make_shared<PusherEventListener>(*this);
-    impl->init_client(key.value(), options, logger);
+    impl->init_client(key.value(), options, logger_provider);
 }
 
 void PusherEventService::start(models::Platform platform) {
@@ -383,10 +384,14 @@ void PusherEventService::bind(const std::string& channel) {
     }
 }
 
+const std::shared_ptr<utils::LoggerProvider>& PusherEventService::get_logger_provider() const {
+    return logger_provider;
+}
+
 std::unique_ptr<PusherEventService> PusherEventServiceBuilder::build() {
     if (m_ws_client == nullptr) {
 #if ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL
-        m_ws_client = std::make_unique<websockets::WebsocketClientImpl>(m_logger);
+        m_ws_client = std::make_unique<websockets::WebsocketClientImpl>(m_provider);
 #else
         throw std::runtime_error("Attempted building Pusher event service without providing a websocket client");
 #endif
@@ -394,10 +399,10 @@ std::unique_ptr<PusherEventService> PusherEventServiceBuilder::build() {
 
     return m_platform.has_value()
            ? std::unique_ptr<PusherEventService>(new PusherEventService(std::move(m_ws_client),
-                                                                        m_logger,
+                                                                        m_provider,
                                                                         m_platform.value()))
            : std::unique_ptr<PusherEventService>(new PusherEventService(std::move(m_ws_client),
-                                                                        m_logger));
+                                                                        m_provider));
 }
 
 PusherEventServiceBuilder& PusherEventServiceBuilder::platform(const models::Platform& platform) {
@@ -411,8 +416,8 @@ PusherEventServiceBuilder::ws_client(std::unique_ptr<websockets::IWebsocketClien
     return *this;
 }
 
-PusherEventServiceBuilder& PusherEventServiceBuilder::logger(std::shared_ptr<utils::Logger> logger) {
-    m_logger = std::move(logger);
+PusherEventServiceBuilder& PusherEventServiceBuilder::logger_provider(std::shared_ptr<utils::LoggerProvider> provider) {
+    m_provider = std::move(provider);
     return *this;
 }
 

@@ -20,7 +20,8 @@
 
 namespace enjin::sdk::websockets {
 
-WebsocketClientImpl::WebsocketClientImpl(std::shared_ptr<utils::Logger> logger) : logger(std::move(logger)) {
+WebsocketClientImpl::WebsocketClientImpl(std::shared_ptr<utils::LoggerProvider> logger_provider)
+        : logger_provider(std::move(logger_provider)) {
 #ifdef WIN32
     ix::initNetSystem();
 #endif
@@ -39,13 +40,13 @@ WebsocketClientImpl::WebsocketClientImpl(std::shared_ptr<utils::Logger> logger) 
             open_handler.value()();
         } else if (type == ix::WebSocketMessageType::Close && close_handler.has_value()) {
             close_handler.value()(msg->closeInfo.code, msg->closeInfo.reason);
-        } else if (type == ix::WebSocketMessageType::Error && WebsocketClientImpl::logger != nullptr) {
+        } else if (type == ix::WebSocketMessageType::Error && WebsocketClientImpl::logger_provider != nullptr) {
             std::stringstream ss;
             ss << "Error received from websocket server: "
                << msg->errorInfo.http_status
                << " "
                << msg->errorInfo.reason;
-            WebsocketClientImpl::logger->log(utils::LogLevel::WARN, ss.str());
+            WebsocketClientImpl::logger_provider->log(utils::LogLevel::WARN, ss.str());
         }
     });
 }

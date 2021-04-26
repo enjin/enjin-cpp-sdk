@@ -45,8 +45,9 @@ public:
 protected:
     /// \brief Constructs the schema with the middleware.
     /// \param middleware The middleware.
-    /// \param logger The logger.
-    explicit PlayerSchema(TrustedPlatformMiddleware middleware, std::shared_ptr<utils::Logger> logger);
+    /// \param logger_provider The logger provider.
+    explicit PlayerSchema(TrustedPlatformMiddleware middleware,
+                          std::shared_ptr<utils::LoggerProvider> logger_provider);
 };
 
 }
