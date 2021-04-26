@@ -16,6 +16,5 @@ target_sources(${PROJECT_NAME}_tests
         EnumUtilsWhitelistedTest.cpp
         LoggerProviderTest.cpp
         LoggerProviderLogLevelsTest.cpp
-        LoggerTest.cpp
         RapidJsonUtilsTest.cpp
         StringUtilsTest.cpp)
