@@ -20,7 +20,7 @@
 
 namespace enjin::pusher {
 
-class ENJINSDK_EXPORT Constants {
+class ENJINSDK_EXPORT PusherConstants {
 public:
     static constexpr char PUSHER_MESSAGE_PREFIX[] = "pusher";
 

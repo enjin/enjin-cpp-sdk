@@ -21,7 +21,7 @@
 #ifndef ENJINCPPSDK_PUSHERCLIENTTESTSUITE_HPP
 #define ENJINCPPSDK_PUSHERCLIENTTESTSUITE_HPP
 
-#include "Constants.hpp"
+#include "PusherConstants.hpp"
 #include "MockWebSocketClientImpl.hpp"
 #include "MockWebsocketServer.hpp"
 #include "PusherClient.hpp"
