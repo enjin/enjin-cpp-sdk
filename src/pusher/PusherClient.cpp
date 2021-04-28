@@ -16,7 +16,7 @@
 #include "PusherClient.hpp"
 
 #include "RapidJsonUtils.hpp"
-#include "Constants.hpp"
+#include "PusherConstants.hpp"
 #include "ErrorCodes.hpp"
 #include "PusherException.hpp"
 #include <exception>
@@ -32,7 +32,7 @@ std::string get_subscription_message_for_channel_name(const std::string& channel
     rapidjson::Document document(rapidjson::kObjectType);
     auto& allocator = document.GetAllocator();
 
-    sdk::utils::set_string_member(document, EVENT_KEY, Constants::CHANNEL_SUBSCRIBE);
+    sdk::utils::set_string_member(document, EVENT_KEY, PusherConstants::CHANNEL_SUBSCRIBE);
 
     rapidjson::Value v_data(rapidjson::kObjectType);
     rapidjson::Value v_channel;
@@ -73,8 +73,8 @@ void PusherClient::connect() {
     set_state(ConnectionState::CONNECTING);
 
     std::string schema = options.is_encrypted()
-                         ? Constants::SECURE_SCHEMA
-                         : Constants::INSECURE_SCHEMA;
+                         ? PusherConstants::SECURE_SCHEMA
+                         : PusherConstants::INSECURE_SCHEMA;
 
     std::stringstream uri_ss;
     uri_ss << schema
@@ -143,7 +143,7 @@ std::future<void> PusherClient::unsubscribe(const std::string& channel_name) {
         rapidjson::Document document(rapidjson::kObjectType);
         auto& allocator = document.GetAllocator();
 
-        sdk::utils::set_string_member(document, EVENT_KEY, Constants::CHANNEL_UNSUBSCRIBE);
+        sdk::utils::set_string_member(document, EVENT_KEY, PusherConstants::CHANNEL_UNSUBSCRIBE);
 
         rapidjson::Value v_data(rapidjson::kObjectType);
         rapidjson::Value v_channel;
@@ -280,10 +280,10 @@ void PusherClient::websocket_message_received(const std::string& message) {
 
     emit_event(event);
 
-    if (msg.event.find(Constants::PUSHER_MESSAGE_PREFIX) == 0) {
-        if (msg.event == Constants::CHANNEL_SUBSCRIPTION_SUCCEEDED) {
+    if (msg.event.find(PusherConstants::PUSHER_MESSAGE_PREFIX) == 0) {
+        if (msg.event == PusherConstants::CHANNEL_SUBSCRIPTION_SUCCEEDED) {
             subscription_succeeded(msg.channel);
-        } else if (msg.event == Constants::CHANNEL_SUBSCRIPTION_ERROR && on_error.has_value()) {
+        } else if (msg.event == PusherConstants::CHANNEL_SUBSCRIPTION_ERROR && on_error.has_value()) {
             on_error.value()(PusherException("Error received on channel subscription: " + message,
                                              (int) ErrorCodes::SUBSCRIPTION_ERROR));
         }

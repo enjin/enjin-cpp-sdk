@@ -15,7 +15,7 @@
 
 #include "gtest/gtest.h"
 #include "AssetChannel.hpp"
-#include "Constants.hpp"
+#include "PusherConstants.hpp"
 #include "MockWebSocketClientImpl.hpp"
 #include "MockWebsocketServer.hpp"
 #include "ProjectChannel.hpp"
@@ -29,6 +29,7 @@
 #include <thread>
 #include <vector>
 
+using namespace enjin::pusher;
 using namespace enjin::sdk::events;
 using namespace enjin::sdk::models;
 using namespace enjin::test::mocks;
@@ -62,7 +63,7 @@ public:
     static std::string create_subscription_success_message(const std::string& channel = "") {
         std::stringstream ss;
         ss << R"({"event":")"
-           << enjin::pusher::Constants::CHANNEL_SUBSCRIPTION_SUCCEEDED
+           << PusherConstants::CHANNEL_SUBSCRIPTION_SUCCEEDED
            << R"(","channel":")"
            << channel
            << R"("})";
