@@ -191,7 +191,7 @@ void PusherEventService::start() {
 
     pusher::PusherOptions options = pusher::PusherOptions()
             .set_cluster(cluster.value())
-            .set_encrypted(encrypted.value());
+            .set_encrypted(encrypted.value_or(true));
 
     impl->init_client(key.value(), options, logger_provider);
 }
