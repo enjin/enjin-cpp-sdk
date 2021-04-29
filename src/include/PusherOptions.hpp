@@ -44,7 +44,7 @@ public:
     /// \return This for chaining.
     PusherOptions& set_cluster(const std::string& cluster);
 
-    /// \brief Sets whether encryption is to be used.
+    /// \brief Sets whether encryption is to be used. True by default.
     /// \param encrypted The state.
     /// \return This for chaining.
     PusherOptions& set_encrypted(bool encrypted);
@@ -55,7 +55,7 @@ public:
 
 private:
     std::optional<std::string> cluster;
-    bool encrypted = false;
+    bool encrypted = true;
 };
 
 }
