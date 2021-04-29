@@ -129,6 +129,10 @@ public:
 
     [[nodiscard]] bool is_subscribed_to_wallet(const std::string& wallet) const override;
 
+    /// \brief Returns the registrations for listeners registered to this service.
+    /// \return The listener registrations.
+    [[nodiscard]] const std::vector<std::shared_ptr<EventListenerRegistration>>& get_listeners() const;
+
     /// \brief Returns the logger provider used by this service.
     /// \return The logger provider.
     [[nodiscard]] const std::shared_ptr<utils::LoggerProvider>& get_logger_provider() const;
@@ -144,10 +148,7 @@ protected:
     cache_registration(EventListenerRegistration::RegistrationListenerConfiguration configuration);
 
 private:
-    class PusherEventListener;
-
     PusherEventServiceImpl* impl;
-    std::shared_ptr<PusherEventListener> listener;
 
     std::optional<models::Platform> platform;
     std::shared_ptr<utils::LoggerProvider> logger_provider;
@@ -158,12 +159,6 @@ private:
     PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client,
                        std::shared_ptr<utils::LoggerProvider> logger,
                        models::Platform platform);
-
-    void subscribe(const std::string& channel);
-
-    void unsubscribe(const std::string& channel);
-
-    void bind(const std::string& channel);
 
     friend std::unique_ptr<PusherEventService> PusherEventServiceBuilder::build();
 };

@@ -18,11 +18,11 @@
 #include "AssetChannel.hpp"
 #include "EnumUtils.hpp"
 #include "EventTypeDef.hpp"
-#include "ISubscriptionEventListener.hpp"
 #include "PlayerChannel.hpp"
 #include "ProjectChannel.hpp"
 #include "PusherClient.hpp"
 #include "PusherEvent.hpp"
+#include "PusherEventListener.hpp"
 #include "WalletChannel.hpp"
 #include "enjinsdk_utils/StringUtils.hpp"
 #include <algorithm>
@@ -42,71 +42,14 @@
 
 namespace enjin::sdk::events {
 
-class PusherEventService::PusherEventListener : public pusher::ISubscriptionEventListener {
-public:
-    PusherEventListener() = delete;
-
-    explicit PusherEventListener(PusherEventService& service) : service(&service) {
-    }
-
-    ~PusherEventListener() override = default;
-
-    void on_event(const pusher::PusherEvent& event) override {
-        const std::string& key = event.get_event_name().has_value()
-                                 ? event.get_event_name().value()
-                                 : std::string();
-        const std::string& channel = event.get_channel_name().has_value()
-                                     ? event.get_channel_name().value()
-                                     : std::string();
-        const std::string& message = event.get_data().has_value()
-                                     ? event.get_data().value()
-                                     : std::string();
-
-        // Log event received
-        if (service->logger_provider != nullptr) {
-            std::stringstream ss;
-            ss << "Received event " << key << " on channel " << channel << " with results " << message;
-            service->logger_provider->log(utils::LogLevel::INFO, ss.str());
-        }
-
-        if (service->listeners.empty()) {
-            if (service->logger_provider != nullptr) {
-                service->logger_provider->log(utils::LogLevel::INFO, "No registered listener when event was received");
-            }
-
-            return;
-        }
-
-        EventTypeDef def = EventTypeDef::get_from_key(key);
-        if (def.get_type() == models::EventType::UNKNOWN) {
-            if (service->logger_provider != nullptr) {
-                std::stringstream ss;
-                ss << "Unknown event type for key " << def.get_key();
-                service->logger_provider->log(utils::LogLevel::WARN, ss.str());
-            }
-
-            return;
-        }
-
-        models::NotificationEvent notification_event(def.get_type(), channel, message);
-
-        for (auto& registration : service->listeners) {
-            if (registration->get_matcher()(notification_event.get_type())) {
-                registration->get_listener().notification_received(notification_event);
-            }
-        }
-    }
-
-private:
-    PusherEventService* service;
-};
-
 class PusherEventServiceImpl {
 public:
     PusherEventServiceImpl() = delete;
 
-    explicit PusherEventServiceImpl(std::shared_ptr<websockets::IWebsocketClient> ws_client)
-            : ws_client(std::move(ws_client)),
+    PusherEventServiceImpl(std::unique_ptr<PusherEventListener> listener,
+                           std::shared_ptr<websockets::IWebsocketClient> ws_client)
+            : listener(std::move(listener)),
+              ws_client(std::move(ws_client)),
               client(nullptr) {
     }
 
@@ -146,8 +89,14 @@ public:
         client->connect();
     }
 
-    [[nodiscard]] const std::unique_ptr<pusher::PusherClient>& get_client() const {
-        return client;
+    void shutdown() {
+        if (client != nullptr) {
+            client->disconnect();
+        }
+    }
+
+    [[nodiscard]] bool is_connected() const {
+        return client != nullptr && client->get_state() == pusher::ConnectionState::CONNECTED;
     }
 
     void set_connected_handler(const std::function<void()>& handler) {
@@ -162,7 +111,29 @@ public:
         error_handler = handler;
     }
 
+    void subscribe(const std::string& channel) {
+        if (client == nullptr || client->is_subscribed_or_pending(channel)) {
+            return;
+        }
+
+        client->subscribe(channel);
+        bind(channel);
+    }
+
+    void unsubscribe(const std::string& channel) {
+        if (client == nullptr || !client->is_subscribed(channel)) {
+            return;
+        }
+
+        client->unsubscribe(channel);
+    }
+
+    [[nodiscard]] bool is_subscribed(const std::string& channel) const {
+        return client->is_subscribed(channel);
+    }
+
 private:
+    std::shared_ptr<PusherEventListener> listener;
     std::shared_ptr<websockets::IWebsocketClient> ws_client;
     std::unique_ptr<pusher::PusherClient> client;
 
@@ -170,18 +141,26 @@ private:
     std::optional<std::function<void()>> connected_handler;
     std::optional<std::function<void()>> disconnected_handler;
     std::optional<std::function<void(const std::exception&)>> error_handler;
+
+    void bind(const std::string& channel) {
+        for (auto& def : EventTypeDef::filter_by_channel_type({channel})) {
+            client->bind(def.get_key(), listener);
+        }
+    }
 };
 
 PusherEventService::PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client,
                                        std::shared_ptr<utils::LoggerProvider> logger_provider)
-        : impl(new PusherEventServiceImpl(std::move(ws_client))),
+        : impl(new PusherEventServiceImpl(std::make_unique<PusherEventListener>(this),
+                                          std::move(ws_client))),
           logger_provider(std::move(logger_provider)) {
 }
 
 PusherEventService::PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client,
                                        std::shared_ptr<utils::LoggerProvider> logger_provider,
                                        models::Platform platform)
-        : impl(new PusherEventServiceImpl(std::move(ws_client))),
+        : impl(new PusherEventServiceImpl(std::make_unique<PusherEventListener>(this),
+                                          std::move(ws_client))),
           platform(std::move(platform)),
           logger_provider(std::move(logger_provider)) {
 }
@@ -214,7 +193,6 @@ void PusherEventService::start() {
             .set_cluster(cluster.value())
             .set_encrypted(encrypted.value());
 
-    listener = std::make_shared<PusherEventListener>(*this);
     impl->init_client(key.value(), options, logger_provider);
 }
 
@@ -224,15 +202,11 @@ void PusherEventService::start(models::Platform platform) {
 }
 
 void PusherEventService::shutdown() {
-    auto& pusher_client = impl->get_client();
-    if (pusher_client != nullptr) {
-        pusher_client->disconnect();
-    }
+    impl->shutdown();
 }
 
 bool PusherEventService::is_connected() const {
-    auto& pusher_client = impl->get_client();
-    return pusher_client != nullptr && pusher_client->get_state() == pusher::ConnectionState::CONNECTED;
+    return impl->is_connected();
 }
 
 bool PusherEventService::is_registered(IEventListener& listener) const {
@@ -311,77 +285,55 @@ void PusherEventService::unregister_listener(IEventListener& listener) {
 }
 
 void PusherEventService::subscribe_to_project(int project) {
-    subscribe(ProjectChannel(platform.value(), project).channel());
+    impl->subscribe(ProjectChannel(platform.value(), project).channel());
 }
 
 void PusherEventService::unsubscribe_to_project(int project) {
-    unsubscribe(ProjectChannel(platform.value(), project).channel());
+    impl->unsubscribe(ProjectChannel(platform.value(), project).channel());
 }
 
 bool PusherEventService::is_subscribed_to_project(int project) const {
-    return impl->get_client()->is_subscribed(ProjectChannel(platform.value(), project).channel());
+    return impl->is_subscribed(ProjectChannel(platform.value(), project).channel());
 }
 
 void PusherEventService::subscribe_to_player(int project, const std::string& player) {
-    subscribe(PlayerChannel(platform.value(), project, player).channel());
+    impl->subscribe(PlayerChannel(platform.value(), project, player).channel());
 }
 
 void PusherEventService::unsubscribe_to_player(int project, const std::string& player) {
-    unsubscribe(PlayerChannel(platform.value(), project, player).channel());
+    impl->unsubscribe(PlayerChannel(platform.value(), project, player).channel());
 }
 
 bool PusherEventService::is_subscribed_to_player(int project, const std::string& player) const {
-    return impl->get_client()->is_subscribed(PlayerChannel(platform.value(), project, player).channel());
+    return impl->is_subscribed(PlayerChannel(platform.value(), project, player).channel());
 }
 
 void PusherEventService::subscribe_to_asset(const std::string& asset) {
-    subscribe(AssetChannel(platform.value(), asset).channel());
+    impl->subscribe(AssetChannel(platform.value(), asset).channel());
 }
 
 void PusherEventService::unsubscribe_to_asset(const std::string& asset) {
-    unsubscribe(AssetChannel(platform.value(), asset).channel());
+    impl->unsubscribe(AssetChannel(platform.value(), asset).channel());
 }
 
 bool PusherEventService::is_subscribed_to_asset(const std::string& asset) const {
-    return impl->get_client()->is_subscribed(AssetChannel(platform.value(), asset).channel());
+    return impl->is_subscribed(AssetChannel(platform.value(), asset).channel());
 }
 
 void PusherEventService::subscribe_to_wallet(const std::string& wallet) {
-    subscribe(WalletChannel(platform.value(), wallet).channel());
+    impl->subscribe(WalletChannel(platform.value(), wallet).channel());
 }
 
 void PusherEventService::unsubscribe_to_wallet(const std::string& wallet) {
-    unsubscribe(WalletChannel(platform.value(), wallet).channel());
+    impl->unsubscribe(WalletChannel(platform.value(), wallet).channel());
 }
 
 bool PusherEventService::is_subscribed_to_wallet(const std::string& wallet) const {
-    return impl->get_client()->is_subscribed(WalletChannel(platform.value(), wallet).channel());
+    return impl->is_subscribed(WalletChannel(platform.value(), wallet).channel());
 }
 
-void PusherEventService::subscribe(const std::string& channel) {
-    auto& pusher_client = impl->get_client();
-    if (pusher_client == nullptr || pusher_client->is_subscribed_or_pending(channel)) {
-        return;
-    }
-
-    pusher_client->subscribe(channel);
-    bind(channel);
-}
-
-void PusherEventService::unsubscribe(const std::string& channel) {
-    auto& pusher_client = impl->get_client();
-    if (pusher_client == nullptr || !pusher_client->is_subscribed(channel)) {
-        return;
-    }
-
-    pusher_client->unsubscribe(channel);
-}
-
-void PusherEventService::bind(const std::string& channel) {
-    auto& pusher_client = impl->get_client();
-    for (auto& def : EventTypeDef::filter_by_channel_type({channel})) {
-        pusher_client->bind(def.get_key(), listener);
-    }
+const std::vector<std::shared_ptr<EventListenerRegistration>>& PusherEventService::get_listeners() const {
+    return listeners;
 }
 
 const std::shared_ptr<utils::LoggerProvider>& PusherEventService::get_logger_provider() const {
