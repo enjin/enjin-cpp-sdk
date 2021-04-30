@@ -383,3 +383,49 @@ TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToWalletServiceIsUnsubscribed
 
     service->shutdown();
 }
+
+TEST_F(PusherEventServiceWebsocketTest, StartPreviouslyActiveServiceResubscribesToChannels) {
+    // Arrange - Data & Expectations
+    int project = DEFAULT_PROJECT;
+    const std::string channel = ProjectChannel(create_default_platform(), project).channel();
+    auto service = create_default_event_service();
+    auto subscribe_func = [this, &channel](const TestWebsocketMessage& message) {
+        increment_call_counter();
+        EXPECT_EQ(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE, message.get_type());
+
+        std::string data = create_subscription_success_message(channel);
+        TestWebsocketMessage response;
+        response.set_data(std::vector<unsigned char>(data.begin(), data.end()));
+        response.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
+        mock_server.send_message(response);
+    };
+    mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
+               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PING_TYPE)
+               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PONG_TYPE)
+               .ignore_message_type(WebsocketMessageType::WEBSOCKET_CLOSE_TYPE);
+    mock_server.next_message(subscribe_func); // Expect subscribe messages
+    mock_server.next_message(subscribe_func); //
+    set_expected_call_count(2);               //
+    service->start();                                            // Service is started for first time and subscribes to
+    std::this_thread::sleep_for(std::chrono::milliseconds(500)); // the channel
+    service->subscribe_to_project(project);                      //
+    std::this_thread::sleep_for(std::chrono::milliseconds(500)); //
+
+    service->shutdown();                                         // Shutdown the service to be restarted on 'Act'
+    std::this_thread::sleep_for(std::chrono::milliseconds(500)); //
+
+    EXPECT_TRUE(service->is_subscribed_to_project(project));
+
+    // Act
+    service->start();
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
+    // Verify
+    verify_call_count(2);
+
+    // Assert
+    EXPECT_TRUE(service->is_subscribed_to_project(project));
+
+    service->shutdown();
+}
