@@ -27,6 +27,7 @@
 #include "enjinsdk_utils/StringUtils.hpp"
 #include <algorithm>
 #include <exception>
+#include <set>
 #include <stdexcept>
 #include <sstream>
 #include <utility>
@@ -59,6 +60,7 @@ public:
                      const pusher::PusherOptions& options,
                      const std::shared_ptr<utils::LoggerProvider>& logger_provider = nullptr) {
         client = std::make_unique<pusher::PusherClient>(ws_client, key, options, logger_provider);
+        resubscribe_to_channels();
 
         client->set_on_connection_state_change_handler([this, logger_provider](pusher::ConnectionState state) {
             if (logger_provider != nullptr && state != pusher::ConnectionState::ALL) {
@@ -112,27 +114,31 @@ public:
     }
 
     void subscribe(const std::string& channel) {
-        if (client == nullptr || client->is_subscribed_or_pending(channel)) {
+        if (client == nullptr || subscribed_channels.find(channel) != subscribed_channels.end()) {
             return;
         }
 
+        subscribed_channels.emplace(channel);
         client->subscribe(channel);
         bind(channel);
     }
 
     void unsubscribe(const std::string& channel) {
-        if (client == nullptr || !client->is_subscribed(channel)) {
+        if (client == nullptr || subscribed_channels.find(channel) == subscribed_channels.end()) {
             return;
         }
 
+        subscribed_channels.erase(channel);
         client->unsubscribe(channel);
     }
 
     [[nodiscard]] bool is_subscribed(const std::string& channel) const {
-        return client->is_subscribed(channel);
+        return subscribed_channels.find(channel) != subscribed_channels.end();
     }
 
 private:
+    std::set<std::string> subscribed_channels;
+
     std::shared_ptr<PusherEventListener> listener;
     std::shared_ptr<websockets::IWebsocketClient> ws_client;
     std::unique_ptr<pusher::PusherClient> client;
@@ -141,6 +147,15 @@ private:
     std::optional<std::function<void()>> connected_handler;
     std::optional<std::function<void()>> disconnected_handler;
     std::optional<std::function<void(const std::exception&)>> error_handler;
+
+    void resubscribe_to_channels() {
+        std::set<std::string> channels(subscribed_channels);
+        subscribed_channels.clear();
+
+        for (const auto& channel : channels) {
+            subscribe(channel);
+        }
+    }
 
     void bind(const std::string& channel) {
         for (auto& def : EventTypeDef::filter_by_channel_type({channel})) {
