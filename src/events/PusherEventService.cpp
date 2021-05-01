@@ -27,9 +27,9 @@
 #include "enjinsdk_utils/StringUtils.hpp"
 #include <algorithm>
 #include <exception>
-#include <set>
 #include <stdexcept>
 #include <sstream>
+#include <unordered_set>
 #include <utility>
 
 #ifndef ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL
@@ -137,7 +137,7 @@ public:
     }
 
 private:
-    std::set<std::string> subscribed_channels;
+    std::unordered_set<std::string> subscribed_channels;
 
     std::shared_ptr<PusherEventListener> listener;
     std::shared_ptr<websockets::IWebsocketClient> ws_client;
@@ -149,7 +149,7 @@ private:
     std::optional<std::function<void(const std::exception&)>> error_handler;
 
     void resubscribe_to_channels() {
-        std::set<std::string> channels(subscribed_channels);
+        std::unordered_set<std::string> channels(subscribed_channels);
         subscribed_channels.clear();
 
         for (const auto& channel : channels) {
