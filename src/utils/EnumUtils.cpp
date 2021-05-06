@@ -291,19 +291,19 @@ std::string serialize_event_type(models::EventType v) noexcept {
     }
 }
 
-std::string serialize_pusher_connection_state(pusher::ConnectionState v) noexcept {
+std::string serialize_pusher_connection_state(pusher::PusherConnectionState v) noexcept {
     switch (v) {
-        case pusher::ConnectionState::ALL:
+        case pusher::PusherConnectionState::ALL:
             return "ALL";
-        case pusher::ConnectionState::CONNECTING:
+        case pusher::PusherConnectionState::CONNECTING:
             return "CONNECTING";
-        case pusher::ConnectionState::CONNECTED:
+        case pusher::PusherConnectionState::CONNECTED:
             return "CONNECTED";
-        case pusher::ConnectionState::DISCONNECTED:
+        case pusher::PusherConnectionState::DISCONNECTED:
             return "DISCONNECTED";
-        case pusher::ConnectionState::DISCONNECTING:
+        case pusher::PusherConnectionState::DISCONNECTING:
             return "DISCONNECTING";
-        case pusher::ConnectionState::RECONNECTING:
+        case pusher::PusherConnectionState::RECONNECTING:
             return "RECONNECTING";
         default:
             return "";

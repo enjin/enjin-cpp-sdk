@@ -19,7 +19,7 @@
 namespace enjin::pusher {
 
 /// \brief Error codes that may be received from Pusher.
-enum class ErrorCodes : int {
+enum class PusherErrorCodes : int {
     UNKNOWN = 0, ///< \brief A catch all error code.
     SUBSCRIPTION_ERROR = 5003,
 };

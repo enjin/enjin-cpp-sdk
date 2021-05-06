@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "ISubscriptionEventListener.hpp"
-#include "ConnectionState.hpp"
+#include "PusherConnectionState.hpp"
 #include "PusherOptions.hpp"
 #include "enjinsdk/IWebsocketClient.hpp"
 #include "enjinsdk/LoggerProvider.hpp"
@@ -95,11 +95,11 @@ public:
 
     /// \brief Returns the connection state of this client.
     /// \return The connection state.
-    [[nodiscard]] ConnectionState get_state() const;
+    [[nodiscard]] PusherConnectionState get_state() const;
 
     /// \brief Sets the handler for when the connection state changes.
     /// \param handler The handler.
-    void set_on_connection_state_change_handler(const std::function<void(ConnectionState)>& handler);
+    void set_on_connection_state_change_handler(const std::function<void(PusherConnectionState)>& handler);
 
     /// \brief Sets the handler for when errors are received from the server.
     /// \param handler The handler.
@@ -115,13 +115,13 @@ private:
     std::map<std::string, PusherChannel> channels;
     std::set<std::string> pending_channels;
     std::map<std::string, std::vector<std::shared_ptr<ISubscriptionEventListener>>> event_listeners;
-    ConnectionState state = ConnectionState::DISCONNECTED;
+    PusherConnectionState state = PusherConnectionState::DISCONNECTED;
     std::shared_ptr<sdk::utils::LoggerProvider> logger_provider;
 
     std::string key;
     PusherOptions options;
 
-    std::optional<std::function<void(ConnectionState)>> on_connection_state_change;
+    std::optional<std::function<void(PusherConnectionState)>> on_connection_state_change;
     std::optional<std::function<void(const std::exception&)>> on_error;
 
     // Mutex
@@ -137,7 +137,7 @@ private:
 
     void subscription_succeeded(const std::string& channel_name);
 
-    void set_state(ConnectionState state);
+    void set_state(PusherConnectionState state);
 
     void emit_event(const PusherEvent& event);
 

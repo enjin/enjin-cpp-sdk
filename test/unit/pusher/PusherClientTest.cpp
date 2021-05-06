@@ -53,7 +53,7 @@ TEST_F(PusherClientTest, ConnectClientConnectsToServer) {
     // Assert
     EXPECT_NO_THROW(client.connect());
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    EXPECT_EQ(ConnectionState::CONNECTED, client.get_state());
+    EXPECT_EQ(PusherConnectionState::CONNECTED, client.get_state());
 }
 
 TEST_F(PusherClientTest, DisconnectClientDisconnectsFromServer) {
@@ -64,7 +64,7 @@ TEST_F(PusherClientTest, DisconnectClientDisconnectsFromServer) {
 
     // Assert
     EXPECT_NO_THROW(client.disconnect());
-    EXPECT_EQ(ConnectionState::DISCONNECTED, client.get_state());
+    EXPECT_EQ(PusherConnectionState::DISCONNECTED, client.get_state());
 }
 
 TEST_F(PusherClientTest, SubscribeClientSendsMessageToServerAndSubscribesToChannelAfterReceivingSuccessResponse) {
