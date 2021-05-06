@@ -17,7 +17,7 @@
 #define ENJINCPPSDK_ENUMUTILS_HPP
 
 #include "enjinsdk_export.h"
-#include "ConnectionState.hpp"
+#include "PusherConnectionState.hpp"
 #include "enjinsdk/models/EventType.hpp"
 #include "enjinsdk/models/RequestState.hpp"
 #include "enjinsdk/models/RequestType.hpp"
@@ -60,7 +60,7 @@ ENJINSDK_EXPORT
 std::string serialize_event_type(enjin::sdk::models::EventType v) noexcept;
 
 ENJINSDK_EXPORT
-std::string serialize_pusher_connection_state(pusher::ConnectionState v) noexcept;
+std::string serialize_pusher_connection_state(pusher::PusherConnectionState v) noexcept;
 
 ENJINSDK_EXPORT
 std::string serialize_request_state(enjin::sdk::models::RequestState v) noexcept;

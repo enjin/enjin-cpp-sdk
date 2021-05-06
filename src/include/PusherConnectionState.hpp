@@ -19,7 +19,7 @@
 namespace enjin::pusher {
 
 /// \brief Enums for different connection states for a Pusher client.
-enum class ConnectionState {
+enum class PusherConnectionState {
     CONNECTING,
     CONNECTED,
     DISCONNECTING,
