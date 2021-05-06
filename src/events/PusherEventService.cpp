@@ -47,6 +47,9 @@ class PusherEventServiceImpl {
 public:
     PusherEventServiceImpl() = delete;
 
+    /// \brief Constructs a implementation with the given event listener and websocket client.
+    /// \param listener The Pusher event listener.
+    /// \param ws_client The websockect client.
     PusherEventServiceImpl(std::unique_ptr<PusherEventListener> listener,
                            std::shared_ptr<websockets::IWebsocketClient> ws_client)
             : listener(std::move(listener)),
@@ -54,8 +57,13 @@ public:
               client(nullptr) {
     }
 
+    /// \brief Default destructor.
     ~PusherEventServiceImpl() = default;
 
+    /// \brief Initializes and starts a new Pusher client with the given settings.
+    /// \param key The application key.
+    /// \param options The Pusher options.
+    /// \param logger_provider The logger provider to be used by the Pusher client.
     void init_client(const std::string& key,
                      const pusher::PusherOptions& options,
                      const std::shared_ptr<utils::LoggerProvider>& logger_provider = nullptr) {
@@ -91,28 +99,39 @@ public:
         client->connect();
     }
 
+    /// \brief Disconnects the Pusher client.
     void shutdown() {
         if (client != nullptr) {
             client->disconnect();
         }
     }
 
+    /// \brief Determines if the Pusher client is connected to the server.
+    /// \return Whether the client is connected to the server.
     [[nodiscard]] bool is_connected() const {
         return client != nullptr && client->get_state() == pusher::PusherConnectionState::CONNECTED;
     }
 
+    /// \brief Sets the handler for when the Pusher client is connected to the server.
+    /// \param handler The handler.
     void set_connected_handler(const std::function<void()>& handler) {
         connected_handler = handler;
     }
 
+    /// \brief Sets the handler for when the Pusher client is disconnected from the server.
+    /// \param handler The handler.
     void set_disconnected_handler(const std::function<void()>& handler) {
         disconnected_handler = handler;
     }
 
+    /// \brief Sets the handler for when the Pusher client encounters an error.
+    /// \param handler The handler.
     void set_error_handler(const std::function<void(const std::exception&)>& handler) {
         error_handler = handler;
     }
 
+    /// \brief Subscribes the Pusher client to the given channel.
+    /// \param channel The channel name.
     void subscribe(const std::string& channel) {
         if (client == nullptr || subscribed_channels.find(channel) != subscribed_channels.end()) {
             return;
@@ -123,6 +142,8 @@ public:
         bind(channel);
     }
 
+    /// \brief Unsubscribes the Pusher client from the given channel.
+    /// \param channel The channel name.
     void unsubscribe(const std::string& channel) {
         if (client == nullptr || subscribed_channels.find(channel) == subscribed_channels.end()) {
             return;
@@ -132,6 +153,9 @@ public:
         client->unsubscribe(channel);
     }
 
+    /// \brief Determines if the Pusher client is subscribed to the given channel.
+    /// \param channel The channel name.
+    /// \return Whether the client is subscribed to the given channel.
     [[nodiscard]] bool is_subscribed(const std::string& channel) const {
         return subscribed_channels.find(channel) != subscribed_channels.end();
     }

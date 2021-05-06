@@ -124,7 +124,7 @@ private:
     std::optional<std::function<void(PusherConnectionState)>> on_connection_state_change;
     std::optional<std::function<void(const std::exception&)>> on_error;
 
-    // Mutex
+    // Mutexes
     mutable std::mutex channels_lock;
     mutable std::mutex pending_channels_lock;
     mutable std::mutex event_listeners_lock;
