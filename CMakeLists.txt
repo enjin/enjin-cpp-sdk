@@ -20,8 +20,8 @@ set(ENJINSDK_USING_CONAN 0)
 
 option(ENJINSDK_BUILD_SHARED "ENJINSDK_BUILD_SHARED" OFF)
 option(ENJINSDK_BUILD_TESTS "ENJINSDK_BUILD_TESTS" OFF)
-option(ENJINSDK_ALLOW_DEFAULT_HTTP "ENJINSDK_ALLOW_DEFAULT_HTTP" OFF)
-option(ENJINSDK_ALLOW_DEFAULT_WEBSOCKET "ENJINSDK_ALLOW_DEFAULT_WEBSOCKET" OFF)
+option(ENJINSDK_BUILD_DEFAULT_HTTP "ENJINSDK_BUILD_DEFAULT_HTTP" OFF)
+option(ENJINSDK_BUILD_DEFAULT_WEBSOCKET "ENJINSDK_BUILD_DEFAULT_WEBSOCKET" OFF)
 
 # Attempt to setup Conan
 if (EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
@@ -89,33 +89,31 @@ if (${ENJINSDK_USING_CONAN})
 else ()
     include(CheckIncludeFiles)
 
-    if (${ENJINSDK_ALLOW_DEFAULT_HTTP})
-        include("cmake/enjinsdk_find_cpp_httplib.cmake")
-    endif ()
-    if (${ENJINSDK_ALLOW_DEFAULT_WEBSOCKET})
-        include("cmake/enjinsdk_find_ixwebsocket.cmake")
-    endif ()
-
-    include("cmake/enjinsdk_find_rapidjson.cmake")
-    include("cmake/enjinsdk_find_spdlog.cmake")
-
     ###### HTTP client setup
-    if (${ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL})
-        target_include_directories(${PROJECT_NAME} PRIVATE ${CPP_HTTPLIB_INCLUDE_DIRS})
+    if (${ENJINSDK_BUILD_DEFAULT_HTTP})
+        include("cmake/enjinsdk_find_cpp_httplib.cmake")
+        if (${ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL})
+            target_include_directories(${PROJECT_NAME} PRIVATE ${CPP_HTTPLIB_INCLUDE_DIRS})
+        endif ()
     endif ()
     ######
 
     ###### Websocket client setup
-    if (${ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL})
-        target_link_libraries(${PROJECT_NAME} PRIVATE ixwebsocket::ixwebsocket)
+    if (${ENJINSDK_BUILD_DEFAULT_WEBSOCKET})
+        include("cmake/enjinsdk_find_ixwebsocket.cmake")
+        if (${ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL})
+            target_link_libraries(${PROJECT_NAME} PRIVATE ixwebsocket::ixwebsocket)
+        endif ()
     endif ()
     ######
 
     ###### RapidJson setup
+    include("cmake/enjinsdk_find_rapidjson.cmake")
     target_include_directories(${PROJECT_NAME} PRIVATE ${RAPIDJSON_INCLUDE_DIRS})
     ######
 
     ###### SpdLog setup
+    include("cmake/enjinsdk_find_spdlog.cmake")
     target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog_header_only)
     ######
 endif ()
@@ -198,5 +196,5 @@ unset(ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL)
 unset(ENJINSDK_USING_CONAN)
 unset(ENJINSDK_BUILD_SHARED CACHE)
 unset(ENJINSDK_BUILD_TESTS CACHE)
-unset(ENJINSDK_ALLOW_DEFAULT_HTTP CACHE)
-unset(ENJINSDK_ALLOW_DEFAULT_WEBSOCKET CACHE)
+unset(ENJINSDK_BUILD_DEFAULT_HTTP CACHE)
+unset(ENJINSDK_BUILD_DEFAULT_WEBSOCKET CACHE)
