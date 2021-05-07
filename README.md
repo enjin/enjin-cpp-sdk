@@ -48,8 +48,8 @@ The following libraries are used by the SDK for some of its functionality and mu
 * (optional) [IXWebSocket (11.0.4+)](https://github.com/machinezone/IXWebSocket) for a default websocket client
   implementation
 
-To have the SDK build its default HTTP and websocket clients use the `ENJINSDK_ALLOW_DEFAULT_HTTP` and
-`ENJINSDK_ALLOW_DEFAULT_WEBSOCKET` as CMake arguments and set them to be "on" (off by default).
+To have the SDK build its default HTTP and websocket clients use the `ENJINSDK_BUILD_DEFAULT_HTTP` and
+`ENJINSDK_BUILD_DEFAULT_WEBSOCKET` as CMake arguments and set them to be "on" (off by default).
 
 To utilize this SDK you may clone it into your project tree with:
 
