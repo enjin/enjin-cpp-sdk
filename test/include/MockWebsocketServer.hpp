@@ -78,7 +78,13 @@ public:
 
     void send_message(const TestWebsocketMessage& message);
 
+    void close();
+
     void close(int code, const std::string& reason);
+
+    void stop();
+
+    void stop(int code, const std::string& reason);
 
     bool is_type_ignored(WebsocketMessageType type);
 

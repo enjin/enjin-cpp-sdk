@@ -50,7 +50,7 @@ public:
     }
 
     ~MockWebsocketServerImpl() {
-        close("Destructor");
+        stop("Destructor");
     }
 
     void connect() {
@@ -84,6 +84,10 @@ public:
         server.start();
     }
 
+    void close() {
+        close(ix::WebSocketCloseConstants::kNormalClosureCode, ix::WebSocketCloseConstants::kNormalClosureMessage);
+    }
+
     void close(const std::string& reason) {
         close(ix::WebSocketCloseConstants::kNormalClosureCode, reason);
     }
@@ -95,6 +99,19 @@ public:
                       [code, reason](const std::shared_ptr<ix::WebSocket>& c) {
                           c->close(code, reason);
                       });
+    }
+
+    void stop() {
+        stop(ix::WebSocketCloseConstants::kNormalClosureCode, ix::WebSocketCloseConstants::kNormalClosureMessage);
+    }
+
+    void stop(const std::string& reason) {
+        stop(ix::WebSocketCloseConstants::kNormalClosureCode, reason);
+    }
+
+    void stop(uint16_t code, const std::string& reason) {
+        close(code, reason);
+        server.stop();
     }
 
     void send_message(const TestWebsocketMessage& message) {
@@ -253,8 +270,20 @@ void MockWebsocketServer::send_message(const TestWebsocketMessage& message) {
     impl->send_message(message);
 }
 
+void MockWebsocketServer::close() {
+    impl->close();
+}
+
 void MockWebsocketServer::close(int code, const std::string& reason) {
     impl->close(code, reason);
+}
+
+void MockWebsocketServer::stop() {
+    impl->stop();
+}
+
+void MockWebsocketServer::stop(int code, const std::string& reason) {
+    impl->stop(code, reason);
 }
 
 bool MockWebsocketServer::is_type_ignored(WebsocketMessageType type) {

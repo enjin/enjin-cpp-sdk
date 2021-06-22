@@ -23,13 +23,13 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IWebsocketClient.hpp"
-#include "enjinsdk/LoggerProvider.hpp"
 #include "ixwebsocket/IXWebSocket.h"
+#include <condition_variable>
 #include <functional>
-#include <future>
 #include <memory>
 #include <mutex>
 #include <optional>
+#include <stdexcept>
 #include <string>
 
 namespace enjin::sdk::websockets {
@@ -38,16 +38,15 @@ namespace enjin::sdk::websockets {
 class ENJINSDK_EXPORT WebsocketClientImpl : public IWebsocketClient {
 public:
     /// \brief Creates the websocket client.
-    /// \param logger_provider The logger provider. Null pointer by default.
-    explicit WebsocketClientImpl(std::shared_ptr<utils::LoggerProvider> logger_provider = nullptr);
+    WebsocketClientImpl();
 
     ~WebsocketClientImpl() override;
 
-    void connect(const std::string& uri) override;
+    std::future<void> connect(const std::string& uri) override;
 
-    void close() override;
+    std::future<void> close() override;
 
-    void close(int status_code, const std::string& reason) override;
+    std::future<void> close(int status_code, const std::string& reason) override;
 
     void send(const std::string& data) override;
 
@@ -57,18 +56,39 @@ public:
 
     void set_message_handler(const std::function<void(const std::string& message)>& handler) override;
 
-    void set_allow_reconnecting(bool allowed) override;
+    void set_error_handler(const std::function<void(int code, const std::string& message)>& handler) override;
+
+    void set_allow_reconnecting(bool allow) override;
+
+    void set_allowed_reconnect_attempts(unsigned int allowed_attempts) override;
 
 private:
+    enum class ConnectionStatus {
+        CONNECTED,
+        CONNECTING,
+        DISCONNECTED,
+        DISCONNECTING,
+    };
+
     ix::WebSocket ws;
-    std::shared_ptr<utils::LoggerProvider> logger_provider;
+    ConnectionStatus conn_status = ConnectionStatus::DISCONNECTED;
+    unsigned int allowed_attempts = 0;
 
     std::optional<std::function<void()>> open_handler;
     std::optional<std::function<void(int, const std::string&)>> close_handler;
     std::optional<std::function<void(const std::string&)>> message_handler;
+    std::optional<std::function<void(int code, const std::string& message)>> error_handler;
 
-    // Mutex
+    std::condition_variable conn_cv;
+    std::optional<ix::WebSocketErrorInfo> conn_error_info;
+
+    // Mutexes
+    mutable std::mutex conn_mutex;
     mutable std::mutex handler_mutex;
+
+    void open_message_received();
+
+    void error_message_received(const ix::WebSocketMessagePtr& msg);
 };
 
 }
