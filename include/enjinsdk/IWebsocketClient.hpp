@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include <functional>
+#include <future>
 #include <string>
 
 namespace enjin::sdk::websockets {
@@ -30,15 +31,18 @@ public:
 
     /// \brief Connects to the server at the given URI address.
     /// \param uri The URI.
-    virtual void connect(const std::string& uri) = 0;
+    /// \return The future for this operation.
+    virtual std::future<void> connect(const std::string& uri) = 0;
 
     /// \brief Closes the websocket connection.
-    virtual void close() = 0;
+    /// \return The future for this operation.
+    virtual std::future<void> close() = 0;
 
     /// \brief Closes the websocket connection with the provided code and message.
     /// \param status_code The status code.
     /// \param reason The reason message.
-    virtual void close(int status_code, const std::string& reason) = 0;
+    /// \return The future for this operation.
+    virtual std::future<void> close(int status_code, const std::string& reason) = 0;
 
     /// \brief Sends a websocket message to the server.
     /// \param data The message string.
@@ -59,9 +63,18 @@ public:
     /// \remarks The argument for the handler is expected to be the message string.
     virtual void set_message_handler(const std::function<void(const std::string& message)>& handler) = 0;
 
+    /// \brief Sets the handler for receiving errors which occur with the websocket connection.
+    /// \param handler The handler.
+    /// \remarks The arguments for the handler are expected to be an error code and the message.
+    virtual void set_error_handler(const std::function<void(int code, const std::string& message)>& handler) = 0;
+
     /// \brief Sets whether reconnecting is allowed.
     /// \param allowed Whether reconnecting is allowed.
     virtual void set_allow_reconnecting(bool allowed) = 0;
+
+    /// \brief Sets the number of attempts
+    /// \param allowed_attempts
+    virtual void set_allowed_reconnect_attempts(unsigned int allowed_attempts) = 0;
 };
 
 }
