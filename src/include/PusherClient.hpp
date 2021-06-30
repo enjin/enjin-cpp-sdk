@@ -23,6 +23,7 @@
 #include "enjinsdk/IWebsocketClient.hpp"
 #include "enjinsdk/LoggerProvider.hpp"
 #include <atomic>
+#include <condition_variable>
 #include <exception>
 #include <functional>
 #include <future>
@@ -54,14 +55,18 @@ public:
     ~PusherClient();
 
     /// \brief Connects this client to the server.
-    void connect();
+    /// \return The future for this operation.
+    std::future<void> connect();
 
     /// \brief Disconnects this client from the server.
-    void disconnect();
+    /// \return The future for this operation.
+    std::future<void> disconnect();
 
     /// \brief Subscribes to the channel to start receiving events for it.
     /// \param channel_name The name of the channel.
     /// \return The future for this operation.
+    /// \remarks This operation may timeout if no success message is returned by the server within the timout period
+    /// determined by PusherOptions.
     std::future<void> subscribe(const std::string& channel_name);
 
     /// \brief Unsubscribes from the channel.
@@ -112,23 +117,29 @@ private:
     };
 
     std::shared_ptr<sdk::websockets::IWebsocketClient> ws_client;
+    std::shared_ptr<sdk::utils::LoggerProvider> logger_provider;
+
+    std::map<std::string, std::vector<std::shared_ptr<ISubscriptionEventListener>>> event_listeners;
     std::map<std::string, PusherChannel> channels;
     std::set<std::string> pending_channels;
-    std::map<std::string, std::vector<std::shared_ptr<ISubscriptionEventListener>>> event_listeners;
-    PusherConnectionState state = PusherConnectionState::DISCONNECTED;
-    std::shared_ptr<sdk::utils::LoggerProvider> logger_provider;
 
     std::string key;
     PusherOptions options;
+    PusherConnectionState state = PusherConnectionState::DISCONNECTED;
 
+    // Handlers
     std::optional<std::function<void(PusherConnectionState)>> on_connection_state_change;
     std::optional<std::function<void(const std::exception&)>> on_error;
 
     // Mutexes
-    mutable std::mutex channels_lock;
-    mutable std::mutex pending_channels_lock;
-    mutable std::mutex event_listeners_lock;
-    mutable std::mutex state_lock;
+    mutable std::mutex channels_mutex;
+    mutable std::mutex pending_channels_mutex;
+    mutable std::mutex event_listeners_mutex;
+    mutable std::mutex state_mutex;
+    mutable std::mutex subscription_mutex;
+
+    // Condition variables
+    std::condition_variable subscription_cv;
 
     // Flags
     std::atomic_bool ws_client_closed = true;

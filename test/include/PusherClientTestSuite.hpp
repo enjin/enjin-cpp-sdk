@@ -41,7 +41,7 @@ public:
     std::shared_ptr<mocks::MockWebSocketClientImpl> mock_ws_client = std::make_shared<mocks::MockWebSocketClientImpl>();
     mocks::MockWebsocketServer mock_server;
 
-    enjin::pusher::PusherClient create_testable_pusher_client();
+    [[nodiscard]] pusher::PusherClient create_testable_pusher_client() const;
 
     static std::string create_default_event(const std::string& channel = "", const std::string& data = "null");
 

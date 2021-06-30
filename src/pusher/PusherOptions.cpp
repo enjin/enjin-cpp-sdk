@@ -29,18 +29,22 @@ PusherOptions& PusherOptions::set_encrypted(bool encrypted) {
     return *this;
 }
 
-const std::optional<std::string>& PusherOptions::get_cluster() const {
-    return cluster;
+std::string PusherOptions::get_cluster() const {
+    return cluster.value_or(DEFAULT_CLUSTER);
+}
+
+std::chrono::milliseconds PusherOptions::get_client_timeout() const {
+    return client_timeout.value_or(DEFAULT_CLIENT_TIMEOUT);
 }
 
 bool PusherOptions::is_encrypted() const {
-    return encrypted;
+    return encrypted.value_or(DEFAULT_ENCRYPTION);
 }
 
 std::string PusherOptions::host() const {
     std::stringstream ss;
     ss << "ws-"
-       << cluster.value_or("mt1")
+       << get_cluster()
        << ".pusher.com";
     return ss.str();
 }

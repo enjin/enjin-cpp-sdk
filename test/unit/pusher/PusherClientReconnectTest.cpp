@@ -33,20 +33,15 @@ protected:
                    .ignore_message_type(WebsocketMessageType::WEBSOCKET_PING_TYPE)
                    .ignore_message_type(WebsocketMessageType::WEBSOCKET_PONG_TYPE);
     }
-
-    void TearDown() override {
-        mock_server.close(1000, "Teardown");
-    }
 };
 
-TEST_F(PusherClientReconnectTest, ReceivesGenericClosingCodeDoesReconnectToServer) {
+TEST_F(PusherClientReconnectTest, ReceivesGenericClosingCodeAndReconnectToServer) {
     // Arrange - Data
     const int status_code = 1000;
-    const std::string reason;
+    const std::string reason("Test closure");
     PusherClient client = create_testable_pusher_client();
+    client.connect().get();
     mock_server.next_message([](const TestWebsocketMessage& message) { /* Consume initial open message */ });
-    client.connect();
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Arrange - Expectations
     mock_server.next_message([this](const TestWebsocketMessage& message) {
@@ -70,11 +65,10 @@ TEST_F(PusherClientReconnectTest, ReceivesGenericClosingCodeDoesReconnectToServe
 TEST_F(PusherClientReconnectTest, ReceivesPusherClosingCodeDoesNotReconnectToServer) {
     // Arrange - Data
     const int status_code = 4000;
-    const std::string reason;
+    const std::string reason("Test closure");
     PusherClient client = create_testable_pusher_client();
+    client.connect().get();
     mock_server.next_message([](const TestWebsocketMessage& message) { /* Consume initial open message */ });
-    client.connect();
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Act
     mock_server.close(status_code, reason);

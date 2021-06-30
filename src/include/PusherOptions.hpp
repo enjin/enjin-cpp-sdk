@@ -17,6 +17,7 @@
 #define ENJINCPPSDK_PUSHERPUSHEROPTIONS_HPP
 
 #include "enjinsdk_export.h"
+#include <chrono>
 #include <optional>
 #include <string>
 
@@ -25,6 +26,15 @@ namespace enjin::pusher {
 /// \brief Class for modeling options for a Pusher client.
 class ENJINSDK_EXPORT PusherOptions {
 public:
+    /// \brief The default cluster used by a client.
+    static constexpr char DEFAULT_CLUSTER[] = "mt1";
+
+    /// \brief The default encryption state used by a client.
+    static constexpr bool DEFAULT_ENCRYPTION = true;
+
+    /// \brief The default timeout duration for asynchronous operations used by a client.
+    static constexpr std::chrono::milliseconds DEFAULT_CLIENT_TIMEOUT = std::chrono::milliseconds(30000);
+
     /// \brief Default constructor.
     PusherOptions() = default;
 
@@ -49,13 +59,29 @@ public:
     /// \return This for chaining.
     PusherOptions& set_encrypted(bool encrypted);
 
-    /// \brief Returns the cluster.
-    /// \return The optional for the cluster.
-    [[nodiscard]] const std::optional<std::string>& get_cluster() const;
+    /// \brief Sets the timeout duration to wait for a asynchronous operation to complete.
+    /// \tparam Rep An arithmetic type representing the number of ticks.
+    /// \tparam Period A std::ratio representing the tick period (i.e. the number of seconds per tick).
+    /// \param timeout The timeout duration.
+    /// \return This for chaining.
+    template<typename Rep, typename Period>
+    inline PusherOptions& set_client_timeout(const std::chrono::duration<Rep, Period>& timeout) {
+        client_timeout = std::chrono::duration_cast<std::chrono::milliseconds>(timeout);
+        return *this;
+    }
+
+    /// \brief Returns the cluster if set, otherwise returns DEFAULT_CLUSTER.
+    /// \return The cluster.
+    [[nodiscard]] std::string get_cluster() const;
+
+    /// \brief Returns the client timeout duration if set, otherwise returns DEFAULT_CLIENT_TIMEOUT.
+    /// \return The timeout duration.
+    [[nodiscard]] std::chrono::milliseconds get_client_timeout() const;
 
 private:
     std::optional<std::string> cluster;
-    bool encrypted = true;
+    std::optional<bool> encrypted;
+    std::optional<std::chrono::milliseconds> client_timeout;
 };
 
 }
