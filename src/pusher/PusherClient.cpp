@@ -51,9 +51,6 @@ PusherClient::PusherClient(std::shared_ptr<sdk::websockets::IWebsocketClient> ws
           logger_provider(std::move(logger_provider)),
           key(std::move(key)),
           options(options) {
-    PusherClient::ws_client->set_allow_reconnecting(true);
-    PusherClient::ws_client->set_allowed_reconnect_attempts(5);
-
     PusherClient::ws_client->set_message_handler([this](const std::string& message) {
         websocket_message_received(message);
     });
@@ -72,6 +69,7 @@ PusherClient::~PusherClient() {
 std::future<void> PusherClient::connect() {
     ws_client_closed = false;
     ws_client->set_allow_reconnecting(true);
+    ws_client->set_allowed_reconnect_attempts(5);
     set_state(PusherConnectionState::CONNECTING);
 
     std::string schema = options.is_encrypted()
@@ -108,28 +106,28 @@ std::future<void> PusherClient::disconnect() {
 }
 
 std::future<void> PusherClient::subscribe(const std::string& channel_name) {
-    return std::async([this, channel_name]() {
-        std::unique_lock<std::mutex> channels_lock(channels_mutex);
-        std::unique_lock<std::mutex> pending_lock(pending_channels_mutex);
+    std::unique_lock<std::mutex> channels_lock(channels_mutex);
+    std::unique_lock<std::mutex> pending_lock(pending_channels_mutex);
 
-        bool is_pending = pending_channels.find(channel_name) != pending_channels.end();
-        auto loc = channels.find(channel_name);
-        bool is_subscribed = loc != channels.end() && loc->second.is_subscribed;
+    bool is_pending = pending_channels.find(channel_name) != pending_channels.end();
+    auto loc = channels.find(channel_name);
+    bool is_subscribed = loc != channels.end() && loc->second.is_subscribed;
 
-        if (is_pending || is_subscribed) {
-            return;
-        }
+    if (is_pending || is_subscribed) {
+        return std::async([]() {});
+    }
 
-        pending_channels.emplace(channel_name);
-        pending_lock.unlock();
+    pending_channels.emplace(channel_name);
+    pending_lock.unlock();
 
-        channels.try_emplace(channel_name, PusherChannel{});
-        channels_lock.unlock();
+    channels.try_emplace(channel_name, PusherChannel{});
+    channels_lock.unlock();
 
-        if (get_state() == PusherConnectionState::CONNECTED) {
-            subscribe_to_channel(channel_name).get();
-        }
-    });
+    if (get_state() != PusherConnectionState::CONNECTED) {
+        return std::async([]() {});
+    }
+
+    return subscribe_to_channel(channel_name);
 }
 
 std::future<void> PusherClient::subscribe_to_channel(const std::string& channel_name) {
@@ -138,37 +136,76 @@ std::future<void> PusherClient::subscribe_to_channel(const std::string& channel_
 
         std::unique_lock<std::mutex> channels_lock(channels_mutex);
         auto loc = channels.find(channel_name);
-        bool subscribed = loc != channels.end() && loc->second.is_subscribed;
+        bool subscription_resolved = loc == channels.end() || loc->second.is_subscribed;
         channels_lock.unlock();
 
         auto time_point = std::chrono::steady_clock::now() + options.get_client_timeout();
 
         std::unique_lock<std::mutex> subscription_lock(subscription_mutex);
 
-        while (!subscribed) {
+        while (!subscription_resolved) {
             auto status = subscription_cv.wait_until(subscription_lock, time_point);
             if (status == std::cv_status::timeout) {
-                // TODO: Have the client erase the channel if timeout is reached.
-
-                throw PusherException("", 0); // TODO: Switch to a timeout exception.
+                subscription_lock.unlock();
+                unsubscribe(channel_name);
+                throw std::runtime_error("Timeout reached while waiting for response");
             }
 
             channels_lock.lock();
             loc = channels.find(channel_name);
-            subscribed = loc != channels.end() && loc->second.is_subscribed;
+            subscription_resolved = loc == channels.end() || loc->second.is_subscribed;
             channels_lock.unlock();
         }
     });
 }
 
+void PusherClient::subscription_succeeded(const std::string& channel_name) {
+    std::unique_lock<std::mutex> channels_lock(channels_mutex);
+    std::unique_lock<std::mutex> pending_lock(pending_channels_mutex);
+
+    pending_channels.erase(channel_name);
+    pending_lock.unlock();
+
+    auto channels_loc = channels.find(channel_name);
+    if (channels_loc == channels.end() || channels_loc->second.is_subscribed) {
+        return;
+    }
+
+    channels_loc->second.is_subscribed = true;
+    channels_lock.unlock();
+
+    std::unique_lock<std::mutex> subscription_lock(subscription_mutex);
+    subscription_cv.notify_all();
+}
+
 std::future<void> PusherClient::unsubscribe(const std::string& channel_name) {
+    std::unique_lock<std::mutex> channels_lock(channels_mutex);
+    std::unique_lock<std::mutex> pending_lock(pending_channels_mutex);
+
+    if (pending_channels.find(channel_name) == pending_channels.end() &&
+        channels.find(channel_name) == channels.end()) {
+        return std::async([]() {});
+    }
+
+    pending_channels.erase(channel_name);
+    pending_lock.unlock();
+
+    channels.erase(channel_name);
+    channels_lock.unlock();
+
+    std::unique_lock<std::mutex> subscription_lock(subscription_mutex);
+    subscription_cv.notify_all();
+    subscription_lock.unlock();
+
+    if (get_state() != PusherConnectionState::CONNECTED) {
+        return std::async([]() {});
+    }
+
+    return unsubscribe_from_channel(channel_name);
+}
+
+std::future<void> PusherClient::unsubscribe_from_channel(const std::string& channel_name) {
     return std::async([this, channel_name]() {
-        if (get_state() != PusherConnectionState::CONNECTED) {
-            return;
-        }
-
-        // TODO: Check (if necessary) whether the client is subscribed or pending subscription to the channel.
-
         rapidjson::Document document(rapidjson::kObjectType);
         auto& allocator = document.GetAllocator();
 
@@ -182,30 +219,7 @@ std::future<void> PusherClient::unsubscribe(const std::string& channel_name) {
         document.AddMember(DATA_KEY, v_data, allocator);
 
         ws_client->send(sdk::utils::document_to_string(document));
-
-        channels_mutex.lock();
-        channels.erase(channel_name);
-        channels_mutex.unlock();
     });
-}
-
-void PusherClient::subscription_succeeded(const std::string& channel_name) {
-    std::unique_lock<std::mutex> pending_lock(pending_channels_mutex);
-    auto pending_loc = pending_channels.find(channel_name);
-    if (pending_loc != pending_channels.end()) {
-        pending_channels.erase(pending_loc);
-    }
-    pending_lock.unlock();
-
-    std::unique_lock<std::mutex> channels_lock(channels_mutex);
-    auto channels_loc = channels.find(channel_name);
-    if (channels_loc != channels.end()) {
-        channels_loc->second.is_subscribed = true;
-    }
-    channels_lock.unlock();
-
-    std::unique_lock<std::mutex> subscription_lock(subscription_mutex);
-    subscription_cv.notify_all();
 }
 
 void PusherClient::bind(const std::string& event_name, std::shared_ptr<ISubscriptionEventListener> listener) {
