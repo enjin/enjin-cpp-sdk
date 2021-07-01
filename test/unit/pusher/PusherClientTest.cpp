@@ -86,11 +86,11 @@ TEST_F(PusherClientTest, SubscribeClientSendsMessageToServerAndSubscribesToChann
     // Act
     client.subscribe(channel_name).get();
 
+    // Assert
+    ASSERT_TRUE(client.is_subscribed(channel_name));
+
     // Verify
     verify_call_count(1);
-
-    // Assert
-    EXPECT_TRUE(client.is_subscribed(channel_name));
 }
 
 TEST_F(PusherClientTest, SubscribeFutureCompletesExceptionallyOnTimeout) {
@@ -98,7 +98,7 @@ TEST_F(PusherClientTest, SubscribeFutureCompletesExceptionallyOnTimeout) {
     const std::string channel_name(DEFAULT_CHANNEL_NAME);
     PusherOptions options = PusherOptions()
             .set_cluster(DEFAULT_CLUSTER)
-            .set_client_timeout(std::chrono::milliseconds (500));
+            .set_client_timeout(std::chrono::seconds(0)); // Ensures timeout finishes immediately
     PusherClient client = PusherClient(mock_ws_client, DEFAULT_KEY, options);
     client.connect().get();
 
@@ -124,7 +124,7 @@ TEST_F(PusherClientTest, UnsubscribeClientSendsMessageToServerAndUnsubscribesFro
     client.subscribe(channel_name).get();
 
     // Arrange - Expectations
-    EXPECT_TRUE(client.is_subscribed_or_pending(channel_name));
+    EXPECT_TRUE(client.is_subscribed(channel_name));
     mock_server.next_message([this](const TestWebsocketMessage& message) {
         increment_call_counter();
     });
@@ -133,14 +133,49 @@ TEST_F(PusherClientTest, UnsubscribeClientSendsMessageToServerAndUnsubscribesFro
     // Act
     client.unsubscribe(channel_name).get();
 
+    // Assert
+    ASSERT_FALSE(client.is_subscribed(channel_name));
+
     // Verify
     verify_call_count(1);
-
-    // Assert
-    EXPECT_FALSE(client.is_subscribed_or_pending(channel_name));
 }
 
-// TODO: Test Unsubscribe from pending channel.
+TEST_F(PusherClientTest, UnsubscribeClientUnsubscribesWhilePendingSubscription) {
+    // Arrange - Data
+    const std::string channel_name(DEFAULT_CHANNEL_NAME);
+    PusherOptions options = PusherOptions()
+            .set_cluster(DEFAULT_CLUSTER)
+            .set_client_timeout(std::chrono::seconds(5)); // Ensures timeout does not expire during test
+    PusherClient client = PusherClient(mock_ws_client, DEFAULT_KEY, options);
+    client.connect().get();
+    mock_server.next_message([this, channel_name](const TestWebsocketMessage& message) {
+        const std::string success_message = create_subscription_success_message(channel_name);
+        TestWebsocketMessage response;
+        response.set_data(std::vector<unsigned char>(success_message.begin(), success_message.end()));
+        response.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
+        mock_server.send_message(response);
+    });
+    std::future<void> future = client.subscribe(channel_name);
+
+    // Arrange - Expectations
+    EXPECT_TRUE(future.valid());
+    EXPECT_TRUE(client.is_subscription_pending(channel_name));
+    mock_server.next_message([this](const TestWebsocketMessage& message) {
+        increment_call_counter();
+    });
+    set_expected_call_count(1);
+
+    // Act
+    client.unsubscribe(channel_name).get();
+
+    // Assert
+    EXPECT_EQ(std::future_status::ready, future.wait_for(std::chrono::seconds(0)));
+    EXPECT_NO_THROW(future.get());
+    EXPECT_FALSE(client.is_subscribed_or_pending(channel_name));
+
+    // Verify
+    verify_call_count(1);
+}
 
 TEST_F(PusherClientTest, ListenerIsCalledWhenBoundEventIsReceived) {
     // Arrange - Data
@@ -212,11 +247,11 @@ TEST_F(PusherClientTest, ClientSendsCachedSubscribeMessageAfterConnecting) {
 
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
+    // Assert
+    ASSERT_TRUE(client.is_subscribed(channel_name));
+
     // Verify
     verify_call_count(1);
-
-    // Assert
-    EXPECT_TRUE(client.is_subscribed(channel_name));
 }
 
 TEST_F(PusherClientTest, ClientUncachesAndDoesNotSendSubscribeMessageAfterConnecting) {
@@ -235,11 +270,13 @@ TEST_F(PusherClientTest, ClientUncachesAndDoesNotSendSubscribeMessageAfterConnec
     // Act
     client.connect().get();
 
-    // Verify
-    verify_call_count(1);
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Assert
-    EXPECT_FALSE(client.is_subscribed(channel_name));
+    ASSERT_FALSE(client.is_subscribed(channel_name));
+
+    // Verify
+    verify_call_count(1);
 }
 
 TEST_F(PusherClientTest, ClientReceivesErrorMessageFromServerAndRaisesExceptionInHandler) {

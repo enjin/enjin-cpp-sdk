@@ -148,6 +148,8 @@ private:
 
     void subscription_succeeded(const std::string& channel_name);
 
+    std::future<void> unsubscribe_from_channel(const std::string& channel_name);
+
     void set_state(PusherConnectionState state);
 
     void emit_event(const PusherEvent& event);
