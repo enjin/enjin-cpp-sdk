@@ -10,6 +10,7 @@ target_sources(${PROJECT_NAME}
         TrustedPlatformMiddleware.cpp)
 
 add_subdirectory(events)
+add_subdirectory(exceptions)
 add_subdirectory(graphql)
 add_subdirectory(http)
 add_subdirectory(models)
