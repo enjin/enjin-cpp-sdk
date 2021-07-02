@@ -16,6 +16,7 @@
 #include "gtest/gtest.h"
 #include "MockSubscriptionEventListener.hpp"
 #include "PusherClientTestSuite.hpp"
+#include "TimeoutException.hpp"
 #include "VerificationTestSuite.hpp"
 #include <chrono>
 #include <exception>
@@ -106,7 +107,7 @@ TEST_F(PusherClientTest, SubscribeFutureCompletesExceptionallyOnTimeout) {
     std::future<void> future = client.subscribe(channel_name);
 
     // Assert
-    ASSERT_ANY_THROW(future.get());
+    ASSERT_THROW(future.get(), TimeoutException);
 }
 
 TEST_F(PusherClientTest, UnsubscribeClientSendsMessageToServerAndUnsubscribesFromChannel) {

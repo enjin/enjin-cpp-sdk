@@ -15,10 +15,12 @@
 
 #include "PusherClient.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "FutureUtils.hpp"
 #include "PusherConstants.hpp"
 #include "PusherErrorCodes.hpp"
 #include "PusherException.hpp"
+#include "RapidJsonUtils.hpp"
+#include "TimeoutException.hpp"
 #include <sstream>
 
 namespace enjin::pusher {
@@ -102,7 +104,7 @@ std::future<void> PusherClient::disconnect() {
         });
     }
 
-    return std::async([]() {});
+    return sdk::utils::create_completed_future();
 }
 
 std::future<void> PusherClient::subscribe(const std::string& channel_name) {
@@ -113,7 +115,7 @@ std::future<void> PusherClient::subscribe(const std::string& channel_name) {
     bool is_subscribed = loc != channels.end() && loc->second.is_subscribed;
 
     if (is_pending || is_subscribed) {
-        return std::async([]() {});
+        return sdk::utils::create_completed_future();
     }
 
     pending_channels.emplace(channel_name);
@@ -122,7 +124,7 @@ std::future<void> PusherClient::subscribe(const std::string& channel_name) {
     channel_lock.unlock();
 
     if (get_state() != PusherConnectionState::CONNECTED) {
-        return std::async([]() {});
+        return sdk::utils::create_completed_future();
     }
 
     return subscribe_to_channel(channel_name);
@@ -146,7 +148,7 @@ std::future<void> PusherClient::subscribe_to_channel(const std::string& channel_
             if (status == std::cv_status::timeout) {
                 subscription_lock.unlock();
                 unsubscribe(channel_name);
-                throw std::runtime_error("Timeout reached while waiting for response");
+                throw sdk::TimeoutException("Timeout reached while waiting for response");
             }
 
             channel_lock.lock();
@@ -180,7 +182,7 @@ std::future<void> PusherClient::unsubscribe(const std::string& channel_name) {
 
     if (pending_channels.find(channel_name) == pending_channels.end() &&
         channels.find(channel_name) == channels.end()) {
-        return std::async([]() {});
+        return sdk::utils::create_completed_future();
     }
 
     pending_channels.erase(channel_name);
@@ -193,7 +195,7 @@ std::future<void> PusherClient::unsubscribe(const std::string& channel_name) {
     subscription_lock.unlock();
 
     if (get_state() != PusherConnectionState::CONNECTED) {
-        return std::async([]() {});
+        return sdk::utils::create_completed_future();
     }
 
     return unsubscribe_from_channel(channel_name);
