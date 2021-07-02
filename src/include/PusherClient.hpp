@@ -132,8 +132,7 @@ private:
     std::optional<std::function<void(const std::exception&)>> on_error;
 
     // Mutexes
-    mutable std::mutex channels_mutex;
-    mutable std::mutex pending_channels_mutex;
+    mutable std::mutex channel_mutex;
     mutable std::mutex event_listeners_mutex;
     mutable std::mutex state_mutex;
     mutable std::mutex subscription_mutex;
