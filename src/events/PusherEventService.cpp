@@ -17,6 +17,7 @@
 
 #include "AssetChannel.hpp"
 #include "EnumUtils.hpp"
+#include "FutureUtils.hpp"
 #include "EventTypeDef.hpp"
 #include "PlayerChannel.hpp"
 #include "ProjectChannel.hpp"
@@ -64,9 +65,10 @@ public:
     /// \param key The application key.
     /// \param options The Pusher options.
     /// \param logger_provider The logger provider to be used by the Pusher client.
-    void init_client(const std::string& key,
-                     const pusher::PusherOptions& options,
-                     const std::shared_ptr<utils::LoggerProvider>& logger_provider = nullptr) {
+    /// \return The future for this operation.
+    std::future<void> init_client(const std::string& key,
+                                  const pusher::PusherOptions& options,
+                                  const std::shared_ptr<utils::LoggerProvider>& logger_provider = nullptr) {
         client = std::make_unique<pusher::PusherClient>(ws_client, key, options, logger_provider);
         resubscribe_to_channels();
 
@@ -96,14 +98,17 @@ public:
             }
         });
 
-        client->connect();
+        return client->connect();
     }
 
     /// \brief Disconnects the Pusher client.
-    void shutdown() {
-        if (client != nullptr) {
-            client->disconnect();
+    /// \return The future for this operation.
+    std::future<void> shutdown() {
+        if (client == nullptr) {
+            return utils::create_failed_future("Event service has not been started.");
         }
+
+        return client->disconnect();
     }
 
     /// \brief Determines if the Pusher client is connected to the server.
@@ -132,25 +137,29 @@ public:
 
     /// \brief Subscribes the Pusher client to the given channel.
     /// \param channel The channel name.
-    void subscribe(const std::string& channel) {
+    /// \return The future for this operation.
+    std::future<void> subscribe(const std::string& channel) {
         if (client == nullptr || subscribed_channels.find(channel) != subscribed_channels.end()) {
-            return;
+            return utils::create_failed_future("Event service has not been started.");
         }
 
         subscribed_channels.emplace(channel);
-        client->subscribe(channel);
+        std::future<void> fut = client->subscribe(channel);
         bind(channel);
+
+        return fut;
     }
 
     /// \brief Unsubscribes the Pusher client from the given channel.
     /// \param channel The channel name.
-    void unsubscribe(const std::string& channel) {
+    /// \return The future for this operation.
+    std::future<void> unsubscribe(const std::string& channel) {
         if (client == nullptr || subscribed_channels.find(channel) == subscribed_channels.end()) {
-            return;
+            return utils::create_failed_future("Event service has not been started.");
         }
 
         subscribed_channels.erase(channel);
-        client->unsubscribe(channel);
+        return client->unsubscribe(channel);
     }
 
     /// \brief Determines if the Pusher client is subscribed to the given channel.
@@ -208,40 +217,40 @@ PusherEventService::~PusherEventService() {
     delete impl;
 }
 
-void PusherEventService::start() {
+std::future<void> PusherEventService::start() {
     shutdown();
 
     std::optional<models::Notifications> notifications = platform->get_notifications();
     if (!notifications.has_value()) {
-        return;
+        return utils::create_failed_future("Platform has null data for 'key', 'cluster', or 'encrypted'.");
     }
 
     std::optional<models::Pusher> pusher = notifications->get_pusher();
     if (!pusher.has_value() || !pusher->get_options().has_value()) {
-        return;
+        return utils::create_failed_future("Platform has null data for 'key', 'cluster', or 'encrypted'.");
     }
 
     std::optional<std::string> key = pusher->get_key();
     std::optional<std::string> cluster = pusher->get_options()->get_cluster();
     std::optional<bool> encrypted = pusher->get_options()->get_encrypted();
     if (!key.has_value() || key->empty() || !cluster.has_value() || cluster->empty()) {
-        return;
+        return utils::create_failed_future("Platform has null data for 'key', 'cluster', or 'encrypted'.");
     }
 
     pusher::PusherOptions options = pusher::PusherOptions()
             .set_cluster(cluster.value())
             .set_encrypted(encrypted.value_or(true));
 
-    impl->init_client(key.value(), options, logger_provider);
+    return impl->init_client(key.value(), options, logger_provider);
 }
 
-void PusherEventService::start(models::Platform platform) {
+std::future<void> PusherEventService::start(models::Platform platform) {
     PusherEventService::platform = std::move(platform);
-    start();
+    return start();
 }
 
-void PusherEventService::shutdown() {
-    impl->shutdown();
+std::future<void> PusherEventService::shutdown() {
+    return impl->shutdown();
 }
 
 bool PusherEventService::is_connected() const {
@@ -323,48 +332,48 @@ void PusherEventService::unregister_listener(IEventListener& listener) {
     }
 }
 
-void PusherEventService::subscribe_to_project(int project) {
-    impl->subscribe(ProjectChannel(platform.value(), project).channel());
+std::future<void> PusherEventService::subscribe_to_project(int project) {
+    return impl->subscribe(ProjectChannel(platform.value(), project).channel());
 }
 
-void PusherEventService::unsubscribe_to_project(int project) {
-    impl->unsubscribe(ProjectChannel(platform.value(), project).channel());
+std::future<void> PusherEventService::unsubscribe_to_project(int project) {
+    return impl->unsubscribe(ProjectChannel(platform.value(), project).channel());
 }
 
 bool PusherEventService::is_subscribed_to_project(int project) const {
     return impl->is_subscribed(ProjectChannel(platform.value(), project).channel());
 }
 
-void PusherEventService::subscribe_to_player(int project, const std::string& player) {
-    impl->subscribe(PlayerChannel(platform.value(), project, player).channel());
+std::future<void> PusherEventService::subscribe_to_player(int project, const std::string& player) {
+    return impl->subscribe(PlayerChannel(platform.value(), project, player).channel());
 }
 
-void PusherEventService::unsubscribe_to_player(int project, const std::string& player) {
-    impl->unsubscribe(PlayerChannel(platform.value(), project, player).channel());
+std::future<void> PusherEventService::unsubscribe_to_player(int project, const std::string& player) {
+    return impl->unsubscribe(PlayerChannel(platform.value(), project, player).channel());
 }
 
 bool PusherEventService::is_subscribed_to_player(int project, const std::string& player) const {
     return impl->is_subscribed(PlayerChannel(platform.value(), project, player).channel());
 }
 
-void PusherEventService::subscribe_to_asset(const std::string& asset) {
-    impl->subscribe(AssetChannel(platform.value(), asset).channel());
+std::future<void> PusherEventService::subscribe_to_asset(const std::string& asset) {
+    return impl->subscribe(AssetChannel(platform.value(), asset).channel());
 }
 
-void PusherEventService::unsubscribe_to_asset(const std::string& asset) {
-    impl->unsubscribe(AssetChannel(platform.value(), asset).channel());
+std::future<void> PusherEventService::unsubscribe_to_asset(const std::string& asset) {
+    return impl->unsubscribe(AssetChannel(platform.value(), asset).channel());
 }
 
 bool PusherEventService::is_subscribed_to_asset(const std::string& asset) const {
     return impl->is_subscribed(AssetChannel(platform.value(), asset).channel());
 }
 
-void PusherEventService::subscribe_to_wallet(const std::string& wallet) {
-    impl->subscribe(WalletChannel(platform.value(), wallet).channel());
+std::future<void> PusherEventService::subscribe_to_wallet(const std::string& wallet) {
+    return impl->subscribe(WalletChannel(platform.value(), wallet).channel());
 }
 
-void PusherEventService::unsubscribe_to_wallet(const std::string& wallet) {
-    impl->unsubscribe(WalletChannel(platform.value(), wallet).channel());
+std::future<void> PusherEventService::unsubscribe_to_wallet(const std::string& wallet) {
+    return impl->unsubscribe(WalletChannel(platform.value(), wallet).channel());
 }
 
 bool PusherEventService::is_subscribed_to_wallet(const std::string& wallet) const {
@@ -382,7 +391,7 @@ const std::shared_ptr<utils::LoggerProvider>& PusherEventService::get_logger_pro
 std::unique_ptr<PusherEventService> PusherEventServiceBuilder::build() {
     if (m_ws_client == nullptr) {
 #if ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL
-        m_ws_client = std::make_unique<websockets::WebsocketClientImpl>(m_provider);
+        m_ws_client = std::make_unique<websockets::WebsocketClientImpl>();
 #else
         throw std::runtime_error("Attempted building Pusher event service without providing a websocket client");
 #endif

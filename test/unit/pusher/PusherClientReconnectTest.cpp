@@ -41,7 +41,7 @@ TEST_F(PusherClientReconnectTest, ReceivesGenericClosingCodeAndReconnectToServer
     const std::string reason("Test closure");
     PusherClient client = create_testable_pusher_client();
     client.connect().get();
-    mock_server.next_message([](const TestWebsocketMessage& message) { /* Consume initial open message */ });
+    mock_server.next_message([](const TestWebsocketMessage& message) { /* Consumes initial open message */ });
 
     // Arrange - Expectations
     mock_server.next_message([this](const TestWebsocketMessage& message) {
@@ -68,7 +68,7 @@ TEST_F(PusherClientReconnectTest, ReceivesPusherClosingCodeDoesNotReconnectToSer
     const std::string reason("Test closure");
     PusherClient client = create_testable_pusher_client();
     client.connect().get();
-    mock_server.next_message([](const TestWebsocketMessage& message) { /* Consume initial open message */ });
+    mock_server.next_message([](const TestWebsocketMessage& message) { /* Consumes initial open message */ });
 
     // Act
     mock_server.close(status_code, reason);
