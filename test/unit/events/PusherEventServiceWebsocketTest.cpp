@@ -15,7 +15,7 @@
 
 #include "gtest/gtest.h"
 #include "AssetChannel.hpp"
-#include "MockWebSocketClientImpl.hpp"
+#include "FakeWebSocketClientImpl.hpp"
 #include "MockWebsocketServer.hpp"
 #include "ProjectChannel.hpp"
 #include "PlayerChannel.hpp"
@@ -53,7 +53,7 @@ public:
 
     static std::shared_ptr<PusherEventService> create_default_event_service() {
         return PusherEventServiceBuilder()
-                .ws_client(std::make_unique<MockWebSocketClientImpl>())
+                .ws_client(std::make_unique<FakeWebSocketClientImpl>())
                 .platform(create_default_platform())
                 .build();
     }
