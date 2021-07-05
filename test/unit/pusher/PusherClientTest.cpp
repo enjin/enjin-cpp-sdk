@@ -100,7 +100,7 @@ TEST_F(PusherClientTest, SubscribeFutureCompletesExceptionallyOnTimeoutAndClient
     PusherOptions options = PusherOptions()
             .set_cluster(DEFAULT_CLUSTER)
             .set_client_timeout(std::chrono::seconds(0)); // Ensures timeout finishes immediately
-    PusherClient client = PusherClient(mock_ws_client, DEFAULT_KEY, options);
+    PusherClient client = PusherClient(fake_ws_client, DEFAULT_KEY, options);
     client.connect().get();
     mock_server.next_message([](const TestWebsocketMessage& message) { /* Consumes subscribe message */ });
 
@@ -158,7 +158,7 @@ TEST_F(PusherClientTest, UnsubscribeClientUnsubscribesWhilePendingSubscription) 
     PusherOptions options = PusherOptions()
             .set_cluster(DEFAULT_CLUSTER)
             .set_client_timeout(std::chrono::seconds(5)); // Ensures timeout does not expire during test
-    PusherClient client = PusherClient(mock_ws_client, DEFAULT_KEY, options);
+    PusherClient client = PusherClient(fake_ws_client, DEFAULT_KEY, options);
     client.connect().get();
     mock_server.next_message([this, channel_name](const TestWebsocketMessage& message) {
         const std::string success_message = create_subscription_success_message(channel_name);

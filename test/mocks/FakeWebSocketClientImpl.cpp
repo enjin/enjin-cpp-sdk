@@ -13,25 +13,12 @@
  * limitations under the License.
  */
 
-#ifndef ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL
-#define ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL 0
-#endif
-#if ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL
-
-#ifndef ENJINCPPSDK_MOCKWEBSOCKETCLIENTIMPL_HPP
-#define ENJINCPPSDK_MOCKWEBSOCKETCLIENTIMPL_HPP
-
-#include "WebsocketClientImpl.hpp"
-#include <string>
+#include "FakeWebSocketClientImpl.hpp"
 
 namespace enjin::test::mocks {
 
-class MockWebSocketClientImpl : public sdk::websockets::WebsocketClientImpl {
-public:
-    std::future<void> connect(const std::string& uri) override;
-};
-
+std::future<void> FakeWebSocketClientImpl::connect(const std::string& uri) {
+    return WebsocketClientImpl::connect("ws://127.0.0.1:8080/ws");
 }
 
-#endif //ENJINCPPSDK_MOCKWEBSOCKETCLIENTIMPL_HPP
-#endif
+}
