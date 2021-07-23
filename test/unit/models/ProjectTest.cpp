@@ -27,7 +27,7 @@ public:
     Project class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"id":1,"name":"1","description":"1","image":"1","createdAt":"1","updatedAt":"1"})";
+            R"({"id":1,"uuid":"1","name":"1","description":"1","image":"1","createdAt":"1","updatedAt":"1"})";
 };
 
 TEST_F(ProjectTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
@@ -38,6 +38,7 @@ TEST_F(ProjectTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
 
     // Assert
     EXPECT_FALSE(class_under_test.get_id().has_value());
+    EXPECT_FALSE(class_under_test.get_uuid().has_value());
     EXPECT_FALSE(class_under_test.get_name().has_value());
     EXPECT_FALSE(class_under_test.get_description().has_value());
     EXPECT_FALSE(class_under_test.get_image().has_value());
@@ -53,6 +54,7 @@ TEST_F(ProjectTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
 
     // Assert
     EXPECT_FALSE(class_under_test.get_id().has_value());
+    EXPECT_FALSE(class_under_test.get_uuid().has_value());
     EXPECT_FALSE(class_under_test.get_name().has_value());
     EXPECT_FALSE(class_under_test.get_description().has_value());
     EXPECT_FALSE(class_under_test.get_image().has_value());
@@ -70,6 +72,7 @@ TEST_F(ProjectTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
 
     // Assert
     EXPECT_EQ(expected_int, class_under_test.get_id().value());
+    EXPECT_EQ(expected_string, class_under_test.get_uuid().value());
     EXPECT_EQ(expected_string, class_under_test.get_name().value());
     EXPECT_EQ(expected_string, class_under_test.get_description().value());
     EXPECT_EQ(expected_string, class_under_test.get_image().value());

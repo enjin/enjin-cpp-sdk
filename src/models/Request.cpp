@@ -51,6 +51,9 @@ void Request::deserialize(const std::string& json) {
         if (document.HasMember(ACCEPTED_KEY) && document[ACCEPTED_KEY].IsBool()) {
             accepted.emplace(document[ACCEPTED_KEY].GetBool());
         }
+        if (document.HasMember(PROJECT_WALLET_KEY) && document[PROJECT_WALLET_KEY].IsBool()) {
+            project_wallet.emplace(document[PROJECT_WALLET_KEY].GetBool());
+        }
         if (document.HasMember(BLOCKCHAIN_DATA_KEY) && document[BLOCKCHAIN_DATA_KEY].IsObject()) {
             blockchain_data.emplace(utils::get_object_as_type<BlockchainData>(document, BLOCKCHAIN_DATA_KEY));
         }
@@ -97,6 +100,10 @@ const std::optional<RequestState>& Request::get_state() const {
 
 const std::optional<bool>& Request::get_accepted() const {
     return accepted;
+}
+
+const std::optional<bool>& Request::get_project_wallet() const {
+    return project_wallet;
 }
 
 const std::optional<BlockchainData>& Request::get_blockchain_data() const {
