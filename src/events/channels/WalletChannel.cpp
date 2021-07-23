@@ -17,11 +17,12 @@
 
 #include "enjinsdk_utils/StringUtils.hpp"
 #include <sstream>
+#include <utility>
 
 namespace enjin::sdk::events {
 
-WalletChannel::WalletChannel(const models::Platform& platform, const std::string& eth_address)
-        : platform(platform), eth_address(eth_address) {
+WalletChannel::WalletChannel(const models::Platform& platform, std::string eth_address)
+        : platform(platform), eth_address(std::move(eth_address)) {
 }
 
 std::string WalletChannel::channel() const {

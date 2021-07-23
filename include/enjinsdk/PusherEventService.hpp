@@ -106,27 +106,27 @@ public:
     void unregister_listener(IEventListener& listener) override;
 
     /// \brief Opens a channel for the specified project, allowing listeners to receive events for it.
-    /// \param project The project ID.
+    /// \param project The project's UUID.
     /// \return The future for this operation.
     /// \remarks This operation may timeout after 30 seconds if no response is received from the server. In such event,
     /// this service will unsubscribe from the given channel.
-    std::future<void> subscribe_to_project(int project) override;
+    std::future<void> subscribe_to_project(const std::string& project) override;
 
-    std::future<void> unsubscribe_to_project(int project) override;
+    std::future<void> unsubscribe_to_project(const std::string& project) override;
 
-    [[nodiscard]] bool is_subscribed_to_project(int project) const override;
+    [[nodiscard]] bool is_subscribed_to_project(const std::string& project) const override;
 
     /// \brief Opens a channel for the specified player, allowing listeners to receive events for it.
-    /// \param project The project ID.
+    /// \param project The project's UUID.
     /// \param player The player ID.
     /// \return The future for this operation.
     /// \remarks This operation may timeout after 30 seconds if no response is received from the server. In such event,
     /// this service will unsubscribe from the given channel.
-    std::future<void> subscribe_to_player(int project, const std::string& player) override;
+    std::future<void> subscribe_to_player(const std::string& project, const std::string& player) override;
 
-    std::future<void> unsubscribe_to_player(int project, const std::string& player) override;
+    std::future<void> unsubscribe_to_player(const std::string& project, const std::string& player) override;
 
-    [[nodiscard]] bool is_subscribed_to_player(int project, const std::string& player) const override;
+    [[nodiscard]] bool is_subscribed_to_player(const std::string& project, const std::string& player) const override;
 
     /// \brief Opens a channel for the specified asset, allowing listeners to receive events for it.
     /// \param asset The asset ID.
