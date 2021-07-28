@@ -19,7 +19,7 @@
 
 namespace enjin::sdk::utils {
 
-enjin::sdk::models::EventType deserialize_event_type(const std::string& s) noexcept {
+models::EventType deserialize_event_type(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "PROJECT_CREATED") {
         return models::EventType::PROJECT_CREATED;
@@ -84,7 +84,7 @@ enjin::sdk::models::EventType deserialize_event_type(const std::string& s) noexc
     return models::EventType::UNKNOWN;
 }
 
-enjin::sdk::models::RequestState deserialize_request_state(const std::string& s) noexcept {
+models::RequestState deserialize_request_state(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "PENDING") {
         return models::RequestState::PENDING;
@@ -107,7 +107,7 @@ enjin::sdk::models::RequestState deserialize_request_state(const std::string& s)
     return models::RequestState::UNKNOWN;
 }
 
-enjin::sdk::models::RequestType deserialize_request_type(const std::string& s) noexcept {
+models::RequestType deserialize_request_type(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "APPROVE") {
         return models::RequestType::APPROVE;
@@ -162,7 +162,7 @@ enjin::sdk::models::RequestType deserialize_request_type(const std::string& s) n
     return models::RequestType::UNKNOWN;
 }
 
-enjin::sdk::models::AssetSupplyModel deserialize_asset_supply_model(const std::string& s) noexcept {
+models::AssetSupplyModel deserialize_asset_supply_model(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "FIXED") {
         return models::AssetSupplyModel::FIXED;
@@ -181,7 +181,7 @@ enjin::sdk::models::AssetSupplyModel deserialize_asset_supply_model(const std::s
     return models::AssetSupplyModel::UNKNOWN;
 }
 
-enjin::sdk::models::AssetTransferFeeType deserialize_asset_transfer_fee_type(const std::string& s) noexcept {
+models::AssetTransferFeeType deserialize_asset_transfer_fee_type(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "NONE") {
         return models::AssetTransferFeeType::NONE;
@@ -198,7 +198,7 @@ enjin::sdk::models::AssetTransferFeeType deserialize_asset_transfer_fee_type(con
     return models::AssetTransferFeeType::UNKNOWN;
 }
 
-enjin::sdk::models::AssetTransferable deserialize_asset_transferable(const std::string& s) noexcept {
+models::AssetTransferable deserialize_asset_transferable(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "PERMANENT") {
         return models::AssetTransferable::PERMANENT;
@@ -211,7 +211,7 @@ enjin::sdk::models::AssetTransferable deserialize_asset_transferable(const std::
     return models::AssetTransferable::UNKNOWN;
 }
 
-enjin::sdk::models::AssetVariantMode deserialize_asset_variant_mode(const std::string& s) noexcept {
+models::AssetVariantMode deserialize_asset_variant_mode(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "NONE") {
         return models::AssetVariantMode::NONE;
@@ -310,7 +310,7 @@ std::string serialize_pusher_connection_state(pusher::PusherConnectionState v) n
     }
 }
 
-std::string serialize_request_state(enjin::sdk::models::RequestState v) noexcept {
+std::string serialize_request_state(models::RequestState v) noexcept {
     switch (v) {
         case models::RequestState::PENDING:
             return "PENDING";
@@ -333,7 +333,7 @@ std::string serialize_request_state(enjin::sdk::models::RequestState v) noexcept
     }
 }
 
-std::string serialize_request_type(enjin::sdk::models::RequestType v) noexcept {
+std::string serialize_request_type(models::RequestType v) noexcept {
     switch (v) {
         case models::RequestType::APPROVE:
             return "APPROVE";
@@ -388,7 +388,7 @@ std::string serialize_request_type(enjin::sdk::models::RequestType v) noexcept {
     }
 }
 
-std::string serialize_sort_direction(enjin::sdk::models::SortDirection v) noexcept {
+std::string serialize_sort_direction(models::SortDirection v) noexcept {
     switch (v) {
         case models::SortDirection::ASCENDING:
             return "asc";
@@ -399,7 +399,7 @@ std::string serialize_sort_direction(enjin::sdk::models::SortDirection v) noexce
     }
 }
 
-std::string serialize_asset_field(enjin::sdk::models::AssetField v) noexcept {
+std::string serialize_asset_field(models::AssetField v) noexcept {
     switch (v) {
         case models::AssetField::ID:
             return "id";
@@ -420,7 +420,7 @@ std::string serialize_asset_field(enjin::sdk::models::AssetField v) noexcept {
     }
 }
 
-std::string serialize_asset_id_format(enjin::sdk::models::AssetIdFormat v) noexcept {
+std::string serialize_asset_id_format(models::AssetIdFormat v) noexcept {
     switch (v) {
         case models::AssetIdFormat::HEX64:
             return "hex64";
@@ -433,7 +433,7 @@ std::string serialize_asset_id_format(enjin::sdk::models::AssetIdFormat v) noexc
     }
 }
 
-std::string serialize_asset_index_format(enjin::sdk::models::AssetIndexFormat v) noexcept {
+std::string serialize_asset_index_format(models::AssetIndexFormat v) noexcept {
     switch (v) {
         case models::AssetIndexFormat::HEX64:
             return "hex64";
@@ -444,7 +444,7 @@ std::string serialize_asset_index_format(enjin::sdk::models::AssetIndexFormat v)
     }
 }
 
-std::string serialize_asset_supply_model(enjin::sdk::models::AssetSupplyModel v) noexcept {
+std::string serialize_asset_supply_model(models::AssetSupplyModel v) noexcept {
     switch (v) {
         case models::AssetSupplyModel::FIXED:
             return "FIXED";
@@ -463,7 +463,7 @@ std::string serialize_asset_supply_model(enjin::sdk::models::AssetSupplyModel v)
     }
 }
 
-std::string serialize_asset_transfer_fee_type(enjin::sdk::models::AssetTransferFeeType v) noexcept {
+std::string serialize_asset_transfer_fee_type(models::AssetTransferFeeType v) noexcept {
     switch (v) {
         case models::AssetTransferFeeType::NONE:
             return "NONE";
@@ -480,7 +480,7 @@ std::string serialize_asset_transfer_fee_type(enjin::sdk::models::AssetTransferF
     }
 }
 
-std::string serialize_asset_transferable(enjin::sdk::models::AssetTransferable v) noexcept {
+std::string serialize_asset_transferable(models::AssetTransferable v) noexcept {
     switch (v) {
         case models::AssetTransferable::PERMANENT:
             return "PERMANENT";
@@ -493,7 +493,7 @@ std::string serialize_asset_transferable(enjin::sdk::models::AssetTransferable v
     }
 }
 
-std::string serialize_asset_variant_mode(enjin::sdk::models::AssetVariantMode v) noexcept {
+std::string serialize_asset_variant_mode(models::AssetVariantMode v) noexcept {
     switch (v) {
         case models::AssetVariantMode::NONE:
             return "NONE";
@@ -508,7 +508,22 @@ std::string serialize_asset_variant_mode(enjin::sdk::models::AssetVariantMode v)
     }
 }
 
-std::string serialize_transaction_field(enjin::sdk::models::TransactionField v) noexcept {
+std::string serialize_operator(models::Operator v) noexcept {
+    switch (v) {
+        case models::Operator::GREATER_THAN:
+            return "GREATER_THAN";
+        case models::Operator::GREATER_THAN_OR_EQUAL:
+            return "GREATER_THAN_OR_EQUAL";
+        case models::Operator::LESS_THAN:
+            return "LESS_THAN";
+        case models::Operator::LESS_THAN_OR_EQUAL:
+            return "LESS_THAN_OR_EQUAL";
+        default:
+            return "";
+    }
+}
+
+std::string serialize_transaction_field(models::TransactionField v) noexcept {
     switch (v) {
         case models::TransactionField::ID:
             return "id";
@@ -523,7 +538,7 @@ std::string serialize_transaction_field(enjin::sdk::models::TransactionField v) 
     }
 }
 
-std::string serialize_whitelisted(enjin::sdk::models::Whitelisted v) noexcept {
+std::string serialize_whitelisted(models::Whitelisted v) noexcept {
     switch (v) {
         case models::Whitelisted::NONE:
             return "NONE";

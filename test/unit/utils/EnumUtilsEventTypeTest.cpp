@@ -48,7 +48,7 @@ TEST_P(EventTypeTest, SerializeEventTypeReturnsExpectedString) {
     ASSERT_EQ(expected, actual);
 }
 
-INSTANTIATE_TEST_SUITE_P(SerializableRequestState,
+INSTANTIATE_TEST_SUITE_P(SerializableEventType,
                          EventTypeTest,
                          testing::Values(std::make_tuple("PROJECT_CREATED", EventType::PROJECT_CREATED),
                                          std::make_tuple("PROJECT_DELETED", EventType::PROJECT_DELETED),
