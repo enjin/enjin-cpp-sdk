@@ -17,6 +17,7 @@
 #include "enjinsdk_utils/StringUtils.hpp"
 #include <filesystem>
 #include <fstream>
+#include <sstream>
 #include <string>
 
 namespace fs = std::filesystem;

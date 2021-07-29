@@ -33,10 +33,10 @@ public:
 
     [[nodiscard]] std::string serialize() const override;
 
-    /// \brief Sets the project ID.
-    /// \param id The ID.
+    /// \brief Sets the project UUID.
+    /// \param uuid The UUID.
     /// \return This request for chaining.
-    AuthProject& set_id(int id);
+    AuthProject& set_uuid(const std::string& uuid);
 
     /// \brief Sets the secret.
     /// \param secret The secret.
@@ -48,7 +48,7 @@ public:
     bool operator!=(const AuthProject& rhs) const;
 
 private:
-    std::optional<int> id;
+    std::optional<std::string> uuid;
     std::optional<std::string> secret;
 };
 

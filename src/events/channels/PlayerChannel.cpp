@@ -17,11 +17,12 @@
 
 #include "enjinsdk_utils/StringUtils.hpp"
 #include <sstream>
+#include <utility>
 
 namespace enjin::sdk::events {
 
-PlayerChannel::PlayerChannel(const models::Platform& platform, int project_id, const std::string& player_id)
-        : platform(platform), project_id(project_id), player_id(player_id) {
+PlayerChannel::PlayerChannel(const models::Platform& platform, std::string project_uuid, std::string player_id)
+        : platform(platform), project_uuid(std::move(project_uuid)), player_id(std::move(player_id)) {
 }
 
 std::string PlayerChannel::channel() const {
@@ -29,7 +30,7 @@ std::string PlayerChannel::channel() const {
     ss << "enjincloud."
        << utils::to_lower(platform.get_network().value())
        << ".project."
-       << project_id
+       << project_uuid
        << ".player."
        << player_id;
     return ss.str();

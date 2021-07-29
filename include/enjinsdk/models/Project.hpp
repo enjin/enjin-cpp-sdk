@@ -37,6 +37,10 @@ public:
     /// \return The ID.
     [[nodiscard]] const std::optional<int>& get_id() const;
 
+    /// \brief Returns the UUID of this project.
+    /// \return The UUID.
+    [[nodiscard]] const std::optional<std::string>& get_uuid() const;
+
     /// \brief Returns the name of this project.
     /// \return The name.
     [[nodiscard]] const std::optional<std::string>& get_name() const;
@@ -65,6 +69,7 @@ public:
 
 private:
     std::optional<int> id;
+    std::optional<std::string> uuid;
     std::optional<std::string> name;
     std::optional<std::string> description;
     std::optional<std::string> image;
@@ -72,6 +77,7 @@ private:
     std::optional<std::string> updated_at;
 
     constexpr static char ID_KEY[] = "id";
+    constexpr static char UUID_KEY[] = "uuid";
     constexpr static char NAME_KEY[] = "name";
     constexpr static char DESCRIPTION_KEY[] = "description";
     constexpr static char IMAGE_KEY[] = "image";

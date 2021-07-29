@@ -15,6 +15,7 @@
 
 #include "enjinsdk/models/BalanceFilter.hpp"
 
+#include "EnumUtils.hpp"
 #include "RapidJsonUtils.hpp"
 
 namespace enjin::sdk::models {
@@ -27,6 +28,12 @@ std::string BalanceFilter::serialize() const {
     }
     if (or_filters.has_value()) {
         utils::set_array_member_from_type_vector<BalanceFilter>(document, OR_KEY, or_filters.value());
+    }
+    if (project_uuid.has_value()) {
+        utils::set_string_member(document, PROJECT_UUID_KEY, project_uuid.value());
+    }
+    if (project_uuid_in.has_value()) {
+        utils::set_array_member_from_string_vector(document, PROJECT_UUID_IN_KEY, project_uuid_in.value());
     }
     if (asset_id.has_value()) {
         utils::set_string_member(document, ASSET_ID_KEY, asset_id.value());
@@ -43,17 +50,8 @@ std::string BalanceFilter::serialize() const {
     if (value.has_value()) {
         utils::set_integer_member(document, VALUE_KEY, value.value());
     }
-    if (value_gt.has_value()) {
-        utils::set_integer_member(document, VALUE_GT_KEY, value_gt.value());
-    }
-    if (value_gte.has_value()) {
-        utils::set_integer_member(document, VALUE_GTE_KEY, value_gte.value());
-    }
-    if (value_lt.has_value()) {
-        utils::set_integer_member(document, VALUE_LT_KEY, value_lt.value());
-    }
-    if (value_lte.has_value()) {
-        utils::set_integer_member(document, VALUE_LTE_KEY, value_lte.value());
+    if (value_is.has_value()) {
+        utils::set_string_member(document, VALUE_IS_KEY, utils::serialize_operator(value_is.value()));
     }
 
     return utils::document_to_string(document);
@@ -66,6 +64,16 @@ BalanceFilter& BalanceFilter::set_and(const std::vector<BalanceFilter>& others) 
 
 BalanceFilter& BalanceFilter::set_or(const std::vector<BalanceFilter>& others) {
     or_filters = others;
+    return *this;
+}
+
+BalanceFilter& BalanceFilter::set_project_uuid(const std::string& project_uuid) {
+    BalanceFilter::project_uuid = project_uuid;
+    return *this;
+}
+
+BalanceFilter& BalanceFilter::set_project_uuid_in(const std::vector<std::string>& project_uuids) {
+    project_uuid_in = project_uuids;
     return *this;
 }
 
@@ -94,23 +102,8 @@ BalanceFilter& BalanceFilter::set_value(int value) {
     return *this;
 }
 
-BalanceFilter& BalanceFilter::set_value_greater_than(int value) {
-    value_gt = value;
-    return *this;
-}
-
-BalanceFilter& BalanceFilter::set_value_greater_than_or_equal(int value) {
-    value_gte = value;
-    return *this;
-}
-
-BalanceFilter& BalanceFilter::set_value_less_than(int value) {
-    value_lt = value;
-    return *this;
-}
-
-BalanceFilter& BalanceFilter::set_value_less_than_or_equal(int value) {
-    value_lte = value;
+BalanceFilter& BalanceFilter::set_value_is(Operator value_is) {
+    BalanceFilter::value_is = value_is;
     return *this;
 }
 
@@ -122,10 +115,7 @@ bool BalanceFilter::operator==(const BalanceFilter& rhs) const {
            wallet == rhs.wallet &&
            wallet_in == rhs.wallet_in &&
            value == rhs.value &&
-           value_gt == rhs.value_gt &&
-           value_gte == rhs.value_gte &&
-           value_lt == rhs.value_lt &&
-           value_lte == rhs.value_lte;
+           value_is == rhs.value_is;
 }
 
 bool BalanceFilter::operator!=(const BalanceFilter& rhs) const {

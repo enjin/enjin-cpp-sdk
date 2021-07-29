@@ -13,25 +13,19 @@
  * limitations under the License.
  */
 
-#include "WalletChannel.hpp"
+#ifndef ENJINSDK_OPERATOR_HPP
+#define ENJINSDK_OPERATOR_HPP
 
-#include "enjinsdk_utils/StringUtils.hpp"
-#include <sstream>
-#include <utility>
+namespace enjin::sdk::models {
 
-namespace enjin::sdk::events {
-
-WalletChannel::WalletChannel(const models::Platform& platform, std::string eth_address)
-        : platform(platform), eth_address(std::move(eth_address)) {
-}
-
-std::string WalletChannel::channel() const {
-    std::stringstream ss;
-    ss << "enjincloud."
-       << utils::to_lower(platform.get_network().value())
-       << ".wallet."
-       << eth_address;
-    return ss.str();
-}
+/// \brief The operator type for filters.
+enum class Operator {
+    GREATER_THAN,
+    GREATER_THAN_OR_EQUAL,
+    LESS_THAN,
+    LESS_THAN_OR_EQUAL,
+};
 
 }
+
+#endif //ENJINSDK_OPERATOR_HPP

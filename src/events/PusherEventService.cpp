@@ -332,27 +332,27 @@ void PusherEventService::unregister_listener(IEventListener& listener) {
     }
 }
 
-std::future<void> PusherEventService::subscribe_to_project(int project) {
+std::future<void> PusherEventService::subscribe_to_project(const std::string& project) {
     return impl->subscribe(ProjectChannel(platform.value(), project).channel());
 }
 
-std::future<void> PusherEventService::unsubscribe_to_project(int project) {
+std::future<void> PusherEventService::unsubscribe_to_project(const std::string& project) {
     return impl->unsubscribe(ProjectChannel(platform.value(), project).channel());
 }
 
-bool PusherEventService::is_subscribed_to_project(int project) const {
+bool PusherEventService::is_subscribed_to_project(const std::string& project) const {
     return impl->is_subscribed(ProjectChannel(platform.value(), project).channel());
 }
 
-std::future<void> PusherEventService::subscribe_to_player(int project, const std::string& player) {
+std::future<void> PusherEventService::subscribe_to_player(const std::string& project, const std::string& player) {
     return impl->subscribe(PlayerChannel(platform.value(), project, player).channel());
 }
 
-std::future<void> PusherEventService::unsubscribe_to_player(int project, const std::string& player) {
+std::future<void> PusherEventService::unsubscribe_to_player(const std::string& project, const std::string& player) {
     return impl->unsubscribe(PlayerChannel(platform.value(), project, player).channel());
 }
 
-bool PusherEventService::is_subscribed_to_player(int project, const std::string& player) const {
+bool PusherEventService::is_subscribed_to_player(const std::string& project, const std::string& player) const {
     return impl->is_subscribed(PlayerChannel(platform.value(), project, player).channel());
 }
 

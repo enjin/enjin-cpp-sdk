@@ -19,6 +19,7 @@
 #include "enjinsdk_export.h"
 #include "IChannel.hpp"
 #include "enjinsdk/models/Platform.hpp"
+#include <string>
 
 namespace enjin::sdk::events {
 
@@ -29,8 +30,8 @@ public:
 
     /// \brief Constructs a channel for the given network and project.
     /// \param platform The platform.
-    /// \param project_id The project ID.
-    ProjectChannel(const models::Platform& platform, int project_id);
+    /// \param project_uuid The project's UUID.
+    ProjectChannel(const models::Platform& platform, std::string project_uuid);
 
     ~ProjectChannel() override = default;
 
@@ -38,7 +39,7 @@ public:
 
 private:
     models::Platform platform;
-    int project_id;
+    std::string project_uuid;
 };
 
 }

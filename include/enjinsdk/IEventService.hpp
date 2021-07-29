@@ -101,37 +101,37 @@ public:
     virtual void unregister_listener(IEventListener& listener) = 0;
 
     /// \brief Opens a channel for the specified project, allowing listeners to receive events for it.
-    /// \param project The project ID.
+    /// \param project The project's UUID.
     /// \return The future for this operation.
-    virtual std::future<void> subscribe_to_project(int project) = 0;
+    virtual std::future<void> subscribe_to_project(const std::string& project) = 0;
 
     /// \brief Closes a channel for the specified project, preventing listeners from receiving events for it.
-    /// \param project The project ID.
+    /// \param project The project's UUID.
     /// \return The future for this operation.
-    virtual std::future<void> unsubscribe_to_project(int project) = 0;
+    virtual std::future<void> unsubscribe_to_project(const std::string& project) = 0;
 
     /// \brief Determines if this service is subscribed to the specified channel.
-    /// \param project The project ID.
+    /// \param project The project's UUID.
     /// \return Whether this service is subscribed to the channel.
-    [[nodiscard]] virtual bool is_subscribed_to_project(int project) const = 0;
+    [[nodiscard]] virtual bool is_subscribed_to_project(const std::string& project) const = 0;
 
     /// \brief Opens a channel for the specified player, allowing listeners to receive events for it.
-    /// \param project The project ID.
+    /// \param project The project's UUID.
     /// \param player The player ID.
     /// \return The future for this operation.
-    virtual std::future<void> subscribe_to_player(int project, const std::string& player) = 0;
+    virtual std::future<void> subscribe_to_player(const std::string& project, const std::string& player) = 0;
 
     /// \brief Closes a channel for the specified player, preventing listeners from receiving events for it.
-    /// \param project The project ID.
+    /// \param project The project's UUID.
     /// \param player The player ID.
     /// \return The future for this operation.
-    virtual std::future<void> unsubscribe_to_player(int project, const std::string& player) = 0;
+    virtual std::future<void> unsubscribe_to_player(const std::string& project, const std::string& player) = 0;
 
     /// \brief Determines if this service is subscribed to the specified channel.
-    /// \param project The project ID.
+    /// \param project The project's UUID.
     /// \param player The player ID.
     /// \return Whether this service is subscribed to the channel.
-    [[nodiscard]] virtual bool is_subscribed_to_player(int project, const std::string& player) const = 0;
+    [[nodiscard]] virtual bool is_subscribed_to_player(const std::string& project, const std::string& player) const = 0;
 
     /// \brief Opens a channel for the specified asset, allowing listeners to receive events for it.
     /// \param asset The asset ID.

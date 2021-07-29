@@ -36,7 +36,7 @@ using namespace enjin::test::suites;
 class PusherEventServiceWebsocketTest : public VerificationTestSuite,
                                         public testing::Test {
 public:
-    static constexpr int DEFAULT_PROJECT = 1;
+    static constexpr char DEFAULT_PROJECT[] = "1";
     static constexpr char DEFAULT_PLAYER[] = "player1";
     static constexpr char DEFAULT_ASSET[] = "0x0";
     static constexpr char DEFAULT_WALLET[] = "0x1";
@@ -108,7 +108,7 @@ TEST_F(PusherEventServiceWebsocketTest, IsConnectedServiceStartedAndConnectedToS
 
 TEST_F(PusherEventServiceWebsocketTest, SubscribeToProjectServiceSubscribesToChannel) {
     // Arrange - Data
-    int project = DEFAULT_PROJECT;
+    const std::string project = DEFAULT_PROJECT;
     const std::string channel = ProjectChannel(create_default_platform(), project).channel();
     auto service = create_default_event_service();
     mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
@@ -141,7 +141,7 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToProjectServiceSubscribesToCha
 
 TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToProjectServiceIsUnsubscribedFromChannel) {
     // Arrange
-    int project = DEFAULT_PROJECT;
+    const std::string project = DEFAULT_PROJECT;
     const std::string channel = ProjectChannel(create_default_platform(), project).channel();
     auto service = create_default_event_service();
     mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
@@ -166,7 +166,7 @@ TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToProjectServiceIsUnsubscribe
 
 TEST_F(PusherEventServiceWebsocketTest, SubscribeToPlayerServiceSubscribesToChannel) {
     // Arrange - Data
-    int project = DEFAULT_PROJECT;
+    const std::string project = DEFAULT_PROJECT;
     const std::string player(DEFAULT_PLAYER);
     const std::string channel = PlayerChannel(create_default_platform(), project, player).channel();
     auto service = create_default_event_service();
@@ -200,7 +200,7 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToPlayerServiceSubscribesToChan
 
 TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToPlayerServiceIsUnsubscribedFromChannel) {
     // Arrange
-    int project = DEFAULT_PROJECT;
+    const std::string project = DEFAULT_PROJECT;
     const std::string player(DEFAULT_PLAYER);
     const std::string channel = PlayerChannel(create_default_platform(), project, player).channel();
     auto service = create_default_event_service();
@@ -342,7 +342,7 @@ TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToWalletServiceIsUnsubscribed
 
 TEST_F(PusherEventServiceWebsocketTest, StartPreviouslyActiveServiceResubscribesToChannels) {
     // Arrange - Data & Expectations
-    int project = DEFAULT_PROJECT;
+    const std::string project = DEFAULT_PROJECT;
     const std::string channel = ProjectChannel(create_default_platform(), project).channel();
     auto service = create_default_event_service();
     auto subscribe_func = [this, &channel](const TestWebsocketMessage& message) {

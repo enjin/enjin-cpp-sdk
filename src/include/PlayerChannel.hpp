@@ -30,9 +30,9 @@ public:
 
     /// \brief Constructs a channel for the given network and player on a project.
     /// \param platform The platform.
-    /// \param project_id The project ID.
+    /// \param project_uuid The project's UUID.
     /// \param player_id The player ID.
-    PlayerChannel(const models::Platform& platform, int project_id, const std::string& player_id);
+    PlayerChannel(const models::Platform& platform, std::string project_uuid, std::string player_id);
 
     ~PlayerChannel() override = default;
 
@@ -40,7 +40,7 @@ public:
 
 private:
     models::Platform platform;
-    int project_id;
+    std::string project_uuid;
     std::string player_id;
 };
 

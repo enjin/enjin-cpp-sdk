@@ -25,8 +25,8 @@ AuthProject::AuthProject() : graphql::AbstractGraphqlRequest("enjin.sdk.project.
 std::string AuthProject::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
-    if (id.has_value()) {
-        utils::set_integer_member(document, "id", id.value());
+    if (uuid.has_value()) {
+        utils::set_string_member(document, "uuid", uuid.value());
     }
     if (secret.has_value()) {
         utils::set_string_member(document, "secret", secret.value());
@@ -35,8 +35,8 @@ std::string AuthProject::serialize() const {
     return utils::document_to_string(document);
 }
 
-AuthProject& AuthProject::set_id(int id) {
-    AuthProject::id = id;
+AuthProject& AuthProject::set_uuid(const std::string& uuid) {
+    AuthProject::uuid = uuid;
     return *this;
 }
 
@@ -48,7 +48,7 @@ AuthProject& AuthProject::set_secret(const std::string& secret) {
 bool AuthProject::operator==(const AuthProject& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           id == rhs.id &&
+           uuid == rhs.uuid &&
            secret == rhs.secret;
 }
 
