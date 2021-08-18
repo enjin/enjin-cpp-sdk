@@ -1,0 +1,12 @@
+#namespace enjin.sdk.player.ResetEnjApproval
+#import enjin.sdk.shared.Transaction
+
+#arg send Boolean true
+
+mutation {
+    result: ResetEnjApproval(
+        send: $send
+    ) {
+        ...Transaction
+    }
+}

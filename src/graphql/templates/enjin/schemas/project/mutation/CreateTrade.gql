@@ -1,4 +1,4 @@
-#namespace enjin.sdk.shared.CreateTrade
+#namespace enjin.sdk.project.CreateTrade
 #import enjin.sdk.shared.Transaction
 
 #arg askingAssets [TradeInput!]!

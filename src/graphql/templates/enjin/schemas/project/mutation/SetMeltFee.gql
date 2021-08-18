@@ -2,7 +2,6 @@
 #import enjin.sdk.shared.Transaction
 
 #arg assetId String!
-#arg assetIndex String
 #arg meltFee Int!
 #arg ethAddress EthAddress
 #arg send Boolean true
@@ -10,7 +9,6 @@
 mutation {
     result: SetMeltFee(
         assetId: $assetId,
-        assetIndex: $assetIndex,
         meltFee: $meltFee,
         wallet: $ethAddress,
         send: $send

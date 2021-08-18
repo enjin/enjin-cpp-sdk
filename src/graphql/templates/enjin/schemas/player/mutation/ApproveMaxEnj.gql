@@ -1,12 +1,10 @@
-#namespace enjin.sdk.shared.ResetEnjApproval
+#namespace enjin.sdk.player.ApproveMaxEnj
 #import enjin.sdk.shared.Transaction
 
-#arg ethAddress EthAddress
 #arg send Boolean true
 
 mutation {
-    result: ResetEnjApproval(
-        wallet: $ethAddress,
+    result: ApproveMaxEnj(
         send: $send
     ) {
         ...Transaction

@@ -1,14 +1,12 @@
-#namespace enjin.sdk.shared.Message
+#namespace enjin.sdk.player.Message
 #import enjin.sdk.shared.Transaction
 
 #arg message String!
-#arg ethAddress EthAddress
 #arg send Boolean true
 
 mutation {
     result: Message(
         message: $message,
-        wallet: $ethAddress,
         send: $send
     ) {
         ...Transaction

@@ -1,0 +1,18 @@
+#namespace enjin.sdk.project.SetApprovalForAll
+#import enjin.sdk.shared.Transaction
+
+#arg operatorAddress EthAddress!
+#arg approved Boolean!
+#arg ethAddress EthAddress
+#arg send Boolean true
+
+mutation {
+    result: SetApprovalForAll(
+        operator: $operatorAddress,
+        approved: $approved,
+        wallet: $ethAddress,
+        send: $send
+    ) {
+        ...Transaction
+    }
+}

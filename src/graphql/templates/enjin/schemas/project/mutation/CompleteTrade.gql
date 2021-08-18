@@ -1,15 +1,13 @@
-#namespace enjin.sdk.shared.SendEnj
+#namespace enjin.sdk.project.CompleteTrade
 #import enjin.sdk.shared.Transaction
 
-#arg recipientAddress EthAddress!
-#arg value BigInt!
+#arg tradeId String!
 #arg ethAddress EthAddress
 #arg send Boolean true
 
 mutation {
-    result: SendEnj(
-        to: $recipientAddress,
-        value: $value,
+    result: CompleteTrade(
+        tradeId: $tradeId,
         wallet: $ethAddress,
         send: $send
     ) {

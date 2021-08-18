@@ -1,13 +1,13 @@
-#namespace enjin.sdk.shared.MeltAsset
+#namespace enjin.sdk.project.Message
 #import enjin.sdk.shared.Transaction
 
-#arg melts [MeltInput!]!
+#arg message String!
 #arg ethAddress EthAddress
 #arg send Boolean true
 
 mutation {
-    result: MeltAsset(
-        melts: $melts,
+    result: Message(
+        message: $message,
         wallet: $ethAddress,
         send: $send
     ) {
