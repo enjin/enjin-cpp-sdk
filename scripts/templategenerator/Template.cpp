@@ -39,7 +39,7 @@ Template::Template(const std::string& template_namespace,
 
 std::string Template::compile() const {
     std::stringstream builder;
-    builder << utils::join("\n", contents);
+    builder << utils::join(" ", contents);
 
     if (type.value() == TemplateType::Value::FRAGMENT) {
         return builder.str();
@@ -72,17 +72,31 @@ std::string Template::compile() const {
                      fragment.parameters.end(),
                      std::back_inserter(parameters),
                      [parameters](const std::string& p) {
-            return std::find(parameters.begin(), parameters.end(), p) != parameters.end();
+            return std::find(parameters.begin(), parameters.end(), p) == parameters.end();
         });
 
-        builder << fragment.compile() << "\n";
+        builder << " " << fragment.compile();
 
         processed_fragments.emplace(fragment.template_namespace);
     }
 
     std::string replace_term = utils::to_lower(type.to_string());
     std::stringstream new_term_ss;
-    new_term_ss << "" << " " << name << "(" << "" << ")";
+
+    new_term_ss << replace_term << " " << name;
+
+    // Inserts necessary request header to process parameters if needed
+    if (!parameters.empty()) {
+        new_term_ss << "(";
+        for (int i = 0; i < parameters.size(); i++) {
+            new_term_ss << parameters[i];
+            if (i < parameters.size() - 1) {
+                new_term_ss << ", ";
+            }
+        }
+        new_term_ss << ")";
+    }
+
     std::string new_term = new_term_ss.str();
 
     return utils::trim(utils::replace(builder.str(), replace_term, new_term));
