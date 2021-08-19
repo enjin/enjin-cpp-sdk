@@ -1,0 +1,11 @@
+target_sources(${PROJECT_NAME}_tests
+        PRIVATE
+        PlayerAdvancedSendAssetTest.cpp
+        PlayerApproveEnjTest.cpp
+        PlayerApproveMaxEnjTest.cpp
+        PlayerMeltAssetTest.cpp
+        PlayerMessageTest.cpp
+        PlayerResetEnjApprovalTest.cpp
+        PlayerSendAssetTest.cpp
+        PlayerSendEnjTest.cpp
+        PlayerSetApprovalForAllTest.cpp)

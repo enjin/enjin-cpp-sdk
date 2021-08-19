@@ -24,8 +24,8 @@ namespace enjin::test::suites {
 
 template<class T>
 class ProjectTransactionRequestArgumentsTestSuite : public TransactionRequestArgumentsTestSuite<T> {
-    static_assert(std::is_base_of<sdk::shared::TransactionRequestArguments<T>, T>::value,
-                  "Type T does not inherit from TransactionRequestArguments.");
+    static_assert(std::is_base_of<sdk::project::ProjectTransactionRequestArguments<T>, T>::value,
+                  "Type T does not inherit from ProjectTransactionRequestArguments.");
 
 public:
     static void set_project_transaction_request_arguments(sdk::project::ProjectTransactionRequestArguments<T>& o) {
