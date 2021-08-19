@@ -24,17 +24,25 @@
 
 namespace enjin::sdk::project {
 
+/// \brief Request for allowing an operator complete control of all assets owned by the caller.
 class ENJINSDK_EXPORT SetApprovalForAll : public graphql::AbstractGraphqlRequest,
                                           public ProjectTransactionRequestArguments<SetApprovalForAll> {
 public:
+    /// \brief Default constructor.
     SetApprovalForAll();
 
     ~SetApprovalForAll() override = default;
 
     [[nodiscard]] std::string serialize() const override;
 
+    /// \brief Sets the wallet address of the operator.
+    /// \param operator_address The operator's address.
+    /// \return This request for chaining.
     SetApprovalForAll& set_operator_address(const std::string& operator_address);
 
+    /// \brief Sets the approval state.
+    /// \param approved The approval.
+    /// \return This request for chaining.
     SetApprovalForAll& set_approved(bool approved);
 
     bool operator==(const SetApprovalForAll& rhs) const;

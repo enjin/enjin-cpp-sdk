@@ -122,13 +122,13 @@ public:
 
     graphql::GraphqlResponse<models::Request> reset_enj_approval_sync(ResetEnjApproval& request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> send_enj_async(SendEnj& request) override;
-
-    graphql::GraphqlResponse<models::Request> send_enj_sync(SendEnj& request) override;
-
     std::future<graphql::GraphqlResponse<models::Request>> send_asset_async(SendAsset& request) override;
 
     graphql::GraphqlResponse<models::Request> send_asset_sync(SendAsset& request) override;
+
+    std::future<graphql::GraphqlResponse<models::Request>> send_enj_async(SendEnj& request) override;
+
+    graphql::GraphqlResponse<models::Request> send_enj_sync(SendEnj& request) override;
 
     std::future<graphql::GraphqlResponse<models::Request>>
     set_approval_for_all_async(SetApprovalForAll& request) override;

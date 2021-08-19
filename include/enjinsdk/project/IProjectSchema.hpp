@@ -292,16 +292,6 @@ public:
     /// \return The response.
     virtual graphql::GraphqlResponse<models::Request> reset_enj_approval_sync(ResetEnjApproval& request) = 0;
 
-    /// \brief Sends SendEnj request asynchronously.
-    /// \param request The request.
-    /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> send_enj_async(SendEnj& request) = 0;
-
-    /// \brief Sends SendEnj request synchronously.
-    /// \param request The request.
-    /// \return The response.
-    virtual graphql::GraphqlResponse<models::Request> send_enj_sync(SendEnj& request) = 0;
-
     /// \brief Sends SendAsset request asynchronously.
     /// \param request The request.
     /// \return The future containing the response.
@@ -311,6 +301,16 @@ public:
     /// \param request The request.
     /// \return The response.
     virtual graphql::GraphqlResponse<models::Request> send_asset_sync(SendAsset& request) = 0;
+
+    /// \brief Sends SendEnj request asynchronously.
+    /// \param request The request.
+    /// \return The future containing the response.
+    virtual std::future<graphql::GraphqlResponse<models::Request>> send_enj_async(SendEnj& request) = 0;
+
+    /// \brief Sends SendEnj request synchronously.
+    /// \param request The request.
+    /// \return The response.
+    virtual graphql::GraphqlResponse<models::Request> send_enj_sync(SendEnj& request) = 0;
 
     /// \brief Sends SetApprovalForAll request asynchronously.
     /// \param request The request.

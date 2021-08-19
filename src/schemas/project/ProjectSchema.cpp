@@ -208,19 +208,19 @@ graphql::GraphqlResponse<models::Request> ProjectSchema::reset_enj_approval_sync
     return send_request_for_one<models::Request>(request).get();
 }
 
-std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::send_enj_async(SendEnj& request) {
-    return send_request_for_one<models::Request>(request);
-}
-
-graphql::GraphqlResponse<models::Request> ProjectSchema::send_enj_sync(SendEnj& request) {
-    return send_request_for_one<models::Request>(request).get();
-}
-
 std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::send_asset_async(SendAsset& request) {
     return send_request_for_one<models::Request>(request);
 }
 
 graphql::GraphqlResponse<models::Request> ProjectSchema::send_asset_sync(SendAsset& request) {
+    return send_request_for_one<models::Request>(request).get();
+}
+
+std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::send_enj_async(SendEnj& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+graphql::GraphqlResponse<models::Request> ProjectSchema::send_enj_sync(SendEnj& request) {
     return send_request_for_one<models::Request>(request).get();
 }
 
