@@ -14,7 +14,7 @@
  */
 
 #include "JsonTestSuite.hpp"
-#include "TransactionRequestArgumentsTestSuite.hpp"
+#include "ProjectTransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/project/SetMeltFee.hpp"
 #include "gtest/gtest.h"
 #include <string>
@@ -22,7 +22,7 @@
 using namespace enjin::sdk::project;
 using namespace enjin::test::suites;
 
-class SetMeltFeeTest : public TransactionRequestArgumentsTestSuite<SetMeltFee>,
+class SetMeltFeeTest : public ProjectTransactionRequestArgumentsTestSuite<SetMeltFee>,
                        public JsonTestSuite,
                        public testing::Test {
 public:
@@ -36,7 +36,7 @@ public:
                 .set_asset_id("1")
                 .set_asset_index("1")
                 .set_melt_fee(1);
-        set_transaction_request_arguments(request);
+        set_project_transaction_request_arguments(request);
         return request;
     }
 };

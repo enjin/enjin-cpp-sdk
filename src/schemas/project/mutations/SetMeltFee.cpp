@@ -24,7 +24,7 @@ SetMeltFee::SetMeltFee() : graphql::AbstractGraphqlRequest("enjin.sdk.project.Se
 
 std::string SetMeltFee::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
+    utils::join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
 
     if (asset_id.has_value()) {
         utils::set_string_member(document, "assetId", asset_id.value());
@@ -57,8 +57,8 @@ SetMeltFee& SetMeltFee::set_melt_fee(int melt_fee) {
 bool SetMeltFee::operator==(const SetMeltFee& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionRequestArguments<SetMeltFee>&>(*this) ==
-           static_cast<const shared::TransactionRequestArguments<SetMeltFee>&>(rhs) &&
+           static_cast<const ProjectTransactionRequestArguments<SetMeltFee>&>(*this) ==
+           static_cast<const ProjectTransactionRequestArguments<SetMeltFee>&>(rhs) &&
            asset_id == rhs.asset_id &&
            asset_index == rhs.asset_index &&
            melt_fee == rhs.melt_fee;

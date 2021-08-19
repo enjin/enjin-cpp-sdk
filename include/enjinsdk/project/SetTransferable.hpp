@@ -19,7 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/AssetTransferable.hpp"
-#include "enjinsdk/shared/TransactionRequestArguments.hpp"
+#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -27,7 +27,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for setting if a asset may be transferred.
 class ENJINSDK_EXPORT SetTransferable : public graphql::AbstractGraphqlRequest,
-                                        public shared::TransactionRequestArguments<SetTransferable> {
+                                        public ProjectTransactionRequestArguments<SetTransferable> {
 public:
     /// \brief Default constructor.
     SetTransferable();
@@ -60,6 +60,9 @@ private:
     std::optional<std::string> asset_index;
     std::optional<models::AssetTransferable> transferable;
 };
+
+template ENJINSDK_EXPORT SetTransferable&
+ProjectTransactionRequestArguments<SetTransferable>::set_eth_address(const std::string& address);
 
 }
 
@@ -97,9 +100,6 @@ TransactionFragmentArguments<project::SetTransferable>::set_with_receipt_logs();
 
 template ENJINSDK_EXPORT project::SetTransferable&
 TransactionFragmentArguments<project::SetTransferable>::set_with_log_event();
-
-template ENJINSDK_EXPORT project::SetTransferable&
-TransactionRequestArguments<project::SetTransferable>::set_eth_address(const std::string& address);
 
 template ENJINSDK_EXPORT project::SetTransferable&
 TransactionRequestArguments<project::SetTransferable>::set_send(bool send);

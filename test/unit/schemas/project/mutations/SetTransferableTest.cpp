@@ -14,7 +14,7 @@
  */
 
 #include "JsonTestSuite.hpp"
-#include "TransactionRequestArgumentsTestSuite.hpp"
+#include "ProjectTransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/project/SetTransferable.hpp"
 #include "gtest/gtest.h"
 #include <string>
@@ -23,7 +23,7 @@ using namespace enjin::sdk::models;
 using namespace enjin::sdk::project;
 using namespace enjin::test::suites;
 
-class SetTransferableTest : public TransactionRequestArgumentsTestSuite<SetTransferable>,
+class SetTransferableTest : public ProjectTransactionRequestArgumentsTestSuite<SetTransferable>,
                             public JsonTestSuite,
                             public testing::Test {
 public:
@@ -37,7 +37,7 @@ public:
                 .set_asset_id("1")
                 .set_asset_index("1")
                 .set_transferable(AssetTransferable::PERMANENT);
-        set_transaction_request_arguments(request);
+        set_project_transaction_request_arguments(request);
         return request;
     }
 };

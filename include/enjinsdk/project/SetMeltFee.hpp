@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/TransactionRequestArguments.hpp"
+#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for setting the melt fee of an asset.
 class ENJINSDK_EXPORT SetMeltFee : public graphql::AbstractGraphqlRequest,
-                                   public shared::TransactionRequestArguments<SetMeltFee> {
+                                   public ProjectTransactionRequestArguments<SetMeltFee> {
 public:
     /// \brief Default constructor.
     SetMeltFee();
@@ -61,6 +61,9 @@ private:
     std::optional<int> melt_fee;
 };
 
+template ENJINSDK_EXPORT SetMeltFee&
+ProjectTransactionRequestArguments<SetMeltFee>::set_eth_address(const std::string& address);
+
 }
 
 namespace enjin::sdk::shared {
@@ -89,9 +92,6 @@ template ENJINSDK_EXPORT project::SetMeltFee&
 TransactionFragmentArguments<project::SetMeltFee>::set_with_receipt_logs();
 
 template ENJINSDK_EXPORT project::SetMeltFee& TransactionFragmentArguments<project::SetMeltFee>::set_with_log_event();
-
-template ENJINSDK_EXPORT project::SetMeltFee&
-TransactionRequestArguments<project::SetMeltFee>::set_eth_address(const std::string& address);
 
 template ENJINSDK_EXPORT project::SetMeltFee& TransactionRequestArguments<project::SetMeltFee>::set_send(bool send);
 

@@ -14,7 +14,7 @@
  */
 
 #include "JsonTestSuite.hpp"
-#include "TransactionRequestArgumentsTestSuite.hpp"
+#include "ProjectTransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/project/CreateAsset.hpp"
 #include "gtest/gtest.h"
 #include <string>
@@ -23,7 +23,7 @@ using namespace enjin::sdk::models;
 using namespace enjin::sdk::project;
 using namespace enjin::test::suites;
 
-class CreateAssetTest : public TransactionRequestArgumentsTestSuite<CreateAsset>,
+class CreateAssetTest : public ProjectTransactionRequestArgumentsTestSuite<CreateAsset>,
                         public JsonTestSuite,
                         public testing::Test {
 public:
@@ -43,7 +43,7 @@ public:
                 .set_transferable(AssetTransferable::PERMANENT)
                 .set_transfer_fee_settings(AssetTransferFeeSettingsInput())
                 .set_non_fungible(true);
-        set_transaction_request_arguments(request);
+        set_project_transaction_request_arguments(request);
         return request;
     }
 };

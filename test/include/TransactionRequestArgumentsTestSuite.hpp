@@ -30,8 +30,7 @@ class TransactionRequestArgumentsTestSuite : public TransactionFragmentArguments
 public:
     static void set_transaction_request_arguments(sdk::shared::TransactionRequestArguments<T>& o) {
         TransactionFragmentArgumentsTestSuite<T>::set_transaction_fragment_arguments(o);
-        o.set_eth_address("1")
-         .set_send(true);
+        o.set_send(true);
     }
 };
 

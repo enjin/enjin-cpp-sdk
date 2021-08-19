@@ -34,14 +34,6 @@ public:
         return impl.serialize();
     }
 
-    /// \brief Sets the Ethereum address of the sender.
-    /// \param address The address.
-    /// \return The request for chaining.
-    T& set_eth_address(const std::string& address) {
-        impl.set_eth_address(address);
-        return dynamic_cast<T&>(*this);
-    }
-
     /// \brief Sets whether the request will send the transaction to the blockchain.
     /// \param send The send state.
     /// \return This request for chaining.

@@ -14,7 +14,7 @@
  */
 
 #include "JsonTestSuite.hpp"
-#include "TransactionRequestArgumentsTestSuite.hpp"
+#include "ProjectTransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/project/ReleaseReserve.hpp"
 #include "gtest/gtest.h"
 #include <string>
@@ -22,7 +22,7 @@
 using namespace enjin::sdk::project;
 using namespace enjin::test::suites;
 
-class ReleaseReserveTest : public TransactionRequestArgumentsTestSuite<ReleaseReserve>,
+class ReleaseReserveTest : public ProjectTransactionRequestArgumentsTestSuite<ReleaseReserve>,
                            public JsonTestSuite,
                            public testing::Test {
 public:
@@ -35,7 +35,7 @@ public:
         ReleaseReserve request = ReleaseReserve()
                 .set_asset_id("1")
                 .set_value("1");
-        set_transaction_request_arguments(request);
+        set_project_transaction_request_arguments(request);
         return request;
     }
 };

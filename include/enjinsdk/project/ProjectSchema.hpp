@@ -30,6 +30,19 @@ public:
 
     ~ProjectSchema() override = default;
 
+    std::future<graphql::GraphqlResponse<models::Request>>
+    advanced_send_asset_async(AdvancedSendAsset& request) override;
+
+    graphql::GraphqlResponse<models::Request> advanced_send_asset_sync(AdvancedSendAsset& request) override;
+
+    std::future<graphql::GraphqlResponse<models::Request>> approve_enj_async(ApproveEnj& request) override;
+
+    graphql::GraphqlResponse<models::Request> approve_enj_sync(ApproveEnj& request) override;
+
+    std::future<graphql::GraphqlResponse<models::Request>> approve_enj_max_async(ApproveMaxEnj& request) override;
+
+    graphql::GraphqlResponse<models::Request> approve_enj_max_sync(ApproveMaxEnj& request) override;
+
     std::future<graphql::GraphqlResponse<models::AccessToken>> auth_player_async(AuthPlayer& request) override;
 
     graphql::GraphqlResponse<models::AccessToken> auth_player_sync(AuthPlayer& request) override;
@@ -38,13 +51,21 @@ public:
 
     graphql::GraphqlResponse<models::AccessToken> auth_project_sync(AuthProject& request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> create_player_async(CreatePlayer& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> complete_trade_async(CompleteTrade& request) override;
 
-    graphql::GraphqlResponse<models::Request> create_player_sync(CreatePlayer& request) override;
+    graphql::GraphqlResponse<models::Request> complete_trade_sync(CompleteTrade& request) override;
 
     std::future<graphql::GraphqlResponse<models::Request>> create_asset_async(CreateAsset& request) override;
 
     graphql::GraphqlResponse<models::Request> create_asset_sync(CreateAsset& request) override;
+
+    std::future<graphql::GraphqlResponse<models::Request>> create_player_async(CreatePlayer& request) override;
+
+    graphql::GraphqlResponse<models::Request> create_player_sync(CreatePlayer& request) override;
+
+    std::future<graphql::GraphqlResponse<models::Request>> create_trade_async(CreateTrade& request) override;
+
+    graphql::GraphqlResponse<models::Request> create_trade_sync(CreateTrade& request) override;
 
     std::future<graphql::GraphqlResponse<models::Request>>
     decrease_max_melt_fee_async(DecreaseMaxMeltFee& request) override;
@@ -81,6 +102,14 @@ public:
 
     graphql::GraphqlResponse<bool> invalidate_asset_metadata_sync(InvalidateAssetMetadata& request) override;
 
+    std::future<graphql::GraphqlResponse<models::Request>> melt_asset_async(MeltAsset& request) override;
+
+    graphql::GraphqlResponse<models::Request> melt_asset_sync(MeltAsset& request) override;
+
+    std::future<graphql::GraphqlResponse<models::Request>> message_async(Message& request) override;
+
+    graphql::GraphqlResponse<models::Request> message_sync(Message& request) override;
+
     std::future<graphql::GraphqlResponse<models::Request>> mint_asset_async(MintAsset& request) override;
 
     graphql::GraphqlResponse<models::Request> mint_asset_sync(MintAsset& request) override;
@@ -88,6 +117,23 @@ public:
     std::future<graphql::GraphqlResponse<models::Request>> release_reserve_async(ReleaseReserve& request) override;
 
     graphql::GraphqlResponse<models::Request> release_reserve_sync(ReleaseReserve& request) override;
+
+    std::future<graphql::GraphqlResponse<models::Request>> reset_enj_approval_async(ResetEnjApproval& request) override;
+
+    graphql::GraphqlResponse<models::Request> reset_enj_approval_sync(ResetEnjApproval& request) override;
+
+    std::future<graphql::GraphqlResponse<models::Request>> send_enj_async(SendEnj& request) override;
+
+    graphql::GraphqlResponse<models::Request> send_enj_sync(SendEnj& request) override;
+
+    std::future<graphql::GraphqlResponse<models::Request>> send_asset_async(SendAsset& request) override;
+
+    graphql::GraphqlResponse<models::Request> send_asset_sync(SendAsset& request) override;
+
+    std::future<graphql::GraphqlResponse<models::Request>>
+    set_approval_for_all_async(SetApprovalForAll& request) override;
+
+    graphql::GraphqlResponse<models::Request> set_approval_for_all_sync(SetApprovalForAll& request) override;
 
     std::future<graphql::GraphqlResponse<models::Request>> set_melt_fee_async(SetMeltFee& request) override;
 

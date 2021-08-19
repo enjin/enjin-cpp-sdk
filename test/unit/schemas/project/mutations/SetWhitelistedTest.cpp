@@ -14,7 +14,7 @@
  */
 
 #include "JsonTestSuite.hpp"
-#include "TransactionRequestArgumentsTestSuite.hpp"
+#include "ProjectTransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/project/SetWhitelisted.hpp"
 #include "gtest/gtest.h"
 #include <string>
@@ -23,7 +23,7 @@ using namespace enjin::sdk::models;
 using namespace enjin::sdk::project;
 using namespace enjin::test::suites;
 
-class SetWhitelistedTest : public TransactionRequestArgumentsTestSuite<SetWhitelisted>,
+class SetWhitelistedTest : public ProjectTransactionRequestArgumentsTestSuite<SetWhitelisted>,
                            public JsonTestSuite,
                            public testing::Test {
 public:
@@ -39,7 +39,7 @@ public:
                 .set_whitelisted(Whitelisted::NONE)
                 .set_whitelisted_address("1")
                 .set_on(true);
-        set_transaction_request_arguments(request);
+        set_project_transaction_request_arguments(request);
         return request;
     }
 };

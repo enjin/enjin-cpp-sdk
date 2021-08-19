@@ -19,7 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/MintInput.hpp"
-#include "enjinsdk/shared/TransactionRequestArguments.hpp"
+#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 #include <vector>
@@ -28,7 +28,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for minting a asset.
 class ENJINSDK_EXPORT MintAsset : public graphql::AbstractGraphqlRequest,
-                                  public shared::TransactionRequestArguments<MintAsset> {
+                                  public ProjectTransactionRequestArguments<MintAsset> {
 public:
     /// \brief Default constructor.
     MintAsset();
@@ -56,6 +56,9 @@ private:
     std::optional<std::vector<models::MintInput>> mints;
 };
 
+template ENJINSDK_EXPORT MintAsset&
+ProjectTransactionRequestArguments<MintAsset>::set_eth_address(const std::string& address);
+
 }
 
 namespace enjin::sdk::shared {
@@ -82,9 +85,6 @@ template ENJINSDK_EXPORT project::MintAsset& TransactionFragmentArguments<projec
 template ENJINSDK_EXPORT project::MintAsset& TransactionFragmentArguments<project::MintAsset>::set_with_receipt_logs();
 
 template ENJINSDK_EXPORT project::MintAsset& TransactionFragmentArguments<project::MintAsset>::set_with_log_event();
-
-template ENJINSDK_EXPORT project::MintAsset&
-TransactionRequestArguments<project::MintAsset>::set_eth_address(const std::string& address);
 
 template ENJINSDK_EXPORT project::MintAsset& TransactionRequestArguments<project::MintAsset>::set_send(bool send);
 

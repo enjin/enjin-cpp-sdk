@@ -17,7 +17,6 @@
 #define ENJINCPPSDK_SHAREDTRANSACTIONREQUESTARGUMENTSIMPL_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/internal/TransactionFragmentArgumentsImpl.hpp"
 #include <optional>
 #include <string>
@@ -34,10 +33,6 @@ public:
 
     [[nodiscard]] std::string serialize() const override;
 
-    /// \brief Sets the value for the associated field to the given string.
-    /// \param address The address.
-    void set_eth_address(const std::string& address);
-
     /// \brief Sets the value for the associated field to the given boolean.
     /// \param send The send state.
     void set_send(bool send);
@@ -47,7 +42,6 @@ public:
     bool operator!=(const TransactionRequestArgumentsImpl& rhs) const;
 
 private:
-    std::optional<std::string> eth_address;
     std::optional<bool> send;
 };
 

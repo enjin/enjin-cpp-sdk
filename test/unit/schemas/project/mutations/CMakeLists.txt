@@ -1,13 +1,24 @@
 target_sources(${PROJECT_NAME}_tests
         PRIVATE
-        CreatePlayerTest.cpp
+        AdvancedSendAssetTest.cpp
+        ApproveEnjTest.cpp
+        ApproveMaxEnjTest.cpp
+        CompleteTradeTest.cpp
         CreateAssetTest.cpp
+        CreatePlayerTest.cpp
+        CreateTradeTest.cpp
         DecreaseMaxMeltFeeTest.cpp
         DecreaseMaxTransferFeeTest.cpp
         DeletePlayerTest.cpp
         InvalidateAssetMetadataTest.cpp
+        MeltAssetTest.cpp
+        MessageTest.cpp
         MintAssetTest.cpp
         ReleaseReserveTest.cpp
+        ResetEnjApprovalTest.cpp
+        SendAssetTest.cpp
+        SendEnjTest.cpp
+        SetApprovalForAllTest.cpp
         SetMeltFeeTest.cpp
         SetTransferableTest.cpp
         SetTransferFeeTest.cpp

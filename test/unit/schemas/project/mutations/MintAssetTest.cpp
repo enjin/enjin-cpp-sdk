@@ -14,7 +14,7 @@
  */
 
 #include "JsonTestSuite.hpp"
-#include "TransactionRequestArgumentsTestSuite.hpp"
+#include "ProjectTransactionRequestArgumentsTestSuite.hpp"
 #include "enjinsdk/project/MintAsset.hpp"
 #include "gtest/gtest.h"
 #include <string>
@@ -24,7 +24,7 @@ using namespace enjin::sdk::models;
 using namespace enjin::sdk::project;
 using namespace enjin::test::suites;
 
-class MintAssetTest : public TransactionRequestArgumentsTestSuite<MintAsset>,
+class MintAssetTest : public ProjectTransactionRequestArgumentsTestSuite<MintAsset>,
                       public JsonTestSuite,
                       public testing::Test {
 public:
@@ -37,7 +37,7 @@ public:
         MintAsset request = MintAsset()
                 .set_asset_id("1")
                 .set_mints(std::vector<MintInput>());
-        set_transaction_request_arguments(request);
+        set_project_transaction_request_arguments(request);
         return request;
     }
 };

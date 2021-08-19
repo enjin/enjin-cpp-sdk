@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/TransactionRequestArguments.hpp"
+#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for setting the max melt fee of an asset to a lower value.
 class ENJINSDK_EXPORT DecreaseMaxMeltFee : public graphql::AbstractGraphqlRequest,
-                                           public shared::TransactionRequestArguments<DecreaseMaxMeltFee> {
+                                           public ProjectTransactionRequestArguments<DecreaseMaxMeltFee> {
 public:
     /// \brief Default constructor.
     DecreaseMaxMeltFee();
@@ -60,6 +60,9 @@ private:
     std::optional<std::string> asset_index;
     std::optional<int> max_melt_fee;
 };
+
+template ENJINSDK_EXPORT DecreaseMaxMeltFee&
+ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_eth_address(const std::string& address);
 
 }
 
@@ -97,9 +100,6 @@ TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_with_receipt_logs
 
 template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
 TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_with_log_event();
-
-template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
-TransactionRequestArguments<project::DecreaseMaxMeltFee>::set_eth_address(const std::string& address);
 
 template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
 TransactionRequestArguments<project::DecreaseMaxMeltFee>::set_send(bool send);
