@@ -52,6 +52,31 @@ private:
 
 namespace enjin::sdk::shared {
 
+template ENJINSDK_EXPORT project::GetPlayer&
+AssetFragmentArguments<project::GetPlayer>::set_asset_id_format(models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT project::GetPlayer& AssetFragmentArguments<project::GetPlayer>::set_with_state_data();
+
+template ENJINSDK_EXPORT project::GetPlayer& AssetFragmentArguments<project::GetPlayer>::set_with_config_data();
+
+template ENJINSDK_EXPORT project::GetPlayer& AssetFragmentArguments<project::GetPlayer>::set_with_asset_blocks();
+
+template ENJINSDK_EXPORT project::GetPlayer& AssetFragmentArguments<project::GetPlayer>::set_with_creator();
+
+template ENJINSDK_EXPORT project::GetPlayer& AssetFragmentArguments<project::GetPlayer>::set_with_melt_details();
+
+template ENJINSDK_EXPORT project::GetPlayer& AssetFragmentArguments<project::GetPlayer>::set_with_metadata_uri();
+
+template ENJINSDK_EXPORT project::GetPlayer& AssetFragmentArguments<project::GetPlayer>::set_with_supply_details();
+
+template ENJINSDK_EXPORT project::GetPlayer& AssetFragmentArguments<project::GetPlayer>::set_with_transfer_settings();
+
+template ENJINSDK_EXPORT project::GetPlayer& AssetFragmentArguments<project::GetPlayer>::set_with_asset_variant_mode();
+
+template ENJINSDK_EXPORT project::GetPlayer& AssetFragmentArguments<project::GetPlayer>::set_with_asset_variants();
+
+template ENJINSDK_EXPORT project::GetPlayer& AssetFragmentArguments<project::GetPlayer>::set_with_variant_metadata();
+
 template ENJINSDK_EXPORT project::GetPlayer& PlayerFragmentArguments<project::GetPlayer>::set_with_linking_info();
 
 template ENJINSDK_EXPORT project::GetPlayer& PlayerFragmentArguments<project::GetPlayer>::set_qr_size(int size);

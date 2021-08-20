@@ -17,15 +17,16 @@
 #define ENJINCPPSDK_SHAREDWALLETFRAGMENTARGUMENTS_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/internal/WalletFragmentArgumentsImpl.hpp"
+#include "enjinsdk/shared/AssetFragmentArguments.hpp"
+#include <string>
 
 namespace enjin::sdk::shared {
 
 /// \brief Fragment interface used to request certain information from wallets returned by the platform.
 /// \tparam T The type of the implementing class.
 template<class T>
-class ENJINSDK_EXPORT WalletFragmentArguments : public serialization::ISerializable {
+class ENJINSDK_EXPORT WalletFragmentArguments : public AssetFragmentArguments<T> {
 public:
     ~WalletFragmentArguments() override = default;
 

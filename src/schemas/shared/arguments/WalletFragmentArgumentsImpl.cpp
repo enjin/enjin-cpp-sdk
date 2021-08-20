@@ -21,6 +21,7 @@ namespace enjin::sdk::shared {
 
 std::string WalletFragmentArgumentsImpl::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
+    utils::join_serialized_object_to_document(document, AssetFragmentArgumentsImpl::serialize());
 
     if (with_assets_created.has_value()) {
         utils::set_boolean_member(document, "withAssetsCreated", with_assets_created.value());
@@ -34,7 +35,9 @@ void WalletFragmentArgumentsImpl::set_with_assets_created() {
 }
 
 bool WalletFragmentArgumentsImpl::operator==(const WalletFragmentArgumentsImpl& rhs) const {
-    return with_assets_created == rhs.with_assets_created;
+    return static_cast<const AssetFragmentArgumentsImpl&>(*this) ==
+           static_cast<const AssetFragmentArgumentsImpl&>(rhs) &&
+           with_assets_created == rhs.with_assets_created;
 }
 
 bool WalletFragmentArgumentsImpl::operator!=(const WalletFragmentArgumentsImpl& rhs) const {
