@@ -105,9 +105,6 @@ TransactionFragmentArguments<project::CreateTrade>::set_with_log_event();
 template ENJINSDK_EXPORT project::CreateTrade&
 TransactionFragmentArguments<project::CreateTrade>::set_with_transaction_project_uuid();
 
-template ENJINSDK_EXPORT project::CreateTrade&
-TransactionRequestArguments<project::CreateTrade>::set_send(bool send);
-
 }
 
 #endif //ENJINCPPSDK_PROJECTCREATETRADE_HPP

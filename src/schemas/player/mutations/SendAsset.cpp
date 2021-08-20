@@ -24,7 +24,7 @@ SendAsset::SendAsset() : graphql::AbstractGraphqlRequest("enjin.sdk.player.SendA
 
 std::string SendAsset::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
+    utils::join_serialized_object_to_document(document, TransactionFragmentArguments::serialize());
 
     if (recipient_address.has_value()) {
         utils::set_string_member(document, "recipientAddress", recipient_address.value());
@@ -73,8 +73,8 @@ SendAsset& SendAsset::set_data(const std::string& data) {
 bool SendAsset::operator==(const SendAsset& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionRequestArguments<SendAsset>&>(*this) ==
-           static_cast<const shared::TransactionRequestArguments<SendAsset>&>(rhs) &&
+           static_cast<const shared::TransactionFragmentArguments<SendAsset>&>(*this) ==
+           static_cast<const shared::TransactionFragmentArguments<SendAsset>&>(rhs) &&
            recipient_address == rhs.recipient_address &&
            asset_id == rhs.asset_id &&
            asset_index == rhs.asset_index &&

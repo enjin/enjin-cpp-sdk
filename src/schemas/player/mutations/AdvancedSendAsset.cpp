@@ -24,7 +24,7 @@ AdvancedSendAsset::AdvancedSendAsset() : graphql::AbstractGraphqlRequest("enjin.
 
 std::string AdvancedSendAsset::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
+    utils::join_serialized_object_to_document(document, TransactionFragmentArguments::serialize());
 
     if (transfers.has_value()) {
         utils::set_array_member_from_type_vector<models::Transfer>(document, "transfers", transfers.value());
@@ -49,8 +49,8 @@ AdvancedSendAsset& AdvancedSendAsset::set_data(const std::string& data) {
 bool AdvancedSendAsset::operator==(const AdvancedSendAsset& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionRequestArguments<AdvancedSendAsset>&>(*this) ==
-           static_cast<const shared::TransactionRequestArguments<AdvancedSendAsset>&>(rhs) &&
+           static_cast<const shared::TransactionFragmentArguments<AdvancedSendAsset>&>(*this) ==
+           static_cast<const shared::TransactionFragmentArguments<AdvancedSendAsset>&>(rhs) &&
            transfers == rhs.transfers &&
            data == rhs.data;
 }

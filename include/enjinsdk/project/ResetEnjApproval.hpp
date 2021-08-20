@@ -82,9 +82,6 @@ TransactionFragmentArguments<project::ResetEnjApproval>::set_with_log_event();
 template ENJINSDK_EXPORT project::ResetEnjApproval&
 TransactionFragmentArguments<project::ResetEnjApproval>::set_with_transaction_project_uuid();
 
-template ENJINSDK_EXPORT project::ResetEnjApproval&
-TransactionRequestArguments<project::ResetEnjApproval>::set_send(bool send);
-
 }
 
 #endif //ENJINCPPSDK_PROJECTRESETENJAPPROVAL_HPP

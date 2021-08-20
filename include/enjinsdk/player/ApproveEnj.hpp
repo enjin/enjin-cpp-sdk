@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/TransactionRequestArguments.hpp"
+#include "enjinsdk/shared/TransactionFragmentArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::player {
 
 /// \brief Request for approving the crypto items contract to spend ENJ.
 class ENJINSDK_EXPORT ApproveEnj : public graphql::AbstractGraphqlRequest,
-                                   public shared::TransactionRequestArguments<ApproveEnj> {
+                                   public shared::TransactionFragmentArguments<ApproveEnj> {
 public:
     /// \brief Default constructor.
     ApproveEnj();
@@ -88,9 +88,6 @@ TransactionFragmentArguments<player::ApproveEnj>::set_with_log_event();
 
 template ENJINSDK_EXPORT player::ApproveEnj&
 TransactionFragmentArguments<player::ApproveEnj>::set_with_transaction_project_uuid();
-
-template ENJINSDK_EXPORT player::ApproveEnj&
-TransactionRequestArguments<player::ApproveEnj>::set_send(bool send);
 
 }
 

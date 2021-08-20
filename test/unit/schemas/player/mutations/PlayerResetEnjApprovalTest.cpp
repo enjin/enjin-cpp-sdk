@@ -14,7 +14,7 @@
  */
 
 #include "JsonTestSuite.hpp"
-#include "TransactionRequestArgumentsTestSuite.hpp"
+#include "TransactionFragmentArgumentsTestSuite.hpp"
 #include "enjinsdk/player/ResetEnjApproval.hpp"
 #include "gtest/gtest.h"
 #include <string>
@@ -22,13 +22,13 @@
 using namespace enjin::sdk::player;
 using namespace enjin::test::suites;
 
-class PlayerResetEnjApprovalTest : public TransactionRequestArgumentsTestSuite<ResetEnjApproval>,
+class PlayerResetEnjApprovalTest : public TransactionFragmentArgumentsTestSuite<ResetEnjApproval>,
                                    public JsonTestSuite,
                                    public testing::Test {
 public:
     static ResetEnjApproval create_default_request() {
         ResetEnjApproval request;
-        set_transaction_request_arguments(request);
+        set_transaction_fragment_arguments(request);
         return request;
     }
 };

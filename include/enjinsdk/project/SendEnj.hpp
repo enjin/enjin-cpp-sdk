@@ -98,9 +98,6 @@ TransactionFragmentArguments<project::SendEnj>::set_with_log_event();
 template ENJINSDK_EXPORT project::SendEnj&
 TransactionFragmentArguments<project::SendEnj>::set_with_transaction_project_uuid();
 
-template ENJINSDK_EXPORT project::SendEnj&
-TransactionRequestArguments<project::SendEnj>::set_send(bool send);
-
 }
 
 #endif //ENJINCPPSDK_PROJECTSENDENJ_HPP

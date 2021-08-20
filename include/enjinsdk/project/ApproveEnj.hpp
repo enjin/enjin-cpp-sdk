@@ -92,9 +92,6 @@ TransactionFragmentArguments<project::ApproveEnj>::set_with_log_event();
 template ENJINSDK_EXPORT project::ApproveEnj&
 TransactionFragmentArguments<project::ApproveEnj>::set_with_transaction_project_uuid();
 
-template ENJINSDK_EXPORT project::ApproveEnj&
-TransactionRequestArguments<project::ApproveEnj>::set_send(bool send);
-
 }
 
 #endif //ENJINCPPSDK_PROJECTAPPROVEENJ_HPP

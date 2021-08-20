@@ -91,9 +91,6 @@ TransactionFragmentArguments<project::CompleteTrade>::set_with_log_event();
 template ENJINSDK_EXPORT project::CompleteTrade&
 TransactionFragmentArguments<project::CompleteTrade>::set_with_transaction_project_uuid();
 
-template ENJINSDK_EXPORT project::CompleteTrade&
-TransactionRequestArguments<project::CompleteTrade>::set_send(bool send);
-
 }
 
 #endif //ENJINCPPSDK_PROJECTCOMPLETETRADE_HPP

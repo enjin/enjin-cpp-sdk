@@ -14,7 +14,7 @@
  */
 
 #include "JsonTestSuite.hpp"
-#include "TransactionRequestArgumentsTestSuite.hpp"
+#include "TransactionFragmentArgumentsTestSuite.hpp"
 #include "enjinsdk/player/SendAsset.hpp"
 #include "gtest/gtest.h"
 #include <string>
@@ -22,7 +22,7 @@
 using namespace enjin::sdk::player;
 using namespace enjin::test::suites;
 
-class PlayerSendAssetTest : public TransactionRequestArgumentsTestSuite<SendAsset>,
+class PlayerSendAssetTest : public TransactionFragmentArgumentsTestSuite<SendAsset>,
                             public JsonTestSuite,
                             public testing::Test {
 public:
@@ -38,7 +38,7 @@ public:
                 .set_asset_index("1")
                 .set_value("1")
                 .set_data("1");
-        set_transaction_request_arguments(request);
+        set_transaction_fragment_arguments(request);
         return request;
     }
 };

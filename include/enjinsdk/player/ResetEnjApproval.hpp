@@ -18,14 +18,14 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/TransactionRequestArguments.hpp"
+#include "enjinsdk/shared/TransactionFragmentArguments.hpp"
 #include <optional>
 
 namespace enjin::sdk::player {
 
 /// \brief Request for resetting the crypto items contract approval for ENJ.
 class ENJINSDK_EXPORT ResetEnjApproval : public graphql::AbstractGraphqlRequest,
-                                         public shared::TransactionRequestArguments<ResetEnjApproval> {
+                                         public shared::TransactionFragmentArguments<ResetEnjApproval> {
 public:
     /// \brief Default constructor.
     ResetEnjApproval();
@@ -78,9 +78,6 @@ TransactionFragmentArguments<player::ResetEnjApproval>::set_with_log_event();
 
 template ENJINSDK_EXPORT player::ResetEnjApproval&
 TransactionFragmentArguments<player::ResetEnjApproval>::set_with_transaction_project_uuid();
-
-template ENJINSDK_EXPORT player::ResetEnjApproval&
-TransactionRequestArguments<player::ResetEnjApproval>::set_send(bool send);
 
 }
 

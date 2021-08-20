@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/TransactionRequestArguments.hpp"
+#include "enjinsdk/shared/TransactionFragmentArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::player {
 
 /// \brief Request for sending send ENJ.
 class ENJINSDK_EXPORT SendEnj : public graphql::AbstractGraphqlRequest,
-                                public shared::TransactionRequestArguments<SendEnj> {
+                                public shared::TransactionFragmentArguments<SendEnj> {
 public:
     /// \brief Default constructor.
     SendEnj();
@@ -94,9 +94,6 @@ TransactionFragmentArguments<player::SendEnj>::set_with_log_event();
 
 template ENJINSDK_EXPORT player::SendEnj&
 TransactionFragmentArguments<player::SendEnj>::set_with_transaction_project_uuid();
-
-template ENJINSDK_EXPORT player::SendEnj&
-TransactionRequestArguments<player::SendEnj>::set_send(bool send);
 
 }
 

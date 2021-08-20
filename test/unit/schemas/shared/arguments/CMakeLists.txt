@@ -5,5 +5,4 @@ target_sources(${PROJECT_NAME}_tests
         SharedPaginationArgumentsImplTest.cpp
         SharedPlayerFragmentArgumentsImplTest.cpp
         SharedTransactionFragmentArgumentsImplTest.cpp
-        SharedTransactionRequestArgumentsImplTest.cpp
         SharedWalletFragmentArgumentsImplTest.cpp)

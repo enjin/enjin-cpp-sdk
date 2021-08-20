@@ -21,7 +21,7 @@ namespace enjin::sdk::project {
 
 std::string ProjectTransactionRequestArgumentsImpl::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, shared::TransactionRequestArgumentsImpl::serialize());
+    utils::join_serialized_object_to_document(document, TransactionFragmentArgumentsImpl::serialize());
 
     if (eth_address.has_value()) {
         utils::set_string_member(document, "ethAddress", eth_address.value());
@@ -35,8 +35,8 @@ void ProjectTransactionRequestArgumentsImpl::set_eth_address(const std::string& 
 }
 
 bool ProjectTransactionRequestArgumentsImpl::operator==(const ProjectTransactionRequestArgumentsImpl& rhs) const {
-    return static_cast<const TransactionRequestArgumentsImpl&>(*this) ==
-           static_cast<const TransactionRequestArgumentsImpl&>(rhs) &&
+    return static_cast<const shared::TransactionFragmentArgumentsImpl&>(*this) ==
+           static_cast<const shared::TransactionFragmentArgumentsImpl&>(rhs) &&
            eth_address == rhs.eth_address;
 }
 

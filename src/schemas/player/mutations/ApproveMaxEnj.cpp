@@ -21,14 +21,14 @@ ApproveMaxEnj::ApproveMaxEnj() : graphql::AbstractGraphqlRequest("enjin.sdk.play
 }
 
 std::string ApproveMaxEnj::serialize() const {
-    return TransactionRequestArguments::serialize();
+    return TransactionFragmentArguments::serialize();
 }
 
 bool ApproveMaxEnj::operator==(const ApproveMaxEnj& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionRequestArguments<ApproveMaxEnj>&>(*this) ==
-           static_cast<const shared::TransactionRequestArguments<ApproveMaxEnj>&>(rhs);
+           static_cast<const shared::TransactionFragmentArguments<ApproveMaxEnj>&>(*this) ==
+           static_cast<const shared::TransactionFragmentArguments<ApproveMaxEnj>&>(rhs);
 }
 
 bool ApproveMaxEnj::operator!=(const ApproveMaxEnj& rhs) const {

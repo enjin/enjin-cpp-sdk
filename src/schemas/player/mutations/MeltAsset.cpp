@@ -24,7 +24,7 @@ MeltAsset::MeltAsset() : graphql::AbstractGraphqlRequest("enjin.sdk.player.MeltA
 
 std::string MeltAsset::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
+    utils::join_serialized_object_to_document(document, TransactionFragmentArguments::serialize());
 
     if (melts.has_value()) {
         utils::set_array_member_from_type_vector<models::Melt>(document, "melts", melts.value());
@@ -41,8 +41,8 @@ MeltAsset& MeltAsset::set_melts(std::vector<models::Melt> melts) {
 bool MeltAsset::operator==(const MeltAsset& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionRequestArguments<MeltAsset>&>(*this) ==
-           static_cast<const shared::TransactionRequestArguments<MeltAsset>&>(rhs) &&
+           static_cast<const shared::TransactionFragmentArguments<MeltAsset>&>(*this) ==
+           static_cast<const shared::TransactionFragmentArguments<MeltAsset>&>(rhs) &&
            melts == rhs.melts;
 }
 

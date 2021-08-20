@@ -24,7 +24,7 @@ SendEnj::SendEnj() : graphql::AbstractGraphqlRequest("enjin.sdk.player.SendEnj")
 
 std::string SendEnj::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
+    utils::join_serialized_object_to_document(document, TransactionFragmentArguments::serialize());
 
     if (recipient_address.has_value()) {
         utils::set_string_member(document, "recipientAddress", recipient_address.value());
@@ -49,8 +49,8 @@ SendEnj& SendEnj::set_value(const std::string& value) {
 bool SendEnj::operator==(const SendEnj& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionRequestArguments<SendEnj>&>(*this) ==
-           static_cast<const shared::TransactionRequestArguments<SendEnj>&>(rhs) &&
+           static_cast<const shared::TransactionFragmentArguments<SendEnj>&>(*this) ==
+           static_cast<const shared::TransactionFragmentArguments<SendEnj>&>(rhs) &&
            recipient_address == rhs.recipient_address &&
            value == rhs.value;
 }

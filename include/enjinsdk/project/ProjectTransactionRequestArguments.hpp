@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/ProjectTransactionRequestArgumentsImpl.hpp"
-#include "enjinsdk/shared/TransactionRequestArguments.hpp"
+#include "enjinsdk/shared/TransactionFragmentArguments.hpp"
 #include <string>
 
 namespace enjin::sdk::project {
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 /// \brief Interface used to set common arguments used in project transaction requests.
 /// \tparam T The type of the implementing class.
 template<typename T>
-class ENJINSDK_EXPORT ProjectTransactionRequestArguments : public shared::TransactionRequestArguments<T> {
+class ENJINSDK_EXPORT ProjectTransactionRequestArguments : public shared::TransactionFragmentArguments<T> {
 public:
     ~ProjectTransactionRequestArguments() override = default;
 

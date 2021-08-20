@@ -14,7 +14,7 @@
  */
 
 #include "JsonTestSuite.hpp"
-#include "TransactionRequestArgumentsTestSuite.hpp"
+#include "TransactionFragmentArgumentsTestSuite.hpp"
 #include "enjinsdk/player/MeltAsset.hpp"
 #include "gtest/gtest.h"
 #include <string>
@@ -24,7 +24,7 @@ using namespace enjin::sdk::models;
 using namespace enjin::sdk::player;
 using namespace enjin::test::suites;
 
-class PlayerMeltAssetTest : public TransactionRequestArgumentsTestSuite<MeltAsset>,
+class PlayerMeltAssetTest : public TransactionFragmentArgumentsTestSuite<MeltAsset>,
                             public JsonTestSuite,
                             public testing::Test {
 public:
@@ -36,7 +36,7 @@ public:
     static MeltAsset create_default_request() {
         MeltAsset request = MeltAsset()
                 .set_melts(std::vector<Melt>());
-        set_transaction_request_arguments(request);
+        set_transaction_fragment_arguments(request);
         return request;
     }
 };

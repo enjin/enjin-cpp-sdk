@@ -5,5 +5,4 @@ target_sources(${PROJECT_NAME}
         PaginationArgumentsImpl.cpp
         PlayerFragmentArgumentsImpl.cpp
         TransactionFragmentArgumentsImpl.cpp
-        TransactionRequestArgumentsImpl.cpp
         WalletFragmentArgumentsImpl.cpp)

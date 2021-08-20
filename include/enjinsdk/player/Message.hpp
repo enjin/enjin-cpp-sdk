@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/TransactionRequestArguments.hpp"
+#include "enjinsdk/shared/TransactionFragmentArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::player {
 
 /// \brief Request to sign a message to prove wallet ownership.
 class ENJINSDK_EXPORT Message : public graphql::AbstractGraphqlRequest,
-                                public shared::TransactionRequestArguments<Message> {
+                                public shared::TransactionFragmentArguments<Message> {
 public:
     /// \brief Default constructor.
     Message();
@@ -87,9 +87,6 @@ TransactionFragmentArguments<player::Message>::set_with_log_event();
 
 template ENJINSDK_EXPORT player::Message&
 TransactionFragmentArguments<player::Message>::set_with_transaction_project_uuid();
-
-template ENJINSDK_EXPORT player::Message&
-TransactionRequestArguments<player::Message>::set_send(bool send);
 
 }
 

@@ -19,7 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/Transfer.hpp"
-#include "enjinsdk/shared/TransactionRequestArguments.hpp"
+#include "enjinsdk/shared/TransactionFragmentArguments.hpp"
 #include <optional>
 #include <string>
 #include <vector>
@@ -28,7 +28,7 @@ namespace enjin::sdk::player {
 
 /// \brief Request for sending one or more assets in a single transaction.
 class ENJINSDK_EXPORT AdvancedSendAsset : public graphql::AbstractGraphqlRequest,
-                                          public shared::TransactionRequestArguments<AdvancedSendAsset> {
+                                          public shared::TransactionFragmentArguments<AdvancedSendAsset> {
 public:
     /// \brief Default constructor.
     AdvancedSendAsset();
@@ -95,9 +95,6 @@ TransactionFragmentArguments<player::AdvancedSendAsset>::set_with_log_event();
 
 template ENJINSDK_EXPORT player::AdvancedSendAsset&
 TransactionFragmentArguments<player::AdvancedSendAsset>::set_with_transaction_project_uuid();
-
-template ENJINSDK_EXPORT player::AdvancedSendAsset&
-TransactionRequestArguments<player::AdvancedSendAsset>::set_send(bool send);
 
 }
 

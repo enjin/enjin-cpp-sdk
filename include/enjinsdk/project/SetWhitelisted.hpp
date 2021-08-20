@@ -116,9 +116,6 @@ TransactionFragmentArguments<project::SetWhitelisted>::set_with_log_event();
 template ENJINSDK_EXPORT project::SetWhitelisted&
 TransactionFragmentArguments<project::SetWhitelisted>::set_with_transaction_project_uuid();
 
-template ENJINSDK_EXPORT project::SetWhitelisted&
-TransactionRequestArguments<project::SetWhitelisted>::set_send(bool send);
-
 }
 
 #endif //ENJINCPPSDK_PROJECTSETWHITELISTED_HPP

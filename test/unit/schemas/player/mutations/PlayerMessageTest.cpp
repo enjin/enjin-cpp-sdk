@@ -14,7 +14,7 @@
  */
 
 #include "JsonTestSuite.hpp"
-#include "TransactionRequestArgumentsTestSuite.hpp"
+#include "TransactionFragmentArgumentsTestSuite.hpp"
 #include "enjinsdk/player/Message.hpp"
 #include "gtest/gtest.h"
 #include <string>
@@ -22,7 +22,7 @@
 using namespace enjin::sdk::player;
 using namespace enjin::test::suites;
 
-class PlayerMessageTest : public TransactionRequestArgumentsTestSuite<Message>,
+class PlayerMessageTest : public TransactionFragmentArgumentsTestSuite<Message>,
                           public JsonTestSuite,
                           public testing::Test {
 public:
@@ -34,7 +34,7 @@ public:
     static Message create_default_request() {
         Message request = Message()
                 .set_message("1");
-        set_transaction_request_arguments(request);
+        set_transaction_fragment_arguments(request);
         return request;
     }
 };

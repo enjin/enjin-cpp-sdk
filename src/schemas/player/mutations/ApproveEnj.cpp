@@ -24,7 +24,7 @@ ApproveEnj::ApproveEnj() : graphql::AbstractGraphqlRequest("enjin.sdk.player.App
 
 std::string ApproveEnj::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
+    utils::join_serialized_object_to_document(document, TransactionFragmentArguments::serialize());
 
     if (value.has_value()) {
         utils::set_string_member(document, "value", value.value());
@@ -41,8 +41,8 @@ ApproveEnj& ApproveEnj::set_value(const std::string& value) {
 bool ApproveEnj::operator==(const ApproveEnj& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionRequestArguments<ApproveEnj>&>(*this) ==
-           static_cast<const shared::TransactionRequestArguments<ApproveEnj>&>(rhs) &&
+           static_cast<const shared::TransactionFragmentArguments<ApproveEnj>&>(*this) ==
+           static_cast<const shared::TransactionFragmentArguments<ApproveEnj>&>(rhs) &&
            value == rhs.value;
 }
 

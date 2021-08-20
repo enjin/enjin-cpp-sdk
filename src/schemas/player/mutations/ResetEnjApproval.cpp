@@ -21,14 +21,14 @@ ResetEnjApproval::ResetEnjApproval() : graphql::AbstractGraphqlRequest("enjin.sd
 }
 
 std::string ResetEnjApproval::serialize() const {
-    return TransactionRequestArguments::serialize();
+    return TransactionFragmentArguments::serialize();
 }
 
 bool ResetEnjApproval::operator==(const ResetEnjApproval& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionRequestArguments<ResetEnjApproval>&>(*this) ==
-           static_cast<const shared::TransactionRequestArguments<ResetEnjApproval>&>(rhs);
+           static_cast<const shared::TransactionFragmentArguments<ResetEnjApproval>&>(*this) ==
+           static_cast<const shared::TransactionFragmentArguments<ResetEnjApproval>&>(rhs);
 }
 
 bool ResetEnjApproval::operator!=(const ResetEnjApproval& rhs) const {

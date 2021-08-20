@@ -89,8 +89,6 @@ template ENJINSDK_EXPORT project::MintAsset& TransactionFragmentArguments<projec
 template ENJINSDK_EXPORT project::MintAsset&
 TransactionFragmentArguments<project::MintAsset>::set_with_transaction_project_uuid();
 
-template ENJINSDK_EXPORT project::MintAsset& TransactionRequestArguments<project::MintAsset>::set_send(bool send);
-
 }
 
 #endif //ENJINCPPSDK_PROJECTMINTASSET_HPP

@@ -24,7 +24,7 @@ Message::Message() : graphql::AbstractGraphqlRequest("enjin.sdk.player.Message")
 
 std::string Message::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
+    utils::join_serialized_object_to_document(document, TransactionFragmentArguments::serialize());
 
     if (message.has_value()) {
         utils::set_string_member(document, "message", message.value());
@@ -41,8 +41,8 @@ Message& Message::set_message(const std::string& message) {
 bool Message::operator==(const Message& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionRequestArguments<Message>&>(*this) ==
-           static_cast<const shared::TransactionRequestArguments<Message>&>(rhs) &&
+           static_cast<const shared::TransactionFragmentArguments<Message>&>(*this) ==
+           static_cast<const shared::TransactionFragmentArguments<Message>&>(rhs) &&
            message == rhs.message;
 }
 

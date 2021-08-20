@@ -90,8 +90,6 @@ template ENJINSDK_EXPORT project::SetMeltFee& TransactionFragmentArguments<proje
 template ENJINSDK_EXPORT project::SetMeltFee&
 TransactionFragmentArguments<project::SetMeltFee>::set_with_transaction_project_uuid();
 
-template ENJINSDK_EXPORT project::SetMeltFee& TransactionRequestArguments<project::SetMeltFee>::set_send(bool send);
-
 }
 
 #endif //ENJINCPPSDK_PROJECTSETMELTFEE_HPP

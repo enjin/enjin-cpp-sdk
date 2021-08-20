@@ -14,7 +14,7 @@
  */
 
 #include "JsonTestSuite.hpp"
-#include "TransactionRequestArgumentsTestSuite.hpp"
+#include "TransactionFragmentArgumentsTestSuite.hpp"
 #include "enjinsdk/player/ApproveMaxEnj.hpp"
 #include "gtest/gtest.h"
 #include <string>
@@ -22,13 +22,13 @@
 using namespace enjin::sdk::player;
 using namespace enjin::test::suites;
 
-class PlayerApproveMaxEnjTest : public TransactionRequestArgumentsTestSuite<ApproveMaxEnj>,
+class PlayerApproveMaxEnjTest : public TransactionFragmentArgumentsTestSuite<ApproveMaxEnj>,
                                 public JsonTestSuite,
                                 public testing::Test {
 public:
     static ApproveMaxEnj create_default_request() {
         ApproveMaxEnj request;
-        set_transaction_request_arguments(request);
+        set_transaction_fragment_arguments(request);
         return request;
     }
 };

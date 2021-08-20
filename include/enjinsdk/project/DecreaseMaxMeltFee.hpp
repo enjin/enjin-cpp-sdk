@@ -98,9 +98,6 @@ TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_with_log_event();
 template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
 TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_with_transaction_project_uuid();
 
-template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
-TransactionRequestArguments<project::DecreaseMaxMeltFee>::set_send(bool send);
-
 }
 
 #endif //ENJINCPPSDK_PROJECTDECREASEMAXMELTFEE_HPP

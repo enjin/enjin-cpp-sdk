@@ -14,7 +14,7 @@
  */
 
 #include "JsonTestSuite.hpp"
-#include "TransactionRequestArgumentsTestSuite.hpp"
+#include "TransactionFragmentArgumentsTestSuite.hpp"
 #include "enjinsdk/player/SendEnj.hpp"
 #include "gtest/gtest.h"
 #include <string>
@@ -22,7 +22,7 @@
 using namespace enjin::sdk::player;
 using namespace enjin::test::suites;
 
-class PlayerSendEnjTest : public TransactionRequestArgumentsTestSuite<SendEnj>,
+class PlayerSendEnjTest : public TransactionFragmentArgumentsTestSuite<SendEnj>,
                           public JsonTestSuite,
                           public testing::Test {
 public:
@@ -35,7 +35,7 @@ public:
         SendEnj request = SendEnj()
                 .set_recipient_address("1")
                 .set_value("1");
-        set_transaction_request_arguments(request);
+        set_transaction_fragment_arguments(request);
         return request;
     }
 };

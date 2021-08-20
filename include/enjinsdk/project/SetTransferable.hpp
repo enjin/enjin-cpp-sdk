@@ -104,9 +104,6 @@ TransactionFragmentArguments<project::SetTransferable>::set_with_log_event();
 template ENJINSDK_EXPORT project::SetTransferable&
 TransactionFragmentArguments<project::SetTransferable>::set_with_transaction_project_uuid();
 
-template ENJINSDK_EXPORT project::SetTransferable&
-TransactionRequestArguments<project::SetTransferable>::set_send(bool send);
-
 }
 
 #endif //ENJINCPPSDK_PROJECTSETTRANSFERABLE_HPP

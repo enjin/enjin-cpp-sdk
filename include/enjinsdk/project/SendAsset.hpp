@@ -115,9 +115,6 @@ TransactionFragmentArguments<project::SendAsset>::set_with_log_event();
 template ENJINSDK_EXPORT project::SendAsset&
 TransactionFragmentArguments<project::SendAsset>::set_with_transaction_project_uuid();
 
-template ENJINSDK_EXPORT project::SendAsset&
-TransactionRequestArguments<project::SendAsset>::set_send(bool send);
-
 }
 
 #endif //ENJINCPPSDK_PROJECTSENDASSET_HPP

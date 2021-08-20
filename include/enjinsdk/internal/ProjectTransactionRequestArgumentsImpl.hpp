@@ -17,14 +17,14 @@
 #define ENJINSDK_PROJECTPROJECTTRANSACTIONREQUESTARGUMENTSIMPL_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/internal/TransactionRequestArgumentsImpl.hpp"
+#include "enjinsdk/internal/TransactionFragmentArgumentsImpl.hpp"
 #include <optional>
 #include <string>
 
 namespace enjin::sdk::project {
 
 /// \brief Internal implementation class for storing values of a GraphQL Transaction request in the project schema.
-class ENJINSDK_EXPORT ProjectTransactionRequestArgumentsImpl : public shared::TransactionRequestArgumentsImpl {
+class ENJINSDK_EXPORT ProjectTransactionRequestArgumentsImpl : public shared::TransactionFragmentArgumentsImpl {
 public:
     /// \brief Default constructor.
     ProjectTransactionRequestArgumentsImpl() = default;
