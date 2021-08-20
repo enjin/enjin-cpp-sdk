@@ -21,7 +21,8 @@
 #include "enjinsdk/models/PlayerFilter.hpp"
 #include "enjinsdk/shared/PaginationArguments.hpp"
 #include "enjinsdk/shared/PlayerFragmentArguments.hpp"
-#include "optional"
+#include <optional>
+#include <string>
 
 namespace enjin::sdk::project {
 
@@ -59,6 +60,8 @@ template ENJINSDK_EXPORT project::GetPlayers& PlayerFragmentArguments<project::G
 template ENJINSDK_EXPORT project::GetPlayers& PlayerFragmentArguments<project::GetPlayers>::set_qr_size(int size);
 
 template ENJINSDK_EXPORT project::GetPlayers& PlayerFragmentArguments<project::GetPlayers>::set_with_wallet();
+
+template ENJINSDK_EXPORT project::GetPlayers& WalletFragmentArguments<project::GetPlayers>::set_with_assets_created();
 
 template ENJINSDK_EXPORT project::GetPlayers&
 PaginationArguments<project::GetPlayers>::set_pagination(models::PaginationOptions pagination);

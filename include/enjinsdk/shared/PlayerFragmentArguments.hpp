@@ -17,15 +17,16 @@
 #define ENJINCPPSDK_SHAREDPLAYERFRAGMENTARGUMENTS_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/internal/PlayerFragmentArgumentsImpl.hpp"
+#include "enjinsdk/shared/WalletFragmentArguments.hpp"
+#include <string>
 
 namespace enjin::sdk::shared {
 
 /// \brief Fragment interface used to request certain information from players returned by the platform.
 /// \tparam T The type of the implementing class.
 template<class T>
-class ENJINSDK_EXPORT PlayerFragmentArguments : public serialization::ISerializable {
+class ENJINSDK_EXPORT PlayerFragmentArguments : public WalletFragmentArguments<T> {
 public:
     ~PlayerFragmentArguments() override = default;
 

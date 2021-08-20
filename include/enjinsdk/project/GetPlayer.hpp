@@ -58,6 +58,8 @@ template ENJINSDK_EXPORT project::GetPlayer& PlayerFragmentArguments<project::Ge
 
 template ENJINSDK_EXPORT project::GetPlayer& PlayerFragmentArguments<project::GetPlayer>::set_with_wallet();
 
+template ENJINSDK_EXPORT project::GetPlayer& WalletFragmentArguments<project::GetPlayer>::set_with_assets_created();
+
 }
 
 #endif //ENJINCPPSDK_PROJECTGETPLAYER_HPP

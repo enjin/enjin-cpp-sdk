@@ -19,6 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/PlayerFragmentArguments.hpp"
+#include <string>
 
 namespace enjin::sdk::player {
 
@@ -47,6 +48,8 @@ template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetP
 template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_qr_size(int size);
 
 template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_with_wallet();
+
+template ENJINSDK_EXPORT player::GetPlayer& WalletFragmentArguments<player::GetPlayer>::set_with_assets_created();
 
 }
 
