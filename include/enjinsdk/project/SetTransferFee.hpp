@@ -40,11 +40,6 @@ public:
     /// \return This request for chaining.
     SetTransferFee& set_asset_id(const std::string& asset_id);
 
-    /// \brief Sets the index for non-fungible assets.
-    /// \param asset_index The index.
-    /// \return This request for chaining.
-    SetTransferFee& set_asset_index(const std::string& asset_index);
-
     /// \brief Sets the new transfer fee value in Wei.
     /// \param transfer_fee The new transfer fee.
     /// \return This request for chaining.
@@ -56,7 +51,6 @@ public:
 
 private:
     std::optional<std::string> asset_id;
-    std::optional<std::string> asset_index;
     std::optional<std::string> transfer_fee;
 };
 

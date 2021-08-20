@@ -29,12 +29,11 @@ public:
     SetMeltFee class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"assetId":"1","assetIndex":"1","meltFee":1})";
+            R"({"assetId":"1","meltFee":1})";
 
     static SetMeltFee create_default_request() {
         SetMeltFee request = SetMeltFee()
                 .set_asset_id("1")
-                .set_asset_index("1")
                 .set_melt_fee(1);
         set_project_transaction_request_arguments(request);
         return request;
@@ -56,7 +55,6 @@ TEST_F(ProjectSetMeltFeeTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_asset_id("1")
-                    .set_asset_index("1")
                     .set_melt_fee(1);
 
     // Act
