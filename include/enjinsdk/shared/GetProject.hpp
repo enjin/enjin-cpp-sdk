@@ -18,7 +18,6 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include <optional>
 #include <string>
 
 namespace enjin::sdk::shared {
@@ -33,23 +32,9 @@ public:
 
     [[nodiscard]] std::string serialize() const override;
 
-    /// \brief Sets the project ID.
-    /// \param id The ID.
-    /// \return This request for chaining.
-    GetProject& set_id(int id);
-
-    /// Sets the project name.
-    /// \param name The name.
-    /// \return This request for chaining.
-    GetProject& set_name(const std::string& name);
-
     bool operator==(const GetProject& rhs) const;
 
     bool operator!=(const GetProject& rhs) const;
-
-private:
-    std::optional<int> id;
-    std::optional<std::string> name;
 };
 
 }
