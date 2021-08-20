@@ -33,8 +33,8 @@ std::string BalanceFragmentArgumentsImpl::serialize() const {
                                  "balIndexFormat",
                                  utils::serialize_asset_index_format(bal_index_format.value()));
     }
-    if (with_bal_project_id.has_value()) {
-        utils::set_boolean_member(document, "withBalProjectId", with_bal_project_id.value());
+    if (with_bal_project_uuid.has_value()) {
+        utils::set_boolean_member(document, "withBalProjectUuid", with_bal_project_uuid.value());
     }
     if (with_bal_wallet_address.has_value()) {
         utils::set_boolean_member(document, "withBalWalletAddress", with_bal_wallet_address.value());
@@ -51,8 +51,8 @@ void BalanceFragmentArgumentsImpl::set_bal_index_format(models::AssetIndexFormat
     BalanceFragmentArgumentsImpl::bal_index_format = bal_index_format;
 }
 
-void BalanceFragmentArgumentsImpl::set_with_bal_project_id() {
-    with_bal_project_id = true;
+void BalanceFragmentArgumentsImpl::set_with_bal_project_uuid() {
+    with_bal_project_uuid = true;
 }
 
 void BalanceFragmentArgumentsImpl::set_with_bal_wallet_address() {
@@ -62,7 +62,7 @@ void BalanceFragmentArgumentsImpl::set_with_bal_wallet_address() {
 bool BalanceFragmentArgumentsImpl::operator==(const BalanceFragmentArgumentsImpl& rhs) const {
     return bal_id_format == rhs.bal_id_format &&
            bal_index_format == rhs.bal_index_format &&
-           with_bal_project_id == rhs.with_bal_project_id &&
+           with_bal_project_uuid == rhs.with_bal_project_uuid &&
            with_bal_wallet_address == rhs.with_bal_wallet_address;
 }
 
