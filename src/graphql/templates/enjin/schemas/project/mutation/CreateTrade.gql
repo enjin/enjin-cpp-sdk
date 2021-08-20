@@ -5,15 +5,13 @@
 #arg offeringAssets [TradeInput!]!
 #arg recipientAddress EthAddress!
 #arg ethAddress EthAddress
-#arg send Boolean true
 
 mutation {
     result: CreateTrade(
         askingAssets: $askingAssets,
         offeringAssets: $offeringAssets,
         secondParty: $recipientAddress,
-        wallet: $ethAddress,
-        send: $send
+        wallet: $ethAddress
     ) {
         ...Transaction
     }

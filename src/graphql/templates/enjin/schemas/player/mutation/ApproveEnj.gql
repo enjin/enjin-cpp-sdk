@@ -2,12 +2,10 @@
 #import enjin.sdk.shared.Transaction
 
 #arg value BigInt!
-#arg send Boolean true
 
 mutation {
     result: ApproveEnj(
-        value: $value,
-        send: $send
+        value: $value
     ) {
         ...Transaction
     }

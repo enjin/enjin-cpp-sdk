@@ -3,13 +3,11 @@
 
 #arg message String!
 #arg ethAddress EthAddress
-#arg send Boolean true
 
 mutation {
     result: Message(
         message: $message,
-        wallet: $ethAddress,
-        send: $send
+        wallet: $ethAddress
     ) {
         ...Transaction
     }

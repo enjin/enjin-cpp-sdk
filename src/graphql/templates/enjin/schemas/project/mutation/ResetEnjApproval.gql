@@ -2,12 +2,10 @@
 #import enjin.sdk.shared.Transaction
 
 #arg ethAddress EthAddress
-#arg send Boolean true
 
 mutation {
     result: ResetEnjApproval(
-        wallet: $ethAddress,
-        send: $send
+        wallet: $ethAddress
     ) {
         ...Transaction
     }

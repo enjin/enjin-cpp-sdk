@@ -2,12 +2,10 @@
 #import enjin.sdk.shared.Transaction
 
 #arg melts [MeltInput!]!
-#arg send Boolean true
 
 mutation {
     result: MeltAsset(
-        melts: $melts,
-        send: $send
+        melts: $melts
     ) {
         ...Transaction
     }

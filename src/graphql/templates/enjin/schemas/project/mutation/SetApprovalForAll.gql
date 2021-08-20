@@ -4,14 +4,12 @@
 #arg operatorAddress EthAddress!
 #arg approved Boolean!
 #arg ethAddress EthAddress
-#arg send Boolean true
 
 mutation {
     result: SetApprovalForAll(
         operator: $operatorAddress,
         approved: $approved,
-        wallet: $ethAddress,
-        send: $send
+        wallet: $ethAddress
     ) {
         ...Transaction
     }

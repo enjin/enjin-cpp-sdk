@@ -3,13 +3,11 @@
 
 #arg operatorAddress EthAddress!
 #arg approved Boolean!
-#arg send Boolean true
 
 mutation {
     result: SetApprovalForAll(
         operator: $operatorAddress,
-        approved: $approved,
-        send: $send
+        approved: $approved
     ) {
         ...Transaction
     }

@@ -4,14 +4,12 @@
 #arg recipientAddress EthAddress!
 #arg value BigInt!
 #arg ethAddress EthAddress
-#arg send Boolean true
 
 mutation {
     result: SendEnj(
         to: $recipientAddress,
         value: $value,
-        wallet: $ethAddress,
-        send: $send
+        wallet: $ethAddress
     ) {
         ...Transaction
     }

@@ -3,13 +3,11 @@
 
 #arg transfers [TransferInput!]!
 #arg data String
-#arg send Boolean true
 
 mutation {
     result: AdvancedSendAsset(
         transfers: $transfers,
-        data: $data,
-        send: $send
+        data: $data
     ) {
         ...Transaction
     }

@@ -6,7 +6,6 @@
 #arg assetIndex String
 #arg value BigInt
 #arg data String
-#arg send Boolean true
 
 mutation {
     result: SendAsset(
@@ -14,8 +13,7 @@ mutation {
         assetId: $assetId,
         assetIndex: $assetIndex,
         value: $value,
-        data: $data,
-        send: $send
+        data: $data
     ) {
         ...Transaction
     }

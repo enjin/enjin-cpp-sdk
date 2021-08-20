@@ -1,12 +1,8 @@
 #namespace enjin.sdk.player.ApproveMaxEnj
 #import enjin.sdk.shared.Transaction
 
-#arg send Boolean true
-
 mutation {
-    result: ApproveMaxEnj(
-        send: $send
-    ) {
+    result: ApproveMaxEnj {
         ...Transaction
     }
 }

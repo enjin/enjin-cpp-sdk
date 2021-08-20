@@ -4,14 +4,12 @@
 #arg assetId String!
 #arg transferFee BigInt!
 #arg ethAddress EthAddress
-#arg send Boolean true
 
 mutation {
     result: SetTransferFee(
         assetId: $assetId,
         transferFee: $transferFee,
-        wallet: $ethAddress,
-        send: $send
+        wallet: $ethAddress
     ) {
         ...Transaction
     }

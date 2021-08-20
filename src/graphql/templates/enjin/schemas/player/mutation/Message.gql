@@ -2,12 +2,10 @@
 #import enjin.sdk.shared.Transaction
 
 #arg message String!
-#arg send Boolean true
 
 mutation {
     result: Message(
-        message: $message,
-        send: $send
+        message: $message
     ) {
         ...Transaction
     }
