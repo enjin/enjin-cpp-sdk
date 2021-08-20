@@ -31,30 +31,9 @@ public:
 
     ~SharedSchema() override = default;
 
-    std::future<graphql::GraphqlResponse<models::Request>>
-    advanced_send_asset_async(AdvancedSendAsset& request) override;
-
-    graphql::GraphqlResponse<models::Request> advanced_send_asset_sync(AdvancedSendAsset& request) override;
-
-    std::future<graphql::GraphqlResponse<models::Request>> approve_enj_async(ApproveEnj& request) override;
-
-    graphql::GraphqlResponse<models::Request> approve_enj_sync(ApproveEnj& request) override;
-
-    std::future<graphql::GraphqlResponse<models::Request>> approve_enj_max_async(ApproveMaxEnj& request) override;
-
-    graphql::GraphqlResponse<models::Request> approve_enj_max_sync(ApproveMaxEnj& request) override;
-
     std::future<graphql::GraphqlResponse<bool>> cancel_transaction_async(CancelTransaction& request) override;
 
     graphql::GraphqlResponse<bool> cancel_transaction_sync(CancelTransaction& request) override;
-
-    std::future<graphql::GraphqlResponse<models::Request>> complete_trade_async(CompleteTrade& request) override;
-
-    graphql::GraphqlResponse<models::Request> complete_trade_sync(CompleteTrade& request) override;
-
-    std::future<graphql::GraphqlResponse<models::Request>> create_trade_async(CreateTrade& request) override;
-
-    graphql::GraphqlResponse<models::Request> create_trade_sync(CreateTrade& request) override;
 
     std::future<graphql::GraphqlResponse<std::vector<models::Balance>>>
     get_balances_async(GetBalances& request) override;
@@ -89,31 +68,6 @@ public:
     std::future<graphql::GraphqlResponse<std::vector<models::Asset>>> get_assets_async(GetAssets& request) override;
 
     graphql::GraphqlResponse<std::vector<models::Asset>> get_assets_sync(GetAssets& request) override;
-
-    std::future<graphql::GraphqlResponse<models::Request>> melt_asset_async(MeltAsset& request) override;
-
-    graphql::GraphqlResponse<models::Request> melt_asset_sync(MeltAsset& request) override;
-
-    std::future<graphql::GraphqlResponse<models::Request>> message_async(Message& request) override;
-
-    graphql::GraphqlResponse<models::Request> message_sync(Message& request) override;
-
-    std::future<graphql::GraphqlResponse<models::Request>> reset_enj_approval_async(ResetEnjApproval& request) override;
-
-    graphql::GraphqlResponse<models::Request> reset_enj_approval_sync(ResetEnjApproval& request) override;
-
-    std::future<graphql::GraphqlResponse<models::Request>> send_enj_async(SendEnj& request) override;
-
-    graphql::GraphqlResponse<models::Request> send_enj_sync(SendEnj& request) override;
-
-    std::future<graphql::GraphqlResponse<models::Request>> send_asset_async(SendAsset& request) override;
-
-    graphql::GraphqlResponse<models::Request> send_asset_sync(SendAsset& request) override;
-
-    std::future<graphql::GraphqlResponse<models::Request>>
-    set_approval_for_all_async(SetApprovalForAll& request) override;
-
-    graphql::GraphqlResponse<models::Request> set_approval_for_all_sync(SetApprovalForAll& request) override;
 
 protected:
     /// \brief Constructs the schema with the middleware and name.

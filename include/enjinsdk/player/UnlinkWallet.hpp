@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
+#include <string>
 
 namespace enjin::sdk::player {
 

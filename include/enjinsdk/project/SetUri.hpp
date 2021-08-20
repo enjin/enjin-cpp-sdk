@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/TransactionRequestArguments.hpp"
+#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request to set the metadata URI of an asset.
 class ENJINSDK_EXPORT SetUri : public graphql::AbstractGraphqlRequest,
-                               public shared::TransactionRequestArguments<SetUri> {
+                               public ProjectTransactionRequestArguments<SetUri> {
 public:
     /// \brief Default constructor.
     SetUri();
@@ -60,6 +60,9 @@ private:
     std::optional<std::string> uri;
 };
 
+template ENJINSDK_EXPORT SetUri&
+ProjectTransactionRequestArguments<SetUri>::set_eth_address(const std::string& address);
+
 }
 
 namespace enjin::sdk::shared {
@@ -87,9 +90,7 @@ template ENJINSDK_EXPORT project::SetUri& TransactionFragmentArguments<project::
 template ENJINSDK_EXPORT project::SetUri& TransactionFragmentArguments<project::SetUri>::set_with_log_event();
 
 template ENJINSDK_EXPORT project::SetUri&
-TransactionRequestArguments<project::SetUri>::set_eth_address(const std::string& address);
-
-template ENJINSDK_EXPORT project::SetUri& TransactionRequestArguments<project::SetUri>::set_send(bool send);
+TransactionFragmentArguments<project::SetUri>::set_with_transaction_project_uuid();
 
 }
 

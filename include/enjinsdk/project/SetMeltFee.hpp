@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/TransactionRequestArguments.hpp"
+#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for setting the melt fee of an asset.
 class ENJINSDK_EXPORT SetMeltFee : public graphql::AbstractGraphqlRequest,
-                                   public shared::TransactionRequestArguments<SetMeltFee> {
+                                   public ProjectTransactionRequestArguments<SetMeltFee> {
 public:
     /// \brief Default constructor.
     SetMeltFee();
@@ -40,11 +40,6 @@ public:
     /// \return This request for chaining.
     SetMeltFee& set_asset_id(const std::string& asset_id);
 
-    /// \brief Sets the index for non-fungible assets.
-    /// \param asset_index The index.
-    /// \return This request for chaining.
-    SetMeltFee& set_asset_index(const std::string& asset_index);
-
     /// \brief Sets the new melt fee for the asset.
     /// \param melt_fee The new ratio.
     /// \return This request for chaining.
@@ -57,9 +52,11 @@ public:
 
 private:
     std::optional<std::string> asset_id;
-    std::optional<std::string> asset_index;
     std::optional<int> melt_fee;
 };
+
+template ENJINSDK_EXPORT SetMeltFee&
+ProjectTransactionRequestArguments<SetMeltFee>::set_eth_address(const std::string& address);
 
 }
 
@@ -91,9 +88,7 @@ TransactionFragmentArguments<project::SetMeltFee>::set_with_receipt_logs();
 template ENJINSDK_EXPORT project::SetMeltFee& TransactionFragmentArguments<project::SetMeltFee>::set_with_log_event();
 
 template ENJINSDK_EXPORT project::SetMeltFee&
-TransactionRequestArguments<project::SetMeltFee>::set_eth_address(const std::string& address);
-
-template ENJINSDK_EXPORT project::SetMeltFee& TransactionRequestArguments<project::SetMeltFee>::set_send(bool send);
+TransactionFragmentArguments<project::SetMeltFee>::set_with_transaction_project_uuid();
 
 }
 

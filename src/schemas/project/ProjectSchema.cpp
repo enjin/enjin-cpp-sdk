@@ -24,6 +24,31 @@ ProjectSchema::ProjectSchema(TrustedPlatformMiddleware middleware,
         : shared::SharedSchema(std::move(middleware), "project", std::move(logger_provider)) {
 }
 
+std::future<graphql::GraphqlResponse<models::Request>>
+ProjectSchema::advanced_send_asset_async(AdvancedSendAsset& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+graphql::GraphqlResponse<models::Request> ProjectSchema::advanced_send_asset_sync(AdvancedSendAsset& request) {
+    return send_request_for_one<models::Request>(request).get();
+}
+
+std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::approve_enj_async(ApproveEnj& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+graphql::GraphqlResponse<models::Request> ProjectSchema::approve_enj_sync(ApproveEnj& request) {
+    return send_request_for_one<models::Request>(request).get();
+}
+
+std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::approve_enj_max_async(ApproveMaxEnj& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+graphql::GraphqlResponse<models::Request> ProjectSchema::approve_enj_max_sync(ApproveMaxEnj& request) {
+    return send_request_for_one<models::Request>(request).get();
+}
+
 std::future<graphql::GraphqlResponse<models::AccessToken>> ProjectSchema::auth_player_async(AuthPlayer& request) {
     return send_request_for_one<models::AccessToken>(request);
 }
@@ -40,11 +65,11 @@ graphql::GraphqlResponse<models::AccessToken> ProjectSchema::auth_project_sync(A
     return send_request_for_one<models::AccessToken>(request).get();
 }
 
-std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::create_player_async(CreatePlayer& request) {
+std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::complete_trade_async(CompleteTrade& request) {
     return send_request_for_one<models::Request>(request);
 }
 
-graphql::GraphqlResponse<models::Request> ProjectSchema::create_player_sync(CreatePlayer& request) {
+graphql::GraphqlResponse<models::Request> ProjectSchema::complete_trade_sync(CompleteTrade& request) {
     return send_request_for_one<models::Request>(request).get();
 }
 
@@ -53,6 +78,22 @@ std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::create_ass
 }
 
 graphql::GraphqlResponse<models::Request> ProjectSchema::create_asset_sync(CreateAsset& request) {
+    return send_request_for_one<models::Request>(request).get();
+}
+
+std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::create_player_async(CreatePlayer& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+graphql::GraphqlResponse<models::Request> ProjectSchema::create_player_sync(CreatePlayer& request) {
+    return send_request_for_one<models::Request>(request).get();
+}
+
+std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::create_trade_async(CreateTrade& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+graphql::GraphqlResponse<models::Request> ProjectSchema::create_trade_sync(CreateTrade& request) {
     return send_request_for_one<models::Request>(request).get();
 }
 
@@ -126,6 +167,22 @@ graphql::GraphqlResponse<bool> ProjectSchema::invalidate_asset_metadata_sync(Inv
     return send_request_for_one<bool>(request).get();
 }
 
+std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::melt_asset_async(MeltAsset& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+graphql::GraphqlResponse<models::Request> ProjectSchema::melt_asset_sync(MeltAsset& request) {
+    return send_request_for_one<models::Request>(request).get();
+}
+
+std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::message_async(Message& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+graphql::GraphqlResponse<models::Request> ProjectSchema::message_sync(Message& request) {
+    return send_request_for_one<models::Request>(request).get();
+}
+
 std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::mint_asset_async(MintAsset& request) {
     return send_request_for_one<models::Request>(request);
 }
@@ -139,6 +196,40 @@ std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::release_re
 }
 
 graphql::GraphqlResponse<models::Request> ProjectSchema::release_reserve_sync(ReleaseReserve& request) {
+    return send_request_for_one<models::Request>(request).get();
+}
+
+std::future<graphql::GraphqlResponse<models::Request>>
+ProjectSchema::reset_enj_approval_async(ResetEnjApproval& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+graphql::GraphqlResponse<models::Request> ProjectSchema::reset_enj_approval_sync(ResetEnjApproval& request) {
+    return send_request_for_one<models::Request>(request).get();
+}
+
+std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::send_asset_async(SendAsset& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+graphql::GraphqlResponse<models::Request> ProjectSchema::send_asset_sync(SendAsset& request) {
+    return send_request_for_one<models::Request>(request).get();
+}
+
+std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::send_enj_async(SendEnj& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+graphql::GraphqlResponse<models::Request> ProjectSchema::send_enj_sync(SendEnj& request) {
+    return send_request_for_one<models::Request>(request).get();
+}
+
+std::future<graphql::GraphqlResponse<models::Request>>
+ProjectSchema::set_approval_for_all_async(SetApprovalForAll& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+graphql::GraphqlResponse<models::Request> ProjectSchema::set_approval_for_all_sync(SetApprovalForAll& request) {
     return send_request_for_one<models::Request>(request).get();
 }
 

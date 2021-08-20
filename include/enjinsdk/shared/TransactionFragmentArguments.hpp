@@ -112,6 +112,13 @@ public:
         return dynamic_cast<T&>(*this);
     }
 
+    /// \brief Sets the request to include the project with its UUID field that this belongs to.
+    /// \return This request for chaining.
+    T& set_with_transaction_project_uuid() {
+        impl.set_with_transaction_project_uuid();
+        return dynamic_cast<T&>(*this);
+    }
+
     bool operator==(const TransactionFragmentArguments& rhs) const {
         return impl == rhs.impl;
     }

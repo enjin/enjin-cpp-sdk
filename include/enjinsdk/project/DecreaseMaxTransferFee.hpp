@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/TransactionRequestArguments.hpp"
+#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for setting an asset's max transfer fee to a lower value.
 class ENJINSDK_EXPORT DecreaseMaxTransferFee : public graphql::AbstractGraphqlRequest,
-                                               public shared::TransactionRequestArguments<DecreaseMaxTransferFee> {
+                                               public ProjectTransactionRequestArguments<DecreaseMaxTransferFee> {
 public:
     /// \brief Default constructor.
     DecreaseMaxTransferFee();
@@ -40,11 +40,6 @@ public:
     /// \return This request for chaining.
     DecreaseMaxTransferFee& set_asset_id(const std::string& asset_id);
 
-    /// \brief Sets the index for non-fungible assets.
-    /// \param asset_index The index.
-    /// \return This request for chaining.
-    DecreaseMaxTransferFee& set_asset_index(const std::string& asset_index);
-
     /// \brief Sets the new max transfer fee in Wei.
     /// \param max_transfer_fee The new fee.
     /// \return This request for chaining.
@@ -56,9 +51,11 @@ public:
 
 private:
     std::optional<std::string> asset_id;
-    std::optional<std::string> asset_index;
     std::optional<int> max_transfer_fee;
 };
+
+template ENJINSDK_EXPORT DecreaseMaxTransferFee&
+ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_eth_address(const std::string& address);
 
 }
 
@@ -98,10 +95,7 @@ template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
 TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_log_event();
 
 template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
-TransactionRequestArguments<project::DecreaseMaxTransferFee>::set_eth_address(const std::string& address);
-
-template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
-TransactionRequestArguments<project::DecreaseMaxTransferFee>::set_send(bool send);
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_transaction_project_uuid();
 
 }
 

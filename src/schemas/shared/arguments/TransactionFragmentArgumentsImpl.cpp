@@ -55,6 +55,9 @@ std::string TransactionFragmentArgumentsImpl::serialize() const {
     if (with_log_event.has_value()) {
         utils::set_boolean_member(document, "withLogEvent", with_log_event.value());
     }
+    if (with_transaction_project_uuid.has_value()) {
+        utils::set_boolean_member(document, "withTransactionProjectUuid", with_transaction_project_uuid.value());
+    }
 
     return utils::document_to_string(document);
 }
@@ -103,6 +106,10 @@ void TransactionFragmentArgumentsImpl::set_with_log_event() {
     with_log_event = true;
 }
 
+void TransactionFragmentArgumentsImpl::set_with_transaction_project_uuid() {
+    with_transaction_project_uuid = true;
+}
+
 bool TransactionFragmentArgumentsImpl::operator==(const TransactionFragmentArgumentsImpl& rhs) const {
     return with_blockchain_data == rhs.with_blockchain_data &&
            with_meta == rhs.with_meta &&
@@ -114,7 +121,8 @@ bool TransactionFragmentArgumentsImpl::operator==(const TransactionFragmentArgum
            with_state == rhs.with_state &&
            with_receipt == rhs.with_receipt &&
            with_receipt_logs == rhs.with_receipt_logs &&
-           with_log_event == rhs.with_log_event;
+           with_log_event == rhs.with_log_event &&
+           with_transaction_project_uuid == rhs.with_transaction_project_uuid;
 }
 
 bool TransactionFragmentArgumentsImpl::operator!=(const TransactionFragmentArgumentsImpl& rhs) const {

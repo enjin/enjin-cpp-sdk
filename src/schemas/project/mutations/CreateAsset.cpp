@@ -25,7 +25,7 @@ CreateAsset::CreateAsset() : graphql::AbstractGraphqlRequest("enjin.sdk.project.
 
 std::string CreateAsset::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
+    utils::join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
 
     if (name.has_value()) {
         utils::set_string_member(document, "name", name.value());
@@ -109,8 +109,8 @@ CreateAsset& CreateAsset::set_non_fungible(bool non_fungible) {
 bool CreateAsset::operator==(const CreateAsset& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionRequestArguments<CreateAsset>&>(*this) ==
-           static_cast<const shared::TransactionRequestArguments<CreateAsset>&>(rhs) &&
+           static_cast<const ProjectTransactionRequestArguments<CreateAsset>&>(*this) ==
+           static_cast<const ProjectTransactionRequestArguments<CreateAsset>&>(rhs) &&
            name == rhs.name &&
            total_supply == rhs.total_supply &&
            initial_reserve == rhs.initial_reserve &&

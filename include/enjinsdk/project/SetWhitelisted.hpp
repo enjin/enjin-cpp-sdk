@@ -19,7 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/Whitelisted.hpp"
-#include "enjinsdk/shared/TransactionRequestArguments.hpp"
+#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -27,7 +27,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for setting an asset's whitelist.
 class ENJINSDK_EXPORT SetWhitelisted : public graphql::AbstractGraphqlRequest,
-                                       public shared::TransactionRequestArguments<SetWhitelisted> {
+                                       public ProjectTransactionRequestArguments<SetWhitelisted> {
 public:
     /// \brief Default constructor.
     SetWhitelisted();
@@ -73,6 +73,9 @@ private:
     std::optional<bool> on;
 };
 
+template ENJINSDK_EXPORT SetWhitelisted&
+ProjectTransactionRequestArguments<SetWhitelisted>::set_eth_address(const std::string& address);
+
 }
 
 namespace enjin::sdk::shared {
@@ -111,10 +114,7 @@ template ENJINSDK_EXPORT project::SetWhitelisted&
 TransactionFragmentArguments<project::SetWhitelisted>::set_with_log_event();
 
 template ENJINSDK_EXPORT project::SetWhitelisted&
-TransactionRequestArguments<project::SetWhitelisted>::set_eth_address(const std::string& address);
-
-template ENJINSDK_EXPORT project::SetWhitelisted&
-TransactionRequestArguments<project::SetWhitelisted>::set_send(bool send);
+TransactionFragmentArguments<project::SetWhitelisted>::set_with_transaction_project_uuid();
 
 }
 

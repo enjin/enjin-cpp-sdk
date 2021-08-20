@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/TransactionRequestArguments.hpp"
+#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for setting the transfer fee of a asset.
 class ENJINSDK_EXPORT SetTransferFee : public graphql::AbstractGraphqlRequest,
-                                       public shared::TransactionRequestArguments<SetTransferFee> {
+                                       public ProjectTransactionRequestArguments<SetTransferFee> {
 public:
     /// \brief Default constructor.
     SetTransferFee();
@@ -40,11 +40,6 @@ public:
     /// \return This request for chaining.
     SetTransferFee& set_asset_id(const std::string& asset_id);
 
-    /// \brief Sets the index for non-fungible assets.
-    /// \param asset_index The index.
-    /// \return This request for chaining.
-    SetTransferFee& set_asset_index(const std::string& asset_index);
-
     /// \brief Sets the new transfer fee value in Wei.
     /// \param transfer_fee The new transfer fee.
     /// \return This request for chaining.
@@ -56,9 +51,11 @@ public:
 
 private:
     std::optional<std::string> asset_id;
-    std::optional<std::string> asset_index;
     std::optional<std::string> transfer_fee;
 };
+
+template ENJINSDK_EXPORT SetTransferFee&
+ProjectTransactionRequestArguments<SetTransferFee>::set_eth_address(const std::string& address);
 
 }
 
@@ -98,10 +95,7 @@ template ENJINSDK_EXPORT project::SetTransferFee&
 TransactionFragmentArguments<project::SetTransferFee>::set_with_log_event();
 
 template ENJINSDK_EXPORT project::SetTransferFee&
-TransactionRequestArguments<project::SetTransferFee>::set_eth_address(const std::string& address);
-
-template ENJINSDK_EXPORT project::SetTransferFee&
-TransactionRequestArguments<project::SetTransferFee>::set_send(bool send);
+TransactionFragmentArguments<project::SetTransferFee>::set_with_transaction_project_uuid();
 
 }
 

@@ -27,7 +27,7 @@ public:
     Request class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"id":1,"transactionId":"1","title":"1","contract":"1","type":"APPROVE","value":"1","retryState":"1","state":"PENDING","accepted":true,"projectWallet":true,"blockchainData":{},"createdAt":"1","updatedAt":"1"})";
+            R"({"id":1,"transactionId":"1","title":"1","contract":"1","type":"APPROVE","value":"1","retryState":"1","state":"PENDING","accepted":true,"projectWallet":true,"blockchainData":{},"project":{},"createdAt":"1","updatedAt":"1"})";
 };
 
 TEST_F(RequestTest, DeserializeEmptyStringFieldsDoNotHaveValues) {

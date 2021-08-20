@@ -1,13 +1,24 @@
 target_sources(${PROJECT_NAME}
         PRIVATE
+        AdvancedSendAsset.cpp
+        ApproveEnj.cpp
+        ApproveMaxEnj.cpp
+        CompleteTrade.cpp
         CreateAsset.cpp
         CreatePlayer.cpp
+        CreateTrade.cpp
         DecreaseMaxMeltFee.cpp
         DecreaseMaxTransferFee.cpp
         DeletePlayer.cpp
         InvalidateAssetMetadata.cpp
+        MeltAsset.cpp
+        Message.cpp
         MintAsset.cpp
         ReleaseReserve.cpp
+        ResetEnjApproval.cpp
+        SendAsset.cpp
+        SendEnj.cpp
+        SetApprovalForAll.cpp
         SetMeltFee.cpp
         SetTransferFee.cpp
         SetTransferable.cpp

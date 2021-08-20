@@ -1,14 +1,3 @@
 target_sources(${PROJECT_NAME}_tests
         PRIVATE
-        AdvancedSendAssetTest.cpp
-        ApproveEnjTest.cpp
-        ApproveMaxEnjTest.cpp
-        CancelTransactionTest.cpp
-        CompleteTradeTest.cpp
-        CreateTradeTest.cpp
-        MeltAssetTest.cpp
-        MessageTest.cpp
-        ResetEnjApprovalTest.cpp
-        SendAssetTest.cpp
-        SendEnjTest.cpp
-        SetApprovalForAllTest.cpp)
+        SharedCancelTransactionTest.cpp)

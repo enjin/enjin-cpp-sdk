@@ -38,7 +38,8 @@ public:
          .set_with_state()
          .set_with_receipt()
          .set_with_receipt_logs()
-         .set_with_log_event();
+         .set_with_log_event()
+         .set_with_transaction_project_uuid();
     }
 };
 
