@@ -87,6 +87,9 @@ TransactionFragmentArguments<project::SetMeltFee>::set_with_receipt_logs();
 
 template ENJINSDK_EXPORT project::SetMeltFee& TransactionFragmentArguments<project::SetMeltFee>::set_with_log_event();
 
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_transaction_project_uuid();
+
 template ENJINSDK_EXPORT project::SetMeltFee& TransactionRequestArguments<project::SetMeltFee>::set_send(bool send);
 
 }

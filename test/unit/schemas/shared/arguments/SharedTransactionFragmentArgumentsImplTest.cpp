@@ -27,7 +27,7 @@ public:
     TransactionFragmentArgumentsImpl class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"withBlockchainData":true,"withMeta":true,"withEncodedData":true,"withAssetData":true,"withSignedTxs":true,"withError":true,"withNonce":true,"withState":true,"withReceipt":true,"withReceiptLogs":true,"withLogEvent":true})";
+            R"({"withBlockchainData":true,"withMeta":true,"withEncodedData":true,"withAssetData":true,"withSignedTxs":true,"withError":true,"withNonce":true,"withState":true,"withReceipt":true,"withReceiptLogs":true,"withLogEvent":true,"withTransactionProjectUuid":true})";
 
     static TransactionFragmentArgumentsImpl create_default_arguments() {
         TransactionFragmentArgumentsImpl arguments;
@@ -42,6 +42,7 @@ public:
         arguments.set_with_receipt();
         arguments.set_with_receipt_logs();
         arguments.set_with_log_event();
+        arguments.set_with_transaction_project_uuid();
         return arguments;
     }
 };
@@ -71,6 +72,7 @@ TEST_F(SharedTransactionFragmentArgumentsImplTest, SerializeSetFieldsReturnsExpe
     class_under_test.set_with_receipt();
     class_under_test.set_with_receipt_logs();
     class_under_test.set_with_log_event();
+    class_under_test.set_with_transaction_project_uuid();
 
     // Act
     std::string actual = class_under_test.serialize();

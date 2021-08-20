@@ -84,6 +84,8 @@ PaginationArguments<GetRequests>::set_pagination(models::PaginationOptions pagin
 
 template ENJINSDK_EXPORT GetRequests& PaginationArguments<GetRequests>::set_pagination(int page, int limit);
 
+template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_transaction_project_uuid();
+
 }
 
 #endif //ENJINCPPSDK_SHAREDGETREQUESTS_HPP

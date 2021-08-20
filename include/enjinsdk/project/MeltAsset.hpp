@@ -90,6 +90,9 @@ template ENJINSDK_EXPORT project::MeltAsset&
 TransactionFragmentArguments<project::MeltAsset>::set_with_log_event();
 
 template ENJINSDK_EXPORT project::MeltAsset&
+TransactionFragmentArguments<project::MeltAsset>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT project::MeltAsset&
 TransactionRequestArguments<project::MeltAsset>::set_send(bool send);
 
 }

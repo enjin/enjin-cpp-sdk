@@ -93,6 +93,9 @@ template ENJINSDK_EXPORT player::SendEnj&
 TransactionFragmentArguments<player::SendEnj>::set_with_log_event();
 
 template ENJINSDK_EXPORT player::SendEnj&
+TransactionFragmentArguments<player::SendEnj>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT player::SendEnj&
 TransactionRequestArguments<player::SendEnj>::set_send(bool send);
 
 }

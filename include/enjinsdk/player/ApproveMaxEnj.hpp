@@ -76,6 +76,9 @@ template ENJINSDK_EXPORT player::ApproveMaxEnj&
 TransactionFragmentArguments<player::ApproveMaxEnj>::set_with_log_event();
 
 template ENJINSDK_EXPORT player::ApproveMaxEnj&
+TransactionFragmentArguments<player::ApproveMaxEnj>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT player::ApproveMaxEnj&
 TransactionRequestArguments<player::ApproveMaxEnj>::set_send(bool send);
 
 }

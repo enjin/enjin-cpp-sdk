@@ -95,6 +95,9 @@ template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
 TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_log_event();
 
 template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
 TransactionRequestArguments<project::DecreaseMaxTransferFee>::set_send(bool send);
 
 }

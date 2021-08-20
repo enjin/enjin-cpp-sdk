@@ -65,6 +65,9 @@ public:
     /// \brief Sets the value for the associated field to true.
     void set_with_log_event();
 
+    /// \brief Sets the value for the associated field to true.
+    void set_with_transaction_project_uuid();
+
     bool operator==(const TransactionFragmentArgumentsImpl& rhs) const;
 
     bool operator!=(const TransactionFragmentArgumentsImpl& rhs) const;
@@ -81,6 +84,7 @@ private:
     std::optional<bool> with_receipt;
     std::optional<bool> with_receipt_logs;
     std::optional<bool> with_log_event;
+    std::optional<bool> with_transaction_project_uuid;
 };
 
 }

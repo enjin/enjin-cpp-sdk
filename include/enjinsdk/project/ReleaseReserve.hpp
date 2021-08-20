@@ -95,6 +95,9 @@ template ENJINSDK_EXPORT project::ReleaseReserve&
 TransactionFragmentArguments<project::ReleaseReserve>::set_with_log_event();
 
 template ENJINSDK_EXPORT project::ReleaseReserve&
+TransactionFragmentArguments<project::ReleaseReserve>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT project::ReleaseReserve&
 TransactionRequestArguments<project::ReleaseReserve>::set_send(bool send);
 
 }

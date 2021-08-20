@@ -92,6 +92,9 @@ template ENJINSDK_EXPORT player::SetApprovalForAll&
 TransactionFragmentArguments<player::SetApprovalForAll>::set_with_log_event();
 
 template ENJINSDK_EXPORT player::SetApprovalForAll&
+TransactionFragmentArguments<player::SetApprovalForAll>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT player::SetApprovalForAll&
 TransactionRequestArguments<player::SetApprovalForAll>::set_send(bool send);
 
 }

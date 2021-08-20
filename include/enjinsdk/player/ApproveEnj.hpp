@@ -87,6 +87,9 @@ template ENJINSDK_EXPORT player::ApproveEnj&
 TransactionFragmentArguments<player::ApproveEnj>::set_with_log_event();
 
 template ENJINSDK_EXPORT player::ApproveEnj&
+TransactionFragmentArguments<player::ApproveEnj>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT player::ApproveEnj&
 TransactionRequestArguments<player::ApproveEnj>::set_send(bool send);
 
 }

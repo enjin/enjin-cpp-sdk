@@ -94,6 +94,9 @@ template ENJINSDK_EXPORT player::AdvancedSendAsset&
 TransactionFragmentArguments<player::AdvancedSendAsset>::set_with_log_event();
 
 template ENJINSDK_EXPORT player::AdvancedSendAsset&
+TransactionFragmentArguments<player::AdvancedSendAsset>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT player::AdvancedSendAsset&
 TransactionRequestArguments<player::AdvancedSendAsset>::set_send(bool send);
 
 }
