@@ -1,9 +1,9 @@
 target_sources(${PROJECT_NAME}_tests
         PRIVATE
-        AssetFragmentArgumentsImplTest.cpp
-        BalanceFragmentArgumentsImplTest.cpp
-        PaginationArgumentsImplTest.cpp
-        PlayerFragmentArgumentsImplTest.cpp
-        TransactionFragmentArgumentsImplTest.cpp
-        TransactionRequestArgumentsImplTest.cpp
-        WalletFragmentArgumentsImplTest.cpp)
+        SharedAssetFragmentArgumentsImplTest.cpp
+        SharedBalanceFragmentArgumentsImplTest.cpp
+        SharedPaginationArgumentsImplTest.cpp
+        SharedPlayerFragmentArgumentsImplTest.cpp
+        SharedTransactionFragmentArgumentsImplTest.cpp
+        SharedTransactionRequestArgumentsImplTest.cpp
+        SharedWalletFragmentArgumentsImplTest.cpp)
