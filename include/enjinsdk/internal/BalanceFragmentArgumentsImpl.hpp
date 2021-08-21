@@ -21,6 +21,7 @@
 #include "enjinsdk/models/AssetIdFormat.hpp"
 #include "enjinsdk/models/AssetIndexFormat.hpp"
 #include <optional>
+#include <string>
 
 namespace enjin::sdk::shared {
 
@@ -43,7 +44,7 @@ public:
     void set_bal_index_format(models::AssetIndexFormat bal_index_format);
 
     /// \brief Sets the value for the associated field to true.
-    void set_with_bal_project_id();
+    void set_with_bal_project_uuid();
 
     /// \brief Sets the value for the associated field to true.
     void set_with_bal_wallet_address();
@@ -55,7 +56,7 @@ public:
 private:
     std::optional<models::AssetIdFormat> bal_id_format;
     std::optional<models::AssetIndexFormat> bal_index_format;
-    std::optional<bool> with_bal_project_id;
+    std::optional<bool> with_bal_project_uuid;
     std::optional<bool> with_bal_wallet_address;
 };
 

@@ -21,6 +21,7 @@
 #include "enjinsdk/internal/BalanceFragmentArgumentsImpl.hpp"
 #include "enjinsdk/models/AssetIdFormat.hpp"
 #include "enjinsdk/models/AssetIndexFormat.hpp"
+#include <string>
 
 namespace enjin::sdk::shared {
 
@@ -51,10 +52,10 @@ public:
         return dynamic_cast<T&>(*this);
     }
 
-    /// \brief Sets the request to include the project ID with the balance.
+    /// \brief Sets the request to include the project UUID with the balance.
     /// \return This request for chaining.
-    T& set_with_bal_project_id() {
-        impl.set_with_bal_project_id();
+    T& set_with_bal_project_uuid() {
+        impl.set_with_bal_project_uuid();
         return dynamic_cast<T&>(*this);
     }
 

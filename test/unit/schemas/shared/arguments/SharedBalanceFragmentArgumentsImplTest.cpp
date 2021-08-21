@@ -18,6 +18,7 @@
 #include "enjinsdk/internal/BalanceFragmentArgumentsImpl.hpp"
 #include <string>
 
+using namespace enjin::sdk::models;
 using namespace enjin::sdk::shared;
 using namespace enjin::test::suites;
 
@@ -27,13 +28,13 @@ public:
     BalanceFragmentArgumentsImpl class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"balIdFormat":"hex64","balIndexFormat":"hex64","withBalProjectId":true,"withBalWalletAddress":true})";
+            R"({"balIdFormat":"hex64","balIndexFormat":"hex64","withBalProjectUuid":true,"withBalWalletAddress":true})";
 
     static BalanceFragmentArgumentsImpl create_default_arguments() {
         BalanceFragmentArgumentsImpl arguments;
-        arguments.set_bal_id_format(enjin::sdk::models::AssetIdFormat::HEX64);
-        arguments.set_bal_index_format(enjin::sdk::models::AssetIndexFormat::HEX64);
-        arguments.set_with_bal_project_id();
+        arguments.set_bal_id_format(AssetIdFormat::HEX64);
+        arguments.set_bal_index_format(AssetIndexFormat::HEX64);
+        arguments.set_with_bal_project_uuid();
         arguments.set_with_bal_wallet_address();
         return arguments;
     }
@@ -53,9 +54,9 @@ TEST_F(SharedBalanceFragmentArgumentsImplTest, SerializeNoSetFieldsReturnsEmptyJ
 TEST_F(SharedBalanceFragmentArgumentsImplTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_bal_id_format(enjin::sdk::models::AssetIdFormat::HEX64);
-    class_under_test.set_bal_index_format(enjin::sdk::models::AssetIndexFormat::HEX64);
-    class_under_test.set_with_bal_project_id();
+    class_under_test.set_bal_id_format(AssetIdFormat::HEX64);
+    class_under_test.set_bal_index_format(AssetIndexFormat::HEX64);
+    class_under_test.set_with_bal_project_uuid();
     class_under_test.set_with_bal_wallet_address();
 
     // Act
