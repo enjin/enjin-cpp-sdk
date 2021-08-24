@@ -13,9 +13,10 @@
  * limitations under the License.
  */
 
-#include "FakeGraphqlRequest.hpp"
-#include "TestableBaseSchema.hpp"
 #include "gtest/gtest.h"
+#include "FakeGraphqlRequest.hpp"
+#include "MockHttpClient.hpp"
+#include "TestableBaseSchema.hpp"
 #include <string>
 
 using namespace enjin::sdk;

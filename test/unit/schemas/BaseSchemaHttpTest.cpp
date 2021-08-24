@@ -13,12 +13,12 @@
  * limitations under the License.
  */
 
+#include "gtest/gtest.h"
 #include "DummyObject.hpp"
 #include "FakeGraphqlRequest.hpp"
-#include "HttpClientImpl.hpp"
+#include "HttpClient.hpp"
 #include "MockHttpServer.hpp"
 #include "TestableBaseSchema.hpp"
-#include "gtest/gtest.h"
 #include <memory>
 #include <sstream>
 #include <string>
@@ -37,7 +37,7 @@ public:
     MockHttpServer mock_server;
 
     TestableBaseSchema create_testable_base_schema() {
-        auto client = std::make_unique<http::HttpClientImpl>(mock_server.uri());
+        auto client = std::make_unique<http::HttpClient>(mock_server.uri());
         client->start();
 
         return TestableBaseSchema(TrustedPlatformMiddleware(std::move(client)));

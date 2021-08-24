@@ -13,24 +13,24 @@
  * limitations under the License.
  */
 
-#include "HttpClientImpl.hpp"
+#include "gtest/gtest.h"
+#include "HttpClient.hpp"
 #include "MockHttpServer.hpp"
 #include "VerificationTestSuite.hpp"
-#include "gtest/gtest.h"
 
 using namespace enjin::sdk::http;
 using namespace enjin::test::mocks;
 using namespace enjin::test::suites;
 
-class HttpClientImplTest : public VerificationTestSuite,
-                           public testing::Test {
+class HttpClientTest : public VerificationTestSuite,
+                       public testing::Test {
 public:
     static constexpr char JSON[] = "application/json; charset=utf-8";
 
     MockHttpServer mock_server;
 
-    HttpClientImpl create_client() {
-        return HttpClientImpl(mock_server.uri());
+    HttpClient create_client() {
+        return HttpClient(mock_server.uri());
     }
 
     static HttpRequest create_default_request() {
@@ -52,14 +52,14 @@ protected:
     }
 };
 
-TEST_F(HttpClientImplTest, SendRequestReceivesExpectedResponse) {
+TEST_F(HttpClientTest, SendRequestReceivesExpectedResponse) {
     // Arrange - Data
     HttpResponse expected = HttpResponseBuilder()
             .code(200)
             .body("{}")
             .content_type(JSON)
             .build();
-    HttpClientImpl client = create_client();
+    HttpClient client = create_client();
     HttpRequest dummy_request = create_default_request();
     client.start();
 
