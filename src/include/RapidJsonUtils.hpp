@@ -148,23 +148,7 @@ void set_object_member_from_type(rapidjson::Document& document,
     static_assert(std::is_base_of<serialization::ISerializable, T>::value,
                   "Class T does not inherit from ISerializable.");
 
-    set_member_assert(document, key);
-
-    auto& allocator = document.GetAllocator();
-    rapidjson::Value v(rapidjson::kObjectType);
-
-    /* Serializes the value into a JSON document to dynamically acquire its member name and values to convert into a
-     * JSON object that may then be stored.
-     */
-    rapidjson::Document e_document;
-    e_document.Parse(value.serialize().c_str());
-    for (auto& m : e_document.GetObject()) {
-        v.AddMember(m.name, m.value, allocator);
-    }
-
-    rapidjson::Value v_key;
-    v_key.SetString(key.c_str(), allocator);
-    document.AddMember(v_key, v, allocator);
+    set_object_member_from_string(document, key, value.serialize());
 }
 
 }
