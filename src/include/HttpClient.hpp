@@ -19,8 +19,8 @@
 
 #if ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL
 
-#ifndef ENJINCPPSDK_HTTPCLIENTIMPL_HPP
-#define ENJINCPPSDK_HTTPCLIENTIMPL_HPP
+#ifndef ENJINCPPSDK_HTTPCLIENT_HPP
+#define ENJINCPPSDK_HTTPCLIENT_HPP
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IHttpClient.hpp"
@@ -63,6 +63,6 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_HTTPCLIENTIMPL_HPP
+#endif //ENJINCPPSDK_HTTPCLIENT_HPP
 
 #endif
