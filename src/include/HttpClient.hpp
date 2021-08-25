@@ -41,6 +41,7 @@ public:
     /// \param logger_provider The logger provider. Null pointer by default.
     explicit HttpClient(std::string base_uri, std::shared_ptr<utils::LoggerProvider> logger_provider = nullptr);
 
+    /// \brief Destructor.
     ~HttpClient() override;
 
     void start() override;
