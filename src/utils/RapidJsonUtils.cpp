@@ -161,19 +161,17 @@ void set_string_member(rapidjson::Document& document, const std::string& key, co
 void set_object_member_from_string(rapidjson::Document& document, const std::string& key, const std::string& value) {
     set_member_assert(document, key);
 
-    /* Opens value as a JSON document to dynamically acquire its member name and values to convert into a JSON object
-     * that may then be stored.
-     */
-    rapidjson::Document e_document;
-    e_document.Parse(value.c_str());
+    auto& allocator = document.GetAllocator();
 
-    if (!e_document.IsObject()) {
+    rapidjson::Document v_document(&allocator);
+    v_document.Parse(value.c_str());
+
+    if (!v_document.IsObject()) {
         return;
     }
 
-    auto& allocator = document.GetAllocator();
     rapidjson::Value v_key;
-    rapidjson::Value v(e_document, allocator);
+    rapidjson::Value v(v_document, allocator);
     v_key.SetString(key.c_str(), allocator);
     document.AddMember(v_key, v, allocator);
 }
