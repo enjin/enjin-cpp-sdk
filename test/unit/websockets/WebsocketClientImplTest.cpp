@@ -14,7 +14,7 @@
  */
 
 #include "gtest/gtest.h"
-#include "WebsocketClientImpl.hpp"
+#include "WebsocketClient.hpp"
 #include "MockWebsocketServer.hpp"
 #include "VerificationTestSuite.hpp"
 #include <string>
@@ -28,7 +28,7 @@ class WebsocketClientImplTest : public VerificationTestSuite,
 public:
     static constexpr char URI[] = "ws://127.0.0.1:8080/ws";
 
-    WebsocketClientImpl class_under_test;
+    WebsocketClient class_under_test;
     MockWebsocketServer mock_server;
 
 protected:

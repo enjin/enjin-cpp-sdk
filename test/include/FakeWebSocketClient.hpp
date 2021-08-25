@@ -18,17 +18,17 @@
 #endif
 #if ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL
 
-#ifndef ENJINCPPSDK_FAKEWEBSOCKETCLIENTIMPL_HPP
-#define ENJINCPPSDK_FAKEWEBSOCKETCLIENTIMPL_HPP
+#ifndef ENJINCPPSDK_FAKEWEBSOCKETCLIENT_HPP
+#define ENJINCPPSDK_FAKEWEBSOCKETCLIENT_HPP
 
-#include "WebsocketClientImpl.hpp"
+#include "WebsocketClient.hpp"
 #include <string>
 
 namespace enjin::test::mocks {
 
 /// \brief A fake websocket client based on the SDK's built-in websocket client used for testing with a websocket server
 /// open on a localhost port.
-class FakeWebSocketClientImpl : public sdk::websockets::WebsocketClientImpl {
+class FakeWebSocketClient : public sdk::websockets::WebsocketClient {
 public:
     /// \brief Overridden member function that has this client connect to a open connection on a local test server.
     /// \param uri Ignored parameter.
@@ -40,5 +40,5 @@ public:
 
 }
 
-#endif //ENJINCPPSDK_FAKEWEBSOCKETCLIENTIMPL_HPP
+#endif //ENJINCPPSDK_FAKEWEBSOCKETCLIENT_HPP
 #endif

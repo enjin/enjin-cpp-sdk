@@ -38,7 +38,7 @@
 #endif
 #if ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL
 
-#include "WebsocketClientImpl.hpp"
+#include "WebsocketClient.hpp"
 
 #endif
 
@@ -391,7 +391,7 @@ const std::shared_ptr<utils::LoggerProvider>& PusherEventService::get_logger_pro
 std::unique_ptr<PusherEventService> PusherEventServiceBuilder::build() {
     if (m_ws_client == nullptr) {
 #if ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL
-        m_ws_client = std::make_unique<websockets::WebsocketClientImpl>();
+        m_ws_client = std::make_unique<websockets::WebsocketClient>();
 #else
         throw std::runtime_error("Attempted building Pusher event service without providing a websocket client");
 #endif
