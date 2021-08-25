@@ -24,96 +24,6 @@
 
 namespace enjin::sdk::http {
 
-std::string headers_2_string(const httplib::Headers& headers) {
-    if (headers.empty()) {
-        return "{}";
-    }
-
-    std::stringstream ss;
-
-    ss << "{";
-
-    const auto& last = std::prev(headers.end());
-    auto iter = headers.begin();
-    while (iter != headers.end()) {
-        ss << "'" << iter->first << "': '" << iter->second << "'";
-
-        // Adds separator if not the last entry
-        if (iter != last) {
-            ss << ", ";
-        }
-
-        iter = std::next(iter);
-    }
-
-    ss << "}";
-
-    return ss.str();
-}
-
-std::string response_2_string(const httplib::Response& res) {
-    std::stringstream ss;
-    ss << "Response Code: " << res.status << ",\n"
-       << "Response Headers: " << headers_2_string(res.headers) << ",\n"
-       << "Response Body Text: " << res.body;
-    return ss.str();
-}
-
-std::string error_result_2_string(const httplib::Result& result) {
-    std::stringstream ss;
-    ss << "Result unsuccessful (Code: " << result->status << ", Error: '";
-
-    switch (result.error()) {
-        case httplib::Error::Connection:
-            ss << "Connection";
-            break;
-        case httplib::Error::BindIPAddress:
-            ss << "BindIPAddress";
-            break;
-        case httplib::Error::Read:
-            ss << "Read";
-            break;
-        case httplib::Error::Write:
-            ss << "Write";
-            break;
-        case httplib::Error::ExceedRedirectCount:
-            ss << "ExceedRedirectCount";
-            break;
-        case httplib::Error::Canceled:
-            ss << "Canceled";
-            break;
-        case httplib::Error::SSLConnection:
-            ss << "SSLConnection";
-            break;
-        case httplib::Error::SSLLoadingCerts:
-            ss << "SSLLoadingCerts";
-            break;
-        case httplib::Error::SSLServerVerification:
-            ss << "SSLServerVerification";
-            break;
-        case httplib::Error::UnsupportedMultipartBoundaryChars:
-            ss << "UnsupportedMultipartBoundaryChars";
-            break;
-        default:
-            ss << "Unknown";
-            break;
-    }
-
-    ss << "', Reason: '" << result->reason << "')";
-
-    return ss.str();
-}
-
-httplib::Headers create_headers(const HttpRequest& request) {
-    httplib::Headers headers;
-
-    for (const auto& entry : request.get_headers()) {
-        headers.emplace(entry.first, entry.second);
-    }
-
-    return headers;
-}
-
 class HttpClient::Impl : public IHttpClient {
 public:
     Impl() = delete;
@@ -213,6 +123,84 @@ private:
            << "Request Headers: " << headers_2_string(req.headers);
         return ss.str();
     }
+
+    static httplib::Headers create_headers(const HttpRequest& request) {
+        httplib::Headers headers;
+
+        for (const auto& entry : request.get_headers()) {
+            headers.emplace(entry.first, entry.second);
+        }
+
+        return headers;
+    }
+
+    static std::string error_enum_2_string(const httplib::Error value) {
+        switch (value) {
+            case httplib::Error::Connection:
+                return "Connection";
+            case httplib::Error::BindIPAddress:
+                return "BindIPAddress";
+            case httplib::Error::Read:
+                return "Read";
+            case httplib::Error::Write:
+                return "Write";
+            case httplib::Error::ExceedRedirectCount:
+                return "ExceedRedirectCount";
+            case httplib::Error::Canceled:
+                return "Canceled";
+            case httplib::Error::SSLConnection:
+                return "SSLConnection";
+            case httplib::Error::SSLLoadingCerts:
+                return "SSLLoadingCerts";
+            case httplib::Error::SSLServerVerification:
+                return "SSLServerVerification";
+            case httplib::Error::UnsupportedMultipartBoundaryChars:
+                return "UnsupportedMultipartBoundaryChars";
+            default:
+                return "Unknown";
+        }
+    }
+
+    static std::string error_result_2_string(const httplib::Result& result) {
+        std::stringstream ss;
+        ss << "HTTP client encountered an error with designation '" << error_enum_2_string(result.error()) << "'";
+        return ss.str();
+    }
+
+    static std::string headers_2_string(const httplib::Headers& headers) {
+        if (headers.empty()) {
+            return "{}";
+        }
+
+        std::stringstream ss;
+
+        ss << "{";
+
+        const auto& last = std::prev(headers.end());
+        auto iter = headers.begin();
+        while (iter != headers.end()) {
+            ss << "'" << iter->first << "': '" << iter->second << "'";
+
+            // Adds separator if not the last entry
+            if (iter != last) {
+                ss << ", ";
+            }
+
+            iter = std::next(iter);
+        }
+
+        ss << "}";
+
+        return ss.str();
+    }
+
+    static std::string response_2_string(const httplib::Response& res) {
+        std::stringstream ss;
+        ss << "Response Code: " << res.status << ",\n"
+           << "Response Headers: " << headers_2_string(res.headers) << ",\n"
+           << "Response Body Text: " << res.body;
+        return ss.str();
+    }
 };
 
 HttpClient::HttpClient(std::string base_uri, std::shared_ptr<utils::LoggerProvider> logger_provider)
@@ -220,8 +208,6 @@ HttpClient::HttpClient(std::string base_uri, std::shared_ptr<utils::LoggerProvid
 }
 
 HttpClient::~HttpClient() {
-    HttpClient::stop();
-
     delete impl;
 }
 

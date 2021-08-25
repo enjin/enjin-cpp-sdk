@@ -56,8 +56,8 @@ public:
     /// \brief Constructs a mock server instance.
     MockHttpServer();
 
-    /// \brief Default destructor.
-    ~MockHttpServer() = default;
+    /// \brief Destructor.
+    ~MockHttpServer();
 
     /// \brief Method to start the server.
     void start();

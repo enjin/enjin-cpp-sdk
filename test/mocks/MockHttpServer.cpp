@@ -131,6 +131,7 @@ private:
                 return;
             }
 
+            res.status = provider->get_response()->get_code().value();
             res.set_content(provider->get_response()->get_body().value(),
                             provider->get_response()->get_content_type()->c_str());
         });
@@ -140,14 +141,16 @@ private:
 MockHttpServer::MockHttpServer() : impl(new Impl()) {
 }
 
+MockHttpServer::~MockHttpServer() {
+    delete impl;
+}
+
 void MockHttpServer::start() {
     impl->start();
 }
 
 void MockHttpServer::stop() {
     impl->stop();
-
-    delete impl;
 }
 
 ResponseProvider& MockHttpServer::given(const sdk::http::HttpRequest& request) {
