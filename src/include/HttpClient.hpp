@@ -19,11 +19,10 @@
 
 #if ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL
 
-#ifndef ENJINCPPSDK_HTTPCLIENTIMPL_HPP
-#define ENJINCPPSDK_HTTPCLIENTIMPL_HPP
+#ifndef ENJINCPPSDK_HTTPCLIENT_HPP
+#define ENJINCPPSDK_HTTPCLIENT_HPP
 
 #include "enjinsdk_export.h"
-#include "httplib.h"
 #include "enjinsdk/IHttpClient.hpp"
 #include "enjinsdk/LoggerProvider.hpp"
 #include <future>
@@ -32,17 +31,18 @@
 
 namespace enjin::sdk::http {
 
-/// \brief Implementation class for an HTTP client using cpp-httplib.
-class ENJINSDK_EXPORT HttpClientImpl : public IHttpClient {
+/// \brief Built-in HTTP client for this SDK.
+class ENJINSDK_EXPORT HttpClient : public IHttpClient {
 public:
-    HttpClientImpl() = delete;
+    HttpClient() = delete;
 
     /// \brief Creates the HTTP client with the base URI.
     /// \param base_uri The base URI for the client.
     /// \param logger_provider The logger provider. Null pointer by default.
-    explicit HttpClientImpl(std::string base_uri, std::shared_ptr<utils::LoggerProvider> logger_provider = nullptr);
+    explicit HttpClient(std::string base_uri, std::shared_ptr<utils::LoggerProvider> logger_provider = nullptr);
 
-    ~HttpClientImpl() override;
+    /// \brief Destructor.
+    ~HttpClient() override;
 
     void start() override;
 
@@ -57,20 +57,13 @@ public:
     [[nodiscard]] bool is_open() const override;
 
 private:
-    const std::string base_uri;
+    class Impl;
 
-    bool open = false;
-
-    std::unique_ptr<httplib::Client> http_client;
-    std::shared_ptr<utils::LoggerProvider> logger_provider;
-
-    void log_error(const std::string& message);
-
-    static httplib::Headers create_headers(const HttpRequest& request);
+    Impl* impl;
 };
 
 }
 
-#endif //ENJINCPPSDK_HTTPCLIENTIMPL_HPP
+#endif //ENJINCPPSDK_HTTPCLIENT_HPP
 
 #endif

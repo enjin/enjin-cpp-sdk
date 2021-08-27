@@ -23,7 +23,7 @@
 #endif
 #if ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL
 
-#include "HttpClientImpl.hpp"
+#include "HttpClient.hpp"
 
 #endif
 
@@ -34,7 +34,7 @@ PlayerClient::PlayerClient(TrustedPlatformMiddleware middleware, std::shared_ptr
 }
 
 PlayerClient::~PlayerClient() {
-    close();
+    PlayerClient::close();
 }
 
 void PlayerClient::auth(const std::string& token) {
@@ -60,7 +60,7 @@ std::unique_ptr<PlayerClient> PlayerClientBuilder::build() {
             throw std::runtime_error("No base URI was set for default HTTP client implementation");
         }
 
-        TrustedPlatformMiddleware middleware(std::make_unique<http::HttpClientImpl>(m_base_uri.value(),
+        TrustedPlatformMiddleware middleware(std::make_unique<http::HttpClient>(m_base_uri.value(),
                                                                                     m_logger_provider));
         return std::unique_ptr<PlayerClient>(new PlayerClient(std::move(middleware), m_logger_provider));
 #else

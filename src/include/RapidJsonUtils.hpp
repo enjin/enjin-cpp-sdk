@@ -103,25 +103,17 @@ void set_array_member_from_type_vector(rapidjson::Document& document,
     set_member_assert(document, key);
 
     auto& allocator = document.GetAllocator();
-    rapidjson::Value v(rapidjson::kArrayType);
-    for (auto& e : values) {
-        rapidjson::Value e_value(rapidjson::kObjectType);
+    rapidjson::Value arr(rapidjson::kArrayType);
 
-        /* Serializes the element into a JSON document to dynamically acquire its member name and values to convert
-         * into a JSON object that may then be stored in the JSON array.
-         */
-        rapidjson::Document e_document;
-        e_document.Parse(e.serialize().c_str());
-        for (auto& m : e_document.GetObject()) {
-            e_value.AddMember(m.name, m.value, allocator);
-        }
-
-        v.PushBack(e_value, allocator);
+    for (auto& v : values) {
+        rapidjson::Document v_document(&allocator);
+        v_document.Parse(v.serialize().c_str());
+        arr.PushBack(v_document, allocator);
     }
 
-    rapidjson::Value v_key;
-    v_key.SetString(key.c_str(), allocator);
-    document.AddMember(v_key, v, allocator);
+    rapidjson::Value arr_key;
+    arr_key.SetString(key.c_str(), allocator);
+    document.AddMember(arr_key, arr, allocator);
 }
 
 ENJINSDK_EXPORT
@@ -148,23 +140,7 @@ void set_object_member_from_type(rapidjson::Document& document,
     static_assert(std::is_base_of<serialization::ISerializable, T>::value,
                   "Class T does not inherit from ISerializable.");
 
-    set_member_assert(document, key);
-
-    auto& allocator = document.GetAllocator();
-    rapidjson::Value v(rapidjson::kObjectType);
-
-    /* Serializes the value into a JSON document to dynamically acquire its member name and values to convert into a
-     * JSON object that may then be stored.
-     */
-    rapidjson::Document e_document;
-    e_document.Parse(value.serialize().c_str());
-    for (auto& m : e_document.GetObject()) {
-        v.AddMember(m.name, m.value, allocator);
-    }
-
-    rapidjson::Value v_key;
-    v_key.SetString(key.c_str(), allocator);
-    document.AddMember(v_key, v, allocator);
+    set_object_member_from_string(document, key, value.serialize());
 }
 
 }

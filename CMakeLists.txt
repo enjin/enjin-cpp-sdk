@@ -91,8 +91,12 @@ else ()
 
     ###### HTTP client setup
     if (${ENJINSDK_BUILD_DEFAULT_HTTP})
+        include("cmake/enjinsdk_find_openssl.cmake")
         include("cmake/enjinsdk_find_cpp_httplib.cmake")
         if (${ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL})
+            target_link_libraries(${PROJECT_NAME} PRIVATE
+                    OpenSSL::SSL
+                    OpenSSL::Crypto)
             target_include_directories(${PROJECT_NAME} PRIVATE ${CPP_HTTPLIB_INCLUDE_DIRS})
         endif ()
     endif ()

@@ -13,23 +13,28 @@
  * limitations under the License.
  */
 
-/* This header file contains the host names for Enjin networks.
- */
+#ifndef ENJINSDK_MOCKHTTPCLIENT_HPP
+#define ENJINSDK_MOCKHTTPCLIENT_HPP
 
-#ifndef ENJINCPPSDK_ENJINHOSTS_HPP
-#define ENJINCPPSDK_ENJINHOSTS_HPP
+#include "enjinsdk/IHttpClient.hpp"
+#include "gmock/gmock.h"
 
-namespace enjin::sdk {
+namespace enjin::test::mocks {
 
-/// \brief The URI for the kovan Enjin Cloud.
-static constexpr char KOVAN[] = "https://kovan.cloud.enjin.io";
+class MockHttpClient : public sdk::http::IHttpClient {
+public:
+    MOCK_METHOD(void, start, (), (override));
 
-/// \brief The URI for the main Enjin Cloud.
-static constexpr char MAIN_NET[] = "https://cloud.enjin.io";
+    MOCK_METHOD(void, stop, (), (override));
 
-/// \brief The URI for the JumpNet network.
-static constexpr char JUMP_NET[] = "https://jumpnet.cloud.enjin.io";
+    MOCK_METHOD(std::future<sdk::http::HttpResponse>,
+                send_request,
+                (const sdk::http::HttpRequest& request),
+                (override));
+
+    MOCK_METHOD(bool, is_open, (), (const, override));
+};
 
 }
 
-#endif //ENJINCPPSDK_ENJINHOSTS_HPP
+#endif //ENJINSDK_MOCKHTTPCLIENT_HPP

@@ -78,7 +78,7 @@ protected:
         http::HttpRequest http_request = create_request(request);
 
         return std::async([this, http_request] {
-            http::HttpResponse response = middleware.get_client()->send_request(http_request).get();
+            auto response = send_request(http_request);
 
             try {
                 return graphql::GraphqlResponse<T>(response.get_body().value());
@@ -99,7 +99,7 @@ protected:
         http::HttpRequest http_request = create_request(request);
 
         return std::async([this, http_request]() {
-            http::HttpResponse response = middleware.get_client()->send_request(http_request).get();
+            auto response = send_request(http_request);
 
             try {
                 return graphql::GraphqlResponse<std::vector<T>>(response.get_body().value());
@@ -114,6 +114,8 @@ private:
     static constexpr char JSON[] = "application/json; charset=utf-8";
 
     void log_graphql_exception(const std::exception& e);
+
+    http::HttpResponse send_request(const http::HttpRequest& request);
 };
 
 }

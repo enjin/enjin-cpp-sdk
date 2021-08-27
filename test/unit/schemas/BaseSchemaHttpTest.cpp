@@ -13,14 +13,15 @@
  * limitations under the License.
  */
 
+#include "gtest/gtest.h"
 #include "DummyObject.hpp"
 #include "FakeGraphqlRequest.hpp"
-#include "HttpClientImpl.hpp"
+#include "HttpClient.hpp"
 #include "MockHttpServer.hpp"
 #include "TestableBaseSchema.hpp"
-#include "gtest/gtest.h"
 #include <memory>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 
 using namespace enjin::sdk;
@@ -37,7 +38,7 @@ public:
     MockHttpServer mock_server;
 
     TestableBaseSchema create_testable_base_schema() {
-        auto client = std::make_unique<http::HttpClientImpl>(mock_server.uri());
+        auto client = std::make_unique<http::HttpClient>(mock_server.uri());
         client->start();
 
         return TestableBaseSchema(TrustedPlatformMiddleware(std::move(client)));
@@ -53,7 +54,7 @@ protected:
     }
 };
 
-TEST_F(BaseSchemaHttpTest, SendRequestForOne) {
+TEST_F(BaseSchemaHttpTest, SendRequestForOneResponseIsSuccessfulReceivesExpected) {
     // Arrange - Data
     DummyObject expected = DummyObject::create_default_dummy_object();
     TestableBaseSchema schema = create_testable_base_schema();
@@ -82,6 +83,33 @@ TEST_F(BaseSchemaHttpTest, SendRequestForOne) {
 
     // Assert
     ASSERT_EQ(expected, response.get_result().value());
+}
+
+TEST_F(BaseSchemaHttpTest, SendRequestForOneReponseIsUnsuccessfulThrowsError) {
+    // Arrange - Data
+    TestableBaseSchema schema = create_testable_base_schema();
+    DummyObject dummy_object = DummyObject::create_default_dummy_object();
+    FakeGraphqlRequest fake_request(dummy_object.serialize());
+    std::string req_body = schema.create_request_body(fake_request);
+    HttpRequest http_req = http::HttpRequestBuilder().method(HTTP_METHOD)
+                                                     .path_query_fragment(DEFAULT_PATH_QUERY_FRAGMENT)
+                                                     .content_type(JSON)
+                                                     .body(req_body)
+                                                     .build();
+    HttpResponse http_res = http::HttpResponseBuilder().code(400)
+                                                       .content_type(JSON)
+                                                       .body("Test Error Response")
+                                                       .build();
+
+    // Arrange - Stubbing
+    mock_server.given(http_req)
+               .respond_with(http_res);
+
+    // Act
+    auto future = schema.send_request_for_one<DummyObject>(fake_request);
+
+    // Assert
+    ASSERT_THROW(future.get(), std::runtime_error);
 }
 
 TEST_F(BaseSchemaHttpTest, SendRequestForMany) {
@@ -117,4 +145,31 @@ TEST_F(BaseSchemaHttpTest, SendRequestForMany) {
     for (const auto& actual : response.get_result().value()) {
         EXPECT_EQ(expected, actual);
     }
+}
+
+TEST_F(BaseSchemaHttpTest, SendRequestForManyReponseIsUnsuccessfulThrowsError) {
+    // Arrange - Data
+    TestableBaseSchema schema = create_testable_base_schema();
+    DummyObject dummy_object = DummyObject::create_default_dummy_object();
+    FakeGraphqlRequest fake_request(dummy_object.serialize());
+    std::string req_body = schema.create_request_body(fake_request);
+    HttpRequest http_req = http::HttpRequestBuilder().method(HTTP_METHOD)
+                                                     .path_query_fragment(DEFAULT_PATH_QUERY_FRAGMENT)
+                                                     .content_type(JSON)
+                                                     .body(req_body)
+                                                     .build();
+    HttpResponse http_res = http::HttpResponseBuilder().code(400)
+                                                       .content_type(JSON)
+                                                       .body("Test Error Response")
+                                                       .build();
+
+    // Arrange - Stubbing
+    mock_server.given(http_req)
+               .respond_with(http_res);
+
+    // Act
+    auto future = schema.send_request_for_one<DummyObject>(fake_request);
+
+    // Assert
+    ASSERT_THROW(future.get(), std::runtime_error);
 }
