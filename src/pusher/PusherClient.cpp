@@ -219,14 +219,14 @@ std::future<void> PusherClient::unsubscribe_from_channel(const std::string& chan
     });
 }
 
-void PusherClient::bind(const std::string& event_name, std::shared_ptr<ISubscriptionEventListener> listener) {
-    std::vector<std::shared_ptr<ISubscriptionEventListener>> vector({std::move(listener)});
+void PusherClient::bind(const std::string& event_name, const std::shared_ptr<ISubscriptionEventListener> listener) {
+    std::set<std::shared_ptr<ISubscriptionEventListener>> set({listener});
 
     std::lock_guard<std::mutex> guard(event_listeners_mutex);
 
     // Adds the listener to the already existing vector if try-emplace fails
-    if (!event_listeners.try_emplace(event_name, vector).second) {
-        event_listeners[event_name].push_back(listener);
+    if (!event_listeners.try_emplace(event_name, set).second) {
+        event_listeners[event_name].emplace(listener);
     }
 }
 

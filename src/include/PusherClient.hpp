@@ -77,7 +77,7 @@ public:
     /// \brief Binds a listener to the specified event.
     /// \param event_name The name of the event.
     /// \param listener The listener.
-    void bind(const std::string& event_name, std::shared_ptr<ISubscriptionEventListener> listener);
+    void bind(const std::string& event_name, const std::shared_ptr<ISubscriptionEventListener> listener);
 
     /// \brief Unbinds from the specified event.
     /// \param event_name The name of the event.
@@ -119,7 +119,7 @@ private:
     std::shared_ptr<sdk::websockets::IWebsocketClient> ws_client;
     std::shared_ptr<sdk::utils::LoggerProvider> logger_provider;
 
-    std::map<std::string, std::vector<std::shared_ptr<ISubscriptionEventListener>>> event_listeners;
+    std::map<std::string, std::set<std::shared_ptr<ISubscriptionEventListener>>> event_listeners;
     std::map<std::string, PusherChannel> channels;
     std::set<std::string> pending_channels;
 
