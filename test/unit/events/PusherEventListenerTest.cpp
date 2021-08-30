@@ -91,7 +91,7 @@ TEST_F(PusherEventListenerTest, OnEventForUnknownEventWithRegisteredListenerDoes
     fake_service->register_listener(mock_listener);
 
     // Arrange - Expectations
-    EXPECT_CALL(*mock_listener, notification_received(An<NotificationEvent>()))
+    EXPECT_CALL(*mock_listener, notification_received(An<const NotificationEvent&>()))
             .Times(0);
 
     // Act
