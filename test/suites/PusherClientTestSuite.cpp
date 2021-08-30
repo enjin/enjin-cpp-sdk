@@ -37,8 +37,7 @@ std::string PusherClientTestSuite::create_default_event(const std::string& chann
 pusher::PusherOptions PusherClientTestSuite::create_default_pusher_options() {
     return pusher::PusherOptions()
             .set_cluster(DEFAULT_CLUSTER)
-            .set_encrypted(true)
-            .set_client_timeout(std::chrono::milliseconds(5000));
+            .set_encrypted(true);
 }
 
 std::string PusherClientTestSuite::create_subscription_error_message() {

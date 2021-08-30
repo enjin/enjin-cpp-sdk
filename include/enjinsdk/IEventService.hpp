@@ -102,13 +102,11 @@ public:
 
     /// \brief Opens a channel for the specified project, allowing listeners to receive events for it.
     /// \param project The project's UUID.
-    /// \return The future for this operation.
-    virtual std::future<void> subscribe_to_project(const std::string& project) = 0;
+    virtual void subscribe_to_project(const std::string& project) = 0;
 
     /// \brief Closes a channel for the specified project, preventing listeners from receiving events for it.
     /// \param project The project's UUID.
-    /// \return The future for this operation.
-    virtual std::future<void> unsubscribe_to_project(const std::string& project) = 0;
+    virtual void unsubscribe_to_project(const std::string& project) = 0;
 
     /// \brief Determines if this service is subscribed to the specified channel.
     /// \param project The project's UUID.
@@ -118,14 +116,12 @@ public:
     /// \brief Opens a channel for the specified player, allowing listeners to receive events for it.
     /// \param project The project's UUID.
     /// \param player The player ID.
-    /// \return The future for this operation.
-    virtual std::future<void> subscribe_to_player(const std::string& project, const std::string& player) = 0;
+    virtual void subscribe_to_player(const std::string& project, const std::string& player) = 0;
 
     /// \brief Closes a channel for the specified player, preventing listeners from receiving events for it.
     /// \param project The project's UUID.
     /// \param player The player ID.
-    /// \return The future for this operation.
-    virtual std::future<void> unsubscribe_to_player(const std::string& project, const std::string& player) = 0;
+    virtual void unsubscribe_to_player(const std::string& project, const std::string& player) = 0;
 
     /// \brief Determines if this service is subscribed to the specified channel.
     /// \param project The project's UUID.
@@ -135,13 +131,11 @@ public:
 
     /// \brief Opens a channel for the specified asset, allowing listeners to receive events for it.
     /// \param asset The asset ID.
-    /// \return The future for this operation.
-    virtual std::future<void> subscribe_to_asset(const std::string& asset) = 0;
+    virtual void subscribe_to_asset(const std::string& asset) = 0;
 
     /// \brief Closes a channel for the specified asset, preventing listeners from receiving events for it.
     /// \param asset The asset ID.
-    /// \return The future for this operation.
-    virtual std::future<void> unsubscribe_to_asset(const std::string& asset) = 0;
+    virtual void unsubscribe_to_asset(const std::string& asset) = 0;
 
     /// \brief Determines if this service is subscribed to the specified channel.
     /// \param asset The asset ID.
@@ -150,13 +144,11 @@ public:
 
     /// \brief Opens a channel for the specified wallet, allowing listeners to receive events for it.
     /// \param wallet The wallet's address.
-    /// \return The future for this operation.
-    virtual std::future<void> subscribe_to_wallet(const std::string& wallet) = 0;
+    virtual void subscribe_to_wallet(const std::string& wallet) = 0;
 
     /// \brief Closes a channel for the specified wallet, preventing listeners from receiving events for it.
     /// \param wallet The wallet's address.
-    /// \return The future for this operation.
-    virtual std::future<void> unsubscribe_to_wallet(const std::string& wallet) = 0;
+    virtual void unsubscribe_to_wallet(const std::string& wallet) = 0;
 
     /// \brief Determines if this service is subscribed to the specified channel.
     /// \param wallet The address.

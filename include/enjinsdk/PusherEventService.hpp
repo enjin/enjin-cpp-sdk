@@ -107,46 +107,42 @@ public:
 
     /// \brief Opens a channel for the specified project, allowing listeners to receive events for it.
     /// \param project The project's UUID.
-    /// \return The future for this operation.
     /// \remarks This operation may timeout after 30 seconds if no response is received from the server. In such event,
     /// this service will unsubscribe from the given channel.
-    std::future<void> subscribe_to_project(const std::string& project) override;
+    void subscribe_to_project(const std::string& project) override;
 
-    std::future<void> unsubscribe_to_project(const std::string& project) override;
+    void unsubscribe_to_project(const std::string& project) override;
 
     [[nodiscard]] bool is_subscribed_to_project(const std::string& project) const override;
 
     /// \brief Opens a channel for the specified player, allowing listeners to receive events for it.
     /// \param project The project's UUID.
     /// \param player The player ID.
-    /// \return The future for this operation.
     /// \remarks This operation may timeout after 30 seconds if no response is received from the server. In such event,
     /// this service will unsubscribe from the given channel.
-    std::future<void> subscribe_to_player(const std::string& project, const std::string& player) override;
+    void subscribe_to_player(const std::string& project, const std::string& player) override;
 
-    std::future<void> unsubscribe_to_player(const std::string& project, const std::string& player) override;
+    void unsubscribe_to_player(const std::string& project, const std::string& player) override;
 
     [[nodiscard]] bool is_subscribed_to_player(const std::string& project, const std::string& player) const override;
 
     /// \brief Opens a channel for the specified asset, allowing listeners to receive events for it.
     /// \param asset The asset ID.
-    /// \return The future for this operation.
     /// \remarks This operation may timeout after 30 seconds if no response is received from the server. In such event,
     /// this service will unsubscribe from the given channel.
-    std::future<void> subscribe_to_asset(const std::string& asset) override;
+    void subscribe_to_asset(const std::string& asset) override;
 
-    std::future<void> unsubscribe_to_asset(const std::string& asset) override;
+    void unsubscribe_to_asset(const std::string& asset) override;
 
     [[nodiscard]] bool is_subscribed_to_asset(const std::string& asset) const override;
 
     /// \brief Opens a channel for the specified wallet, allowing listeners to receive events for it.
     /// \param wallet The wallet's address.
-    /// \return The future for this operation.
     /// \remarks This operation may timeout after 30 seconds if no response is received from the server. In such event,
     /// this service will unsubscribe from the given channel.
-    std::future<void> subscribe_to_wallet(const std::string& wallet) override;
+    void subscribe_to_wallet(const std::string& wallet) override;
 
-    std::future<void> unsubscribe_to_wallet(const std::string& wallet) override;
+    void unsubscribe_to_wallet(const std::string& wallet) override;
 
     [[nodiscard]] bool is_subscribed_to_wallet(const std::string& wallet) const override;
 

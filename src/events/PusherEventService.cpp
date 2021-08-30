@@ -137,29 +137,25 @@ public:
 
     /// \brief Subscribes the Pusher client to the given channel.
     /// \param channel The channel name.
-    /// \return The future for this operation.
-    std::future<void> subscribe(const std::string& channel) {
+    void subscribe(const std::string& channel) {
         if (client == nullptr || subscribed_channels.find(channel) != subscribed_channels.end()) {
-            return utils::create_failed_future("Event service has not been started.");
+            return;
         }
 
         subscribed_channels.emplace(channel);
-        std::future<void> fut = client->subscribe(channel);
+        client->subscribe(channel);
         bind(channel);
-
-        return fut;
     }
 
     /// \brief Unsubscribes the Pusher client from the given channel.
     /// \param channel The channel name.
-    /// \return The future for this operation.
-    std::future<void> unsubscribe(const std::string& channel) {
+    void unsubscribe(const std::string& channel) {
         if (client == nullptr || subscribed_channels.find(channel) == subscribed_channels.end()) {
-            return utils::create_failed_future("Event service has not been started.");
+            return;
         }
 
         subscribed_channels.erase(channel);
-        return client->unsubscribe(channel);
+        client->unsubscribe(channel);
     }
 
     /// \brief Determines if the Pusher client is subscribed to the given channel.
@@ -332,48 +328,48 @@ void PusherEventService::unregister_listener(IEventListener& listener) {
     }
 }
 
-std::future<void> PusherEventService::subscribe_to_project(const std::string& project) {
-    return impl->subscribe(ProjectChannel(platform.value(), project).channel());
+void PusherEventService::subscribe_to_project(const std::string& project) {
+    impl->subscribe(ProjectChannel(platform.value(), project).channel());
 }
 
-std::future<void> PusherEventService::unsubscribe_to_project(const std::string& project) {
-    return impl->unsubscribe(ProjectChannel(platform.value(), project).channel());
+void PusherEventService::unsubscribe_to_project(const std::string& project) {
+    impl->unsubscribe(ProjectChannel(platform.value(), project).channel());
 }
 
 bool PusherEventService::is_subscribed_to_project(const std::string& project) const {
     return impl->is_subscribed(ProjectChannel(platform.value(), project).channel());
 }
 
-std::future<void> PusherEventService::subscribe_to_player(const std::string& project, const std::string& player) {
-    return impl->subscribe(PlayerChannel(platform.value(), project, player).channel());
+void PusherEventService::subscribe_to_player(const std::string& project, const std::string& player) {
+    impl->subscribe(PlayerChannel(platform.value(), project, player).channel());
 }
 
-std::future<void> PusherEventService::unsubscribe_to_player(const std::string& project, const std::string& player) {
-    return impl->unsubscribe(PlayerChannel(platform.value(), project, player).channel());
+void PusherEventService::unsubscribe_to_player(const std::string& project, const std::string& player) {
+    impl->unsubscribe(PlayerChannel(platform.value(), project, player).channel());
 }
 
 bool PusherEventService::is_subscribed_to_player(const std::string& project, const std::string& player) const {
     return impl->is_subscribed(PlayerChannel(platform.value(), project, player).channel());
 }
 
-std::future<void> PusherEventService::subscribe_to_asset(const std::string& asset) {
-    return impl->subscribe(AssetChannel(platform.value(), asset).channel());
+void PusherEventService::subscribe_to_asset(const std::string& asset) {
+    impl->subscribe(AssetChannel(platform.value(), asset).channel());
 }
 
-std::future<void> PusherEventService::unsubscribe_to_asset(const std::string& asset) {
-    return impl->unsubscribe(AssetChannel(platform.value(), asset).channel());
+void PusherEventService::unsubscribe_to_asset(const std::string& asset) {
+    impl->unsubscribe(AssetChannel(platform.value(), asset).channel());
 }
 
 bool PusherEventService::is_subscribed_to_asset(const std::string& asset) const {
     return impl->is_subscribed(AssetChannel(platform.value(), asset).channel());
 }
 
-std::future<void> PusherEventService::subscribe_to_wallet(const std::string& wallet) {
-    return impl->subscribe(WalletChannel(platform.value(), wallet).channel());
+void PusherEventService::subscribe_to_wallet(const std::string& wallet) {
+    impl->subscribe(WalletChannel(platform.value(), wallet).channel());
 }
 
-std::future<void> PusherEventService::unsubscribe_to_wallet(const std::string& wallet) {
-    return impl->unsubscribe(WalletChannel(platform.value(), wallet).channel());
+void PusherEventService::unsubscribe_to_wallet(const std::string& wallet) {
+    impl->unsubscribe(WalletChannel(platform.value(), wallet).channel());
 }
 
 bool PusherEventService::is_subscribed_to_wallet(const std::string& wallet) const {
