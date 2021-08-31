@@ -50,7 +50,7 @@ public:
 
     Impl(std::shared_ptr<PusherEventListener> listener,
          std::unique_ptr<websockets::IWebsocketClient> ws_client,
-         std::shared_ptr<utils::LoggerProvider> logger_provider) // TODO: Make constant-reference.
+         std::shared_ptr<utils::LoggerProvider> logger_provider)
             : listener(std::move(listener)),
               ws_client(std::move(ws_client)),
               logger_provider(std::move(logger_provider)) {
@@ -58,8 +58,8 @@ public:
 
     Impl(std::shared_ptr<PusherEventListener> listener,
          std::unique_ptr<websockets::IWebsocketClient> ws_client,
-         std::shared_ptr<utils::LoggerProvider> logger_provider, // TODO: Make constant-reference.
-         models::Platform platform)
+         std::shared_ptr<utils::LoggerProvider> logger_provider,
+         const models::Platform& platform)
             : platform(platform),
               listener(std::move(listener)),
               ws_client(std::move(ws_client)),
@@ -124,7 +124,7 @@ public:
         return client->connect();
     }
 
-    std::future<void> start(models::Platform platform) override {
+    std::future<void> start(const models::Platform& platform) override {
         Impl::platform = platform;
         return start();
     }
@@ -141,11 +141,11 @@ public:
         return client != nullptr && client->get_state() == pusher::PusherConnectionState::CONNECTED;
     }
 
-    bool is_registered(IEventListener& listener) const override {
+    bool is_registered(const IEventListener& listener) const override {
         auto loc = std::find_if(listeners.begin(),
                                 listeners.end(),
-                                [&listener](const std::shared_ptr<EventListenerRegistration>& r) {
-                                    return &r->get_listener() == &listener;
+                                [&listener](const EventListenerRegistration& r) {
+                                    return &r.get_listener() == &listener;
                                 });
         return loc != listeners.end();
     }
@@ -162,37 +162,38 @@ public:
         error_handler = handler;
     }
 
-    std::shared_ptr<EventListenerRegistration> register_listener(std::shared_ptr<IEventListener> listener) override {
+    const EventListenerRegistration&
+    register_listener(const std::shared_ptr<IEventListener>& listener) override {
         return cache_registration(EventListenerRegistration::RegistrationListenerConfiguration(listener));
     }
 
-    std::shared_ptr<EventListenerRegistration>
-    register_listener_with_matcher(std::shared_ptr<IEventListener> listener,
-                                   std::function<bool(models::EventType)> matcher) override {
+    const EventListenerRegistration&
+    register_listener_with_matcher(const std::shared_ptr<IEventListener>& listener,
+                                   const std::function<bool(models::EventType)>& matcher) override {
         return cache_registration(EventListenerRegistration::RegistrationListenerConfiguration(listener)
                                           .with_matcher(matcher));
     }
 
-    std::shared_ptr<EventListenerRegistration>
-    register_listener_including_types(std::shared_ptr<IEventListener> listener,
+    const EventListenerRegistration&
+    register_listener_including_types(const std::shared_ptr<IEventListener>& listener,
                                       const std::vector<models::EventType>& types) override {
         return cache_registration(EventListenerRegistration::RegistrationListenerConfiguration(listener)
                                           .with_allowed_events(types));
     }
 
-    std::shared_ptr<EventListenerRegistration>
-    register_listener_excluding_types(std::shared_ptr<IEventListener> listener,
+    const EventListenerRegistration&
+    register_listener_excluding_types(const std::shared_ptr<IEventListener>& listener,
                                       const std::vector<models::EventType>& types) override {
         return cache_registration(EventListenerRegistration::RegistrationListenerConfiguration(listener)
                                           .with_ignored_events(types));
     }
 
-    void unregister_listener(IEventListener& listener) override {
+    void unregister_listener(const IEventListener& listener) override {
         // Finds the first registration that matches
         auto loc = std::find_if(listeners.begin(),
                                 listeners.end(),
-                                [&listener](const std::shared_ptr<EventListenerRegistration>& r) {
-                                    return &r->get_listener() == &listener;
+                                [&listener](const EventListenerRegistration& r) {
+                                    return &r.get_listener() == &listener;
                                 });
 
         if (loc != listeners.end()) {
@@ -248,7 +249,7 @@ public:
         return is_subscribed(WalletChannel(platform.value(), wallet).channel());
     }
 
-    [[nodiscard]] const std::vector<std::shared_ptr<EventListenerRegistration>>& get_listeners() const {
+    [[nodiscard]] const std::vector<EventListenerRegistration>& get_listeners() const {
         return listeners;
     }
 
@@ -259,7 +260,7 @@ public:
 private:
     std::optional<models::Platform> platform;
     std::unordered_set<std::string> subscribed_channels;
-    std::vector<std::shared_ptr<EventListenerRegistration>> listeners;
+    std::vector<EventListenerRegistration> listeners;
 
     std::shared_ptr<PusherEventListener> listener;
     std::shared_ptr<websockets::IWebsocketClient> ws_client;
@@ -271,19 +272,18 @@ private:
     std::optional<std::function<void()>> disconnected_handler;
     std::optional<std::function<void(const std::exception&)>> error_handler;
 
-    std::shared_ptr<EventListenerRegistration>
+    const EventListenerRegistration&
     cache_registration(EventListenerRegistration::RegistrationListenerConfiguration configuration) {
         // Check if a registration for the listener already exists
         for (const auto& r : listeners) {
-            if (&r->get_listener() == &configuration.get_listener()) {
+            if (&r.get_listener() == &configuration.get_listener()) {
                 return r;
             }
         }
 
-        std::shared_ptr<EventListenerRegistration> registration = configuration.create();
-        listeners.push_back(registration);
+        listeners.push_back(configuration.create());
 
-        return registration;
+        return listeners.back();
     }
 
     void subscribe(const std::string& channel) {
@@ -334,11 +334,11 @@ PusherEventService::PusherEventService(std::unique_ptr<websockets::IWebsocketCli
 
 PusherEventService::PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client,
                                        std::shared_ptr<utils::LoggerProvider> logger_provider,
-                                       models::Platform platform)
+                                       const models::Platform& platform)
         : impl(new Impl(std::make_unique<PusherEventListener>(this),
                         std::move(ws_client),
                         std::move(logger_provider),
-                        std::move(platform))) {
+                        platform)) {
 }
 
 PusherEventService::~PusherEventService() {
@@ -349,7 +349,7 @@ std::future<void> PusherEventService::start() {
     return impl->start();
 }
 
-std::future<void> PusherEventService::start(models::Platform platform) {
+std::future<void> PusherEventService::start(const models::Platform& platform) {
     return impl->start(platform);
 }
 
@@ -361,7 +361,7 @@ bool PusherEventService::is_connected() const {
     return impl->is_connected();
 }
 
-bool PusherEventService::is_registered(IEventListener& listener) const {
+bool PusherEventService::is_registered(const IEventListener& listener) const {
     return impl->is_registered(listener);
 }
 
@@ -377,30 +377,30 @@ void PusherEventService::set_error_handler(const std::function<void(const std::e
     impl->set_error_handler(handler);
 }
 
-std::shared_ptr<EventListenerRegistration>
-PusherEventService::register_listener(std::shared_ptr<IEventListener> listener) {
+const EventListenerRegistration&
+PusherEventService::register_listener(const std::shared_ptr<IEventListener>& listener) {
     return impl->register_listener(listener);
 }
 
-std::shared_ptr<EventListenerRegistration>
-PusherEventService::register_listener_with_matcher(std::shared_ptr<IEventListener> listener,
-                                                   std::function<bool(models::EventType)> matcher) {
+const EventListenerRegistration&
+PusherEventService::register_listener_with_matcher(const std::shared_ptr<IEventListener>& listener,
+                                                   const std::function<bool(models::EventType)>& matcher) {
     return impl->register_listener_with_matcher(listener, matcher);
 }
 
-std::shared_ptr<EventListenerRegistration>
-PusherEventService::register_listener_including_types(std::shared_ptr<IEventListener> listener,
+const EventListenerRegistration&
+PusherEventService::register_listener_including_types(const std::shared_ptr<IEventListener>& listener,
                                                       const std::vector<models::EventType>& types) {
     return impl->register_listener_including_types(listener, types);
 }
 
-std::shared_ptr<EventListenerRegistration>
-PusherEventService::register_listener_excluding_types(std::shared_ptr<IEventListener> listener,
+const EventListenerRegistration&
+PusherEventService::register_listener_excluding_types(const std::shared_ptr<IEventListener>& listener,
                                                       const std::vector<models::EventType>& types) {
     return impl->register_listener_excluding_types(listener, types);
 }
 
-void PusherEventService::unregister_listener(IEventListener& listener) {
+void PusherEventService::unregister_listener(const IEventListener& listener) {
     impl->unregister_listener(listener);
 }
 
@@ -452,7 +452,7 @@ bool PusherEventService::is_subscribed_to_wallet(const std::string& wallet) cons
     return impl->is_subscribed_to_wallet(wallet);
 }
 
-const std::vector<std::shared_ptr<EventListenerRegistration>>& PusherEventService::get_listeners() const {
+const std::vector<EventListenerRegistration>& PusherEventService::get_listeners() const {
     return impl->get_listeners();
 }
 
@@ -471,10 +471,10 @@ std::unique_ptr<PusherEventService> PusherEventServiceBuilder::build() {
 
     return m_platform.has_value()
            ? std::unique_ptr<PusherEventService>(new PusherEventService(std::move(m_ws_client),
-                                                                        m_provider,
+                                                                        std::move(m_provider),
                                                                         m_platform.value()))
            : std::unique_ptr<PusherEventService>(new PusherEventService(std::move(m_ws_client),
-                                                                        m_provider));
+                                                                        std::move(m_provider)));
 }
 
 PusherEventServiceBuilder& PusherEventServiceBuilder::platform(const models::Platform& platform) {
@@ -488,8 +488,9 @@ PusherEventServiceBuilder::ws_client(std::unique_ptr<websockets::IWebsocketClien
     return *this;
 }
 
-PusherEventServiceBuilder& PusherEventServiceBuilder::logger_provider(std::shared_ptr<utils::LoggerProvider> provider) {
-    m_provider = std::move(provider);
+PusherEventServiceBuilder&
+PusherEventServiceBuilder::logger_provider(const std::shared_ptr<utils::LoggerProvider>& provider) {
+    m_provider = provider;
     return *this;
 }
 

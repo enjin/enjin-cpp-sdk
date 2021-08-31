@@ -40,7 +40,7 @@ public:
     /// \brief Starts this service with the provided platform details.
     /// \param platform The platform details.
     /// \return The future for this operation.
-    virtual std::future<void> start(models::Platform platform) = 0;
+    virtual std::future<void> start(const models::Platform& platform) = 0;
 
     /// \brief Shuts down this service.
     /// \return The future for this operation.
@@ -53,7 +53,7 @@ public:
     /// \brief Determines if the the listener is registered to this service.
     /// \param listener The listener.
     /// \return Whether the listener is registered.
-    [[nodiscard]] virtual bool is_registered(IEventListener& listener) const = 0;
+    [[nodiscard]] virtual bool is_registered(const IEventListener& listener) const = 0;
 
     /// \brief Sets a handler for when the service connects to the server.
     /// \param handler The handler.
@@ -68,37 +68,38 @@ public:
     virtual void set_error_handler(const std::function<void(const std::exception& e)>& handler) = 0;
 
     /// \brief Registers a event listener and provides the registration for it.
-    /// \param listener The shared listener.
+    /// \param listener The listener.
     /// \return The registration.
-    virtual std::shared_ptr<EventListenerRegistration> register_listener(std::shared_ptr<IEventListener> listener) = 0;
+    virtual const EventListenerRegistration&
+    register_listener(const std::shared_ptr<IEventListener>& listener) = 0;
 
     /// \brief Registers a event listener with a function for event matcher and provides the registration for it.
-    /// \param listener The shared listener.
+    /// \param listener The listener.
     /// \param matcher The event matcher.
     /// \return The registration.
-    virtual std::shared_ptr<EventListenerRegistration>
-    register_listener_with_matcher(std::shared_ptr<IEventListener> listener,
-                                   std::function<bool(models::EventType)> matcher) = 0;
+    virtual const EventListenerRegistration&
+    register_listener_with_matcher(const std::shared_ptr<IEventListener>& listener,
+                                   const std::function<bool(models::EventType)>& matcher) = 0;
 
     /// \brief Registers a event listener with event types to allow and provides the registration for it.
-    /// \param listener The shared listener.
+    /// \param listener The listener.
     /// \param types The event types to allow.
     /// \return The registration.
-    virtual std::shared_ptr<EventListenerRegistration>
-    register_listener_including_types(std::shared_ptr<IEventListener> listener,
+    virtual const EventListenerRegistration&
+    register_listener_including_types(const std::shared_ptr<IEventListener>& listener,
                                       const std::vector<models::EventType>& types) = 0;
 
     /// \brief Registers a event listener with event types to ignore and provides the registration for it.
-    /// \param listener The shared listener.
+    /// \param listener The listener.
     /// \param types The event types to ignore.
     /// \return The registration.
-    virtual std::shared_ptr<EventListenerRegistration>
-    register_listener_excluding_types(std::shared_ptr<IEventListener> listener,
+    virtual const EventListenerRegistration&
+    register_listener_excluding_types(const std::shared_ptr<IEventListener>& listener,
                                       const std::vector<models::EventType>& types) = 0;
 
     /// \brief Unregisters the event listener from this service.
     /// \param listener The listener.
-    virtual void unregister_listener(IEventListener& listener) = 0;
+    virtual void unregister_listener(const IEventListener& listener) = 0;
 
     /// \brief Opens a channel for the specified project, allowing listeners to receive events for it.
     /// \param project The project's UUID.

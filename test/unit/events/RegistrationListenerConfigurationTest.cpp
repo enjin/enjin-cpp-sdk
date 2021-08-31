@@ -21,41 +21,42 @@
 #include <vector>
 
 using namespace enjin::sdk::events;
+using namespace enjin::sdk::models;
 using namespace enjin::test::mocks;
 
 class RegistrationListenerConfigurationTest : public testing::Test {
 public:
-    inline static const std::vector<enjin::sdk::models::EventType> types = {
-            enjin::sdk::models::EventType::UNKNOWN,
-            enjin::sdk::models::EventType::PROJECT_CREATED,
-            enjin::sdk::models::EventType::PROJECT_DELETED,
-            enjin::sdk::models::EventType::PROJECT_LINKED,
-            enjin::sdk::models::EventType::PROJECT_LOCKED,
-            enjin::sdk::models::EventType::PROJECT_UNLINKED,
-            enjin::sdk::models::EventType::PROJECT_UNLOCKED,
-            enjin::sdk::models::EventType::PROJECT_UPDATED,
-            enjin::sdk::models::EventType::BLOCKCHAIN_LOG_PROCESSED,
-            enjin::sdk::models::EventType::MESSAGE_PROCESSED,
-            enjin::sdk::models::EventType::PLAYER_CREATED,
-            enjin::sdk::models::EventType::PLAYER_DELETED,
-            enjin::sdk::models::EventType::PLAYER_LINKED,
-            enjin::sdk::models::EventType::PLAYER_UNLINKED,
-            enjin::sdk::models::EventType::PLAYER_UPDATED,
-            enjin::sdk::models::EventType::ASSET_CREATED,
-            enjin::sdk::models::EventType::ASSET_MELTED,
-            enjin::sdk::models::EventType::ASSET_MINTED,
-            enjin::sdk::models::EventType::ASSET_TRANSFERRED,
-            enjin::sdk::models::EventType::ASSET_UPDATED,
-            enjin::sdk::models::EventType::TRADE_COMPLETED,
-            enjin::sdk::models::EventType::TRADE_CREATED,
-            enjin::sdk::models::EventType::TRANSACTION_BROADCAST,
-            enjin::sdk::models::EventType::TRANSACTION_CANCELED,
-            enjin::sdk::models::EventType::TRANSACTION_DROPPED,
-            enjin::sdk::models::EventType::TRANSACTION_EXECUTED,
-            enjin::sdk::models::EventType::TRANSACTION_FAILED,
-            enjin::sdk::models::EventType::TRANSACTION_PENDING,
-            enjin::sdk::models::EventType::TRANSACTION_PROCESSING,
-            enjin::sdk::models::EventType::TRANSACTION_UPDATED,
+    inline static const std::vector<EventType> types = {
+            EventType::UNKNOWN,
+            EventType::PROJECT_CREATED,
+            EventType::PROJECT_DELETED,
+            EventType::PROJECT_LINKED,
+            EventType::PROJECT_LOCKED,
+            EventType::PROJECT_UNLINKED,
+            EventType::PROJECT_UNLOCKED,
+            EventType::PROJECT_UPDATED,
+            EventType::BLOCKCHAIN_LOG_PROCESSED,
+            EventType::MESSAGE_PROCESSED,
+            EventType::PLAYER_CREATED,
+            EventType::PLAYER_DELETED,
+            EventType::PLAYER_LINKED,
+            EventType::PLAYER_UNLINKED,
+            EventType::PLAYER_UPDATED,
+            EventType::ASSET_CREATED,
+            EventType::ASSET_MELTED,
+            EventType::ASSET_MINTED,
+            EventType::ASSET_TRANSFERRED,
+            EventType::ASSET_UPDATED,
+            EventType::TRADE_COMPLETED,
+            EventType::TRADE_CREATED,
+            EventType::TRANSACTION_BROADCAST,
+            EventType::TRANSACTION_CANCELED,
+            EventType::TRANSACTION_DROPPED,
+            EventType::TRANSACTION_EXECUTED,
+            EventType::TRANSACTION_FAILED,
+            EventType::TRANSACTION_PENDING,
+            EventType::TRANSACTION_PROCESSING,
+            EventType::TRANSACTION_UPDATED,
     };
 };
 
@@ -65,10 +66,10 @@ TEST_F(RegistrationListenerConfigurationTest, RegistrationHasConfiguredListenerW
     EventListenerRegistration::RegistrationListenerConfiguration configuration(mock_listener);
 
     // Act
-    std::unique_ptr<EventListenerRegistration> registration = configuration.create();
+    auto registration = configuration.create();
 
     // Assert
-    ASSERT_EQ(mock_listener.get(), &registration->get_listener());
+    ASSERT_EQ(mock_listener.get(), &(registration.get_listener()));
 }
 
 TEST_F(RegistrationListenerConfigurationTest, NoGivenMatcherRegistrationIsCreatedWithAllowAllMatcher) {
@@ -77,84 +78,84 @@ TEST_F(RegistrationListenerConfigurationTest, NoGivenMatcherRegistrationIsCreate
     EventListenerRegistration::RegistrationListenerConfiguration configuration(mock_listener);
 
     // Act
-    std::unique_ptr<EventListenerRegistration> registration = configuration.create();
+    auto registration = configuration.create();
 
     // Assert
     for (auto t : types) {
-        EXPECT_TRUE(registration->get_matcher()(t));
+        EXPECT_TRUE(registration.get_matcher()(t));
     }
 }
 
 TEST_F(RegistrationListenerConfigurationTest, WithMatcherRegistrationIsCreatedWithCorrectMatcher) {
     // Arrange
-    const std::function<bool(enjin::sdk::models::EventType)> matcher = [](enjin::sdk::models::EventType type) {
+    const std::function<bool(EventType)> matcher = [](EventType type) {
         return false;
     };
     std::shared_ptr<IEventListener> mock_listener(new MockEventListener);
     EventListenerRegistration::RegistrationListenerConfiguration configuration(mock_listener);
 
     // Act
-    std::unique_ptr<EventListenerRegistration> registration = configuration.with_matcher(matcher)
-                                                                           .create();
+    auto registration = configuration.with_matcher(matcher)
+                                     .create();
 
     // Assert
     for (auto t : types) {
-        EXPECT_FALSE(registration->get_matcher()(t));
+        EXPECT_FALSE(registration.get_matcher()(t));
     }
 }
 
 TEST_F(RegistrationListenerConfigurationTest, WithAllowedEventsRegistrationIsCreatedWithCorrectMatcher) {
     // Arrange
-    const std::vector<enjin::sdk::models::EventType> allowed_events = {
-            enjin::sdk::models::EventType::PLAYER_LINKED,
-            enjin::sdk::models::EventType::PLAYER_UNLINKED,
-            enjin::sdk::models::EventType::PLAYER_UPDATED,
-            enjin::sdk::models::EventType::ASSET_MELTED,
-            enjin::sdk::models::EventType::ASSET_MINTED,
-            enjin::sdk::models::EventType::ASSET_TRANSFERRED,
-            enjin::sdk::models::EventType::ASSET_UPDATED,
+    const std::vector<EventType> allowed_events = {
+            EventType::PLAYER_LINKED,
+            EventType::PLAYER_UNLINKED,
+            EventType::PLAYER_UPDATED,
+            EventType::ASSET_MELTED,
+            EventType::ASSET_MINTED,
+            EventType::ASSET_TRANSFERRED,
+            EventType::ASSET_UPDATED,
     };
     std::shared_ptr<IEventListener> mock_listener(new MockEventListener);
     EventListenerRegistration::RegistrationListenerConfiguration configuration(mock_listener);
 
     // Act
-    std::unique_ptr<EventListenerRegistration> registration = configuration.with_allowed_events(allowed_events)
-                                                                           .create();
+    auto registration = configuration.with_allowed_events(allowed_events)
+                                     .create();
 
     // Assert
     for (auto t : types) {
         if (std::find(allowed_events.begin(), allowed_events.end(), t) != allowed_events.end()) {
-            EXPECT_TRUE(registration->get_matcher()(t));
+            EXPECT_TRUE(registration.get_matcher()(t));
         } else {
-            EXPECT_FALSE(registration->get_matcher()(t));
+            EXPECT_FALSE(registration.get_matcher()(t));
         }
     }
 }
 
 TEST_F(RegistrationListenerConfigurationTest, WithIgnoredEventsRegistrationIsCreatedWithCorrectMatcher) {
     // Arrange
-    const std::vector<enjin::sdk::models::EventType> ignored_events = {
-            enjin::sdk::models::EventType::PLAYER_LINKED,
-            enjin::sdk::models::EventType::PLAYER_UNLINKED,
-            enjin::sdk::models::EventType::PLAYER_UPDATED,
-            enjin::sdk::models::EventType::ASSET_MELTED,
-            enjin::sdk::models::EventType::ASSET_MINTED,
-            enjin::sdk::models::EventType::ASSET_TRANSFERRED,
-            enjin::sdk::models::EventType::ASSET_UPDATED,
+    const std::vector<EventType> ignored_events = {
+            EventType::PLAYER_LINKED,
+            EventType::PLAYER_UNLINKED,
+            EventType::PLAYER_UPDATED,
+            EventType::ASSET_MELTED,
+            EventType::ASSET_MINTED,
+            EventType::ASSET_TRANSFERRED,
+            EventType::ASSET_UPDATED,
     };
     std::shared_ptr<IEventListener> mock_listener(new MockEventListener);
     EventListenerRegistration::RegistrationListenerConfiguration configuration(mock_listener);
 
     // Act
-    std::unique_ptr<EventListenerRegistration> registration = configuration.with_ignored_events(ignored_events)
-                                                                           .create();
+    auto registration = configuration.with_ignored_events(ignored_events)
+                                     .create();
 
     // Assert
     for (auto t : types) {
         if (std::find(ignored_events.begin(), ignored_events.end(), t) == ignored_events.end()) {
-            EXPECT_TRUE(registration->get_matcher()(t));
+            EXPECT_TRUE(registration.get_matcher()(t));
         } else {
-            EXPECT_FALSE(registration->get_matcher()(t));
+            EXPECT_FALSE(registration.get_matcher()(t));
         }
     }
 }

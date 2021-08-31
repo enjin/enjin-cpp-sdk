@@ -178,7 +178,7 @@ void PusherClient::unsubscribe(const std::string& channel_name) {
     ws_client->send(get_unsubscription_message_for_channel_name(channel_name));
 }
 
-void PusherClient::bind(const std::string& event_name, const std::shared_ptr<ISubscriptionEventListener> listener) {
+void PusherClient::bind(const std::string& event_name, const std::shared_ptr<ISubscriptionEventListener>& listener) {
     std::set<std::shared_ptr<ISubscriptionEventListener>> set({listener});
 
     std::lock_guard<std::mutex> guard(event_listeners_mutex);

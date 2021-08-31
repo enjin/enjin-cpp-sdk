@@ -47,7 +47,7 @@ public:
     /// \return This builder for chaining.
     PusherEventServiceBuilder& platform(const models::Platform& platform);
 
-    /// \brief Sets the websocket client.
+    /// \brief Sets the websocket client to be moved to the service.
     /// \param ws_client The websocket client.
     /// \return This builder for chaining.
     PusherEventServiceBuilder& ws_client(std::unique_ptr<websockets::IWebsocketClient> ws_client);
@@ -55,7 +55,7 @@ public:
     /// \brief Sets the logger provider to be used by the event service.
     /// \param logger_provider The logger provider.
     /// \return This builder for chaining.
-    PusherEventServiceBuilder& logger_provider(std::shared_ptr<utils::LoggerProvider> logger_provider);
+    PusherEventServiceBuilder& logger_provider(const std::shared_ptr<utils::LoggerProvider>& logger_provider);
 
 private:
     std::optional<models::Platform> m_platform;
@@ -72,13 +72,13 @@ public:
 
     std::future<void> start() override;
 
-    std::future<void> start(models::Platform platform) override;
+    std::future<void> start(const models::Platform& platform) override;
 
     std::future<void> shutdown() override;
 
     [[nodiscard]] bool is_connected() const override;
 
-    [[nodiscard]] bool is_registered(IEventListener& listener) const override;
+    [[nodiscard]] bool is_registered(const IEventListener& listener) const override;
 
     void set_connected_handler(const std::function<void()>& handler) override;
 
@@ -86,21 +86,21 @@ public:
 
     void set_error_handler(const std::function<void(const std::exception&)>& handler) override;
 
-    std::shared_ptr<EventListenerRegistration> register_listener(std::shared_ptr<IEventListener> listener) override;
+    const EventListenerRegistration& register_listener(const std::shared_ptr<IEventListener>& listener) override;
 
-    std::shared_ptr<EventListenerRegistration>
-    register_listener_with_matcher(std::shared_ptr<IEventListener> listener,
-                                   std::function<bool(models::EventType)> matcher) override;
+    const EventListenerRegistration&
+    register_listener_with_matcher(const std::shared_ptr<IEventListener>& listener,
+                                   const std::function<bool(models::EventType)>& matcher) override;
 
-    std::shared_ptr<EventListenerRegistration>
-    register_listener_including_types(std::shared_ptr<IEventListener> listener,
+    const EventListenerRegistration&
+    register_listener_including_types(const std::shared_ptr<IEventListener>& listener,
                                       const std::vector<models::EventType>& types) override;
 
-    std::shared_ptr<EventListenerRegistration>
-    register_listener_excluding_types(std::shared_ptr<IEventListener> listener,
+    const EventListenerRegistration&
+    register_listener_excluding_types(const std::shared_ptr<IEventListener>& listener,
                                       const std::vector<models::EventType>& types) override;
 
-    void unregister_listener(IEventListener& listener) override;
+    void unregister_listener(const IEventListener& listener) override;
 
     /// \brief Opens a channel for the specified project, allowing listeners to receive events for it.
     /// \param project The project's UUID.
@@ -145,7 +145,7 @@ public:
 
     /// \brief Returns the registrations for listeners registered to this service.
     /// \return The listener registrations.
-    [[nodiscard]] const std::vector<std::shared_ptr<EventListenerRegistration>>& get_listeners() const;
+    [[nodiscard]] const std::vector<EventListenerRegistration>& get_listeners() const;
 
     /// \brief Returns the logger provider used by this service.
     /// \return The logger provider.
@@ -161,7 +161,7 @@ private:
 
     PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client,
                        std::shared_ptr<utils::LoggerProvider> logger_provider,
-                       models::Platform platform);
+                       const models::Platform& platform);
 
     friend std::unique_ptr<PusherEventService> PusherEventServiceBuilder::build();
 };

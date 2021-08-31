@@ -75,7 +75,7 @@ public:
     /// \brief Binds a listener to the specified event.
     /// \param event_name The name of the event.
     /// \param listener The listener.
-    void bind(const std::string& event_name, const std::shared_ptr<ISubscriptionEventListener> listener);
+    void bind(const std::string& event_name, const std::shared_ptr<ISubscriptionEventListener>& listener);
 
     /// \brief Unbinds from the specified event.
     /// \param event_name The name of the event.
