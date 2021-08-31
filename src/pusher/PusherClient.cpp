@@ -221,9 +221,9 @@ PusherConnectionState PusherClient::get_state() const {
 }
 
 void PusherClient::set_state(PusherConnectionState state) {
-    state_mutex.lock();
+    std::unique_lock<std::mutex> state_lock(state_mutex);
     PusherClient::state = state;
-    state_mutex.unlock();
+    state_lock.unlock();
 
     if (on_connection_state_change.has_value()) {
         on_connection_state_change.value()(state);
