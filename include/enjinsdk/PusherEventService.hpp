@@ -27,9 +27,6 @@
 
 namespace enjin::sdk::events {
 
-/// \brief Implementation of the Pusher event service used internally.
-class ENJINSDK_EXPORT PusherEventServiceImpl;
-
 class PusherEventService;
 
 /// \brief Builder for a Pusher event service.
@@ -154,27 +151,16 @@ public:
     /// \return The logger provider.
     [[nodiscard]] const std::shared_ptr<utils::LoggerProvider>& get_logger_provider() const;
 
-protected:
-    /// \brief The registered listeners for this service.
-    std::vector<std::shared_ptr<EventListenerRegistration>> listeners;
-
-    /// \brief Caches the registration created from the configuration.
-    /// \param configuration The configuration used to create the registration.
-    /// \return Pointer to the created registration.
-    std::shared_ptr<EventListenerRegistration>
-    cache_registration(EventListenerRegistration::RegistrationListenerConfiguration configuration);
-
 private:
-    PusherEventServiceImpl* impl;
+    class Impl;
 
-    std::optional<models::Platform> platform;
-    std::shared_ptr<utils::LoggerProvider> logger_provider;
+    Impl* impl;
 
     explicit PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client,
                                 std::shared_ptr<utils::LoggerProvider> logger_provider);
 
     PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client,
-                       std::shared_ptr<utils::LoggerProvider> logger,
+                       std::shared_ptr<utils::LoggerProvider> logger_provider,
                        models::Platform platform);
 
     friend std::unique_ptr<PusherEventService> PusherEventServiceBuilder::build();
