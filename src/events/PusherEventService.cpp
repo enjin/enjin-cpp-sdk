@@ -113,7 +113,7 @@ public:
             if (logger_provider != nullptr) {
                 std::stringstream ss;
                 ss << "Error on Pusher client: " << e.what();
-                logger_provider->log(utils::LogLevel::SEVERE, ss.str());
+                logger_provider->log(utils::LogLevel::ERR, ss.str());
             }
 
             if (error_handler.has_value()) {
