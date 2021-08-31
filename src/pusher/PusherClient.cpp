@@ -245,10 +245,12 @@ void PusherClient::emit_event(const PusherEvent& event) {
 
     const std::string& event_name = event.get_event_name().value();
 
-    std::lock_guard<std::mutex> guard(event_listeners_mutex);
+    std::unique_lock<std::mutex> listeners_lock(event_listeners_mutex);
+    auto listeners = event_listeners;
+    listeners_lock.unlock();
 
-    auto loc = event_listeners.find(event_name);
-    if (loc != event_listeners.end()) {
+    auto loc = listeners.find(event_name);
+    if (loc != listeners.end()) {
         for (const auto& listener : loc->second) {
             listener->on_event(event);
         }
