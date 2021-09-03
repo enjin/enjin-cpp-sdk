@@ -41,4 +41,5 @@ INSTANTIATE_TEST_SUITE_P(SerializeTransactionField,
                          testing::Values(std::make_tuple("id", TransactionField::ID),
                                          std::make_tuple("state", TransactionField::STATE),
                                          std::make_tuple("title", TransactionField::TITLE),
-                                         std::make_tuple("createdAt", TransactionField::CREATED_AT)));
+                                         std::make_tuple("createdAt", TransactionField::CREATED_AT),
+                                         std::make_tuple("updatedAt", TransactionField::UPDATED_AT)));

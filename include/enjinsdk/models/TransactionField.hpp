@@ -24,6 +24,7 @@ enum class TransactionField {
     STATE,
     TITLE,
     CREATED_AT,
+    UPDATED_AT,
 };
 
 }

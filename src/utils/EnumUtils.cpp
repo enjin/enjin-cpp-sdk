@@ -541,6 +541,8 @@ std::string serialize_transaction_field(models::TransactionField v) noexcept {
             return "title";
         case models::TransactionField::CREATED_AT:
             return "createdAt";
+        case models::TransactionField::UPDATED_AT:
+            return "updatedAt";
         default:
             return "";
     }
