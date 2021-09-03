@@ -109,7 +109,11 @@ models::RequestState deserialize_request_state(const std::string& s) noexcept {
 
 models::RequestType deserialize_request_type(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
-    if (str == "APPROVE") {
+    if (str == "ACCEPT_ASSIGNMENT") {
+        return models::RequestType::ACCEPT_ASSIGNMENT;
+    } else if (str == "ASSIGN") {
+        return models::RequestType::ASSIGN;
+    } else if (str == "APPROVE") {
         return models::RequestType::APPROVE;
     } else if (str == "CREATE") {
         return models::RequestType::CREATE;
@@ -335,6 +339,10 @@ std::string serialize_request_state(models::RequestState v) noexcept {
 
 std::string serialize_request_type(models::RequestType v) noexcept {
     switch (v) {
+        case models::RequestType::ACCEPT_ASSIGNMENT:
+            return "ACCEPT_ASSIGNMENT";
+        case models::RequestType::ASSIGN:
+            return "ASSIGN";
         case models::RequestType::APPROVE:
             return "APPROVE";
         case models::RequestType::CREATE:

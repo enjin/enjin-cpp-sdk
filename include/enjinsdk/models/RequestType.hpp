@@ -21,6 +21,8 @@ namespace enjin::sdk::models {
 /// \brief Represents the request type when creating or updating a request.
 enum class RequestType {
     UNKNOWN, ///< SDK value for unknown values.
+    ACCEPT_ASSIGNMENT,
+    ASSIGN,
     APPROVE,
     CREATE,
     MINT,

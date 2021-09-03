@@ -50,7 +50,9 @@ TEST_P(RequestTypeTest, SerializeRequestTypeReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializableRequestType,
                          RequestTypeTest,
-                         testing::Values(std::make_tuple("APPROVE", RequestType::APPROVE),
+                         testing::Values(std::make_tuple("ACCEPT_ASSIGNMENT", RequestType::ACCEPT_ASSIGNMENT),
+                                         std::make_tuple("ASSIGN", RequestType::ASSIGN),
+                                         std::make_tuple("APPROVE", RequestType::APPROVE),
                                          std::make_tuple("CREATE", RequestType::CREATE),
                                          std::make_tuple("MINT", RequestType::MINT),
                                          std::make_tuple("SEND", RequestType::SEND),
