@@ -25,7 +25,7 @@ class ENJINSDK_EXPORT IEventListener {
 public:
     virtual ~IEventListener() = default;
 
-    virtual void notification_received(models::NotificationEvent event) = 0;
+    virtual void notification_received(const models::NotificationEvent& event) = 0;
 };
 
 }

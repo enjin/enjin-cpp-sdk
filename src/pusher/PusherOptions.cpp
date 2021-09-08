@@ -33,10 +33,6 @@ std::string PusherOptions::get_cluster() const {
     return cluster.value_or(DEFAULT_CLUSTER);
 }
 
-std::chrono::milliseconds PusherOptions::get_client_timeout() const {
-    return client_timeout.value_or(DEFAULT_CLIENT_TIMEOUT);
-}
-
 bool PusherOptions::is_encrypted() const {
     return encrypted.value_or(DEFAULT_ENCRYPTION);
 }

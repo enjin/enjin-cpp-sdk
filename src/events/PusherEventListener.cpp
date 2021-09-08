@@ -59,9 +59,9 @@ void PusherEventListener::on_event(const pusher::PusherEvent& event) {
 
     models::NotificationEvent notification_event(def.get_type(), channel, message);
 
-    for (auto& registration : listeners) {
-        if (registration->get_matcher()(notification_event.get_type())) {
-            registration->get_listener().notification_received(notification_event);
+    for (const auto& registration : listeners) {
+        if (registration.get_matcher()(notification_event.get_type())) {
+            registration.get_listener().notification_received(notification_event);
         }
     }
 }

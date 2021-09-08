@@ -13,12 +13,12 @@
  * limitations under the License.
  */
 
-#include "FakeWebSocketClientImpl.hpp"
+#include "FakeWebSocketClient.hpp"
 
 namespace enjin::test::mocks {
 
-std::future<void> FakeWebSocketClientImpl::connect(const std::string& uri) {
-    return WebsocketClientImpl::connect("ws://127.0.0.1:8080/ws");
+std::future<void> FakeWebSocketClient::connect(const std::string& uri) {
+    return WebsocketClient::connect("ws://127.0.0.1:8080/ws");
 }
 
 }

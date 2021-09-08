@@ -18,29 +18,24 @@
 #endif
 #if ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL
 
-#ifndef ENJINCPPSDK_WEBSOCKETCLIENTIMPL_HPP
-#define ENJINCPPSDK_WEBSOCKETCLIENTIMPL_HPP
+#ifndef ENJINCPPSDK_WEBSOCKETCLIENT_HPP
+#define ENJINCPPSDK_WEBSOCKETCLIENT_HPP
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IWebsocketClient.hpp"
-#include "ixwebsocket/IXWebSocket.h"
-#include <condition_variable>
 #include <functional>
-#include <memory>
-#include <mutex>
-#include <optional>
-#include <stdexcept>
 #include <string>
 
 namespace enjin::sdk::websockets {
 
-/// \brief Implementation class of a websocket client.
-class ENJINSDK_EXPORT WebsocketClientImpl : public IWebsocketClient {
+/// \brief Built-in websocket client for this SDK.
+class ENJINSDK_EXPORT WebsocketClient : public IWebsocketClient {
 public:
     /// \brief Creates the websocket client.
-    WebsocketClientImpl();
+    WebsocketClient();
 
-    ~WebsocketClientImpl() override;
+    /// \brief Destructor.
+    ~WebsocketClient() override;
 
     std::future<void> connect(const std::string& uri) override;
 
@@ -63,35 +58,12 @@ public:
     void set_allowed_reconnect_attempts(unsigned int allowed_attempts) override;
 
 private:
-    enum class ConnectionStatus {
-        CONNECTED,
-        CONNECTING,
-        DISCONNECTED,
-        DISCONNECTING,
-    };
+    class Impl;
 
-    ix::WebSocket ws;
-    ConnectionStatus conn_status = ConnectionStatus::DISCONNECTED;
-    unsigned int allowed_attempts = 0;
-
-    std::optional<std::function<void()>> open_handler;
-    std::optional<std::function<void(int, const std::string&)>> close_handler;
-    std::optional<std::function<void(const std::string&)>> message_handler;
-    std::optional<std::function<void(int code, const std::string& message)>> error_handler;
-
-    std::condition_variable conn_cv;
-    std::optional<ix::WebSocketErrorInfo> conn_error_info;
-
-    // Mutexes
-    mutable std::mutex conn_mutex;
-    mutable std::mutex handler_mutex;
-
-    void open_message_received();
-
-    void error_message_received(const ix::WebSocketMessagePtr& msg);
+    Impl* impl;
 };
 
 }
 
-#endif //ENJINCPPSDK_WEBSOCKETCLIENTIMPL_HPP
+#endif //ENJINCPPSDK_WEBSOCKETCLIENT_HPP
 #endif

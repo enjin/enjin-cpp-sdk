@@ -16,17 +16,17 @@
 #include "enjinsdk/EventListenerRegistration.hpp"
 
 #include <algorithm>
-#include <utility>
 
 namespace enjin::sdk::events {
 
-EventListenerRegistration::EventListenerRegistration(std::shared_ptr<IEventListener> listener)
-        : EventListenerRegistration(std::move(listener), ALLOW_ALL_MATCHER) {
+EventListenerRegistration::EventListenerRegistration(const std::shared_ptr<IEventListener>& listener)
+        : EventListenerRegistration(listener, ALLOW_ALL_MATCHER) {
 }
 
-EventListenerRegistration::EventListenerRegistration(std::shared_ptr<IEventListener> listener,
-                                                     std::function<bool(models::EventType)> matcher)
-        : listener(std::move(listener)), matcher(std::move(matcher)) {
+EventListenerRegistration::EventListenerRegistration(const std::shared_ptr<IEventListener>& listener,
+                                                     const std::function<bool(models::EventType)>& matcher)
+        : listener(listener),
+          matcher(matcher) {
 }
 
 IEventListener& EventListenerRegistration::get_listener() const {
@@ -38,13 +38,13 @@ const std::function<bool(models::EventType)>& EventListenerRegistration::get_mat
 }
 
 EventListenerRegistration::RegistrationListenerConfiguration::RegistrationListenerConfiguration(
-        std::shared_ptr<IEventListener> listener) : listener(std::move(listener)) {
+        const std::shared_ptr<IEventListener>& listener) : listener(listener) {
 }
 
 EventListenerRegistration::RegistrationListenerConfiguration&
 EventListenerRegistration::RegistrationListenerConfiguration::with_matcher(
-        std::function<bool(models::EventType)> matcher) {
-    EventListenerRegistration::RegistrationListenerConfiguration::matcher = std::move(matcher);
+        const std::function<bool(models::EventType)>& matcher) {
+    EventListenerRegistration::RegistrationListenerConfiguration::matcher = matcher;
     return *this;
 }
 
@@ -70,9 +70,9 @@ EventListenerRegistration::RegistrationListenerConfiguration::with_ignored_event
     return *this;
 }
 
-std::unique_ptr<EventListenerRegistration>
+EventListenerRegistration
 EventListenerRegistration::RegistrationListenerConfiguration::create() {
-    return std::unique_ptr<EventListenerRegistration>(new EventListenerRegistration(std::move(listener), matcher));
+    return EventListenerRegistration(listener, matcher);
 }
 
 const IEventListener& EventListenerRegistration::RegistrationListenerConfiguration::get_listener() const {

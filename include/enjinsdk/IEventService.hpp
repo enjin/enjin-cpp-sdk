@@ -40,7 +40,7 @@ public:
     /// \brief Starts this service with the provided platform details.
     /// \param platform The platform details.
     /// \return The future for this operation.
-    virtual std::future<void> start(models::Platform platform) = 0;
+    virtual std::future<void> start(const models::Platform& platform) = 0;
 
     /// \brief Shuts down this service.
     /// \return The future for this operation.
@@ -53,7 +53,7 @@ public:
     /// \brief Determines if the the listener is registered to this service.
     /// \param listener The listener.
     /// \return Whether the listener is registered.
-    [[nodiscard]] virtual bool is_registered(IEventListener& listener) const = 0;
+    [[nodiscard]] virtual bool is_registered(const IEventListener& listener) const = 0;
 
     /// \brief Sets a handler for when the service connects to the server.
     /// \param handler The handler.
@@ -68,47 +68,46 @@ public:
     virtual void set_error_handler(const std::function<void(const std::exception& e)>& handler) = 0;
 
     /// \brief Registers a event listener and provides the registration for it.
-    /// \param listener The shared listener.
+    /// \param listener The listener.
     /// \return The registration.
-    virtual std::shared_ptr<EventListenerRegistration> register_listener(std::shared_ptr<IEventListener> listener) = 0;
+    virtual const EventListenerRegistration&
+    register_listener(const std::shared_ptr<IEventListener>& listener) = 0;
 
     /// \brief Registers a event listener with a function for event matcher and provides the registration for it.
-    /// \param listener The shared listener.
+    /// \param listener The listener.
     /// \param matcher The event matcher.
     /// \return The registration.
-    virtual std::shared_ptr<EventListenerRegistration>
-    register_listener_with_matcher(std::shared_ptr<IEventListener> listener,
-                                   std::function<bool(models::EventType)> matcher) = 0;
+    virtual const EventListenerRegistration&
+    register_listener_with_matcher(const std::shared_ptr<IEventListener>& listener,
+                                   const std::function<bool(models::EventType)>& matcher) = 0;
 
     /// \brief Registers a event listener with event types to allow and provides the registration for it.
-    /// \param listener The shared listener.
+    /// \param listener The listener.
     /// \param types The event types to allow.
     /// \return The registration.
-    virtual std::shared_ptr<EventListenerRegistration>
-    register_listener_including_types(std::shared_ptr<IEventListener> listener,
+    virtual const EventListenerRegistration&
+    register_listener_including_types(const std::shared_ptr<IEventListener>& listener,
                                       const std::vector<models::EventType>& types) = 0;
 
     /// \brief Registers a event listener with event types to ignore and provides the registration for it.
-    /// \param listener The shared listener.
+    /// \param listener The listener.
     /// \param types The event types to ignore.
     /// \return The registration.
-    virtual std::shared_ptr<EventListenerRegistration>
-    register_listener_excluding_types(std::shared_ptr<IEventListener> listener,
+    virtual const EventListenerRegistration&
+    register_listener_excluding_types(const std::shared_ptr<IEventListener>& listener,
                                       const std::vector<models::EventType>& types) = 0;
 
     /// \brief Unregisters the event listener from this service.
     /// \param listener The listener.
-    virtual void unregister_listener(IEventListener& listener) = 0;
+    virtual void unregister_listener(const IEventListener& listener) = 0;
 
     /// \brief Opens a channel for the specified project, allowing listeners to receive events for it.
     /// \param project The project's UUID.
-    /// \return The future for this operation.
-    virtual std::future<void> subscribe_to_project(const std::string& project) = 0;
+    virtual void subscribe_to_project(const std::string& project) = 0;
 
     /// \brief Closes a channel for the specified project, preventing listeners from receiving events for it.
     /// \param project The project's UUID.
-    /// \return The future for this operation.
-    virtual std::future<void> unsubscribe_to_project(const std::string& project) = 0;
+    virtual void unsubscribe_to_project(const std::string& project) = 0;
 
     /// \brief Determines if this service is subscribed to the specified channel.
     /// \param project The project's UUID.
@@ -118,14 +117,12 @@ public:
     /// \brief Opens a channel for the specified player, allowing listeners to receive events for it.
     /// \param project The project's UUID.
     /// \param player The player ID.
-    /// \return The future for this operation.
-    virtual std::future<void> subscribe_to_player(const std::string& project, const std::string& player) = 0;
+    virtual void subscribe_to_player(const std::string& project, const std::string& player) = 0;
 
     /// \brief Closes a channel for the specified player, preventing listeners from receiving events for it.
     /// \param project The project's UUID.
     /// \param player The player ID.
-    /// \return The future for this operation.
-    virtual std::future<void> unsubscribe_to_player(const std::string& project, const std::string& player) = 0;
+    virtual void unsubscribe_to_player(const std::string& project, const std::string& player) = 0;
 
     /// \brief Determines if this service is subscribed to the specified channel.
     /// \param project The project's UUID.
@@ -135,13 +132,11 @@ public:
 
     /// \brief Opens a channel for the specified asset, allowing listeners to receive events for it.
     /// \param asset The asset ID.
-    /// \return The future for this operation.
-    virtual std::future<void> subscribe_to_asset(const std::string& asset) = 0;
+    virtual void subscribe_to_asset(const std::string& asset) = 0;
 
     /// \brief Closes a channel for the specified asset, preventing listeners from receiving events for it.
     /// \param asset The asset ID.
-    /// \return The future for this operation.
-    virtual std::future<void> unsubscribe_to_asset(const std::string& asset) = 0;
+    virtual void unsubscribe_to_asset(const std::string& asset) = 0;
 
     /// \brief Determines if this service is subscribed to the specified channel.
     /// \param asset The asset ID.
@@ -150,13 +145,11 @@ public:
 
     /// \brief Opens a channel for the specified wallet, allowing listeners to receive events for it.
     /// \param wallet The wallet's address.
-    /// \return The future for this operation.
-    virtual std::future<void> subscribe_to_wallet(const std::string& wallet) = 0;
+    virtual void subscribe_to_wallet(const std::string& wallet) = 0;
 
     /// \brief Closes a channel for the specified wallet, preventing listeners from receiving events for it.
     /// \param wallet The wallet's address.
-    /// \return The future for this operation.
-    virtual std::future<void> unsubscribe_to_wallet(const std::string& wallet) = 0;
+    virtual void unsubscribe_to_wallet(const std::string& wallet) = 0;
 
     /// \brief Determines if this service is subscribed to the specified channel.
     /// \param wallet The address.

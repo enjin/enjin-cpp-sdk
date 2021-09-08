@@ -33,7 +33,7 @@ public:
     /// \brief Key for unsubscribe messages.
     static constexpr char CHANNEL_UNSUBSCRIBE[] = "pusher:unsubscribe";
     /// \brief Key for subscription succeeded message.
-    static constexpr char CHANNEL_SUBSCRIPTION_SUCCEEDED[] = "pusher_internal:subscription_succeed";
+    static constexpr char CHANNEL_SUBSCRIPTION_SUCCEEDED[] = "pusher_internal:subscription_succeeded";
     /// \brief Key for subscription error message.
     static constexpr char CHANNEL_SUBSCRIPTION_ERROR[] = "pusher_internal:subscription_error";
 

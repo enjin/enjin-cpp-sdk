@@ -22,10 +22,6 @@
 #define ENJINCPPSDK_MOCKWEBSOCKETSERVER_HPP
 
 #include <functional>
-#include <memory>
-#include <mutex>
-#include <queue>
-#include <set>
 #include <string>
 #include <vector>
 
@@ -74,17 +70,14 @@ private:
     WebsocketMessageType type = WebsocketMessageType::UNKNOWN;
 };
 
-/// \brief Implementation class of the MockWebsocketServer used internally.
-class MockWebsocketServerImpl;
-
 /// \brief A mock websocket server used for testing websocket messages.
 class MockWebsocketServer {
 public:
     /// \brief Sole constructor.
     MockWebsocketServer();
 
-    /// \brief Default destructor.
-    ~MockWebsocketServer() = default;
+    /// \brief Destructor.
+    ~MockWebsocketServer();
 
     /// \brief Setup a handler for the next message received by this server. Intended for use establishing expectations.
     /// \param handler The message handler.
@@ -128,11 +121,9 @@ public:
     bool is_type_ignored(WebsocketMessageType type);
 
 private:
-    std::mutex message_handlers_lock;
-    std::queue<std::function<void(TestWebsocketMessage)>> message_handlers;
-    std::set<WebsocketMessageType> ignored_types;
+    class Impl;
 
-    std::shared_ptr<MockWebsocketServerImpl> impl;
+    Impl* impl;
 };
 
 }

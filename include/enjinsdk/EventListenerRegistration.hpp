@@ -33,8 +33,8 @@ public:
         RegistrationListenerConfiguration() = delete;
 
         /// \brief Constructs a configuration builder for a registration.
-        /// \param listener The shared listener that the registration will receive.
-        explicit RegistrationListenerConfiguration(std::shared_ptr<IEventListener> listener);
+        /// \param listener The listener that the registration will receive.
+        explicit RegistrationListenerConfiguration(const std::shared_ptr<IEventListener>& listener);
 
         /// \brief Default destructor.
         ~RegistrationListenerConfiguration() = default;
@@ -42,7 +42,7 @@ public:
         /// \brief Sets the matcher to be used for the registration.
         /// \param matcher The matcher.
         /// \return This for chaining.
-        RegistrationListenerConfiguration& with_matcher(std::function<bool(models::EventType)> matcher);
+        RegistrationListenerConfiguration& with_matcher(const std::function<bool(models::EventType)>& matcher);
 
         /// \brief Sets the matcher to be used for the registration that allows the passed event types.
         /// \param types The event types to match.
@@ -56,7 +56,7 @@ public:
 
         /// \brief Creates the registration and provides the unique pointer for it.
         /// \return The unique pointer for the registration.
-        [[nodiscard]] std::unique_ptr<EventListenerRegistration> create();
+        [[nodiscard]] EventListenerRegistration create();
 
         /// \brief Returns a reference to the listener.
         /// \return The reference to the listener.
@@ -86,9 +86,15 @@ public:
     };
 
 protected:
-    explicit EventListenerRegistration(std::shared_ptr<IEventListener> listener);
+    /// \brief Constructs the registration with the given listener and an allow all matcher.
+    /// \param listener The listener.
+    explicit EventListenerRegistration(const std::shared_ptr<IEventListener>& listener);
 
-    EventListenerRegistration(std::shared_ptr<IEventListener> listener, std::function<bool(models::EventType)> matcher);
+    /// \brief Constructs the registration with the given listener and matcher.
+    /// \param listener The listener.
+    /// \param matcher The matcher.
+    EventListenerRegistration(const std::shared_ptr<IEventListener>& listener,
+                              const std::function<bool(models::EventType)>& matcher);
 
 private:
     std::shared_ptr<IEventListener> listener;

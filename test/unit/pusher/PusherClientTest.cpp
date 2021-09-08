@@ -16,7 +16,6 @@
 #include "gtest/gtest.h"
 #include "MockSubscriptionEventListener.hpp"
 #include "PusherClientTestSuite.hpp"
-#include "TimeoutException.hpp"
 #include "VerificationTestSuite.hpp"
 #include <chrono>
 #include <exception>
@@ -85,37 +84,12 @@ TEST_F(PusherClientTest, SubscribeClientSendsMessageToServerAndSubscribesToChann
     set_expected_call_count(1);
 
     // Act
-    client.subscribe(channel_name).get();
+    client.subscribe(channel_name);
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Assert
     ASSERT_TRUE(client.is_subscribed(channel_name));
-
-    // Verify
-    verify_call_count(1);
-}
-
-TEST_F(PusherClientTest, SubscribeFutureCompletesExceptionallyOnTimeoutAndClientIsUnsubscribedToChannel) {
-    // Arrange - Data
-    const std::string channel_name(DEFAULT_CHANNEL_NAME);
-    PusherOptions options = PusherOptions()
-            .set_cluster(DEFAULT_CLUSTER)
-            .set_client_timeout(std::chrono::seconds(0)); // Ensures timeout finishes immediately
-    PusherClient client = PusherClient(fake_ws_client, DEFAULT_KEY, options);
-    client.connect().get();
-    mock_server.next_message([](const TestWebsocketMessage& message) { /* Consumes subscribe message */ });
-
-    // Arrange - Expectations
-    mock_server.next_message([this](const TestWebsocketMessage& message) {
-        increment_call_counter();
-    });
-    set_expected_call_count(1);
-
-    // Act
-    std::future<void> future = client.subscribe(channel_name);
-
-    // Assert
-    EXPECT_THROW(future.get(), TimeoutException);
-    EXPECT_FALSE(client.is_subscribed_or_pending(channel_name));
 
     // Verify
     verify_call_count(1);
@@ -133,7 +107,8 @@ TEST_F(PusherClientTest, UnsubscribeClientSendsMessageToServerAndUnsubscribesFro
         response.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
         mock_server.send_message(response);
     });
-    client.subscribe(channel_name).get();
+    client.subscribe(channel_name);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     // Arrange - Expectations
     EXPECT_TRUE(client.is_subscribed(channel_name));
@@ -143,7 +118,7 @@ TEST_F(PusherClientTest, UnsubscribeClientSendsMessageToServerAndUnsubscribesFro
     set_expected_call_count(1);
 
     // Act
-    client.unsubscribe(channel_name).get();
+    client.unsubscribe(channel_name);
 
     // Assert
     ASSERT_FALSE(client.is_subscribed(channel_name));
@@ -153,40 +128,19 @@ TEST_F(PusherClientTest, UnsubscribeClientSendsMessageToServerAndUnsubscribesFro
 }
 
 TEST_F(PusherClientTest, UnsubscribeClientUnsubscribesWhilePendingSubscription) {
-    // Arrange - Data
+    // Arrange
     const std::string channel_name(DEFAULT_CHANNEL_NAME);
-    PusherOptions options = PusherOptions()
-            .set_cluster(DEFAULT_CLUSTER)
-            .set_client_timeout(std::chrono::seconds(5)); // Ensures timeout does not expire during test
-    PusherClient client = PusherClient(fake_ws_client, DEFAULT_KEY, options);
+    PusherClient client = create_testable_pusher_client();
     client.connect().get();
-    mock_server.next_message([this, channel_name](const TestWebsocketMessage& message) {
-        const std::string success_message = create_subscription_success_message(channel_name);
-        TestWebsocketMessage response;
-        response.set_data(std::vector<unsigned char>(success_message.begin(), success_message.end()));
-        response.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
-        mock_server.send_message(response);
-    });
-    std::future<void> future = client.subscribe(channel_name);
+    client.subscribe(channel_name);
 
-    // Arrange - Expectations
-    EXPECT_TRUE(future.valid());
     EXPECT_TRUE(client.is_subscription_pending(channel_name));
-    mock_server.next_message([this](const TestWebsocketMessage& message) {
-        increment_call_counter();
-    });
-    set_expected_call_count(1);
 
     // Act
-    client.unsubscribe(channel_name).get();
+    client.unsubscribe(channel_name);
 
     // Assert
-    EXPECT_EQ(std::future_status::ready, future.wait_for(std::chrono::seconds(0)));
-    EXPECT_NO_THROW(future.get());
     EXPECT_FALSE(client.is_subscribed_or_pending(channel_name));
-
-    // Verify
-    verify_call_count(1);
 }
 
 TEST_F(PusherClientTest, ListenerIsCalledWhenBoundEventIsReceived) {
@@ -240,7 +194,8 @@ TEST_F(PusherClientTest, ClientSendsCachedSubscribeMessageAfterConnecting) {
     // Arrange - Data
     const std::string channel_name(DEFAULT_CHANNEL_NAME);
     PusherClient client = create_testable_pusher_client();
-    client.subscribe(channel_name).get();
+    client.subscribe(channel_name);
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Arrange - Expectations
     mock_server.next_message([this, channel_name](const TestWebsocketMessage& message) {
@@ -270,8 +225,9 @@ TEST_F(PusherClientTest, ClientUncachesAndDoesNotSendSubscribeMessageAfterConnec
     // Arrange - Data
     const std::string channel_name(DEFAULT_CHANNEL_NAME);
     PusherClient client = create_testable_pusher_client();
-    client.subscribe(channel_name).get();
-    client.unsubscribe(channel_name).get();
+    client.subscribe(channel_name);
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    client.unsubscribe(channel_name);
 
     // Arrange - Expectations
     mock_server.next_message([this, channel_name](const TestWebsocketMessage& message) {

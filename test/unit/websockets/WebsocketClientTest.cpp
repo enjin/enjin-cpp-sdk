@@ -14,7 +14,7 @@
  */
 
 #include "gtest/gtest.h"
-#include "WebsocketClientImpl.hpp"
+#include "WebsocketClient.hpp"
 #include "MockWebsocketServer.hpp"
 #include "VerificationTestSuite.hpp"
 #include <string>
@@ -23,12 +23,12 @@ using namespace enjin::sdk::websockets;
 using namespace enjin::test::mocks;
 using namespace enjin::test::suites;
 
-class WebsocketClientImplTest : public VerificationTestSuite,
-                                public testing::Test {
+class WebsocketClientTest : public VerificationTestSuite,
+                            public testing::Test {
 public:
     static constexpr char URI[] = "ws://127.0.0.1:8080/ws";
 
-    WebsocketClientImpl class_under_test;
+    WebsocketClient class_under_test;
     MockWebsocketServer mock_server;
 
 protected:
@@ -45,14 +45,14 @@ protected:
     }
 };
 
-class WebsocketClientImplConnectCloseTest : public WebsocketClientImplTest {
+class WebsocketClientConnectCloseTest : public WebsocketClientTest {
 protected:
     void SetUp() final {
         // Do nothing
     }
 };
 
-TEST_F(WebsocketClientImplConnectCloseTest, ConnectClientOpensConnectionWithServer) {
+TEST_F(WebsocketClientConnectCloseTest, ConnectClientOpensConnectionWithServer) {
     // Arrange - Data
     mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_PING_TYPE)
                .ignore_message_type(WebsocketMessageType::WEBSOCKET_PONG_TYPE);
@@ -73,7 +73,7 @@ TEST_F(WebsocketClientImplConnectCloseTest, ConnectClientOpensConnectionWithServ
     // Assert (see: Arrange - Expectations)
 }
 
-TEST_F(WebsocketClientImplConnectCloseTest, ClientReconnectsAfterConnectionIsClosed) {
+TEST_F(WebsocketClientConnectCloseTest, ClientReconnectsAfterConnectionIsClosed) {
     // Arrange - Data
     mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_CLOSE_TYPE)
                .ignore_message_type(WebsocketMessageType::WEBSOCKET_PING_TYPE)
@@ -99,7 +99,7 @@ TEST_F(WebsocketClientImplConnectCloseTest, ClientReconnectsAfterConnectionIsClo
     // Assert (see: Arrange - Expectations)
 }
 
-TEST_F(WebsocketClientImplConnectCloseTest, ConnectConnectingResultsInErrorWhenFailed) {
+TEST_F(WebsocketClientConnectCloseTest, ConnectConnectingResultsInErrorWhenFailed) {
     // Arrange
     mock_server.stop();
 
@@ -110,7 +110,7 @@ TEST_F(WebsocketClientImplConnectCloseTest, ConnectConnectingResultsInErrorWhenF
     ASSERT_ANY_THROW(future.get());
 }
 
-TEST_F(WebsocketClientImplConnectCloseTest, ConnectCloseMessageHandlerReceivesMessage) {
+TEST_F(WebsocketClientConnectCloseTest, ConnectCloseMessageHandlerReceivesMessage) {
     // Arrange - Data
     mock_server.close();
 
@@ -126,7 +126,7 @@ TEST_F(WebsocketClientImplConnectCloseTest, ConnectCloseMessageHandlerReceivesMe
     // Assert (see: Arrange - Expectations)
 }
 
-TEST_F(WebsocketClientImplConnectCloseTest, CloseClientClosesOpenConnectionWithServer) {
+TEST_F(WebsocketClientConnectCloseTest, CloseClientClosesOpenConnectionWithServer) {
     // Arrange - Data
     mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
                .ignore_message_type(WebsocketMessageType::WEBSOCKET_PING_TYPE)
@@ -149,7 +149,7 @@ TEST_F(WebsocketClientImplConnectCloseTest, CloseClientClosesOpenConnectionWithS
     // Assert (see: Arrange - Expectations)
 }
 
-TEST_F(WebsocketClientImplTest, ServerClosesConnectionClientReceivesExpected) {
+TEST_F(WebsocketClientTest, ServerClosesConnectionClientReceivesExpected) {
     // Arrange - Data
     const int expected_status = 1000;
     const std::string expected_reason("Test closure");
@@ -172,7 +172,7 @@ TEST_F(WebsocketClientImplTest, ServerClosesConnectionClientReceivesExpected) {
     // Assert (see: Arrange - Expectations)
 }
 
-TEST_F(WebsocketClientImplTest, CloseNoArgsReceiveExpectedData) {
+TEST_F(WebsocketClientTest, CloseNoArgsReceiveExpectedData) {
     // Arrange - Data
     const int expected_status = 1000;
 
@@ -192,7 +192,7 @@ TEST_F(WebsocketClientImplTest, CloseNoArgsReceiveExpectedData) {
     // Assert (see: Arrange - Expectations)
 }
 
-TEST_F(WebsocketClientImplTest, CloseWithArgsReceiveExpectedData) {
+TEST_F(WebsocketClientTest, CloseWithArgsReceiveExpectedData) {
     // Arrange - Data
     const int expected_status = 1000;
     const std::string expected_message("Client disconnecting");
@@ -217,7 +217,7 @@ TEST_F(WebsocketClientImplTest, CloseWithArgsReceiveExpectedData) {
     // Assert (see: Arrange - Expectations)
 }
 
-TEST_F(WebsocketClientImplTest, SendServerReceivesMessage) {
+TEST_F(WebsocketClientTest, SendServerReceivesMessage) {
     // Arrange - Data
     const std::string expected("message");
 
@@ -241,7 +241,7 @@ TEST_F(WebsocketClientImplTest, SendServerReceivesMessage) {
     // Assert (see: Arrange - Expectations)
 }
 
-TEST_F(WebsocketClientImplTest, SetMessageHandlerHandlerReceivesExpectedDataFromServer) {
+TEST_F(WebsocketClientTest, SetMessageHandlerHandlerReceivesExpectedDataFromServer) {
     // Arrange - Data
     const std::string expected("message");
     TestWebsocketMessage message;
@@ -264,7 +264,7 @@ TEST_F(WebsocketClientImplTest, SetMessageHandlerHandlerReceivesExpectedDataFrom
     // Assert (see: Arrange - Expectations)
 }
 
-TEST_F(WebsocketClientImplConnectCloseTest, SetOpenHandlerHandlerReceivesExpectedDataFromServer) {
+TEST_F(WebsocketClientConnectCloseTest, SetOpenHandlerHandlerReceivesExpectedDataFromServer) {
     // Arrange - Expectations
     class_under_test.set_open_handler([this]() {
         increment_call_counter();
@@ -280,7 +280,7 @@ TEST_F(WebsocketClientImplConnectCloseTest, SetOpenHandlerHandlerReceivesExpecte
     // Assert (see: Arrange - Expectations)
 }
 
-TEST_F(WebsocketClientImplConnectCloseTest, SetCloseHandlerHandlerReceivesExpectedDataFromServer) {
+TEST_F(WebsocketClientConnectCloseTest, SetCloseHandlerHandlerReceivesExpectedDataFromServer) {
     // Arrange - Data
     const int expected_code = 1000;
     const std::string expected_reason("expected");

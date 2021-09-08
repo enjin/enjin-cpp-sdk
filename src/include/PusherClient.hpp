@@ -64,20 +64,18 @@ public:
 
     /// \brief Subscribes to the channel to start receiving events for it.
     /// \param channel_name The name of the channel.
-    /// \return The future for this operation.
     /// \remarks This operation may timeout if no success message is returned by the server within the timout period
     /// determined by PusherOptions.
-    std::future<void> subscribe(const std::string& channel_name);
+    void subscribe(const std::string& channel_name);
 
     /// \brief Unsubscribes from the channel.
     /// \param channel_name The name of the channel.
-    /// \return The future for this operation.
-    std::future<void> unsubscribe(const std::string& channel_name);
+    void unsubscribe(const std::string& channel_name);
 
     /// \brief Binds a listener to the specified event.
     /// \param event_name The name of the event.
     /// \param listener The listener.
-    void bind(const std::string& event_name, std::shared_ptr<ISubscriptionEventListener> listener);
+    void bind(const std::string& event_name, const std::shared_ptr<ISubscriptionEventListener>& listener);
 
     /// \brief Unbinds from the specified event.
     /// \param event_name The name of the event.
@@ -102,11 +100,11 @@ public:
     /// \return The connection state.
     [[nodiscard]] PusherConnectionState get_state() const;
 
-    /// \brief Sets the handler for when the connection state changes.
+    /// \brief Sets a handler for when this clients connection state changes.
     /// \param handler The handler.
     void set_on_connection_state_change_handler(const std::function<void(PusherConnectionState)>& handler);
 
-    /// \brief Sets the handler for when errors are received from the server.
+    /// \brief Sets a handler for when this client encounters an error.
     /// \param handler The handler.
     void set_on_error_handler(const std::function<void(const std::exception&)>& handler);
 
@@ -119,7 +117,7 @@ private:
     std::shared_ptr<sdk::websockets::IWebsocketClient> ws_client;
     std::shared_ptr<sdk::utils::LoggerProvider> logger_provider;
 
-    std::map<std::string, std::vector<std::shared_ptr<ISubscriptionEventListener>>> event_listeners;
+    std::map<std::string, std::set<std::shared_ptr<ISubscriptionEventListener>>> event_listeners;
     std::map<std::string, PusherChannel> channels;
     std::set<std::string> pending_channels;
 
@@ -135,19 +133,11 @@ private:
     mutable std::mutex channel_mutex;
     mutable std::mutex event_listeners_mutex;
     mutable std::mutex state_mutex;
-    mutable std::mutex subscription_mutex;
-
-    // Condition variables
-    std::condition_variable subscription_cv;
 
     // Flags
     std::atomic_bool ws_client_closed = true;
 
-    std::future<void> subscribe_to_channel(const std::string& channel_name);
-
     void subscription_succeeded(const std::string& channel_name);
-
-    std::future<void> unsubscribe_from_channel(const std::string& channel_name);
 
     void set_state(PusherConnectionState state);
 
