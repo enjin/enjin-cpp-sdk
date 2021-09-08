@@ -81,12 +81,12 @@ graphql::GraphqlResponse<models::Request> ProjectSchema::create_asset_sync(Creat
     return send_request_for_one<models::Request>(request).get();
 }
 
-std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::create_player_async(CreatePlayer& request) {
-    return send_request_for_one<models::Request>(request);
+std::future<graphql::GraphqlResponse<models::AccessToken>> ProjectSchema::create_player_async(CreatePlayer& request) {
+    return send_request_for_one<models::AccessToken>(request);
 }
 
-graphql::GraphqlResponse<models::Request> ProjectSchema::create_player_sync(CreatePlayer& request) {
-    return send_request_for_one<models::Request>(request).get();
+graphql::GraphqlResponse<models::AccessToken> ProjectSchema::create_player_sync(CreatePlayer& request) {
+    return send_request_for_one<models::AccessToken>(request).get();
 }
 
 std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::create_trade_async(CreateTrade& request) {
