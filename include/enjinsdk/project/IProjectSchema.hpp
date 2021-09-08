@@ -138,12 +138,12 @@ public:
     /// \brief Sends CreatePlayer request asynchronously.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> create_player_async(CreatePlayer& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::AccessToken>> create_player_async(CreatePlayer& request) = 0;
 
     /// \brief Sends CreatePlayer request synchronously.
     /// \param request The request.
     /// \return The response.
-    virtual graphql::GraphqlResponse<models::Request> create_player_sync(CreatePlayer& request) = 0;
+    virtual graphql::GraphqlResponse<models::AccessToken> create_player_sync(CreatePlayer& request) = 0;
 
     /// \brief Sends CreateTrade request asynchronously.
     /// \param request The request.

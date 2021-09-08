@@ -59,9 +59,9 @@ public:
 
     graphql::GraphqlResponse<models::Request> create_asset_sync(CreateAsset& request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> create_player_async(CreatePlayer& request) override;
+    std::future<graphql::GraphqlResponse<models::AccessToken>> create_player_async(CreatePlayer& request) override;
 
-    graphql::GraphqlResponse<models::Request> create_player_sync(CreatePlayer& request) override;
+    graphql::GraphqlResponse<models::AccessToken> create_player_sync(CreatePlayer& request) override;
 
     std::future<graphql::GraphqlResponse<models::Request>> create_trade_async(CreateTrade& request) override;
 
