@@ -31,43 +31,23 @@ public:
 
     ~SharedSchema() override = default;
 
-    std::future<graphql::GraphqlResponse<bool>> cancel_transaction_async(CancelTransaction& request) override;
+    std::future<graphql::GraphqlResponse<bool>> cancel_transaction(CancelTransaction& request) override;
 
-    graphql::GraphqlResponse<bool> cancel_transaction_sync(CancelTransaction& request) override;
+    std::future<graphql::GraphqlResponse<std::vector<models::Balance>>> get_balances(GetBalances& request) override;
 
-    std::future<graphql::GraphqlResponse<std::vector<models::Balance>>>
-    get_balances_async(GetBalances& request) override;
+    std::future<graphql::GraphqlResponse<models::GasPrices>> get_gas_prices(GetGasPrices& request) override;
 
-    graphql::GraphqlResponse<std::vector<models::Balance>> get_balances_sync(GetBalances& request) override;
+    std::future<graphql::GraphqlResponse<models::Platform>> get_platform(GetPlatform& request) override;
 
-    std::future<graphql::GraphqlResponse<models::GasPrices>> get_gas_prices_async(GetGasPrices& request) override;
+    std::future<graphql::GraphqlResponse<models::Project>> get_project(GetProject& request) override;
 
-    graphql::GraphqlResponse<models::GasPrices> get_gas_prices_sync(GetGasPrices& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> get_request(GetRequest& request) override;
 
-    std::future<graphql::GraphqlResponse<models::Platform>> get_platform_async(GetPlatform& request) override;
+    std::future<graphql::GraphqlResponse<std::vector<models::Request>>> get_requests(GetRequests& request) override;
 
-    graphql::GraphqlResponse<models::Platform> get_platform_sync(GetPlatform& request) override;
+    std::future<graphql::GraphqlResponse<models::Asset>> get_asset(GetAsset& request) override;
 
-    std::future<graphql::GraphqlResponse<models::Project>> get_project_async(GetProject& request) override;
-
-    graphql::GraphqlResponse<models::Project> get_project_sync(GetProject& request) override;
-
-    std::future<graphql::GraphqlResponse<models::Request>> get_request_async(GetRequest& request) override;
-
-    graphql::GraphqlResponse<models::Request> get_request_sync(GetRequest& request) override;
-
-    std::future<graphql::GraphqlResponse<std::vector<models::Request>>>
-    get_requests_async(GetRequests& request) override;
-
-    graphql::GraphqlResponse<std::vector<models::Request>> get_requests_sync(GetRequests& request) override;
-
-    std::future<graphql::GraphqlResponse<models::Asset>> get_asset_async(GetAsset& request) override;
-
-    graphql::GraphqlResponse<models::Asset> get_asset_sync(GetAsset& request) override;
-
-    std::future<graphql::GraphqlResponse<std::vector<models::Asset>>> get_assets_async(GetAssets& request) override;
-
-    graphql::GraphqlResponse<std::vector<models::Asset>> get_assets_sync(GetAssets& request) override;
+    std::future<graphql::GraphqlResponse<std::vector<models::Asset>>> get_assets(GetAssets& request) override;
 
 protected:
     /// \brief Constructs the schema with the middleware and name.
