@@ -24,8 +24,7 @@ PlayerSchema::PlayerSchema(TrustedPlatformMiddleware middleware,
         : shared::SharedSchema(std::move(middleware), "player", std::move(logger_provider)) {
 }
 
-std::future<graphql::GraphqlResponse<models::Request>>
-PlayerSchema::advanced_send_asset(AdvancedSendAsset& request) {
+std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::advanced_send_asset(AdvancedSendAsset& request) {
     return send_request_for_one<models::Request>(request);
 }
 
@@ -53,8 +52,7 @@ std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::message(Mes
     return send_request_for_one<models::Request>(request);
 }
 
-std::future<graphql::GraphqlResponse<models::Request>>
-PlayerSchema::reset_enj_approval(ResetEnjApproval& request) {
+std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::reset_enj_approval(ResetEnjApproval& request) {
     return send_request_for_one<models::Request>(request);
 }
 
@@ -66,8 +64,7 @@ std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::send_enj(Se
     return send_request_for_one<models::Request>(request);
 }
 
-std::future<graphql::GraphqlResponse<models::Request>>
-PlayerSchema::set_approval_for_all(SetApprovalForAll& request) {
+std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::set_approval_for_all(SetApprovalForAll& request) {
     return send_request_for_one<models::Request>(request);
 }
 

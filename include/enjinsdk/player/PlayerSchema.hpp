@@ -30,8 +30,7 @@ public:
 
     ~PlayerSchema() override = default;
 
-    std::future<graphql::GraphqlResponse<models::Request>>
-    advanced_send_asset(AdvancedSendAsset& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> advanced_send_asset(AdvancedSendAsset& request) override;
 
     std::future<graphql::GraphqlResponse<models::Request>> approve_enj(ApproveEnj& request) override;
 
@@ -51,8 +50,7 @@ public:
 
     std::future<graphql::GraphqlResponse<models::Request>> send_enj(SendEnj& request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>>
-    set_approval_for_all(SetApprovalForAll& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> set_approval_for_all(SetApprovalForAll& request) override;
 
     std::future<graphql::GraphqlResponse<bool>> unlink_wallet(UnlinkWallet& request) override;
 

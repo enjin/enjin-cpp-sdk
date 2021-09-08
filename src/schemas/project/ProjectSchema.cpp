@@ -24,8 +24,7 @@ ProjectSchema::ProjectSchema(TrustedPlatformMiddleware middleware,
         : shared::SharedSchema(std::move(middleware), "project", std::move(logger_provider)) {
 }
 
-std::future<graphql::GraphqlResponse<models::Request>>
-ProjectSchema::advanced_send_asset(AdvancedSendAsset& request) {
+std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::advanced_send_asset(AdvancedSendAsset& request) {
     return send_request_for_one<models::Request>(request);
 }
 
@@ -79,8 +78,7 @@ std::future<graphql::GraphqlResponse<models::Player>> ProjectSchema::get_player(
     return send_request_for_one<models::Player>(request);
 }
 
-std::future<graphql::GraphqlResponse<std::vector<models::Player>>>
-ProjectSchema::get_players(GetPlayers& request) {
+std::future<graphql::GraphqlResponse<std::vector<models::Player>>> ProjectSchema::get_players(GetPlayers& request) {
     return send_request_for_many<models::Player>(request);
 }
 
@@ -88,13 +86,11 @@ std::future<graphql::GraphqlResponse<models::Wallet>> ProjectSchema::get_wallet(
     return send_request_for_one<models::Wallet>(request);
 }
 
-std::future<graphql::GraphqlResponse<std::vector<models::Wallet>>>
-ProjectSchema::get_wallets(GetWallets& request) {
+std::future<graphql::GraphqlResponse<std::vector<models::Wallet>>> ProjectSchema::get_wallets(GetWallets& request) {
     return send_request_for_many<models::Wallet>(request);
 }
 
-std::future<graphql::GraphqlResponse<bool>>
-ProjectSchema::invalidate_asset_metadata(InvalidateAssetMetadata& request) {
+std::future<graphql::GraphqlResponse<bool>> ProjectSchema::invalidate_asset_metadata(InvalidateAssetMetadata& request) {
     return send_request_for_one<bool>(request);
 }
 
@@ -114,8 +110,7 @@ std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::release_re
     return send_request_for_one<models::Request>(request);
 }
 
-std::future<graphql::GraphqlResponse<models::Request>>
-ProjectSchema::reset_enj_approval(ResetEnjApproval& request) {
+std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::reset_enj_approval(ResetEnjApproval& request) {
     return send_request_for_one<models::Request>(request);
 }
 
@@ -127,8 +122,7 @@ std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::send_enj(S
     return send_request_for_one<models::Request>(request);
 }
 
-std::future<graphql::GraphqlResponse<models::Request>>
-ProjectSchema::set_approval_for_all(SetApprovalForAll& request) {
+std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::set_approval_for_all(SetApprovalForAll& request) {
     return send_request_for_one<models::Request>(request);
 }
 

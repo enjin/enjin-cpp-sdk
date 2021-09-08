@@ -30,8 +30,7 @@ public:
 
     ~ProjectSchema() override = default;
 
-    std::future<graphql::GraphqlResponse<models::Request>>
-    advanced_send_asset(AdvancedSendAsset& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> advanced_send_asset(AdvancedSendAsset& request) override;
 
     std::future<graphql::GraphqlResponse<models::Request>> approve_enj(ApproveEnj& request) override;
 
@@ -49,8 +48,7 @@ public:
 
     std::future<graphql::GraphqlResponse<models::Request>> create_trade(CreateTrade& request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>>
-    decrease_max_melt_fee(DecreaseMaxMeltFee& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> decrease_max_melt_fee(DecreaseMaxMeltFee& request) override;
 
     std::future<graphql::GraphqlResponse<models::Request>>
     decrease_max_transfer_fee(DecreaseMaxTransferFee& request) override;
@@ -65,8 +63,7 @@ public:
 
     std::future<graphql::GraphqlResponse<std::vector<models::Wallet>>> get_wallets(GetWallets& request) override;
 
-    std::future<graphql::GraphqlResponse<bool>>
-    invalidate_asset_metadata(InvalidateAssetMetadata& request) override;
+    std::future<graphql::GraphqlResponse<bool>> invalidate_asset_metadata(InvalidateAssetMetadata& request) override;
 
     std::future<graphql::GraphqlResponse<models::Request>> melt_asset(MeltAsset& request) override;
 
@@ -82,8 +79,7 @@ public:
 
     std::future<graphql::GraphqlResponse<models::Request>> send_enj(SendEnj& request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>>
-    set_approval_for_all(SetApprovalForAll& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> set_approval_for_all(SetApprovalForAll& request) override;
 
     std::future<graphql::GraphqlResponse<models::Request>> set_melt_fee(SetMeltFee& request) override;
 
