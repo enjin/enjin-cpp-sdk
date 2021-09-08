@@ -88,7 +88,6 @@ public:
     /// \param request The request.
     /// \return The future containing the response.
     virtual std::future<graphql::GraphqlResponse<std::vector<models::Asset>>> get_assets(GetAssets& request) = 0;
-
 };
 
 }
