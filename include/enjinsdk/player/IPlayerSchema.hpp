@@ -44,128 +44,65 @@ public:
     /// \brief Default destructor.
     virtual ~IPlayerSchema() = default;
 
-    /// \brief Sends AdvancedSendAsset request asynchronously.
+    /// \brief Sends the AdvancedSendAsset request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>>
-    advanced_send_asset_async(AdvancedSendAsset& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Request>> advanced_send_asset(AdvancedSendAsset& request) = 0;
 
-    /// \brief Sends AdvancedSendAsset request synchronously.
-    /// \param request The request.
-    /// \return The response.
-    virtual graphql::GraphqlResponse<models::Request> advanced_send_asset_sync(AdvancedSendAsset& request) = 0;
-
-    /// \brief Sends ApproveEnj request asynchronously.
+    /// \brief Sends the ApproveEnj request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> approve_enj_async(ApproveEnj& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Request>> approve_enj(ApproveEnj& request) = 0;
 
-    /// \brief Sends ApproveEnj request synchronously.
-    /// \param request The request.
-    /// \return The response.
-    virtual graphql::GraphqlResponse<models::Request> approve_enj_sync(ApproveEnj& request) = 0;
-
-    /// \brief Sends ApproveMaxEnj request asynchronously.
+    /// \brief Sends the ApproveMaxEnj request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> approve_enj_max_async(ApproveMaxEnj& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Request>> approve_enj_max(ApproveMaxEnj& request) = 0;
 
-    /// \brief Sends ApproveMaxEnj request synchronously.
-    /// \param request The request.
-    /// \return The response.
-    virtual graphql::GraphqlResponse<models::Request> approve_enj_max_sync(ApproveMaxEnj& request) = 0;
-
-    /// \brief Sends GetPlayer request asynchronously.
+    /// \brief Sends the GetPlayer request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Player>> get_player_async(GetPlayer& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Player>> get_player(GetPlayer& request) = 0;
 
-    /// \brief Sends GetPlayer request synchronously.
-    /// \param request The request.
-    /// \return The response.
-    virtual graphql::GraphqlResponse<models::Player> get_player_sync(GetPlayer& request) = 0;
-
-    /// \brief Sends GetWallet request asynchronously.
+    /// \brief Sends the GetWallet request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Wallet>> get_wallet_async(GetWallet& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Wallet>> get_wallet(GetWallet& request) = 0;
 
-    /// \brief Sends GetWallet request synchronously.
-    /// \param request The request.
-    /// \return The response.
-    virtual graphql::GraphqlResponse<models::Wallet> get_wallet_sync(GetWallet& request) = 0;
-
-    /// \brief Sends MeltAsset request asynchronously.
+    /// \brief Sends the MeltAsset request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> melt_asset_async(MeltAsset& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Request>> melt_asset(MeltAsset& request) = 0;
 
-    /// \brief Sends MeltAsset request synchronously.
-    /// \param request The request.
-    /// \return The response.
-    virtual graphql::GraphqlResponse<models::Request> melt_asset_sync(MeltAsset& request) = 0;
-
-    /// \brief Sends Message request asynchronously.
+    /// \brief Sends the Message request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> message_async(Message& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Request>> message(Message& request) = 0;
 
-    /// \brief Sends Message request synchronously.
-    /// \param request The request.
-    /// \return The response.
-    virtual graphql::GraphqlResponse<models::Request> message_sync(Message& request) = 0;
-
-    /// \brief Sends ResetEnjApproval request asynchronously.
+    /// \brief Sends the ResetEnjApproval request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>>
-    reset_enj_approval_async(ResetEnjApproval& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Request>> reset_enj_approval(ResetEnjApproval& request) = 0;
 
-    /// \brief Sends ResetEnjApproval request synchronously.
-    /// \param request The request.
-    /// \return The response.
-    virtual graphql::GraphqlResponse<models::Request> reset_enj_approval_sync(ResetEnjApproval& request) = 0;
-
-    /// \brief Sends SendAsset request asynchronously.
+    /// \brief Sends the SendAsset request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> send_asset_async(SendAsset& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Request>> send_asset(SendAsset& request) = 0;
 
-    /// \brief Sends SendAsset request synchronously.
-    /// \param request The request.
-    /// \return The response.
-    virtual graphql::GraphqlResponse<models::Request> send_asset_sync(SendAsset& request) = 0;
-
-    /// \brief Sends SendEnj request asynchronously.
+    /// \brief Sends the SendEnj request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> send_enj_async(SendEnj& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Request>> send_enj(SendEnj& request) = 0;
 
-    /// \brief Sends SendEnj request synchronously.
-    /// \param request The request.
-    /// \return The response.
-    virtual graphql::GraphqlResponse<models::Request> send_enj_sync(SendEnj& request) = 0;
-
-    /// \brief Sends SetApprovalForAll request asynchronously.
+    /// \brief Sends the SetApprovalForAll request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>>
-    set_approval_for_all_async(SetApprovalForAll& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Request>> set_approval_for_all(SetApprovalForAll& request) = 0;
 
-    /// \brief Sends SetApprovalForAll request synchronously.
-    /// \param request The request.
-    /// \return The response.
-    virtual graphql::GraphqlResponse<models::Request> set_approval_for_all_sync(SetApprovalForAll& request) = 0;
-
-    /// \brief Sends UnlinkWallet request asynchronously.
+    /// \brief Sends the UnlinkWallet request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<bool>> unlink_wallet_async(UnlinkWallet& request) = 0;
-
-    /// \brief Sends UnlinkWallet request synchronously.
-    /// \param request The request.
-    /// \return The response.
-    virtual graphql::GraphqlResponse<bool> unlink_wallet_sync(UnlinkWallet& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<bool>> unlink_wallet(UnlinkWallet& request) = 0;
 };
 
 }
