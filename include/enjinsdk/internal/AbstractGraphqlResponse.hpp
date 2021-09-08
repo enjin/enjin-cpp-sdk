@@ -37,7 +37,7 @@ public:
 
     /// \brief Returns the pagination cursor.
     /// \return Optional for the cursor.
-    [[nodiscard]] const std::optional<enjin::sdk::models::PaginationCursor>& get_cursor() const;
+    [[nodiscard]] const std::optional<models::PaginationCursor>& get_cursor() const;
 
     /// \brief Determines if the response has errors or not.
     /// \return Whether this response has errors.
@@ -58,7 +58,7 @@ public:
 
 protected:
     std::optional<std::vector<GraphqlError>> errors;
-    std::optional<enjin::sdk::models::PaginationCursor> cursor;
+    std::optional<models::PaginationCursor> cursor;
 
     /// \brief Processes the serialized GraphQL response.
     /// \param json The JSON.
@@ -67,10 +67,6 @@ protected:
     /// \brief Processes the data member of a serialized GraphQL response.
     /// \param data_json The JSON string of the member.
     virtual void process_data(const std::string& data_json) = 0;
-
-    /// \brief Processes the error member of a serialized GraphQL response.
-    /// \param error_json The JSON string of the member.
-    void process_errors(const std::string& error_json);
 };
 
 }
