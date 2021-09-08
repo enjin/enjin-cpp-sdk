@@ -26,7 +26,7 @@ public:
     AssetVariant class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"id":1,"assetId":"1","variantMetadata":"{}","usageCount":1,"createdAt":"1","updatedAt":"1"})";
+            R"({"id":1,"assetId":"1","variantMetadata":{},"usageCount":1,"createdAt":"1","updatedAt":"1"})";
 };
 
 TEST_F(AssetVariantTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
