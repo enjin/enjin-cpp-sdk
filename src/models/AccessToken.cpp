@@ -31,11 +31,11 @@ void AccessToken::deserialize(const std::string& json) {
     }
 }
 
-std::optional<std::string> AccessToken::get_token() {
+const std::optional<std::string>& AccessToken::get_token() const {
     return token;
 }
 
-std::optional<long> AccessToken::get_expires_in() {
+const std::optional<long>& AccessToken::get_expires_in() const {
     return expires_in;
 }
 
