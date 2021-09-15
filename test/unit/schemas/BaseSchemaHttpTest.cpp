@@ -21,7 +21,6 @@
 #include "TestableBaseSchema.hpp"
 #include <memory>
 #include <sstream>
-#include <stdexcept>
 #include <string>
 
 using namespace enjin::sdk;
@@ -85,7 +84,7 @@ TEST_F(BaseSchemaHttpTest, SendRequestForOneResponseIsSuccessfulReceivesExpected
     ASSERT_EQ(expected, response.get_result().value());
 }
 
-TEST_F(BaseSchemaHttpTest, SendRequestForOneReponseIsUnsuccessfulThrowsError) {
+TEST_F(BaseSchemaHttpTest, SendRequestForOneServerRespondsWithErrorReponseIsNotSuccessful) {
     // Arrange - Data
     TestableBaseSchema schema = create_testable_base_schema();
     DummyObject dummy_object = DummyObject::create_default_dummy_object();
@@ -106,10 +105,10 @@ TEST_F(BaseSchemaHttpTest, SendRequestForOneReponseIsUnsuccessfulThrowsError) {
                .respond_with(http_res);
 
     // Act
-    auto future = schema.send_request_for_one<DummyObject>(fake_request);
+    auto response = schema.send_request_for_one<DummyObject>(fake_request).get();
 
     // Assert
-    ASSERT_THROW(future.get(), std::runtime_error);
+    ASSERT_FALSE(response.is_successful());
 }
 
 TEST_F(BaseSchemaHttpTest, SendRequestForMany) {
@@ -147,7 +146,7 @@ TEST_F(BaseSchemaHttpTest, SendRequestForMany) {
     }
 }
 
-TEST_F(BaseSchemaHttpTest, SendRequestForManyReponseIsUnsuccessfulThrowsError) {
+TEST_F(BaseSchemaHttpTest, SendRequestForManyServerRespondsWithErrorReponseIsNotSuccessful) {
     // Arrange - Data
     TestableBaseSchema schema = create_testable_base_schema();
     DummyObject dummy_object = DummyObject::create_default_dummy_object();
@@ -168,8 +167,8 @@ TEST_F(BaseSchemaHttpTest, SendRequestForManyReponseIsUnsuccessfulThrowsError) {
                .respond_with(http_res);
 
     // Act
-    auto future = schema.send_request_for_one<DummyObject>(fake_request);
+    auto response = schema.send_request_for_one<DummyObject>(fake_request).get();
 
     // Assert
-    ASSERT_THROW(future.get(), std::runtime_error);
+    ASSERT_FALSE(response.is_successful());
 }

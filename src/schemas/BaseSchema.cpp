@@ -17,7 +17,6 @@
 
 #include "RapidJsonUtils.hpp"
 #include <sstream>
-#include <stdexcept>
 #include <string>
 
 namespace enjin::sdk {
@@ -89,33 +88,7 @@ void BaseSchema::log_graphql_exception(const std::exception& e) {
 }
 
 http::HttpResponse BaseSchema::send_request(const http::HttpRequest& request) {
-    auto response = middleware.get_client()->send_request(request).get();
-    if (response.is_success()) {
-        return response;
-    }
-
-    std::stringstream ss;
-    ss << "Unsuccessful HTTP response:";
-
-    if (response.get_code().has_value()) {
-        ss << "\n\tCode: " << response.get_code().value();
-    } else {
-        ss << "\n\tCode: N/A";
-    }
-
-    if (!response.is_empty()) {
-        ss << "\n\tBody: " << response.get_body().value();
-    } else {
-        ss << "\n\tBody: N/A";
-    }
-
-    auto message = ss.str();
-
-    if (logger_provider != nullptr) {
-        logger_provider->log(utils::LogLevel::ERR, message);
-    }
-
-    throw std::runtime_error(ss.str());
+    return middleware.get_client()->send_request(request).get();
 }
 
 }
