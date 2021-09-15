@@ -30,55 +30,29 @@ public:
 
     ~PlayerSchema() override = default;
 
-    std::future<graphql::GraphqlResponse<models::Request>>
-    advanced_send_asset_async(AdvancedSendAsset& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> advanced_send_asset(AdvancedSendAsset& request) override;
 
-    graphql::GraphqlResponse<models::Request> advanced_send_asset_sync(AdvancedSendAsset& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> approve_enj(ApproveEnj& request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> approve_enj_async(ApproveEnj& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> approve_enj_max(ApproveMaxEnj& request) override;
 
-    graphql::GraphqlResponse<models::Request> approve_enj_sync(ApproveEnj& request) override;
+    std::future<graphql::GraphqlResponse<models::Player>> get_player(GetPlayer& request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> approve_enj_max_async(ApproveMaxEnj& request) override;
+    std::future<graphql::GraphqlResponse<models::Wallet>> get_wallet(GetWallet& request) override;
 
-    graphql::GraphqlResponse<models::Request> approve_enj_max_sync(ApproveMaxEnj& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> melt_asset(MeltAsset& request) override;
 
-    std::future<graphql::GraphqlResponse<models::Player>> get_player_async(GetPlayer& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> message(Message& request) override;
 
-    graphql::GraphqlResponse<models::Player> get_player_sync(GetPlayer& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> reset_enj_approval(ResetEnjApproval& request) override;
 
-    std::future<graphql::GraphqlResponse<models::Wallet>> get_wallet_async(GetWallet& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> send_asset(SendAsset& request) override;
 
-    graphql::GraphqlResponse<models::Wallet> get_wallet_sync(GetWallet& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> send_enj(SendEnj& request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> melt_asset_async(MeltAsset& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> set_approval_for_all(SetApprovalForAll& request) override;
 
-    graphql::GraphqlResponse<models::Request> melt_asset_sync(MeltAsset& request) override;
-
-    std::future<graphql::GraphqlResponse<models::Request>> message_async(Message& request) override;
-
-    graphql::GraphqlResponse<models::Request> message_sync(Message& request) override;
-
-    std::future<graphql::GraphqlResponse<models::Request>> reset_enj_approval_async(ResetEnjApproval& request) override;
-
-    graphql::GraphqlResponse<models::Request> reset_enj_approval_sync(ResetEnjApproval& request) override;
-
-    std::future<graphql::GraphqlResponse<models::Request>> send_asset_async(SendAsset& request) override;
-
-    graphql::GraphqlResponse<models::Request> send_asset_sync(SendAsset& request) override;
-
-    std::future<graphql::GraphqlResponse<models::Request>> send_enj_async(SendEnj& request) override;
-
-    graphql::GraphqlResponse<models::Request> send_enj_sync(SendEnj& request) override;
-
-    std::future<graphql::GraphqlResponse<models::Request>>
-    set_approval_for_all_async(SetApprovalForAll& request) override;
-
-    graphql::GraphqlResponse<models::Request> set_approval_for_all_sync(SetApprovalForAll& request) override;
-
-    std::future<graphql::GraphqlResponse<bool>> unlink_wallet_async(UnlinkWallet& request) override;
-
-    graphql::GraphqlResponse<bool> unlink_wallet_sync(UnlinkWallet& request) override;
+    std::future<graphql::GraphqlResponse<bool>> unlink_wallet(UnlinkWallet& request) override;
 
 protected:
     /// \brief Constructs the schema with the middleware.
