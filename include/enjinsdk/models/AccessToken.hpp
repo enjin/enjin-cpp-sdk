@@ -35,11 +35,11 @@ public:
 
     /// \brief Returns the auth token.
     /// \return The auth token.
-    std::optional<std::string> get_token();
+    [[nodiscard]] const std::optional<std::string>& get_token() const;
 
     /// \brief Returns the number of seconds until the auth expires.
     /// \return The number of seconds until the auth expires.
-    std::optional<long> get_expires_in();
+    [[nodiscard]] const std::optional<long>& get_expires_in() const;
 
     bool operator==(const AccessToken& rhs) const;
 

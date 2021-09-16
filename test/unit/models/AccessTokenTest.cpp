@@ -16,6 +16,7 @@
 #include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/AccessToken.hpp"
+#include <string>
 
 using namespace enjin::sdk::models;
 using namespace enjin::test::suites;
@@ -65,4 +66,56 @@ TEST_F(AccessTokenTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) 
     // Assert
     EXPECT_EQ(expected_token, class_under_test.get_token().value());
     EXPECT_EQ(expected_expires_in, class_under_test.get_expires_in().value());
+}
+
+TEST_F(AccessTokenTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+    // Arrange
+    AccessToken lhs;
+    AccessToken rhs;
+
+    // Act
+    bool actual = lhs == rhs;
+
+    // Assert
+    ASSERT_TRUE(actual);
+}
+
+TEST_F(AccessTokenTest, EqualityBothSidesArePopulatedReturnsTrue) {
+    // Arrange
+    AccessToken lhs;
+    AccessToken rhs;
+    lhs.deserialize(POPULATED_JSON_OBJECT);
+    rhs.deserialize(POPULATED_JSON_OBJECT);
+
+    // Act
+    bool actual = lhs == rhs;
+
+    // Assert
+    ASSERT_TRUE(actual);
+}
+
+TEST_F(AccessTokenTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+    // Arrange
+    AccessToken lhs;
+    AccessToken rhs;
+    lhs.deserialize(POPULATED_JSON_OBJECT);
+
+    // Act
+    bool actual = lhs == rhs;
+
+    // Assert
+    ASSERT_FALSE(actual);
+}
+
+TEST_F(AccessTokenTest, EqualityRightSideIsPopulatedReturnsFalse) {
+    // Arrange
+    AccessToken lhs;
+    AccessToken rhs;
+    rhs.deserialize(POPULATED_JSON_OBJECT);
+
+    // Act
+    bool actual = lhs == rhs;
+
+    // Assert
+    ASSERT_FALSE(actual);
 }
