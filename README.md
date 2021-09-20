@@ -45,6 +45,7 @@ The following libraries are used by the SDK for some of its functionality and mu
 * [RapidJSON (1.1.0+)](https://github.com/Tencent/rapidjson) for processing JSON
 * [spdlog (1.8.0+)](https://github.com/gabime/spdlog) for the logger class
 * (optional) [cpp-httplib (0.8.5+)](https://github.com/yhirose/cpp-httplib) for a default HTTP client implementation
+  * [openssl (1.1.1)](https://github.com/openssl/openssl) for HTTPS support
 * (optional) [IXWebSocket (11.0.4+)](https://github.com/machinezone/IXWebSocket) for a default websocket client
   implementation
 
