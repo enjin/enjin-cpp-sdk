@@ -23,12 +23,12 @@ Sign up to Enjin Cloud: [Kovan (Testnet)](https://kovan.cloud.enjin.io/),
 
 ## Compatibility
 
-The Enjin C++ SDK is developed with cross-platform usage in mind. Platform and compiler combinations tested are as
-follows:
+The Enjin C++ SDK is a C++17 library and is developed with cross-platform usage in mind. Platform and compiler
+combinations tested are as follows:
 
-* 64bit Linux with GCC 9
-* 64bit Linux with Clang 10
-* 64bit Windows with MSVC 2019
+* GCC 9.3.0 on Linux (64-bit)
+* Clang 10.0.0 on Linux (64-bit)
+* MSVC 2019 on Windows 10 (64-bit)
 
 ## Installation
 
