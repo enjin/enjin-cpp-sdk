@@ -16,6 +16,7 @@ Sign up to Enjin Cloud: [Kovan (Testnet)](https://kovan.cloud.enjin.io/),
 * [Compatibility](#compatibility)
 * [Installation](#installation)
     * [Tests](#tests)
+* [Quick Start](#quick-start)
 * [Contributing](#contributing)
     * [Issues](#issues)
     * [Pull Requests](#pull-requests)
@@ -84,6 +85,58 @@ to acquire [Googletest (1.10.0+)](https://github.com/google/googletest) to be us
 
 To have the test executable built, set the CMake argument `ENJINSDK_BUILD_TESTS` to `ON` and leave the `BUILD_TESTING`
 option from CTest enabled.
+
+## Quick Start
+
+This example showcases how to quickly create and authenticate a client on the project schema which will then allow us to
+make further requests to the platform.
+
+```c++
+#include "enjinsdk/EnjinHosts.hpp"
+#include "enjinsdk/ProjectClient.hpp"
+#include <iostream>
+#include <memory>
+
+using namespace enjin::sdk;
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::project;
+
+int main() {
+    // Builds the project client to run on the Kovan test network.
+    // See: https://kovan.cloud.enjin.io to sign up for the test network.
+    std::unique_ptr<ProjectClient> client = ProjectClientBuilder()
+        .base_uri(KOVAN) // From EnjinHosts
+        .build();
+
+    // Creates the request to authenticate the client.
+    // Replace the appropriate strings with the project's UUID and secret.
+    AuthProject req = AuthProject()
+        .set_uuid("<the-project's-uuid>")
+        .set_secret("<the-project's-secret>");
+
+    // Sends the request to the platform and gets the response.
+    GraphqlResponse<AccessToken> res = client->auth_project(req).get();
+
+    // Checks if the request was successful.
+    if (!res.is_successful()) {
+        std::cout << "AuthProject request failed" << std::endl;
+        return 0;
+    }
+
+    // Authenticates the client with the access token in the response.
+    client->auth(res.get_result().value().get_token().value());
+
+    // Checks if the client was authenticated.
+    if (client->is_authenticated()) {
+        std::cout << "Client is now authenticated" << std::endl;
+    } else {
+        std::cout << "Client was not authenticated" << std::endl;
+    }
+
+    return 0;
+}
+```
 
 ## Contributing
 
