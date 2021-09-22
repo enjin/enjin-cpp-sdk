@@ -59,10 +59,10 @@ models::EventType deserialize_event_type(const std::string& s) noexcept {
         return models::EventType::ASSET_TRANSFERRED;
     } else if (str == "ASSET_UPDATED") {
         return models::EventType::ASSET_UPDATED;
-    } else if (str == "TRADE_COMPLETED") {
-        return models::EventType::TRADE_COMPLETED;
-    } else if (str == "TRADE_CREATED") {
-        return models::EventType::TRADE_CREATED;
+    } else if (str == "TRADE_ASSET_COMPLETED") {
+        return models::EventType::TRADE_ASSET_COMPLETED;
+    } else if (str == "TRADE_ASSET_CREATED") {
+        return models::EventType::TRADE_ASSET_CREATED;
     } else if (str == "TRANSACTION_BROADCAST") {
         return models::EventType::TRANSACTION_BROADCAST;
     } else if (str == "TRANSACTION_CANCELED") {
@@ -270,10 +270,10 @@ std::string serialize_event_type(models::EventType v) noexcept {
             return "ASSET_TRANSFERRED";
         case models::EventType::ASSET_UPDATED:
             return "ASSET_UPDATED";
-        case models::EventType::TRADE_COMPLETED:
-            return "TRADE_COMPLETED";
-        case models::EventType::TRADE_CREATED:
-            return "TRADE_CREATED";
+        case models::EventType::TRADE_ASSET_COMPLETED:
+            return "TRADE_ASSET_COMPLETED";
+        case models::EventType::TRADE_ASSET_CREATED:
+            return "TRADE_ASSET_CREATED";
         case models::EventType::TRANSACTION_BROADCAST:
             return "TRANSACTION_BROADCAST";
         case models::EventType::TRANSACTION_CANCELED:
