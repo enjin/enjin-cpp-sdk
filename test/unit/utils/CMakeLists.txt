@@ -12,8 +12,10 @@ target_sources(${PROJECT_NAME}_tests
         EnumUtilsAssetTransferableTest.cpp
         EnumUtilsAssetTransferFeeTypeTest.cpp
         EnumUtilsAssetVariantModeTest.cpp
+        EnumUtilsOperatorTest.cpp
         EnumUtilsTransactionFieldTest.cpp
         EnumUtilsWhitelistedTest.cpp
+        FutureUtilsTest.cpp
         LoggerProviderTest.cpp
         LoggerProviderLogLevelsTest.cpp
         RapidJsonUtilsTest.cpp

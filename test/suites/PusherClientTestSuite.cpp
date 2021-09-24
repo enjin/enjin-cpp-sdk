@@ -17,9 +17,9 @@
 
 namespace enjin::test::suites {
 
-enjin::pusher::PusherClient PusherClientTestSuite::create_testable_pusher_client() {
+pusher::PusherClient PusherClientTestSuite::create_testable_pusher_client() const {
     pusher::PusherOptions options = create_default_pusher_options();
-    return pusher::PusherClient(mock_ws_client, DEFAULT_KEY, options);
+    return pusher::PusherClient(fake_ws_client, DEFAULT_KEY, options);
 }
 
 std::string PusherClientTestSuite::create_default_event(const std::string& channel, const std::string& data) {
@@ -35,25 +35,24 @@ std::string PusherClientTestSuite::create_default_event(const std::string& chann
 }
 
 pusher::PusherOptions PusherClientTestSuite::create_default_pusher_options() {
-    pusher::PusherOptions options;
-    options.set_cluster(DEFAULT_CLUSTER);
-    options.set_encrypted(true);
-    return options;
+    return pusher::PusherOptions()
+            .set_cluster(DEFAULT_CLUSTER)
+            .set_encrypted(true);
 }
 
 std::string PusherClientTestSuite::create_subscription_error_message() {
     std::stringstream ss;
     ss << R"({"event":")"
-       << enjin::pusher::Constants::CHANNEL_SUBSCRIPTION_ERROR
+       << pusher::PusherConstants::CHANNEL_SUBSCRIPTION_ERROR
        << R"("})";
     return ss.str();
 }
 
-std::string
-PusherClientTestSuite::create_subscription_success_message(const std::string& channel, const std::string& data) {
+std::string PusherClientTestSuite::create_subscription_success_message(const std::string& channel,
+                                                                       const std::string& data) {
     std::stringstream ss;
     ss << R"({"event":")"
-       << enjin::pusher::Constants::CHANNEL_SUBSCRIPTION_SUCCEEDED
+       << pusher::PusherConstants::CHANNEL_SUBSCRIPTION_SUCCEEDED
        << R"(","channel":")"
        << channel
        << R"(","data":)"

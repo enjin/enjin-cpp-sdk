@@ -24,7 +24,6 @@
 
 #include "enjinsdk/HttpRequest.hpp"
 #include "enjinsdk/HttpResponse.hpp"
-#include <memory>
 #include <optional>
 #include <string>
 
@@ -51,17 +50,14 @@ private:
     std::optional<sdk::http::HttpResponse> response;
 };
 
-/// \brief Internal implementation for MockHttpServer.
-class MockHttpServerImpl;
-
-/// \brief Mock HTTP server built on Microsoft's C++ Rest SDK for testing HTTP client implementation.
+/// \brief Mock HTTP server for testing built-in HTTP client.
 class MockHttpServer {
 public:
     /// \brief Constructs a mock server instance.
     MockHttpServer();
 
-    /// \brief Default destructor.
-    ~MockHttpServer() = default;
+    /// \brief Destructor.
+    ~MockHttpServer();
 
     /// \brief Method to start the server.
     void start();
@@ -80,7 +76,9 @@ public:
     std::string uri();
 
 private:
-    std::shared_ptr<MockHttpServerImpl> impl;
+    class Impl;
+
+    Impl* impl;
 };
 
 }

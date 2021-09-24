@@ -17,11 +17,12 @@
 
 #include "enjinsdk_utils/StringUtils.hpp"
 #include <sstream>
+#include <utility>
 
 namespace enjin::sdk::events {
 
-AssetChannel::AssetChannel(const models::Platform& platform, const std::string& asset_id)
-        : platform(platform), asset_id(asset_id) {
+AssetChannel::AssetChannel(const models::Platform& platform, std::string asset_id)
+        : platform(platform), asset_id(std::move(asset_id)) {
 }
 
 std::string AssetChannel::channel() const {

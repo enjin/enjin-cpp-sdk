@@ -25,11 +25,11 @@ namespace enjin::test::mocks {
 
 class MockWebsocketClient : public sdk::websockets::IWebsocketClient {
 public:
-    MOCK_METHOD(void, connect, (const std::string& uri), (override));
+    MOCK_METHOD(std::future<void>, connect, (const std::string& uri), (override));
 
-    MOCK_METHOD(void, close, (), (override));
+    MOCK_METHOD(std::future<void>, close, (), (override));
 
-    MOCK_METHOD(void, close, (int status_code, const std::string& reason), (override));
+    MOCK_METHOD(std::future<void>, close, (int status_code, const std::string& reason), (override));
 
     MOCK_METHOD(void, send, (const std::string& data), (override));
 
@@ -45,7 +45,14 @@ public:
                 (const std::function<void(const std::string& message)>& handler),
                 (override));
 
-    MOCK_METHOD(void, set_allow_reconnecting, (bool allowed), (override));
+    MOCK_METHOD(void,
+                set_error_handler,
+                (const std::function<void(int code, const std::string& message)>& handler),
+                (override));
+
+    MOCK_METHOD(void, set_allow_reconnecting, (bool allow), (override));
+
+    MOCK_METHOD(void, set_allowed_reconnect_attempts, (unsigned int reconnect_attempts), (override));
 };
 
 typedef testing::NiceMock<MockWebsocketClient> DummyWebsocketClient;

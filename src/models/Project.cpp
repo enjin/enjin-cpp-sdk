@@ -23,8 +23,8 @@ void Project::deserialize(const std::string& json) {
     rapidjson::Document document;
     document.Parse(json.c_str());
     if (document.IsObject()) {
-        if (document.HasMember(ID_KEY) && document[ID_KEY].IsInt()) {
-            id.emplace(document[ID_KEY].GetInt());
+        if (document.HasMember(UUID_KEY) && document[UUID_KEY].IsString()) {
+            uuid.emplace(document[UUID_KEY].GetString());
         }
         if (document.HasMember(NAME_KEY) && document[NAME_KEY].IsString()) {
             name.emplace(document[NAME_KEY].GetString());
@@ -44,8 +44,8 @@ void Project::deserialize(const std::string& json) {
     }
 }
 
-const std::optional<int>& Project::get_id() const {
-    return id;
+const std::optional<std::string>& Project::get_uuid() const {
+    return uuid;
 }
 
 const std::optional<std::string>& Project::get_name() const {
@@ -69,7 +69,7 @@ const std::optional<std::string>& Project::get_updated_at() const {
 }
 
 bool Project::operator==(const Project& rhs) const {
-    return id == rhs.id &&
+    return uuid == rhs.uuid &&
            name == rhs.name &&
            description == rhs.description &&
            image == rhs.image &&

@@ -48,7 +48,7 @@ TEST_P(EventTypeTest, SerializeEventTypeReturnsExpectedString) {
     ASSERT_EQ(expected, actual);
 }
 
-INSTANTIATE_TEST_SUITE_P(SerializableRequestState,
+INSTANTIATE_TEST_SUITE_P(SerializableEventType,
                          EventTypeTest,
                          testing::Values(std::make_tuple("PROJECT_CREATED", EventType::PROJECT_CREATED),
                                          std::make_tuple("PROJECT_DELETED", EventType::PROJECT_DELETED),
@@ -70,8 +70,8 @@ INSTANTIATE_TEST_SUITE_P(SerializableRequestState,
                                          std::make_tuple("ASSET_MINTED", EventType::ASSET_MINTED),
                                          std::make_tuple("ASSET_TRANSFERRED", EventType::ASSET_TRANSFERRED),
                                          std::make_tuple("ASSET_UPDATED", EventType::ASSET_UPDATED),
-                                         std::make_tuple("TRADE_COMPLETED", EventType::TRADE_COMPLETED),
-                                         std::make_tuple("TRADE_CREATED", EventType::TRADE_CREATED),
+                                         std::make_tuple("TRADE_ASSET_COMPLETED", EventType::TRADE_ASSET_COMPLETED),
+                                         std::make_tuple("TRADE_ASSET_CREATED", EventType::TRADE_ASSET_CREATED),
                                          std::make_tuple("TRANSACTION_BROADCAST", EventType::TRANSACTION_BROADCAST),
                                          std::make_tuple("TRANSACTION_CANCELED", EventType::TRANSACTION_CANCELED),
                                          std::make_tuple("TRANSACTION_DROPPED", EventType::TRANSACTION_DROPPED),

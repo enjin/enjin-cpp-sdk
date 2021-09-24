@@ -25,13 +25,10 @@ DecreaseMaxTransferFee::DecreaseMaxTransferFee()
 
 std::string DecreaseMaxTransferFee::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
+    utils::join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
 
     if (asset_id.has_value()) {
         utils::set_string_member(document, "assetId", asset_id.value());
-    }
-    if (asset_index.has_value()) {
-        utils::set_string_member(document, "assetIndex", asset_index.value());
     }
     if (max_transfer_fee.has_value()) {
         utils::set_integer_member(document, "maxTransferFee", max_transfer_fee.value());
@@ -45,11 +42,6 @@ DecreaseMaxTransferFee& DecreaseMaxTransferFee::set_asset_id(const std::string& 
     return *this;
 }
 
-DecreaseMaxTransferFee& DecreaseMaxTransferFee::set_asset_index(const std::string& asset_index) {
-    DecreaseMaxTransferFee::asset_index = asset_index;
-    return *this;
-}
-
 DecreaseMaxTransferFee& DecreaseMaxTransferFee::set_max_transfer_fee(int max_transfer_fee) {
     DecreaseMaxTransferFee::max_transfer_fee = max_transfer_fee;
     return *this;
@@ -58,10 +50,9 @@ DecreaseMaxTransferFee& DecreaseMaxTransferFee::set_max_transfer_fee(int max_tra
 bool DecreaseMaxTransferFee::operator==(const DecreaseMaxTransferFee& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionRequestArguments<DecreaseMaxTransferFee>&>(*this) ==
-           static_cast<const shared::TransactionRequestArguments<DecreaseMaxTransferFee>&>(rhs) &&
+           static_cast<const ProjectTransactionRequestArguments<DecreaseMaxTransferFee>&>(*this) ==
+           static_cast<const ProjectTransactionRequestArguments<DecreaseMaxTransferFee>&>(rhs) &&
            asset_id == rhs.asset_id &&
-           asset_index == rhs.asset_index &&
            max_transfer_fee == rhs.max_transfer_fee;
 }
 

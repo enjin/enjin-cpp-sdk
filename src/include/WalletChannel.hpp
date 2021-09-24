@@ -31,7 +31,7 @@ public:
     /// \brief Constructs a channel for the given network and wallet.
     /// \param platform The platform.
     /// \param eth_address The wallet's address.
-    WalletChannel(const models::Platform& platform, const std::string& eth_address);
+    WalletChannel(const models::Platform& platform, std::string eth_address);
 
     ~WalletChannel() override = default;
 

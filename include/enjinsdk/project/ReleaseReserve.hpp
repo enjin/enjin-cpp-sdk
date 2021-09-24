@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/TransactionRequestArguments.hpp"
+#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for releasing the reserve of an asset.
 class ENJINSDK_EXPORT ReleaseReserve : public graphql::AbstractGraphqlRequest,
-                                       public shared::TransactionRequestArguments<ReleaseReserve> {
+                                       public ProjectTransactionRequestArguments<ReleaseReserve> {
 public:
     /// \brief Default constructor.
     ReleaseReserve();
@@ -53,6 +53,9 @@ private:
     std::optional<std::string> asset_id;
     std::optional<std::string> value;
 };
+
+template ENJINSDK_EXPORT ReleaseReserve&
+ProjectTransactionRequestArguments<ReleaseReserve>::set_eth_address(const std::string& address);
 
 }
 
@@ -92,10 +95,7 @@ template ENJINSDK_EXPORT project::ReleaseReserve&
 TransactionFragmentArguments<project::ReleaseReserve>::set_with_log_event();
 
 template ENJINSDK_EXPORT project::ReleaseReserve&
-TransactionRequestArguments<project::ReleaseReserve>::set_eth_address(const std::string& address);
-
-template ENJINSDK_EXPORT project::ReleaseReserve&
-TransactionRequestArguments<project::ReleaseReserve>::set_send(bool send);
+TransactionFragmentArguments<project::ReleaseReserve>::set_with_transaction_project_uuid();
 
 }
 

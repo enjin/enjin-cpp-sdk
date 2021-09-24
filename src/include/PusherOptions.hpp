@@ -25,6 +25,12 @@ namespace enjin::pusher {
 /// \brief Class for modeling options for a Pusher client.
 class ENJINSDK_EXPORT PusherOptions {
 public:
+    /// \brief The default cluster used by a client.
+    static constexpr char DEFAULT_CLUSTER[] = "mt1";
+
+    /// \brief The default encryption state used by a client.
+    static constexpr bool DEFAULT_ENCRYPTION = true;
+
     /// \brief Default constructor.
     PusherOptions() = default;
 
@@ -44,18 +50,18 @@ public:
     /// \return This for chaining.
     PusherOptions& set_cluster(const std::string& cluster);
 
-    /// \brief Sets whether encryption is to be used.
+    /// \brief Sets whether encryption is to be used. True by default.
     /// \param encrypted The state.
     /// \return This for chaining.
     PusherOptions& set_encrypted(bool encrypted);
 
-    /// \brief Returns the cluster.
-    /// \return The optional for the cluster.
-    [[nodiscard]] const std::optional<std::string>& get_cluster() const;
+    /// \brief Returns the cluster if set, otherwise returns DEFAULT_CLUSTER.
+    /// \return The cluster.
+    [[nodiscard]] std::string get_cluster() const;
 
 private:
     std::optional<std::string> cluster;
-    bool encrypted = false;
+    std::optional<bool> encrypted;
 };
 
 }

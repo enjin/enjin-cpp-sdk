@@ -23,7 +23,7 @@
 #endif
 #if ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL
 
-#include "HttpClientImpl.hpp"
+#include "HttpClient.hpp"
 
 #endif
 
@@ -35,7 +35,7 @@ ProjectClient::ProjectClient(TrustedPlatformMiddleware middleware,
 }
 
 ProjectClient::~ProjectClient() {
-    close();
+    ProjectClient::close();
 }
 
 void ProjectClient::auth(const std::string& token) {
@@ -61,7 +61,7 @@ std::unique_ptr<ProjectClient> ProjectClientBuilder::build() {
             throw std::runtime_error("No base URI was set for default HTTP client implementation");
         }
 
-        TrustedPlatformMiddleware middleware(std::make_unique<http::HttpClientImpl>(m_base_uri.value(),
+        TrustedPlatformMiddleware middleware(std::make_unique<http::HttpClient>(m_base_uri.value(),
                                                                                     m_logger_provider));
         return std::unique_ptr<ProjectClient>(new ProjectClient(std::move(middleware), m_logger_provider));
 #else

@@ -15,7 +15,7 @@
 
 #include "enjinsdk/models/AssetVariant.hpp"
 
-#include "rapidjson/document.h"
+#include "RapidJsonUtils.hpp"
 
 namespace enjin::sdk::models {
 
@@ -29,8 +29,8 @@ void AssetVariant::deserialize(const std::string& json) {
         if (document.HasMember(ASSET_ID_KEY) && document[ASSET_ID_KEY].IsString()) {
             asset_id.emplace(document[ASSET_ID_KEY].GetString());
         }
-        if (document.HasMember(VARIANT_METADATA_KEY) && document[VARIANT_METADATA_KEY].IsString()) {
-            variant_metadata.emplace(document[VARIANT_METADATA_KEY].GetString());
+        if (document.HasMember(VARIANT_METADATA_KEY) && document[VARIANT_METADATA_KEY].IsObject()) {
+            variant_metadata.emplace(utils::get_object_as_string(document, VARIANT_METADATA_KEY));
         }
         if (document.HasMember(USAGE_COUNT_KEY) && document[USAGE_COUNT_KEY].IsInt()) {
             usage_count.emplace(document[USAGE_COUNT_KEY].GetInt());

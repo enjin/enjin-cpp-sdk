@@ -1,3 +1,12 @@
 target_sources(${PROJECT_NAME}
         PRIVATE
+        AdvancedSendAsset.cpp
+        ApproveEnj.cpp
+        ApproveMaxEnj.cpp
+        MeltAsset.cpp
+        Message.cpp
+        ResetEnjApproval.cpp
+        SendAsset.cpp
+        SendEnj.cpp
+        SetApprovalForAll.cpp
         UnlinkWallet.cpp)

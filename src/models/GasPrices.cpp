@@ -23,16 +23,16 @@ void GasPrices::deserialize(const std::string& json) {
     rapidjson::Document document;
     document.Parse(json.c_str());
     if (document.IsObject()) {
-        if (document.HasMember(SAFE_LOW_KEY) && document[SAFE_LOW_KEY].IsFloat()) {
+        if (document.HasMember(SAFE_LOW_KEY) && document[SAFE_LOW_KEY].IsNumber()) {
             safe_low.emplace(document[SAFE_LOW_KEY].GetFloat());
         }
-        if (document.HasMember(AVERAGE_KEY) && document[AVERAGE_KEY].IsFloat()) {
+        if (document.HasMember(AVERAGE_KEY) && document[AVERAGE_KEY].IsNumber()) {
             average.emplace(document[AVERAGE_KEY].GetFloat());
         }
-        if (document.HasMember(FAST_KEY) && document[FAST_KEY].IsFloat()) {
+        if (document.HasMember(FAST_KEY) && document[FAST_KEY].IsNumber()) {
             fast.emplace(document[FAST_KEY].GetFloat());
         }
-        if (document.HasMember(FASTEST_KEY) && document[FASTEST_KEY].IsFloat()) {
+        if (document.HasMember(FASTEST_KEY) && document[FASTEST_KEY].IsNumber()) {
             fastest.emplace(document[FASTEST_KEY].GetFloat());
         }
     }

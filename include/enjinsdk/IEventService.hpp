@@ -20,6 +20,7 @@
 #include "enjinsdk/EventListenerRegistration.hpp"
 #include "enjinsdk/models/Platform.hpp"
 #include <functional>
+#include <future>
 #include <memory>
 #include <string>
 #include <vector>
@@ -33,14 +34,17 @@ public:
     virtual ~IEventService() = default;
 
     /// \brief Starts this service.
-    virtual void start() = 0;
+    /// \return The future for this operation.
+    virtual std::future<void> start() = 0;
 
     /// \brief Starts this service with the provided platform details.
     /// \param platform The platform details.
-    virtual void start(models::Platform platform) = 0;
+    /// \return The future for this operation.
+    virtual std::future<void> start(const models::Platform& platform) = 0;
 
     /// \brief Shuts down this service.
-    virtual void shutdown() = 0;
+    /// \return The future for this operation.
+    virtual std::future<void> shutdown() = 0;
 
     /// \brief Determines if this service is connected for receiving events.
     /// \return Whether this service is connected.
@@ -49,7 +53,7 @@ public:
     /// \brief Determines if the the listener is registered to this service.
     /// \param listener The listener.
     /// \return Whether the listener is registered.
-    [[nodiscard]] virtual bool is_registered(IEventListener& listener) const = 0;
+    [[nodiscard]] virtual bool is_registered(const IEventListener& listener) const = 0;
 
     /// \brief Sets a handler for when the service connects to the server.
     /// \param handler The handler.
@@ -64,66 +68,67 @@ public:
     virtual void set_error_handler(const std::function<void(const std::exception& e)>& handler) = 0;
 
     /// \brief Registers a event listener and provides the registration for it.
-    /// \param listener The shared listener.
+    /// \param listener The listener.
     /// \return The registration.
-    virtual std::shared_ptr<EventListenerRegistration> register_listener(std::shared_ptr<IEventListener> listener) = 0;
+    virtual const EventListenerRegistration&
+    register_listener(const std::shared_ptr<IEventListener>& listener) = 0;
 
     /// \brief Registers a event listener with a function for event matcher and provides the registration for it.
-    /// \param listener The shared listener.
+    /// \param listener The listener.
     /// \param matcher The event matcher.
     /// \return The registration.
-    virtual std::shared_ptr<EventListenerRegistration>
-    register_listener_with_matcher(std::shared_ptr<IEventListener> listener,
-                                   std::function<bool(models::EventType)> matcher) = 0;
+    virtual const EventListenerRegistration&
+    register_listener_with_matcher(const std::shared_ptr<IEventListener>& listener,
+                                   const std::function<bool(models::EventType)>& matcher) = 0;
 
     /// \brief Registers a event listener with event types to allow and provides the registration for it.
-    /// \param listener The shared listener.
+    /// \param listener The listener.
     /// \param types The event types to allow.
     /// \return The registration.
-    virtual std::shared_ptr<EventListenerRegistration>
-    register_listener_including_types(std::shared_ptr<IEventListener> listener,
+    virtual const EventListenerRegistration&
+    register_listener_including_types(const std::shared_ptr<IEventListener>& listener,
                                       const std::vector<models::EventType>& types) = 0;
 
     /// \brief Registers a event listener with event types to ignore and provides the registration for it.
-    /// \param listener The shared listener.
+    /// \param listener The listener.
     /// \param types The event types to ignore.
     /// \return The registration.
-    virtual std::shared_ptr<EventListenerRegistration>
-    register_listener_excluding_types(std::shared_ptr<IEventListener> listener,
+    virtual const EventListenerRegistration&
+    register_listener_excluding_types(const std::shared_ptr<IEventListener>& listener,
                                       const std::vector<models::EventType>& types) = 0;
 
     /// \brief Unregisters the event listener from this service.
     /// \param listener The listener.
-    virtual void unregister_listener(IEventListener& listener) = 0;
+    virtual void unregister_listener(const IEventListener& listener) = 0;
 
     /// \brief Opens a channel for the specified project, allowing listeners to receive events for it.
-    /// \param project The project ID.
-    virtual void subscribe_to_project(int project) = 0;
+    /// \param project The project's UUID.
+    virtual void subscribe_to_project(const std::string& project) = 0;
 
     /// \brief Closes a channel for the specified project, preventing listeners from receiving events for it.
-    /// \param project The project ID.
-    virtual void unsubscribe_to_project(int project) = 0;
+    /// \param project The project's UUID.
+    virtual void unsubscribe_to_project(const std::string& project) = 0;
 
     /// \brief Determines if this service is subscribed to the specified channel.
-    /// \param project The project ID.
+    /// \param project The project's UUID.
     /// \return Whether this service is subscribed to the channel.
-    [[nodiscard]] virtual bool is_subscribed_to_project(int project) const = 0;
+    [[nodiscard]] virtual bool is_subscribed_to_project(const std::string& project) const = 0;
 
     /// \brief Opens a channel for the specified player, allowing listeners to receive events for it.
-    /// \param project The project ID.
+    /// \param project The project's UUID.
     /// \param player The player ID.
-    virtual void subscribe_to_player(int project, const std::string& player) = 0;
+    virtual void subscribe_to_player(const std::string& project, const std::string& player) = 0;
 
     /// \brief Closes a channel for the specified player, preventing listeners from receiving events for it.
-    /// \param project The project ID.
+    /// \param project The project's UUID.
     /// \param player The player ID.
-    virtual void unsubscribe_to_player(int project, const std::string& player) = 0;
+    virtual void unsubscribe_to_player(const std::string& project, const std::string& player) = 0;
 
     /// \brief Determines if this service is subscribed to the specified channel.
-    /// \param project The project ID.
+    /// \param project The project's UUID.
     /// \param player The player ID.
     /// \return Whether this service is subscribed to the channel.
-    [[nodiscard]] virtual bool is_subscribed_to_player(int project, const std::string& player) const = 0;
+    [[nodiscard]] virtual bool is_subscribed_to_player(const std::string& project, const std::string& player) const = 0;
 
     /// \brief Opens a channel for the specified asset, allowing listeners to receive events for it.
     /// \param asset The asset ID.

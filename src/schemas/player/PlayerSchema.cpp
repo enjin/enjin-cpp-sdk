@@ -24,28 +24,52 @@ PlayerSchema::PlayerSchema(TrustedPlatformMiddleware middleware,
         : shared::SharedSchema(std::move(middleware), "player", std::move(logger_provider)) {
 }
 
-std::future<graphql::GraphqlResponse<models::Player>> PlayerSchema::get_player_async(GetPlayer& request) {
+std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::advanced_send_asset(AdvancedSendAsset& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::approve_enj(ApproveEnj& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::approve_enj_max(ApproveMaxEnj& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+std::future<graphql::GraphqlResponse<models::Player>> PlayerSchema::get_player(GetPlayer& request) {
     return send_request_for_one<models::Player>(request);
 }
 
-graphql::GraphqlResponse<models::Player> PlayerSchema::get_player_sync(GetPlayer& request) {
-    return send_request_for_one<models::Player>(request).get();
-}
-
-std::future<graphql::GraphqlResponse<models::Wallet>> PlayerSchema::get_wallet_async(GetWallet& request) {
+std::future<graphql::GraphqlResponse<models::Wallet>> PlayerSchema::get_wallet(GetWallet& request) {
     return send_request_for_one<models::Wallet>(request);
 }
 
-graphql::GraphqlResponse<models::Wallet> PlayerSchema::get_wallet_sync(GetWallet& request) {
-    return send_request_for_one<models::Wallet>(request).get();
+std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::melt_asset(MeltAsset& request) {
+    return send_request_for_one<models::Request>(request);
 }
 
-std::future<graphql::GraphqlResponse<bool>> PlayerSchema::unlink_wallet_async(UnlinkWallet& request) {
+std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::message(Message& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::reset_enj_approval(ResetEnjApproval& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::send_asset(SendAsset& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::send_enj(SendEnj& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::set_approval_for_all(SetApprovalForAll& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+std::future<graphql::GraphqlResponse<bool>> PlayerSchema::unlink_wallet(UnlinkWallet& request) {
     return send_request_for_one<bool>(request);
-}
-
-graphql::GraphqlResponse<bool> PlayerSchema::unlink_wallet_sync(UnlinkWallet& request) {
-    return send_request_for_one<bool>(request).get();
 }
 
 }

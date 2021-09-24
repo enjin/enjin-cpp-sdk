@@ -34,9 +34,10 @@ void join_serialized_object_to_document(rapidjson::Document& document,
 
     auto& allocator = document.GetAllocator();
     for (auto& [key, value] : object_document.GetObject()) {
-        document.AddMember(key, value, allocator);
+        rapidjson::Value v_key;
+        v_key.SetString(key.GetString(), allocator);
+        document.AddMember(v_key, value, allocator);
     }
-
 }
 
 void join_serialized_objects_to_document(rapidjson::Document& document,
@@ -161,23 +162,16 @@ void set_object_member_from_string(rapidjson::Document& document, const std::str
     set_member_assert(document, key);
 
     auto& allocator = document.GetAllocator();
-    rapidjson::Value v(rapidjson::kObjectType);
 
-    /* Opens value as a JSON document to dynamically acquire its member name and values to convert into a JSON object
-     * that may then be stored.
-     */
-    rapidjson::Document e_document;
-    e_document.Parse(value.c_str());
+    rapidjson::Document v_document(&allocator);
+    v_document.Parse(value.c_str());
 
-    if (!e_document.IsObject()) {
+    if (!v_document.IsObject()) {
         return;
     }
 
-    for (auto& m : e_document.GetObject()) {
-        v.AddMember(m.name, m.value, allocator);
-    }
-
     rapidjson::Value v_key;
+    rapidjson::Value v(v_document, allocator);
     v_key.SetString(key.c_str(), allocator);
     document.AddMember(v_key, v, allocator);
 }

@@ -76,6 +76,8 @@ template ENJINSDK_EXPORT GetRequest& TransactionFragmentArguments<GetRequest>::s
 
 template ENJINSDK_EXPORT GetRequest& TransactionFragmentArguments<GetRequest>::set_with_log_event();
 
+template ENJINSDK_EXPORT GetRequest& TransactionFragmentArguments<GetRequest>::set_with_transaction_project_uuid();
+
 }
 
 #endif //ENJINCPPSDK_SHAREDGETREQUEST_HPP

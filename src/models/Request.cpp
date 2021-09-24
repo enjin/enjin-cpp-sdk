@@ -51,8 +51,14 @@ void Request::deserialize(const std::string& json) {
         if (document.HasMember(ACCEPTED_KEY) && document[ACCEPTED_KEY].IsBool()) {
             accepted.emplace(document[ACCEPTED_KEY].GetBool());
         }
+        if (document.HasMember(PROJECT_WALLET_KEY) && document[PROJECT_WALLET_KEY].IsBool()) {
+            project_wallet.emplace(document[PROJECT_WALLET_KEY].GetBool());
+        }
         if (document.HasMember(BLOCKCHAIN_DATA_KEY) && document[BLOCKCHAIN_DATA_KEY].IsObject()) {
             blockchain_data.emplace(utils::get_object_as_type<BlockchainData>(document, BLOCKCHAIN_DATA_KEY));
+        }
+        if (document.HasMember(PROJECT_KEY) && document[PROJECT_KEY].IsObject()) {
+            project.emplace(utils::get_object_as_type<Project>(document, PROJECT_KEY));
         }
         if (document.HasMember(CREATED_AT_KEY) && document[CREATED_AT_KEY].IsString()) {
             created_at.emplace(document[CREATED_AT_KEY].GetString());
@@ -99,8 +105,16 @@ const std::optional<bool>& Request::get_accepted() const {
     return accepted;
 }
 
+const std::optional<bool>& Request::get_project_wallet() const {
+    return project_wallet;
+}
+
 const std::optional<BlockchainData>& Request::get_blockchain_data() const {
     return blockchain_data;
+}
+
+const std::optional<Project>& Request::get_project() const {
+    return project;
 }
 
 const std::optional<std::string>& Request::get_created_at() const {
@@ -122,6 +136,7 @@ bool Request::operator==(const Request& rhs) const {
            state == rhs.state &&
            accepted == rhs.accepted &&
            blockchain_data == rhs.blockchain_data &&
+           project == rhs.project &&
            created_at == rhs.created_at &&
            updated_at == rhs.updated_at;
 }

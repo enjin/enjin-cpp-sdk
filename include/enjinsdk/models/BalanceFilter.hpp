@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/ISerializable.hpp"
+#include "enjinsdk/models/Operator.hpp"
 #include <optional>
 #include <string>
 #include <vector>
@@ -44,6 +45,16 @@ public:
     /// \return This filter for chaining.
     BalanceFilter& set_or(const std::vector<BalanceFilter>& others);
 
+    /// \brief Sets the project UUID to filter for.
+    /// \param project_uuid The project UUID.
+    /// \return This filter for chaining.
+    BalanceFilter& set_project_uuid(const std::string& project_uuid);
+
+    /// \brief Sets the project UUIDs to filter for.
+    /// \param project_uuids The project UUIDs.
+    /// \return This filter for chaining.
+    BalanceFilter& set_project_uuid_in(const std::vector<std::string>& project_uuids);
+
     /// \brief Sets the asset ID to filter for.
     /// \param asset_id The asset ID.
     /// \return This filter for chaining.
@@ -65,29 +76,14 @@ public:
     BalanceFilter& set_wallet_in(const std::vector<std::string>& wallets);
 
     /// \brief Sets the filter to include balances equal to the passed value.
-    /// \param value The vaue to compare by.
+    /// \param value The value to compare by.
     /// \return This filter for chaining.
     BalanceFilter& set_value(int value);
 
-    /// \brief Sets the filter to include balances greater than the passed value.
-    /// \param value value The vaue to compare by.
+    /// \brief Sets the filter operator type for values.
+    /// \param value_is The operator for comparison.
     /// \return This filter for chaining.
-    BalanceFilter& set_value_greater_than(int value);
-
-    /// \brief Sets the filter to include balances greater than or equal to the passed value.
-    /// \param value value The vaue to compare by.
-    /// \return This filter for chaining.
-    BalanceFilter& set_value_greater_than_or_equal(int value);
-
-    /// \brief Sets the filter to include balances less than the passed value.
-    /// \param value value The vaue to compare by.
-    /// \return This filter for chaining.
-    BalanceFilter& set_value_less_than(int value);
-
-    /// \brief Sets the filter to include balances greater than or equal to the passed value.
-    /// \param value value The vaue to compare by.
-    /// \return This filter for chaining.
-    BalanceFilter& set_value_less_than_or_equal(int value);
+    BalanceFilter& set_value_is(Operator value_is);
 
     bool operator==(const BalanceFilter& rhs) const;
 
@@ -96,27 +92,25 @@ public:
 private:
     std::optional<std::vector<BalanceFilter>> and_filters;
     std::optional<std::vector<BalanceFilter>> or_filters;
+    std::optional<std::string> project_uuid;
+    std::optional<std::vector<std::string>> project_uuid_in;
     std::optional<std::string> asset_id;
     std::optional<std::vector<std::string>> asset_id_in;
     std::optional<std::string> wallet;
     std::optional<std::vector<std::string>> wallet_in;
     std::optional<int> value;
-    std::optional<int> value_gt;
-    std::optional<int> value_gte;
-    std::optional<int> value_lt;
-    std::optional<int> value_lte;
+    std::optional<Operator> value_is;
 
     constexpr static char AND_KEY[] = "and";
     constexpr static char OR_KEY[] = "or";
+    constexpr static char PROJECT_UUID_KEY[] = "projectUuid";
+    constexpr static char PROJECT_UUID_IN_KEY[] = "projectUuid_in";
     constexpr static char ASSET_ID_KEY[] = "assetId";
     constexpr static char ASSET_ID_IN_KEY[] = "assetId_in";
     constexpr static char WALLET_KEY[] = "wallet";
     constexpr static char WALLET_IN_KEY[] = "wallet_in";
     constexpr static char VALUE_KEY[] = "value";
-    constexpr static char VALUE_GT_KEY[] = "value_gt";
-    constexpr static char VALUE_GTE_KEY[] = "value_gte";
-    constexpr static char VALUE_LT_KEY[] = "value_lt";
-    constexpr static char VALUE_LTE_KEY[] = "value_lte";
+    constexpr static char VALUE_IS_KEY[] = "value_is";
 };
 
 }

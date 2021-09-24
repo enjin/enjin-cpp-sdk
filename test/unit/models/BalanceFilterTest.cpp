@@ -28,20 +28,19 @@ public:
     BalanceFilter class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"and":[],"or":[],"assetId":"1","assetId_in":[],"wallet":"1","wallet_in":[],"value":1,"value_gt":1,"value_gte":1,"value_lt":1,"value_lte":1})";
+            R"({"and":[],"or":[],"projectUuid":"1","projectUuid_in":[],"assetId":"1","assetId_in":[],"wallet":"1","wallet_in":[],"value":1,"value_is":"GREATER_THAN"})";
 
     static BalanceFilter create_default_filter() {
         return BalanceFilter().set_and(std::vector<BalanceFilter>())
                               .set_or(std::vector<BalanceFilter>())
+                              .set_project_uuid("1")
+                              .set_project_uuid_in(std::vector<std::string>())
                               .set_asset_id("1")
                               .set_asset_id_in(std::vector<std::string>())
                               .set_wallet("1")
                               .set_wallet_in(std::vector<std::string>())
                               .set_value(1)
-                              .set_value_greater_than(1)
-                              .set_value_greater_than_or_equal(1)
-                              .set_value_less_than(1)
-                              .set_value_less_than_or_equal(1);
+                              .set_value_is(Operator::GREATER_THAN);
     }
 };
 
@@ -61,15 +60,14 @@ TEST_F(BalanceFilterTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_and(std::vector<BalanceFilter>())
                     .set_or(std::vector<BalanceFilter>())
+                    .set_project_uuid("1")
+                    .set_project_uuid_in(std::vector<std::string>())
                     .set_asset_id("1")
                     .set_asset_id_in(std::vector<std::string>())
                     .set_wallet("1")
                     .set_wallet_in(std::vector<std::string>())
                     .set_value(1)
-                    .set_value_greater_than(1)
-                    .set_value_greater_than_or_equal(1)
-                    .set_value_less_than(1)
-                    .set_value_less_than_or_equal(1);
+                    .set_value_is(Operator::GREATER_THAN);
 
     // Act
     std::string actual = class_under_test.serialize();

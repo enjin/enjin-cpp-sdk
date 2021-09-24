@@ -21,10 +21,10 @@
 #ifndef ENJINCPPSDK_PUSHERCLIENTTESTSUITE_HPP
 #define ENJINCPPSDK_PUSHERCLIENTTESTSUITE_HPP
 
-#include "Constants.hpp"
-#include "MockWebSocketClientImpl.hpp"
+#include "FakeWebSocketClient.hpp"
 #include "MockWebsocketServer.hpp"
 #include "PusherClient.hpp"
+#include "PusherConstants.hpp"
 #include <memory>
 #include <sstream>
 #include <string>
@@ -38,10 +38,10 @@ public:
     static constexpr char DEFAULT_EVENT_NAME[] = "TestEvent";
     static constexpr char DEFAULT_KEY[] = "xyz";
 
-    std::shared_ptr<mocks::MockWebSocketClientImpl> mock_ws_client = std::make_shared<mocks::MockWebSocketClientImpl>();
+    std::shared_ptr<mocks::FakeWebSocketClient> fake_ws_client = std::make_shared<mocks::FakeWebSocketClient>();
     mocks::MockWebsocketServer mock_server;
 
-    enjin::pusher::PusherClient create_testable_pusher_client();
+    [[nodiscard]] pusher::PusherClient create_testable_pusher_client() const;
 
     static std::string create_default_event(const std::string& channel = "", const std::string& data = "null");
 

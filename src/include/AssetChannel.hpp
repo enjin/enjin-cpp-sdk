@@ -31,7 +31,7 @@ public:
     /// \brief Constructs a channel for the given network and asset.
     /// \param platform The platform.
     /// \param asset_id The asset ID.
-    AssetChannel(const models::Platform& platform, const std::string& asset_id);
+    AssetChannel(const models::Platform& platform, std::string asset_id);
 
     ~AssetChannel() override = default;
 

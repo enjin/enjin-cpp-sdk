@@ -19,6 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/shared/PlayerFragmentArguments.hpp"
+#include <string>
 
 namespace enjin::sdk::player {
 
@@ -42,11 +43,38 @@ public:
 
 namespace enjin::sdk::shared {
 
+template ENJINSDK_EXPORT player::GetPlayer&
+AssetFragmentArguments<player::GetPlayer>::set_asset_id_format(models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT player::GetPlayer& AssetFragmentArguments<player::GetPlayer>::set_with_state_data();
+
+template ENJINSDK_EXPORT player::GetPlayer& AssetFragmentArguments<player::GetPlayer>::set_with_config_data();
+
+template ENJINSDK_EXPORT player::GetPlayer& AssetFragmentArguments<player::GetPlayer>::set_with_asset_blocks();
+
+template ENJINSDK_EXPORT player::GetPlayer& AssetFragmentArguments<player::GetPlayer>::set_with_creator();
+
+template ENJINSDK_EXPORT player::GetPlayer& AssetFragmentArguments<player::GetPlayer>::set_with_melt_details();
+
+template ENJINSDK_EXPORT player::GetPlayer& AssetFragmentArguments<player::GetPlayer>::set_with_metadata_uri();
+
+template ENJINSDK_EXPORT player::GetPlayer& AssetFragmentArguments<player::GetPlayer>::set_with_supply_details();
+
+template ENJINSDK_EXPORT player::GetPlayer& AssetFragmentArguments<player::GetPlayer>::set_with_transfer_settings();
+
+template ENJINSDK_EXPORT player::GetPlayer& AssetFragmentArguments<player::GetPlayer>::set_with_asset_variant_mode();
+
+template ENJINSDK_EXPORT player::GetPlayer& AssetFragmentArguments<player::GetPlayer>::set_with_asset_variants();
+
+template ENJINSDK_EXPORT player::GetPlayer& AssetFragmentArguments<player::GetPlayer>::set_with_variant_metadata();
+
 template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_with_linking_info();
 
 template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_qr_size(int size);
 
 template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_with_wallet();
+
+template ENJINSDK_EXPORT player::GetPlayer& WalletFragmentArguments<player::GetPlayer>::set_with_assets_created();
 
 }
 

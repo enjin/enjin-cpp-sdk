@@ -78,9 +78,17 @@ const std::shared_ptr<utils::LoggerProvider>& BaseSchema::get_logger_provider() 
 }
 
 void BaseSchema::log_graphql_exception(const std::exception& e) {
+    if (logger_provider == nullptr) {
+        return;
+    }
+
     std::stringstream ss;
     ss << "An exception occurred processing GraphQL response: " << e.what();
     logger_provider->log(utils::LogLevel::SEVERE, ss.str());
+}
+
+http::HttpResponse BaseSchema::send_request(const http::HttpRequest& request) {
+    return middleware.get_client()->send_request(request).get();
 }
 
 }

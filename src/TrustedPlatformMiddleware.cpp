@@ -21,6 +21,7 @@ namespace enjin::sdk {
 
 TrustedPlatformMiddleware::TrustedPlatformMiddleware(std::unique_ptr<http::IHttpClient> client)
         : client(std::move(client)) {
+    TrustedPlatformMiddleware::client->start();
 }
 
 const graphql::GraphqlQueryRegistry& TrustedPlatformMiddleware::get_query_registry() const {

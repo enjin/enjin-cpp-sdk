@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/TransactionRequestArguments.hpp"
+#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for setting the max melt fee of an asset to a lower value.
 class ENJINSDK_EXPORT DecreaseMaxMeltFee : public graphql::AbstractGraphqlRequest,
-                                           public shared::TransactionRequestArguments<DecreaseMaxMeltFee> {
+                                           public ProjectTransactionRequestArguments<DecreaseMaxMeltFee> {
 public:
     /// \brief Default constructor.
     DecreaseMaxMeltFee();
@@ -40,11 +40,6 @@ public:
     /// \return This request for chaining.
     DecreaseMaxMeltFee& set_asset_id(const std::string& asset_id);
 
-    /// \brief Sets the index for non-fungible assets.
-    /// \param asset_index The index.
-    /// \return This request for chaining.
-    DecreaseMaxMeltFee& set_asset_index(const std::string& asset_index);
-
     /// \brief Sets the new max melt fee for the asset.
     /// \param max_melt_fee The new ratio.
     /// \return This request for chaining.
@@ -57,9 +52,11 @@ public:
 
 private:
     std::optional<std::string> asset_id;
-    std::optional<std::string> asset_index;
     std::optional<int> max_melt_fee;
 };
+
+template ENJINSDK_EXPORT DecreaseMaxMeltFee&
+ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_eth_address(const std::string& address);
 
 }
 
@@ -99,10 +96,7 @@ template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
 TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_with_log_event();
 
 template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
-TransactionRequestArguments<project::DecreaseMaxMeltFee>::set_eth_address(const std::string& address);
-
-template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
-TransactionRequestArguments<project::DecreaseMaxMeltFee>::set_send(bool send);
+TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_with_transaction_project_uuid();
 
 }
 

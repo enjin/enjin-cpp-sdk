@@ -33,9 +33,9 @@ public:
 
     void deserialize(const std::string& json) override;
 
-    /// \brief Returns the ID of this project.
-    /// \return The ID.
-    [[nodiscard]] const std::optional<int>& get_id() const;
+    /// \brief Returns the UUID of this project.
+    /// \return The UUID.
+    [[nodiscard]] const std::optional<std::string>& get_uuid() const;
 
     /// \brief Returns the name of this project.
     /// \return The name.
@@ -64,14 +64,14 @@ public:
     bool operator!=(const Project& rhs) const;
 
 private:
-    std::optional<int> id;
+    std::optional<std::string> uuid;
     std::optional<std::string> name;
     std::optional<std::string> description;
     std::optional<std::string> image;
     std::optional<std::string> created_at;
     std::optional<std::string> updated_at;
 
-    constexpr static char ID_KEY[] = "id";
+    constexpr static char UUID_KEY[] = "uuid";
     constexpr static char NAME_KEY[] = "name";
     constexpr static char DESCRIPTION_KEY[] = "description";
     constexpr static char IMAGE_KEY[] = "image";

@@ -9,13 +9,14 @@ Sign up to Enjin Cloud: [Kovan (Testnet)](https://kovan.cloud.enjin.io/),
 
 ### Resources
 
-* [Enjin Docs](https://enjin.io/docs)
+* [Enjin Docs](https://docs.enjin.io)
 
 ### Table of Contents
 
 * [Compatibility](#compatibility)
 * [Installation](#installation)
     * [Tests](#tests)
+* [Quick Start](#quick-start)
 * [Contributing](#contributing)
     * [Issues](#issues)
     * [Pull Requests](#pull-requests)
@@ -23,16 +24,17 @@ Sign up to Enjin Cloud: [Kovan (Testnet)](https://kovan.cloud.enjin.io/),
 
 ## Compatibility
 
-The Enjin C++ SDK is developed with cross-platform usage in mind. Platform and compiler combinations tested are as
-follows:
+The Enjin C++ SDK is a C++17 library and is developed with cross-platform usage in mind. Platform and compiler
+combinations tested are as follows:
 
-* 64bit Linux with GCC 9
-* 64bit Linux with Clang 10
-* 64bit Windows with MSVC 2019
+* GCC 9.3.0 on Linux (64-bit)
+* Clang 10.0.0 on Linux (64-bit)
+* MSVC 2019 on Windows 10 (64-bit)
 
 ## Installation
 
-The SDK is a **shared** (dynamic) C++ library.
+The SDK may be built as a static or shared (dynamic) library. Use the `ENJINSDK_BUILD_SHARED` CMake argument to build as
+a shared library and set it to "on" (off by default).
 
 The following dependencies are used for building the SDK:
 
@@ -44,11 +46,12 @@ The following libraries are used by the SDK for some of its functionality and mu
 * [RapidJSON (1.1.0+)](https://github.com/Tencent/rapidjson) for processing JSON
 * [spdlog (1.8.0+)](https://github.com/gabime/spdlog) for the logger class
 * (optional) [cpp-httplib (0.8.5+)](https://github.com/yhirose/cpp-httplib) for a default HTTP client implementation
+  * [openssl (1.1.1)](https://github.com/openssl/openssl) for HTTPS support
 * (optional) [IXWebSocket (11.0.4+)](https://github.com/machinezone/IXWebSocket) for a default websocket client
   implementation
 
-To have the SDK build its default HTTP and websocket clients use the `ENJINSDK_ALLOW_DEFAULT_HTTP`
-and `ENJINSDK_ALLOW_DEFAULT_WEBSOCKET` as CMake arguments and set them to be "on" (off by default).
+To have the SDK build its default HTTP and websocket clients use the `ENJINSDK_BUILD_DEFAULT_HTTP` and
+`ENJINSDK_BUILD_DEFAULT_WEBSOCKET` as CMake arguments and set them to be "on" (off by default).
 
 To utilize this SDK you may clone it into your project tree with:
 
@@ -83,6 +86,58 @@ to acquire [Googletest (1.10.0+)](https://github.com/google/googletest) to be us
 To have the test executable built, set the CMake argument `ENJINSDK_BUILD_TESTS` to `ON` and leave the `BUILD_TESTING`
 option from CTest enabled.
 
+## Quick Start
+
+This example showcases how to quickly create and authenticate a client on the project schema which will then allow us to
+make further requests to the platform.
+
+```c++
+#include "enjinsdk/EnjinHosts.hpp"
+#include "enjinsdk/ProjectClient.hpp"
+#include <iostream>
+#include <memory>
+
+using namespace enjin::sdk;
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::project;
+
+int main() {
+    // Builds the project client to run on the Kovan test network.
+    // See: https://kovan.cloud.enjin.io to sign up for the test network.
+    std::unique_ptr<ProjectClient> client = ProjectClientBuilder()
+        .base_uri(KOVAN) // From EnjinHosts
+        .build();
+
+    // Creates the request to authenticate the client.
+    // Replace the appropriate strings with the project's UUID and secret.
+    AuthProject req = AuthProject()
+        .set_uuid("<the-project's-uuid>")
+        .set_secret("<the-project's-secret>");
+
+    // Sends the request to the platform and gets the response.
+    GraphqlResponse<AccessToken> res = client->auth_project(req).get();
+
+    // Checks if the request was successful.
+    if (!res.is_successful()) {
+        std::cout << "AuthProject request failed" << std::endl;
+        return 0;
+    }
+
+    // Authenticates the client with the access token in the response.
+    client->auth(res.get_result().value().get_token().value());
+
+    // Checks if the client was authenticated.
+    if (client->is_authenticated()) {
+        std::cout << "Client is now authenticated" << std::endl;
+    } else {
+        std::cout << "Client was not authenticated" << std::endl;
+    }
+
+    return 0;
+}
+```
+
 ## Contributing
 
 Contributions to the SDK are appreciated!
@@ -108,14 +163,14 @@ Be sure to include your name in the list of contributors.
 
 The license summary below may be copied.
 
-```
+```text
 Copyright 2021 Enjin Pte Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+    http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,

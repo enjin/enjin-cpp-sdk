@@ -18,9 +18,10 @@ set(ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL 0)
 set(ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL 0)
 set(ENJINSDK_USING_CONAN 0)
 
+option(ENJINSDK_BUILD_SHARED "ENJINSDK_BUILD_SHARED" OFF)
 option(ENJINSDK_BUILD_TESTS "ENJINSDK_BUILD_TESTS" OFF)
-option(ENJINSDK_ALLOW_DEFAULT_HTTP "ENJINSDK_ALLOW_DEFAULT_HTTP" OFF)
-option(ENJINSDK_ALLOW_DEFAULT_WEBSOCKET "ENJINSDK_ALLOW_DEFAULT_WEBSOCKET" OFF)
+option(ENJINSDK_BUILD_DEFAULT_HTTP "ENJINSDK_BUILD_DEFAULT_HTTP" OFF)
+option(ENJINSDK_BUILD_DEFAULT_WEBSOCKET "ENJINSDK_BUILD_DEFAULT_WEBSOCKET" OFF)
 
 # Attempt to setup Conan
 if (EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
@@ -53,7 +54,14 @@ add_subdirectory(utils)
 add_subdirectory(scripts)
 
 # Create the SDK target
-add_library(${PROJECT_NAME} SHARED "")
+if (${ENJINSDK_BUILD_SHARED})
+    message(STATUS "Enjin: Building SDK as shared library")
+    add_library(${PROJECT_NAME} SHARED "")
+else ()
+    message(STATUS "Enjin: Building SDK as static library")
+    add_library(${PROJECT_NAME} STATIC "")
+endif ()
+
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 add_dependencies(${PROJECT_NAME} template_generator)
 generate_export_header(${PROJECT_NAME})
@@ -81,33 +89,35 @@ if (${ENJINSDK_USING_CONAN})
 else ()
     include(CheckIncludeFiles)
 
-    if (${ENJINSDK_ALLOW_DEFAULT_HTTP})
-        include("cmake/enjinsdk_find_cpp_httplib.cmake")
-    endif ()
-    if (${ENJINSDK_ALLOW_DEFAULT_WEBSOCKET})
-        include("cmake/enjinsdk_find_ixwebsocket.cmake")
-    endif ()
-
-    include("cmake/enjinsdk_find_rapidjson.cmake")
-    include("cmake/enjinsdk_find_spdlog.cmake")
-
     ###### HTTP client setup
-    if (${ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL})
-        target_include_directories(${PROJECT_NAME} PRIVATE ${CPP_HTTPLIB_INCLUDE_DIRS})
+    if (${ENJINSDK_BUILD_DEFAULT_HTTP})
+        include("cmake/enjinsdk_find_openssl.cmake")
+        include("cmake/enjinsdk_find_cpp_httplib.cmake")
+        if (${ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL})
+            target_link_libraries(${PROJECT_NAME} PRIVATE
+                    OpenSSL::SSL
+                    OpenSSL::Crypto)
+            target_include_directories(${PROJECT_NAME} PRIVATE ${CPP_HTTPLIB_INCLUDE_DIRS})
+        endif ()
     endif ()
     ######
 
     ###### Websocket client setup
-    if (${ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL})
-        target_link_libraries(${PROJECT_NAME} PRIVATE ixwebsocket::ixwebsocket)
+    if (${ENJINSDK_BUILD_DEFAULT_WEBSOCKET})
+        include("cmake/enjinsdk_find_ixwebsocket.cmake")
+        if (${ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL})
+            target_link_libraries(${PROJECT_NAME} PRIVATE ixwebsocket::ixwebsocket)
+        endif ()
     endif ()
     ######
 
     ###### RapidJson setup
+    include("cmake/enjinsdk_find_rapidjson.cmake")
     target_include_directories(${PROJECT_NAME} PRIVATE ${RAPIDJSON_INCLUDE_DIRS})
     ######
 
     ###### SpdLog setup
+    include("cmake/enjinsdk_find_spdlog.cmake")
     target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog_header_only)
     ######
 endif ()
@@ -140,7 +150,7 @@ if (WIN32)
 endif ()
 
 install(DIRECTORY "include/" DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
-install(TARGETS ${PROJECT_NAME}
+install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_utils
         EXPORT ${PROJECT_NAME}
         LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
@@ -188,6 +198,7 @@ endif ()
 unset(ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL)
 unset(ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL)
 unset(ENJINSDK_USING_CONAN)
+unset(ENJINSDK_BUILD_SHARED CACHE)
 unset(ENJINSDK_BUILD_TESTS CACHE)
-unset(ENJINSDK_ALLOW_DEFAULT_HTTP CACHE)
-unset(ENJINSDK_ALLOW_DEFAULT_WEBSOCKET CACHE)
+unset(ENJINSDK_BUILD_DEFAULT_HTTP CACHE)
+unset(ENJINSDK_BUILD_DEFAULT_WEBSOCKET CACHE)

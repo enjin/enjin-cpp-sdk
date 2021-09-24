@@ -18,6 +18,9 @@
 #include "ixwebsocket/IXNetSystem.h"
 #include "ixwebsocket/IXWebSocketServer.h"
 #include <algorithm>
+#include <mutex>
+#include <queue>
+#include <set>
 #include <stdexcept>
 
 #define WEBSOCKET_TEST_SERVER_PORT 8080
@@ -40,17 +43,16 @@ void TestWebsocketMessage::set_type(WebsocketMessageType type) {
     TestWebsocketMessage::type = type;
 }
 
-class MockWebsocketServerImpl {
+class MockWebsocketServer::Impl {
 public:
-    MockWebsocketServerImpl() = delete;
+    Impl() = delete;
 
-    explicit MockWebsocketServerImpl(MockWebsocketServer* mock_server)
-            : mock_server(mock_server) {
+    explicit Impl(MockWebsocketServer* mock_server) : mock_server(mock_server) {
         connect();
     }
 
-    ~MockWebsocketServerImpl() {
-        close("Destructor");
+    ~Impl() {
+        stop("Destructor");
     }
 
     void connect() {
@@ -84,6 +86,10 @@ public:
         server.start();
     }
 
+    void close() {
+        close(ix::WebSocketCloseConstants::kNormalClosureCode, ix::WebSocketCloseConstants::kNormalClosureMessage);
+    }
+
     void close(const std::string& reason) {
         close(ix::WebSocketCloseConstants::kNormalClosureCode, reason);
     }
@@ -95,6 +101,33 @@ public:
                       [code, reason](const std::shared_ptr<ix::WebSocket>& c) {
                           c->close(code, reason);
                       });
+    }
+
+    void stop() {
+        stop(ix::WebSocketCloseConstants::kNormalClosureCode, ix::WebSocketCloseConstants::kNormalClosureMessage);
+    }
+
+    void stop(const std::string& reason) {
+        stop(ix::WebSocketCloseConstants::kNormalClosureCode, reason);
+    }
+
+    void stop(uint16_t code, const std::string& reason) {
+        close(code, reason);
+        server.stop();
+    }
+
+    void ignore_message_type(WebsocketMessageType type) {
+        ignored_types.emplace(type);
+    }
+
+    void next_message(const std::function<void(TestWebsocketMessage)>& handler) {
+        std::lock_guard<std::mutex> guard(message_handlers_lock);
+
+        if (has_unhandled_messages()) {
+            handler(get_unhandled_message());
+        } else {
+            message_handlers.push(handler);
+        }
     }
 
     void send_message(const TestWebsocketMessage& message) {
@@ -129,17 +162,21 @@ public:
         }
     }
 
-    bool has_unhandled_messages() {
-        return !unhandled_message_queue.empty();
+    bool is_type_ignored(WebsocketMessageType type) {
+        return ignored_types.find(type) != ignored_types.end();
     }
 
-    TestWebsocketMessage get_unhandled_message() {
-        std::lock_guard<std::mutex> guard(unhandled_message_queue_mutex);
+    std::function<void(TestWebsocketMessage)> get_next_message_handler() {
+        std::lock_guard<std::mutex> guard(message_handlers_lock);
 
-        TestWebsocketMessage ws_message = unhandled_message_queue.front();
-        unhandled_message_queue.pop();
+        if (message_handlers.empty()) {
+            return std::function<void(TestWebsocketMessage)>();
+        }
 
-        return ws_message;
+        auto handler = message_handlers.front();
+        message_handlers.pop();
+
+        return handler;
     }
 
 private:
@@ -150,7 +187,10 @@ private:
      */
     ix::WebSocketServer server = ix::WebSocketServer(WEBSOCKET_TEST_SERVER_PORT);
     std::queue<TestWebsocketMessage> unhandled_message_queue;
+    std::queue<std::function<void(TestWebsocketMessage)>> message_handlers;
+    std::set<WebsocketMessageType> ignored_types;
 
+    std::mutex message_handlers_lock;
     std::mutex unhandled_message_queue_mutex;
 
     bool should_handle_type(WebsocketMessageType type) {
@@ -216,49 +256,63 @@ private:
             push_unhandled_message(ws_message);
         }
     }
+
+    bool has_unhandled_messages() {
+        return !unhandled_message_queue.empty();
+    }
+
+    TestWebsocketMessage get_unhandled_message() {
+        std::lock_guard<std::mutex> guard(unhandled_message_queue_mutex);
+
+        TestWebsocketMessage ws_message = unhandled_message_queue.front();
+        unhandled_message_queue.pop();
+
+        return ws_message;
+    }
 };
 
-MockWebsocketServer::MockWebsocketServer() : impl(std::make_shared<MockWebsocketServerImpl>(this)) {
+MockWebsocketServer::MockWebsocketServer() : impl(new Impl(this)) {
+}
+
+MockWebsocketServer::~MockWebsocketServer() {
+    delete impl;
 }
 
 void MockWebsocketServer::next_message(const std::function<void(TestWebsocketMessage)>& handler) {
-    std::lock_guard<std::mutex> guard(message_handlers_lock);
-
-    if (impl->has_unhandled_messages()) {
-        handler(impl->get_unhandled_message());
-    } else {
-        message_handlers.push(handler);
-    }
+    impl->next_message(handler);
 }
 
 MockWebsocketServer& MockWebsocketServer::ignore_message_type(WebsocketMessageType type) {
-    ignored_types.emplace(type);
+    impl->ignore_message_type(type);
     return *this;
 }
 
 std::function<void(TestWebsocketMessage)> MockWebsocketServer::get_next_message_handler() {
-    std::lock_guard<std::mutex> guard(message_handlers_lock);
-
-    if (message_handlers.empty()) {
-        return std::function<void(TestWebsocketMessage)>();
-    }
-
-    auto handler = message_handlers.front();
-    message_handlers.pop();
-
-    return handler;
+    return impl->get_next_message_handler();
 }
 
 void MockWebsocketServer::send_message(const TestWebsocketMessage& message) {
     impl->send_message(message);
 }
 
+void MockWebsocketServer::close() {
+    impl->close();
+}
+
 void MockWebsocketServer::close(int code, const std::string& reason) {
     impl->close(code, reason);
 }
 
+void MockWebsocketServer::stop() {
+    impl->stop();
+}
+
+void MockWebsocketServer::stop(int code, const std::string& reason) {
+    impl->stop(code, reason);
+}
+
 bool MockWebsocketServer::is_type_ignored(WebsocketMessageType type) {
-    return ignored_types.find(type) != ignored_types.end();
+    return impl->is_type_ignored(type);
 }
 
 }

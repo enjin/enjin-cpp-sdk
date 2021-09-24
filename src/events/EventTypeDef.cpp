@@ -174,12 +174,12 @@ std::map<models::EventType, std::unique_ptr<EventTypeDef>> EventTypeDef::create_
     map.emplace(models::EventType::ASSET_UPDATED, create(models::EventType::ASSET_UPDATED,
                                                          "EnjinCloud\\Events\\AssetUpdated",
                                                          {"project", "asset", "wallet"}));
-    map.emplace(models::EventType::TRADE_COMPLETED, create(models::EventType::TRADE_COMPLETED,
-                                                           "EnjinCloud\\Events\\TradeCompleted",
-                                                           {"project", "asset", "wallet"}));
-    map.emplace(models::EventType::TRADE_CREATED, create(models::EventType::TRADE_CREATED,
-                                                         "EnjinCloud\\Events\\TradeCreated",
-                                                         {"project", "asset", "wallet"}));
+    map.emplace(models::EventType::TRADE_ASSET_COMPLETED, create(models::EventType::TRADE_ASSET_COMPLETED,
+                                                                 "EnjinCloud\\Events\\TradeAssetCompleted",
+                                                                 {"project", "asset", "wallet"}));
+    map.emplace(models::EventType::TRADE_ASSET_CREATED, create(models::EventType::TRADE_ASSET_CREATED,
+                                                               "EnjinCloud\\Events\\TradeAssetCreated",
+                                                               {"project", "asset", "wallet"}));
     map.emplace(models::EventType::TRANSACTION_BROADCAST, create(models::EventType::TRANSACTION_BROADCAST,
                                                                  "EnjinCloud\\Events\\TransactionBroadcast",
                                                                  {"project", "asset", "wallet"}));

@@ -5,6 +5,7 @@ target_sources(${PROJECT_NAME}_tests
         EventTypeDefTest.cpp
         PlayerChannelTest.cpp
         ProjectChannelTest.cpp
+        PusherEventListenerTest.cpp
         PusherEventServiceTest.cpp
         RegistrationListenerConfigurationTest.cpp
         WalletChannelTest.cpp)

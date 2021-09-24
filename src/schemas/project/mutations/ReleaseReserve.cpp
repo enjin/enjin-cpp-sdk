@@ -24,7 +24,7 @@ ReleaseReserve::ReleaseReserve() : graphql::AbstractGraphqlRequest("enjin.sdk.pr
 
 std::string ReleaseReserve::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionRequestArguments::serialize());
+    utils::join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
 
     if (asset_id.has_value()) {
         utils::set_string_member(document, "assetId", asset_id.value());
@@ -49,8 +49,8 @@ ReleaseReserve& ReleaseReserve::set_value(const std::string& value) {
 bool ReleaseReserve::operator==(const ReleaseReserve& rhs) const {
     return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionRequestArguments<ReleaseReserve>&>(*this) ==
-           static_cast<const shared::TransactionRequestArguments<ReleaseReserve>&>(rhs) &&
+           static_cast<const ProjectTransactionRequestArguments<ReleaseReserve>&>(*this) ==
+           static_cast<const ProjectTransactionRequestArguments<ReleaseReserve>&>(rhs) &&
            asset_id == rhs.asset_id &&
            value == rhs.value;
 }

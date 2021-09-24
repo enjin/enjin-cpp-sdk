@@ -17,6 +17,7 @@
 
 #include "httplib.h"
 #include <map>
+#include <memory>
 #include <sstream>
 #include <stdexcept>
 #include <thread>
@@ -37,9 +38,9 @@ const std::optional<sdk::http::HttpResponse>& ResponseProvider::get_response() c
     return response;
 }
 
-class MockHttpServerImpl {
+class MockHttpServer::Impl {
 public:
-    MockHttpServerImpl() {
+    Impl() {
         if (!server.set_mount_point("/", "./")) {
             throw std::runtime_error("The base directory does not exist");
         } else if (!server.is_valid()) {
@@ -47,7 +48,7 @@ public:
         }
     }
 
-    ~MockHttpServerImpl() {
+    ~Impl() {
         stop();
     }
 
@@ -130,13 +131,18 @@ private:
                 return;
             }
 
+            res.status = provider->get_response()->get_code().value();
             res.set_content(provider->get_response()->get_body().value(),
                             provider->get_response()->get_content_type()->c_str());
         });
     }
 };
 
-MockHttpServer::MockHttpServer() : impl(std::make_shared<MockHttpServerImpl>()) {
+MockHttpServer::MockHttpServer() : impl(new Impl()) {
+}
+
+MockHttpServer::~MockHttpServer() {
+    delete impl;
 }
 
 void MockHttpServer::start() {

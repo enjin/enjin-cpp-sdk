@@ -56,7 +56,7 @@ BalanceFragmentArguments<GetBalances>::set_bal_id_format(models::AssetIdFormat b
 template ENJINSDK_EXPORT GetBalances&
 BalanceFragmentArguments<GetBalances>::set_bal_index_format(models::AssetIndexFormat bal_index_format);
 
-template ENJINSDK_EXPORT GetBalances& BalanceFragmentArguments<GetBalances>::set_with_bal_project_id();
+template ENJINSDK_EXPORT GetBalances& BalanceFragmentArguments<GetBalances>::set_with_bal_project_uuid();
 
 template ENJINSDK_EXPORT GetBalances& BalanceFragmentArguments<GetBalances>::set_with_bal_wallet_address();
 

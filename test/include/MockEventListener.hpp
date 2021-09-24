@@ -23,7 +23,7 @@ namespace enjin::test::mocks {
 
 class MockEventListener : public sdk::events::IEventListener {
 public:
-    MOCK_METHOD(void, notification_received, (enjin::sdk::models::NotificationEvent event), (override));
+    MOCK_METHOD(void, notification_received, (const sdk::models::NotificationEvent& event), (override));
 };
 
 }

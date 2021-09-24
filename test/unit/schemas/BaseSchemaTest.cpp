@@ -13,9 +13,10 @@
  * limitations under the License.
  */
 
-#include "FakeGraphqlRequest.hpp"
-#include "TestableBaseSchema.hpp"
 #include "gtest/gtest.h"
+#include "FakeGraphqlRequest.hpp"
+#include "MockHttpClient.hpp"
+#include "TestableBaseSchema.hpp"
 #include <string>
 
 using namespace enjin::sdk;
@@ -26,7 +27,7 @@ using namespace enjin::test::utils;
 class BaseSchemaTest : public testing::Test {
 public:
     [[nodiscard]] static TestableBaseSchema create_testable_base_schema() {
-        return TestableBaseSchema(TrustedPlatformMiddleware(nullptr));
+        return TestableBaseSchema(TrustedPlatformMiddleware(std::make_unique<MockHttpClient>()));
     }
 
     [[nodiscard]] static FakeGraphqlRequest create_default_fake_request() {

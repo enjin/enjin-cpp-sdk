@@ -19,6 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/BlockchainData.hpp"
+#include "enjinsdk/models/Project.hpp"
 #include "enjinsdk/models/RequestState.hpp"
 #include "enjinsdk/models/RequestType.hpp"
 #include <optional>
@@ -72,9 +73,17 @@ public:
     /// \return Whether this request has been accepted or not.
     [[nodiscard]] const std::optional<bool>& get_accepted() const;
 
+    /// \brief Returns if the wallet of the transaction is a project wallet.
+    /// \return Whether the wallet is a project wallet.
+    [[nodiscard]] const std::optional<bool>& get_project_wallet() const;
+
     /// \brief Returns the blockchain data of this request.
     /// \return The blockchain data.
     [[nodiscard]] const std::optional<BlockchainData>& get_blockchain_data() const;
+
+    /// \brief Returns the project of this request.
+    /// \return The project.
+    [[nodiscard]] const std::optional<Project>& get_project() const;
 
     /// \brief Returns the datetime when this request was created.
     /// \return The datetime.
@@ -100,7 +109,9 @@ private:
     std::optional<std::string> retry_state;
     std::optional<RequestState> state;
     std::optional<bool> accepted;
+    std::optional<bool> project_wallet;
     std::optional<BlockchainData> blockchain_data;
+    std::optional<Project> project;
     std::optional<std::string> created_at;
     std::optional<std::string> updated_at;
 
@@ -113,7 +124,9 @@ private:
     constexpr static char RETRY_STATE_KEY[] = "retryState";
     constexpr static char STATE_KEY[] = "state";
     constexpr static char ACCEPTED_KEY[] = "accepted";
+    constexpr static char PROJECT_WALLET_KEY[] = "projectWallet";
     constexpr static char BLOCKCHAIN_DATA_KEY[] = "blockchainData";
+    constexpr static char PROJECT_KEY[] = "project";
     constexpr static char CREATED_AT_KEY[] = "createdAt";
     constexpr static char UPDATED_AT_KEY[] = "updatedAt";
 };

@@ -21,6 +21,7 @@ namespace enjin::sdk::shared {
 
 std::string PlayerFragmentArgumentsImpl::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
+    utils::join_serialized_object_to_document(document, WalletFragmentArgumentsImpl::serialize());
 
     if (with_linking_info.has_value()) {
         utils::set_boolean_member(document, "withLinkingInfo", with_linking_info.value());
@@ -48,7 +49,9 @@ void PlayerFragmentArgumentsImpl::set_with_wallet() {
 }
 
 bool PlayerFragmentArgumentsImpl::operator==(const PlayerFragmentArgumentsImpl& rhs) const {
-    return with_linking_info == rhs.with_linking_info &&
+    return static_cast<const WalletFragmentArgumentsImpl&>(*this) ==
+           static_cast<const WalletFragmentArgumentsImpl&>(rhs) &&
+           with_linking_info == rhs.with_linking_info &&
            qr_size == rhs.qr_size &&
            with_wallet == rhs.with_wallet;
 }
