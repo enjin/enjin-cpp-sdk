@@ -7,7 +7,7 @@ include(GenerateExportHeader)
 ### Define project and set properties
 project(enjinsdk
         LANGUAGES CXX
-        VERSION 2.0.0)
+        VERSION 1.0.0.1000)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
