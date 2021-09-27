@@ -53,7 +53,11 @@ bool PlayerClient::is_closed() const {
     return !middleware.get_client()->is_open();
 }
 
-std::unique_ptr<PlayerClient> PlayerClientBuilder::build() {
+PlayerClient::PlayerClientBuilder PlayerClient::builder() {
+    return PlayerClient::PlayerClientBuilder();
+}
+
+std::unique_ptr<PlayerClient> PlayerClient::PlayerClientBuilder::build() {
     if (m_http_client == nullptr) {
 #if ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL
         if (!m_base_uri.has_value()) {
@@ -61,7 +65,7 @@ std::unique_ptr<PlayerClient> PlayerClientBuilder::build() {
         }
 
         TrustedPlatformMiddleware middleware(std::make_unique<http::HttpClient>(m_base_uri.value(),
-                                                                                    m_logger_provider));
+                                                                                m_logger_provider));
         return std::unique_ptr<PlayerClient>(new PlayerClient(std::move(middleware), m_logger_provider));
 #else
         throw std::runtime_error("Attempted building platform client without providing an HTTP client");
@@ -72,17 +76,19 @@ std::unique_ptr<PlayerClient> PlayerClientBuilder::build() {
     }
 }
 
-PlayerClientBuilder& PlayerClientBuilder::base_uri(const std::string& base_uri) {
+PlayerClient::PlayerClientBuilder& PlayerClient::PlayerClientBuilder::base_uri(const std::string& base_uri) {
     m_base_uri = base_uri;
     return *this;
 }
 
-PlayerClientBuilder& PlayerClientBuilder::http_client(std::unique_ptr<http::IHttpClient> http_client) {
+PlayerClient::PlayerClientBuilder&
+PlayerClient::PlayerClientBuilder::http_client(std::unique_ptr<http::IHttpClient> http_client) {
     m_http_client = std::move(http_client);
     return *this;
 }
 
-PlayerClientBuilder& PlayerClientBuilder::logger_provider(std::shared_ptr<utils::LoggerProvider> logger_provider) {
+PlayerClient::PlayerClientBuilder&
+PlayerClient::PlayerClientBuilder::logger_provider(std::shared_ptr<utils::LoggerProvider> logger_provider) {
     m_logger_provider = std::move(logger_provider);
     return *this;
 }
