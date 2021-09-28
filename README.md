@@ -105,7 +105,7 @@ using namespace enjin::sdk::project;
 int main() {
     // Builds the project client to run on the Kovan test network.
     // See: https://kovan.cloud.enjin.io to sign up for the test network.
-    std::unique_ptr<ProjectClient> client = ProjectClientBuilder()
+    std::unique_ptr<ProjectClient> client = ProjectClient::builder()
         .base_uri(KOVAN) // From EnjinHosts
         .build();
 
