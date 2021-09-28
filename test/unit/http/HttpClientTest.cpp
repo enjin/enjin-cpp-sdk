@@ -55,7 +55,7 @@ protected:
 
 TEST_F(HttpClientTest, SendRequestReceivesSuccessfulResponseAndReturnsExpected) {
     // Arrange - Data
-    HttpResponse expected = HttpResponseBuilder()
+    HttpResponse expected = HttpResponse::builder()
             .code(200)
             .body("{}")
             .content_type(JSON)

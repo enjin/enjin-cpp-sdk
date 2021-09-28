@@ -80,7 +80,7 @@ public:
                                             request.get_body(),
                                             request.get_content_type().c_str());
             if (result) {
-                return HttpResponseBuilder()
+                return HttpResponse::builder()
                         .code(result->status)
                         .body(result->body)
                         .content_type(result->get_header_value("Content-Type"))

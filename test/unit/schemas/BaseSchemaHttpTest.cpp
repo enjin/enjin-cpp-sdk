@@ -68,10 +68,10 @@ TEST_F(BaseSchemaHttpTest, SendRequestForOneResponseIsSuccessfulReceivesExpected
                                                  .content_type(JSON)
                                                  .body(req_body)
                                                  .build();
-    HttpResponse http_res = HttpResponseBuilder().code(200)
-                                                 .content_type(JSON)
-                                                 .body(res_body.str())
-                                                 .build();
+    HttpResponse http_res = HttpResponse::builder().code(200)
+                                                   .content_type(JSON)
+                                                   .body(res_body.str())
+                                                   .build();
 
     // Arrange - Stubbing
     mock_server.given(http_req)
@@ -95,10 +95,10 @@ TEST_F(BaseSchemaHttpTest, SendRequestForOneServerRespondsWithErrorReponseIsNotS
                                                  .content_type(JSON)
                                                  .body(req_body)
                                                  .build();
-    HttpResponse http_res = HttpResponseBuilder().code(400)
-                                                 .content_type(JSON)
-                                                 .body("Test Error Response")
-                                                 .build();
+    HttpResponse http_res = HttpResponse::builder().code(400)
+                                                   .content_type(JSON)
+                                                   .body("Test Error Response")
+                                                   .build();
 
     // Arrange - Stubbing
     mock_server.given(http_req)
@@ -128,10 +128,10 @@ TEST_F(BaseSchemaHttpTest, SendRequestForMany) {
                                                  .content_type(JSON)
                                                  .body(req_body)
                                                  .build();
-    HttpResponse http_res = HttpResponseBuilder().code(200)
-                                                 .content_type(JSON)
-                                                 .body(res_body.str())
-                                                 .build();
+    HttpResponse http_res = HttpResponse::builder().code(200)
+                                                   .content_type(JSON)
+                                                   .body(res_body.str())
+                                                   .build();
 
     // Arrange - Stubbing
     mock_server.given(http_req)
@@ -157,10 +157,10 @@ TEST_F(BaseSchemaHttpTest, SendRequestForManyServerRespondsWithErrorReponseIsNot
                                                  .content_type(JSON)
                                                  .body(req_body)
                                                  .build();
-    HttpResponse http_res = HttpResponseBuilder().code(400)
-                                                 .content_type(JSON)
-                                                 .body("Test Error Response")
-                                                 .build();
+    HttpResponse http_res = HttpResponse::builder().code(400)
+                                                   .content_type(JSON)
+                                                   .body("Test Error Response")
+                                                   .build();
 
     // Arrange - Stubbing
     mock_server.given(http_req)
