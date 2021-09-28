@@ -34,6 +34,12 @@ public:
 
     PusherEventService() = delete;
 
+    PusherEventService(const PusherEventService&) = delete;
+
+    /// \brief Move constructor.
+    /// \param rhs The service being moved.
+    PusherEventService(PusherEventService&& rhs) noexcept;
+
     ~PusherEventService() override;
 
     std::future<void> start() override;
@@ -128,8 +134,8 @@ public:
         ~PusherEventServiceBuilder() = default;
 
         /// \brief Builds the event service.
-        /// \return The unique pointer for the service.
-        [[nodiscard]] std::unique_ptr<PusherEventService> build();
+        /// \return The service.
+        [[nodiscard]] PusherEventService build();
 
         /// \brief Sets the platform model that the event service will use.
         /// \param platform The platform.

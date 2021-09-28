@@ -27,7 +27,7 @@ using ::testing::An;
 class PusherEventListenerTest : public testing::Test {
 public:
     std::unique_ptr<PusherEventListener> class_under_test;
-    std::shared_ptr<PusherEventService> fake_service;
+    std::unique_ptr<PusherEventService> fake_service;
     std::shared_ptr<MockEventListener> mock_listener;
 
     static constexpr EventType DEFAULT_EVENT_TYPE = EventType::PROJECT_CREATED;
@@ -45,9 +45,9 @@ public:
 
 protected:
     void SetUp() override {
-        fake_service = PusherEventService::builder()
+        fake_service = std::make_unique<PusherEventService>(PusherEventService::builder()
                 .ws_client(std::make_unique<MockWebsocketClient>())
-                .build();
+                .build());
         class_under_test = std::make_unique<PusherEventListener>(fake_service.get());
         mock_listener = std::make_shared<MockEventListener>();
     }

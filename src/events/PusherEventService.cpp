@@ -341,6 +341,10 @@ PusherEventService::PusherEventService(std::unique_ptr<websockets::IWebsocketCli
                         platform)) {
 }
 
+PusherEventService::PusherEventService(PusherEventService&& rhs) noexcept: impl(rhs.impl) {
+    rhs.impl = nullptr;
+}
+
 PusherEventService::~PusherEventService() {
     delete impl;
 }
@@ -464,7 +468,7 @@ PusherEventService::PusherEventServiceBuilder PusherEventService::builder() {
     return PusherEventService::PusherEventServiceBuilder();
 }
 
-std::unique_ptr<PusherEventService> PusherEventService::PusherEventServiceBuilder::build() {
+PusherEventService PusherEventService::PusherEventServiceBuilder::build() {
     if (m_ws_client == nullptr) {
 #if ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL
         m_ws_client = std::make_unique<websockets::WebsocketClient>();
@@ -474,11 +478,11 @@ std::unique_ptr<PusherEventService> PusherEventService::PusherEventServiceBuilde
     }
 
     return m_platform.has_value()
-           ? std::unique_ptr<PusherEventService>(new PusherEventService(std::move(m_ws_client),
-                                                                        std::move(m_logger_provider),
-                                                                        m_platform.value()))
-           : std::unique_ptr<PusherEventService>(new PusherEventService(std::move(m_ws_client),
-                                                                        std::move(m_logger_provider)));
+           ? PusherEventService(std::move(m_ws_client),
+                                std::move(m_logger_provider),
+                                m_platform.value())
+           : PusherEventService(std::move(m_ws_client),
+                                std::move(m_logger_provider));
 }
 
 PusherEventService::PusherEventServiceBuilder&

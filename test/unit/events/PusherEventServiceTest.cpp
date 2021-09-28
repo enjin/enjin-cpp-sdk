@@ -70,7 +70,7 @@ public:
         return platform;
     }
 
-    static std::shared_ptr<PusherEventService> create_default_event_service() {
+    static PusherEventService create_default_event_service() {
         return PusherEventService::builder()
                 .ws_client(std::make_unique<DummyWebsocketClient>())
                 .platform(create_default_platform())
@@ -84,7 +84,7 @@ TEST_F(PusherEventServiceTest, IsRegisteredWhenNotRegisteredReturnsFalse) {
     std::shared_ptr<MockEventListener> listener = std::make_shared<MockEventListener>();
 
     // Act
-    bool actual = service->is_registered(*listener);
+    bool actual = service.is_registered(*listener);
 
     // Assert
     ASSERT_FALSE(actual);
@@ -94,10 +94,10 @@ TEST_F(PusherEventServiceTest, IsRegisteredWhenRegisteredNormallyReturnsTrue) {
     // Arrange
     auto service = create_default_event_service();
     std::shared_ptr<MockEventListener> listener = std::make_shared<MockEventListener>();
-    service->register_listener(listener);
+    service.register_listener(listener);
 
     // Act
-    bool actual = service->is_registered(*listener);
+    bool actual = service.is_registered(*listener);
 
     // Assert
     ASSERT_TRUE(actual);
@@ -108,10 +108,10 @@ TEST_F(PusherEventServiceTest, IsRegisteredWhenRegisteredWithMatcherReturnsTrue)
     auto service = create_default_event_service();
     std::shared_ptr<MockEventListener> listener = std::make_shared<MockEventListener>();
     std::function<bool(EventType)> matcher;
-    service->register_listener_with_matcher(listener, matcher);
+    service.register_listener_with_matcher(listener, matcher);
 
     // Act
-    bool actual = service->is_registered(*listener);
+    bool actual = service.is_registered(*listener);
 
     // Assert
     ASSERT_TRUE(actual);
@@ -122,10 +122,10 @@ TEST_F(PusherEventServiceTest, IsRegisteredWhenRegisteredWithIncludingTypesRetur
     auto service = create_default_event_service();
     std::shared_ptr<MockEventListener> listener = std::make_shared<MockEventListener>();
     std::vector<EventType> types;
-    service->register_listener_including_types(listener, types);
+    service.register_listener_including_types(listener, types);
 
     // Act
-    bool actual = service->is_registered(*listener);
+    bool actual = service.is_registered(*listener);
 
     // Assert
     ASSERT_TRUE(actual);
@@ -136,10 +136,10 @@ TEST_F(PusherEventServiceTest, IsRegisteredWhenRegisteredWithExcludingTypesRetur
     auto service = create_default_event_service();
     std::shared_ptr<MockEventListener> listener = std::make_shared<MockEventListener>();
     std::vector<EventType> types;
-    service->register_listener_excluding_types(listener, types);
+    service.register_listener_excluding_types(listener, types);
 
     // Act
-    bool actual = service->is_registered(*listener);
+    bool actual = service.is_registered(*listener);
 
     // Assert
     ASSERT_TRUE(actual);
@@ -151,7 +151,7 @@ TEST_F(PusherEventServiceTest, RegisterListenerRegistrationHasListener) {
     std::shared_ptr<MockEventListener> listener = std::make_shared<MockEventListener>();
 
     // Act
-    auto registration = service->register_listener(listener);
+    auto registration = service.register_listener(listener);
 
     // Assert
     ASSERT_EQ(listener.get(), &(registration.get_listener()));
@@ -161,10 +161,10 @@ TEST_F(PusherEventServiceTest, RegisterListenerReturnsRegistrationWithSameListen
     // Arrange
     auto service = create_default_event_service();
     std::shared_ptr<MockEventListener> listener = std::make_shared<MockEventListener>();
-    auto expected = service->register_listener(listener);
+    auto expected = service.register_listener(listener);
 
     // Act
-    auto actual = service->register_listener(listener);
+    auto actual = service.register_listener(listener);
 
     // Assert
     EXPECT_EQ(&expected.get_listener(), &actual.get_listener());
@@ -186,7 +186,7 @@ TEST_F(PusherEventServiceTest, RegisterListenerWithMatcherRegistrationHasMatcher
     };
 
     // Act
-    auto registration = service->register_listener_with_matcher(listener, matcher);
+    auto registration = service.register_listener_with_matcher(listener, matcher);
 
     // Assert
     for (EventType type : EVENT_TYPES) {
@@ -203,7 +203,7 @@ TEST_F(PusherEventServiceTest, RegisterListenerIncludingTypesRegistrationMatcher
     std::shared_ptr<MockEventListener> listener = std::make_shared<MockEventListener>();
 
     // Act
-    auto registration = service->register_listener_including_types(listener, types);
+    auto registration = service.register_listener_including_types(listener, types);
 
     // Assert
     for (EventType type : EVENT_TYPES) {
@@ -220,7 +220,7 @@ TEST_F(PusherEventServiceTest, RegisterListenerExcludingTypesRegistrationMatcher
     std::shared_ptr<MockEventListener> listener = std::make_shared<MockEventListener>();
 
     // Act
-    auto registration = service->register_listener_excluding_types(listener, types);
+    auto registration = service.register_listener_excluding_types(listener, types);
 
     // Assert
     for (EventType type : EVENT_TYPES) {
@@ -234,15 +234,15 @@ TEST_F(PusherEventServiceTest, UnregisterListenerListenerIsUnregestered) {
     // Arrange
     auto service = create_default_event_service();
     std::shared_ptr<MockEventListener> listener = std::make_shared<MockEventListener>();
-    auto registration = service->register_listener(listener);
+    auto registration = service.register_listener(listener);
 
     EXPECT_EQ(listener.get(), &(registration.get_listener()));
 
     // Act
-    service->unregister_listener(*listener);
+    service.unregister_listener(*listener);
 
     // Assert
-    ASSERT_FALSE(service->is_registered(*listener));
+    ASSERT_FALSE(service.is_registered(*listener));
 }
 
 TEST_F(PusherEventServiceTest, UnregisterListenerListenerWasNotUnregesteredDoesNotThrowException) {
@@ -251,5 +251,5 @@ TEST_F(PusherEventServiceTest, UnregisterListenerListenerWasNotUnregesteredDoesN
     std::shared_ptr<MockEventListener> listener = std::make_shared<MockEventListener>();
 
     // Assert
-    ASSERT_NO_THROW(service->unregister_listener(*listener));
+    ASSERT_NO_THROW(service.unregister_listener(*listener));
 }
