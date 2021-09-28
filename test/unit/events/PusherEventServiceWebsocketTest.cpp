@@ -53,7 +53,7 @@ public:
     }
 
     static std::shared_ptr<PusherEventService> create_default_event_service() {
-        return PusherEventServiceBuilder()
+        return PusherEventService::builder()
                 .ws_client(std::make_unique<FakeWebSocketClient>())
                 .platform(create_default_platform())
                 .build();

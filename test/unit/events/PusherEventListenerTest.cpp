@@ -45,7 +45,7 @@ public:
 
 protected:
     void SetUp() override {
-        fake_service = PusherEventServiceBuilder()
+        fake_service = PusherEventService::builder()
                 .ws_client(std::make_unique<MockWebsocketClient>())
                 .build();
         class_under_test = std::make_unique<PusherEventListener>(fake_service.get());
