@@ -59,12 +59,12 @@ public:
         /// \return The client.
         [[nodiscard]] std::unique_ptr<PlayerClient> build();
 
-        /// \brief Sets the base URI of the underlying HTTP client if one is not provided.
+        /// \brief Sets the base URI of the built-in HTTP client if a client is not provided.
         /// \param base_uri The base URI.
         /// \return This builder for chaining.
         PlayerClientBuilder& base_uri(const std::string& base_uri);
 
-        /// \brief Sets the underlying HTTP client implementation for the platform client to use.
+        /// \brief Sets the underlying HTTP client implementation to be moved to the client.
         /// \param http_client The client implementation.
         /// \return This builder for chaining.
         PlayerClientBuilder& http_client(std::unique_ptr<http::IHttpClient> http_client);
