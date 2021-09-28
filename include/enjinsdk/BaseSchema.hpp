@@ -81,7 +81,7 @@ protected:
     /// \return The future containing the response.
     template<class T>
     std::future<graphql::GraphqlResponse<T>> send_request_for_one(graphql::AbstractGraphqlRequest& request) {
-        http::HttpRequest http_request = create_request(request);
+        auto http_request = create_request(request);
 
         return std::async([this, http_request] {
             auto response = send_request(http_request);
@@ -102,7 +102,7 @@ protected:
     template<class T>
     std::future<graphql::GraphqlResponse<std::vector<T>>>
     send_request_for_many(graphql::AbstractGraphqlRequest& request) {
-        http::HttpRequest http_request = create_request(request);
+        auto http_request = create_request(request);
 
         return std::async([this, http_request]() {
             auto response = send_request(http_request);
