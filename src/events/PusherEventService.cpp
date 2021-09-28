@@ -92,7 +92,7 @@ public:
                 .set_cluster(cluster.value())
                 .set_encrypted(encrypted.value_or(true));
 
-        client = std::make_unique<pusher::PusherClient>(ws_client, key.value(), options, logger_provider);
+        client = std::make_unique<pusher::PusherClient>(*ws_client, key.value(), options, logger_provider);
         resubscribe_to_channels();
 
         client->set_on_connection_state_change_handler([this](pusher::PusherConnectionState state) {
@@ -263,7 +263,7 @@ private:
     std::vector<EventListenerRegistration> listeners;
 
     std::shared_ptr<PusherEventListener> listener;
-    std::shared_ptr<websockets::IWebsocketClient> ws_client;
+    std::unique_ptr<websockets::IWebsocketClient> ws_client;
     std::shared_ptr<utils::LoggerProvider> logger_provider;
     std::unique_ptr<pusher::PusherClient> client;
 
