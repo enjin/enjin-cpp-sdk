@@ -35,6 +35,12 @@ public:
 
     PlayerClient() = delete;
 
+    PlayerClient(const PlayerClient&) = delete;
+
+    /// \brief Move constructor.
+    /// \param rhs The client being moved.
+    PlayerClient(PlayerClient&& rhs) = default;
+
     ~PlayerClient() override;
 
     void auth(const std::string& token) override;
@@ -55,9 +61,9 @@ public:
         /// \brief Default destructor.
         ~PlayerClientBuilder() = default;
 
-        /// \brief Builds the client and provides the unique pointer for it.
+        /// \brief Builds the client.
         /// \return The client.
-        [[nodiscard]] std::unique_ptr<PlayerClient> build();
+        [[nodiscard]] PlayerClient build();
 
         /// \brief Sets the base URI of the built-in HTTP client if a client is not provided.
         /// \param base_uri The base URI.

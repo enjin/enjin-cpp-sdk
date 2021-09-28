@@ -34,6 +34,8 @@ class ENJINSDK_EXPORT BaseSchema {
 public:
     BaseSchema() = delete;
 
+    BaseSchema(const BaseSchema&) = delete;
+
     /// \brief Default destructor.
     ~BaseSchema() = default;
 
@@ -58,6 +60,10 @@ protected:
     BaseSchema(TrustedPlatformMiddleware middleware,
                std::string schema,
                std::shared_ptr<utils::LoggerProvider> logger_provider = nullptr);
+
+    /// \brief Move constructor.
+    /// \param rhs The schema being moved.
+    BaseSchema(BaseSchema&& rhs) = default;
 
     /// \brief Creates the serialized request body to be sent to the platform.
     /// \param request The request.

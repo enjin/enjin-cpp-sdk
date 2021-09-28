@@ -57,22 +57,22 @@ PlayerClient::PlayerClientBuilder PlayerClient::builder() {
     return PlayerClient::PlayerClientBuilder();
 }
 
-std::unique_ptr<PlayerClient> PlayerClient::PlayerClientBuilder::build() {
+PlayerClient PlayerClient::PlayerClientBuilder::build() {
     if (m_http_client == nullptr) {
 #if ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL
         if (!m_base_uri.has_value()) {
             throw std::runtime_error("No base URI was set for default HTTP client implementation");
         }
 
-        TrustedPlatformMiddleware middleware(std::make_unique<http::HttpClient>(m_base_uri.value(),
-                                                                                m_logger_provider));
-        return std::unique_ptr<PlayerClient>(new PlayerClient(std::move(middleware), m_logger_provider));
+        return PlayerClient(TrustedPlatformMiddleware(std::make_unique<http::HttpClient>(m_base_uri.value(),
+                                                                                         m_logger_provider)),
+                            m_logger_provider);
 #else
         throw std::runtime_error("Attempted building platform client without providing an HTTP client");
 #endif
     } else {
-        TrustedPlatformMiddleware middleware(std::move(m_http_client));
-        return std::unique_ptr<PlayerClient>(new PlayerClient(std::move(middleware), m_logger_provider));
+        return PlayerClient(TrustedPlatformMiddleware(std::move(m_http_client)),
+                            m_logger_provider);
     }
 }
 

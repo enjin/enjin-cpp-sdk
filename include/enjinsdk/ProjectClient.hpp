@@ -35,6 +35,12 @@ public:
 
     ProjectClient() = delete;
 
+    ProjectClient(const ProjectClient&) = delete;
+
+    /// \brief Move constructor.
+    /// \param rhs The client being moved.
+    ProjectClient(ProjectClient&& rhs) = default;
+
     ~ProjectClient() override;
 
     void auth(const std::string& token) override;
@@ -55,9 +61,9 @@ public:
         /// \brief Default destructor.
         ~ProjectClientBuilder() = default;
 
-        /// \brief Builds the client and provides the unique pointer for it.
+        /// \brief Builds the client.
         /// \return The client.
-        [[nodiscard]] std::unique_ptr<ProjectClient> build();
+        [[nodiscard]] ProjectClient build();
 
         /// \brief Sets the base URI of the built-in HTTP client if a client is not provided.
         /// \param base_uri The base URI.

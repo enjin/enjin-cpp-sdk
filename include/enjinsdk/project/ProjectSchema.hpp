@@ -28,6 +28,8 @@ class ENJINSDK_EXPORT ProjectSchema : public IProjectSchema,
 public:
     ProjectSchema() = delete;
 
+    ProjectSchema(const ProjectSchema&) = delete;
+
     ~ProjectSchema() override = default;
 
     std::future<graphql::GraphqlResponse<models::Request>> advanced_send_asset(AdvancedSendAsset& request) override;
@@ -99,6 +101,10 @@ protected:
     /// \param logger_provider The logger provider.
     explicit ProjectSchema(TrustedPlatformMiddleware middleware,
                            std::shared_ptr<utils::LoggerProvider> logger_provider);
+
+    /// \brief Move constructor.
+    /// \param rhs The schema being moved.
+    ProjectSchema(ProjectSchema&& rhs) = default;
 };
 
 }
