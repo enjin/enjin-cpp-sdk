@@ -141,7 +141,7 @@ public:
         return client != nullptr && client->get_state() == pusher::PusherConnectionState::CONNECTED;
     }
 
-    bool is_registered(const IEventListener& listener) const override {
+    [[nodiscard]] bool is_registered(const IEventListener& listener) const override {
         auto loc = std::find_if(listeners.begin(),
                                 listeners.end(),
                                 [&listener](const EventListenerRegistration& r) {
