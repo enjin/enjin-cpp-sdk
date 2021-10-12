@@ -28,7 +28,7 @@ public:
     static constexpr char DEFAULT_CONTENT_TYPE[] = "application/json";
     static constexpr char DEFAULT_BODY[] = "{}";
 
-    HttpRequestBuilder class_under_test;
+    HttpRequest::HttpRequestBuilder class_under_test = HttpRequest::builder();
 };
 
 TEST_F(HttpRequestBuilderTest, BuildMethodValueIsNotSetThrowsException) {

@@ -29,6 +29,8 @@ class ENJINSDK_EXPORT SharedSchema : public ISharedSchema,
 public:
     SharedSchema() = delete;
 
+    SharedSchema(const SharedSchema&) = delete;
+
     ~SharedSchema() override = default;
 
     std::future<graphql::GraphqlResponse<bool>> cancel_transaction(CancelTransaction& request) override;
@@ -57,6 +59,10 @@ protected:
     SharedSchema(TrustedPlatformMiddleware middleware,
                  const std::string& schema,
                  std::shared_ptr<utils::LoggerProvider> logger_provider);
+
+    /// \brief Move constructor.
+    /// \param rhs The schema being moved.
+    SharedSchema(SharedSchema&& rhs) = default;
 };
 
 }

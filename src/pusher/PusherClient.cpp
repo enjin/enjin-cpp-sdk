@@ -60,33 +60,33 @@ std::string get_unsubscription_message_for_channel_name(const std::string& chann
     return sdk::utils::document_to_string(document);
 }
 
-PusherClient::PusherClient(std::shared_ptr<sdk::websockets::IWebsocketClient> ws_client,
+PusherClient::PusherClient(sdk::websockets::IWebsocketClient& ws_client,
                            std::string key,
                            const PusherOptions& options,
                            std::shared_ptr<sdk::utils::LoggerProvider> logger_provider)
-        : ws_client(std::move(ws_client)),
+        : ws_client(ws_client),
           logger_provider(std::move(logger_provider)),
           key(std::move(key)),
           options(options) {
-    PusherClient::ws_client->set_message_handler([this](const std::string& message) {
+    PusherClient::ws_client.set_message_handler([this](const std::string& message) {
         websocket_message_received(message);
     });
-    PusherClient::ws_client->set_open_handler([this]() {
+    PusherClient::ws_client.set_open_handler([this]() {
         websocket_opened();
     });
-    PusherClient::ws_client->set_close_handler([this](int close_status, const std::string& message) {
+    PusherClient::ws_client.set_close_handler([this](int close_status, const std::string& message) {
         websocket_closed(close_status, message);
     });
 }
 
 PusherClient::~PusherClient() {
-    ws_client->close().get();
+    ws_client.close().get();
 }
 
 std::future<void> PusherClient::connect() {
     ws_client_closed = false;
-    ws_client->set_allow_reconnecting(true);
-    ws_client->set_allowed_reconnect_attempts(5);
+    ws_client.set_allow_reconnecting(true);
+    ws_client.set_allowed_reconnect_attempts(5);
     set_state(PusherConnectionState::CONNECTING);
 
     std::string schema = options.is_encrypted()
@@ -104,7 +104,7 @@ std::future<void> PusherClient::connect() {
     uri_ss << "&version=" << ENJINSDK_VERSION;
 #endif
 
-    return ws_client->connect(uri_ss.str());
+    return ws_client.connect(uri_ss.str());
 }
 
 std::future<void> PusherClient::disconnect() {
@@ -114,7 +114,7 @@ std::future<void> PusherClient::disconnect() {
         ws_client_closed = true;
 
         return std::async([this]() {
-            ws_client->close().get();
+            ws_client.close().get();
             set_state(PusherConnectionState::DISCONNECTED);
         });
     }
@@ -142,7 +142,7 @@ void PusherClient::subscribe(const std::string& channel_name) {
         return;
     }
 
-    ws_client->send(get_subscription_message_for_channel_name(channel_name));
+    ws_client.send(get_subscription_message_for_channel_name(channel_name));
 }
 
 void PusherClient::subscription_succeeded(const std::string& channel_name) {
@@ -175,7 +175,7 @@ void PusherClient::unsubscribe(const std::string& channel_name) {
         return;
     }
 
-    ws_client->send(get_unsubscription_message_for_channel_name(channel_name));
+    ws_client.send(get_unsubscription_message_for_channel_name(channel_name));
 }
 
 void PusherClient::bind(const std::string& event_name, const std::shared_ptr<ISubscriptionEventListener>& listener) {
@@ -301,7 +301,7 @@ void PusherClient::websocket_opened() {
 
     std::lock_guard<std::mutex> guard(channel_mutex);
     for (const auto& entry : channels) {
-        ws_client->send(get_subscription_message_for_channel_name(entry.first));
+        ws_client.send(get_subscription_message_for_channel_name(entry.first));
     }
 }
 
@@ -315,7 +315,7 @@ void PusherClient::websocket_closed(int close_status, const std::string&) {
      * https://pusher.com/docs/pusher_protocol#error-codes
      */
     if (close_status >= 4000 && close_status < 4100) {
-        ws_client->set_allow_reconnecting(false);
+        ws_client.set_allow_reconnecting(false);
         set_state(PusherConnectionState::DISCONNECTED);
         return;
     }

@@ -41,11 +41,11 @@ std::string BaseSchema::create_request_body(graphql::AbstractGraphqlRequest& req
 }
 
 http::HttpRequest BaseSchema::create_request(graphql::AbstractGraphqlRequest& request) const {
-    http::HttpRequestBuilder builder;
-    builder.method(http::HttpMethod::Post)
-           .path_query_fragment(std::string("/graphql/").append(schema))
-           .content_type(JSON)
-           .body(create_request_body(request));
+    auto builder = http::HttpRequest::builder()
+            .method(http::HttpMethod::Post)
+            .path_query_fragment(std::string("/graphql/").append(schema))
+            .content_type(JSON)
+            .body(create_request_body(request));
 
     // Adds the default SDK user agent header using the defined SDK version if the definition was set
     std::stringstream user_agent_ss;

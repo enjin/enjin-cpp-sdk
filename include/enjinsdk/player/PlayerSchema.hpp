@@ -28,6 +28,8 @@ class ENJINSDK_EXPORT PlayerSchema : public IPlayerSchema,
 public:
     PlayerSchema() = delete;
 
+    PlayerSchema(const PlayerSchema&) = delete;
+
     ~PlayerSchema() override = default;
 
     std::future<graphql::GraphqlResponse<models::Request>> advanced_send_asset(AdvancedSendAsset& request) override;
@@ -60,6 +62,10 @@ protected:
     /// \param logger_provider The logger provider.
     explicit PlayerSchema(TrustedPlatformMiddleware middleware,
                           std::shared_ptr<utils::LoggerProvider> logger_provider);
+
+    /// \brief Move constructor.
+    /// \param rhs The schema being moved.
+    PlayerSchema(PlayerSchema&& rhs) = default;
 };
 
 }

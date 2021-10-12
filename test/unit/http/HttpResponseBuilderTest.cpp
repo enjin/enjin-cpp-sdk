@@ -21,7 +21,7 @@ using namespace enjin::sdk::http;
 
 class HttpResponseBuilderTest : public testing::Test {
 public:
-    HttpResponseBuilder class_under_test;
+    HttpResponse::HttpResponseBuilder class_under_test = HttpResponse::builder();
 };
 
 TEST_F(HttpResponseBuilderTest, BuildDoesNotThrowException) {

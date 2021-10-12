@@ -19,7 +19,7 @@ namespace enjin::test::suites {
 
 pusher::PusherClient PusherClientTestSuite::create_testable_pusher_client() const {
     pusher::PusherOptions options = create_default_pusher_options();
-    return pusher::PusherClient(fake_ws_client, DEFAULT_KEY, options);
+    return pusher::PusherClient(*fake_ws_client, DEFAULT_KEY, options);
 }
 
 std::string PusherClientTestSuite::create_default_event(const std::string& channel, const std::string& data) {
