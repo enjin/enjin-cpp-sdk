@@ -36,59 +36,11 @@ enum class HttpMethod {
     Patch,
 };
 
-class HttpRequest;
-
-/// \brief Builder class for HttpRequest class.
-class ENJINSDK_EXPORT HttpRequestBuilder {
-public:
-    /// \brief Default constructor.
-    HttpRequestBuilder() = default;
-
-    /// \brief Default destructor.
-    ~HttpRequestBuilder() = default;
-
-    /// \brief Builds the request.
-    /// \return The built request.
-    /// \throws runtime_error If no HTTP method was set.
-    [[nodiscard]] HttpRequest build();
-
-    /// \brief Sets the HTTP method the request will be built with.
-    /// \param method The HTTP method.
-    /// \return This builder for chaining.
-    HttpRequestBuilder& method(HttpMethod method);
-
-    /// \brief Sets the path query fragment the request will be built with.
-    /// \param path_query_fragment The path query fragment.
-    /// \return This builder for chaining.
-    HttpRequestBuilder& path_query_fragment(const std::string& path_query_fragment);
-
-    /// \brief Sets the body data the request will be built with.
-    /// \param body The request body.
-    /// \return This builder for chaining.
-    HttpRequestBuilder& body(const std::string& body);
-
-    /// \brief Sets the content type header the request will be built with.
-    /// \param content_type The content type.
-    /// \return This builder for chaining.
-    HttpRequestBuilder& content_type(const std::string& content_type);
-
-    /// \brief Adds a header for the request.
-    /// \param name The header name.
-    /// \param value The header value.
-    /// \return This builder for chaining.
-    HttpRequestBuilder& add_header(const std::string& name, const std::string& value);
-
-private:
-    std::optional<HttpMethod> m_method;
-    std::string m_path_query_fragment;
-    std::string m_body;
-    std::string m_content_type;
-    std::map<std::string, std::string> headers;
-};
-
 /// \brief Container class for a HTTP request.
 class ENJINSDK_EXPORT HttpRequest {
 public:
+    class HttpRequestBuilder;
+
     HttpRequest() = delete;
 
     /// \brief Default destructor.
@@ -137,6 +89,59 @@ public:
 
     bool operator>=(const HttpRequest& rhs) const;
 
+    /// \brief Creates a builder for this class.
+    /// \return The builder.
+    [[nodiscard]] static HttpRequestBuilder builder();
+
+    /// \brief Builder class for HttpRequest.
+    class ENJINSDK_EXPORT HttpRequestBuilder {
+    public:
+        /// \brief Default destructor.
+        ~HttpRequestBuilder() = default;
+
+        /// \brief Builds the request.
+        /// \return The built request.
+        /// \throws runtime_error If no HTTP method was set.
+        [[nodiscard]] HttpRequest build();
+
+        /// \brief Sets the HTTP method the request will be built with.
+        /// \param method The HTTP method.
+        /// \return This builder for chaining.
+        HttpRequestBuilder& method(HttpMethod method);
+
+        /// \brief Sets the path query fragment the request will be built with.
+        /// \param path_query_fragment The path query fragment.
+        /// \return This builder for chaining.
+        HttpRequestBuilder& path_query_fragment(const std::string& path_query_fragment);
+
+        /// \brief Sets the body data the request will be built with.
+        /// \param body The request body.
+        /// \return This builder for chaining.
+        HttpRequestBuilder& body(const std::string& body);
+
+        /// \brief Sets the content type header the request will be built with.
+        /// \param content_type The content type.
+        /// \return This builder for chaining.
+        HttpRequestBuilder& content_type(const std::string& content_type);
+
+        /// \brief Adds a header for the request.
+        /// \param name The header name.
+        /// \param value The header value.
+        /// \return This builder for chaining.
+        HttpRequestBuilder& add_header(const std::string& name, const std::string& value);
+
+    private:
+        std::optional<HttpMethod> m_method;
+        std::string m_path_query_fragment;
+        std::string m_body;
+        std::string m_content_type;
+        std::map<std::string, std::string> headers;
+
+        HttpRequestBuilder() = default;
+
+        friend HttpRequestBuilder HttpRequest::builder();
+    };
+
 private:
     const HttpMethod method;
     const std::string path_query_fragment;
@@ -149,8 +154,6 @@ private:
                 std::string body_data,
                 std::string content_type,
                 std::map<std::string, std::string> headers);
-
-    friend HttpRequest HttpRequestBuilder::build();
 };
 
 }

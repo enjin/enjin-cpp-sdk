@@ -46,7 +46,7 @@ public:
     /// \param key The project key.
     /// \param options The options.
     /// \param logger_provider The logger provider.
-    PusherClient(std::shared_ptr<sdk::websockets::IWebsocketClient> ws_client,
+    PusherClient(sdk::websockets::IWebsocketClient& ws_client,
                  std::string key,
                  const PusherOptions& options,
                  std::shared_ptr<sdk::utils::LoggerProvider> logger_provider = nullptr);
@@ -114,7 +114,7 @@ private:
         bool is_subscribed = false;
     };
 
-    std::shared_ptr<sdk::websockets::IWebsocketClient> ws_client;
+    sdk::websockets::IWebsocketClient& ws_client;
     std::shared_ptr<sdk::utils::LoggerProvider> logger_provider;
 
     std::map<std::string, std::set<std::shared_ptr<ISubscriptionEventListener>>> event_listeners;
