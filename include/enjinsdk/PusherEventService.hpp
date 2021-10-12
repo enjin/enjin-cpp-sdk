@@ -27,46 +27,18 @@
 
 namespace enjin::sdk::events {
 
-class PusherEventService;
-
-/// \brief Builder for a Pusher event service.
-class ENJINSDK_EXPORT PusherEventServiceBuilder {
-public:
-    /// \brief Default constructor.
-    PusherEventServiceBuilder() = default;
-
-    /// \brief Default destructor.
-    ~PusherEventServiceBuilder() = default;
-
-    /// \brief Builds the event service.
-    /// \return The unique pointer for the service.
-    [[nodiscard]] std::unique_ptr<PusherEventService> build();
-
-    /// \brief Sets the platform model that the event service will use.
-    /// \param platform The platform.
-    /// \return This builder for chaining.
-    PusherEventServiceBuilder& platform(const models::Platform& platform);
-
-    /// \brief Sets the websocket client to be moved to the service.
-    /// \param ws_client The websocket client.
-    /// \return This builder for chaining.
-    PusherEventServiceBuilder& ws_client(std::unique_ptr<websockets::IWebsocketClient> ws_client);
-
-    /// \brief Sets the logger provider to be used by the event service.
-    /// \param logger_provider The logger provider.
-    /// \return This builder for chaining.
-    PusherEventServiceBuilder& logger_provider(const std::shared_ptr<utils::LoggerProvider>& logger_provider);
-
-private:
-    std::optional<models::Platform> m_platform;
-    std::unique_ptr<websockets::IWebsocketClient> m_ws_client;
-    std::shared_ptr<utils::LoggerProvider> m_provider;
-};
-
 /// \brief Implementation of IEventService for Pusher events.
 class ENJINSDK_EXPORT PusherEventService : public IEventService {
 public:
+    class PusherEventServiceBuilder;
+
     PusherEventService() = delete;
+
+    PusherEventService(const PusherEventService&) = delete;
+
+    /// \brief Move constructor.
+    /// \param rhs The service being moved.
+    PusherEventService(PusherEventService&& rhs) noexcept;
 
     ~PusherEventService() override;
 
@@ -151,6 +123,45 @@ public:
     /// \return The logger provider.
     [[nodiscard]] const std::shared_ptr<utils::LoggerProvider>& get_logger_provider() const;
 
+    /// \brief Creates a builder for this class.
+    /// \return The builder.
+    [[nodiscard]] static PusherEventServiceBuilder builder();
+
+    /// \brief Builder class for PusherEventService.
+    class ENJINSDK_EXPORT PusherEventServiceBuilder {
+    public:
+        /// \brief Default destructor.
+        ~PusherEventServiceBuilder() = default;
+
+        /// \brief Builds the event service.
+        /// \return The service.
+        [[nodiscard]] PusherEventService build();
+
+        /// \brief Sets the platform model that the event service will use.
+        /// \param platform The platform.
+        /// \return This builder for chaining.
+        PusherEventServiceBuilder& platform(const models::Platform& platform);
+
+        /// \brief Sets the websocket client to be moved to the service.
+        /// \param ws_client The websocket client.
+        /// \return This builder for chaining.
+        PusherEventServiceBuilder& ws_client(std::unique_ptr<websockets::IWebsocketClient> ws_client);
+
+        /// \brief Sets the logger provider to be used by the event service.
+        /// \param logger_provider The logger provider.
+        /// \return This builder for chaining.
+        PusherEventServiceBuilder& logger_provider(const std::shared_ptr<utils::LoggerProvider>& logger_provider);
+
+    private:
+        std::optional<models::Platform> m_platform;
+        std::unique_ptr<websockets::IWebsocketClient> m_ws_client;
+        std::shared_ptr<utils::LoggerProvider> m_logger_provider;
+
+        PusherEventServiceBuilder() = default;
+
+        friend PusherEventServiceBuilder PusherEventService::builder();
+    };
+
 private:
     class Impl;
 
@@ -162,8 +173,6 @@ private:
     PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client,
                        std::shared_ptr<utils::LoggerProvider> logger_provider,
                        const models::Platform& platform);
-
-    friend std::unique_ptr<PusherEventService> PusherEventServiceBuilder::build();
 };
 
 }

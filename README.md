@@ -99,7 +99,6 @@ make further requests to the platform.
 #include "enjinsdk/EnjinHosts.hpp"
 #include "enjinsdk/ProjectClient.hpp"
 #include <iostream>
-#include <memory>
 
 using namespace enjin::sdk;
 using namespace enjin::sdk::graphql;
@@ -109,7 +108,7 @@ using namespace enjin::sdk::project;
 int main() {
     // Builds the project client to run on the Kovan test network.
     // See: https://kovan.cloud.enjin.io to sign up for the test network.
-    std::unique_ptr<ProjectClient> client = ProjectClientBuilder()
+    ProjectClient client = ProjectClient::builder()
         .base_uri(KOVAN) // From EnjinHosts
         .build();
 
@@ -120,7 +119,7 @@ int main() {
         .set_secret("<the-project's-secret>");
 
     // Sends the request to the platform and gets the response.
-    GraphqlResponse<AccessToken> res = client->auth_project(req).get();
+    GraphqlResponse<AccessToken> res = client.auth_project(req).get();
 
     // Checks if the request was successful.
     if (!res.is_successful()) {
@@ -129,10 +128,10 @@ int main() {
     }
 
     // Authenticates the client with the access token in the response.
-    client->auth(res.get_result().value().get_token().value());
+    client.auth(res.get_result().value().get_token().value());
 
     // Checks if the client was authenticated.
-    if (client->is_authenticated()) {
+    if (client.is_authenticated()) {
         std::cout << "Client is now authenticated" << std::endl;
     } else {
         std::cout << "Client was not authenticated" << std::endl;
