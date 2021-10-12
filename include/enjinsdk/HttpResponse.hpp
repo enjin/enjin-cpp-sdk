@@ -22,45 +22,11 @@
 
 namespace enjin::sdk::http {
 
-class HttpResponse;
-
-/// \brief Builder class for HttpResponse class.
-class ENJINSDK_EXPORT HttpResponseBuilder {
-public:
-    /// \brief Default constructor.
-    HttpResponseBuilder() = default;
-
-    /// \brief Default destructor.
-    ~HttpResponseBuilder() = default;
-
-    /// \brief Builds the response.
-    /// \return The built response.
-    [[nodiscard]] HttpResponse build();
-
-    /// \brief Sets the status code the response will be built with.
-    /// \param code The status code.
-    /// \return This builder for chaining.
-    HttpResponseBuilder& code(unsigned short code);
-
-    /// \brief Sets the body data the response will be built with.
-    /// \param body The response body.
-    /// \return This builder for chaining.
-    HttpResponseBuilder& body(const std::string& body);
-
-    /// \brief Sets the content type header the response will be built with.
-    /// \param content_type The content type.
-    /// \return This builder for chaining.
-    HttpResponseBuilder& content_type(const std::string& content_type);
-
-private:
-    std::optional<unsigned short> m_code;
-    std::optional<std::string> m_body;
-    std::optional<std::string> m_content_type;
-};
-
 /// \brief Container class for a HTTP response.
 class ENJINSDK_EXPORT HttpResponse {
 public:
+    class HttpResponseBuilder;
+
     /// \brief Default constructor.
     HttpResponse() = default;
 
@@ -91,6 +57,45 @@ public:
 
     bool operator!=(const HttpResponse& rhs) const;
 
+    /// \brief Creates a builder for this class.
+    /// \return The builder.
+    [[nodiscard]] static HttpResponseBuilder builder();
+
+    /// \brief Builder class for HttpResponse.
+    class ENJINSDK_EXPORT HttpResponseBuilder {
+    public:
+        /// \brief Default destructor.
+        ~HttpResponseBuilder() = default;
+
+        /// \brief Builds the response.
+        /// \return The built response.
+        [[nodiscard]] HttpResponse build();
+
+        /// \brief Sets the status code the response will be built with.
+        /// \param code The status code.
+        /// \return This builder for chaining.
+        HttpResponseBuilder& code(unsigned short code);
+
+        /// \brief Sets the body data the response will be built with.
+        /// \param body The response body.
+        /// \return This builder for chaining.
+        HttpResponseBuilder& body(const std::string& body);
+
+        /// \brief Sets the content type header the response will be built with.
+        /// \param content_type The content type.
+        /// \return This builder for chaining.
+        HttpResponseBuilder& content_type(const std::string& content_type);
+
+    private:
+        std::optional<unsigned short> m_code;
+        std::optional<std::string> m_body;
+        std::optional<std::string> m_content_type;
+
+        HttpResponseBuilder() = default;
+
+        friend HttpResponseBuilder HttpResponse::builder();
+    };
+
 private:
     std::optional<unsigned short> code;
     std::optional<std::string> body;
@@ -99,8 +104,6 @@ private:
     HttpResponse(std::optional<unsigned short> code,
                  std::optional<std::string>,
                  std::optional<std::string> content_type);
-
-    friend HttpResponse HttpResponseBuilder::build();
 };
 
 }

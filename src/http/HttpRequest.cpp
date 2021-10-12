@@ -20,43 +20,6 @@
 
 namespace enjin::sdk::http {
 
-HttpRequest HttpRequestBuilder::build() {
-    if (!m_method.has_value()) {
-        throw std::runtime_error("No defined method for built request");
-    }
-
-    return HttpRequest(m_method.value(),
-                       m_path_query_fragment,
-                       m_body,
-                       m_content_type,
-                       headers);
-}
-
-HttpRequestBuilder& HttpRequestBuilder::method(HttpMethod method) {
-    m_method = method;
-    return *this;
-}
-
-HttpRequestBuilder& HttpRequestBuilder::path_query_fragment(const std::string& path_query_fragment) {
-    m_path_query_fragment = path_query_fragment;
-    return *this;
-}
-
-HttpRequestBuilder& HttpRequestBuilder::body(const std::string& body) {
-    m_body = body;
-    return *this;
-}
-
-HttpRequestBuilder& HttpRequestBuilder::content_type(const std::string& content_type) {
-    m_content_type = content_type;
-    return *this;
-}
-
-HttpRequestBuilder& HttpRequestBuilder::add_header(const std::string& name, const std::string& value) {
-    headers.emplace(name, value);
-    return *this;
-}
-
 HttpRequest::HttpRequest(HttpMethod method,
                          std::string path_query_fragment,
                          std::string body_data,
@@ -135,6 +98,49 @@ bool HttpRequest::operator<=(const HttpRequest& rhs) const {
 
 bool HttpRequest::operator>=(const HttpRequest& rhs) const {
     return !(*this < rhs);
+}
+
+HttpRequest::HttpRequestBuilder HttpRequest::builder() {
+    return HttpRequest::HttpRequestBuilder();
+}
+
+HttpRequest HttpRequest::HttpRequestBuilder::build() {
+    if (!m_method.has_value()) {
+        throw std::runtime_error("No defined method for built request");
+    }
+
+    return HttpRequest(m_method.value(),
+                       m_path_query_fragment,
+                       m_body,
+                       m_content_type,
+                       headers);
+}
+
+HttpRequest::HttpRequestBuilder& HttpRequest::HttpRequestBuilder::method(HttpMethod method) {
+    m_method = method;
+    return *this;
+}
+
+HttpRequest::HttpRequestBuilder&
+HttpRequest::HttpRequestBuilder::path_query_fragment(const std::string& path_query_fragment) {
+    m_path_query_fragment = path_query_fragment;
+    return *this;
+}
+
+HttpRequest::HttpRequestBuilder& HttpRequest::HttpRequestBuilder::body(const std::string& body) {
+    m_body = body;
+    return *this;
+}
+
+HttpRequest::HttpRequestBuilder& HttpRequest::HttpRequestBuilder::content_type(const std::string& content_type) {
+    m_content_type = content_type;
+    return *this;
+}
+
+HttpRequest::HttpRequestBuilder&
+HttpRequest::HttpRequestBuilder::add_header(const std::string& name, const std::string& value) {
+    headers.emplace(name, value);
+    return *this;
 }
 
 }
