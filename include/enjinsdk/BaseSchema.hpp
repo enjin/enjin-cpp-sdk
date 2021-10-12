@@ -34,6 +34,8 @@ class ENJINSDK_EXPORT BaseSchema {
 public:
     BaseSchema() = delete;
 
+    BaseSchema(const BaseSchema&) = delete;
+
     /// \brief Default destructor.
     ~BaseSchema() = default;
 
@@ -59,6 +61,10 @@ protected:
                std::string schema,
                std::shared_ptr<utils::LoggerProvider> logger_provider = nullptr);
 
+    /// \brief Move constructor.
+    /// \param rhs The schema being moved.
+    BaseSchema(BaseSchema&& rhs) = default;
+
     /// \brief Creates the serialized request body to be sent to the platform.
     /// \param request The request.
     /// \return The serialized request body.
@@ -75,7 +81,7 @@ protected:
     /// \return The future containing the response.
     template<class T>
     std::future<graphql::GraphqlResponse<T>> send_request_for_one(graphql::AbstractGraphqlRequest& request) {
-        http::HttpRequest http_request = create_request(request);
+        auto http_request = create_request(request);
 
         return std::async([this, http_request] {
             auto response = send_request(http_request);
@@ -96,7 +102,7 @@ protected:
     template<class T>
     std::future<graphql::GraphqlResponse<std::vector<T>>>
     send_request_for_many(graphql::AbstractGraphqlRequest& request) {
-        http::HttpRequest http_request = create_request(request);
+        auto http_request = create_request(request);
 
         return std::async([this, http_request]() {
             auto response = send_request(http_request);

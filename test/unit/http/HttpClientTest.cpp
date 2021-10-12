@@ -35,7 +35,7 @@ public:
     }
 
     static HttpRequest create_default_request() {
-        return HttpRequestBuilder()
+        return HttpRequest::builder()
                 .method(HttpMethod::Post)
                 .path_query_fragment("/")
                 .body("{}")
@@ -55,7 +55,7 @@ protected:
 
 TEST_F(HttpClientTest, SendRequestReceivesSuccessfulResponseAndReturnsExpected) {
     // Arrange - Data
-    HttpResponse expected = HttpResponseBuilder()
+    HttpResponse expected = HttpResponse::builder()
             .code(200)
             .body("{}")
             .content_type(JSON)
