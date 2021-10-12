@@ -92,7 +92,7 @@ public:
                 .set_cluster(cluster.value())
                 .set_encrypted(encrypted.value_or(true));
 
-        client = std::make_unique<pusher::PusherClient>(ws_client, key.value(), options, logger_provider);
+        client = std::make_unique<pusher::PusherClient>(*ws_client, key.value(), options, logger_provider);
         resubscribe_to_channels();
 
         client->set_on_connection_state_change_handler([this](pusher::PusherConnectionState state) {
@@ -141,7 +141,7 @@ public:
         return client != nullptr && client->get_state() == pusher::PusherConnectionState::CONNECTED;
     }
 
-    bool is_registered(const IEventListener& listener) const override {
+    [[nodiscard]] bool is_registered(const IEventListener& listener) const override {
         auto loc = std::find_if(listeners.begin(),
                                 listeners.end(),
                                 [&listener](const EventListenerRegistration& r) {
@@ -263,7 +263,7 @@ private:
     std::vector<EventListenerRegistration> listeners;
 
     std::shared_ptr<PusherEventListener> listener;
-    std::shared_ptr<websockets::IWebsocketClient> ws_client;
+    std::unique_ptr<websockets::IWebsocketClient> ws_client;
     std::shared_ptr<utils::LoggerProvider> logger_provider;
     std::unique_ptr<pusher::PusherClient> client;
 
@@ -339,6 +339,10 @@ PusherEventService::PusherEventService(std::unique_ptr<websockets::IWebsocketCli
                         std::move(ws_client),
                         std::move(logger_provider),
                         platform)) {
+}
+
+PusherEventService::PusherEventService(PusherEventService&& rhs) noexcept: impl(rhs.impl) {
+    rhs.impl = nullptr;
 }
 
 PusherEventService::~PusherEventService() {
@@ -460,7 +464,11 @@ const std::shared_ptr<utils::LoggerProvider>& PusherEventService::get_logger_pro
     return impl->get_logger_provider();
 }
 
-std::unique_ptr<PusherEventService> PusherEventServiceBuilder::build() {
+PusherEventService::PusherEventServiceBuilder PusherEventService::builder() {
+    return PusherEventService::PusherEventServiceBuilder();
+}
+
+PusherEventService PusherEventService::PusherEventServiceBuilder::build() {
     if (m_ws_client == nullptr) {
 #if ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL
         m_ws_client = std::make_unique<websockets::WebsocketClient>();
@@ -470,27 +478,28 @@ std::unique_ptr<PusherEventService> PusherEventServiceBuilder::build() {
     }
 
     return m_platform.has_value()
-           ? std::unique_ptr<PusherEventService>(new PusherEventService(std::move(m_ws_client),
-                                                                        std::move(m_provider),
-                                                                        m_platform.value()))
-           : std::unique_ptr<PusherEventService>(new PusherEventService(std::move(m_ws_client),
-                                                                        std::move(m_provider)));
+           ? PusherEventService(std::move(m_ws_client),
+                                std::move(m_logger_provider),
+                                m_platform.value())
+           : PusherEventService(std::move(m_ws_client),
+                                std::move(m_logger_provider));
 }
 
-PusherEventServiceBuilder& PusherEventServiceBuilder::platform(const models::Platform& platform) {
+PusherEventService::PusherEventServiceBuilder&
+PusherEventService::PusherEventServiceBuilder::platform(const models::Platform& platform) {
     m_platform = platform;
     return *this;
 }
 
-PusherEventServiceBuilder&
-PusherEventServiceBuilder::ws_client(std::unique_ptr<websockets::IWebsocketClient> ws_client) {
+PusherEventService::PusherEventServiceBuilder&
+PusherEventService::PusherEventServiceBuilder::ws_client(std::unique_ptr<websockets::IWebsocketClient> ws_client) {
     m_ws_client = std::move(ws_client);
     return *this;
 }
 
-PusherEventServiceBuilder&
-PusherEventServiceBuilder::logger_provider(const std::shared_ptr<utils::LoggerProvider>& provider) {
-    m_provider = provider;
+PusherEventService::PusherEventServiceBuilder& PusherEventService::PusherEventServiceBuilder::logger_provider(
+        const std::shared_ptr<utils::LoggerProvider>& logger_provider) {
+    m_logger_provider = logger_provider;
     return *this;
 }
 
