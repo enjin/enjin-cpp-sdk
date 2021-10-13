@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/ISerializable.hpp"
+#include "enjinsdk/models/AssetIdFormat.hpp"
 #include <optional>
 
 namespace enjin::sdk::shared {
@@ -31,6 +32,10 @@ public:
     ~TransactionFragmentArgumentsImpl() override = default;
 
     [[nodiscard]] std::string serialize() const override;
+
+    /// \brief Sets the value for the associated field to the passed value.
+    /// \param asset_id_format The ID format.
+    void set_asset_id_format(models::AssetIdFormat asset_id_format);
 
     /// \brief Sets the value for the associated field to true.
     void set_with_blockchain_data();
@@ -73,6 +78,7 @@ public:
     bool operator!=(const TransactionFragmentArgumentsImpl& rhs) const;
 
 private:
+    std::optional<models::AssetIdFormat> asset_id_format;
     std::optional<bool> with_blockchain_data;
     std::optional<bool> with_meta;
     std::optional<bool> with_encoded_data;
