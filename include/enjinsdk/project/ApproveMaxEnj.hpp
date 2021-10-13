@@ -46,6 +46,9 @@ ProjectTransactionRequestArguments<ApproveMaxEnj>::set_eth_address(const std::st
 namespace enjin::sdk::shared {
 
 template ENJINSDK_EXPORT project::ApproveMaxEnj&
+TransactionFragmentArguments<project::ApproveMaxEnj>::set_asset_id_format(models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT project::ApproveMaxEnj&
 TransactionFragmentArguments<project::ApproveMaxEnj>::set_with_blockchain_data();
 
 template ENJINSDK_EXPORT project::ApproveMaxEnj&

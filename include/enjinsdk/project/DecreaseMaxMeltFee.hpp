@@ -63,6 +63,9 @@ ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_eth_address(const st
 namespace enjin::sdk::shared {
 
 template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
+TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_asset_id_format(models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
 TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_with_blockchain_data();
 
 template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&

@@ -109,6 +109,9 @@ ProjectTransactionRequestArguments<CreateAsset>::set_eth_address(const std::stri
 namespace enjin::sdk::shared {
 
 template ENJINSDK_EXPORT project::CreateAsset&
+TransactionFragmentArguments<project::CreateAsset>::set_asset_id_format(models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT project::CreateAsset&
 TransactionFragmentArguments<project::CreateAsset>::set_with_blockchain_data();
 
 template ENJINSDK_EXPORT project::CreateAsset&
