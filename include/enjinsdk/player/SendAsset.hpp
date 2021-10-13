@@ -77,6 +77,9 @@ private:
 namespace enjin::sdk::shared {
 
 template ENJINSDK_EXPORT player::SendAsset&
+TransactionFragmentArguments<player::SendAsset>::set_asset_id_format(models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT player::SendAsset&
 TransactionFragmentArguments<player::SendAsset>::set_with_blockchain_data();
 
 template ENJINSDK_EXPORT player::SendAsset&

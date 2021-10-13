@@ -62,6 +62,9 @@ ProjectTransactionRequestArguments<SetApprovalForAll>::set_eth_address(const std
 namespace enjin::sdk::shared {
 
 template ENJINSDK_EXPORT project::SetApprovalForAll&
+TransactionFragmentArguments<project::SetApprovalForAll>::set_asset_id_format(models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT project::SetApprovalForAll&
 TransactionFragmentArguments<project::SetApprovalForAll>::set_with_blockchain_data();
 
 template ENJINSDK_EXPORT project::SetApprovalForAll&

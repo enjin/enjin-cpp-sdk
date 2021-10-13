@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
+#include "enjinsdk/models/Asset.hpp"
 #include "enjinsdk/models/BlockchainData.hpp"
 #include "enjinsdk/models/Project.hpp"
 #include "enjinsdk/models/RequestState.hpp"
@@ -85,6 +86,10 @@ public:
     /// \return The project.
     [[nodiscard]] const std::optional<Project>& get_project() const;
 
+    /// \brief Returns the asset for this request.
+    /// \return The asset.
+    [[nodiscard]] const std::optional<Asset>& get_asset() const;
+
     /// \brief Returns the datetime when this request was created.
     /// \return The datetime.
     /// \remarks The datetime is formatted using the ISO 8601 date format.
@@ -112,6 +117,7 @@ private:
     std::optional<bool> project_wallet;
     std::optional<BlockchainData> blockchain_data;
     std::optional<Project> project;
+    std::optional<Asset> asset;
     std::optional<std::string> created_at;
     std::optional<std::string> updated_at;
 
@@ -127,6 +133,7 @@ private:
     constexpr static char PROJECT_WALLET_KEY[] = "projectWallet";
     constexpr static char BLOCKCHAIN_DATA_KEY[] = "blockchainData";
     constexpr static char PROJECT_KEY[] = "project";
+    constexpr static char ASSET_KEY[] = "asset";
     constexpr static char CREATED_AT_KEY[] = "createdAt";
     constexpr static char UPDATED_AT_KEY[] = "updatedAt";
 };

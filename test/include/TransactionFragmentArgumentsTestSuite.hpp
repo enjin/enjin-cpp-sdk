@@ -28,7 +28,8 @@ class TransactionFragmentArgumentsTestSuite {
 
 public:
     static void set_transaction_fragment_arguments(sdk::shared::TransactionFragmentArguments<T>& o) {
-        o.set_with_blockchain_data()
+        o.set_asset_id_format(sdk::models::AssetIdFormat::HEX64)
+         .set_with_blockchain_data()
          .set_with_meta()
          .set_with_encoded_data()
          .set_with_asset_data()

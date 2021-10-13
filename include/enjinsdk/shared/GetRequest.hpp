@@ -54,6 +54,9 @@ private:
     std::optional<std::string> transaction_id;
 };
 
+template ENJINSDK_EXPORT GetRequest&
+TransactionFragmentArguments<GetRequest>::set_asset_id_format(models::AssetIdFormat asset_id_format);
+
 template ENJINSDK_EXPORT GetRequest& TransactionFragmentArguments<GetRequest>::set_with_blockchain_data();
 
 template ENJINSDK_EXPORT GetRequest& TransactionFragmentArguments<GetRequest>::set_with_meta();

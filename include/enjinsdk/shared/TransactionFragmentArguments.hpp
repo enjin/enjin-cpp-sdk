@@ -33,6 +33,14 @@ public:
         return impl.serialize();
     }
 
+    /// \brief Sets the desired asset ID format.
+    /// \param asset_id_format The format.
+    /// \return This request for chaining.
+    T& set_asset_id_format(models::AssetIdFormat asset_id_format) {
+        impl.set_asset_id_format(asset_id_format);
+        return dynamic_cast<T&>(*this);
+    }
+
     /// \brief Sets the request to include the blockchain data with the transaction.
     /// \return This request for chaining.
     T& set_with_blockchain_data() {

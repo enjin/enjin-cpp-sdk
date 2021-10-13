@@ -15,6 +15,7 @@
 
 #include "enjinsdk/internal/TransactionFragmentArgumentsImpl.hpp"
 
+#include "EnumUtils.hpp"
 #include "RapidJsonUtils.hpp"
 
 namespace enjin::sdk::shared {
@@ -22,6 +23,11 @@ namespace enjin::sdk::shared {
 std::string TransactionFragmentArgumentsImpl::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
+    if (asset_id_format.has_value()) {
+        utils::set_string_member(document,
+                                 "assetIdFormat",
+                                 utils::serialize_asset_id_format(asset_id_format.value()));
+    }
     if (with_blockchain_data.has_value()) {
         utils::set_boolean_member(document, "withBlockchainData", with_blockchain_data.value());
     }
@@ -60,6 +66,10 @@ std::string TransactionFragmentArgumentsImpl::serialize() const {
     }
 
     return utils::document_to_string(document);
+}
+
+void TransactionFragmentArgumentsImpl::set_asset_id_format(models::AssetIdFormat asset_id_format) {
+    TransactionFragmentArgumentsImpl::asset_id_format = asset_id_format;
 }
 
 void TransactionFragmentArgumentsImpl::set_with_blockchain_data() {
@@ -111,7 +121,8 @@ void TransactionFragmentArgumentsImpl::set_with_transaction_project_uuid() {
 }
 
 bool TransactionFragmentArgumentsImpl::operator==(const TransactionFragmentArgumentsImpl& rhs) const {
-    return with_blockchain_data == rhs.with_blockchain_data &&
+    return asset_id_format == rhs.asset_id_format &&
+           with_blockchain_data == rhs.with_blockchain_data &&
            with_meta == rhs.with_meta &&
            with_encoded_data == rhs.with_encoded_data &&
            with_asset_data == rhs.with_asset_data &&

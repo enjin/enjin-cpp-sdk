@@ -60,6 +60,9 @@ void Request::deserialize(const std::string& json) {
         if (document.HasMember(PROJECT_KEY) && document[PROJECT_KEY].IsObject()) {
             project.emplace(utils::get_object_as_type<Project>(document, PROJECT_KEY));
         }
+        if (document.HasMember(ASSET_KEY) && document[ASSET_KEY].IsObject()) {
+            asset.emplace(utils::get_object_as_type<Asset>(document, ASSET_KEY));
+        }
         if (document.HasMember(CREATED_AT_KEY) && document[CREATED_AT_KEY].IsString()) {
             created_at.emplace(document[CREATED_AT_KEY].GetString());
         }
@@ -115,6 +118,10 @@ const std::optional<BlockchainData>& Request::get_blockchain_data() const {
 
 const std::optional<Project>& Request::get_project() const {
     return project;
+}
+
+const std::optional<Asset>& Request::get_asset() const {
+    return asset;
 }
 
 const std::optional<std::string>& Request::get_created_at() const {
