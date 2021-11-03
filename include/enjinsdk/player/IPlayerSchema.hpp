@@ -24,6 +24,9 @@
 #include "enjinsdk/player/AdvancedSendAsset.hpp"
 #include "enjinsdk/player/ApproveEnj.hpp"
 #include "enjinsdk/player/ApproveMaxEnj.hpp"
+#include "enjinsdk/player/BridgeAsset.hpp"
+#include "enjinsdk/player/BridgeAssets.hpp"
+#include "enjinsdk/player/BridgeClaimAsset.hpp"
 #include "enjinsdk/player/GetPlayer.hpp"
 #include "enjinsdk/player/GetWallet.hpp"
 #include "enjinsdk/player/MeltAsset.hpp"
@@ -58,6 +61,21 @@ public:
     /// \param request The request.
     /// \return The future containing the response.
     virtual std::future<graphql::GraphqlResponse<models::Request>> approve_enj_max(ApproveMaxEnj& request) = 0;
+
+    /// \brief Sends the BridgeAsset request to the platform.
+    /// \param request The request.
+    /// \return The future containing the response.
+    virtual std::future<graphql::GraphqlResponse<models::Request>> bridge_asset(BridgeAsset& request) = 0;
+
+    /// \brief Sends the BridgeAssets request to the platform.
+    /// \param request The request.
+    /// \return The future containing the response.
+    virtual std::future<graphql::GraphqlResponse<models::Request>> bridge_assets(BridgeAssets& request) = 0;
+
+    /// \brief Sends the BridgeClaimAsset request to the platform.
+    /// \param request The request.
+    /// \return The future containing the response.
+    virtual std::future<graphql::GraphqlResponse<models::Request>> bridge_claim_asset(BridgeClaimAsset& request) = 0;
 
     /// \brief Sends the GetPlayer request to the platform.
     /// \param request The request.

@@ -36,6 +36,18 @@ std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::approve_enj
     return send_request_for_one<models::Request>(request);
 }
 
+std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::bridge_asset(BridgeAsset& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::bridge_assets(BridgeAssets& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::bridge_claim_asset(BridgeClaimAsset& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
 std::future<graphql::GraphqlResponse<models::Player>> PlayerSchema::get_player(GetPlayer& request) {
     return send_request_for_one<models::Player>(request);
 }
