@@ -19,6 +19,8 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/internal/TransactionFragmentArgumentsImpl.hpp"
+#include <string>
+#include <type_traits>
 
 namespace enjin::sdk::shared {
 
@@ -38,21 +40,21 @@ public:
     /// \return This request for chaining.
     virtual T& set_transaction_asset_id_format(models::AssetIdFormat asset_id_format) {
         impl.set_transaction_asset_id_format(asset_id_format);
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the blockchain data with the transaction.
     /// \return This request for chaining.
     virtual T& set_with_blockchain_data() {
         impl.set_with_blockchain_data();
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the metadata with the transaction.
     /// \return This request for chaining.
     virtual T& set_with_meta() {
         impl.set_with_meta();
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the encoded data with the transaction when used with
@@ -60,14 +62,14 @@ public:
     /// \return This request for chaining.
     virtual T& set_with_encoded_data() {
         impl.set_with_encoded_data();
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the asset data with the transaction.
     /// \return This request for chaining.
     virtual T& set_with_asset_data() {
         impl.set_with_asset_data();
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the signed transactions with the transaction when used with
@@ -75,63 +77,63 @@ public:
     /// \return This request for chaining.
     virtual T& set_with_signed_txs() {
         impl.set_with_signed_txs();
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the error with the transaction when used with set_with_blockchain_data().
     /// \return This request for chaining.
     virtual T& set_with_error() {
         impl.set_with_error();
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the nonce with the transaction when used with set_with_blockchain_data().
     /// \return This request for chaining.
     virtual T& set_with_nonce() {
         impl.set_with_nonce();
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the state with the transaction when used with set_with_blockchain_data().
     /// \return This request for chaining.
     virtual T& set_with_state() {
         impl.set_with_state();
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the receipt with the transaction when used with set_with_blockchain_data().
     /// \return This request for chaining.
     virtual T& set_with_receipt() {
         impl.set_with_receipt();
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the logs in the receipt when used with set_with_receipt().
     /// \return This request for chaining.
     virtual T& set_with_receipt_logs() {
         impl.set_with_receipt_logs();
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the event data in the receipt logs when used with set_with_receipt_logs().
     /// \return This request for chaining.
     virtual T& set_with_log_event() {
         impl.set_with_log_event();
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the project with its UUID field that the transaction belongs to.
     /// \return This request for chaining.
     virtual T& set_with_transaction_project_uuid() {
         impl.set_with_transaction_project_uuid();
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the wallet with its Ethereum address that belongs to the transaction.
     /// \return This request for chaining.
     virtual T& set_with_transaction_wallet_address() {
         impl.set_with_transaction_wallet_address();
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     bool operator==(const TransactionFragmentArguments& rhs) const {
@@ -143,8 +145,11 @@ public:
     }
 
 protected:
-    /// \brief Default constructor.
-    TransactionFragmentArguments() = default;
+    /// \brief Sole constructor.
+    TransactionFragmentArguments() {
+        static_assert(std::is_base_of<TransactionFragmentArguments, T>::value,
+                      "Class T does not inherit from TransactionFragmentArguments.");
+    }
 
 private:
     TransactionFragmentArgumentsImpl impl;

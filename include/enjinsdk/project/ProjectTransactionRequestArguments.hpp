@@ -20,6 +20,7 @@
 #include "enjinsdk/internal/ProjectTransactionRequestArgumentsImpl.hpp"
 #include "enjinsdk/shared/TransactionFragmentArguments.hpp"
 #include <string>
+#include <type_traits>
 
 namespace enjin::sdk::project {
 
@@ -41,7 +42,7 @@ public:
     /// \return This request for chaining.
     virtual T& set_eth_address(const std::string& address) {
         impl.set_eth_address(address);
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     // TransactionFragmentArguments functions
@@ -125,8 +126,11 @@ public:
     }
 
 protected:
-    /// \brief Default constructor.
-    ProjectTransactionRequestArguments() = default;
+    /// \brief Sole constructor.
+    ProjectTransactionRequestArguments() {
+        static_assert(std::is_base_of<ProjectTransactionRequestArguments, T>::value,
+                      "Class T does not inherit from ProjectTransactionRequestArguments.");
+    }
 
 private:
     ProjectTransactionRequestArgumentsImpl impl;
