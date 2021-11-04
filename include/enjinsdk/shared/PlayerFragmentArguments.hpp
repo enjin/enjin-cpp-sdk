@@ -20,6 +20,7 @@
 #include "enjinsdk/internal/PlayerFragmentArgumentsImpl.hpp"
 #include "enjinsdk/shared/WalletFragmentArguments.hpp"
 #include <string>
+#include <type_traits>
 
 namespace enjin::sdk::shared {
 
@@ -38,7 +39,7 @@ public:
     /// \return This request for chaining.
     T& set_with_linking_info() {
         impl.set_with_linking_info();
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     /// \brief Sets the desired size of the QR image in pixels when used with set_with_linking_info().
@@ -46,14 +47,14 @@ public:
     /// \return This request for chaining.
     T& set_qr_size(int size) {
         impl.set_qr_size(size);
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the wallet with the player.
     /// \return This request for chaining.
     T& set_with_wallet() {
         impl.set_with_wallet();
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     bool operator==(const PlayerFragmentArguments& rhs) const {
@@ -65,8 +66,11 @@ public:
     }
 
 protected:
-    /// \brief Default constructor.
-    PlayerFragmentArguments() = default;
+    /// \brief Sole constructor.
+    PlayerFragmentArguments() {
+        static_assert(std::is_base_of<PlayerFragmentArguments, T>::value,
+                      "Class T does not inherit from PlayerFragmentArguments.");
+    }
 
 private:
     PlayerFragmentArgumentsImpl impl;
