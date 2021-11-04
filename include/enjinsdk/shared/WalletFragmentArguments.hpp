@@ -20,6 +20,7 @@
 #include "enjinsdk/internal/WalletFragmentArgumentsImpl.hpp"
 #include "enjinsdk/shared/AssetFragmentArguments.hpp"
 #include <string>
+#include <type_traits>
 
 namespace enjin::sdk::shared {
 
@@ -38,7 +39,7 @@ public:
     /// \return This request for chaining.
     T& set_with_assets_created() {
         impl.set_with_assets_created();
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     bool operator==(const WalletFragmentArguments& rhs) const {
@@ -50,8 +51,11 @@ public:
     }
 
 protected:
-    /// \brief Default constructor.
-    WalletFragmentArguments() = default;
+    /// \brief Sole constructor.
+    WalletFragmentArguments() {
+        static_assert(std::is_base_of<WalletFragmentArguments, T>::value,
+                      "Class T does not inherit from WalletFragmentArguments.");
+    }
 
 private:
     WalletFragmentArgumentsImpl impl;
