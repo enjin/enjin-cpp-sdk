@@ -20,6 +20,8 @@
 #include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/internal/PaginationArgumentsImpl.hpp"
 #include "enjinsdk/models/PaginationOptions.hpp"
+#include <string>
+#include <type_traits>
 #include <utility>
 
 namespace enjin::sdk::shared {
@@ -40,7 +42,7 @@ public:
     /// \return This request for chaining.
     virtual T& set_pagination(models::PaginationOptions pagination) {
         impl.set_pagination(std::move(pagination));
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     /// \brief Creates pagination options that are then set.
@@ -49,7 +51,7 @@ public:
     /// \return This request for chaining.
     virtual T& set_pagination(int page, int limit) {
         impl.set_pagination(page, limit);
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     bool operator==(const PaginationArguments& rhs) const {
@@ -61,8 +63,11 @@ public:
     }
 
 protected:
-    /// \brief Default constructor.
-    PaginationArguments() = default;
+    /// \brief Sole constructor.
+    PaginationArguments() {
+        static_assert(std::is_base_of<PaginationArguments, T>::value,
+                      "Class T does not inherit from PaginationArguments.");
+    }
 
 private:
     PaginationArgumentsImpl impl;

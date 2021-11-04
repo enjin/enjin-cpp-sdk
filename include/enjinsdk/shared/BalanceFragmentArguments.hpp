@@ -22,6 +22,7 @@
 #include "enjinsdk/models/AssetIdFormat.hpp"
 #include "enjinsdk/models/AssetIndexFormat.hpp"
 #include <string>
+#include <type_traits>
 
 namespace enjin::sdk::shared {
 
@@ -41,7 +42,7 @@ public:
     /// \return This request for chaining.
     virtual T& set_bal_id_format(models::AssetIdFormat bal_id_format) {
         impl.set_bal_id_format(bal_id_format);
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     /// \brief Sets the desired index format for non-fungible assets.
@@ -49,21 +50,21 @@ public:
     /// \return This request for chaining.
     virtual T& set_bal_index_format(models::AssetIndexFormat bal_index_format) {
         impl.set_bal_index_format(bal_index_format);
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the project UUID with the balance.
     /// \return This request for chaining.
     virtual T& set_with_bal_project_uuid() {
         impl.set_with_bal_project_uuid();
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the wallet address with balance.
     /// \return This request for chaining.
     virtual T& set_with_bal_wallet_address() {
         impl.set_with_bal_wallet_address();
-        return dynamic_cast<T&>(*this);
+        return static_cast<T&>(*this);
     }
 
     bool operator==(const BalanceFragmentArguments& rhs) const {
@@ -75,8 +76,11 @@ public:
     }
 
 protected:
-    /// \brief Default constructor.
-    BalanceFragmentArguments() = default;
+    /// \brief Sole constructor.
+    BalanceFragmentArguments() {
+        static_assert(std::is_base_of<BalanceFragmentArguments, T>::value,
+                      "Class T does not inherit from BalanceFragmentArguments.");
+    }
 
 private:
     BalanceFragmentArgumentsImpl impl;
