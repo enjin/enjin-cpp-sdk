@@ -3,6 +3,9 @@ target_sources(${PROJECT_NAME}
         AdvancedSendAsset.cpp
         ApproveEnj.cpp
         ApproveMaxEnj.cpp
+        BridgeAsset.cpp
+        BridgeAssets.cpp
+        BridgeClaimAsset.cpp
         MeltAsset.cpp
         Message.cpp
         ResetEnjApproval.cpp

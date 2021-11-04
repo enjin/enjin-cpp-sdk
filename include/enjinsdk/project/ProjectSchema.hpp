@@ -40,6 +40,12 @@ public:
 
     std::future<graphql::GraphqlResponse<models::AccessToken>> auth_project(AuthProject& request) override;
 
+    std::future<graphql::GraphqlResponse<models::Request>> bridge_asset(BridgeAsset& request) override;
+
+    std::future<graphql::GraphqlResponse<models::Request>> bridge_assets(BridgeAssets& request) override;
+
+    std::future<graphql::GraphqlResponse<models::Request>> bridge_claim_asset(BridgeClaimAsset& request) override;
+
     std::future<graphql::GraphqlResponse<models::Request>> complete_trade(CompleteTrade& request) override;
 
     std::future<graphql::GraphqlResponse<models::Request>> create_asset(CreateAsset& request) override;

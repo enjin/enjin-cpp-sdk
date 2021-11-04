@@ -36,6 +36,12 @@ public:
 
     std::future<graphql::GraphqlResponse<models::Request>> approve_enj_max(ApproveMaxEnj& request) override;
 
+    std::future<graphql::GraphqlResponse<models::Request>> bridge_asset(BridgeAsset& request) override;
+
+    std::future<graphql::GraphqlResponse<models::Request>> bridge_assets(BridgeAssets& request) override;
+
+    std::future<graphql::GraphqlResponse<models::Request>> bridge_claim_asset(BridgeClaimAsset& request) override;
+
     std::future<graphql::GraphqlResponse<models::Player>> get_player(GetPlayer& request) override;
 
     std::future<graphql::GraphqlResponse<models::Wallet>> get_wallet(GetWallet& request) override;

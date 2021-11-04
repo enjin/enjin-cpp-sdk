@@ -3,6 +3,9 @@ target_sources(${PROJECT_NAME}_tests
         ProjectAdvancedSendAssetTest.cpp
         ProjectApproveEnjTest.cpp
         ProjectApproveMaxEnjTest.cpp
+        ProjectBridgeAssetTest.cpp
+        ProjectBridgeAssetsTest.cpp
+        ProjectBridgeClaimAssetTest.cpp
         ProjectCompleteTradeTest.cpp
         ProjectCreateAssetTest.cpp
         ProjectCreatePlayerTest.cpp
