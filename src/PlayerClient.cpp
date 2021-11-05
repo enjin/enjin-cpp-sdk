@@ -42,7 +42,7 @@ void PlayerClient::auth(const std::string& token) {
 }
 
 void PlayerClient::close() {
-    middleware.get_client()->stop();
+    middleware.close();
 }
 
 bool PlayerClient::is_authenticated() const {
@@ -50,7 +50,7 @@ bool PlayerClient::is_authenticated() const {
 }
 
 bool PlayerClient::is_closed() const {
-    return !middleware.get_client()->is_open();
+    return middleware.is_closed();
 }
 
 PlayerClient::PlayerClientBuilder PlayerClient::builder() {
