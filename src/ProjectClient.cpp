@@ -38,7 +38,7 @@ ProjectClient::~ProjectClient() {
     ProjectClient::close();
 }
 
-void ProjectClient::auth(const std::string& token) {
+void ProjectClient::auth(std::string token) {
     middleware.get_handler()->set_auth_token(token);
 }
 
@@ -77,8 +77,8 @@ ProjectClient ProjectClient::ProjectClientBuilder::build() {
     }
 }
 
-ProjectClient::ProjectClientBuilder& ProjectClient::ProjectClientBuilder::base_uri(const std::string& base_uri) {
-    m_base_uri = base_uri;
+ProjectClient::ProjectClientBuilder& ProjectClient::ProjectClientBuilder::base_uri(std::string base_uri) {
+    m_base_uri = std::move(base_uri);
     return *this;
 }
 
