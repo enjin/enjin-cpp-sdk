@@ -16,6 +16,7 @@
 #include "enjinsdk/project/CompleteTrade.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -33,8 +34,8 @@ std::string CompleteTrade::serialize() const {
     return utils::document_to_string(document);
 }
 
-CompleteTrade& CompleteTrade::set_trade_id(const std::string& id) {
-    trade_id = id;
+CompleteTrade& CompleteTrade::set_trade_id(std::string id) {
+    trade_id = std::move(id);
     return *this;
 }
 

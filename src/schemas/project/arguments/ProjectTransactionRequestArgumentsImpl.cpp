@@ -16,6 +16,7 @@
 #include "enjinsdk/internal/ProjectTransactionRequestArgumentsImpl.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -30,8 +31,8 @@ std::string ProjectTransactionRequestArgumentsImpl::serialize() const {
     return utils::document_to_string(document);
 }
 
-void ProjectTransactionRequestArgumentsImpl::set_eth_address(const std::string& address) {
-    ProjectTransactionRequestArgumentsImpl::eth_address = address;
+void ProjectTransactionRequestArgumentsImpl::set_eth_address(std::string address) {
+    ProjectTransactionRequestArgumentsImpl::eth_address = std::move(address);
 }
 
 bool ProjectTransactionRequestArgumentsImpl::operator==(const ProjectTransactionRequestArgumentsImpl& rhs) const {

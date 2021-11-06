@@ -33,8 +33,8 @@ std::string GetPlayer::serialize() const {
     return utils::document_to_string(document);
 }
 
-GetPlayer& GetPlayer::set_id(const std::string& id) {
-    GetPlayer::id = id;
+GetPlayer& GetPlayer::set_id(std::string id) {
+    GetPlayer::id = std::move(id);
     return *this;
 }
 

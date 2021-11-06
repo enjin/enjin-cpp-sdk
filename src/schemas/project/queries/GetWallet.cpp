@@ -36,13 +36,13 @@ std::string GetWallet::serialize() const {
     return utils::document_to_string(document);
 }
 
-GetWallet& GetWallet::set_user_id(const std::string& user_id) {
-    GetWallet::user_id = user_id;
+GetWallet& GetWallet::set_user_id(std::string user_id) {
+    GetWallet::user_id = std::move(user_id);
     return *this;
 }
 
-GetWallet& GetWallet::set_eth_address(const std::string& eth_address) {
-    GetWallet::eth_address = eth_address;
+GetWallet& GetWallet::set_eth_address(std::string eth_address) {
+    GetWallet::eth_address = std::move(eth_address);
     return *this;
 }
 

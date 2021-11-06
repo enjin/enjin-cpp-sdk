@@ -40,12 +40,12 @@ public:
     /// \brief Sets the asset ID.
     /// \param asset_id The ID.
     /// \return This request for chaining.
-    MintAsset& set_asset_id(const std::string& asset_id);
+    MintAsset& set_asset_id(std::string asset_id);
 
     /// \brief Sets the mints to be performed.
     /// \param mints The mints.
     /// \return This request for chaining.
-    MintAsset& set_mints(const std::vector<models::MintInput>& mints);
+    MintAsset& set_mints(std::vector<models::MintInput> mints);
 
     bool operator==(const MintAsset& rhs) const;
 
@@ -57,7 +57,7 @@ private:
 };
 
 template ENJINSDK_EXPORT MintAsset&
-ProjectTransactionRequestArguments<MintAsset>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<MintAsset>::set_eth_address(std::string address);
 
 }
 

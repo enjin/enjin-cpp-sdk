@@ -16,6 +16,7 @@
 #include "enjinsdk/project/DeletePlayer.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -32,8 +33,8 @@ std::string DeletePlayer::serialize() const {
     return utils::document_to_string(document);
 }
 
-DeletePlayer& DeletePlayer::set_id(const std::string& id) {
-    DeletePlayer::id = id;
+DeletePlayer& DeletePlayer::set_id(std::string id) {
+    DeletePlayer::id = std::move(id);
     return *this;
 }
 

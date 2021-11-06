@@ -39,7 +39,7 @@ public:
 };
 
 template ENJINSDK_EXPORT ApproveMaxEnj&
-ProjectTransactionRequestArguments<ApproveMaxEnj>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<ApproveMaxEnj>::set_eth_address(std::string address);
 
 }
 

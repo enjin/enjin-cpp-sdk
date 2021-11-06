@@ -16,6 +16,7 @@
 #include "enjinsdk/project/MintAsset.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -36,13 +37,13 @@ std::string MintAsset::serialize() const {
     return utils::document_to_string(document);
 }
 
-MintAsset& MintAsset::set_asset_id(const std::string& asset_id) {
-    MintAsset::asset_id = asset_id;
+MintAsset& MintAsset::set_asset_id(std::string asset_id) {
+    MintAsset::asset_id = std::move(asset_id);
     return *this;
 }
 
-MintAsset& MintAsset::set_mints(const std::vector<models::MintInput>& mints) {
-    MintAsset::mints = mints;
+MintAsset& MintAsset::set_mints(std::vector<models::MintInput> mints) {
+    MintAsset::mints = std::move(mints);
     return *this;
 }
 

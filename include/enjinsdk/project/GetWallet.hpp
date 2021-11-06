@@ -38,12 +38,12 @@ public:
     /// \brief Sets the user ID owning the wallet to get.
     /// \param user_id The user ID.
     /// \return This request for chaining.
-    GetWallet& set_user_id(const std::string& user_id);
+    GetWallet& set_user_id(std::string user_id);
 
     /// \brief Sets the Ethereum address of the wallet to get.
     /// \param eth_address The address.
     /// \return This request for chaining.
-    GetWallet& set_eth_address(const std::string& eth_address);
+    GetWallet& set_eth_address(std::string eth_address);
 
     bool operator==(const GetWallet& rhs) const;
 

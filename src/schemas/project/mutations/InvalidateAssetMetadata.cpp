@@ -16,6 +16,7 @@
 #include "enjinsdk/project/InvalidateAssetMetadata.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -33,8 +34,8 @@ std::string InvalidateAssetMetadata::serialize() const {
     return utils::document_to_string(document);
 }
 
-InvalidateAssetMetadata& InvalidateAssetMetadata::set_id(const std::string& id) {
-    InvalidateAssetMetadata::id = id;
+InvalidateAssetMetadata& InvalidateAssetMetadata::set_id(std::string id) {
+    InvalidateAssetMetadata::id = std::move(id);
     return *this;
 }
 

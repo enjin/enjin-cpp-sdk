@@ -38,7 +38,7 @@ public:
     /// \brief Sets the asset ID.
     /// \param asset_id The ID.
     /// \return This request for chaining.
-    DecreaseMaxMeltFee& set_asset_id(const std::string& asset_id);
+    DecreaseMaxMeltFee& set_asset_id(std::string asset_id);
 
     /// \brief Sets the new max melt fee for the asset.
     /// \param max_melt_fee The new ratio.
@@ -56,7 +56,7 @@ private:
 };
 
 template ENJINSDK_EXPORT DecreaseMaxMeltFee&
-ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_eth_address(std::string address);
 
 }
 
