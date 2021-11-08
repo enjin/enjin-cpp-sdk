@@ -44,6 +44,18 @@ std::future<graphql::GraphqlResponse<models::AccessToken>> ProjectSchema::auth_p
     return send_request_for_one<models::AccessToken>(request);
 }
 
+std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::bridge_asset(BridgeAsset& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::bridge_assets(BridgeAssets& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
+std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::bridge_claim_asset(BridgeClaimAsset& request) {
+    return send_request_for_one<models::Request>(request);
+}
+
 std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::complete_trade(CompleteTrade& request) {
     return send_request_for_one<models::Request>(request);
 }

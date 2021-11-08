@@ -27,6 +27,9 @@
 #include "enjinsdk/project/ApproveMaxEnj.hpp"
 #include "enjinsdk/project/AuthPlayer.hpp"
 #include "enjinsdk/project/AuthProject.hpp"
+#include "enjinsdk/project/BridgeAsset.hpp"
+#include "enjinsdk/project/BridgeAssets.hpp"
+#include "enjinsdk/project/BridgeClaimAsset.hpp"
 #include "enjinsdk/project/CompleteTrade.hpp"
 #include "enjinsdk/project/CreateAsset.hpp"
 #include "enjinsdk/project/CreatePlayer.hpp"
@@ -88,6 +91,21 @@ public:
     /// \param request The request.
     /// \return The future containing the response.
     virtual std::future<graphql::GraphqlResponse<models::AccessToken>> auth_project(AuthProject& request) = 0;
+
+    /// \brief Sends the BridgeAsset request to the platform.
+    /// \param request The request.
+    /// \return The future containing the response.
+    virtual std::future<graphql::GraphqlResponse<models::Request>> bridge_asset(BridgeAsset& request) = 0;
+
+    /// \brief Sends the BridgeAssets request to the platform.
+    /// \param request The request.
+    /// \return The future containing the response.
+    virtual std::future<graphql::GraphqlResponse<models::Request>> bridge_assets(BridgeAssets& request) = 0;
+
+    /// \brief Sends the BridgeClaimAsset request to the platform.
+    /// \param request The request.
+    /// \return The future containing the response.
+    virtual std::future<graphql::GraphqlResponse<models::Request>> bridge_claim_asset(BridgeClaimAsset& request) = 0;
 
     /// \brief Sends the CompleteTrade request to the platform.
     /// \param request The request.

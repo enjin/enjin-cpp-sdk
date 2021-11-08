@@ -3,6 +3,9 @@ target_sources(${PROJECT_NAME}_tests
         PlayerAdvancedSendAssetTest.cpp
         PlayerApproveEnjTest.cpp
         PlayerApproveMaxEnjTest.cpp
+        PlayerBridgeAssetTest.cpp
+        PlayerBridgeAssetsTest.cpp
+        PlayerBridgeClaimAssetTest.cpp
         PlayerMeltAssetTest.cpp
         PlayerMessageTest.cpp
         PlayerResetEnjApprovalTest.cpp
