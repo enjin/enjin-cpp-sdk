@@ -15,13 +15,26 @@
 
 #include "enjinsdk/TrustedPlatformMiddleware.hpp"
 
+#include <stdexcept>
 #include <utility>
 
 namespace enjin::sdk {
 
 TrustedPlatformMiddleware::TrustedPlatformMiddleware(std::unique_ptr<http::IHttpClient> client)
         : client(std::move(client)) {
+    if (TrustedPlatformMiddleware::client == nullptr) {
+        throw std::runtime_error("Nullptr for HTTP client on TrustedPlatformMiddleware construction.");
+    }
+
     TrustedPlatformMiddleware::client->start();
+}
+
+void TrustedPlatformMiddleware::close() {
+    if (client == nullptr) {
+        return;
+    }
+
+    client->stop();
 }
 
 const graphql::GraphqlQueryRegistry& TrustedPlatformMiddleware::get_query_registry() const {
@@ -34,6 +47,10 @@ const std::unique_ptr<http::IHttpClient>& TrustedPlatformMiddleware::get_client(
 
 const std::shared_ptr<http::TrustedPlatformHandler>& TrustedPlatformMiddleware::get_handler() const {
     return handler;
+}
+
+bool TrustedPlatformMiddleware::is_closed() const {
+    return client == nullptr || !client->is_open();
 }
 
 }

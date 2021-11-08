@@ -43,7 +43,7 @@ void ProjectClient::auth(const std::string& token) {
 }
 
 void ProjectClient::close() {
-    middleware.get_client()->stop();
+    middleware.close();
 }
 
 bool ProjectClient::is_authenticated() const {
@@ -51,7 +51,7 @@ bool ProjectClient::is_authenticated() const {
 }
 
 bool ProjectClient::is_closed() const {
-    return !middleware.get_client()->is_open();
+    return middleware.is_closed();
 }
 
 ProjectClient::ProjectClientBuilder ProjectClient::builder() {
