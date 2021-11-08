@@ -41,6 +41,9 @@ public:
     /// \brief Default destructor.
     ~TrustedPlatformMiddleware() = default;
 
+    /// \brief Closes the connection with the platform.
+    void close();
+
     /// \brief Returns the query registry used by the middleware.
     /// \return The query registry.
     [[nodiscard]] const graphql::GraphqlQueryRegistry& get_query_registry() const;
@@ -52,6 +55,10 @@ public:
     /// \brief Returns the Trusted Platform handler used by the middleware.
     /// \return The Trusted Platform handler.
     [[nodiscard]] const std::shared_ptr<http::TrustedPlatformHandler>& get_handler() const;
+
+    /// \brief Determines if the connection this middleware has with the platform is closed.
+    /// \return Whether the connection is closed.
+    [[nodiscard]] bool is_closed() const;
 
 private:
     graphql::GraphqlQueryRegistry query_registry;
