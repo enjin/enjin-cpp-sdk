@@ -1,3 +1,7 @@
+target_sources(${PROJECT_NAME}_tests
+        PRIVATE
+        TrustedPlatformMiddlewareTest.cpp)
+
 add_subdirectory(events)
 add_subdirectory(graphql)
 add_subdirectory(http)
