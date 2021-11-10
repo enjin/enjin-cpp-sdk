@@ -35,7 +35,7 @@ public:
     /// \return The future for this operation.
     /// \remarks This will always connect to a open connection on "ws://127.0.0.1:8080/ws" irregardless of the passed
     /// parameter.
-    std::future<void> connect(const std::string& uri) override;
+    std::future<void> connect(std::string uri) override;
 };
 
 }

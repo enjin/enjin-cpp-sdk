@@ -16,17 +16,18 @@
 #include "enjinsdk/EventListenerRegistration.hpp"
 
 #include <algorithm>
+#include <utility>
 
 namespace enjin::sdk::events {
 
-EventListenerRegistration::EventListenerRegistration(const std::shared_ptr<IEventListener>& listener)
-        : EventListenerRegistration(listener, ALLOW_ALL_MATCHER) {
+EventListenerRegistration::EventListenerRegistration(std::shared_ptr<IEventListener> listener)
+        : EventListenerRegistration(std::move(listener), ALLOW_ALL_MATCHER) {
 }
 
-EventListenerRegistration::EventListenerRegistration(const std::shared_ptr<IEventListener>& listener,
-                                                     const std::function<bool(models::EventType)>& matcher)
-        : listener(listener),
-          matcher(matcher) {
+EventListenerRegistration::EventListenerRegistration(std::shared_ptr<IEventListener> listener,
+                                                     std::function<bool(models::EventType)> matcher)
+        : listener(std::move(listener)),
+          matcher(std::move(matcher)) {
 }
 
 IEventListener& EventListenerRegistration::get_listener() const {
@@ -38,20 +39,20 @@ const std::function<bool(models::EventType)>& EventListenerRegistration::get_mat
 }
 
 EventListenerRegistration::RegistrationListenerConfiguration::RegistrationListenerConfiguration(
-        const std::shared_ptr<IEventListener>& listener) : listener(listener) {
+        std::shared_ptr<IEventListener> listener) : listener(std::move(listener)) {
 }
 
 EventListenerRegistration::RegistrationListenerConfiguration&
 EventListenerRegistration::RegistrationListenerConfiguration::with_matcher(
-        const std::function<bool(models::EventType)>& matcher) {
-    EventListenerRegistration::RegistrationListenerConfiguration::matcher = matcher;
+        std::function<bool(models::EventType)> matcher) {
+    EventListenerRegistration::RegistrationListenerConfiguration::matcher = std::move(matcher);
     return *this;
 }
 
 EventListenerRegistration::RegistrationListenerConfiguration&
 EventListenerRegistration::RegistrationListenerConfiguration::with_allowed_events(
-        const std::vector<models::EventType>& types) {
-    matcher = [types](models::EventType type) {
+        std::vector<models::EventType> types) {
+    matcher = [types = std::move(types)](models::EventType type) {
         return std::any_of(types.begin(), types.end(), [type](models::EventType t) {
             return t == type; // Any of the allowed events equal the type which occurred
         });
@@ -61,8 +62,8 @@ EventListenerRegistration::RegistrationListenerConfiguration::with_allowed_event
 
 EventListenerRegistration::RegistrationListenerConfiguration&
 EventListenerRegistration::RegistrationListenerConfiguration::with_ignored_events(
-        const std::vector<models::EventType>& types) {
-    matcher = [types](models::EventType type) {
+        std::vector<models::EventType> types) {
+    matcher = [types = std::move(types)](models::EventType type) {
         return std::all_of(types.begin(), types.end(), [type](models::EventType t) {
             return t != type; // All of the ignored events do not equal the type which occurred
         });

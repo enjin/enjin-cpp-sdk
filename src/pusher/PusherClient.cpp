@@ -21,6 +21,7 @@
 #include "PusherException.hpp"
 #include "RapidJsonUtils.hpp"
 #include <sstream>
+#include <utility>
 
 namespace enjin::pusher {
 
@@ -62,12 +63,12 @@ std::string get_unsubscription_message_for_channel_name(const std::string& chann
 
 PusherClient::PusherClient(sdk::websockets::IWebsocketClient& ws_client,
                            std::string key,
-                           const PusherOptions& options,
+                           PusherOptions options,
                            std::shared_ptr<sdk::utils::LoggerProvider> logger_provider)
         : ws_client(ws_client),
           logger_provider(std::move(logger_provider)),
           key(std::move(key)),
-          options(options) {
+          options(std::move(options)) {
     PusherClient::ws_client.set_message_handler([this](const std::string& message) {
         websocket_message_received(message);
     });
@@ -230,12 +231,12 @@ void PusherClient::set_state(PusherConnectionState state) {
     }
 }
 
-void PusherClient::set_on_connection_state_change_handler(const std::function<void(PusherConnectionState)>& handler) {
-    on_connection_state_change = handler;
+void PusherClient::set_on_connection_state_change_handler(std::function<void(PusherConnectionState)> handler) {
+    on_connection_state_change = std::move(handler);
 }
 
-void PusherClient::set_on_error_handler(const std::function<void(const std::exception&)>& handler) {
-    on_error = handler;
+void PusherClient::set_on_error_handler(std::function<void(const std::exception&)> handler) {
+    on_error = std::move(handler);
 }
 
 void PusherClient::emit_event(const PusherEvent& event) {
