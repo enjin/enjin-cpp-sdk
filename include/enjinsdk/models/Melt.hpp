@@ -36,17 +36,17 @@ public:
     /// Sets the asset ID to melt.
     /// \param id The ID.
     /// \return This input for chaining.
-    Melt& set_asset_id(const std::string& id);
+    Melt& set_asset_id(std::string id);
 
     /// Sets the index of a non-fungible asset to melt.
     /// \param index The index.
     /// \return This input for chaining.
-    Melt& set_asset_index(const std::string& index);
+    Melt& set_asset_index(std::string index);
 
     /// Sets the amount of assets to melt.
     /// \param value The amount.
     /// \return This input for chaining.
-    Melt& set_value(const std::string& value);
+    Melt& set_value(std::string value);
 
     bool operator==(const Melt& rhs) const;
 

@@ -19,7 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/AssetSupplyModel.hpp"
-#include "enjinsdk/models/AssetTransferFeeSettings.hpp"
+#include "enjinsdk/models/AssetTransferFeeSettingsInput.hpp"
 #include "enjinsdk/models/AssetTransferable.hpp"
 #include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
 #include <optional>

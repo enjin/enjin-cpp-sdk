@@ -59,58 +59,58 @@ std::string AssetFilter::serialize() const {
     return utils::document_to_string(document);
 }
 
-AssetFilter& AssetFilter::set_and(const std::vector<AssetFilter>& others) {
-    and_filters = others;
+AssetFilter& AssetFilter::set_and(std::vector<AssetFilter> others) {
+    and_filters = std::move(others);
     return *this;
 }
 
-AssetFilter& AssetFilter::set_or(const std::vector<AssetFilter>& others) {
-    or_filters = others;
+AssetFilter& AssetFilter::set_or(std::vector<AssetFilter> others) {
+    or_filters = std::move(others);
     return *this;
 }
 
-AssetFilter& AssetFilter::set_id(const std::string& id) {
-    AssetFilter::id = id;
+AssetFilter& AssetFilter::set_id(std::string id) {
+    AssetFilter::id = std::move(id);
     return *this;
 }
 
-AssetFilter& AssetFilter::set_id_in(const std::vector<std::string>& ids) {
-    id_in = ids;
+AssetFilter& AssetFilter::set_id_in(std::vector<std::string> ids) {
+    id_in = std::move(ids);
     return *this;
 }
 
-AssetFilter& AssetFilter::set_name(const std::string& name) {
-    AssetFilter::name = name;
+AssetFilter& AssetFilter::set_name(std::string name) {
+    AssetFilter::name = std::move(name);
     return *this;
 }
 
-AssetFilter& AssetFilter::set_name_contains(const std::string& text) {
-    name_contains = text;
+AssetFilter& AssetFilter::set_name_contains(std::string text) {
+    name_contains = std::move(text);
     return *this;
 }
 
-AssetFilter& AssetFilter::set_name_in(const std::vector<std::string>& names) {
-    name_in = names;
+AssetFilter& AssetFilter::set_name_in(std::vector<std::string> names) {
+    name_in = std::move(names);
     return *this;
 }
 
-AssetFilter& AssetFilter::set_name_starts_with(const std::string& prefix) {
-    name_starts_with = prefix;
+AssetFilter& AssetFilter::set_name_starts_with(std::string prefix) {
+    name_starts_with = std::move(prefix);
     return *this;
 }
 
-AssetFilter& AssetFilter::set_name_ends_with(const std::string& suffix) {
-    name_ends_with = suffix;
+AssetFilter& AssetFilter::set_name_ends_with(std::string suffix) {
+    name_ends_with = std::move(suffix);
     return *this;
 }
 
-AssetFilter& AssetFilter::set_wallet(const std::string& wallet) {
-    AssetFilter::wallet = wallet;
+AssetFilter& AssetFilter::set_wallet(std::string wallet) {
+    AssetFilter::wallet = std::move(wallet);
     return *this;
 }
 
-AssetFilter& AssetFilter::set_wallet_in(const std::vector<std::string>& wallets) {
-    wallet_in = wallets;
+AssetFilter& AssetFilter::set_wallet_in(std::vector<std::string> wallets) {
+    wallet_in = std::move(wallets);
     return *this;
 }
 

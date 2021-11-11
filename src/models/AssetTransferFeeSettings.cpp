@@ -58,44 +58,4 @@ bool AssetTransferFeeSettings::operator!=(const AssetTransferFeeSettings& rhs) c
     return !(rhs == *this);
 }
 
-std::string AssetTransferFeeSettingsInput::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-
-    if (type.has_value()) {
-        utils::set_string_member(document, TYPE_KEY, utils::serialize_asset_transfer_fee_type(type.value()));
-    }
-    if (asset_id.has_value()) {
-        utils::set_string_member(document, ASSET_ID_KEY, asset_id.value());
-    }
-    if (value.has_value()) {
-        utils::set_string_member(document, VALUE_KEY, value.value());
-    }
-
-    return utils::document_to_string(document);
-}
-
-AssetTransferFeeSettingsInput& AssetTransferFeeSettingsInput::set_type(AssetTransferFeeType type) {
-    AssetTransferFeeSettingsInput::type = type;
-    return *this;
-}
-
-AssetTransferFeeSettingsInput& AssetTransferFeeSettingsInput::set_asset_id(const std::string& asset_id) {
-    AssetTransferFeeSettingsInput::asset_id = asset_id;
-    return *this;
-}
-
-AssetTransferFeeSettingsInput& AssetTransferFeeSettingsInput::set_value(const std::string& value) {
-    AssetTransferFeeSettingsInput::value = value;
-    return *this;
-}
-
-bool AssetTransferFeeSettingsInput::operator==(const AssetTransferFeeSettingsInput& rhs) const {
-    return static_cast<const AssetTransferFeeSettings&>(*this) ==
-           static_cast<const AssetTransferFeeSettings&>(rhs);
-}
-
-bool AssetTransferFeeSettingsInput::operator!=(const AssetTransferFeeSettingsInput& rhs) const {
-    return !(rhs == *this);
-}
-
 }
