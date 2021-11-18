@@ -44,3 +44,13 @@ vcpkg/
 ### Python
 venv/
 __pycache__/
+
+### Doxygen
+/examples/*/html
+/html
+/latex
+/rtf
+/xml
+/man
+/docbook
+/perlmod
