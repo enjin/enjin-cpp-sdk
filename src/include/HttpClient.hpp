@@ -48,7 +48,7 @@ public:
 
     void stop() override;
 
-    std::future<HttpResponse> send_request(const HttpRequest& request) override;
+    std::future<HttpResponse> send_request(HttpRequest request) override;
 
     /// \brief Returns the base URI of this client.
     /// \return The URI.

@@ -67,8 +67,8 @@ public:
         open = false;
     }
 
-    std::future<HttpResponse> send_request(const HttpRequest& request) override {
-        return std::async([this, request] {
+    std::future<HttpResponse> send_request(HttpRequest request) override {
+        return std::async([this, request = std::move(request)] {
             if (request.get_method() != HttpMethod::Post) {
                 const std::string message("HTTP method for request is not 'POST'");
                 log_error(message);
@@ -219,7 +219,7 @@ void HttpClient::stop() {
     impl->stop();
 }
 
-std::future<HttpResponse> HttpClient::send_request(const HttpRequest& request) {
+std::future<HttpResponse> HttpClient::send_request(HttpRequest request) {
     return impl->send_request(request);
 }
 

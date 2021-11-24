@@ -50,7 +50,7 @@ public:
 
     /// \brief Sets the auth token for the handler.
     /// \param auth_token The auth token.
-    void set_auth_token(const std::string& auth_token);
+    void set_auth_token(std::string auth_token);
 
     /// \brief Returns the auth token for the handler.
     /// \return The optional with containing the auth token.

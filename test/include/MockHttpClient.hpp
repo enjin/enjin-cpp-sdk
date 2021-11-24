@@ -27,10 +27,7 @@ public:
 
     MOCK_METHOD(void, stop, (), (override));
 
-    MOCK_METHOD(std::future<sdk::http::HttpResponse>,
-                send_request,
-                (const sdk::http::HttpRequest& request),
-                (override));
+    MOCK_METHOD(std::future<sdk::http::HttpResponse>, send_request, (sdk::http::HttpRequest request), (override));
 
     MOCK_METHOD(bool, is_open, (), (const, override));
 };
