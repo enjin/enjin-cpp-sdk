@@ -39,7 +39,7 @@ public:
     /// \param value The value.
     /// \return This request for chaining.
     /// \remarks The value is in Wei as 10^18 (e.g. 1 ENJ = 1000000000000000000).
-    ApproveEnj& set_value(const std::string& value);
+    ApproveEnj& set_value(std::string value);
 
     bool operator==(const ApproveEnj& rhs) const;
 
@@ -92,7 +92,7 @@ template ENJINSDK_EXPORT ApproveEnj&
 ProjectTransactionRequestArguments<ApproveEnj>::set_with_transaction_wallet_address();
 
 template ENJINSDK_EXPORT ApproveEnj&
-ProjectTransactionRequestArguments<ApproveEnj>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<ApproveEnj>::set_eth_address(std::string address);
 
 }
 

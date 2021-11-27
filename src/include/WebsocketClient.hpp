@@ -37,21 +37,21 @@ public:
     /// \brief Destructor.
     ~WebsocketClient() override;
 
-    std::future<void> connect(const std::string& uri) override;
+    std::future<void> connect(std::string uri) override;
 
     std::future<void> close() override;
 
-    std::future<void> close(int status_code, const std::string& reason) override;
+    std::future<void> close(int status_code, std::string reason) override;
 
-    void send(const std::string& data) override;
+    void send(std::string data) override;
 
-    void set_open_handler(const std::function<void()>& handler) override;
+    void set_open_handler(std::function<void()> handler) override;
 
-    void set_close_handler(const std::function<void(int close_status, const std::string& message)>& handler) override;
+    void set_close_handler(std::function<void(int close_status, const std::string& message)> handler) override;
 
-    void set_message_handler(const std::function<void(const std::string& message)>& handler) override;
+    void set_message_handler(std::function<void(const std::string& message)> handler) override;
 
-    void set_error_handler(const std::function<void(int code, const std::string& message)>& handler) override;
+    void set_error_handler(std::function<void(int code, const std::string& message)> handler) override;
 
     void set_allow_reconnecting(bool allow) override;
 

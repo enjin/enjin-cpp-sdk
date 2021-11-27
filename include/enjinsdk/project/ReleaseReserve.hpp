@@ -38,12 +38,12 @@ public:
     /// \brief Sets the asset ID.
     /// \param asset_id The ID.
     /// \return This request for chaining.
-    ReleaseReserve& set_asset_id(const std::string& asset_id);
+    ReleaseReserve& set_asset_id(std::string asset_id);
 
     /// \brief Sets the amount to release.
     /// \param value The amount.
     /// \return This request for chaining.
-    ReleaseReserve& set_value(const std::string& value);
+    ReleaseReserve& set_value(std::string value);
 
     bool operator==(const ReleaseReserve& rhs) const;
 
@@ -87,7 +87,7 @@ template ENJINSDK_EXPORT ReleaseReserve&
 ProjectTransactionRequestArguments<ReleaseReserve>::set_with_transaction_wallet_address();
 
 template ENJINSDK_EXPORT ReleaseReserve&
-ProjectTransactionRequestArguments<ReleaseReserve>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<ReleaseReserve>::set_eth_address(std::string address);
 
 }
 

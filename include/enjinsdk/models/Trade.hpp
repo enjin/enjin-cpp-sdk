@@ -36,17 +36,17 @@ public:
     /// Sets the asset ID to trade or ENJ if unused.
     /// \param id The ID.
     /// \return This input for chaining.
-    Trade& set_asset_id(const std::string& id);
+    Trade& set_asset_id(std::string id);
 
     /// Sets the index for non-fungible assets.
     /// \param index The index.
     /// \return This input for chaining.
-    Trade& set_asset_index(const std::string& index);
+    Trade& set_asset_index(std::string index);
 
     /// Sets the amount of assets to trade.
     /// \param value The amount.
     /// \return This input for chaining.
-    Trade& set_value(const std::string& value);
+    Trade& set_value(std::string value);
 
     bool operator==(const Trade& rhs) const;
 

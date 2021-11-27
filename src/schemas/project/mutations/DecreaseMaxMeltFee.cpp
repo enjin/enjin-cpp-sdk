@@ -16,6 +16,7 @@
 #include "enjinsdk/project/DecreaseMaxMeltFee.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -36,8 +37,8 @@ std::string DecreaseMaxMeltFee::serialize() const {
     return utils::document_to_string(document);
 }
 
-DecreaseMaxMeltFee& DecreaseMaxMeltFee::set_asset_id(const std::string& asset_id) {
-    DecreaseMaxMeltFee::asset_id = asset_id;
+DecreaseMaxMeltFee& DecreaseMaxMeltFee::set_asset_id(std::string asset_id) {
+    DecreaseMaxMeltFee::asset_id = std::move(asset_id);
     return *this;
 }
 

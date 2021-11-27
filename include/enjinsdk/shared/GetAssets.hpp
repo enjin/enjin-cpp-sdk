@@ -43,12 +43,12 @@ public:
     /// \brief Sets the filter the request will use.
     /// \param filter The filter.
     /// \return This request for chaining.
-    GetAssets& set_filter(const models::AssetFilter& filter);
+    GetAssets& set_filter(models::AssetFilter filter);
 
     /// \brief Sets the request to sort the results by the specified options.
     /// \param sort The sort options.
     /// \return This request for chaining.
-    GetAssets& set_sort(const models::AssetSort& sort);
+    GetAssets& set_sort(models::AssetSort sort);
 
     bool operator==(const GetAssets& rhs) const;
 

@@ -21,6 +21,7 @@
 #include "enjinsdk/shared/TransactionFragmentArguments.hpp"
 #include <string>
 #include <type_traits>
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -40,8 +41,8 @@ public:
     /// \brief Sets the Ethereum address of the sender.
     /// \param address The address.
     /// \return This request for chaining.
-    virtual T& set_eth_address(const std::string& address) {
-        impl.set_eth_address(address);
+    virtual T& set_eth_address(std::string address) {
+        impl.set_eth_address(std::move(address));
         return static_cast<T&>(*this);
     }
 

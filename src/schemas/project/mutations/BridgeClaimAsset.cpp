@@ -16,6 +16,7 @@
 #include "enjinsdk/project/BridgeClaimAsset.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -34,7 +35,7 @@ std::string BridgeClaimAsset::serialize() const {
 }
 
 BridgeClaimAsset& BridgeClaimAsset::set_asset_id(std::string asset_id) {
-    BridgeClaimAsset::asset_id = asset_id;
+    BridgeClaimAsset::asset_id = std::move(asset_id);
     return *this;
 }
 

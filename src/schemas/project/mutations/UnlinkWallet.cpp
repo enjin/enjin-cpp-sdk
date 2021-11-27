@@ -16,6 +16,7 @@
 #include "enjinsdk/project/UnlinkWallet.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -32,8 +33,8 @@ std::string UnlinkWallet::serialize() const {
     return utils::document_to_string(document);
 }
 
-UnlinkWallet& UnlinkWallet::set_eth_address(const std::string& eth_address) {
-    UnlinkWallet::eth_address = eth_address;
+UnlinkWallet& UnlinkWallet::set_eth_address(std::string eth_address) {
+    UnlinkWallet::eth_address = std::move(eth_address);
     return *this;
 }
 

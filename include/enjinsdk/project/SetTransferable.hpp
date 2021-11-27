@@ -39,12 +39,12 @@ public:
     /// \brief Sets the asset ID.
     /// \param asset_id The ID.
     /// \return This request for chaining.
-    SetTransferable& set_asset_id(const std::string& asset_id);
+    SetTransferable& set_asset_id(std::string asset_id);
 
     /// \brief Sets the index for non-fungible assets.
     /// \param asset_index The index.
     /// \return This request for chaining.
-    SetTransferable& set_asset_index(const std::string& asset_index);
+    SetTransferable& set_asset_index(std::string asset_index);
 
     /// \brief Sets the new transfer mode.
     /// \param transferable The new mode.
@@ -95,7 +95,7 @@ template ENJINSDK_EXPORT SetTransferable&
 ProjectTransactionRequestArguments<SetTransferable>::set_with_transaction_wallet_address();
 
 template ENJINSDK_EXPORT SetTransferable&
-ProjectTransactionRequestArguments<SetTransferable>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<SetTransferable>::set_eth_address(std::string address);
 
 }
 

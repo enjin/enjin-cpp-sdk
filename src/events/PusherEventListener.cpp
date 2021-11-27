@@ -17,6 +17,7 @@
 
 #include "EventTypeDef.hpp"
 #include <sstream>
+#include <string>
 
 namespace enjin::sdk::events {
 
@@ -24,9 +25,9 @@ PusherEventListener::PusherEventListener(PusherEventService* service) : service(
 }
 
 void PusherEventListener::on_event(const pusher::PusherEvent& event) {
-    const std::string& key = event.get_event_name().value_or("");
-    const std::string& channel = event.get_channel_name().value_or("");
-    const std::string& message = event.get_data().value_or("");
+    const std::string key = event.get_event_name().value_or("");
+    const std::string channel = event.get_channel_name().value_or("");
+    const std::string message = event.get_data().value_or("");
 
     auto listeners = service->get_listeners();
     auto logger = service->get_logger_provider();

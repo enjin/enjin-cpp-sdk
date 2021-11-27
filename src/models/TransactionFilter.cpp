@@ -94,53 +94,53 @@ std::string TransactionFilter::serialize() const {
     return utils::document_to_string(document);
 }
 
-TransactionFilter& TransactionFilter::set_and(const std::vector<TransactionFilter>& others) {
-    and_filters = others;
+TransactionFilter& TransactionFilter::set_and(std::vector<TransactionFilter> others) {
+    and_filters = std::move(others);
     return *this;
 }
 
-TransactionFilter& TransactionFilter::set_or(const std::vector<TransactionFilter>& others) {
-    or_filters = others;
+TransactionFilter& TransactionFilter::set_or(std::vector<TransactionFilter> others) {
+    or_filters = std::move(others);
     return *this;
 }
 
-TransactionFilter& TransactionFilter::set_id(const std::string& id) {
-    TransactionFilter::id = id;
+TransactionFilter& TransactionFilter::set_id(std::string id) {
+    TransactionFilter::id = std::move(id);
     return *this;
 }
 
-TransactionFilter& TransactionFilter::set_id_in(const std::vector<std::string>& ids) {
-    id_in = ids;
+TransactionFilter& TransactionFilter::set_id_in(std::vector<std::string> ids) {
+    id_in = std::move(ids);
     return *this;
 }
 
-TransactionFilter& TransactionFilter::set_transaction_id(const std::string& transaction_id) {
-    TransactionFilter::transaction_id = transaction_id;
+TransactionFilter& TransactionFilter::set_transaction_id(std::string transaction_id) {
+    TransactionFilter::transaction_id = std::move(transaction_id);
     return *this;
 }
 
-TransactionFilter& TransactionFilter::set_transaction_id_in(const std::vector<std::string>& transaction_ids) {
-    transaction_id_in = transaction_ids;
+TransactionFilter& TransactionFilter::set_transaction_id_in(std::vector<std::string> transaction_ids) {
+    transaction_id_in = std::move(transaction_ids);
     return *this;
 }
 
-TransactionFilter& TransactionFilter::set_asset_id(const std::string& asset_id) {
-    TransactionFilter::asset_id = asset_id;
+TransactionFilter& TransactionFilter::set_asset_id(std::string asset_id) {
+    TransactionFilter::asset_id = std::move(asset_id);
     return *this;
 }
 
-TransactionFilter& TransactionFilter::set_asset_id_in(const std::vector<std::string>& asset_ids) {
-    asset_id_in = asset_ids;
+TransactionFilter& TransactionFilter::set_asset_id_in(std::vector<std::string> asset_ids) {
+    asset_id_in = std::move(asset_ids);
     return *this;
 }
 
-TransactionFilter& TransactionFilter::set_type(const RequestType& type) {
+TransactionFilter& TransactionFilter::set_type(RequestType type) {
     TransactionFilter::type = type;
     return *this;
 }
 
-TransactionFilter& TransactionFilter::set_type_in(const std::vector<RequestType>& types) {
-    type_in = types;
+TransactionFilter& TransactionFilter::set_type_in(std::vector<RequestType> types) {
+    type_in = std::move(types);
     return *this;
 }
 
@@ -169,23 +169,23 @@ TransactionFilter& TransactionFilter::set_value_lte(int value) {
     return *this;
 }
 
-TransactionFilter& TransactionFilter::set_state(const RequestState& state) {
+TransactionFilter& TransactionFilter::set_state(RequestState state) {
     TransactionFilter::state = state;
     return *this;
 }
 
-TransactionFilter& TransactionFilter::set_state_in(const std::vector<RequestState>& states) {
-    state_in = states;
+TransactionFilter& TransactionFilter::set_state_in(std::vector<RequestState> states) {
+    state_in = std::move(states);
     return *this;
 }
 
-TransactionFilter& TransactionFilter::set_wallet(const std::string& wallet) {
-    TransactionFilter::wallet = wallet;
+TransactionFilter& TransactionFilter::set_wallet(std::string wallet) {
+    TransactionFilter::wallet = std::move(wallet);
     return *this;
 }
 
-TransactionFilter& TransactionFilter::set_wallet_in(const std::vector<std::string>& wallets) {
-    wallet_in = wallets;
+TransactionFilter& TransactionFilter::set_wallet_in(std::vector<std::string> wallets) {
+    wallet_in = std::move(wallets);
     return *this;
 }
 

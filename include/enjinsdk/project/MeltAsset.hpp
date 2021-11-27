@@ -80,7 +80,7 @@ template ENJINSDK_EXPORT MeltAsset&
 ProjectTransactionRequestArguments<MeltAsset>::set_with_transaction_wallet_address();
 
 template ENJINSDK_EXPORT MeltAsset&
-ProjectTransactionRequestArguments<MeltAsset>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<MeltAsset>::set_eth_address(std::string address);
 
 }
 

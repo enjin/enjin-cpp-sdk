@@ -38,7 +38,7 @@ public:
     /// \brief Sets the asset ID.
     /// \param asset_id The ID.
     /// \return This request for chaining.
-    SetMeltFee& set_asset_id(const std::string& asset_id);
+    SetMeltFee& set_asset_id(std::string asset_id);
 
     /// \brief Sets the new melt fee for the asset.
     /// \param melt_fee The new ratio.
@@ -87,7 +87,7 @@ template ENJINSDK_EXPORT SetMeltFee&
 ProjectTransactionRequestArguments<SetMeltFee>::set_with_transaction_wallet_address();
 
 template ENJINSDK_EXPORT SetMeltFee&
-ProjectTransactionRequestArguments<SetMeltFee>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<SetMeltFee>::set_eth_address(std::string address);
 
 }
 

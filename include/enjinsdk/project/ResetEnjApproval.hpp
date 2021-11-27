@@ -75,7 +75,7 @@ template ENJINSDK_EXPORT ResetEnjApproval&
 ProjectTransactionRequestArguments<ResetEnjApproval>::set_with_transaction_wallet_address();
 
 template ENJINSDK_EXPORT ResetEnjApproval&
-ProjectTransactionRequestArguments<ResetEnjApproval>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<ResetEnjApproval>::set_eth_address(std::string address);
 
 }
 

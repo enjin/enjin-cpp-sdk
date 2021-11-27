@@ -16,6 +16,7 @@
 #include "enjinsdk/shared/GetRequest.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::shared {
 
@@ -41,8 +42,8 @@ GetRequest& GetRequest::set_id(int id) {
     return *this;
 }
 
-GetRequest& GetRequest::set_transaction_id(const std::string& id) {
-    transaction_id = id;
+GetRequest& GetRequest::set_transaction_id(std::string id) {
+    transaction_id = std::move(id);
     return *this;
 }
 

@@ -40,12 +40,12 @@ public:
     /// \brief Sets the different transfers to perform.
     /// \param transfers The transfers.
     /// \return This request for chaining.
-    AdvancedSendAsset& set_transfers(const std::vector<models::Transfer>& transfers);
+    AdvancedSendAsset& set_transfers(std::vector<models::Transfer> transfers);
 
     /// \brief Sets the data to forward with the transaction.
     /// \param data The data.
     /// \return This request for chaining.
-    AdvancedSendAsset& set_data(const std::string& data);
+    AdvancedSendAsset& set_data(std::string data);
 
     bool operator==(const AdvancedSendAsset& rhs) const;
 

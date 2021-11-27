@@ -39,7 +39,7 @@ public:
     /// \param value The value.
     /// \return This request for chaining.
     /// \remarks The value is in Wei as 10^18 (e.g. 1 ENJ = 1000000000000000000).
-    ApproveEnj& set_value(const std::string& value);
+    ApproveEnj& set_value(std::string value);
 
     bool operator==(const ApproveEnj& rhs) const;
 

@@ -103,7 +103,7 @@ template ENJINSDK_EXPORT BridgeAsset&
 ProjectTransactionRequestArguments<BridgeAsset>::set_with_transaction_wallet_address();
 
 template ENJINSDK_EXPORT BridgeAsset&
-ProjectTransactionRequestArguments<BridgeAsset>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<BridgeAsset>::set_eth_address(std::string address);
 
 }
 

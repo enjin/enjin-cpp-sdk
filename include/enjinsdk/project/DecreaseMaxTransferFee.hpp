@@ -38,7 +38,7 @@ public:
     /// \brief Sets the asset ID.
     /// \param asset_id The ID.
     /// \return This request for chaining.
-    DecreaseMaxTransferFee& set_asset_id(const std::string& asset_id);
+    DecreaseMaxTransferFee& set_asset_id(std::string asset_id);
 
     /// \brief Sets the new max transfer fee in Wei.
     /// \param max_transfer_fee The new fee.
@@ -98,7 +98,7 @@ template ENJINSDK_EXPORT DecreaseMaxTransferFee&
 ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_transaction_wallet_address();
 
 template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_eth_address(std::string address);
 
 }
 

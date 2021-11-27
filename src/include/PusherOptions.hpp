@@ -48,7 +48,7 @@ public:
     /// \brief Sets the cluster.
     /// \param cluster The cluster.
     /// \return This for chaining.
-    PusherOptions& set_cluster(const std::string& cluster);
+    PusherOptions& set_cluster(std::string cluster);
 
     /// \brief Sets whether encryption is to be used. True by default.
     /// \param encrypted The state.

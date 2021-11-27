@@ -32,13 +32,13 @@ std::string MintInput::serialize() const {
     return utils::document_to_string(document);
 }
 
-MintInput& MintInput::set_to(const std::string& address) {
-    to = address;
+MintInput& MintInput::set_to(std::string address) {
+    to = std::move(address);
     return *this;
 }
 
-MintInput& MintInput::set_value(const std::string& value) {
-    MintInput::value = value;
+MintInput& MintInput::set_value(std::string value) {
+    MintInput::value = std::move(value);
     return *this;
 }
 

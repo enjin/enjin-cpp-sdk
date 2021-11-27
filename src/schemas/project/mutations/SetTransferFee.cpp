@@ -16,6 +16,7 @@
 #include "enjinsdk/project/SetTransferFee.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -36,13 +37,13 @@ std::string SetTransferFee::serialize() const {
     return utils::document_to_string(document);
 }
 
-SetTransferFee& SetTransferFee::set_asset_id(const std::string& asset_id) {
-    SetTransferFee::asset_id = asset_id;
+SetTransferFee& SetTransferFee::set_asset_id(std::string asset_id) {
+    SetTransferFee::asset_id = std::move(asset_id);
     return *this;
 }
 
-SetTransferFee& SetTransferFee::set_transfer_fee(const std::string& transfer_fee) {
-    SetTransferFee::transfer_fee = transfer_fee;
+SetTransferFee& SetTransferFee::set_transfer_fee(std::string transfer_fee) {
+    SetTransferFee::transfer_fee = std::move(transfer_fee);
     return *this;
 }
 

@@ -110,10 +110,10 @@ HttpRequest HttpRequest::HttpRequestBuilder::build() {
     }
 
     return HttpRequest(m_method.value(),
-                       m_path_query_fragment,
-                       m_body,
-                       m_content_type,
-                       headers);
+                       std::move(m_path_query_fragment),
+                       std::move(m_body),
+                       std::move(m_content_type),
+                       std::move(headers));
 }
 
 HttpRequest::HttpRequestBuilder& HttpRequest::HttpRequestBuilder::method(HttpMethod method) {
@@ -121,25 +121,23 @@ HttpRequest::HttpRequestBuilder& HttpRequest::HttpRequestBuilder::method(HttpMet
     return *this;
 }
 
-HttpRequest::HttpRequestBuilder&
-HttpRequest::HttpRequestBuilder::path_query_fragment(const std::string& path_query_fragment) {
-    m_path_query_fragment = path_query_fragment;
+HttpRequest::HttpRequestBuilder& HttpRequest::HttpRequestBuilder::path_query_fragment(std::string path_query_fragment) {
+    m_path_query_fragment = std::move(path_query_fragment);
     return *this;
 }
 
-HttpRequest::HttpRequestBuilder& HttpRequest::HttpRequestBuilder::body(const std::string& body) {
-    m_body = body;
+HttpRequest::HttpRequestBuilder& HttpRequest::HttpRequestBuilder::body(std::string body) {
+    m_body = std::move(body);
     return *this;
 }
 
-HttpRequest::HttpRequestBuilder& HttpRequest::HttpRequestBuilder::content_type(const std::string& content_type) {
-    m_content_type = content_type;
+HttpRequest::HttpRequestBuilder& HttpRequest::HttpRequestBuilder::content_type(std::string content_type) {
+    m_content_type = std::move(content_type);
     return *this;
 }
 
-HttpRequest::HttpRequestBuilder&
-HttpRequest::HttpRequestBuilder::add_header(const std::string& name, const std::string& value) {
-    headers.emplace(name, value);
+HttpRequest::HttpRequestBuilder& HttpRequest::HttpRequestBuilder::add_header(std::string name, std::string value) {
+    headers.emplace(std::move(name), std::move(value));
     return *this;
 }
 

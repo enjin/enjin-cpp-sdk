@@ -92,7 +92,7 @@ private:
     std::string name;
 
     static std::unique_ptr<EventTypeDef> create(models::EventType type,
-                                                const std::string& key,
+                                                std::string key,
                                                 std::vector<std::string> channels);
 
     static std::map<models::EventType, std::unique_ptr<EventTypeDef>> create_map();

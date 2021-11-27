@@ -38,7 +38,7 @@ public:
     /// \brief Sets the message to sign.
     /// \param message The message.
     /// \return This request for chaining.
-    Message& set_message(const std::string& message);
+    Message& set_message(std::string message);
 
     bool operator==(const Message& rhs) const;
 
@@ -78,7 +78,7 @@ template ENJINSDK_EXPORT Message& ProjectTransactionRequestArguments<Message>::s
 template ENJINSDK_EXPORT Message& ProjectTransactionRequestArguments<Message>::set_with_transaction_wallet_address();
 
 template ENJINSDK_EXPORT Message&
-ProjectTransactionRequestArguments<Message>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<Message>::set_eth_address(std::string address);
 
 }
 
