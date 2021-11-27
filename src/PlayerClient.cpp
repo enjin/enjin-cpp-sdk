@@ -37,7 +37,7 @@ PlayerClient::~PlayerClient() {
     PlayerClient::close();
 }
 
-void PlayerClient::auth(const std::string& token) {
+void PlayerClient::auth(std::string token) {
     middleware.get_handler()->set_auth_token(token);
 }
 
@@ -76,8 +76,8 @@ PlayerClient PlayerClient::PlayerClientBuilder::build() {
     }
 }
 
-PlayerClient::PlayerClientBuilder& PlayerClient::PlayerClientBuilder::base_uri(const std::string& base_uri) {
-    m_base_uri = base_uri;
+PlayerClient::PlayerClientBuilder& PlayerClient::PlayerClientBuilder::base_uri(std::string base_uri) {
+    m_base_uri = std::move(base_uri);
     return *this;
 }
 

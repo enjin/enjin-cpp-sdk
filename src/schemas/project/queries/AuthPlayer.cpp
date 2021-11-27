@@ -16,6 +16,7 @@
 #include "enjinsdk/project/AuthPlayer.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -32,8 +33,8 @@ std::string AuthPlayer::serialize() const {
     return utils::document_to_string(document);
 }
 
-AuthPlayer& AuthPlayer::set_id(const std::string& id) {
-    AuthPlayer::id = id;
+AuthPlayer& AuthPlayer::set_id(std::string id) {
+    AuthPlayer::id = std::move(id);
     return *this;
 }
 

@@ -16,6 +16,7 @@
 #include "enjinsdk/shared/GetRequests.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::shared {
 
@@ -39,13 +40,13 @@ std::string GetRequests::serialize() const {
     return utils::document_to_string(document);
 }
 
-GetRequests& GetRequests::set_filter(const models::TransactionFilter& filter) {
-    GetRequests::filter = filter;
+GetRequests& GetRequests::set_filter(models::TransactionFilter filter) {
+    GetRequests::filter = std::move(filter);
     return *this;
 }
 
-GetRequests& GetRequests::set_sort(const models::TransactionSort& sort) {
-    GetRequests::sort = sort;
+GetRequests& GetRequests::set_sort(models::TransactionSort sort) {
+    GetRequests::sort = std::move(sort);
     return *this;
 }
 

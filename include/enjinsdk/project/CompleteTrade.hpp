@@ -38,7 +38,7 @@ public:
     /// \brief Sets the trade ID.
     /// \param id The ID.
     /// \return This request for chaining.
-    CompleteTrade& set_trade_id(const std::string& id);
+    CompleteTrade& set_trade_id(std::string id);
 
     bool operator==(const CompleteTrade& rhs) const;
 
@@ -49,7 +49,7 @@ private:
 };
 
 template ENJINSDK_EXPORT CompleteTrade&
-ProjectTransactionRequestArguments<CompleteTrade>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<CompleteTrade>::set_eth_address(std::string address);
 
 }
 

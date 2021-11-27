@@ -38,7 +38,7 @@ public:
     /// \brief Sets the message to sign.
     /// \param message The message.
     /// \return This request for chaining.
-    Message& set_message(const std::string& message);
+    Message& set_message(std::string message);
 
     bool operator==(const Message& rhs) const;
 

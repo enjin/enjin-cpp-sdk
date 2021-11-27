@@ -17,6 +17,7 @@
 
 #include "EnumUtils.hpp"
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -60,18 +61,18 @@ std::string CreateAsset::serialize() const {
     return utils::document_to_string(document);
 }
 
-CreateAsset& CreateAsset::set_name(const std::string& name) {
-    CreateAsset::name = name;
+CreateAsset& CreateAsset::set_name(std::string name) {
+    CreateAsset::name = std::move(name);
     return *this;
 }
 
-CreateAsset& CreateAsset::set_total_supply(const std::string& total_supply) {
-    CreateAsset::total_supply = total_supply;
+CreateAsset& CreateAsset::set_total_supply(std::string total_supply) {
+    CreateAsset::total_supply = std::move(total_supply);
     return *this;
 }
 
-CreateAsset& CreateAsset::set_initial_reserve(const std::string& initial_reserve) {
-    CreateAsset::initial_reserve = initial_reserve;
+CreateAsset& CreateAsset::set_initial_reserve(std::string initial_reserve) {
+    CreateAsset::initial_reserve = std::move(initial_reserve);
     return *this;
 }
 
@@ -80,8 +81,8 @@ CreateAsset& CreateAsset::set_supply_model(models::AssetSupplyModel supply_model
     return *this;
 }
 
-CreateAsset& CreateAsset::set_melt_value(const std::string& melt_value) {
-    CreateAsset::melt_value = melt_value;
+CreateAsset& CreateAsset::set_melt_value(std::string melt_value) {
+    CreateAsset::melt_value = std::move(melt_value);
     return *this;
 }
 
@@ -96,8 +97,8 @@ CreateAsset& CreateAsset::set_transferable(models::AssetTransferable transferabl
 }
 
 CreateAsset&
-CreateAsset::set_transfer_fee_settings(const models::AssetTransferFeeSettingsInput& transfer_fee_settings) {
-    CreateAsset::transfer_fee_settings = transfer_fee_settings;
+CreateAsset::set_transfer_fee_settings(models::AssetTransferFeeSettingsInput transfer_fee_settings) {
+    CreateAsset::transfer_fee_settings = std::move(transfer_fee_settings);
     return *this;
 }
 

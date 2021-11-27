@@ -16,6 +16,7 @@
 #include "enjinsdk/project/SetApprovalForAll.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -36,8 +37,8 @@ std::string SetApprovalForAll::serialize() const {
     return utils::document_to_string(document);
 }
 
-SetApprovalForAll& SetApprovalForAll::set_operator_address(const std::string& operator_address) {
-    SetApprovalForAll::operator_address = operator_address;
+SetApprovalForAll& SetApprovalForAll::set_operator_address(std::string operator_address) {
+    SetApprovalForAll::operator_address = std::move(operator_address);
     return *this;
 }
 

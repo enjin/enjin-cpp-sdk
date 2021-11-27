@@ -38,42 +38,42 @@ public:
     /// \brief Sets the filter to include other filters to intersect with.
     /// \param others The other filters.
     /// \return This filter for chaining.
-    BalanceFilter& set_and(const std::vector<BalanceFilter>& others);
+    BalanceFilter& set_and(std::vector<BalanceFilter> others);
 
     /// \brief Sets the filter to include other filters to union with.
     /// \param others The other filters.
     /// \return This filter for chaining.
-    BalanceFilter& set_or(const std::vector<BalanceFilter>& others);
+    BalanceFilter& set_or(std::vector<BalanceFilter> others);
 
     /// \brief Sets the project UUID to filter for.
     /// \param project_uuid The project UUID.
     /// \return This filter for chaining.
-    BalanceFilter& set_project_uuid(const std::string& project_uuid);
+    BalanceFilter& set_project_uuid(std::string project_uuid);
 
     /// \brief Sets the project UUIDs to filter for.
     /// \param project_uuids The project UUIDs.
     /// \return This filter for chaining.
-    BalanceFilter& set_project_uuid_in(const std::vector<std::string>& project_uuids);
+    BalanceFilter& set_project_uuid_in(std::vector<std::string> project_uuids);
 
     /// \brief Sets the asset ID to filter for.
     /// \param asset_id The asset ID.
     /// \return This filter for chaining.
-    BalanceFilter& set_asset_id(const std::string& asset_id);
+    BalanceFilter& set_asset_id(std::string asset_id);
 
     /// \brief Sets the asset IDs to filter for.
     /// \param asset_ids The asset IDs.
     /// \return This filter for chaining.
-    BalanceFilter& set_asset_id_in(const std::vector<std::string>& asset_ids);
+    BalanceFilter& set_asset_id_in(std::vector<std::string> asset_ids);
 
     /// \brief Sets the wallet to filter by.
     /// \param wallet The wallet address.
     /// \return This filter for chaining.
-    BalanceFilter& set_wallet(const std::string& wallet);
+    BalanceFilter& set_wallet(std::string wallet);
 
     /// \brief Sets the wallets to filter by.
     /// \param wallets The wallet addresses.
     /// \return This filter for chaining.
-    BalanceFilter& set_wallet_in(const std::vector<std::string>& wallets);
+    BalanceFilter& set_wallet_in(std::vector<std::string> wallets);
 
     /// \brief Sets the filter to include balances equal to the passed value.
     /// \param value The value to compare by.

@@ -19,7 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/AssetSupplyModel.hpp"
-#include "enjinsdk/models/AssetTransferFeeSettings.hpp"
+#include "enjinsdk/models/AssetTransferFeeSettingsInput.hpp"
 #include "enjinsdk/models/AssetTransferable.hpp"
 #include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
 #include <optional>
@@ -41,17 +41,17 @@ public:
     /// \brief Sets the name of the asset.
     /// \param name The name.
     /// \return This request for chaining.
-    CreateAsset& set_name(const std::string& name);
+    CreateAsset& set_name(std::string name);
 
     /// \brief Sets the total supply of the asset.
     /// \param total_supply The total supply.
     /// \return This request for chaining.
-    CreateAsset& set_total_supply(const std::string& total_supply);
+    CreateAsset& set_total_supply(std::string total_supply);
 
     /// \brief Sets the initial reserve of the asset.
     /// \param initial_reserve The reserve.
     /// \return This request for chaining.
-    CreateAsset& set_initial_reserve(const std::string& initial_reserve);
+    CreateAsset& set_initial_reserve(std::string initial_reserve);
 
     /// \brief Sets the supply model of the asset.
     /// \param supply_model The supply model.
@@ -62,7 +62,7 @@ public:
     /// \param melt_value The value.
     /// \return This request for chaining.
     /// \remarks Corresponds to the exchange rate.
-    CreateAsset& set_melt_value(const std::string& melt_value);
+    CreateAsset& set_melt_value(std::string melt_value);
 
     /// \brief Sets the ratio of the melt value to be returned to the creator.
     /// \param melt_fee_ratio The ratio.
@@ -78,7 +78,7 @@ public:
     /// \brief Sets the transfer fee settings of the asset.
     /// \param transfer_fee_settings The settings.
     /// \return This request for chaining.
-    CreateAsset& set_transfer_fee_settings(const models::AssetTransferFeeSettingsInput& transfer_fee_settings);
+    CreateAsset& set_transfer_fee_settings(models::AssetTransferFeeSettingsInput transfer_fee_settings);
 
     /// \brief Sets the fungible state of the asset.
     /// \param non_fungible The state.
@@ -102,7 +102,7 @@ private:
 };
 
 template ENJINSDK_EXPORT CreateAsset&
-ProjectTransactionRequestArguments<CreateAsset>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<CreateAsset>::set_eth_address(std::string address);
 
 }
 

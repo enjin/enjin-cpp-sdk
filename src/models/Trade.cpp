@@ -35,18 +35,18 @@ std::string Trade::serialize() const {
     return utils::document_to_string(document);
 }
 
-Trade& Trade::set_asset_id(const std::string& id) {
-    asset_id = id;
+Trade& Trade::set_asset_id(std::string id) {
+    asset_id = std::move(id);
     return *this;
 }
 
-Trade& Trade::set_asset_index(const std::string& index) {
-    asset_index = index;
+Trade& Trade::set_asset_index(std::string index) {
+    asset_index = std::move(index);
     return *this;
 }
 
-Trade& Trade::set_value(const std::string& value) {
-    Trade::value = value;
+Trade& Trade::set_value(std::string value) {
+    Trade::value = std::move(value);
     return *this;
 }
 

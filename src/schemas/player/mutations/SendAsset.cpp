@@ -16,6 +16,7 @@
 #include "enjinsdk/player/SendAsset.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::player {
 
@@ -45,28 +46,28 @@ std::string SendAsset::serialize() const {
     return utils::document_to_string(document);
 }
 
-SendAsset& SendAsset::set_recipient_address(const std::string& recipient_address) {
-    SendAsset::recipient_address = recipient_address;
+SendAsset& SendAsset::set_recipient_address(std::string recipient_address) {
+    SendAsset::recipient_address = std::move(recipient_address);
     return *this;
 }
 
-SendAsset& SendAsset::set_asset_id(const std::string& asset_id) {
-    SendAsset::asset_id = asset_id;
+SendAsset& SendAsset::set_asset_id(std::string asset_id) {
+    SendAsset::asset_id = std::move(asset_id);
     return *this;
 }
 
-SendAsset& SendAsset::set_asset_index(const std::string& asset_index) {
-    SendAsset::asset_index = asset_index;
+SendAsset& SendAsset::set_asset_index(std::string asset_index) {
+    SendAsset::asset_index = std::move(asset_index);
     return *this;
 }
 
-SendAsset& SendAsset::set_value(const std::string& value) {
-    SendAsset::value = value;
+SendAsset& SendAsset::set_value(std::string value) {
+    SendAsset::value = std::move(value);
     return *this;
 }
 
-SendAsset& SendAsset::set_data(const std::string& data) {
-    SendAsset::data = data;
+SendAsset& SendAsset::set_data(std::string data) {
+    SendAsset::data = std::move(data);
     return *this;
 }
 

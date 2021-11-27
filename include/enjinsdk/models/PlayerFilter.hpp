@@ -37,22 +37,22 @@ public:
     /// \brief Sets the filter to include other filters to intersect with.
     /// \param others The other filters.
     /// \return This filter for chaining.
-    PlayerFilter& set_and(const std::vector<PlayerFilter>& others);
+    PlayerFilter& set_and(std::vector<PlayerFilter> others);
 
     /// \brief Sets the filter to include other filters to union with.
     /// \param others The other filters.
     /// \return This filter for chaining.
-    PlayerFilter& set_or(const std::vector<PlayerFilter>& others);
+    PlayerFilter& set_or(std::vector<PlayerFilter> others);
 
     /// \brief Sets the player ID to filter for.
     /// \param id The player ID.
     /// \return This filter for chaining.
-    PlayerFilter& set_id(const std::string& id);
+    PlayerFilter& set_id(std::string id);
 
     /// \brief Sets the player IDs to filter for.
     /// \param ids The player IDs.
     /// \return This filter for chaining.
-    PlayerFilter& set_id_in(const std::vector<std::string>& ids);
+    PlayerFilter& set_id_in(std::vector<std::string> ids);
 
     bool operator==(const PlayerFilter& rhs) const;
 

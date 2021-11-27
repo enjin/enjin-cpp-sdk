@@ -16,6 +16,7 @@
 #include "enjinsdk/project/ReleaseReserve.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -36,13 +37,13 @@ std::string ReleaseReserve::serialize() const {
     return utils::document_to_string(document);
 }
 
-ReleaseReserve& ReleaseReserve::set_asset_id(const std::string& asset_id) {
-    ReleaseReserve::asset_id = asset_id;
+ReleaseReserve& ReleaseReserve::set_asset_id(std::string asset_id) {
+    ReleaseReserve::asset_id = std::move(asset_id);
     return *this;
 }
 
-ReleaseReserve& ReleaseReserve::set_value(const std::string& value) {
-    ReleaseReserve::value = value;
+ReleaseReserve& ReleaseReserve::set_value(std::string value) {
+    ReleaseReserve::value = std::move(value);
     return *this;
 }
 

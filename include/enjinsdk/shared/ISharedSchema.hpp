@@ -47,47 +47,47 @@ public:
     /// \brief Sends the CancelTransaction request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<bool>> cancel_transaction(CancelTransaction& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<bool>> cancel_transaction(CancelTransaction request) = 0;
 
     /// \brief Sends the GetBalances request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<std::vector<models::Balance>>> get_balances(GetBalances& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<std::vector<models::Balance>>> get_balances(GetBalances request) = 0;
 
     /// \brief Sends the GetGasPrices request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::GasPrices>> get_gas_prices(GetGasPrices& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::GasPrices>> get_gas_prices(GetGasPrices request) = 0;
 
     /// \brief Sends the GetPlatform request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Platform>> get_platform(GetPlatform& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Platform>> get_platform(GetPlatform request) = 0;
 
     /// \brief Sends the GetProject request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Project>> get_project(GetProject& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Project>> get_project(GetProject request) = 0;
 
     /// \brief Sends the GetRequest request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> get_request(GetRequest& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Request>> get_request(GetRequest request) = 0;
 
     /// \brief Sends the GetRequests request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<std::vector<models::Request>>> get_requests(GetRequests& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<std::vector<models::Request>>> get_requests(GetRequests request) = 0;
 
     /// \brief Sends the GetAsset request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Asset>> get_asset(GetAsset& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Asset>> get_asset(GetAsset request) = 0;
 
     /// \brief Sends the GetAssets request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<std::vector<models::Asset>>> get_assets(GetAssets& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<std::vector<models::Asset>>> get_assets(GetAssets request) = 0;
 };
 
 }

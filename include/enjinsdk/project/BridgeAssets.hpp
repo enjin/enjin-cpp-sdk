@@ -56,7 +56,7 @@ private:
 };
 
 template ENJINSDK_EXPORT BridgeAssets&
-ProjectTransactionRequestArguments<BridgeAssets>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<BridgeAssets>::set_eth_address(std::string address);
 
 }
 

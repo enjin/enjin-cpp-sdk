@@ -36,12 +36,12 @@ public:
     /// \brief Sets the project UUID.
     /// \param uuid The UUID.
     /// \return This request for chaining.
-    AuthProject& set_uuid(const std::string& uuid);
+    AuthProject& set_uuid(std::string uuid);
 
     /// \brief Sets the secret.
     /// \param secret The secret.
     /// \return This request for chaining.
-    AuthProject& set_secret(const std::string& secret);
+    AuthProject& set_secret(std::string secret);
 
     bool operator==(const AuthProject& rhs) const;
 

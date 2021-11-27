@@ -39,13 +39,13 @@ std::string GetWallets::serialize() const {
     return utils::document_to_string(document);
 }
 
-GetWallets& GetWallets::set_user_ids(const std::vector<std::string>& user_ids) {
-    GetWallets::user_ids = user_ids;
+GetWallets& GetWallets::set_user_ids(std::vector<std::string> user_ids) {
+    GetWallets::user_ids = std::move(user_ids);
     return *this;
 }
 
-GetWallets& GetWallets::set_eth_addresses(const std::vector<std::string>& eth_addresses) {
-    GetWallets::eth_addresses = eth_addresses;
+GetWallets& GetWallets::set_eth_addresses(std::vector<std::string> eth_addresses) {
+    GetWallets::eth_addresses = std::move(eth_addresses);
     return *this;
 }
 

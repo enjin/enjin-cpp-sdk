@@ -38,13 +38,13 @@ public:
     /// \brief Sets the wallet address of the recipient.
     /// \param recipient_address The address.
     /// \return This request for chaining.
-    SendEnj& set_recipient_address(const std::string& recipient_address);
+    SendEnj& set_recipient_address(std::string recipient_address);
 
     /// \brief Sets the amount of ENJ to send.
     /// \param value The value.
     /// \return This request for chaining.
     /// \remarks The value is in Wei as 10^18 (e.g. 1 ENJ = 1000000000000000000).
-    SendEnj& set_value(const std::string& value);
+    SendEnj& set_value(std::string value);
 
     bool operator==(const SendEnj& rhs) const;
 
@@ -56,7 +56,7 @@ private:
 };
 
 template ENJINSDK_EXPORT SendEnj&
-ProjectTransactionRequestArguments<SendEnj>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<SendEnj>::set_eth_address(std::string address);
 
 }
 

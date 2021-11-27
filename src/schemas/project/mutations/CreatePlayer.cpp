@@ -16,6 +16,7 @@
 #include "enjinsdk/project/CreatePlayer.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -32,8 +33,8 @@ std::string CreatePlayer::serialize() const {
     return utils::document_to_string(document);
 }
 
-CreatePlayer& CreatePlayer::set_id(const std::string& id) {
-    CreatePlayer::id = id;
+CreatePlayer& CreatePlayer::set_id(std::string id) {
+    CreatePlayer::id = std::move(id);
     return *this;
 }
 

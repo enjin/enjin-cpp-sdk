@@ -35,7 +35,7 @@ public:
 
     /// \brief Sets the value for the associated field to the given string.
     /// \param address The address.
-    void set_eth_address(const std::string& address);
+    void set_eth_address(std::string address);
 
     bool operator==(const ProjectTransactionRequestArgumentsImpl& rhs) const;
 

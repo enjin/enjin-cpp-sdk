@@ -17,7 +17,7 @@
 
 namespace enjin::test::mocks {
 
-std::future<void> FakeWebSocketClient::connect(const std::string& uri) {
+std::future<void> FakeWebSocketClient::connect(std::string uri) {
     return WebsocketClient::connect("ws://127.0.0.1:8080/ws");
 }
 

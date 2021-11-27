@@ -16,6 +16,7 @@
 #include "enjinsdk/project/SendEnj.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -36,13 +37,13 @@ std::string SendEnj::serialize() const {
     return utils::document_to_string(document);
 }
 
-SendEnj& SendEnj::set_recipient_address(const std::string& recipient_address) {
-    SendEnj::recipient_address = recipient_address;
+SendEnj& SendEnj::set_recipient_address(std::string recipient_address) {
+    SendEnj::recipient_address = std::move(recipient_address);
     return *this;
 }
 
-SendEnj& SendEnj::set_value(const std::string& value) {
-    SendEnj::value = value;
+SendEnj& SendEnj::set_value(std::string value) {
+    SendEnj::value = std::move(value);
     return *this;
 }
 

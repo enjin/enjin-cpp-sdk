@@ -16,6 +16,7 @@
 #include "enjinsdk/shared/GetAssets.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::shared {
 
@@ -39,13 +40,13 @@ std::string GetAssets::serialize() const {
     return utils::document_to_string(document);
 }
 
-GetAssets& GetAssets::set_filter(const models::AssetFilter& filter) {
-    GetAssets::filter = filter;
+GetAssets& GetAssets::set_filter(models::AssetFilter filter) {
+    GetAssets::filter = std::move(filter);
     return *this;
 }
 
-GetAssets& GetAssets::set_sort(const models::AssetSort& sort) {
-    GetAssets::sort = sort;
+GetAssets& GetAssets::set_sort(models::AssetSort sort) {
+    GetAssets::sort = std::move(sort);
     return *this;
 }
 

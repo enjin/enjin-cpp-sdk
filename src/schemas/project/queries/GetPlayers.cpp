@@ -36,8 +36,8 @@ std::string GetPlayers::serialize() const {
     return utils::document_to_string(document);
 }
 
-GetPlayers& GetPlayers::set_filter(const models::PlayerFilter& filter) {
-    GetPlayers::filter = filter;
+GetPlayers& GetPlayers::set_filter(models::PlayerFilter filter) {
+    GetPlayers::filter = std::move(filter);
     return *this;
 }
 

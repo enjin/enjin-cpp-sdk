@@ -87,7 +87,7 @@ void BaseSchema::log_graphql_exception(const std::exception& e) {
     logger_provider->log(utils::LogLevel::SEVERE, ss.str());
 }
 
-http::HttpResponse BaseSchema::send_request(const http::HttpRequest& request) {
+http::HttpResponse BaseSchema::send_request(http::HttpRequest request) {
     return middleware.get_client()->send_request(request).get();
 }
 
