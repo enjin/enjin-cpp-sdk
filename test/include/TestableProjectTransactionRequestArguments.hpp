@@ -80,7 +80,7 @@ ProjectTransactionRequestArguments<test::utils::TestableProjectTransactionReques
 
 template test::utils::TestableProjectTransactionRequestArguments&
 ProjectTransactionRequestArguments<test::utils::TestableProjectTransactionRequestArguments>::set_eth_address(
-        const std::string& address);
+        std::string address);
 
 }
 

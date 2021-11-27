@@ -16,6 +16,7 @@
 #include "enjinsdk/player/Message.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::player {
 
@@ -33,8 +34,8 @@ std::string Message::serialize() const {
     return utils::document_to_string(document);
 }
 
-Message& Message::set_message(const std::string& message) {
-    Message::message = message;
+Message& Message::set_message(std::string message) {
+    Message::message = std::move(message);
     return *this;
 }
 

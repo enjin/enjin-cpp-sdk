@@ -37,57 +37,57 @@ public:
     /// \brief Sets the filter to include other filters to intersect with.
     /// \param others The other filters.
     /// \return This filter for chaining.
-    AssetFilter& set_and(const std::vector<AssetFilter>& others);
+    AssetFilter& set_and(std::vector<AssetFilter> others);
 
     /// \brief Sets the filter to include other filters to union with.
     /// \param others The other filters.
     /// \return This filter for chaining.
-    AssetFilter& set_or(const std::vector<AssetFilter>& others);
+    AssetFilter& set_or(std::vector<AssetFilter> others);
 
     /// \brief Sets the asset ID to filter for.
     /// \param id The ID.
     /// \return This filter for chaining.
-    AssetFilter& set_id(const std::string& id);
+    AssetFilter& set_id(std::string id);
 
     /// \brief Sets the asset IDs to filter for.
     /// \param ids The IDs.
     /// \return This filter for chaining.
-    AssetFilter& set_id_in(const std::vector<std::string>& ids);
+    AssetFilter& set_id_in(std::vector<std::string> ids);
 
     /// \brief Sets the name to filter.
     /// \param name The name.
     /// \return This filter for chaining.
-    AssetFilter& set_name(const std::string& name);
+    AssetFilter& set_name(std::string name);
 
     /// \brief Sets the filter to include
     /// \param text The text.
     /// \return This filter for chaining.
-    AssetFilter& set_name_contains(const std::string& text);
+    AssetFilter& set_name_contains(std::string text);
 
     /// \brief Sets the names to filter for.
     /// \param names The names.
     /// \return This filter for chaining.
-    AssetFilter& set_name_in(const std::vector<std::string>& names);
+    AssetFilter& set_name_in(std::vector<std::string> names);
 
     /// \brief Sets the filter to include assets with names which start with the passed prefix.
     /// \param prefix The prefix.
     /// \return This filter for chaining.
-    AssetFilter& set_name_starts_with(const std::string& prefix);
+    AssetFilter& set_name_starts_with(std::string prefix);
 
     /// \brief Sets the filter to include assets with names which end with the passed suffix.
     /// \param suffix The suffix.
     /// \return This filter for chaining.
-    AssetFilter& set_name_ends_with(const std::string& suffix);
+    AssetFilter& set_name_ends_with(std::string suffix);
 
     /// \brief Sets the wallet to filter for.
     /// \param wallet The wallet address.
     /// \return This filter for chaining.
-    AssetFilter& set_wallet(const std::string& wallet);
+    AssetFilter& set_wallet(std::string wallet);
 
     /// \brief Sets the wallets to filter for.
     /// \param wallets The wallet addresses.
     /// \return This filter for chaining.
-    AssetFilter& set_wallet_in(const std::vector<std::string>& wallets);
+    AssetFilter& set_wallet_in(std::vector<std::string> wallets);
 
     bool operator==(const AssetFilter& rhs) const;
 

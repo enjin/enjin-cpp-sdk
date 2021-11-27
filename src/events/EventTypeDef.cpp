@@ -25,7 +25,10 @@ EventTypeDef::EventTypeDef() : type(models::EventType::UNKNOWN), channels({}), n
 }
 
 EventTypeDef::EventTypeDef(models::EventType type, std::string key, std::vector<std::string> channels)
-        : type(type), key(std::move(key)), channels(std::move(channels)), name(utils::serialize_event_type(type)) {
+        : type(type),
+          key(std::move(key)),
+          channels(std::move(channels)),
+          name(utils::serialize_event_type(type)) {
 }
 
 bool EventTypeDef::in(const std::vector<models::EventType>& types) const {
@@ -63,9 +66,12 @@ bool EventTypeDef::operator!=(const EventTypeDef& rhs) const {
 
 std::vector<EventTypeDef> EventTypeDef::values() {
     std::vector<EventTypeDef> values;
+    values.reserve(map.size());
+
     for (auto&[k, v] : map) {
         values.push_back(*v);
     }
+
     return values;
 }
 
@@ -107,8 +113,8 @@ EventTypeDef EventTypeDef::get_from_key(const std::string& key) {
 }
 
 std::unique_ptr<EventTypeDef>
-EventTypeDef::create(models::EventType type, const std::string& key, std::vector<std::string> channels) {
-    return std::make_unique<EventTypeDef>(type, key, std::move(channels));
+EventTypeDef::create(models::EventType type, std::string key, std::vector<std::string> channels) {
+    return std::make_unique<EventTypeDef>(type, std::move(key), std::move(channels));
 }
 
 std::map<models::EventType, std::unique_ptr<EventTypeDef>> EventTypeDef::create_map() {

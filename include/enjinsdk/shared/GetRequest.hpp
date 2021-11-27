@@ -43,7 +43,7 @@ public:
     /// \brief Sets the transaction hash ID.
     /// \param id The hash ID.
     /// \return This request for chaining.
-    GetRequest& set_transaction_id(const std::string& id);
+    GetRequest& set_transaction_id(std::string id);
 
     bool operator==(const GetRequest& rhs) const;
 

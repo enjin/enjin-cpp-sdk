@@ -16,6 +16,7 @@
 #include "enjinsdk/project/SetUri.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -39,18 +40,18 @@ std::string SetUri::serialize() const {
     return utils::document_to_string(document);
 }
 
-SetUri& SetUri::set_asset_id(const std::string& asset_id) {
-    SetUri::asset_id = asset_id;
+SetUri& SetUri::set_asset_id(std::string asset_id) {
+    SetUri::asset_id = std::move(asset_id);
     return *this;
 }
 
-SetUri& SetUri::set_asset_index(const std::string& asset_index) {
-    SetUri::asset_index = asset_index;
+SetUri& SetUri::set_asset_index(std::string asset_index) {
+    SetUri::asset_index = std::move(asset_index);
     return *this;
 }
 
-SetUri& SetUri::set_uri(const std::string& uri) {
-    SetUri::uri = uri;
+SetUri& SetUri::set_uri(std::string uri) {
+    SetUri::uri = std::move(uri);
     return *this;
 }
 

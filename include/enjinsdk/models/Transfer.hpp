@@ -36,27 +36,27 @@ public:
     /// Sets the source Ethereum address.
     /// \param address The source.
     /// \return This input for chaining.
-    Transfer& set_from(const std::string& address);
+    Transfer& set_from(std::string address);
 
     /// Sets the destination Ethereum address.
     /// \param address The destination.
     /// \return This input for chaining.
-    Transfer& set_to(const std::string& address);
+    Transfer& set_to(std::string address);
 
     /// Sets the asset ID to transfer or ENJ if unused.
     /// \param id The ID.
     /// \return This input for chaining.
-    Transfer& set_asset_id(const std::string& id);
+    Transfer& set_asset_id(std::string id);
 
     /// Sets the index for non-fungible assets.
     /// \param index The index.
     /// \return This input for chaining.
-    Transfer& set_asset_index(const std::string& index);
+    Transfer& set_asset_index(std::string index);
 
     /// Sets the amount of assets to transfer.
     /// \param value The amount.
     /// \return This input for chaining.
-    Transfer& set_value(const std::string& value);
+    Transfer& set_value(std::string value);
 
     bool operator==(const Transfer& rhs) const;
 

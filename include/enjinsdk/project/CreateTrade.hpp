@@ -50,7 +50,7 @@ public:
     /// \brief Sets the wallet address of the recipient.
     /// \param recipient_address The address.
     /// \return This request for chaining.
-    CreateTrade& set_recipient_address(const std::string& recipient_address);
+    CreateTrade& set_recipient_address(std::string recipient_address);
 
     bool operator==(const CreateTrade& rhs) const;
 
@@ -94,7 +94,7 @@ template ENJINSDK_EXPORT CreateTrade&
 ProjectTransactionRequestArguments<CreateTrade>::set_with_transaction_wallet_address();
 
 template ENJINSDK_EXPORT CreateTrade&
-ProjectTransactionRequestArguments<CreateTrade>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<CreateTrade>::set_eth_address(std::string address);
 
 }
 

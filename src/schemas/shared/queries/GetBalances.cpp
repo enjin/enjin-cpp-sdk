@@ -16,6 +16,7 @@
 #include "enjinsdk/shared/GetBalances.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::shared {
 
@@ -37,7 +38,7 @@ std::string GetBalances::serialize() const {
 }
 
 GetBalances& GetBalances::set_filter(models::BalanceFilter filter) {
-    GetBalances::filter = filter;
+    GetBalances::filter = std::move(filter);
     return *this;
 }
 

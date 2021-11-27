@@ -16,6 +16,7 @@
 #include "enjinsdk/player/MeltAsset.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::player {
 
@@ -34,7 +35,7 @@ std::string MeltAsset::serialize() const {
 }
 
 MeltAsset& MeltAsset::set_melts(std::vector<models::Melt> melts) {
-    MeltAsset::melts = melts;
+    MeltAsset::melts = std::move(melts);
     return *this;
 }
 

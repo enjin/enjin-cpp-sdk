@@ -15,7 +15,7 @@
 
 #include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
-#include "enjinsdk/models/AssetTransferFeeSettings.hpp"
+#include "enjinsdk/models/AssetTransferFeeSettingsInput.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;

@@ -38,7 +38,7 @@ public:
     /// \brief Sends an HTTP request asynchronously.
     /// \param request The HTTP request.
     /// \return The future for accessing the response.
-    virtual std::future<HttpResponse> send_request(const HttpRequest& request) = 0;
+    virtual std::future<HttpResponse> send_request(HttpRequest request) = 0;
 
     /// \brief Determines if this client is open.
     /// \return Whether this client is open.

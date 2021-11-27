@@ -39,52 +39,52 @@ public:
     /// \brief Sets the filter to include other filters to intersect with.
     /// \param others The other filters.
     /// \return This filter for chaining.
-    TransactionFilter& set_and(const std::vector<TransactionFilter>& others);
+    TransactionFilter& set_and(std::vector<TransactionFilter> others);
 
     /// \brief Sets the filter to include other filters to union with.
     /// \param others The other filters.
     /// \return This filter for chaining.
-    TransactionFilter& set_or(const std::vector<TransactionFilter>& others);
+    TransactionFilter& set_or(std::vector<TransactionFilter> others);
 
     /// \brief Sets the ID to filter for.
     /// \param id The ID.
     /// \return This filter for chaining.
-    TransactionFilter& set_id(const std::string& id);
+    TransactionFilter& set_id(std::string id);
 
     /// \brief Sets the IDs to filter for.
     /// \param ids The IDs.
     /// \return This filter for chaining.
-    TransactionFilter& set_id_in(const std::vector<std::string>& ids);
+    TransactionFilter& set_id_in(std::vector<std::string> ids);
 
     /// \brief Sets the hash ID to filter for.
     /// \param transaction_id The hash ID.
     /// \return This filter for chaining.
-    TransactionFilter& set_transaction_id(const std::string& transaction_id);
+    TransactionFilter& set_transaction_id(std::string transaction_id);
 
     /// \brief Sets the hash IDs to filter for.
     /// \param transaction_ids The hash IDs.
     /// \return This filter for chaining.
-    TransactionFilter& set_transaction_id_in(const std::vector<std::string>& transaction_ids);
+    TransactionFilter& set_transaction_id_in(std::vector<std::string> transaction_ids);
 
     /// \brief Sets the asset ID to filter for.
     /// \param asset_id The ID.
     /// \return This filter for chaining.
-    TransactionFilter& set_asset_id(const std::string& asset_id);
+    TransactionFilter& set_asset_id(std::string asset_id);
 
     /// \brief Sets the asset IDs to filter for.
     /// \param asset_ids The IDs.
     /// \return This filter for chaining.
-    TransactionFilter& set_asset_id_in(const std::vector<std::string>& asset_ids);
+    TransactionFilter& set_asset_id_in(std::vector<std::string> asset_ids);
 
     /// \brief Sets the transaction type to filter for.
     /// \param type The type.
     /// \return This filter for chaining.
-    TransactionFilter& set_type(const RequestType& type);
+    TransactionFilter& set_type(RequestType type);
 
     /// \brief Sets the transaction types to filter for.
     /// \param types The types.
     /// \return This filter for chaining.
-    TransactionFilter& set_type_in(const std::vector<RequestType>& types);
+    TransactionFilter& set_type_in(std::vector<RequestType> types);
 
     /// \brief Sets the filter to include transactions equal to the passed value.
     /// \param value The value to compare by.
@@ -114,27 +114,26 @@ public:
     /// \brief Sets the request state to filter for.
     /// \param state The state.
     /// \return This filter for chaining.
-    TransactionFilter& set_state(const RequestState& state);
+    TransactionFilter& set_state(RequestState state);
 
     /// \brief Sets the request states to filter for.
     /// \param states The states.
     /// \return This filter for chaining.
-    TransactionFilter& set_state_in(const std::vector<RequestState>& states);
+    TransactionFilter& set_state_in(std::vector<RequestState> states);
 
     /// \brief Sets the wallet to filter for.
     /// \param wallet The wallet address.
     /// \return This filter for chaining.
-    TransactionFilter& set_wallet(const std::string& wallet);
+    TransactionFilter& set_wallet(std::string wallet);
 
     /// \brief Sets the wallets to filter for.
     /// \param wallets The wallet addresses.
     /// \return This filter for chaining.
-    TransactionFilter& set_wallet_in(const std::vector<std::string>& wallets);
+    TransactionFilter& set_wallet_in(std::vector<std::string> wallets);
 
     bool operator==(const TransactionFilter& rhs) const;
 
     bool operator!=(const TransactionFilter& rhs) const;
-
 
 private:
     std::optional<std::vector<TransactionFilter>> and_filters;

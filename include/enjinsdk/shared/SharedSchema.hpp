@@ -33,23 +33,23 @@ public:
 
     ~SharedSchema() override = default;
 
-    std::future<graphql::GraphqlResponse<bool>> cancel_transaction(CancelTransaction& request) override;
+    std::future<graphql::GraphqlResponse<bool>> cancel_transaction(CancelTransaction request) override;
 
-    std::future<graphql::GraphqlResponse<std::vector<models::Balance>>> get_balances(GetBalances& request) override;
+    std::future<graphql::GraphqlResponse<std::vector<models::Balance>>> get_balances(GetBalances request) override;
 
-    std::future<graphql::GraphqlResponse<models::GasPrices>> get_gas_prices(GetGasPrices& request) override;
+    std::future<graphql::GraphqlResponse<models::GasPrices>> get_gas_prices(GetGasPrices request) override;
 
-    std::future<graphql::GraphqlResponse<models::Platform>> get_platform(GetPlatform& request) override;
+    std::future<graphql::GraphqlResponse<models::Platform>> get_platform(GetPlatform request) override;
 
-    std::future<graphql::GraphqlResponse<models::Project>> get_project(GetProject& request) override;
+    std::future<graphql::GraphqlResponse<models::Project>> get_project(GetProject request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> get_request(GetRequest& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> get_request(GetRequest request) override;
 
-    std::future<graphql::GraphqlResponse<std::vector<models::Request>>> get_requests(GetRequests& request) override;
+    std::future<graphql::GraphqlResponse<std::vector<models::Request>>> get_requests(GetRequests request) override;
 
-    std::future<graphql::GraphqlResponse<models::Asset>> get_asset(GetAsset& request) override;
+    std::future<graphql::GraphqlResponse<models::Asset>> get_asset(GetAsset request) override;
 
-    std::future<graphql::GraphqlResponse<std::vector<models::Asset>>> get_assets(GetAssets& request) override;
+    std::future<graphql::GraphqlResponse<std::vector<models::Asset>>> get_assets(GetAssets request) override;
 
 protected:
     /// \brief Constructs the schema with the middleware and name.
@@ -57,7 +57,7 @@ protected:
     /// \param schema The schema name.
     /// \param logger_provider The logger provider.
     SharedSchema(TrustedPlatformMiddleware middleware,
-                 const std::string& schema,
+                 std::string schema,
                  std::shared_ptr<utils::LoggerProvider> logger_provider);
 
     /// \brief Move constructor.

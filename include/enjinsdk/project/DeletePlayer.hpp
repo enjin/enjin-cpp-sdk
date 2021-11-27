@@ -36,7 +36,7 @@ public:
     /// \brief Sets the ID for the player to be deleted.
     /// \param id The ID.
     /// \return This request for chaining.
-    DeletePlayer& set_id(const std::string& id);
+    DeletePlayer& set_id(std::string id);
 
     bool operator==(const DeletePlayer& rhs) const;
 

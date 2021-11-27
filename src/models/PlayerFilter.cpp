@@ -38,23 +38,23 @@ std::string PlayerFilter::serialize() const {
     return utils::document_to_string(document);
 }
 
-PlayerFilter& PlayerFilter::set_and(const std::vector<PlayerFilter>& others) {
-    and_filters = others;
+PlayerFilter& PlayerFilter::set_and(std::vector<PlayerFilter> others) {
+    and_filters = std::move(others);
     return *this;
 }
 
-PlayerFilter& PlayerFilter::set_or(const std::vector<PlayerFilter>& others) {
-    or_filters = others;
+PlayerFilter& PlayerFilter::set_or(std::vector<PlayerFilter> others) {
+    or_filters = std::move(others);
     return *this;
 }
 
-PlayerFilter& PlayerFilter::set_id(const std::string& id) {
-    PlayerFilter::id = id;
+PlayerFilter& PlayerFilter::set_id(std::string id) {
+    PlayerFilter::id = std::move(id);
     return *this;
 }
 
-PlayerFilter& PlayerFilter::set_id_in(const std::vector<std::string>& ids) {
-    id_in = ids;
+PlayerFilter& PlayerFilter::set_id_in(std::vector<std::string> ids) {
+    id_in = std::move(ids);
     return *this;
 }
 

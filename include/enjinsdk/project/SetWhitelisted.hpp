@@ -39,12 +39,12 @@ public:
     /// \brief Sets the asset ID.
     /// \param asset_id The ID.
     /// \return This request for chaining.
-    SetWhitelisted& set_asset_id(const std::string& asset_id);
+    SetWhitelisted& set_asset_id(std::string asset_id);
 
     /// \brief Sets the account address to be added to the whitelist.
     /// \param account_address The address.
     /// \return This request for chaining.
-    SetWhitelisted& set_account_address(const std::string& account_address);
+    SetWhitelisted& set_account_address(std::string account_address);
 
     /// \brief Sets the whitelisted setting for the account.
     /// \param whitelisted The setting.
@@ -54,7 +54,7 @@ public:
     /// \brief Sets the specified address for sending or receiving.
     /// \param whitelisted_address The address.
     /// \return This request for chaining.
-    SetWhitelisted& set_whitelisted_address(const std::string& whitelisted_address);
+    SetWhitelisted& set_whitelisted_address(std::string whitelisted_address);
 
     /// \brief Sets whether the whitelist setting is on or off.
     /// \param on The setting.
@@ -117,7 +117,7 @@ template ENJINSDK_EXPORT SetWhitelisted&
 ProjectTransactionRequestArguments<SetWhitelisted>::set_with_transaction_wallet_address();
 
 template ENJINSDK_EXPORT SetWhitelisted&
-ProjectTransactionRequestArguments<SetWhitelisted>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<SetWhitelisted>::set_eth_address(std::string address);
 
 }
 

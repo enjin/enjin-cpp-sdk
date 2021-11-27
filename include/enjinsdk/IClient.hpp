@@ -32,7 +32,7 @@ public:
 
     /// \brief Authenticates this client with the given token.
     /// \param token The auth token.
-    virtual void auth(const std::string& token) = 0;
+    virtual void auth(std::string token) = 0;
 
     /// \brief Determines if this client is authenticated.
     /// \return Whether this client is authenticated.

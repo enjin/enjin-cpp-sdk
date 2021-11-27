@@ -38,27 +38,27 @@ public:
     /// \brief Sets the wallet address of the recipient.
     /// \param recipient_address The address.
     /// \return This request for chaining.
-    SendAsset& set_recipient_address(const std::string& recipient_address);
+    SendAsset& set_recipient_address(std::string recipient_address);
 
     /// \brief Sets the asset ID.
     /// \param asset_id The ID.
     /// \return This request for chaining.
-    SendAsset& set_asset_id(const std::string& asset_id);
+    SendAsset& set_asset_id(std::string asset_id);
 
     /// \brief Sets the index for non-fungible assets.
     /// \param asset_index The index.
     /// \return This request for chaining.
-    SendAsset& set_asset_index(const std::string& asset_index);
+    SendAsset& set_asset_index(std::string asset_index);
 
     /// \brief Sets the amount to send.
     /// \param value The amount.
     /// \return This request for chaining.
-    SendAsset& set_value(const std::string& value);
+    SendAsset& set_value(std::string value);
 
     /// \brief Sets the data to forward with the transaction.
     /// \param data The data.
     /// \return This request for chaining.
-    SendAsset& set_data(const std::string& data);
+    SendAsset& set_data(std::string data);
 
     bool operator==(const SendAsset& rhs) const;
 
@@ -103,7 +103,7 @@ template ENJINSDK_EXPORT SendAsset&
 ProjectTransactionRequestArguments<SendAsset>::set_with_transaction_wallet_address();
 
 template ENJINSDK_EXPORT SendAsset&
-ProjectTransactionRequestArguments<SendAsset>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<SendAsset>::set_eth_address(std::string address);
 
 }
 

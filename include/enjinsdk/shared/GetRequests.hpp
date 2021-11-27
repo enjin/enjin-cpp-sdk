@@ -41,12 +41,12 @@ public:
     /// \brief Sets the filter the request will use.
     /// \param filter The filter.
     /// \return This request for chaining.
-    GetRequests& set_filter(const models::TransactionFilter& filter);
+    GetRequests& set_filter(models::TransactionFilter filter);
 
     /// Sets the request to sort the results by the specified options.
     /// \param sort The sort options.
     /// \return This request for chaining.
-    GetRequests& set_sort(const models::TransactionSort& sort);
+    GetRequests& set_sort(models::TransactionSort sort);
 
     bool operator==(const GetRequests& rhs) const;
 

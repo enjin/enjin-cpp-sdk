@@ -16,11 +16,12 @@
 #include "PusherOptions.hpp"
 
 #include <sstream>
+#include <utility>
 
 namespace enjin::pusher {
 
-PusherOptions& PusherOptions::set_cluster(const std::string& cluster) {
-    PusherOptions::cluster = cluster;
+PusherOptions& PusherOptions::set_cluster(std::string cluster) {
+    PusherOptions::cluster = std::move(cluster);
     return *this;
 }
 

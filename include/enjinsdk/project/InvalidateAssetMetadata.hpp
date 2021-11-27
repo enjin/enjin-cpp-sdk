@@ -36,7 +36,7 @@ public:
     /// \brief Sets the asset ID.
     /// \param id The ID.
     /// \return This request for chaining.
-    InvalidateAssetMetadata& set_id(const std::string& id);
+    InvalidateAssetMetadata& set_id(std::string id);
 
     bool operator==(const InvalidateAssetMetadata& rhs) const;
 

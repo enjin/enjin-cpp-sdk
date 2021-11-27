@@ -35,13 +35,13 @@ std::string AuthProject::serialize() const {
     return utils::document_to_string(document);
 }
 
-AuthProject& AuthProject::set_uuid(const std::string& uuid) {
-    AuthProject::uuid = uuid;
+AuthProject& AuthProject::set_uuid(std::string uuid) {
+    AuthProject::uuid = std::move(uuid);
     return *this;
 }
 
-AuthProject& AuthProject::set_secret(const std::string& secret) {
-    AuthProject::secret = secret;
+AuthProject& AuthProject::set_secret(std::string secret) {
+    AuthProject::secret = std::move(secret);
     return *this;
 }
 
