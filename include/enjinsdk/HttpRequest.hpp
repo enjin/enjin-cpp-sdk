@@ -112,23 +112,23 @@ public:
         /// \brief Sets the path query fragment the request will be built with.
         /// \param path_query_fragment The path query fragment.
         /// \return This builder for chaining.
-        HttpRequestBuilder& path_query_fragment(const std::string& path_query_fragment);
+        HttpRequestBuilder& path_query_fragment(std::string path_query_fragment);
 
         /// \brief Sets the body data the request will be built with.
         /// \param body The request body.
         /// \return This builder for chaining.
-        HttpRequestBuilder& body(const std::string& body);
+        HttpRequestBuilder& body(std::string body);
 
         /// \brief Sets the content type header the request will be built with.
         /// \param content_type The content type.
         /// \return This builder for chaining.
-        HttpRequestBuilder& content_type(const std::string& content_type);
+        HttpRequestBuilder& content_type(std::string content_type);
 
         /// \brief Adds a header for the request.
         /// \param name The header name.
         /// \param value The header value.
         /// \return This builder for chaining.
-        HttpRequestBuilder& add_header(const std::string& name, const std::string& value);
+        HttpRequestBuilder& add_header(std::string name, std::string value);
 
     private:
         std::optional<HttpMethod> m_method;

@@ -20,6 +20,7 @@
 #include <mutex>
 #include <optional>
 #include <stdexcept>
+#include <utility>
 
 #ifdef WIN32
 #include "ixwebsocket/IXNetSystem.h"
@@ -71,7 +72,7 @@ public:
 #endif
     }
 
-    std::future<void> connect(const std::string& uri) override {
+    std::future<void> connect(std::string uri) override {
         std::lock_guard<std::mutex> guard(conn_mutex);
 
         if (conn_status == ConnectionStatus::CONNECTED) {
@@ -80,7 +81,7 @@ public:
 
         conn_status = ConnectionStatus::CONNECTING;
 
-        return std::async([this, uri]() {
+        return std::async([this, uri = std::move(uri)]() {
             ws.setUrl(uri);
             ws.start();
 
@@ -105,7 +106,7 @@ public:
                      ix::WebSocketCloseConstants::kNormalClosureMessage);
     }
 
-    std::future<void> close(int status_code, const std::string& reason) override {
+    std::future<void> close(int status_code, std::string reason) override {
         std::lock_guard<std::mutex> guard(conn_mutex);
 
         if (conn_status == ConnectionStatus::DISCONNECTED) {
@@ -114,33 +115,33 @@ public:
 
         conn_status = ConnectionStatus::DISCONNECTING;
 
-        return std::async([this, status_code, reason]() {
+        return std::async([this, status_code, reason = std::move(reason)]() {
             ws.stop(status_code, reason);
         });
     }
 
-    void send(const std::string& data) override {
+    void send(std::string data) override {
         ws.sendText(data);
     }
 
-    void set_open_handler(const std::function<void()>& handler) override {
+    void set_open_handler(std::function<void()> handler) override {
         std::lock_guard<std::mutex> guard(handler_mutex);
-        open_handler = handler;
+        open_handler = std::move(handler);
     }
 
-    void set_close_handler(const std::function<void(int close_status, const std::string& message)>& handler) override {
+    void set_close_handler(std::function<void(int close_status, const std::string& message)> handler) override {
         std::lock_guard<std::mutex> guard(handler_mutex);
-        close_handler = handler;
+        close_handler = std::move(handler);
     }
 
-    void set_message_handler(const std::function<void(const std::string& message)>& handler) override {
+    void set_message_handler(std::function<void(const std::string& message)> handler) override {
         std::lock_guard<std::mutex> guard(handler_mutex);
-        message_handler = handler;
+        message_handler = std::move(handler);
     }
 
-    void set_error_handler(const std::function<void(int code, const std::string& message)>& handler) override {
+    void set_error_handler(std::function<void(int code, const std::string& message)> handler) override {
         std::lock_guard<std::mutex> guard(handler_mutex);
-        error_handler = handler;
+        error_handler = std::move(handler);
     }
 
     void set_allow_reconnecting(bool allow) override {
@@ -222,36 +223,36 @@ WebsocketClient::~WebsocketClient() {
     delete impl;
 }
 
-std::future<void> WebsocketClient::connect(const std::string& uri) {
-    return impl->connect(uri);
+std::future<void> WebsocketClient::connect(std::string uri) {
+    return impl->connect(std::move(uri));
 }
 
 std::future<void> WebsocketClient::close() {
     return impl->close();
 }
 
-std::future<void> WebsocketClient::close(int status_code, const std::string& reason) {
-    return impl->close(status_code, reason);
+std::future<void> WebsocketClient::close(int status_code, std::string reason) {
+    return impl->close(status_code, std::move(reason));
 }
 
-void WebsocketClient::send(const std::string& data) {
-    impl->send(data);
+void WebsocketClient::send(std::string data) {
+    impl->send(std::move(data));
 }
 
-void WebsocketClient::set_open_handler(const std::function<void()>& handler) {
-    impl->set_open_handler(handler);
+void WebsocketClient::set_open_handler(std::function<void()> handler) {
+    impl->set_open_handler(std::move(handler));
 }
 
-void WebsocketClient::set_close_handler(const std::function<void(int, const std::string&)>& handler) {
-    impl->set_close_handler(handler);
+void WebsocketClient::set_close_handler(std::function<void(int, const std::string&)> handler) {
+    impl->set_close_handler(std::move(handler));
 }
 
-void WebsocketClient::set_message_handler(const std::function<void(const std::string& message)>& handler) {
-    impl->set_message_handler(handler);
+void WebsocketClient::set_message_handler(std::function<void(const std::string& message)> handler) {
+    impl->set_message_handler(std::move(handler));
 }
 
-void WebsocketClient::set_error_handler(const std::function<void(int code, const std::string& message)>& handler) {
-    impl->set_error_handler(handler);
+void WebsocketClient::set_error_handler(std::function<void(int code, const std::string& message)> handler) {
+    impl->set_error_handler(std::move(handler));
 }
 
 void WebsocketClient::set_allow_reconnecting(bool allow) {

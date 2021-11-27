@@ -16,6 +16,7 @@
 #include "enjinsdk/player/ApproveEnj.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::player {
 
@@ -33,8 +34,8 @@ std::string ApproveEnj::serialize() const {
     return utils::document_to_string(document);
 }
 
-ApproveEnj& ApproveEnj::set_value(const std::string& value) {
-    ApproveEnj::value = value;
+ApproveEnj& ApproveEnj::set_value(std::string value) {
+    ApproveEnj::value = std::move(value);
     return *this;
 }
 

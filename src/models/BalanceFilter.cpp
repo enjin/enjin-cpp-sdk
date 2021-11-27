@@ -51,33 +51,33 @@ std::string BalanceFilter::serialize() const {
     return utils::document_to_string(document);
 }
 
-BalanceFilter& BalanceFilter::set_and(const std::vector<BalanceFilter>& others) {
-    and_filters = others;
+BalanceFilter& BalanceFilter::set_and(std::vector<BalanceFilter> others) {
+    and_filters = std::move(others);
     return *this;
 }
 
-BalanceFilter& BalanceFilter::set_or(const std::vector<BalanceFilter>& others) {
-    or_filters = others;
+BalanceFilter& BalanceFilter::set_or(std::vector<BalanceFilter> others) {
+    or_filters = std::move(others);
     return *this;
 }
 
-BalanceFilter& BalanceFilter::set_asset_id(const std::string& asset_id) {
-    BalanceFilter::asset_id = asset_id;
+BalanceFilter& BalanceFilter::set_asset_id(std::string asset_id) {
+    BalanceFilter::asset_id = std::move(asset_id);
     return *this;
 }
 
-BalanceFilter& BalanceFilter::set_asset_id_in(const std::vector<std::string>& asset_ids) {
-    asset_id_in = asset_ids;
+BalanceFilter& BalanceFilter::set_asset_id_in(std::vector<std::string> asset_ids) {
+    asset_id_in = std::move(asset_ids);
     return *this;
 }
 
-BalanceFilter& BalanceFilter::set_wallet(const std::string& wallet) {
-    BalanceFilter::wallet = wallet;
+BalanceFilter& BalanceFilter::set_wallet(std::string wallet) {
+    BalanceFilter::wallet = std::move(wallet);
     return *this;
 }
 
-BalanceFilter& BalanceFilter::set_wallet_in(const std::vector<std::string>& wallets) {
-    wallet_in = wallets;
+BalanceFilter& BalanceFilter::set_wallet_in(std::vector<std::string> wallets) {
+    wallet_in = std::move(wallets);
     return *this;
 }
 

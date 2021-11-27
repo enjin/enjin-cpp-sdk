@@ -43,7 +43,7 @@ public:
 
     ~PlayerClient() override;
 
-    void auth(const std::string& token) override;
+    void auth(std::string token) override;
 
     void close() override;
 
@@ -68,7 +68,7 @@ public:
         /// \brief Sets the base URI of the built-in HTTP client if a client is not provided.
         /// \param base_uri The base URI.
         /// \return This builder for chaining.
-        PlayerClientBuilder& base_uri(const std::string& base_uri);
+        PlayerClientBuilder& base_uri(std::string base_uri);
 
         /// \brief Sets the underlying HTTP client implementation to be moved to the client.
         /// \param http_client The client implementation.

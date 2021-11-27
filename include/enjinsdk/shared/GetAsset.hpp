@@ -39,7 +39,7 @@ public:
     /// \brief Sets the asset ID.
     /// \param id The ID.
     /// \return This request for chaining.
-    GetAsset& set_id(const std::string& id);
+    GetAsset& set_id(std::string id);
 
     bool operator==(const GetAsset& rhs) const;
 

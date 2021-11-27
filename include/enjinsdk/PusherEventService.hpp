@@ -44,7 +44,7 @@ public:
 
     std::future<void> start() override;
 
-    std::future<void> start(const models::Platform& platform) override;
+    std::future<void> start(models::Platform platform) override;
 
     std::future<void> shutdown() override;
 
@@ -52,68 +52,51 @@ public:
 
     [[nodiscard]] bool is_registered(const IEventListener& listener) const override;
 
-    void set_connected_handler(const std::function<void()>& handler) override;
+    void set_connected_handler(std::function<void()> handler) override;
 
-    void set_disconnected_handler(const std::function<void()>& handler) override;
+    void set_disconnected_handler(std::function<void()> handler) override;
 
-    void set_error_handler(const std::function<void(const std::exception&)>& handler) override;
+    void set_error_handler(std::function<void(const std::exception&)> handler) override;
 
-    const EventListenerRegistration& register_listener(const std::shared_ptr<IEventListener>& listener) override;
-
-    const EventListenerRegistration&
-    register_listener_with_matcher(const std::shared_ptr<IEventListener>& listener,
-                                   const std::function<bool(models::EventType)>& matcher) override;
+    const EventListenerRegistration& register_listener(std::shared_ptr<IEventListener> listener) override;
 
     const EventListenerRegistration&
-    register_listener_including_types(const std::shared_ptr<IEventListener>& listener,
-                                      const std::vector<models::EventType>& types) override;
+    register_listener_with_matcher(std::shared_ptr<IEventListener> listener,
+                                   std::function<bool(models::EventType)> matcher) override;
 
     const EventListenerRegistration&
-    register_listener_excluding_types(const std::shared_ptr<IEventListener>& listener,
-                                      const std::vector<models::EventType>& types) override;
+    register_listener_including_types(std::shared_ptr<IEventListener> listener,
+                                      std::vector<models::EventType> types) override;
+
+    const EventListenerRegistration&
+    register_listener_excluding_types(std::shared_ptr<IEventListener> listener,
+                                      std::vector<models::EventType> types) override;
 
     void unregister_listener(const IEventListener& listener) override;
 
-    /// \brief Opens a channel for the specified project, allowing listeners to receive events for it.
-    /// \param project The project's UUID.
-    /// \remarks This operation may timeout after 30 seconds if no response is received from the server. In such event,
-    /// this service will unsubscribe from the given channel.
-    void subscribe_to_project(const std::string& project) override;
+    void subscribe_to_project(std::string project) override;
 
-    void unsubscribe_to_project(const std::string& project) override;
+    void unsubscribe_to_project(std::string project) override;
 
-    [[nodiscard]] bool is_subscribed_to_project(const std::string& project) const override;
+    [[nodiscard]] bool is_subscribed_to_project(std::string project) const override;
 
-    /// \brief Opens a channel for the specified player, allowing listeners to receive events for it.
-    /// \param project The project's UUID.
-    /// \param player The player ID.
-    /// \remarks This operation may timeout after 30 seconds if no response is received from the server. In such event,
-    /// this service will unsubscribe from the given channel.
-    void subscribe_to_player(const std::string& project, const std::string& player) override;
+    void subscribe_to_player(std::string project, std::string player) override;
 
-    void unsubscribe_to_player(const std::string& project, const std::string& player) override;
+    void unsubscribe_to_player(std::string project, std::string player) override;
 
-    [[nodiscard]] bool is_subscribed_to_player(const std::string& project, const std::string& player) const override;
+    [[nodiscard]] bool is_subscribed_to_player(std::string project, std::string player) const override;
 
-    /// \brief Opens a channel for the specified asset, allowing listeners to receive events for it.
-    /// \param asset The asset ID.
-    /// \remarks This operation may timeout after 30 seconds if no response is received from the server. In such event,
-    /// this service will unsubscribe from the given channel.
-    void subscribe_to_asset(const std::string& asset) override;
+    void subscribe_to_asset(std::string asset) override;
 
-    void unsubscribe_to_asset(const std::string& asset) override;
+    void unsubscribe_to_asset(std::string asset) override;
 
-    [[nodiscard]] bool is_subscribed_to_asset(const std::string& asset) const override;
+    [[nodiscard]] bool is_subscribed_to_asset(std::string asset) const override;
 
-    /// \brief Opens a channel for the specified wallet, allowing listeners to receive events for it.
-    /// \param wallet The wallet's address.
-    /// \remarks This operation may timeout after 30 seconds if no response is received from the server. In such event,
-    /// this service will unsubscribe from the given channel.
-    void subscribe_to_wallet(const std::string& wallet) override;
+    void subscribe_to_wallet(std::string wallet) override;
 
-    void unsubscribe_to_wallet(const std::string& wallet) override;
+    void unsubscribe_to_wallet(std::string wallet) override;
 
-    [[nodiscard]] bool is_subscribed_to_wallet(const std::string& wallet) const override;
+    [[nodiscard]] bool is_subscribed_to_wallet(std::string wallet) const override;
 
     /// \brief Returns the registrations for listeners registered to this service.
     /// \return The listener registrations.
@@ -140,7 +123,7 @@ public:
         /// \brief Sets the platform model that the event service will use.
         /// \param platform The platform.
         /// \return This builder for chaining.
-        PusherEventServiceBuilder& platform(const models::Platform& platform);
+        PusherEventServiceBuilder& platform(models::Platform platform);
 
         /// \brief Sets the websocket client to be moved to the service.
         /// \param ws_client The websocket client.
@@ -150,7 +133,7 @@ public:
         /// \brief Sets the logger provider to be used by the event service.
         /// \param logger_provider The logger provider.
         /// \return This builder for chaining.
-        PusherEventServiceBuilder& logger_provider(const std::shared_ptr<utils::LoggerProvider>& logger_provider);
+        PusherEventServiceBuilder& logger_provider(std::shared_ptr<utils::LoggerProvider> logger_provider);
 
     private:
         std::optional<models::Platform> m_platform;
@@ -172,7 +155,7 @@ private:
 
     PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client,
                        std::shared_ptr<utils::LoggerProvider> logger_provider,
-                       const models::Platform& platform);
+                       models::Platform platform);
 };
 
 }

@@ -41,7 +41,7 @@ public:
     /// \brief Sets the filter the request will use.
     /// \param filter The filter.
     /// \return This request for chaining.
-    GetPlayers& set_filter(const models::PlayerFilter& filter);
+    GetPlayers& set_filter(models::PlayerFilter filter);
 
     bool operator==(const GetPlayers& rhs) const;
 

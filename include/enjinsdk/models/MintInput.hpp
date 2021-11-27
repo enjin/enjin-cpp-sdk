@@ -36,12 +36,12 @@ public:
     /// \brief Sets the Ethereum address to mint to.
     /// \param address The address.
     /// \return This input for chaining.
-    MintInput& set_to(const std::string& address);
+    MintInput& set_to(std::string address);
 
     /// \brief Sets the amount of assets to mint.
     /// \param value The amount.
     /// \return This input for chaining.
-    MintInput& set_value(const std::string& value);
+    MintInput& set_value(std::string value);
 
     bool operator==(const MintInput& rhs) const;
 

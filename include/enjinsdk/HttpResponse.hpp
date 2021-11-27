@@ -79,12 +79,12 @@ public:
         /// \brief Sets the body data the response will be built with.
         /// \param body The response body.
         /// \return This builder for chaining.
-        HttpResponseBuilder& body(const std::string& body);
+        HttpResponseBuilder& body(std::string body);
 
         /// \brief Sets the content type header the response will be built with.
         /// \param content_type The content type.
         /// \return This builder for chaining.
-        HttpResponseBuilder& content_type(const std::string& content_type);
+        HttpResponseBuilder& content_type(std::string content_type);
 
     private:
         std::optional<unsigned short> m_code;

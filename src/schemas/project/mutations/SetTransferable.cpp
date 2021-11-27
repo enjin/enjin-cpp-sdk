@@ -17,6 +17,7 @@
 
 #include "EnumUtils.hpp"
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -40,13 +41,13 @@ std::string SetTransferable::serialize() const {
     return utils::document_to_string(document);
 }
 
-SetTransferable& SetTransferable::set_asset_id(const std::string& asset_id) {
-    SetTransferable::asset_id = asset_id;
+SetTransferable& SetTransferable::set_asset_id(std::string asset_id) {
+    SetTransferable::asset_id = std::move(asset_id);
     return *this;
 }
 
-SetTransferable& SetTransferable::set_asset_index(const std::string& asset_index) {
-    SetTransferable::asset_index = asset_index;
+SetTransferable& SetTransferable::set_asset_index(std::string asset_index) {
+    SetTransferable::asset_index = std::move(asset_index);
     return *this;
 }
 

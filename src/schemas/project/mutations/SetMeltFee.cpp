@@ -16,6 +16,7 @@
 #include "enjinsdk/project/SetMeltFee.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -36,8 +37,8 @@ std::string SetMeltFee::serialize() const {
     return utils::document_to_string(document);
 }
 
-SetMeltFee& SetMeltFee::set_asset_id(const std::string& asset_id) {
-    SetMeltFee::asset_id = asset_id;
+SetMeltFee& SetMeltFee::set_asset_id(std::string asset_id) {
+    SetMeltFee::asset_id = std::move(asset_id);
     return *this;
 }
 

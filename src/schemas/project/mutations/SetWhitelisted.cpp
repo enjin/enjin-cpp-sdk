@@ -17,6 +17,7 @@
 
 #include "EnumUtils.hpp"
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -46,13 +47,13 @@ std::string SetWhitelisted::serialize() const {
     return utils::document_to_string(document);
 }
 
-SetWhitelisted& SetWhitelisted::set_asset_id(const std::string& asset_id) {
-    SetWhitelisted::asset_id = asset_id;
+SetWhitelisted& SetWhitelisted::set_asset_id(std::string asset_id) {
+    SetWhitelisted::asset_id = std::move(asset_id);
     return *this;
 }
 
-SetWhitelisted& SetWhitelisted::set_account_address(const std::string& account_address) {
-    SetWhitelisted::account_address = account_address;
+SetWhitelisted& SetWhitelisted::set_account_address(std::string account_address) {
+    SetWhitelisted::account_address = std::move(account_address);
     return *this;
 }
 
@@ -61,8 +62,8 @@ SetWhitelisted& SetWhitelisted::set_whitelisted(models::Whitelisted whitelisted)
     return *this;
 }
 
-SetWhitelisted& SetWhitelisted::set_whitelisted_address(const std::string& whitelisted_address) {
-    SetWhitelisted::whitelisted_address = whitelisted_address;
+SetWhitelisted& SetWhitelisted::set_whitelisted_address(std::string whitelisted_address) {
+    SetWhitelisted::whitelisted_address = std::move(whitelisted_address);
     return *this;
 }
 

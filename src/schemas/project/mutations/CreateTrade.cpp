@@ -16,6 +16,7 @@
 #include "enjinsdk/project/CreateTrade.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -41,17 +42,17 @@ std::string CreateTrade::serialize() const {
 }
 
 CreateTrade& CreateTrade::set_asking_assets(std::vector<models::Trade> assets) {
-    asking_assets = assets;
+    asking_assets = std::move(assets);
     return *this;
 }
 
 CreateTrade& CreateTrade::set_offering_assets(std::vector<models::Trade> assets) {
-    offering_assets = assets;
+    offering_assets = std::move(assets);
     return *this;
 }
 
-CreateTrade& CreateTrade::set_recipient_address(const std::string& recipient_address) {
-    CreateTrade::recipient_address = recipient_address;
+CreateTrade& CreateTrade::set_recipient_address(std::string recipient_address) {
+    CreateTrade::recipient_address = std::move(recipient_address);
     return *this;
 }
 
