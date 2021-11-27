@@ -20,7 +20,6 @@
 #include "ISubscriptionEventListener.hpp"
 #include "PusherEvent.hpp"
 #include "enjinsdk/PusherEventService.hpp"
-#include <memory>
 
 namespace enjin::sdk::events {
 

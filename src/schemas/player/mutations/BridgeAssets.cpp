@@ -16,6 +16,7 @@
 #include "enjinsdk/player/BridgeAssets.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::player {
 
@@ -37,12 +38,12 @@ std::string BridgeAssets::serialize() const {
 }
 
 BridgeAssets& BridgeAssets::set_asset_id(std::string asset_id) {
-    BridgeAssets::asset_id = asset_id;
+    BridgeAssets::asset_id = std::move(asset_id);
     return *this;
 }
 
 BridgeAssets& BridgeAssets::set_asset_indices(std::vector<std::string> asset_indices) {
-    BridgeAssets::asset_indices = asset_indices;
+    BridgeAssets::asset_indices = std::move(asset_indices);
     return *this;
 }
 

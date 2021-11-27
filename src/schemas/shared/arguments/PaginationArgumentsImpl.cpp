@@ -16,6 +16,7 @@
 #include "enjinsdk/internal/PaginationArgumentsImpl.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::shared {
 
@@ -30,12 +31,11 @@ std::string PaginationArgumentsImpl::serialize() const {
 }
 
 void PaginationArgumentsImpl::set_pagination(models::PaginationOptions pagination) {
-    PaginationArgumentsImpl::pagination = pagination;
+    PaginationArgumentsImpl::pagination = std::move(pagination);
 }
 
 void PaginationArgumentsImpl::set_pagination(int page, int limit) {
-    PaginationArgumentsImpl::set_pagination(models::PaginationOptions().set_page(page)
-                                                                       .set_limit(limit));
+    PaginationArgumentsImpl::set_pagination(models::PaginationOptions().set_page(page).set_limit(limit));
 }
 
 bool PaginationArgumentsImpl::operator==(const PaginationArgumentsImpl& rhs) const {

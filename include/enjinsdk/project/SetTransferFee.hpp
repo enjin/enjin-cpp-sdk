@@ -38,12 +38,12 @@ public:
     /// \brief Sets the asset ID.
     /// \param asset_id The ID.
     /// \return This request for chaining.
-    SetTransferFee& set_asset_id(const std::string& asset_id);
+    SetTransferFee& set_asset_id(std::string asset_id);
 
     /// \brief Sets the new transfer fee value in Wei.
     /// \param transfer_fee The new transfer fee.
     /// \return This request for chaining.
-    SetTransferFee& set_transfer_fee(const std::string& transfer_fee);
+    SetTransferFee& set_transfer_fee(std::string transfer_fee);
 
     bool operator==(const SetTransferFee& rhs) const;
 
@@ -55,7 +55,7 @@ private:
 };
 
 template ENJINSDK_EXPORT SetTransferFee&
-ProjectTransactionRequestArguments<SetTransferFee>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<SetTransferFee>::set_eth_address(std::string address);
 
 }
 

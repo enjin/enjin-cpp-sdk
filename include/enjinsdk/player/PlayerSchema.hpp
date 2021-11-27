@@ -32,35 +32,35 @@ public:
 
     ~PlayerSchema() override = default;
 
-    std::future<graphql::GraphqlResponse<models::Request>> advanced_send_asset(AdvancedSendAsset& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> advanced_send_asset(AdvancedSendAsset request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> approve_enj(ApproveEnj& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> approve_enj(ApproveEnj request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> approve_enj_max(ApproveMaxEnj& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> approve_enj_max(ApproveMaxEnj request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> bridge_asset(BridgeAsset& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> bridge_asset(BridgeAsset request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> bridge_assets(BridgeAssets& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> bridge_assets(BridgeAssets request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> bridge_claim_asset(BridgeClaimAsset& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> bridge_claim_asset(BridgeClaimAsset request) override;
 
-    std::future<graphql::GraphqlResponse<models::Player>> get_player(GetPlayer& request) override;
+    std::future<graphql::GraphqlResponse<models::Player>> get_player(GetPlayer request) override;
 
-    std::future<graphql::GraphqlResponse<models::Wallet>> get_wallet(GetWallet& request) override;
+    std::future<graphql::GraphqlResponse<models::Wallet>> get_wallet(GetWallet request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> melt_asset(MeltAsset& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> melt_asset(MeltAsset request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> message(Message& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> message(Message request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> reset_enj_approval(ResetEnjApproval& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> reset_enj_approval(ResetEnjApproval request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> send_asset(SendAsset& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> send_asset(SendAsset request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> send_enj(SendEnj& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> send_enj(SendEnj request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> set_approval_for_all(SetApprovalForAll& request) override;
+    std::future<graphql::GraphqlResponse<models::Request>> set_approval_for_all(SetApprovalForAll request) override;
 
-    std::future<graphql::GraphqlResponse<bool>> unlink_wallet(UnlinkWallet& request) override;
+    std::future<graphql::GraphqlResponse<bool>> unlink_wallet(UnlinkWallet request) override;
 
 protected:
     /// \brief Constructs the schema with the middleware.

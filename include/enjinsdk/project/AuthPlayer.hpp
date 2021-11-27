@@ -36,7 +36,7 @@ public:
     /// \brief Sets the player ID.
     /// \param id The ID.
     /// \return This request for chaining.
-    AuthPlayer& set_id(const std::string& id);
+    AuthPlayer& set_id(std::string id);
 
     bool operator==(const AuthPlayer& rhs) const;
 

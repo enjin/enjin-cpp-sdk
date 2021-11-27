@@ -35,7 +35,7 @@ public:
     /// \param name The template name.
     /// \param query The template to register.
     /// \return True if registered, false if a template with the given name already exists.
-    bool register_template(const std::string& name, const std::string& query);
+    bool register_template(std::string name, std::string query);
 
     /// \brief Returns true if this registry contains a template with the given name.
     /// \param name The template name.

@@ -18,7 +18,6 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
-#include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/models/AssetTransferFeeType.hpp"
 #include <optional>
 #include <string>
@@ -51,7 +50,7 @@ public:
 
     bool operator!=(const AssetTransferFeeSettings& rhs) const;
 
-protected:
+private:
     std::optional<AssetTransferFeeType> type;
     std::optional<std::string> asset_id;
     std::optional<std::string> value;
@@ -59,37 +58,6 @@ protected:
     constexpr static char TYPE_KEY[] = "type";
     constexpr static char ASSET_ID_KEY[] = "assetId";
     constexpr static char VALUE_KEY[] = "value";
-};
-
-/// \brief Models input for the transfer fee settings used in GraphQL requests.
-class ENJINSDK_EXPORT AssetTransferFeeSettingsInput : public AssetTransferFeeSettings,
-                                                      public serialization::ISerializable {
-public:
-    /// \brief Default constructor.
-    AssetTransferFeeSettingsInput() = default;
-
-    ~AssetTransferFeeSettingsInput() override = default;
-
-    [[nodiscard]] std::string serialize() const override;
-
-    /// \brief Sets the transfer type for this input.
-    /// \param type The type.
-    /// \return This input for chaining.
-    AssetTransferFeeSettingsInput& set_type(AssetTransferFeeType type);
-
-    /// \brief Sets the asset ID for this input.
-    /// \param asset_id The ID.
-    /// \return This input for chaining.
-    AssetTransferFeeSettingsInput& set_asset_id(const std::string& asset_id);
-
-    /// \brief Sets the value in Wei for this input.
-    /// \param value The value.
-    /// \return This input for chaining.
-    AssetTransferFeeSettingsInput& set_value(const std::string& value);
-
-    bool operator==(const AssetTransferFeeSettingsInput& rhs) const;
-
-    bool operator!=(const AssetTransferFeeSettingsInput& rhs) const;
 };
 
 }

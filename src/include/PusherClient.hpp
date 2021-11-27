@@ -48,7 +48,7 @@ public:
     /// \param logger_provider The logger provider.
     PusherClient(sdk::websockets::IWebsocketClient& ws_client,
                  std::string key,
-                 const PusherOptions& options,
+                 PusherOptions options,
                  std::shared_ptr<sdk::utils::LoggerProvider> logger_provider = nullptr);
 
     /// \brief Destructor for client. Attempts to close the websocket client.
@@ -102,11 +102,11 @@ public:
 
     /// \brief Sets a handler for when this clients connection state changes.
     /// \param handler The handler.
-    void set_on_connection_state_change_handler(const std::function<void(PusherConnectionState)>& handler);
+    void set_on_connection_state_change_handler(std::function<void(PusherConnectionState)> handler);
 
     /// \brief Sets a handler for when this client encounters an error.
     /// \param handler The handler.
-    void set_on_error_handler(const std::function<void(const std::exception&)>& handler);
+    void set_on_error_handler(std::function<void(const std::exception&)> handler);
 
 private:
     struct PusherChannel {

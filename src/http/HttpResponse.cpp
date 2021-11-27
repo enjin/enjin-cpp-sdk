@@ -20,7 +20,7 @@
 
 namespace enjin::sdk::http {
 
-HttpResponse::HttpResponse(std::optional<uint16_t> code,
+HttpResponse::HttpResponse(std::optional<unsigned short> code,
                            std::optional<std::string> body,
                            std::optional<std::string> content_type) :
         code(code),
@@ -70,7 +70,7 @@ HttpResponse::HttpResponseBuilder HttpResponse::builder() {
 }
 
 HttpResponse HttpResponse::HttpResponseBuilder::build() {
-    return HttpResponse(m_code, m_body, m_content_type);
+    return HttpResponse(m_code, std::move(m_body), std::move(m_content_type));
 }
 
 HttpResponse::HttpResponseBuilder& HttpResponse::HttpResponseBuilder::code(unsigned short code) {
@@ -78,13 +78,13 @@ HttpResponse::HttpResponseBuilder& HttpResponse::HttpResponseBuilder::code(unsig
     return *this;
 }
 
-HttpResponse::HttpResponseBuilder& HttpResponse::HttpResponseBuilder::body(const std::string& body) {
-    m_body = body;
+HttpResponse::HttpResponseBuilder& HttpResponse::HttpResponseBuilder::body(std::string body) {
+    m_body = std::move(body);
     return *this;
 }
 
-HttpResponse::HttpResponseBuilder& HttpResponse::HttpResponseBuilder::content_type(const std::string& content_type) {
-    m_content_type = content_type;
+HttpResponse::HttpResponseBuilder& HttpResponse::HttpResponseBuilder::content_type(std::string content_type) {
+    m_content_type = std::move(content_type);
     return *this;
 }
 

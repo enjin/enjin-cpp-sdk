@@ -32,7 +32,7 @@ public:
     /// \brief Connects to the server at the given URI address.
     /// \param uri The URI.
     /// \return The future for this operation.
-    virtual std::future<void> connect(const std::string& uri) = 0;
+    virtual std::future<void> connect(std::string uri) = 0;
 
     /// \brief Closes the websocket connection.
     /// \return The future for this operation.
@@ -42,31 +42,30 @@ public:
     /// \param status_code The status code.
     /// \param reason The reason message.
     /// \return The future for this operation.
-    virtual std::future<void> close(int status_code, const std::string& reason) = 0;
+    virtual std::future<void> close(int status_code, std::string reason) = 0;
 
     /// \brief Sends a websocket message to the server.
     /// \param data The message string.
-    virtual void send(const std::string& data) = 0;
+    virtual void send(std::string data) = 0;
 
     /// \brief Sets the handler for receiving open events.
     /// \param handler The handler.
-    virtual void set_open_handler(const std::function<void()>& handler) = 0;
+    virtual void set_open_handler(std::function<void()> handler) = 0;
 
     /// \brief Sets the handler for receiving close events.
     /// \param handler The handler.
     /// \remarks The arguments for the handler are expected to be the status code and the reason.
-    virtual void set_close_handler(const std::function<void(int close_status,
-                                                            const std::string& message)>& handler) = 0;
+    virtual void set_close_handler(std::function<void(int close_status, const std::string& message)> handler) = 0;
 
     /// \brief Sets the handler for receiving string messages from the server.
     /// \param handler The handler.
     /// \remarks The argument for the handler is expected to be the message string.
-    virtual void set_message_handler(const std::function<void(const std::string& message)>& handler) = 0;
+    virtual void set_message_handler(std::function<void(const std::string& message)> handler) = 0;
 
     /// \brief Sets the handler for receiving errors which occur with the websocket connection.
     /// \param handler The handler.
     /// \remarks The arguments for the handler are expected to be an error code and the message.
-    virtual void set_error_handler(const std::function<void(int code, const std::string& message)>& handler) = 0;
+    virtual void set_error_handler(std::function<void(int code, const std::string& message)> handler) = 0;
 
     /// \brief Sets whether reconnecting is allowed.
     /// \param allowed Whether reconnecting is allowed.

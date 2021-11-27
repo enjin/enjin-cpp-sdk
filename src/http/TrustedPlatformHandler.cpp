@@ -16,6 +16,7 @@
 #include "enjinsdk/TrustedPlatformHandler.hpp"
 
 #include "enjinsdk_utils/StringUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::http {
 
@@ -24,9 +25,9 @@ bool TrustedPlatformHandler::is_authenticated() const {
     return auth_token.has_value() && !utils::is_empty_or_whitespace(auth_token.value());
 }
 
-void TrustedPlatformHandler::set_auth_token(const std::string& auth_token) {
+void TrustedPlatformHandler::set_auth_token(std::string auth_token) {
     std::lock_guard<std::mutex> guard(auth_token_mutex);
-    TrustedPlatformHandler::auth_token = auth_token;
+    TrustedPlatformHandler::auth_token = std::move(auth_token);
 }
 
 const std::optional<std::string>& TrustedPlatformHandler::get_auth_token() const {

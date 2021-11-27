@@ -7,6 +7,7 @@ target_sources(${PROJECT_NAME}
         AssetSort.cpp
         AssetStateData.cpp
         AssetTransferFeeSettings.cpp
+        AssetTransferFeeSettingsInput.cpp
         AssetVariant.cpp
         Balance.cpp
         BalanceFilter.cpp

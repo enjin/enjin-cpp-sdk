@@ -16,6 +16,7 @@
 #include "enjinsdk/project/AdvancedSendAsset.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::project {
 
@@ -36,13 +37,13 @@ std::string AdvancedSendAsset::serialize() const {
     return utils::document_to_string(document);
 }
 
-AdvancedSendAsset& AdvancedSendAsset::set_transfers(const std::vector<models::Transfer>& transfers) {
-    AdvancedSendAsset::transfers = transfers;
+AdvancedSendAsset& AdvancedSendAsset::set_transfers(std::vector<models::Transfer> transfers) {
+    AdvancedSendAsset::transfers = std::move(transfers);
     return *this;
 }
 
-AdvancedSendAsset& AdvancedSendAsset::set_data(const std::string& data) {
-    AdvancedSendAsset::data = data;
+AdvancedSendAsset& AdvancedSendAsset::set_data(std::string data) {
+    AdvancedSendAsset::data = std::move(data);
     return *this;
 }
 

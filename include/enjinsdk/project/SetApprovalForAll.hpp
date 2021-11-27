@@ -38,7 +38,7 @@ public:
     /// \brief Sets the wallet address of the operator.
     /// \param operator_address The operator's address.
     /// \return This request for chaining.
-    SetApprovalForAll& set_operator_address(const std::string& operator_address);
+    SetApprovalForAll& set_operator_address(std::string operator_address);
 
     /// \brief Sets the approval state.
     /// \param approved The approval.
@@ -55,7 +55,7 @@ private:
 };
 
 template ENJINSDK_EXPORT SetApprovalForAll&
-ProjectTransactionRequestArguments<SetApprovalForAll>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<SetApprovalForAll>::set_eth_address(std::string address);
 
 }
 

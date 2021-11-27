@@ -35,18 +35,18 @@ std::string Melt::serialize() const {
     return utils::document_to_string(document);
 }
 
-Melt& Melt::set_asset_id(const std::string& id) {
-    asset_id = id;
+Melt& Melt::set_asset_id(std::string id) {
+    asset_id = std::move(id);
     return *this;
 }
 
-Melt& Melt::set_asset_index(const std::string& index) {
-    asset_index = index;
+Melt& Melt::set_asset_index(std::string index) {
+    asset_index = std::move(index);
     return *this;
 }
 
-Melt& Melt::set_value(const std::string& value) {
-    Melt::value = value;
+Melt& Melt::set_value(std::string value) {
+    Melt::value = std::move(value);
     return *this;
 }
 

@@ -16,6 +16,7 @@
 #include "enjinsdk/shared/GetAsset.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include <utility>
 
 namespace enjin::sdk::shared {
 
@@ -33,8 +34,8 @@ std::string GetAsset::serialize() const {
     return utils::document_to_string(document);
 }
 
-GetAsset& GetAsset::set_id(const std::string& id) {
-    GetAsset::id = id;
+GetAsset& GetAsset::set_id(std::string id) {
+    GetAsset::id = std::move(id);
     return *this;
 }
 

@@ -38,17 +38,17 @@ public:
     /// \brief Sets the asset ID.
     /// \param asset_id The ID.
     /// \return This request for chaining.
-    SetUri& set_asset_id(const std::string& asset_id);
+    SetUri& set_asset_id(std::string asset_id);
 
     /// \brief Sets the index for non-fungible assets.
     /// \param asset_index The index.
     /// \return This request for chaining.
-    SetUri& set_asset_index(const std::string& asset_index);
+    SetUri& set_asset_index(std::string asset_index);
 
     /// \brief Sets the new URI for the asset's metadata.
     /// \param uri The URI.
     /// \return This request for chaining.
-    SetUri& set_uri(const std::string& uri);
+    SetUri& set_uri(std::string uri);
 
     bool operator==(const SetUri& rhs) const;
 
@@ -61,7 +61,7 @@ private:
 };
 
 template ENJINSDK_EXPORT SetUri&
-ProjectTransactionRequestArguments<SetUri>::set_eth_address(const std::string& address);
+ProjectTransactionRequestArguments<SetUri>::set_eth_address(std::string address);
 
 }
 

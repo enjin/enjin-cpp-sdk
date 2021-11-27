@@ -81,13 +81,10 @@ protected:
     /// \return The future containing the response.
     template<class T>
     std::future<graphql::GraphqlResponse<T>> send_request_for_one(graphql::AbstractGraphqlRequest& request) {
-        auto http_request = create_request(request);
-
-        return std::async([this, http_request] {
-            auto response = send_request(http_request);
-
+        return std::async([this, http_request = create_request(request)] {
             try {
-                return graphql::GraphqlResponse<T>(response.get_body().value());
+                auto http_response = send_request(http_request);
+                return graphql::GraphqlResponse<T>(http_response.get_body().value());
             } catch (const std::exception& e) {
                 log_graphql_exception(e);
                 throw e;
@@ -102,13 +99,10 @@ protected:
     template<class T>
     std::future<graphql::GraphqlResponse<std::vector<T>>>
     send_request_for_many(graphql::AbstractGraphqlRequest& request) {
-        auto http_request = create_request(request);
-
-        return std::async([this, http_request]() {
-            auto response = send_request(http_request);
-
+        return std::async([this, http_request = create_request(request)]() {
             try {
-                return graphql::GraphqlResponse<std::vector<T>>(response.get_body().value());
+                auto http_response = send_request(std::move(http_request));
+                return graphql::GraphqlResponse<std::vector<T>>(http_response.get_body().value());
             } catch (const std::exception& e) {
                 log_graphql_exception(e);
                 throw e;
@@ -121,7 +115,7 @@ private:
 
     void log_graphql_exception(const std::exception& e);
 
-    http::HttpResponse send_request(const http::HttpRequest& request);
+    http::HttpResponse send_request(http::HttpRequest request);
 };
 
 }
