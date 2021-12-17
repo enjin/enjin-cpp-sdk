@@ -32,7 +32,7 @@ jobs:
       - name: Build
         run: |
           cmake -DCMAKE_BUILD_TYPE=Release -DENJINSDK_BUILD_SHARED=ON -DENJINSDK_BUILD_TESTS=ON
-          make -j -C
+          make
 
       - name: Test
         run: |
