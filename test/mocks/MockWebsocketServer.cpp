@@ -15,13 +15,16 @@
 
 #include "MockWebsocketServer.hpp"
 
-#include "ixwebsocket/IXNetSystem.h"
 #include "ixwebsocket/IXWebSocketServer.h"
 #include <algorithm>
 #include <mutex>
 #include <queue>
 #include <set>
 #include <stdexcept>
+
+#ifdef WIN32
+#include "ixwebsocket/IXNetSystem.h"
+#endif
 
 #define WEBSOCKET_TEST_SERVER_PORT 8080
 
