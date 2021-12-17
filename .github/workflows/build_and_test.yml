@@ -27,7 +27,7 @@ jobs:
       # TODO: Temporarily turned off HTTP and websocket client libraries to simplify testing this initial workflow.
       - name: Setup Conan
         run: |
-          conan install . -s build_type=Release --install-folder=build -o enjincpprest:enable_default_http_client=False -o enjincpprest:enable_default_ws_client=False
+          conan install . -s build_type=Release -o enjincpprest:enable_default_http_client=False -o enjincpprest:enable_default_ws_client=False
 
       - name: Build
         run: |
