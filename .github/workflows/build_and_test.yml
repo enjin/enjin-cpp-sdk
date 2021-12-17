@@ -1,0 +1,41 @@
+name: build_and_test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+permissions: read-all
+
+jobs:
+  build:
+    name: ${{ matrix.os }} - Build & Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest] # TODO: Add windows-latest and macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Conan
+        uses: turtlebrowser/get-conan@main
+
+      # TODO: Temporarily turned off HTTP and websocket client libraries to simplify testing this initial workflow.
+      - name: Setup Conan
+        run: |
+          conan install . -s build_type=Release --install-folder=build -o enjincpprest:enable_default_http_client=False -o enjincpprest:enable_default_ws_client=False
+
+      - name: Build
+        run: |
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -DENJINSDK_BUILD_SHARED=ON -DENJINSDK_BUILD_TESTS=ON
+          make -j -C
+
+      - name: Test
+        run: |
+          cd build
+          ctest --verbose
