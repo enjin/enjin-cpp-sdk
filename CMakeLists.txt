@@ -28,7 +28,7 @@ if (EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
     include("${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
     conan_basic_setup()
 
-    if ("cpprestsdk" IN_LIST CONAN_DEPENDENCIES)
+    if ("cpp-httplib" IN_LIST CONAN_DEPENDENCIES)
         set(ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL 1)
     endif ()
     if ("ixwebsocket" IN_LIST CONAN_DEPENDENCIES)
