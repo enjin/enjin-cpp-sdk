@@ -28,11 +28,15 @@ jobs:
       - name: Setup Conan
         run: |
           conan install . -s build_type=Release -o enjincpprest:enable_default_http_client=False -o enjincpprest:enable_default_ws_client=False
+          conan profile update settings.compiler.libcxx=libstdc++11 default
+
+      - name: Run CMake
+        run: |
+          cmake -DCMAKE_BUILD_TYPE=Release -DENJINSDK_BUILD_SHARED=ON -DENJINSDK_BUILD_TESTS=ON
 
       - name: Build
         run: |
-          cmake -DCMAKE_BUILD_TYPE=Release -DENJINSDK_BUILD_SHARED=ON -DENJINSDK_BUILD_TESTS=ON
-          make
+          make -j
 
       - name: Test
         run: |
