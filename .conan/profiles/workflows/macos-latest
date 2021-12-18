@@ -1,0 +1,14 @@
+[settings]
+os=Macos
+os_build=Macos
+arch=x86_64
+arch_build=x86_64
+compiler=apple-clang
+compiler.version=13.0
+compiler.libcxx=libc++
+build_type=Release
+[options]
+enjincpprest:enable_default_http_client=False
+enjincpprest:enable_default_ws_client=False
+[build_requires]
+[env]
