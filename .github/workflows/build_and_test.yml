@@ -26,6 +26,12 @@ jobs:
 
       # TODO: Temporarily turned off HTTP and websocket client libraries to simplify testing this initial workflow.
       - name: Setup Conan
+        if: ${{ matrix.os }} != 'ubuntu-latest'
+        run: |
+          conan install . -o enjincpprest:enable_default_http_client=False -o enjincpprest:enable_default_ws_client=False
+
+      - name: Setup Conan (Linux)
+        if: ${{ matrix.os }} == 'ubuntu-latest'
         run: |
           conan install . -s compiler.libcxx=libstdc++11 -o enjincpprest:enable_default_http_client=False -o enjincpprest:enable_default_ws_client=False
 
