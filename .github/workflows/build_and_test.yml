@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest] # TODO: Re-add 'windows-latest'
 
     steps:
       - name: Checkout
@@ -26,7 +26,7 @@ jobs:
 
       - name: Setup Conan
         run: |
-          conan install . --profile ./.conan/profiles/workflows/${{ matrix.os }}
+          conan install . --build missing --profile ./.conan/profiles/workflows/${{ matrix.os }}
 
       - name: Run CMake
         run: |
