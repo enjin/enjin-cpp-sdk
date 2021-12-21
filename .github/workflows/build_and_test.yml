@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest] # TODO: Re-add 'windows-latest'
+        os: [ubuntu-latest, windows-latest]
 
     steps:
       - name: Checkout
@@ -34,7 +34,7 @@ jobs:
 
       - name: Build
         run: |
-          make
+          cmake --build . --config Release
 
       - name: Test
         run: |
