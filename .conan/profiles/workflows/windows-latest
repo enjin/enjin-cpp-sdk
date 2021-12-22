@@ -7,7 +7,7 @@ compiler=Visual Studio
 compiler.version=16
 build_type=Release
 [options]
-enjincpprest:enable_default_http_client=False
-enjincpprest:enable_default_ws_client=False
+enable_default_http_client=True
+enable_default_ws_client=True
 [build_requires]
 [env]

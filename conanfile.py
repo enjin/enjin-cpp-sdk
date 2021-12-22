@@ -13,12 +13,10 @@ class EnjinCPPSDK(ConanFile):
     settings = "os", "compiler", "arch", "build_type"
     generators = "cmake"
     options = {
-        # "shared": [True, False],
         "enable_default_http_client": [True, False],
         "enable_default_ws_client": [True, False],
     }
     default_options = {
-        # "shared": True,
         "enable_default_http_client": False,
         "enable_default_ws_client": False,
     }
@@ -44,14 +42,10 @@ class EnjinCPPSDK(ConanFile):
     def requirements(self):
         if self.options.enable_default_http_client:
             self.requires("cpp-httplib/0.8.5")
-            # self.requires("openssl/1.1.1m")
+            self.requires("openssl/1.1.1m")
         if self.options.enable_default_ws_client:
             self.requires("ixwebsocket/11.0.4")
 
         self.requires("gtest/1.10.0")
         self.requires("rapidjson/1.1.0")
         self.requires("spdlog/1.8.2")
-
-    # def validate(self):
-    #     if self.settings.os == "Windows" and not self.options.shared and self.options.enable_default_http_client:
-    #         raise ConanInvalidConfiguration("This library is not compatible when static with Windows and OpenSSL")
