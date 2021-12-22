@@ -1,0 +1,44 @@
+name: Build & Test Windows
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+permissions: read-all
+
+jobs:
+  build-and-test:
+    timeout-minutes: 20
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Conan
+        uses: turtlebrowser/get-conan@main
+
+      - name: Cache Conan Packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.conan/data
+          key: ${{ runner.os }}-conan-${{ hashFiles('**/.conan') }}
+          restore-keys: |
+            ${{ runner.os }}-conan-
+
+      - name: Setup Conan
+        run: |
+          conan install . -if ./build --build missing --profile ./.conan/profiles/workflows/windows-latest
+
+      - name: Run CMake
+        run: |
+          cmake -S . -B ./build -DCMAKE_BUILD_TYPE=Release -DENJINSDK_BUILD_SHARED=ON -DENJINSDK_BUILD_TESTS=ON
+
+      - name: Build
+        run: |
+          cmake --build ./build --config Release
+
+      - name: Test
+        run: |
+          cd ./build && ctest --verbose --build-config Release
