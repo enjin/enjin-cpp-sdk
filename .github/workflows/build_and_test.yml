@@ -38,4 +38,4 @@ jobs:
 
       - name: Test
         run: |
-          ctest --verbose
+          ctest --verbose --build-config Release
