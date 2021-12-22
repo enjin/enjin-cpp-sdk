@@ -35,7 +35,7 @@ jobs:
 
       - name: Setup Conan
         run: |
-          conan install ./build --build missing --profile ./.conan/profiles/workflows/${{ matrix.os }}
+          conan install . -if ./build --build missing --profile ./.conan/profiles/workflows/${{ matrix.os }}
 
       - name: Run CMake
         run: |
