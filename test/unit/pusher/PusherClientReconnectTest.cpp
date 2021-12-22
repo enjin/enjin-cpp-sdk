@@ -53,7 +53,7 @@ TEST_F(PusherClientReconnectTest, ReceivesGenericClosingCodeAndReconnectToServer
     // Act
     mock_server.close(status_code, reason);
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     // Verify
     verify_call_count(2);
@@ -73,7 +73,7 @@ TEST_F(PusherClientReconnectTest, ReceivesPusherClosingCodeDoesNotReconnectToSer
     // Act
     mock_server.close(status_code, reason);
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     // Assert
     EXPECT_EQ(PusherConnectionState::DISCONNECTED, client.get_state());
