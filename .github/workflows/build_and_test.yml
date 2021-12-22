@@ -25,6 +25,14 @@ jobs:
       - name: Install Conan
         uses: turtlebrowser/get-conan@main
 
+      - name: Cache Conan Packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.conan/data
+          key: ${{ runner.os }}-conan-${{ hashFiles('**/.conan') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
       - name: Setup Conan
         run: |
           conan install . --build missing --profile ./.conan/profiles/workflows/${{ matrix.os }}
@@ -35,7 +43,7 @@ jobs:
 
       - name: Build
         run: |
-          cmake --build . --parallel --config Release
+          cmake --build . --config Release
 
       - name: Test
         run: |
