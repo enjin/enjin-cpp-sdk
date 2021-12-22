@@ -11,6 +11,7 @@ permissions: read-all
 jobs:
   build:
     name: ${{ matrix.os }} - Build & Test
+    timeout-minutes: 20
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -34,7 +35,7 @@ jobs:
 
       - name: Build
         run: |
-          cmake --build . --config Release
+          cmake --build . --parallel --config Release
 
       - name: Test
         run: |
