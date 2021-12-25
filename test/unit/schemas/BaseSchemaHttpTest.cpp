@@ -30,7 +30,7 @@ using namespace enjin::test::utils;
 
 class BaseSchemaHttpTest : public testing::Test {
 public:
-    static constexpr HttpMethod HTTP_METHOD = HttpMethod::Post;
+    static constexpr HttpMethod HTTP_METHOD = HttpMethod::POST;
     static constexpr char DEFAULT_PATH_QUERY_FRAGMENT[] = "/graphql/test";
     static constexpr char JSON[] = "application/json; charset=utf-8";
 

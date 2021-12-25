@@ -36,7 +36,7 @@ public:
 
     static HttpRequest create_default_request() {
         return HttpRequest::builder()
-                .method(HttpMethod::Post)
+                .method(HttpMethod::POST)
                 .path_query_fragment("/")
                 .body("{}")
                 .content_type(JSON)

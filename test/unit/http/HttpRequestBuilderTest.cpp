@@ -21,7 +21,7 @@ using namespace enjin::sdk::http;
 
 class HttpRequestBuilderTest : public testing::Test {
 public:
-    static constexpr HttpMethod DEFAULT_METHOD = HttpMethod::Get;
+    static constexpr HttpMethod DEFAULT_METHOD = HttpMethod::GET;
     static constexpr char DEFAULT_PATH_QUERY_FRAGMENT[] = "/";
     static constexpr char DEFAULT_HEADER_NAME[] = "Connection";
     static constexpr char DEFAULT_HEADER_VALUE[] = "keep-alive";

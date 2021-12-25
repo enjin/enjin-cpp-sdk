@@ -17,24 +17,12 @@
 #define ENJINCPPSDK_HTTPREQUEST_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/HttpMethod.hpp"
 #include <optional>
 #include <map>
 #include <string>
 
 namespace enjin::sdk::http {
-
-/// \brief Enums representing HTTP methods.
-enum class HttpMethod {
-    Get,
-    Head,
-    Post,
-    Put,
-    Delete,
-    Connect,
-    Options,
-    Trace,
-    Patch,
-};
 
 /// \brief Container class for a HTTP request.
 class ENJINSDK_EXPORT HttpRequest {

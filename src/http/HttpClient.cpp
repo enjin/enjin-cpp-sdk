@@ -69,7 +69,7 @@ public:
 
     std::future<HttpResponse> send_request(HttpRequest request) override {
         return std::async([this, request = std::move(request)] {
-            if (request.get_method() != HttpMethod::Post) {
+            if (request.get_method() != HttpMethod::POST) {
                 const std::string message("HTTP method for request is not 'POST'");
                 log_error(message);
                 throw std::runtime_error(message);

@@ -80,22 +80,22 @@ public:
         auto handler = create_handler(provider);
 
         switch (request.get_method()) {
-            case sdk::http::HttpMethod::Get:
+            case sdk::http::HttpMethod::GET:
                 server.Get(request.get_path_query_fragment().c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::Post:
+            case sdk::http::HttpMethod::POST:
                 server.Post(request.get_path_query_fragment().c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::Put:
+            case sdk::http::HttpMethod::PUT:
                 server.Put(request.get_path_query_fragment().c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::Delete:
+            case sdk::http::HttpMethod::DEL:
                 server.Delete(request.get_path_query_fragment().c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::Options:
+            case sdk::http::HttpMethod::OPTIONS:
                 server.Options(request.get_path_query_fragment().c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::Patch:
+            case sdk::http::HttpMethod::PATCH:
                 server.Patch(request.get_path_query_fragment().c_str(), handler);
                 break;
             default:
