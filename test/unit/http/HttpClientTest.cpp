@@ -17,6 +17,7 @@
 #include "HttpClient.hpp"
 #include "MockHttpServer.hpp"
 #include "VerificationTestSuite.hpp"
+#include "enjinsdk/HttpHeaders.hpp"
 #include <stdexcept>
 
 using namespace enjin::sdk::http;
@@ -53,24 +54,28 @@ protected:
 
 TEST_F(HttpClientTest, SendRequestReceivesSuccessfulResponseAndReturnsExpected) {
     // Arrange - Data
-    HttpResponse expected = HttpResponse::builder()
-            .code(200)
-            .body("{}")
-            .content_type(JSON)
-            .build();
+    const unsigned short expected_code = 200;
+    const std::string expected_body = "{}";
+    const std::string expected_content_type = JSON;
     HttpClient client = create_client();
     HttpRequest dummy_request = create_default_request();
     client.start();
 
     // Arrange - Stubbing
     mock_server.given(dummy_request)
-               .respond_with(expected);
+               .respond_with(HttpResponse::builder()
+                                     .code(expected_code)
+                                     .body(expected_body)
+                                     .add_header(CONTENT_TYPE, expected_content_type)
+                                     .build());
 
     // Act
-    HttpResponse actual = client.send_request(dummy_request).get();
+    HttpResponse response = client.send_request(dummy_request).get();
 
     // Assert
-    ASSERT_EQ(expected, actual);
+    EXPECT_EQ(expected_code, response.get_code().value());
+    EXPECT_EQ(expected_body, response.get_body().value());
+    EXPECT_EQ(expected_content_type, response.get_header_value(CONTENT_TYPE).value());
 }
 
 TEST_F(HttpClientTest, SendRequestReceivesErrorResponseAndThrowsError) {

@@ -1,6 +1,5 @@
 target_sources(${PROJECT_NAME}_tests
         PRIVATE
-        HttpResponseBuilderTest.cpp
         HttpResponseTest.cpp
         TrustedPlatformHandlerTest.cpp)
 

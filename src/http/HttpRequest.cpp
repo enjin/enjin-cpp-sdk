@@ -15,6 +15,7 @@
 
 #include "enjinsdk/HttpRequest.hpp"
 
+#include "enjinsdk/HttpHeaders.hpp"
 #include <stdexcept>
 #include <utility>
 

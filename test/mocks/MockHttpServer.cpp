@@ -16,6 +16,7 @@
 #include "MockHttpServer.hpp"
 
 #include "httplib.h"
+#include "enjinsdk/HttpHeaders.hpp"
 #include <map>
 #include <memory>
 #include <sstream>
@@ -28,8 +29,8 @@ namespace enjin::test::mocks {
 void ResponseProvider::respond_with(sdk::http::HttpResponse response) {
     if (!response.get_body().has_value()) {
         throw std::runtime_error("Stub response does not have a body");
-    } else if (!response.get_content_type().has_value()) {
-        throw std::runtime_error("Stub response does not have content-type");
+    } else if (!response.has_header(sdk::http::CONTENT_TYPE)) {
+        throw std::runtime_error("Stub response does not have content-type header");
     }
 
     ResponseProvider::response = std::move(response);
@@ -144,7 +145,7 @@ private:
 
             res.status = provider->get_response()->get_code().value();
             res.set_content(provider->get_response()->get_body().value(),
-                            provider->get_response()->get_content_type()->c_str());
+                            provider->get_response()->get_header_value(sdk::http::CONTENT_TYPE)->c_str());
         }};
     }
 };

@@ -18,6 +18,7 @@
 #include "HttpClient.hpp"
 
 #include "httplib.h"
+#include "enjinsdk/HttpHeaders.hpp"
 #include <iterator>
 #include <stdexcept>
 #include <utility>
@@ -78,17 +79,20 @@ public:
                                             create_headers(request),
                                             request.get_body().value(),
                                             request.get_content_type().value().c_str());
-            if (result) {
-                return HttpResponse::builder()
-                        .code(result->status)
-                        .body(result->body)
-                        .content_type(result->get_header_value("Content-Type"))
-                        .build();
-            } else {
+            if (!result) {
                 const std::string message(error_result_2_string(result));
                 log_error(message);
                 throw std::runtime_error(message);
             }
+
+            auto builder = HttpResponse::builder();
+            for (auto& [key, value]: result->headers) {
+                builder.add_header(key, value);
+            }
+
+            return builder.code(result->status)
+                          .body(result->body)
+                          .build();
         });
     }
 
@@ -166,8 +170,8 @@ private:
     static httplib::Headers create_headers(const HttpRequest& request) {
         httplib::Headers headers;
 
-        for (const auto& entry : request.get_headers()) {
-            if (entry.first == HttpRequest::CONTENT_TYPE) {
+        for (const auto& entry: request.get_headers()) {
+            if (entry.first == CONTENT_TYPE) {
                 continue;
             }
 

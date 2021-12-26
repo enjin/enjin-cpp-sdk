@@ -19,6 +19,7 @@
 #include "HttpClient.hpp"
 #include "MockHttpServer.hpp"
 #include "TestableBaseSchema.hpp"
+#include "enjinsdk/HttpHeaders.hpp"
 #include <memory>
 #include <sstream>
 #include <string>
@@ -68,7 +69,7 @@ TEST_F(BaseSchemaHttpTest, SendRequestForOneResponseIsSuccessfulReceivesExpected
                                         .set_content_type(JSON)
                                         .set_body(req_body);
     HttpResponse http_res = HttpResponse::builder().code(200)
-                                                   .content_type(JSON)
+                                                   .add_header(CONTENT_TYPE, JSON)
                                                    .body(res_body.str())
                                                    .build();
 
@@ -94,7 +95,7 @@ TEST_F(BaseSchemaHttpTest, SendRequestForOneServerRespondsWithErrorReponseIsNotS
                                         .set_content_type(JSON)
                                         .set_body(req_body);
     HttpResponse http_res = HttpResponse::builder().code(400)
-                                                   .content_type(JSON)
+                                                   .add_header(CONTENT_TYPE, JSON)
                                                    .body("Test Error Response")
                                                    .build();
 
@@ -126,7 +127,7 @@ TEST_F(BaseSchemaHttpTest, SendRequestForMany) {
                                         .set_content_type(JSON)
                                         .set_body(req_body);
     HttpResponse http_res = HttpResponse::builder().code(200)
-                                                   .content_type(JSON)
+                                                   .add_header(CONTENT_TYPE, JSON)
                                                    .body(res_body.str())
                                                    .build();
 
@@ -154,7 +155,7 @@ TEST_F(BaseSchemaHttpTest, SendRequestForManyServerRespondsWithErrorReponseIsNot
                                         .set_content_type(JSON)
                                         .set_body(req_body);
     HttpResponse http_res = HttpResponse::builder().code(400)
-                                                   .content_type(JSON)
+                                                   .add_header(CONTENT_TYPE, JSON)
                                                    .body("Test Error Response")
                                                    .build();
 

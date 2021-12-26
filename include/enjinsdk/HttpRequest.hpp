@@ -27,9 +27,6 @@ namespace enjin::sdk::http {
 /// \brief Container class for a HTTP request.
 class ENJINSDK_EXPORT HttpRequest {
 public:
-    /// \brief The key for the content-type header.
-    static constexpr char CONTENT_TYPE[] = "Content-Type";
-
     /// \brief Default constructor.
     HttpRequest() = default;
 

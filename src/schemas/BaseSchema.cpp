@@ -16,6 +16,7 @@
 #include "enjinsdk/BaseSchema.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include "enjinsdk/HttpHeaders.hpp"
 #include <sstream>
 #include <string>
 
@@ -56,7 +57,7 @@ http::HttpRequest BaseSchema::create_request(graphql::AbstractGraphqlRequest& re
     user_agent_ss << "?";
 #endif
 
-    req.add_header(http::TrustedPlatformHandler::USER_AGENT, user_agent_ss.str());
+    req.add_header(http::USER_AGENT, user_agent_ss.str());
 
     // Adds authorization header if SDK has been authenticated
     auto& tp_handler = middleware.get_handler();
@@ -66,7 +67,7 @@ http::HttpRequest BaseSchema::create_request(graphql::AbstractGraphqlRequest& re
                          << " "
                          << tp_handler->get_auth_token().value();
 
-        req.add_header(http::TrustedPlatformHandler::AUTHORIZATION, authorization_ss.str());
+        req.add_header(http::AUTHORIZATION, authorization_ss.str());
     }
 
     return req;
