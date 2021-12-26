@@ -36,7 +36,7 @@ HttpRequest& HttpRequest::set_body(std::string body) {
 }
 
 HttpRequest& HttpRequest::set_content_type(std::string content_type) {
-    HttpRequest::content_type = std::move(content_type);
+    headers.emplace(CONTENT_TYPE, std::move(content_type));
     return *this;
 }
 
@@ -57,8 +57,8 @@ const std::optional<std::string>& HttpRequest::get_body() const {
     return body;
 }
 
-const std::optional<std::string>& HttpRequest::get_content_type() const {
-    return content_type;
+std::optional<std::string> HttpRequest::get_content_type() const {
+    return get_header_value(CONTENT_TYPE);
 }
 
 const std::map<std::string, std::string>& HttpRequest::get_headers() const {
@@ -79,7 +79,6 @@ bool HttpRequest::operator==(const HttpRequest& rhs) const {
     return method == rhs.method &&
            path_query_fragment == rhs.path_query_fragment &&
            body == rhs.body &&
-           content_type == rhs.content_type &&
            headers == rhs.headers;
 }
 
@@ -96,11 +95,7 @@ bool HttpRequest::operator<(const HttpRequest& rhs) const {
         return true;
     if (rhs.path_query_fragment < path_query_fragment)
         return false;
-    if (body < rhs.body)
-        return true;
-    if (rhs.body < body)
-        return false;
-    return content_type < rhs.content_type;
+    return body < rhs.body;
 }
 
 bool HttpRequest::operator>(const HttpRequest& rhs) const {

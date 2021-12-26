@@ -27,6 +27,9 @@ namespace enjin::sdk::http {
 /// \brief Container class for a HTTP request.
 class ENJINSDK_EXPORT HttpRequest {
 public:
+    /// \brief The key for the content-type header.
+    static constexpr char CONTENT_TYPE[] = "Content-Type";
+
     /// \brief Default constructor.
     HttpRequest() = default;
 
@@ -48,7 +51,7 @@ public:
     /// \return This request for chaining.
     HttpRequest& set_body(std::string body);
 
-    /// \brief Sets the content type header for this request.
+    /// \brief Sets the content-type header for this request.
     /// \param content_type The content type.
     /// \return This request for chaining.
     HttpRequest& set_content_type(std::string content_type);
@@ -71,9 +74,9 @@ public:
     /// \return The request body.
     [[nodiscard]] const std::optional<std::string>& get_body() const;
 
-    /// \brief Returns the content type header of this request.
-    /// \return The content type.
-    [[nodiscard]] const std::optional<std::string>& get_content_type() const;
+    /// \brief Returns the content-type header of this request.
+    /// \return An optional containing the content-type value if one exists.
+    [[nodiscard]] std::optional<std::string> get_content_type() const;
 
     /// \brief Returns the map for the HTTP headers.
     /// \return The headers.
@@ -105,7 +108,6 @@ private:
     std::optional<HttpMethod> method;
     std::optional<std::string> path_query_fragment;
     std::optional<std::string> body;
-    std::optional<std::string> content_type;
     std::map<std::string, std::string> headers;
 };
 

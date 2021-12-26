@@ -66,11 +66,11 @@ bool HttpResponse::operator!=(const HttpResponse& rhs) const {
 }
 
 HttpResponse::HttpResponseBuilder HttpResponse::builder() {
-    return HttpResponse::HttpResponseBuilder();
+    return {};
 }
 
 HttpResponse HttpResponse::HttpResponseBuilder::build() {
-    return HttpResponse(m_code, std::move(m_body), std::move(m_content_type));
+    return {m_code, std::move(m_body), std::move(m_content_type)};
 }
 
 HttpResponse::HttpResponseBuilder& HttpResponse::HttpResponseBuilder::code(unsigned short code) {

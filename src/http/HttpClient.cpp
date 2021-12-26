@@ -167,6 +167,10 @@ private:
         httplib::Headers headers;
 
         for (const auto& entry : request.get_headers()) {
+            if (entry.first == HttpRequest::CONTENT_TYPE) {
+                continue;
+            }
+
             headers.emplace(entry.first, entry.second);
         }
 
