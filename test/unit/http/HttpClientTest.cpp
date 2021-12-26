@@ -35,12 +35,10 @@ public:
     }
 
     static HttpRequest create_default_request() {
-        return HttpRequest::builder()
-                .method(HttpMethod::POST)
-                .path_query_fragment("/")
-                .body("{}")
-                .content_type(JSON)
-                .build();
+        return HttpRequest().set_method(HttpMethod::POST)
+                            .set_path_query_fragment("/")
+                            .set_content_type(JSON)
+                            .set_body("{}");
     }
 
 protected:

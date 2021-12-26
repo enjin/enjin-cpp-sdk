@@ -63,11 +63,10 @@ TEST_F(BaseSchemaHttpTest, SendRequestForOneResponseIsSuccessfulReceivesExpected
     res_body << R"({"data":{"result":)"
              << expected.serialize()
              << R"(}})";
-    HttpRequest http_req = HttpRequest::builder().method(HTTP_METHOD)
-                                                 .path_query_fragment(DEFAULT_PATH_QUERY_FRAGMENT)
-                                                 .content_type(JSON)
-                                                 .body(req_body)
-                                                 .build();
+    HttpRequest http_req = HttpRequest().set_method(HTTP_METHOD)
+                                        .set_path_query_fragment(DEFAULT_PATH_QUERY_FRAGMENT)
+                                        .set_content_type(JSON)
+                                        .set_body(req_body);
     HttpResponse http_res = HttpResponse::builder().code(200)
                                                    .content_type(JSON)
                                                    .body(res_body.str())
@@ -90,11 +89,10 @@ TEST_F(BaseSchemaHttpTest, SendRequestForOneServerRespondsWithErrorReponseIsNotS
     DummyObject dummy_object = DummyObject::create_default_dummy_object();
     FakeGraphqlRequest fake_request(dummy_object.serialize());
     std::string req_body = schema.create_request_body(fake_request);
-    HttpRequest http_req = HttpRequest::builder().method(HTTP_METHOD)
-                                                 .path_query_fragment(DEFAULT_PATH_QUERY_FRAGMENT)
-                                                 .content_type(JSON)
-                                                 .body(req_body)
-                                                 .build();
+    HttpRequest http_req = HttpRequest().set_method(HTTP_METHOD)
+                                        .set_path_query_fragment(DEFAULT_PATH_QUERY_FRAGMENT)
+                                        .set_content_type(JSON)
+                                        .set_body(req_body);
     HttpResponse http_res = HttpResponse::builder().code(400)
                                                    .content_type(JSON)
                                                    .body("Test Error Response")
@@ -123,11 +121,10 @@ TEST_F(BaseSchemaHttpTest, SendRequestForMany) {
              << R"(,)"
              << expected.serialize()
              << R"(]}})";
-    HttpRequest http_req = HttpRequest::builder().method(HTTP_METHOD)
-                                                 .path_query_fragment(DEFAULT_PATH_QUERY_FRAGMENT)
-                                                 .content_type(JSON)
-                                                 .body(req_body)
-                                                 .build();
+    HttpRequest http_req = HttpRequest().set_method(HTTP_METHOD)
+                                        .set_path_query_fragment(DEFAULT_PATH_QUERY_FRAGMENT)
+                                        .set_content_type(JSON)
+                                        .set_body(req_body);
     HttpResponse http_res = HttpResponse::builder().code(200)
                                                    .content_type(JSON)
                                                    .body(res_body.str())
@@ -152,11 +149,10 @@ TEST_F(BaseSchemaHttpTest, SendRequestForManyServerRespondsWithErrorReponseIsNot
     DummyObject dummy_object = DummyObject::create_default_dummy_object();
     FakeGraphqlRequest fake_request(dummy_object.serialize());
     std::string req_body = schema.create_request_body(fake_request);
-    HttpRequest http_req = HttpRequest::builder().method(HTTP_METHOD)
-                                                 .path_query_fragment(DEFAULT_PATH_QUERY_FRAGMENT)
-                                                 .content_type(JSON)
-                                                 .body(req_body)
-                                                 .build();
+    HttpRequest http_req = HttpRequest().set_method(HTTP_METHOD)
+                                        .set_path_query_fragment(DEFAULT_PATH_QUERY_FRAGMENT)
+                                        .set_content_type(JSON)
+                                        .set_body(req_body);
     HttpResponse http_res = HttpResponse::builder().code(400)
                                                    .content_type(JSON)
                                                    .body("Test Error Response")

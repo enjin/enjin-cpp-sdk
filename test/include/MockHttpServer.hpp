@@ -40,7 +40,7 @@ public:
 
     /// \brief Sets the response to be stubbed.
     /// \param response The stubbed response.
-    void respond_with(const sdk::http::HttpResponse& response);
+    void respond_with(sdk::http::HttpResponse response);
 
     /// \brief Returns the response stored by this provider.
     /// \return The optional for the response.

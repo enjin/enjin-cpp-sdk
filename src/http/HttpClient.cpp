@@ -69,16 +69,15 @@ public:
 
     std::future<HttpResponse> send_request(HttpRequest request) override {
         return std::async([this, request = std::move(request)] {
-            if (request.get_method() != HttpMethod::POST) {
-                const std::string message("HTTP method for request is not 'POST'");
-                log_error(message);
-                throw std::runtime_error(message);
-            }
+            validate_request_method(request);
+            validate_request_path_query_fragment(request);
+            validate_request_content_type(request);
+            validate_request_body(request);
 
-            auto result = http_client->Post(request.get_path_query_fragment().c_str(),
+            auto result = http_client->Post(request.get_path_query_fragment().value().c_str(),
                                             create_headers(request),
-                                            request.get_body(),
-                                            request.get_content_type().c_str());
+                                            request.get_body().value(),
+                                            request.get_content_type().value().c_str());
             if (result) {
                 return HttpResponse::builder()
                         .code(result->status)
@@ -122,6 +121,46 @@ private:
            << "Request Body: " << req.body << ",\n"
            << "Request Headers: " << headers_2_string(req.headers);
         return ss.str();
+    }
+
+    void validate_request_body(const HttpRequest& req) {
+        if (req.get_body().has_value()) {
+            return;
+        }
+
+        const std::string message("Request does not have a body");
+        log_error(message);
+        throw std::runtime_error(message);
+    }
+
+    void validate_request_content_type(const HttpRequest& req) {
+        if (req.get_content_type().has_value()) {
+            return;
+        }
+
+        const std::string message("Request does not have a content-type header");
+        log_error(message);
+        throw std::runtime_error(message);
+    }
+
+    void validate_request_method(const HttpRequest& req) {
+        if (req.get_method().has_value() && req.get_method().value() == HttpMethod::POST) {
+            return;
+        }
+
+        const std::string message("HTTP method for request is not 'POST'");
+        log_error(message);
+        throw std::runtime_error(message);
+    }
+
+    void validate_request_path_query_fragment(const HttpRequest& req) {
+        if (req.get_path_query_fragment().has_value()) {
+            return;
+        }
+
+        const std::string message("Request does not have a path query fragment");
+        log_error(message);
+        throw std::runtime_error(message);
     }
 
     static httplib::Headers create_headers(const HttpRequest& request) {
