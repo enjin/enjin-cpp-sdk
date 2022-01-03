@@ -13,35 +13,21 @@
  * limitations under the License.
  */
 
-#ifndef ENJINSDK_LOGGER_HPP
-#define ENJINSDK_LOGGER_HPP
-
-#include "enjinsdk_export.h"
-#include "enjinsdk/ILogger.hpp"
-#include <string>
+#ifndef ENJINSDK_LOGLEVEL_HPP
+#define ENJINSDK_LOGLEVEL_HPP
 
 namespace enjin::sdk::utils {
 
-/// \brief Basic logger class for logging messages to stdout.
-class ENJINSDK_EXPORT Logger : public ILogger {
-public:
-    /// \brief Default constructor.
-    Logger();
-
-    ~Logger() override;
-
-    void log(LogLevel level, const std::string& message) override;
-
-    void log(LogLevel level, const std::string& message, const std::exception& e) override;
-
-    [[nodiscard]] bool is_loggable(LogLevel level) const override;
-
-private:
-    class Impl;
-
-    Impl* impl;
+/// \brief Enum values dictating the severity level of a log message.
+enum class LogLevel {
+    TRACE,
+    DEBUG,
+    INFO,
+    WARN,
+    ERR,
+    SEVERE,
 };
 
 }
 
-#endif //ENJINSDK_LOGGER_HPP
+#endif //ENJINSDK_LOGLEVEL_HPP
