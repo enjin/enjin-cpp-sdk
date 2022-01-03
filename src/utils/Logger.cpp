@@ -22,17 +22,16 @@
 
 namespace enjin::sdk::utils {
 
-static constexpr char LOGGER_PREFIX[] = "enjinsdk_logger_";
 static unsigned int id = 0;
 
-class LoggerImpl : ILogger {
+class Logger::Impl : ILogger {
 public:
-    LoggerImpl() {
+    Impl() {
         logger = spdlog::stdout_logger_st(generate_next_logger_name());
         logger->set_pattern("%H:%M:%S [%l] %v");
     };
 
-    ~LoggerImpl() override = default;
+    ~Impl() override = default;
 
     void log(LogLevel level, const std::string& message) override {
         logger->log(convert_log_level(level), message);
@@ -51,6 +50,8 @@ public:
 
 private:
     std::shared_ptr<spdlog::logger> logger;
+
+    static constexpr char LOGGER_PREFIX[] = "enjinsdk_logger_";
 
     static spdlog::level::level_enum convert_log_level(LogLevel level) {
         switch (level) {
@@ -78,7 +79,7 @@ private:
     }
 };
 
-Logger::Logger() : impl(new LoggerImpl()) {
+Logger::Logger() : impl(new Impl()) {
 }
 
 Logger::~Logger() {
