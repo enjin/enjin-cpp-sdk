@@ -16,8 +16,9 @@
 #ifndef ENJINSDK_LOGGERPROVIDER_HPP
 #define ENJINSDK_LOGGERPROVIDER_HPP
 
-#include "enjinsdk/ILogger.hpp"
 #include "enjinsdk_export.h"
+#include "enjinsdk/ILogger.hpp"
+#include "enjinsdk/LogLevel.hpp"
 #include <memory>
 #include <string>
 
