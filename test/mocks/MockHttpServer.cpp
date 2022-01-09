@@ -19,6 +19,7 @@
 #include "enjinsdk/HttpHeaders.hpp"
 #include <map>
 #include <memory>
+#include <queue>
 #include <sstream>
 #include <stdexcept>
 #include <thread>
@@ -72,6 +73,11 @@ public:
             server.stop();
             server_thread.join();
         }
+    }
+
+    void next_message(std::function<void(const sdk::http::HttpRequest&)> handler) {
+        std::lock_guard<std::mutex> guard(messages_mutex);
+        message_handlers.emplace(std::move(handler));
     }
 
     ResponseProvider& given(const sdk::http::HttpRequest& request) {
@@ -131,14 +137,22 @@ public:
 
 private:
     httplib::Server server;
-    std::map<std::string, std::unique_ptr<ResponseProvider>> response_provider_map;
     std::optional<int> port;
 
-    std::thread server_thread;
-    std::mutex server_mutex;
+    std::map<std::string, std::unique_ptr<ResponseProvider>> response_provider_map;
+    std::queue<std::function<void(sdk::http::HttpRequest)>> message_handlers;
 
-    static httplib::Server::Handler create_handler(const std::unique_ptr<ResponseProvider>& provider) {
-        return {[&provider](const httplib::Request& req, httplib::Response& res) {
+    // Threads
+    std::thread server_thread;
+
+    // Mutexes
+    mutable std::mutex messages_mutex;
+    mutable std::mutex server_mutex;
+
+    httplib::Server::Handler create_handler(const std::unique_ptr<ResponseProvider>& provider) {
+        return {[this, &provider](const httplib::Request& req, httplib::Response& res) {
+            process_next_message(req);
+
             if (!provider->get_response().has_value()) {
                 return;
             }
@@ -147,6 +161,46 @@ private:
             res.set_content(provider->get_response()->get_body().value(),
                             provider->get_response()->get_header_value(sdk::http::CONTENT_TYPE)->c_str());
         }};
+    }
+
+    void process_next_message(const httplib::Request& req) {
+        std::unique_lock<std::mutex> lock(messages_mutex);
+        if (message_handlers.empty()) {
+            return;
+        }
+
+        auto handler = message_handlers.front();
+        message_handlers.pop();
+        lock.unlock();
+
+        auto request = sdk::http::HttpRequest()
+                .set_method(convert_http_method(req.method))
+                .set_path_query_fragment(req.path)
+                .set_body(req.body);
+
+        for (const auto&[k, v]: req.headers) {
+            request.add_header(k, v);
+        }
+
+        handler(request);
+    }
+
+    static sdk::http::HttpMethod convert_http_method(const std::string& method) {
+        if (method == "GET") {
+            return sdk::http::HttpMethod::GET;
+        } else if (method == "POST") {
+            return sdk::http::HttpMethod::POST;
+        } else if (method == "PUT") {
+            return sdk::http::HttpMethod::PUT;
+        } else if (method == "DELETE") {
+            return sdk::http::HttpMethod::DEL;
+        } else if (method == "OPTIONS") {
+            return sdk::http::HttpMethod::OPTIONS;
+        } else if (method == "PATCH") {
+            return sdk::http::HttpMethod::PATCH;
+        }
+
+        throw std::runtime_error("Unsupported HTTP method conversion");
     }
 };
 
@@ -163,6 +217,10 @@ void MockHttpServer::start() {
 
 void MockHttpServer::stop() {
     impl->stop();
+}
+
+void MockHttpServer::next_message(std::function<void(const sdk::http::HttpRequest&)> handler) {
+    impl->next_message(std::move(handler));
 }
 
 ResponseProvider& MockHttpServer::given(const sdk::http::HttpRequest& request) {

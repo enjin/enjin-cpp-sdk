@@ -42,6 +42,14 @@ public:
                             .set_body("{}");
     }
 
+    static HttpResponse create_default_response() {
+        return HttpResponse::builder()
+                .code(200)
+                .add_header(CONTENT_TYPE, JSON)
+                .body("{}")
+                .build();
+    }
+
 protected:
     void SetUp() override {
         mock_server.start();
@@ -79,7 +87,7 @@ TEST_F(HttpClientTest, SendRequestReceivesSuccessfulResponseAndReturnsExpected) 
 }
 
 TEST_F(HttpClientTest, SendRequestReceivesErrorResponseAndThrowsError) {
-    // Arrange - Data
+    // Arrange
     HttpClient client = create_client();
     HttpRequest dummy_request = create_default_request();
     client.start();
@@ -90,4 +98,36 @@ TEST_F(HttpClientTest, SendRequestReceivesErrorResponseAndThrowsError) {
 
     // Assert
     ASSERT_THROW(future.get(), std::runtime_error);
+}
+
+TEST_F(HttpClientTest, SetDefaultRequestHeaderSentRequestHasHeader) {
+    // Arrange - Data
+    const std::string expected_header_key("Test Header");
+    const std::string expected_header_value("Test Value");
+    HttpClient client = create_client();
+    HttpRequest dummy_request = create_default_request();
+    client.start();
+    client.set_default_request_header(expected_header_key, expected_header_value);
+
+    // Arrange - Stubbing
+    mock_server.given(dummy_request)
+               .respond_with(create_default_response());
+
+    // Arrange - Expectations
+    mock_server.next_message([this, expected_header_key, expected_header_value](const HttpRequest& req) {
+        increment_call_counter();
+
+        auto actual = req.get_header_value(expected_header_key);
+        EXPECT_TRUE(actual.has_value());
+        EXPECT_EQ(expected_header_value, actual.value());
+    });
+    set_expected_call_count(1);
+
+    // Act
+    HttpResponse response = client.send_request(dummy_request).get();
+
+    // Verify
+    verify_call_count(1);
+
+    // Assert (see: Arrange - Expectations)
 }

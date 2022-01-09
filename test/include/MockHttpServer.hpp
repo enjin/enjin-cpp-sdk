@@ -24,6 +24,7 @@
 
 #include "enjinsdk/HttpRequest.hpp"
 #include "enjinsdk/HttpResponse.hpp"
+#include <functional>
 #include <optional>
 #include <string>
 
@@ -64,6 +65,12 @@ public:
 
     /// \brief Method to stop the server.
     void stop();
+
+    /// \brief Setup a handler for the next message received by this server. Intended for use establishing expectations.
+    /// \param handler The message handler.
+    /// \remarks This server will only use the handler on a new message received by it and will not retroactively apply
+    /// the handler to any messages it received in the past.
+    void next_message(std::function<void(const sdk::http::HttpRequest&)> handler);
 
     /// \brief Sets this server to respond for a given request.
     /// \param request The request.

@@ -20,6 +20,8 @@
 #include "httplib.h"
 #include "enjinsdk/HttpHeaders.hpp"
 #include <iterator>
+#include <map>
+#include <mutex>
 #include <stdexcept>
 #include <utility>
 
@@ -29,9 +31,7 @@ class HttpClient::Impl : public IHttpClient {
 public:
     Impl() = delete;
 
-    explicit Impl(std::string base_uri, std::shared_ptr<utils::LoggerProvider> logger_provider = nullptr)
-            : base_uri(std::move(base_uri)),
-              logger_provider(std::move(logger_provider)) {
+    explicit Impl(std::string base_uri) : base_uri(std::move(base_uri)) {
     }
 
     ~Impl() override {
@@ -75,10 +75,14 @@ public:
             validate_request_content_type(request);
             validate_request_body(request);
 
+            // Compiles and formats headers for cpp-httplib usage
+            auto headers = create_headers(request);
+            auto content_type = headers.extract(CONTENT_TYPE).mapped();
+
             auto result = http_client->Post(request.get_path_query_fragment().value().c_str(),
-                                            create_headers(request),
+                                            headers,
                                             request.get_body().value(),
-                                            request.get_content_type().value().c_str());
+                                            content_type.c_str());
             if (!result) {
                 const std::string message(error_result_2_string(result));
                 log_error(message);
@@ -86,7 +90,7 @@ public:
             }
 
             auto builder = HttpResponse::builder();
-            for (auto& [key, value]: result->headers) {
+            for (auto&[key, value]: result->headers) {
                 builder.add_header(key, value);
             }
 
@@ -104,13 +108,46 @@ public:
         return open;
     }
 
+    void set_default_request_header(std::string key, std::string value) override {
+        std::lock_guard<std::mutex> guard(default_headers_mutex);
+        default_headers.emplace(std::move(key), std::move(value));
+    }
+
+    void set_logger(HttpLogLevel level, std::shared_ptr<utils::LoggerProvider> logger_provider) override {
+        std::lock_guard<std::mutex> guard(logging_mutex);
+        log_level = level;
+        Impl::logger_provider = std::move(logger_provider);
+    }
+
 private:
     const std::string base_uri;
 
+    HttpLogLevel log_level = HttpLogLevel::NONE;
     bool open = false;
+    std::map<std::string, std::string> default_headers;
 
     std::unique_ptr<httplib::Client> http_client;
     std::shared_ptr<utils::LoggerProvider> logger_provider;
+
+    // Mutexes
+    mutable std::mutex default_headers_mutex;
+    mutable std::mutex logging_mutex;
+
+    httplib::Headers create_headers(const HttpRequest& request) {
+        httplib::Headers headers;
+
+        std::unique_lock<std::mutex> default_headers_lock(default_headers_mutex);
+        for (const auto& entry : default_headers) {
+            headers.emplace(entry.first, entry.second);
+        }
+        default_headers_lock.unlock();
+
+        for (const auto& entry: request.get_headers()) {
+            headers.emplace(entry.first, entry.second);
+        }
+
+        return headers;
+    }
 
     void log_error(const std::string& message) {
         if (logger_provider != nullptr) {
@@ -165,20 +202,6 @@ private:
         const std::string message("Request does not have a path query fragment");
         log_error(message);
         throw std::runtime_error(message);
-    }
-
-    static httplib::Headers create_headers(const HttpRequest& request) {
-        httplib::Headers headers;
-
-        for (const auto& entry: request.get_headers()) {
-            if (entry.first == CONTENT_TYPE) {
-                continue;
-            }
-
-            headers.emplace(entry.first, entry.second);
-        }
-
-        return headers;
     }
 
     static std::string error_enum_2_string(const httplib::Error value) {
@@ -250,8 +273,7 @@ private:
     }
 };
 
-HttpClient::HttpClient(std::string base_uri, std::shared_ptr<utils::LoggerProvider> logger_provider)
-        : impl(new Impl(std::move(base_uri), std::move(logger_provider))) {
+HttpClient::HttpClient(std::string base_uri) : impl(new Impl(std::move(base_uri))) {
 }
 
 HttpClient::~HttpClient() {
@@ -267,7 +289,7 @@ void HttpClient::stop() {
 }
 
 std::future<HttpResponse> HttpClient::send_request(HttpRequest request) {
-    return impl->send_request(request);
+    return impl->send_request(std::move(request));
 }
 
 const std::string& HttpClient::get_base_uri() const {
@@ -276,6 +298,14 @@ const std::string& HttpClient::get_base_uri() const {
 
 bool HttpClient::is_open() const {
     return impl->is_open();
+}
+
+void HttpClient::set_default_request_header(std::string key, std::string value) {
+    impl->set_default_request_header(std::move(key), std::move(value));
+}
+
+void HttpClient::set_logger(HttpLogLevel level, std::shared_ptr<utils::LoggerProvider> logger_provider) {
+    impl->set_logger(level, std::move(logger_provider));
 }
 
 }
