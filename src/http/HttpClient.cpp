@@ -163,7 +163,7 @@ private:
 
         const auto method = enjin::utils::to_upper(req.method);
         const auto uri = base_uri + req.path;
-        const auto content_length = req.content_length_;
+        const auto content_length = req.body.size();
 
         // Line
         if (log_level == HttpLogLevel::BASIC) {
