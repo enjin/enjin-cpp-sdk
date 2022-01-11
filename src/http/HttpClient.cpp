@@ -17,11 +17,14 @@
 
 #include "HttpClient.hpp"
 
+#include "EnumUtils.hpp"
 #include "httplib.h"
-#include "enjinsdk/HttpHeaders.hpp"
+#include "enjinsdk_utils/StringUtils.hpp"
+#include <chrono>
 #include <iterator>
 #include <map>
 #include <mutex>
+#include <sstream>
 #include <stdexcept>
 #include <utility>
 
@@ -47,16 +50,6 @@ public:
         http_client->set_follow_location(true);
         http_client->set_keep_alive(true);
         open = true;
-
-        if (logger_provider != nullptr) {
-            http_client->set_logger([this](const httplib::Request& req, const httplib::Response& res) {
-                std::stringstream ss;
-                ss << "\n"
-                   << request_2_string(req) << ",\n"
-                   << response_2_string(res);
-                logger_provider->log(utils::LogLevel::INFO, ss.str());
-            });
-        }
     }
 
     void stop() override {
@@ -69,33 +62,37 @@ public:
     }
 
     std::future<HttpResponse> send_request(HttpRequest request) override {
-        return std::async([this, request = std::move(request)] {
+        return std::async([this, request] {
             validate_request_method(request);
             validate_request_path_query_fragment(request);
             validate_request_content_type(request);
             validate_request_body(request);
 
-            // Compiles and formats headers for cpp-httplib usage
-            auto headers = create_headers(request);
-            auto content_type = headers.extract(CONTENT_TYPE).mapped();
+            auto req = httplib::Request();
+            req.path = request.get_path_query_fragment().value();
+            req.method = utils::serialize_http_method(request.get_method().value());
+            req.headers = create_headers(request);
+            req.body = request.get_body().value();
 
-            auto result = http_client->Post(request.get_path_query_fragment().value().c_str(),
-                                            headers,
-                                            request.get_body().value(),
-                                            content_type.c_str());
-            if (!result) {
-                const std::string message(error_result_2_string(result));
-                log_error(message);
-                throw std::runtime_error(message);
+            log_request(req);
+
+            const auto begin = std::chrono::high_resolution_clock::now();
+            auto res = http_client->send(req);
+            const auto end = std::chrono::high_resolution_clock::now();
+
+            log_result(req, res, std::chrono::duration_cast<std::chrono::milliseconds>(end - begin));
+
+            if (!res) {
+                throw std::runtime_error(error_result_2_string(res));
             }
 
             auto builder = HttpResponse::builder();
-            for (auto&[key, value]: result->headers) {
+            for (auto&[key, value]: res->headers) {
                 builder.add_header(key, value);
             }
 
-            return builder.code(result->status)
-                          .body(result->body)
+            return builder.code(res->status)
+                          .body(res->body)
                           .build();
         });
     }
@@ -122,9 +119,9 @@ public:
 private:
     const std::string base_uri;
 
-    HttpLogLevel log_level = HttpLogLevel::NONE;
     bool open = false;
     std::map<std::string, std::string> default_headers;
+    HttpLogLevel log_level = HttpLogLevel::NONE;
 
     std::unique_ptr<httplib::Client> http_client;
     std::shared_ptr<utils::LoggerProvider> logger_provider;
@@ -137,7 +134,7 @@ private:
         httplib::Headers headers;
 
         std::unique_lock<std::mutex> default_headers_lock(default_headers_mutex);
-        for (const auto& entry : default_headers) {
+        for (const auto& entry: default_headers) {
             headers.emplace(entry.first, entry.second);
         }
         default_headers_lock.unlock();
@@ -150,18 +147,86 @@ private:
     }
 
     void log_error(const std::string& message) {
+        std::lock_guard<std::mutex> guard(logging_mutex);
         if (logger_provider != nullptr) {
             logger_provider->log(utils::LogLevel::ERR, message);
         }
     }
 
-    std::string request_2_string(const httplib::Request& req) {
+    void log_request(const httplib::Request& req) {
+        std::lock_guard<std::mutex> guard(logging_mutex);
+        if (log_level == HttpLogLevel::NONE || logger_provider == nullptr) {
+            return;
+        }
+
         std::stringstream ss;
-        ss << "Request Method: " << req.method << ",\n"
-           << "Request URL: " << base_uri << req.path << ",\n"
-           << "Request Body: " << req.body << ",\n"
-           << "Request Headers: " << headers_2_string(req.headers);
-        return ss.str();
+
+        const auto method = enjin::utils::to_upper(req.method);
+        const auto uri = base_uri + req.path;
+        const auto content_length = req.content_length_;
+
+        // Line
+        if (log_level == HttpLogLevel::BASIC) {
+            ss << "--> " << method << " " << uri << " (" << content_length << "-byte body)\n";
+            logger_provider->log(ss.str());
+            return;
+        }
+
+        ss << "--> " << method << " " << uri << "\n";
+
+        // Headers
+        for (const auto&[k, v]: req.headers) {
+            ss << k << ": " << v << "\n";
+        }
+
+        if (log_level == HttpLogLevel::HEADERS) {
+            ss << "<-- END " << method << "\n";
+            logger_provider->log(ss.str());
+            return;
+        }
+
+        // Body
+        ss << "\n" // Line break between headers and body
+           << req.body << "\n"
+           << "<-- END " << method << " (" << content_length << "-byte body)\n";
+        logger_provider->log(ss.str());
+    }
+
+    void log_result(const httplib::Request& req, const httplib::Result& res, std::chrono::milliseconds rtt) {
+        std::lock_guard<std::mutex> guard(logging_mutex);
+        if (log_level == HttpLogLevel::NONE || logger_provider == nullptr) {
+            return;
+        }
+
+        std::stringstream ss;
+
+        const auto status = res->status;
+        const auto uri = base_uri + req.path;
+
+        // Line
+        ss << "<-- " << status << " " << uri << " (" << rtt.count() << "ms)\n";
+
+        if (log_level == HttpLogLevel::BASIC) {
+            logger_provider->log(ss.str());
+            return;
+        }
+
+        // Headers
+        for (const auto&[k, v]: res->headers) {
+            ss << k << ": " << v << "\n";
+        }
+
+        if (log_level == HttpLogLevel::HEADERS) {
+            ss << "<-- END HTTP\n";
+            logger_provider->log(ss.str());
+            return;
+        }
+
+        // Body
+        ss << "\n"
+           << res->body << "\n"
+           << "<-- END HTTP\n";
+        logger_provider->log(ss.str());
     }
 
     void validate_request_body(const HttpRequest& req) {
@@ -236,41 +301,6 @@ private:
         ss << "HTTP client encountered an error with designation '" << error_enum_2_string(result.error()) << "'";
         return ss.str();
     }
-
-    static std::string headers_2_string(const httplib::Headers& headers) {
-        if (headers.empty()) {
-            return "{}";
-        }
-
-        std::stringstream ss;
-
-        ss << "{";
-
-        const auto& last = std::prev(headers.end());
-        auto iter = headers.begin();
-        while (iter != headers.end()) {
-            ss << "'" << iter->first << "': '" << iter->second << "'";
-
-            // Adds separator if not the last entry
-            if (iter != last) {
-                ss << ", ";
-            }
-
-            iter = std::next(iter);
-        }
-
-        ss << "}";
-
-        return ss.str();
-    }
-
-    static std::string response_2_string(const httplib::Response& res) {
-        std::stringstream ss;
-        ss << "Response Code: " << res.status << ",\n"
-           << "Response Headers: " << headers_2_string(res.headers) << ",\n"
-           << "Response Body Text: " << res.body;
-        return ss.str();
-    }
 };
 
 HttpClient::HttpClient(std::string base_uri) : impl(new Impl(std::move(base_uri))) {
@@ -289,7 +319,7 @@ void HttpClient::stop() {
 }
 
 std::future<HttpResponse> HttpClient::send_request(HttpRequest request) {
-    return impl->send_request(std::move(request));
+    return impl->send_request(request);
 }
 
 const std::string& HttpClient::get_base_uri() const {

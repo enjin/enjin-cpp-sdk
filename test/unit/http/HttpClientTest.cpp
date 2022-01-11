@@ -13,19 +13,26 @@
  * limitations under the License.
  */
 
+#include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include "HttpClient.hpp"
 #include "MockHttpServer.hpp"
+#include "MockLogger.hpp"
 #include "VerificationTestSuite.hpp"
 #include "enjinsdk/HttpHeaders.hpp"
+#include <memory>
 #include <stdexcept>
 
 using namespace enjin::sdk::http;
+using namespace enjin::sdk::utils;
 using namespace enjin::test::mocks;
 using namespace enjin::test::suites;
+using ::testing::An;
+using ::testing::AtLeast;
+using ::testing::Mock;
+using ::testing::Return;
 
-class HttpClientTest : public VerificationTestSuite,
-                       public testing::Test {
+class HttpClientSuite : public VerificationTestSuite {
 public:
     static constexpr char JSON[] = "application/json; charset=utf-8";
 
@@ -49,7 +56,22 @@ public:
                 .body("{}")
                 .build();
     }
+};
 
+class HttpClientTest : public HttpClientSuite,
+                       public ::testing::Test {
+protected:
+    void SetUp() override {
+        mock_server.start();
+    }
+
+    void TearDown() override {
+        mock_server.stop();
+    }
+};
+
+class HttpClientLoggingTest : public HttpClientSuite,
+                              public ::testing::TestWithParam<HttpLogLevel> {
 protected:
     void SetUp() override {
         mock_server.start();
@@ -131,3 +153,61 @@ TEST_F(HttpClientTest, SetDefaultRequestHeaderSentRequestHasHeader) {
 
     // Assert (see: Arrange - Expectations)
 }
+
+TEST_F(HttpClientTest, SetLoggerHttpLogLevelIsNoneExpectNoLogs) {
+    // Arrange - Data
+    const HttpLogLevel log_level = HttpLogLevel::NONE;
+    HttpClient client = create_client();
+    HttpRequest dummy_request = create_default_request();
+    std::shared_ptr<MockLogger> mock_logger = std::make_shared<MockLogger>();
+    client.start();
+    client.set_logger(log_level, std::make_shared<LoggerProvider>(mock_logger));
+
+    // Arrange - Stubbing
+    mock_server.given(dummy_request)
+               .respond_with(create_default_response());
+    ON_CALL(*mock_logger, is_loggable(An<LogLevel>()))
+            .WillByDefault(Return(true));
+
+    // Arrange - Expectations
+    EXPECT_CALL(*mock_logger, log(An<LogLevel>(), An<const std::string&>()))
+            .Times(0);
+
+    // Act
+    client.send_request(dummy_request).get();
+
+    // Verify
+    Mock::VerifyAndClearExpectations(mock_logger.get());
+}
+
+TEST_P(HttpClientLoggingTest, SetLoggerHttpLogLevelIsNotNoneExpectLogs) {
+    // Arrange - Data
+    const HttpLogLevel log_level = GetParam();
+    HttpClient client = create_client();
+    HttpRequest dummy_request = create_default_request();
+    std::shared_ptr<MockLogger> mock_logger = std::make_shared<MockLogger>();
+    client.start();
+    client.set_logger(log_level, std::make_shared<LoggerProvider>(mock_logger));
+
+    // Arrange - Stubbing
+    mock_server.given(dummy_request)
+               .respond_with(create_default_response());
+    ON_CALL(*mock_logger, is_loggable(An<LogLevel>()))
+            .WillByDefault(Return(true));
+
+    // Arrange - Expectations
+    EXPECT_CALL(*mock_logger, log(An<LogLevel>(), An<const std::string&>()))
+            .Times(AtLeast(2));
+
+    // Act
+    client.send_request(dummy_request).get();
+
+    // Verify
+    Mock::VerifyAndClearExpectations(mock_logger.get());
+}
+
+INSTANTIATE_TEST_SUITE_P(HttpClientLoggingLevels,
+                         HttpClientLoggingTest,
+                         testing::Values(HttpLogLevel::BASIC,
+                                         HttpLogLevel::HEADERS,
+                                         HttpLogLevel::BODY));
