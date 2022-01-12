@@ -1,10 +1,5 @@
 target_sources(${PROJECT_NAME}_tests
         PRIVATE
-        EnumUtilsEventTypeTest.cpp
-        EnumUtilsPusherConnectionStateTest.cpp
-        EnumUtilsRequestStateTest.cpp
-        EnumUtilsRequestTypeTest.cpp
-        EnumUtilsSortDirectionTest.cpp
         EnumUtilsAssetFieldTest.cpp
         EnumUtilsAssetIdFormatTest.cpp
         EnumUtilsAssetIndexFormatTest.cpp
@@ -12,7 +7,13 @@ target_sources(${PROJECT_NAME}_tests
         EnumUtilsAssetTransferableTest.cpp
         EnumUtilsAssetTransferFeeTypeTest.cpp
         EnumUtilsAssetVariantModeTest.cpp
+        EnumUtilsEventTypeTest.cpp
+        EnumUtilsHttpMethodTest.cpp
         EnumUtilsOperatorTest.cpp
+        EnumUtilsPusherConnectionStateTest.cpp
+        EnumUtilsRequestStateTest.cpp
+        EnumUtilsRequestTypeTest.cpp
+        EnumUtilsSortDirectionTest.cpp
         EnumUtilsTransactionFieldTest.cpp
         EnumUtilsWhitelistedTest.cpp
         FutureUtilsTest.cpp

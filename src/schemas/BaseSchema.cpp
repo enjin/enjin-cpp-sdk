@@ -16,8 +16,8 @@
 #include "enjinsdk/BaseSchema.hpp"
 
 #include "RapidJsonUtils.hpp"
+#include "enjinsdk/HttpHeaders.hpp"
 #include <sstream>
-#include <string>
 
 namespace enjin::sdk {
 
@@ -41,23 +41,10 @@ std::string BaseSchema::create_request_body(graphql::AbstractGraphqlRequest& req
 }
 
 http::HttpRequest BaseSchema::create_request(graphql::AbstractGraphqlRequest& request) const {
-    auto builder = http::HttpRequest::builder()
-            .method(http::HttpMethod::Post)
-            .path_query_fragment(std::string("/graphql/").append(schema))
-            .content_type(JSON)
-            .body(create_request_body(request));
-
-    // Adds the default SDK user agent header using the defined SDK version if the definition was set
-    std::stringstream user_agent_ss;
-    user_agent_ss << http::TrustedPlatformHandler::USER_AGENT_PREFIX;
-
-#ifdef ENJINSDK_VERSION
-    user_agent_ss << ENJINSDK_VERSION;
-#else
-    user_agent_ss << "?";
-#endif
-
-    builder.add_header(http::TrustedPlatformHandler::USER_AGENT, user_agent_ss.str());
+    auto req = http::HttpRequest().set_method(http::HttpMethod::POST)
+                                  .set_path_query_fragment(std::string("/graphql/").append(schema))
+                                  .set_content_type(JSON)
+                                  .set_body(create_request_body(request));
 
     // Adds authorization header if SDK has been authenticated
     auto& tp_handler = middleware.get_handler();
@@ -67,10 +54,10 @@ http::HttpRequest BaseSchema::create_request(graphql::AbstractGraphqlRequest& re
                          << " "
                          << tp_handler->get_auth_token().value();
 
-        builder.add_header(http::TrustedPlatformHandler::AUTHORIZATION, authorization_ss.str());
+        req.add_header(http::AUTHORIZATION, authorization_ss.str());
     }
 
-    return builder.build();
+    return req;
 }
 
 const std::shared_ptr<utils::LoggerProvider>& BaseSchema::get_logger_provider() const {

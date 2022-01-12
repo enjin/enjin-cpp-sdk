@@ -13,20 +13,20 @@
  * limitations under the License.
  */
 
-#ifndef ENJINCPPSDK_ENJINHOSTS_HPP
-#define ENJINCPPSDK_ENJINHOSTS_HPP
+#ifndef ENJINSDK_HTTPHEADERS_HPP
+#define ENJINSDK_HTTPHEADERS_HPP
 
-namespace enjin::sdk {
+namespace enjin::sdk::http {
 
-/// \brief The URI for the kovan Enjin Cloud.
-static constexpr char KOVAN[] = "https://kovan.cloud.enjin.io";
+/// \brief The key for the authorization header.
+static constexpr char AUTHORIZATION[] = "Authorization";
 
-/// \brief The URI for the main Enjin Cloud.
-static constexpr char MAIN_NET[] = "https://cloud.enjin.io";
+/// \brief The key for the content-type header.
+static constexpr char CONTENT_TYPE[] = "Content-Type";
 
-/// \brief The URI for the JumpNet network.
-static constexpr char JUMP_NET[] = "https://jumpnet.cloud.enjin.io";
+/// \brief The key for the user-agent header.
+static constexpr char USER_AGENT[] = "User-Agent";
 
 }
 
-#endif //ENJINCPPSDK_ENJINHOSTS_HPP
+#endif //ENJINSDK_HTTPHEADERS_HPP

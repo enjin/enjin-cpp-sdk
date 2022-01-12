@@ -75,6 +75,11 @@ public:
         /// \return This builder for chaining.
         ProjectClientBuilder& http_client(std::unique_ptr<http::IHttpClient> http_client);
 
+        /// \brief Sets the HTTP log level to set the HTTP client to.
+        /// \param http_log_level The HTTP log level.
+        /// \return This builder for chaining.
+        ProjectClientBuilder& http_log_level(http::HttpLogLevel http_log_level);
+
         /// \brief Sets the logger provider to be used by the client.
         /// \param logger_provider The logger provider.
         /// \return This builder for chaining.
@@ -83,6 +88,7 @@ public:
     private:
         std::optional<std::string> m_base_uri;
         std::unique_ptr<http::IHttpClient> m_http_client;
+        std::optional<http::HttpLogLevel> m_http_log_level;
         std::shared_ptr<utils::LoggerProvider> m_logger_provider;
 
         ProjectClientBuilder() = default;

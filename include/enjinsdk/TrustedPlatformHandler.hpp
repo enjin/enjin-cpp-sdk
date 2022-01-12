@@ -26,14 +26,8 @@ namespace enjin::sdk::http {
 /// \brief Class for handling aspects of communication with the platform.
 class ENJINSDK_EXPORT TrustedPlatformHandler {
 public:
-    /// \brief The request header key for authorization.
-    static constexpr char AUTHORIZATION[] = "Authorization";
-    
     /// \brief The schema of the Authorization request header.
     static constexpr char AUTHORIZATION_SCHEMA[] = "Bearer";
-
-    /// \brief The request header key for the user agent.
-    static constexpr char USER_AGENT[] = "User-Agent";
 
     /// \brief The prefix for the default user agent value of this SDK in "<product>/<version>" format.
     static constexpr char USER_AGENT_PREFIX[] = "Enjin-CPP-SDK/v";

@@ -15,6 +15,8 @@
 
 #include "enjinsdk/TrustedPlatformMiddleware.hpp"
 
+#include "enjinsdk/HttpHeaders.hpp"
+#include <sstream>
 #include <stdexcept>
 #include <utility>
 
@@ -26,6 +28,17 @@ TrustedPlatformMiddleware::TrustedPlatformMiddleware(std::unique_ptr<http::IHttp
         throw std::runtime_error("Nullptr for HTTP client on TrustedPlatformMiddleware construction.");
     }
 
+    // Adds the default SDK user agent header using the defined SDK version if the definition was set
+    std::stringstream user_agent_ss;
+    user_agent_ss << http::TrustedPlatformHandler::USER_AGENT_PREFIX;
+
+#ifdef ENJINSDK_VERSION
+    user_agent_ss << ENJINSDK_VERSION;
+#else
+    user_agent_ss << "?";
+#endif
+
+    TrustedPlatformMiddleware::client->set_default_request_header(http::USER_AGENT, user_agent_ss.str());
     TrustedPlatformMiddleware::client->start();
 }
 

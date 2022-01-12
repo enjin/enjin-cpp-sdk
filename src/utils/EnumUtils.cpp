@@ -16,6 +16,7 @@
 #include "EnumUtils.hpp"
 
 #include "enjinsdk_utils/StringUtils.hpp"
+#include <stdexcept>
 
 namespace enjin::sdk::utils {
 
@@ -228,6 +229,31 @@ models::AssetVariantMode deserialize_asset_variant_mode(const std::string& s) no
     }
 
     return models::AssetVariantMode::UNKNOWN;
+}
+
+http::HttpMethod deserialize_http_method(const std::string& s) {
+    std::string str = enjin::utils::to_upper(s);
+    if (str == "GET") {
+        return http::HttpMethod::GET;
+    } else if (str == "HEAD") {
+        return http::HttpMethod::HEAD;
+    } else if (str == "POST") {
+        return http::HttpMethod::POST;
+    } else if (str == "PUT") {
+        return http::HttpMethod::PUT;
+    } else if (str == "DELETE") {
+        return http::HttpMethod::DEL;
+    } else if (str == "CONNECT") {
+        return http::HttpMethod::CONNECT;
+    } else if (str == "OPTIONS") {
+        return http::HttpMethod::OPTIONS;
+    } else if (str == "TRACE") {
+        return http::HttpMethod::TRACE;
+    } else if (str == "PATCH") {
+        return http::HttpMethod::PATCH;
+    }
+
+    throw std::runtime_error("No valid conversion for " + s + " to HTTP method.");
 }
 
 std::string serialize_event_type(models::EventType v) noexcept {
@@ -513,6 +539,31 @@ std::string serialize_asset_variant_mode(models::AssetVariantMode v) noexcept {
             return "ALWAYS";
         default:
             return "UNKNOWN";
+    }
+}
+
+std::string serialize_http_method(http::HttpMethod v) noexcept {
+    switch (v) {
+        case http::HttpMethod::GET:
+            return "GET";
+        case http::HttpMethod::HEAD:
+            return "HEAD";
+        case http::HttpMethod::POST:
+            return "POST";
+        case http::HttpMethod::PUT:
+            return "PUT";
+        case http::HttpMethod::DEL:
+            return "DELETE";
+        case http::HttpMethod::CONNECT:
+            return "CONNECT";
+        case http::HttpMethod::OPTIONS:
+            return "OPTIONS";
+        case http::HttpMethod::TRACE:
+            return "TRACE";
+        case http::HttpMethod::PATCH:
+            return "PATCH";
+        default:
+            return "";
     }
 }
 
