@@ -21,7 +21,6 @@
 #include "enjinsdk/IHttpClient.hpp"
 #include "enjinsdk/TrustedPlatformHandler.hpp"
 #include <memory>
-#include <string>
 
 namespace enjin::sdk {
 

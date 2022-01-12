@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "PusherConnectionState.hpp"
+#include "enjinsdk/HttpMethod.hpp"
 #include "enjinsdk/models/EventType.hpp"
 #include "enjinsdk/models/RequestState.hpp"
 #include "enjinsdk/models/RequestType.hpp"
@@ -58,6 +59,9 @@ ENJINSDK_EXPORT
 models::AssetVariantMode deserialize_asset_variant_mode(const std::string& s) noexcept;
 
 ENJINSDK_EXPORT
+http::HttpMethod deserialize_http_method(const std::string& s);
+
+ENJINSDK_EXPORT
 std::string serialize_event_type(models::EventType v) noexcept;
 
 ENJINSDK_EXPORT
@@ -92,6 +96,9 @@ std::string serialize_asset_transferable(models::AssetTransferable v) noexcept;
 
 ENJINSDK_EXPORT
 std::string serialize_asset_variant_mode(models::AssetVariantMode v) noexcept;
+
+ENJINSDK_EXPORT
+std::string serialize_http_method(http::HttpMethod v) noexcept;
 
 ENJINSDK_EXPORT
 std::string serialize_operator(models::Operator v) noexcept;
