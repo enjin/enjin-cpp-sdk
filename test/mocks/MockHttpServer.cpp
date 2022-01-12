@@ -16,22 +16,25 @@
 #include "MockHttpServer.hpp"
 
 #include "httplib.h"
+#include "enjinsdk/HttpHeaders.hpp"
 #include <map>
 #include <memory>
+#include <queue>
 #include <sstream>
 #include <stdexcept>
 #include <thread>
+#include <utility>
 
 namespace enjin::test::mocks {
 
-void ResponseProvider::respond_with(const sdk::http::HttpResponse& response) {
+void ResponseProvider::respond_with(sdk::http::HttpResponse response) {
     if (!response.get_body().has_value()) {
         throw std::runtime_error("Stub response does not have a body");
-    } else if (!response.get_content_type().has_value()) {
-        throw std::runtime_error("Stub response does not have content-type");
+    } else if (!response.has_header(sdk::http::CONTENT_TYPE)) {
+        throw std::runtime_error("Stub response does not have content-type header");
     }
 
-    ResponseProvider::response.emplace(response);
+    ResponseProvider::response = std::move(response);
 }
 
 const std::optional<sdk::http::HttpResponse>& ResponseProvider::get_response() const {
@@ -72,31 +75,46 @@ public:
         }
     }
 
+    void next_message(std::function<void(const sdk::http::HttpRequest&)> handler) {
+        std::lock_guard<std::mutex> guard(messages_mutex);
+        message_handlers.emplace(std::move(handler));
+    }
+
     ResponseProvider& given(const sdk::http::HttpRequest& request) {
+        if (!request.get_path_query_fragment().has_value()) {
+            throw std::runtime_error("Request does not have a set path query fragment");
+        }
+        if (!request.get_method().has_value()) {
+            throw std::runtime_error("Request does not have a set HTTP method");
+        }
+
+        auto path_query_fragment = request.get_path_query_fragment().value();
+        auto method = request.get_method().value();
+
         std::lock_guard<std::mutex> guard(server_mutex);
 
-        response_provider_map[request.get_path_query_fragment()] = std::make_unique<ResponseProvider>();
-        auto& provider = response_provider_map[request.get_path_query_fragment()];
+        response_provider_map[path_query_fragment] = std::make_unique<ResponseProvider>();
+        auto& provider = response_provider_map[path_query_fragment];
         auto handler = create_handler(provider);
 
-        switch (request.get_method()) {
-            case sdk::http::HttpMethod::Get:
-                server.Get(request.get_path_query_fragment().c_str(), handler);
+        switch (method) {
+            case sdk::http::HttpMethod::GET:
+                server.Get(path_query_fragment.c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::Post:
-                server.Post(request.get_path_query_fragment().c_str(), handler);
+            case sdk::http::HttpMethod::POST:
+                server.Post(path_query_fragment.c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::Put:
-                server.Put(request.get_path_query_fragment().c_str(), handler);
+            case sdk::http::HttpMethod::PUT:
+                server.Put(path_query_fragment.c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::Delete:
-                server.Delete(request.get_path_query_fragment().c_str(), handler);
+            case sdk::http::HttpMethod::DEL:
+                server.Delete(path_query_fragment.c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::Options:
-                server.Options(request.get_path_query_fragment().c_str(), handler);
+            case sdk::http::HttpMethod::OPTIONS:
+                server.Options(path_query_fragment.c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::Patch:
-                server.Patch(request.get_path_query_fragment().c_str(), handler);
+            case sdk::http::HttpMethod::PATCH:
+                server.Patch(path_query_fragment.c_str(), handler);
                 break;
             default:
                 throw std::runtime_error("Unsupported HTTP method");
@@ -119,22 +137,70 @@ public:
 
 private:
     httplib::Server server;
-    std::map<std::string, std::unique_ptr<ResponseProvider>> response_provider_map;
     std::optional<int> port;
 
-    std::thread server_thread;
-    std::mutex server_mutex;
+    std::map<std::string, std::unique_ptr<ResponseProvider>> response_provider_map;
+    std::queue<std::function<void(sdk::http::HttpRequest)>> message_handlers;
 
-    static httplib::Server::Handler create_handler(const std::unique_ptr<ResponseProvider>& provider) {
-        return httplib::Server::Handler([&provider](const httplib::Request& req, httplib::Response& res) {
+    // Threads
+    std::thread server_thread;
+
+    // Mutexes
+    mutable std::mutex messages_mutex;
+    mutable std::mutex server_mutex;
+
+    httplib::Server::Handler create_handler(const std::unique_ptr<ResponseProvider>& provider) {
+        return {[this, &provider](const httplib::Request& req, httplib::Response& res) {
+            process_next_message(req);
+
             if (!provider->get_response().has_value()) {
                 return;
             }
 
             res.status = provider->get_response()->get_code().value();
             res.set_content(provider->get_response()->get_body().value(),
-                            provider->get_response()->get_content_type()->c_str());
-        });
+                            provider->get_response()->get_header_value(sdk::http::CONTENT_TYPE)->c_str());
+        }};
+    }
+
+    void process_next_message(const httplib::Request& req) {
+        std::unique_lock<std::mutex> lock(messages_mutex);
+        if (message_handlers.empty()) {
+            return;
+        }
+
+        auto handler = message_handlers.front();
+        message_handlers.pop();
+        lock.unlock();
+
+        auto request = sdk::http::HttpRequest()
+                .set_method(convert_http_method(req.method))
+                .set_path_query_fragment(req.path)
+                .set_body(req.body);
+
+        for (const auto&[k, v]: req.headers) {
+            request.add_header(k, v);
+        }
+
+        handler(request);
+    }
+
+    static sdk::http::HttpMethod convert_http_method(const std::string& method) {
+        if (method == "GET") {
+            return sdk::http::HttpMethod::GET;
+        } else if (method == "POST") {
+            return sdk::http::HttpMethod::POST;
+        } else if (method == "PUT") {
+            return sdk::http::HttpMethod::PUT;
+        } else if (method == "DELETE") {
+            return sdk::http::HttpMethod::DEL;
+        } else if (method == "OPTIONS") {
+            return sdk::http::HttpMethod::OPTIONS;
+        } else if (method == "PATCH") {
+            return sdk::http::HttpMethod::PATCH;
+        }
+
+        throw std::runtime_error("Unsupported HTTP method conversion");
     }
 };
 
@@ -151,6 +217,10 @@ void MockHttpServer::start() {
 
 void MockHttpServer::stop() {
     impl->stop();
+}
+
+void MockHttpServer::next_message(std::function<void(const sdk::http::HttpRequest&)> handler) {
+    impl->next_message(std::move(handler));
 }
 
 ResponseProvider& MockHttpServer::given(const sdk::http::HttpRequest& request) {

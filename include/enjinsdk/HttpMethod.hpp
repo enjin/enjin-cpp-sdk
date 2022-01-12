@@ -13,20 +13,24 @@
  * limitations under the License.
  */
 
-#ifndef ENJINCPPSDK_ENJINHOSTS_HPP
-#define ENJINCPPSDK_ENJINHOSTS_HPP
+#ifndef ENJINSDK_HTTPMETHOD_HPP
+#define ENJINSDK_HTTPMETHOD_HPP
 
-namespace enjin::sdk {
+namespace enjin::sdk::http {
 
-/// \brief The URI for the kovan Enjin Cloud.
-static constexpr char KOVAN[] = "https://kovan.cloud.enjin.io";
-
-/// \brief The URI for the main Enjin Cloud.
-static constexpr char MAIN_NET[] = "https://cloud.enjin.io";
-
-/// \brief The URI for the JumpNet network.
-static constexpr char JUMP_NET[] = "https://jumpnet.cloud.enjin.io";
+/// \brief Enums representing HTTP methods.
+enum class HttpMethod {
+    GET,
+    HEAD,
+    POST,
+    PUT,
+    DEL,
+    CONNECT,
+    OPTIONS,
+    TRACE,
+    PATCH,
+};
 
 }
 
-#endif //ENJINCPPSDK_ENJINHOSTS_HPP
+#endif //ENJINSDK_HTTPMETHOD_HPP

@@ -26,7 +26,6 @@
 #include "enjinsdk/IHttpClient.hpp"
 #include "enjinsdk/LoggerProvider.hpp"
 #include <future>
-#include <memory>
 #include <string>
 
 namespace enjin::sdk::http {
@@ -38,8 +37,7 @@ public:
 
     /// \brief Creates the HTTP client with the base URI.
     /// \param base_uri The base URI for the client.
-    /// \param logger_provider The logger provider. Null pointer by default.
-    explicit HttpClient(std::string base_uri, std::shared_ptr<utils::LoggerProvider> logger_provider = nullptr);
+    explicit HttpClient(std::string base_uri);
 
     /// \brief Destructor.
     ~HttpClient() override;
@@ -55,6 +53,10 @@ public:
     [[nodiscard]] const std::string& get_base_uri() const;
 
     [[nodiscard]] bool is_open() const override;
+
+    void set_default_request_header(std::string key, std::string value) override;
+
+    void set_logger(HttpLogLevel level, std::shared_ptr<utils::LoggerProvider> logger_provider) override;
 
 private:
     class Impl;

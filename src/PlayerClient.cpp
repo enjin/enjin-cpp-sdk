@@ -54,7 +54,7 @@ bool PlayerClient::is_closed() const {
 }
 
 PlayerClient::PlayerClientBuilder PlayerClient::builder() {
-    return PlayerClient::PlayerClientBuilder();
+    return {};
 }
 
 PlayerClient PlayerClient::PlayerClientBuilder::build() {
@@ -64,15 +64,18 @@ PlayerClient PlayerClient::PlayerClientBuilder::build() {
             throw std::runtime_error("No base URI was set for default HTTP client implementation");
         }
 
-        return PlayerClient(TrustedPlatformMiddleware(std::make_unique<http::HttpClient>(m_base_uri.value(),
-                                                                                         m_logger_provider)),
-                            m_logger_provider);
+        auto client = std::make_unique<http::HttpClient>(m_base_uri.value());
+        auto log_level = m_http_log_level.value_or(http::HttpLogLevel::NONE);
+        if (log_level != http::HttpLogLevel::NONE && m_logger_provider != nullptr) {
+            client->set_logger(log_level, m_logger_provider);
+        }
+
+        return {TrustedPlatformMiddleware(std::move(client)), m_logger_provider};
 #else
         throw std::runtime_error("Attempted building platform client without providing an HTTP client");
 #endif
     } else {
-        return PlayerClient(TrustedPlatformMiddleware(std::move(m_http_client)),
-                            m_logger_provider);
+        return {TrustedPlatformMiddleware(std::move(m_http_client)), m_logger_provider};
     }
 }
 
@@ -84,6 +87,12 @@ PlayerClient::PlayerClientBuilder& PlayerClient::PlayerClientBuilder::base_uri(s
 PlayerClient::PlayerClientBuilder&
 PlayerClient::PlayerClientBuilder::http_client(std::unique_ptr<http::IHttpClient> http_client) {
     m_http_client = std::move(http_client);
+    return *this;
+}
+
+PlayerClient::PlayerClientBuilder&
+PlayerClient::PlayerClientBuilder::http_log_level(http::HttpLogLevel http_log_level) {
+    m_http_log_level = http_log_level;
     return *this;
 }
 
