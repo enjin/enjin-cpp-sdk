@@ -13,20 +13,19 @@
  * limitations under the License.
  */
 
-#ifndef ENJINCPPSDK_ENJINHOSTS_HPP
-#define ENJINCPPSDK_ENJINHOSTS_HPP
+#ifndef ENJINSDK_HTTPLOGLEVEL_HPP
+#define ENJINSDK_HTTPLOGLEVEL_HPP
 
-namespace enjin::sdk {
+namespace enjin::sdk::http {
 
-/// \brief The URI for the Enjin Platform on the Goerli test network.
-static constexpr char GOERLI[] = "https://goerli.cloud.enjin.io";
-
-/// \brief The URI for the Enjin Platform on the main network.
-static constexpr char MAIN_NET[] = "https://cloud.enjin.io";
-
-/// \brief The URI for the Enjin Platform on the JumpNet network.
-static constexpr char JUMP_NET[] = "https://jumpnet.cloud.enjin.io";
+/// \brief Enum for different logging levels of HTTP traffic
+enum class HttpLogLevel {
+    NONE, ///< No logging.
+    BASIC, ///< Logs request and response lines.
+    HEADERS, ///< Logs request and response lines as well as their respective headers.
+    BODY, ///< Logs request and response lines as well as their respective headers and bodies if present.
+};
 
 }
 
-#endif //ENJINCPPSDK_ENJINHOSTS_HPP
+#endif //ENJINSDK_HTTPLOGLEVEL_HPP

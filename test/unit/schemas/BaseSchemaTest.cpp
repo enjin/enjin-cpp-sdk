@@ -17,6 +17,7 @@
 #include "FakeGraphqlRequest.hpp"
 #include "MockHttpClient.hpp"
 #include "TestableBaseSchema.hpp"
+#include "enjinsdk/HttpHeaders.hpp"
 #include <string>
 
 using namespace enjin::sdk;
@@ -59,7 +60,7 @@ TEST_F(BaseSchemaTest, CreateRequestHandlerIsNotAuthenticatedRequestDoesNotHaveA
     HttpRequest request = schema.create_request(dummy_request);
 
     // Asert
-    ASSERT_FALSE(request.has_header(TrustedPlatformHandler::AUTHORIZATION));
+    ASSERT_FALSE(request.has_header(AUTHORIZATION));
 }
 
 TEST_F(BaseSchemaTest, CreateRequestHandlerIsAuthenticatedRequestHasAuthorizationHeader) {
@@ -74,5 +75,5 @@ TEST_F(BaseSchemaTest, CreateRequestHandlerIsAuthenticatedRequestHasAuthorizatio
     HttpRequest request = schema.create_request(dummy_request);
 
     // Asert
-    ASSERT_TRUE(request.has_header(TrustedPlatformHandler::AUTHORIZATION));
+    ASSERT_TRUE(request.has_header(AUTHORIZATION));
 }
