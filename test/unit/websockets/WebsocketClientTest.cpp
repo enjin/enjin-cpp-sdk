@@ -17,7 +17,9 @@
 #include "WebsocketClient.hpp"
 #include "MockWebsocketServer.hpp"
 #include "VerificationTestSuite.hpp"
+#include <chrono>
 #include <string>
+#include <thread>
 
 using namespace enjin::sdk::websockets;
 using namespace enjin::test::mocks;
@@ -30,6 +32,8 @@ public:
 
     WebsocketClient class_under_test;
     MockWebsocketServer mock_server;
+
+    static MockWebsocketServer server;
 
 protected:
     void SetUp() override {
@@ -67,6 +71,8 @@ TEST_F(WebsocketClientConnectCloseTest, ConnectClientOpensConnectionWithServer) 
     // Act
     class_under_test.connect(URI).get();
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
     // Verify
     verify_call_count(1);
 
@@ -93,6 +99,8 @@ TEST_F(WebsocketClientConnectCloseTest, ClientReconnectsAfterConnectionIsClosed)
     // Act
     mock_server.close();
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
     // Verify
     verify_call_count(1);
 
@@ -108,22 +116,6 @@ TEST_F(WebsocketClientConnectCloseTest, ConnectConnectingResultsInErrorWhenFaile
 
     // Assert
     ASSERT_ANY_THROW(future.get());
-}
-
-TEST_F(WebsocketClientConnectCloseTest, ConnectCloseMessageHandlerReceivesMessage) {
-    // Arrange - Data
-    mock_server.close();
-
-    // Arrange - Expectations
-    class_under_test.set_close_handler([this](int status, const std::string& reason) {
-        increment_call_counter();
-    });
-    set_expected_call_count(1);
-
-    // Act
-    std::future<void> future = class_under_test.connect(URI);
-
-    // Assert (see: Arrange - Expectations)
 }
 
 TEST_F(WebsocketClientConnectCloseTest, CloseClientClosesOpenConnectionWithServer) {
@@ -142,6 +134,8 @@ TEST_F(WebsocketClientConnectCloseTest, CloseClientClosesOpenConnectionWithServe
 
     // Act
     class_under_test.close().get();
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     // Verify
     verify_call_count(1);
@@ -166,6 +160,8 @@ TEST_F(WebsocketClientTest, ServerClosesConnectionClientReceivesExpected) {
     // Act
     mock_server.close(expected_status, expected_reason);
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
     // Verify
     verify_call_count(1);
 
@@ -185,6 +181,8 @@ TEST_F(WebsocketClientTest, CloseNoArgsReceiveExpectedData) {
 
     // Act
     class_under_test.close().get();
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     // Verify
     verify_call_count(1);
@@ -211,6 +209,8 @@ TEST_F(WebsocketClientTest, CloseWithArgsReceiveExpectedData) {
     // Act
     class_under_test.close(expected_status, expected_message).get();
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
     // Verify
     verify_call_count(1);
 
@@ -235,6 +235,8 @@ TEST_F(WebsocketClientTest, SendServerReceivesMessage) {
     // Act
     class_under_test.send(expected);
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
     // Verify
     verify_call_count(1);
 
@@ -258,6 +260,8 @@ TEST_F(WebsocketClientTest, SetMessageHandlerHandlerReceivesExpectedDataFromServ
     // Act
     mock_server.send_message(message);
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
     // Verify
     verify_call_count(1);
 
@@ -273,6 +277,8 @@ TEST_F(WebsocketClientConnectCloseTest, SetOpenHandlerHandlerReceivesExpectedDat
 
     // Act
     class_under_test.connect(URI).get();
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     // Verify
     verify_call_count(1);
@@ -297,6 +303,8 @@ TEST_F(WebsocketClientConnectCloseTest, SetCloseHandlerHandlerReceivesExpectedDa
 
     // Act
     mock_server.close(expected_code, expected_reason);
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     // Verify
     verify_call_count(1);

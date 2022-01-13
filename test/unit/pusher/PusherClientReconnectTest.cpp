@@ -56,7 +56,7 @@ TEST_F(PusherClientReconnectTest, ReceivesGenericClosingCodeAndReconnectToServer
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     // Verify
-    verify_call_count(2);
+    verify_call_count(1);
 
     // Assert
     EXPECT_EQ(PusherConnectionState::CONNECTED, client.get_state());
@@ -70,10 +70,20 @@ TEST_F(PusherClientReconnectTest, ReceivesPusherClosingCodeDoesNotReconnectToSer
     client.connect().get();
     mock_server.next_message([](const TestWebsocketMessage& message) { /* Consumes initial open message */ });
 
+    // Arrange - Expectations
+    mock_server.next_message([this](const TestWebsocketMessage& message) {
+        increment_call_counter();
+        EXPECT_EQ(WebsocketMessageType::WEBSOCKET_OPEN_TYPE, message.get_type());
+    });
+    set_expected_call_count(0);
+
     // Act
     mock_server.close(status_code, reason);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+    // Verify
+    verify_call_count(1);
 
     // Assert
     EXPECT_EQ(PusherConnectionState::DISCONNECTED, client.get_state());
