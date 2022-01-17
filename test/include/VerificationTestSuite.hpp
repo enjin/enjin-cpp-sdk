@@ -16,25 +16,39 @@
 #ifndef ENJINCPPSDK_VERIFICATIONTESTSUITE_HPP
 #define ENJINCPPSDK_VERIFICATIONTESTSUITE_HPP
 
-#include <atomic>
-#include <chrono>
+#include <condition_variable>
 #include <mutex>
 
 namespace enjin::test::suites {
 
+/// \brief Test suite to assist in setting expectations and verifying asynchronous operations.
 class VerificationTestSuite {
 public:
-    VerificationTestSuite();
+    /// \brief Default constructor.
+    VerificationTestSuite() = default;
 
+    /// \brief Default destructor.
+    ~VerificationTestSuite() = default;
+
+    /// \brief Sets the expected number of times a operation is expected to call the increment_call_counter() member
+    /// function.
+    /// \param count The expected call count.
     void set_expected_call_count(int count);
 
+    /// \brief Increments the call counter.
     void increment_call_counter();
 
-    void verify_call_count(int time = 0) const;
+    /// \brief Verifies that the actual call count is equal to the expected call count.
+    /// \param seconds The number of seconds before this verification checks times out.
+    void verify_call_count(int seconds = 5);
 
 private:
-    std::atomic_int call_counter;
-    int expected_count;
+    int call_counter = 0;
+    int expected_count = 0;
+    std::condition_variable cv;
+
+    // Mutexes
+    mutable std::mutex count_mutex;
 };
 
 }

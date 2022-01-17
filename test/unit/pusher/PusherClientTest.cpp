@@ -92,7 +92,7 @@ TEST_F(PusherClientTest, SubscribeClientSendsMessageToServerAndSubscribesToChann
     ASSERT_TRUE(client.is_subscribed(channel_name));
 
     // Verify
-    verify_call_count(1);
+    verify_call_count();
 }
 
 TEST_F(PusherClientTest, UnsubscribeClientSendsMessageToServerAndUnsubscribesFromChannel) {
@@ -124,7 +124,7 @@ TEST_F(PusherClientTest, UnsubscribeClientSendsMessageToServerAndUnsubscribesFro
     ASSERT_FALSE(client.is_subscribed(channel_name));
 
     // Verify
-    verify_call_count(1);
+    verify_call_count();
 }
 
 TEST_F(PusherClientTest, UnsubscribeClientUnsubscribesWhilePendingSubscription) {
@@ -218,7 +218,7 @@ TEST_F(PusherClientTest, ClientSendsCachedSubscribeMessageAfterConnecting) {
     ASSERT_TRUE(client.is_subscribed(channel_name));
 
     // Verify
-    verify_call_count(1);
+    verify_call_count();
 }
 
 TEST_F(PusherClientTest, ClientUncachesAndDoesNotSendSubscribeMessageAfterConnecting) {
@@ -244,7 +244,7 @@ TEST_F(PusherClientTest, ClientUncachesAndDoesNotSendSubscribeMessageAfterConnec
     ASSERT_FALSE(client.is_subscribed(channel_name));
 
     // Verify
-    verify_call_count(1);
+    verify_call_count();
 }
 
 TEST_F(PusherClientTest, ClientReceivesErrorMessageFromServerAndRaisesExceptionInHandler) {
@@ -268,5 +268,5 @@ TEST_F(PusherClientTest, ClientReceivesErrorMessageFromServerAndRaisesExceptionI
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Verify
-    verify_call_count(1);
+    verify_call_count();
 }
