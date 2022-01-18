@@ -31,6 +31,8 @@ public:
     WebsocketClient class_under_test;
     MockWebsocketServer mock_server;
 
+    static MockWebsocketServer server;
+
 protected:
     void SetUp() override {
         mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
@@ -68,11 +70,13 @@ TEST_F(WebsocketClientConnectCloseTest, ConnectClientOpensConnectionWithServer) 
     class_under_test.connect(URI).get();
 
     // Verify
-    verify_call_count(1);
+    verify_call_count();
 
     // Assert (see: Arrange - Expectations)
 }
 
+/* TODO: This test tends to not work on GitHub's Ubuntu test runner. The reason why needs to be figured out and fixed.
+ */
 TEST_F(WebsocketClientConnectCloseTest, ClientReconnectsAfterConnectionIsClosed) {
     // Arrange - Data
     mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_CLOSE_TYPE)
@@ -94,7 +98,7 @@ TEST_F(WebsocketClientConnectCloseTest, ClientReconnectsAfterConnectionIsClosed)
     mock_server.close();
 
     // Verify
-    verify_call_count(1);
+    verify_call_count();
 
     // Assert (see: Arrange - Expectations)
 }
@@ -108,22 +112,6 @@ TEST_F(WebsocketClientConnectCloseTest, ConnectConnectingResultsInErrorWhenFaile
 
     // Assert
     ASSERT_ANY_THROW(future.get());
-}
-
-TEST_F(WebsocketClientConnectCloseTest, ConnectCloseMessageHandlerReceivesMessage) {
-    // Arrange - Data
-    mock_server.close();
-
-    // Arrange - Expectations
-    class_under_test.set_close_handler([this](int status, const std::string& reason) {
-        increment_call_counter();
-    });
-    set_expected_call_count(1);
-
-    // Act
-    std::future<void> future = class_under_test.connect(URI);
-
-    // Assert (see: Arrange - Expectations)
 }
 
 TEST_F(WebsocketClientConnectCloseTest, CloseClientClosesOpenConnectionWithServer) {
@@ -144,7 +132,7 @@ TEST_F(WebsocketClientConnectCloseTest, CloseClientClosesOpenConnectionWithServe
     class_under_test.close().get();
 
     // Verify
-    verify_call_count(1);
+    verify_call_count();
 
     // Assert (see: Arrange - Expectations)
 }
@@ -167,7 +155,7 @@ TEST_F(WebsocketClientTest, ServerClosesConnectionClientReceivesExpected) {
     mock_server.close(expected_status, expected_reason);
 
     // Verify
-    verify_call_count(1);
+    verify_call_count();
 
     // Assert (see: Arrange - Expectations)
 }
@@ -187,7 +175,7 @@ TEST_F(WebsocketClientTest, CloseNoArgsReceiveExpectedData) {
     class_under_test.close().get();
 
     // Verify
-    verify_call_count(1);
+    verify_call_count();
 
     // Assert (see: Arrange - Expectations)
 }
@@ -212,7 +200,7 @@ TEST_F(WebsocketClientTest, CloseWithArgsReceiveExpectedData) {
     class_under_test.close(expected_status, expected_message).get();
 
     // Verify
-    verify_call_count(1);
+    verify_call_count();
 
     // Assert (see: Arrange - Expectations)
 }
@@ -236,7 +224,7 @@ TEST_F(WebsocketClientTest, SendServerReceivesMessage) {
     class_under_test.send(expected);
 
     // Verify
-    verify_call_count(1);
+    verify_call_count();
 
     // Assert (see: Arrange - Expectations)
 }
@@ -259,7 +247,7 @@ TEST_F(WebsocketClientTest, SetMessageHandlerHandlerReceivesExpectedDataFromServ
     mock_server.send_message(message);
 
     // Verify
-    verify_call_count(1);
+    verify_call_count();
 
     // Assert (see: Arrange - Expectations)
 }
@@ -275,7 +263,7 @@ TEST_F(WebsocketClientConnectCloseTest, SetOpenHandlerHandlerReceivesExpectedDat
     class_under_test.connect(URI).get();
 
     // Verify
-    verify_call_count(1);
+    verify_call_count();
 
     // Assert (see: Arrange - Expectations)
 }
@@ -299,7 +287,7 @@ TEST_F(WebsocketClientConnectCloseTest, SetCloseHandlerHandlerReceivesExpectedDa
     mock_server.close(expected_code, expected_reason);
 
     // Verify
-    verify_call_count(1);
+    verify_call_count();
 
     // Assert (see: Arrange - Expectations)
 

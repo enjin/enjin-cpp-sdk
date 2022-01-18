@@ -16,27 +16,26 @@
 #include "VerificationTestSuite.hpp"
 
 #include "gtest/gtest.h"
-#include <condition_variable>
+#include <chrono>
 
 namespace enjin::test::suites {
 
-VerificationTestSuite::VerificationTestSuite() : call_counter(0), expected_count(0) {
-}
-
 void VerificationTestSuite::set_expected_call_count(int count) {
+    std::lock_guard<std::mutex> guard(count_mutex);
     expected_count = count;
 }
 
 void VerificationTestSuite::increment_call_counter() {
+    std::lock_guard<std::mutex> guard(count_mutex);
     call_counter++;
+    cv.notify_all();
 }
 
-void VerificationTestSuite::verify_call_count(int time) const {
+void VerificationTestSuite::verify_call_count(int seconds) {
+    std::unique_lock<std::mutex> lock(count_mutex);
+
     // Waits and gives the calls an opportunity to be made if asynchronous
-    std::mutex mutex;
-    std::unique_lock<std::mutex> lock(mutex);
-    std::condition_variable condition_variable;
-    condition_variable.wait_for(lock, std::chrono::seconds(time), [this]() {
+    cv.wait_for(lock, std::chrono::seconds(seconds), [this]() {
         return expected_count == call_counter;
     });
 

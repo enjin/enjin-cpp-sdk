@@ -15,13 +15,16 @@
 
 #include "MockWebsocketServer.hpp"
 
-#include "ixwebsocket/IXNetSystem.h"
 #include "ixwebsocket/IXWebSocketServer.h"
 #include <algorithm>
 #include <mutex>
 #include <queue>
 #include <set>
 #include <stdexcept>
+
+#ifdef WIN32
+#include "ixwebsocket/IXNetSystem.h"
+#endif
 
 #define WEBSOCKET_TEST_SERVER_PORT 8080
 
@@ -83,6 +86,7 @@ public:
             throw std::runtime_error(res.second);
         }
 
+        server.disablePerMessageDeflate();
         server.start();
     }
 
@@ -170,7 +174,7 @@ public:
         std::lock_guard<std::mutex> guard(message_handlers_lock);
 
         if (message_handlers.empty()) {
-            return std::function<void(TestWebsocketMessage)>();
+            return {};
         }
 
         auto handler = message_handlers.front();

@@ -17,7 +17,6 @@
 #include "HttpClient.hpp"
 #include "MockHttpServer.hpp"
 #include "VerificationTestSuite.hpp"
-#include <stdexcept>
 
 using namespace enjin::sdk::http;
 using namespace enjin::test::mocks;
@@ -73,18 +72,4 @@ TEST_F(HttpClientTest, SendRequestReceivesSuccessfulResponseAndReturnsExpected) 
 
     // Assert
     ASSERT_EQ(expected, actual);
-}
-
-TEST_F(HttpClientTest, SendRequestReceivesErrorResponseAndThrowsError) {
-    // Arrange - Data
-    HttpClient client = create_client();
-    HttpRequest dummy_request = create_default_request();
-    client.start();
-    mock_server.stop();
-
-    // Act
-    auto future = client.send_request(dummy_request);
-
-    // Assert
-    ASSERT_THROW(future.get(), std::runtime_error);
 }

@@ -139,7 +139,7 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToProjectServiceSubscribesToCha
     EXPECT_TRUE(service->is_subscribed_to_project(project));
 
     // Verify
-    verify_call_count(2);
+    verify_call_count();
 }
 
 TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToProjectServiceIsUnsubscribedFromChannel) {
@@ -203,7 +203,7 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToPlayerServiceSubscribesToChan
     EXPECT_TRUE(service->is_subscribed_to_player(project, player));
 
     // Verify
-    verify_call_count(2);
+    verify_call_count();
 }
 
 TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToPlayerServiceIsUnsubscribedFromChannel) {
@@ -267,7 +267,7 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToAssetServiceSubscribesToChann
     EXPECT_TRUE(service->is_subscribed_to_asset(asset));
 
     // Verify
-    verify_call_count(2);
+    verify_call_count();
 }
 
 TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToAssetServiceIsUnsubscribedFromChannel) {
@@ -330,7 +330,7 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToWalletServiceSubscribesToChan
     EXPECT_TRUE(service->is_subscribed_to_wallet(wallet));
 
     // Verify
-    verify_call_count(2);
+    verify_call_count();
 }
 
 TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToWalletServiceIsUnsubscribedFromChannel) {
@@ -397,5 +397,5 @@ TEST_F(PusherEventServiceWebsocketTest, StartPreviouslyActiveServiceResubscribes
     EXPECT_TRUE(service->is_subscribed_to_project(project));
 
     // Verify
-    verify_call_count(2);
+    verify_call_count();
 }
