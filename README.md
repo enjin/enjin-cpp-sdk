@@ -1,6 +1,7 @@
 # Blockchain SDK by Enjin for C++
 
-[![build_and_test](https://github.com/enjin/enjin-cpp-sdk/actions/workflows/build_and_test.yml/badge.svg?branch=master)](https://github.com/enjin/enjin-cpp-sdk/actions/workflows/build_and_test.yml)
+[![Build & Test Linux](https://github.com/enjin/enjin-cpp-sdk/actions/workflows/Build%20&%20Test%20Linux.yml/badge.svg?branch=master)](https://github.com/enjin/enjin-cpp-sdk/actions/workflows/Build%20&%20Test%20Linux.yml)
+[![Build & Test Windows](https://github.com/enjin/enjin-cpp-sdk/actions/workflows/Build%20&%20Test%20Windows.yml/badge.svg?branch=master)](https://github.com/enjin/enjin-cpp-sdk/actions/workflows/Build%20&%20Test%20Windows.yml)
 
 Create blockchain video games and applications using the C++ programming language.
 
