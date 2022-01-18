@@ -86,6 +86,7 @@ public:
             throw std::runtime_error(res.second);
         }
 
+        server.disablePerMessageDeflate();
         server.start();
     }
 
@@ -173,7 +174,7 @@ public:
         std::lock_guard<std::mutex> guard(message_handlers_lock);
 
         if (message_handlers.empty()) {
-            return std::function<void(TestWebsocketMessage)>();
+            return {};
         }
 
         auto handler = message_handlers.front();
