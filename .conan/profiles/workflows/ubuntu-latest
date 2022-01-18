@@ -9,6 +9,6 @@ os=Linux
 os_build=Linux
 [options]
 enable_default_http_client=True
-enable_default_ws_client=True
+enable_default_ws_client=False
 [build_requires]
 [env]
