@@ -21,13 +21,18 @@
 
 namespace enjin::sdk {
 
-/// \brief The URI for the kovan Enjin Cloud.
+/// \brief The URI for the Enjin Platform on the Goerli test network.
+static constexpr char GOERLI[] = "https://kovan.cloud.enjin.io";
+
+/// \brief The URI for the Enjin Platform on the Kovan test network.
+/// \deprecated This host may no longer be supported. Use the GOERLI host.
+[[deprecated("Kovan is deprecated, please use Goerli instead for a test network.")]]
 static constexpr char KOVAN[] = "https://kovan.cloud.enjin.io";
 
-/// \brief The URI for the main Enjin Cloud.
+/// \brief The URI for the Enjin Platform on the main network.
 static constexpr char MAIN_NET[] = "https://cloud.enjin.io";
 
-/// \brief The URI for the JumpNet network.
+/// \brief The URI for the Enjin Platform on the JumpNet network.
 static constexpr char JUMP_NET[] = "https://jumpnet.cloud.enjin.io";
 
 }
