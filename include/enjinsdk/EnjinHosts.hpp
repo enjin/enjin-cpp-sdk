@@ -22,7 +22,7 @@
 namespace enjin::sdk {
 
 /// \brief The URI for the Enjin Platform on the Goerli test network.
-static constexpr char GOERLI[] = "https://kovan.cloud.enjin.io";
+static constexpr char GOERLI[] = "https://goerli.cloud.enjin.io";
 
 /// \brief The URI for the Enjin Platform on the Kovan test network.
 /// \deprecated This host may no longer be supported. Use the GOERLI host.
