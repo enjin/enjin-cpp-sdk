@@ -57,7 +57,7 @@ PlayerClient::PlayerClientBuilder PlayerClient::builder() {
     return {};
 }
 
-PlayerClient PlayerClient::PlayerClientBuilder::build() {
+std::unique_ptr<PlayerClient> PlayerClient::PlayerClientBuilder::build() {
     if (m_http_client == nullptr) {
 #if ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL
         if (!m_base_uri.has_value()) {
@@ -70,12 +70,14 @@ PlayerClient PlayerClient::PlayerClientBuilder::build() {
             client->set_logger(log_level, m_logger_provider);
         }
 
-        return {TrustedPlatformMiddleware(std::move(client)), m_logger_provider};
+        return std::unique_ptr<PlayerClient>(new PlayerClient(TrustedPlatformMiddleware(std::move(client)),
+                                                              m_logger_provider));
 #else
         throw std::runtime_error("Attempted building platform client without providing an HTTP client");
 #endif
     } else {
-        return {TrustedPlatformMiddleware(std::move(m_http_client)), m_logger_provider};
+        return std::unique_ptr<PlayerClient>(new PlayerClient(TrustedPlatformMiddleware(std::move(m_http_client)),
+                                                              m_logger_provider));
     }
 }
 
