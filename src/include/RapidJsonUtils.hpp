@@ -30,12 +30,10 @@
 namespace enjin::sdk::utils {
 
 ENJINSDK_EXPORT
-void join_serialized_object_to_document(rapidjson::Document& document,
-                                        const std::string& o);
+void join_serialized_object_to_document(rapidjson::Document& document, const std::string& o);
 
 ENJINSDK_EXPORT
-void join_serialized_objects_to_document(rapidjson::Document& document,
-                                         const std::vector<std::string>& o);
+void join_serialized_objects_to_document(rapidjson::Document& document, const std::vector<std::string>& o);
 
 ENJINSDK_EXPORT
 std::string document_to_string(const rapidjson::Document& document);
@@ -45,14 +43,13 @@ std::vector<std::string> get_array_as_serialized_vector(const rapidjson::Documen
                                                         const std::string& key = "");
 
 template<class T>
-std::vector<T> get_array_as_type_vector(const rapidjson::Document& document,
-                                        const std::string& key = "") {
+std::vector<T> get_array_as_type_vector(const rapidjson::Document& document, const std::string& key = "") {
     static_assert(std::is_base_of<serialization::IDeserializable, T>::value,
                   "Class T does not inherit from IDeserializable.");
 
     if (key.empty() && document.IsArray()) {
         std::vector<T> v;
-        for (auto& arr_el : document.GetArray()) {
+        for (auto& arr_el: document.GetArray()) {
             rapidjson::StringBuffer buffer;
             rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
             arr_el.Accept(writer);
@@ -63,7 +60,7 @@ std::vector<T> get_array_as_type_vector(const rapidjson::Document& document,
         return v;
     } else if (!key.empty() && document[key.c_str()].IsArray()) {
         std::vector<T> v;
-        for (auto& arr_el : document[key.c_str()].GetArray()) {
+        for (auto& arr_el: document[key.c_str()].GetArray()) {
             rapidjson::StringBuffer buffer;
             rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
             arr_el.Accept(writer);
@@ -94,9 +91,7 @@ ENJINSDK_EXPORT
 void set_member_assert(const rapidjson::Document& document, const std::string& key);
 
 template<class T>
-void set_array_member_from_type_vector(rapidjson::Document& document,
-                                       const std::string& key,
-                                       std::vector<T> values) {
+void set_array_member_from_type_vector(rapidjson::Document& document, const std::string& key, std::vector<T> values) {
     static_assert(std::is_base_of<serialization::ISerializable, T>::value,
                   "Class T does not inherit from ISerializable.");
 
@@ -105,7 +100,7 @@ void set_array_member_from_type_vector(rapidjson::Document& document,
     auto& allocator = document.GetAllocator();
     rapidjson::Value arr(rapidjson::kArrayType);
 
-    for (auto& v : values) {
+    for (auto& v: values) {
         rapidjson::Document v_document(&allocator);
         v_document.Parse(v.serialize().c_str());
         arr.PushBack(v_document, allocator);
@@ -128,15 +123,16 @@ ENJINSDK_EXPORT
 void set_integer_member(rapidjson::Document& document, const std::string& key, int value);
 
 ENJINSDK_EXPORT
+void set_integer_member(rapidjson::Document& document, const std::string& key, long value);
+
+ENJINSDK_EXPORT
 void set_string_member(rapidjson::Document& document, const std::string& key, const std::string& value);
 
 ENJINSDK_EXPORT
 void set_object_member_from_string(rapidjson::Document& document, const std::string& key, const std::string& value);
 
 template<class T>
-void set_object_member_from_type(rapidjson::Document& document,
-                                 const std::string& key,
-                                 T value) {
+void set_object_member_from_type(rapidjson::Document& document, const std::string& key, T value) {
     static_assert(std::is_base_of<serialization::ISerializable, T>::value,
                   "Class T does not inherit from ISerializable.");
 
