@@ -17,6 +17,7 @@
 #include "DummyObject.hpp"
 #include "JsonTestSuite.hpp"
 #include "gtest/gtest.h"
+#include <climits>
 #include <sstream>
 #include <string>
 #include <vector>
