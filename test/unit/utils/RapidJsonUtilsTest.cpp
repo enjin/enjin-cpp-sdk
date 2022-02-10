@@ -17,6 +17,7 @@
 #include "DummyObject.hpp"
 #include "JsonTestSuite.hpp"
 #include "gtest/gtest.h"
+#include <climits>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -465,6 +466,21 @@ TEST_F(RapidJsonUtilsTest, SetIntegerMemberMemberIsSet) {
     ASSERT_TRUE(document.HasMember(expected_key));
     ASSERT_TRUE(document[expected_key].IsInt());
     ASSERT_EQ(expected_value, document[expected_key].GetInt());
+}
+
+TEST_F(RapidJsonUtilsTest, SetIntegerMemberValueIs64BitIntegerMemberIsSet) {
+    // Arrange
+    const char* expected_key = DEFAULT_KEY;
+    const long expected_value = LONG_MAX;
+    rapidjson::Document document = create_object_document();
+
+    // Act
+    set_integer_member(document, expected_key, expected_value);
+
+    // Assert
+    ASSERT_TRUE(document.HasMember(expected_key));
+    ASSERT_TRUE(document[expected_key].IsInt64());
+    ASSERT_EQ(expected_value, document[expected_key].GetInt64());
 }
 
 TEST_F(RapidJsonUtilsTest, SetStringMemberMemberIsSet) {

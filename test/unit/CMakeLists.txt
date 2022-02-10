@@ -2,6 +2,12 @@ target_sources(${PROJECT_NAME}_tests
         PRIVATE
         TrustedPlatformMiddlewareTest.cpp)
 
+if (${ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL})
+    target_sources(${PROJECT_NAME}_tests
+            PRIVATE
+            ProjectClientReauthenticateTest.cpp)
+endif ()
+
 add_subdirectory(events)
 add_subdirectory(graphql)
 add_subdirectory(http)

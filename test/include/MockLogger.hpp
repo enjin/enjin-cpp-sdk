@@ -34,6 +34,8 @@ public:
     MOCK_METHOD(bool, is_loggable, (sdk::utils::LogLevel level), (const, override));
 };
 
+typedef testing::NiceMock<MockLogger> NiceMockLogger;
+
 }
 
 #endif //ENJINSDK_MOCKLOGGER_HPP

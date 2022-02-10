@@ -4,4 +4,5 @@ target_sources(${PROJECT_NAME}
         FutureUtils.cpp
         Logger.cpp
         LoggerProvider.cpp
-        RapidJsonUtils.cpp)
+        RapidJsonUtils.cpp
+        Timer.cpp)

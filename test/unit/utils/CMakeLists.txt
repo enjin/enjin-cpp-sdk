@@ -20,4 +20,5 @@ target_sources(${PROJECT_NAME}_tests
         LoggerProviderTest.cpp
         LoggerProviderLogLevelsTest.cpp
         RapidJsonUtilsTest.cpp
-        StringUtilsTest.cpp)
+        StringUtilsTest.cpp
+        TimerTest.cpp)
