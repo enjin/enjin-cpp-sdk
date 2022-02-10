@@ -17,7 +17,6 @@
 #define ENJINSDK_TIMER_HPP
 
 #include "enjinsdk_export.h"
-
 #include <chrono>
 #include <condition_variable>
 #include <functional>

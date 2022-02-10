@@ -33,10 +33,22 @@ Timer::Timer() {
             }
 
             timer_cv.wait_for(lock, duration.value());
-            if (enabled && action.has_value()) {
-                action.value()();
+
+            /* Stores action to local variable called outside the locked section to allow any scheduled action to call
+             * any of this timer's member-functions.
+             */
+            std::optional<std::function<void()>> action_opt;
+            if (enabled) {
+                action_opt = std::move(action);
                 reset();
             }
+            lock.unlock();
+
+            if (action_opt.has_value()) {
+                action_opt.value()();
+            }
+
+            lock.lock(); // Reacquires lock to allow safe checking of `teardown` flag
         }
     });
 }

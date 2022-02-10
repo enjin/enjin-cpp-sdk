@@ -14,11 +14,12 @@
  */
 
 #include "enjinsdk/internal/Timer.hpp"
+#include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include <chrono>
-#include <functional>
 #include <thread>
 
+using testing::MockFunction;
 using namespace enjin::sdk::utils;
 
 class TimerTest : public testing::Test {
@@ -27,60 +28,60 @@ public:
 };
 
 TEST_F(TimerTest, ScheduleTimerCompletesScheduledActionFlagIsSet) {
-    // Arrange
-    bool flag = false;
-    const std::function<void()> action = [&flag]() {
-        flag = true;
-    };
+    // Arrange - Data
     const std::chrono::milliseconds duration(100);
+    MockFunction<void()> mock_action;
+
+    // Arrange - Expectations
+    EXPECT_CALL(mock_action, Call()).Times(1);
 
     // Act
-    class_under_test.schedule(action, duration);
+    class_under_test.schedule(mock_action.AsStdFunction(), duration);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-    // Assert
-    ASSERT_TRUE(flag);
+    // Verify (done by GTest)
 }
 
 TEST_F(TimerTest, ScheduleScheduledTaskIsOverriddenFlagOneIsNotSetAndFlagTwoIsSet) {
-    // Arrange
-    bool flag1 = false;
-    bool flag2 = false;
-    const std::function<void()> action1 = [&flag1]() {
-        flag1 = true;
-    };
-    const std::function<void()> action2 = [&flag2]() {
-        flag2 = true;
-    };
+    // Arrange - Data
     const std::chrono::milliseconds duration1(500);
     const std::chrono::milliseconds duration2(100);
-    class_under_test.schedule(action1, duration1);
+    MockFunction<void()> mock_action1;
+    MockFunction<void()> mock_action2;
+
+    // Arrange - Expectations
+    EXPECT_CALL(mock_action1, Call()).Times(0);
+    EXPECT_CALL(mock_action2, Call()).Times(1);
+
+    // Arrange - Data (continued)
+    class_under_test.schedule(mock_action1.AsStdFunction(), duration1);
 
     // Act
-    class_under_test.schedule(action2, duration2);
+    class_under_test.schedule(mock_action2.AsStdFunction(), duration2);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-    // Assert
-    EXPECT_FALSE(flag1);
-    EXPECT_TRUE(flag2);
+    // Verify (done by GTest)
 }
 
 TEST_F(TimerTest, CancelTimerDoesNotCompleteScheduledActionFlagIsNotSet) {
-    // Arrange
-    bool flag = false;
-    class_under_test.schedule([&flag]() {
-        flag = true;
-    }, std::chrono::milliseconds(10000));
+    // Arrange - Data
+    const std::chrono::milliseconds duration(10000);
+    MockFunction<void()> mock_action;
+
+    // Arrange - Expectations
+    EXPECT_CALL(mock_action, Call()).Times(0);
+
+    // Arrange - Data (continued)
+    class_under_test.schedule(mock_action.AsStdFunction(), duration);
 
     // Act
     class_under_test.cancel();
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-    // Assert
-    ASSERT_FALSE(flag);
+    // Verify (done by GTest)
 }
 
 TEST_F(TimerTest, IsEnabledTimerHasNotBeenScheduledReturnsFalse) {
@@ -104,15 +105,42 @@ TEST_F(TimerTest, IsEnabledBeforeTimerHasCompletedScheduledActionReturnsTrue) {
 
 TEST_F(TimerTest, IsEnabledAfterTimerHasCompletedScheduledActionReturnsFalse) {
     // Arrange
-    class_under_test.schedule([]() {}, std::chrono::milliseconds(500));
+    bool flag = false;
+    class_under_test.schedule([&flag]() {
+        flag = true;
+    }, std::chrono::milliseconds(500));
 
-    EXPECT_TRUE(class_under_test.is_enabled());
+    // Assumption
+    ASSERT_TRUE(class_under_test.is_enabled()) << "Timer was not enabled.";
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+    // Assumption (continued)
+    ASSERT_TRUE(flag) << "Timer did not perform scheduled action.";
 
     // Act
     auto actual = class_under_test.is_enabled();
 
+    // Assert
+    ASSERT_FALSE(actual) << "Timer was still enabled.";
+}
+
+TEST_F(TimerTest, RescheduleTimerFromWithinScheduledAction) {
+    // Arrange - Data
+    const std::chrono::milliseconds duration(100);
+    MockFunction<void()> mock_action1;
+    MockFunction<void()> mock_action2;
+
+    // Arrange - Mocking/Expectations
+    EXPECT_CALL(mock_action1, Call()).Times(1).WillOnce([this, duration, &mock_action2]() {
+        class_under_test.schedule(mock_action2.AsStdFunction(), duration);
+    });
+    EXPECT_CALL(mock_action2, Call()).Times(1);
+
+    // Act
+    class_under_test.schedule(mock_action1.AsStdFunction(), duration);
+
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-    // Assert
-    ASSERT_TRUE(actual);
+    // Verify (done by GTest)
 }
