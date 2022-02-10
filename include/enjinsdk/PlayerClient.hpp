@@ -37,9 +37,7 @@ public:
 
     PlayerClient(const PlayerClient&) = delete;
 
-    /// \brief Move constructor.
-    /// \param rhs The client being moved.
-    PlayerClient(PlayerClient&& rhs) = default;
+    PlayerClient(PlayerClient&&) = delete;
 
     ~PlayerClient() override;
 
@@ -63,7 +61,7 @@ public:
 
         /// \brief Builds the client.
         /// \return The client.
-        [[nodiscard]] PlayerClient build();
+        [[nodiscard]] std::unique_ptr<PlayerClient> build();
 
         /// \brief Sets the base URI of the built-in HTTP client if a client is not provided.
         /// \param base_uri The base URI.

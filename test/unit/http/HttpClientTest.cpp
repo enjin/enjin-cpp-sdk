@@ -21,6 +21,7 @@
 #include "VerificationTestSuite.hpp"
 #include "enjinsdk/HttpHeaders.hpp"
 #include <memory>
+#include <string>
 
 using namespace enjin::sdk::http;
 using namespace enjin::sdk::utils;
@@ -35,33 +36,25 @@ class HttpClientSuite : public VerificationTestSuite {
 public:
     static constexpr char JSON[] = "application/json; charset=utf-8";
 
-    MockHttpServer mock_server;
-
-    HttpClient create_client() {
-        return HttpClient(mock_server.uri());
-    }
-
-    static HttpRequest create_default_request() {
+    static HttpRequest create_dummy_request() {
         return HttpRequest().set_method(HttpMethod::POST)
                             .set_path_query_fragment("/")
                             .set_content_type(JSON)
                             .set_body("{}");
     }
-
-    static HttpResponse create_default_response() {
-        return HttpResponse::builder()
-                .code(200)
-                .add_header(CONTENT_TYPE, JSON)
-                .body("{}")
-                .build();
-    }
 };
 
 class HttpClientTest : public HttpClientSuite,
-                       public ::testing::Test {
+                       public testing::Test {
+public:
+    std::unique_ptr<HttpClient> class_under_test;
+
+    MockHttpServer mock_server;
+
 protected:
     void SetUp() override {
         mock_server.start();
+        class_under_test = std::make_unique<HttpClient>(mock_server.uri());
     }
 
     void TearDown() override {
@@ -70,10 +63,16 @@ protected:
 };
 
 class HttpClientLoggingTest : public HttpClientSuite,
-                              public ::testing::TestWithParam<HttpLogLevel> {
+                              public testing::TestWithParam<HttpLogLevel> {
+public:
+    std::unique_ptr<HttpClient> class_under_test;
+
+    MockHttpServer mock_server;
+
 protected:
     void SetUp() override {
         mock_server.start();
+        class_under_test = std::make_unique<HttpClient>(mock_server.uri());
     }
 
     void TearDown() override {
@@ -83,23 +82,24 @@ protected:
 
 TEST_F(HttpClientTest, SendRequestReceivesSuccessfulResponseAndReturnsExpected) {
     // Arrange - Data
-    const unsigned short expected_code = 200;
+    const int expected_code = 200;
     const std::string expected_body = "{}";
     const std::string expected_content_type = JSON;
-    HttpClient client = create_client();
-    HttpRequest dummy_request = create_default_request();
-    client.start();
+    const HttpRequest dummy_request = create_dummy_request();
+    class_under_test->start();
 
     // Arrange - Stubbing
-    mock_server.given(dummy_request)
-               .respond_with(HttpResponse::builder()
-                                     .code(expected_code)
-                                     .body(expected_body)
-                                     .add_header(CONTENT_TYPE, expected_content_type)
-                                     .build());
+    mock_server.given(Request::create()
+                              .with_path("/")
+                              .with_body("{}")
+                              .using_post())
+               .respond_with(Response::create()
+                                     .with_status_code(expected_code)
+                                     .with_header(CONTENT_TYPE, expected_content_type)
+                                     .with_body(expected_body));
 
     // Act
-    HttpResponse response = client.send_request(dummy_request).get();
+    HttpResponse response = class_under_test->send_request(dummy_request).get();
 
     // Assert
     EXPECT_EQ(expected_code, response.get_code().value());
@@ -111,14 +111,19 @@ TEST_F(HttpClientTest, SetDefaultRequestHeaderSentRequestHasHeader) {
     // Arrange - Data
     const std::string expected_header_key("Test Header");
     const std::string expected_header_value("Test Value");
-    HttpClient client = create_client();
-    HttpRequest dummy_request = create_default_request();
-    client.start();
-    client.set_default_request_header(expected_header_key, expected_header_value);
+    const HttpRequest dummy_request = create_dummy_request();
+    class_under_test->start();
+    class_under_test->set_default_request_header(expected_header_key, expected_header_value);
 
     // Arrange - Stubbing
-    mock_server.given(dummy_request)
-               .respond_with(create_default_response());
+    mock_server.given(Request::create()
+                              .with_path("/")
+                              .with_body("{}")
+                              .using_post())
+               .respond_with(Response::create()
+                                     .with_success()
+                                     .with_header(CONTENT_TYPE, JSON)
+                                     .with_body("{}"));
 
     // Arrange - Expectations
     mock_server.next_message([this, expected_header_key, expected_header_value](const HttpRequest& req) {
@@ -131,7 +136,7 @@ TEST_F(HttpClientTest, SetDefaultRequestHeaderSentRequestHasHeader) {
     set_expected_call_count(1);
 
     // Act
-    HttpResponse response = client.send_request(dummy_request).get();
+    HttpResponse response = class_under_test->send_request(dummy_request).get();
 
     // Verify
     verify_call_count(1);
@@ -142,15 +147,20 @@ TEST_F(HttpClientTest, SetDefaultRequestHeaderSentRequestHasHeader) {
 TEST_F(HttpClientTest, SetLoggerHttpLogLevelIsNoneExpectNoLogs) {
     // Arrange - Data
     const HttpLogLevel log_level = HttpLogLevel::NONE;
-    HttpClient client = create_client();
-    HttpRequest dummy_request = create_default_request();
-    std::shared_ptr<MockLogger> mock_logger = std::make_shared<MockLogger>();
-    client.start();
-    client.set_logger(log_level, std::make_shared<LoggerProvider>(mock_logger));
+    const HttpRequest dummy_request = create_dummy_request();
+    std::shared_ptr<NiceMockLogger> mock_logger = std::make_shared<NiceMockLogger>();
+    class_under_test->start();
+    class_under_test->set_logger(log_level, std::make_shared<LoggerProvider>(mock_logger));
 
     // Arrange - Stubbing
-    mock_server.given(dummy_request)
-               .respond_with(create_default_response());
+    mock_server.given(Request::create()
+                              .with_path("/")
+                              .with_body("{}")
+                              .using_post())
+               .respond_with(Response::create()
+                                     .with_success()
+                                     .with_header(CONTENT_TYPE, JSON)
+                                     .with_body("{}"));
     ON_CALL(*mock_logger, is_loggable(An<LogLevel>()))
             .WillByDefault(Return(true));
 
@@ -159,7 +169,7 @@ TEST_F(HttpClientTest, SetLoggerHttpLogLevelIsNoneExpectNoLogs) {
             .Times(0);
 
     // Act
-    client.send_request(dummy_request).get();
+    class_under_test->send_request(dummy_request).get();
 
     // Verify
     Mock::VerifyAndClearExpectations(mock_logger.get());
@@ -168,15 +178,20 @@ TEST_F(HttpClientTest, SetLoggerHttpLogLevelIsNoneExpectNoLogs) {
 TEST_P(HttpClientLoggingTest, SetLoggerHttpLogLevelIsNotNoneExpectLogs) {
     // Arrange - Data
     const HttpLogLevel log_level = GetParam();
-    HttpClient client = create_client();
-    HttpRequest dummy_request = create_default_request();
-    std::shared_ptr<MockLogger> mock_logger = std::make_shared<MockLogger>();
-    client.start();
-    client.set_logger(log_level, std::make_shared<LoggerProvider>(mock_logger));
+    const HttpRequest dummy_request = create_dummy_request();
+    std::shared_ptr<NiceMockLogger> mock_logger = std::make_shared<NiceMockLogger>();
+    class_under_test->start();
+    class_under_test->set_logger(log_level, std::make_shared<LoggerProvider>(mock_logger));
 
     // Arrange - Stubbing
-    mock_server.given(dummy_request)
-               .respond_with(create_default_response());
+    mock_server.given(Request::create()
+                              .with_path("/")
+                              .with_body("{}")
+                              .using_post())
+               .respond_with(Response::create()
+                                     .with_success()
+                                     .with_header(CONTENT_TYPE, JSON)
+                                     .with_body("{}"));
     ON_CALL(*mock_logger, is_loggable(An<LogLevel>()))
             .WillByDefault(Return(true));
 
@@ -185,7 +200,7 @@ TEST_P(HttpClientLoggingTest, SetLoggerHttpLogLevelIsNotNoneExpectLogs) {
             .Times(AtLeast(2));
 
     // Act
-    client.send_request(dummy_request).get();
+    class_under_test->send_request(dummy_request).get();
 
     // Verify
     Mock::VerifyAndClearExpectations(mock_logger.get());
