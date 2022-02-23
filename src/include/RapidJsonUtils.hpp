@@ -16,6 +16,10 @@
 #ifndef ENJINCPPSDK_RAPIDJSONUTILS_HPP
 #define ENJINCPPSDK_RAPIDJSONUTILS_HPP
 
+#if _WIN32
+#define _SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING
+#endif
+
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/ISerializable.hpp"
