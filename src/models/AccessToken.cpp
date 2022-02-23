@@ -13,10 +13,6 @@
  * limitations under the License.
  */
 
-#if _WIN32
-#define _SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING
-#endif
-
 #include "enjinsdk/models/AccessToken.hpp"
 
 #include "rapidjson/document.h"
