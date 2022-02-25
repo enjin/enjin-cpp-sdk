@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 
 include("cmake/enjinsdk_macros.cmake")
 include(GenerateExportHeader)
+include(GNUInstallDirs)
 
 ####################################################################################################################
 ### Define project and set properties
@@ -142,7 +143,6 @@ add_subdirectory(src)
 ####################################################################################################################
 ### Install library and export package
 include(CMakePackageConfigHelpers)
-include(GNUInstallDirs)
 
 if (WIN32)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
