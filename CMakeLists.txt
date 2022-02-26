@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 include("cmake/enjinsdk_macros.cmake")
+include(CMakePackageConfigHelpers)
 include(GenerateExportHeader)
 include(GNUInstallDirs)
 
@@ -136,14 +137,12 @@ target_sources(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/TemplateCons
 target_include_directories(${PROJECT_NAME} PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>"
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>"
-        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>/${PROJECT_NAME}")
 
 add_subdirectory(src)
 
 ####################################################################################################################
 ### Install library and export package
-include(CMakePackageConfigHelpers)
-
 if (WIN32)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 endif ()
@@ -151,7 +150,7 @@ endif ()
 install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_utils
         EXPORT ${PROJECT_NAME}
         ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-        PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}")
+        PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}/")
 
 install(EXPORT ${PROJECT_NAME}
         FILE ${PROJECT_NAME}.cmake
