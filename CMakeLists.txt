@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
 include("cmake/enjinsdk_macros.cmake")
-include(CMakePackageConfigHelpers)
 include(GenerateExportHeader)
 include(GNUInstallDirs)
 
@@ -150,6 +149,8 @@ endif ()
 install(DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/include/"
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
         FILES_MATCHING PATTERN "*.hpp")
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_export.h"
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 
 install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_utils
         EXPORT ${PROJECT_NAME}
@@ -158,24 +159,21 @@ install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_utils
         RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
         PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 
-#install(EXPORT ${PROJECT_NAME}
-#        FILE ${PROJECT_NAME}.cmake
-#        NAMESPACE ${PROJECT_NAME}::
-#        DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
-
 # Generate package files
-configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/enjinsdkConfig.cmake.in"
-        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-        INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}")
+include(CMakePackageConfigHelpers)
 
-write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/enjinsdkConfigVersion.cmake"
+configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in"
+        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+        INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
+
+write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
         VERSION ${PROJECT_VERSION}
         COMPATIBILITY SameMajorVersion)
 
 install(FILES
-        "${CMAKE_CURRENT_BINARY_DIR}/enjinsdkConfig.cmake"
-        "${CMAKE_CURRENT_BINARY_DIR}/enjinsdkConfigVersion.cmake"
-        DESTINATION "${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}/cmake")
+        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+        DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
 
 # Exports target from build tree
 export(EXPORT ${PROJECT_NAME}
