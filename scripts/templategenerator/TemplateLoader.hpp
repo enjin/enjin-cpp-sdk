@@ -43,9 +43,9 @@ private:
     std::shared_ptr<std::map<std::string, Template>> fragments;
 
     static constexpr char BACK_SLASH_REGEX[] =
-            R"(^(?:[a-zA-Z\\:-]*schemas\\)(?:player|project|shared)\\(fragment|mutation|query)\\(?:[a-zA-Z]+)\.gql$)";
+            R"(^(?:[\w\W]*schemas\\)(?:player|project|shared)\\(fragment|mutation|query)\\(?:[a-zA-Z]+)\.gql$)";
     static constexpr char FORWARD_SLASH_REGEX[] =
-            R"(^(?:[a-zA-Z/:-]*schemas/)(?:player|project|shared)/(fragment|mutation|query)/(?:[a-zA-Z]+)\.gql$)";
+            R"(^(?:[\w\W]*schemas/)(?:player|project|shared)/(fragment|mutation|query)/(?:[a-zA-Z]+)\.gql$)";
 
     void load_raw_resources();
 
