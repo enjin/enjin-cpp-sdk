@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.16)
 
 include("cmake/enjinsdk_macros.cmake")
 include(GenerateExportHeader)
-include(GNUInstallDirs)
 
 ####################################################################################################################
 ### Define project and set properties
@@ -43,12 +42,11 @@ endif ()
 setup_output_directories()
 
 # Command to generate template constants
-add_custom_command(
-        OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp"
-        COMMAND template_generator "${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp" "${PROJECT_SOURCE_DIR}/src/graphql/templates"
+set(ENJINSDK_TEMPLATES_DIR "${CMAKE_CURRENT_LIST_DIR}/src/graphql/templates")
+add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp"
+        COMMAND template_generator "${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp" "${ENJINSDK_TEMPLATES_DIR}"
         DEPENDS template_generator
-        COMMENT "Generating TemplateConstants source file"
-)
+        COMMENT "Generating TemplateConstants source file from resources at: ${ENJINSDK_TEMPLATES_DIR}")
 
 # Add supporting executables and libraries
 add_subdirectory(utils)
@@ -132,6 +130,8 @@ set_version_macro()
 
 ####################################################################################################################
 ### Target sources
+include(GNUInstallDirs)
+
 target_sources(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp")
 target_include_directories(${PROJECT_NAME} PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>"
@@ -195,6 +195,7 @@ endif ()
 ### Unset variables
 unset(ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL)
 unset(ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL)
+unset(ENJINSDK_TEMPLATES_DIR)
 unset(ENJINSDK_USING_CONAN)
 unset(ENJINSDK_BUILD_SHARED CACHE)
 unset(ENJINSDK_BUILD_TESTS CACHE)
