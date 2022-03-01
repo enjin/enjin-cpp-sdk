@@ -42,12 +42,11 @@ endif ()
 setup_output_directories()
 
 # Command to generate template constants
-add_custom_command(
-        OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp"
-        COMMAND template_generator "${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp" "${PROJECT_SOURCE_DIR}/src/graphql/templates"
+set(ENJINSDK_TEMPLATES_DIR "${CMAKE_CURRENT_LIST_DIR}/src/graphql/templates")
+add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp"
+        COMMAND template_generator "${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp" "${ENJINSDK_TEMPLATES_DIR}"
         DEPENDS template_generator
-        COMMENT "Generating TemplateConstants source file"
-)
+        COMMENT "Generating TemplateConstants source file from resources at: ${ENJINSDK_TEMPLATES_DIR}")
 
 # Add supporting executables and libraries
 add_subdirectory(utils)
@@ -71,7 +70,7 @@ if (${CMAKE_PROJECT_NAME} STREQUAL ${PROJECT_NAME})
     if (${CMAKE_CXX_COMPILER_ID} MATCHES "GNU" OR ${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")
         target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra)
     elseif (${CMAKE_CXX_COMPILER_ID} MATCHES "MSVC")
-        target_compile_options(${PROJECT_NAME} PRIVATE /EHsc /MTd /W2 /c)
+        target_compile_options(${PROJECT_NAME} PRIVATE /EHsc /MTd /W2 /c /wd4996)
         target_compile_definitions(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_EXPORTS)
     endif ()
 endif ()
@@ -131,42 +130,41 @@ set_version_macro()
 
 ####################################################################################################################
 ### Target sources
+include(GNUInstallDirs)
+
 target_sources(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/TemplateConstants.cpp")
-target_include_directories(${PROJECT_NAME}
-        PUBLIC
-        "$<INSTALL_INTERFACE:include>"
+target_include_directories(${PROJECT_NAME} PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>"
-        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>/include")
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>"
+        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>/${PROJECT_NAME}")
 
 add_subdirectory(src)
 
 ####################################################################################################################
 ### Install library and export package
-include(CMakePackageConfigHelpers)
-include(GNUInstallDirs)
-
 if (WIN32)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 endif ()
 
-install(DIRECTORY "include/" DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+install(DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/include/"
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+        FILES_MATCHING PATTERN "*.hpp")
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_export.h"
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+
 install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_utils
         EXPORT ${PROJECT_NAME}
         LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
-        INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+        PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 
-install(FILES "${PROJECT_SOURCE_DIR}/include/*" DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
-
-install(EXPORT ${PROJECT_NAME}
-        FILE ${PROJECT_NAME}.cmake
-        NAMESPACE ${PROJECT_NAME}::
-        DESTINATION "${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}")
+# Generate package files
+include(CMakePackageConfigHelpers)
 
 configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in"
         "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-        INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}")
+        INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
 
 write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
         VERSION ${PROJECT_VERSION}
@@ -175,12 +173,12 @@ write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Con
 install(FILES
         "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
         "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-        DESTINATION "${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}")
+        DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
 
-# Exports target from build tree
-export(EXPORT ${PROJECT_NAME}
-        FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.cmake"
-        NAMESPACE ${PROJECT_NAME}::)
+install(EXPORT ${PROJECT_NAME}
+        FILE "${PROJECT_NAME}Targets.cmake"
+        NAMESPACE ${PROJECT_NAME}::
+        DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
 
 ####################################################################################################################
 ### Setup tests
@@ -197,6 +195,7 @@ endif ()
 ### Unset variables
 unset(ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL)
 unset(ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL)
+unset(ENJINSDK_TEMPLATES_DIR)
 unset(ENJINSDK_USING_CONAN)
 unset(ENJINSDK_BUILD_SHARED CACHE)
 unset(ENJINSDK_BUILD_TESTS CACHE)

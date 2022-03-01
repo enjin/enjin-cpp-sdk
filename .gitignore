@@ -37,6 +37,7 @@ CMakeSettings.json
 */conanbuildinfo.txt
 */conanbuildinfo.cmake
 */conan.lock
+/conanfile.py
 
 ### Vcpkg
 vcpkg/

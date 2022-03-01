@@ -14,6 +14,7 @@
  */
 
 #include "enjinsdk/models/AccessToken.hpp"
+
 #include "rapidjson/document.h"
 
 namespace enjin::sdk::models {

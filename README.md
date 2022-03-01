@@ -60,13 +60,13 @@ To have the SDK build its default HTTP and websocket clients use the `ENJINSDK_B
 To utilize this SDK you may clone it into your project tree with:
 
 ```console
-$ git clone https://github.com/enjin/Enjin-CPP-SDK.git
+$ git clone https://github.com/enjin/enjin-cpp-sdk.git
 ```
 
 Then use the following in your project's CMakeLists file:
 
 ```cmake
-add_subdirectory(Enjin-CPP-SDK)
+add_subdirectory(enjin-cpp-sdk)
 target_link_libraries(my_target PRIVATE enjinsdk::enjinsdk)
 ```
 
@@ -75,8 +75,8 @@ target_link_libraries(my_target PRIVATE enjinsdk::enjinsdk)
 Alternatively, on Linux you may include the SDK in your project by cloning and building it with the following commands:
 
 ```console
-$ git clone https://github.com/enjin/Enjin-CPP-SDK.git
-$ cmake ./Enjin-CPP-SDK [options] && make -j -C ./Enjin-CPP-SDK
+$ git clone https://github.com/enjin/enjin-cpp-sdk.git
+$ cmake ./enjin-cpp-sdk [options] && make -j -C ./enjin-cpp-sdk
 ```
 
 From here, you may use CMake's `find_package()` function to find `enjinsdk` and link the library, `enjinsdk::enjinsdk`

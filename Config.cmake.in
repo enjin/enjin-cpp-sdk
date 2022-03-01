@@ -1,5 +1,5 @@
 @PACKAGE_INIT@
 
-include("${CMAKE_CURRENT_LIST_DIR}/enjinsdk.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/enjinsdkTargets.cmake")
 
 check_required_components(enjinsdk)
