@@ -29,7 +29,7 @@ jobs:
 
       - name: Setup Conan
         run: |
-          conan install . -if ./build --build missing --profile ./.conan/profiles/workflows/windows-latest
+          conan install ./.conan -if ./build --build missing --profile ./.conan/profiles/workflows/windows-latest
 
       - name: Run CMake
         run: |
