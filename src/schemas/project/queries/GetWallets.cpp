@@ -25,8 +25,7 @@ GetWallets::GetWallets() : graphql::AbstractGraphqlRequest("enjin.sdk.project.Ge
 std::string GetWallets::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
     utils::join_serialized_objects_to_document(document, {
-            WalletFragmentArguments::serialize(),
-            PaginationArguments::serialize()
+            WalletFragmentArguments::serialize()
     });
 
     if (user_ids.has_value()) {
@@ -54,8 +53,6 @@ bool GetWallets::operator==(const GetWallets& rhs) const {
            static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
            static_cast<const shared::WalletFragmentArguments<GetWallets>&>(*this) ==
            static_cast<const shared::WalletFragmentArguments<GetWallets>&>(rhs) &&
-           static_cast<const shared::PaginationArguments<GetWallets>&>(*this) ==
-           static_cast<const shared::PaginationArguments<GetWallets>&>(rhs) &&
            user_ids == rhs.user_ids &&
            eth_addresses == rhs.eth_addresses;
 }

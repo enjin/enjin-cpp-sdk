@@ -14,7 +14,6 @@
  */
 
 #include "JsonTestSuite.hpp"
-#include "PaginationArgumentsTestSuite.hpp"
 #include "WalletFragmentArgumentsTestSuite.hpp"
 #include "enjinsdk/project/GetWallets.hpp"
 #include "gtest/gtest.h"
@@ -25,7 +24,6 @@ using namespace enjin::sdk::project;
 using namespace enjin::test::suites;
 
 class ProjectGetWalletsTest : public WalletFragmentArgumentsTestSuite<GetWallets>,
-                              public PaginationArgumentsTestSuite<GetWallets>,
                               public JsonTestSuite,
                               public testing::Test {
 public:
@@ -39,7 +37,6 @@ public:
                 .set_user_ids(std::vector<std::string>())
                 .set_eth_addresses(std::vector<std::string>());
         set_wallet_fragment_arguments(request);
-        set_pagination_arguments(request);
         return request;
     }
 };
