@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.0.1003] - 2022-04-11
+### Changed
+- `GetWallets` query in project schema no longer implements `PaginationArguments`.
+
+### Fixed
+- Fixed typo for `result` in `GetWallets.gql` template file for project schema.
+
 ## [1.0.0.1002] - 2022-03-01
 ### Changed
 - Updated path to template generation command in root CMakeLists file.
@@ -30,7 +37,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 - Initial alpha release.
 
-[Unreleased]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.1002...HEAD
+[Unreleased]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.1003...HEAD
+[1.0.0.1003]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.1002...1.0.0.1003
 [1.0.0.1002]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.1001...1.0.0.1002
 [1.0.0.1001]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.1000...1.0.0.1001
 [1.0.0.1000]: https://github.com/enjin/enjin-cpp-sdk/releases/tag/1.0.0.1000

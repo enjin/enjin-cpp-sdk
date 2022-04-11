@@ -18,7 +18,6 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/shared/PaginationArguments.hpp"
 #include "enjinsdk/shared/WalletFragmentArguments.hpp"
 #include <optional>
 #include <string>
@@ -28,8 +27,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for getting wallets from the platform.
 class ENJINSDK_EXPORT GetWallets : public graphql::AbstractGraphqlRequest,
-                                   public shared::WalletFragmentArguments<GetWallets>,
-                                   public shared::PaginationArguments<GetWallets> {
+                                   public shared::WalletFragmentArguments<GetWallets> {
 public:
     /// \brief Default constructor.
     GetWallets();
@@ -88,12 +86,6 @@ template ENJINSDK_EXPORT project::GetWallets& AssetFragmentArguments<project::Ge
 template ENJINSDK_EXPORT project::GetWallets& AssetFragmentArguments<project::GetWallets>::set_with_variant_metadata();
 
 template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_assets_created();
-
-template ENJINSDK_EXPORT project::GetWallets&
-PaginationArguments<project::GetWallets>::set_pagination(models::PaginationOptions pagination);
-
-template ENJINSDK_EXPORT project::GetWallets&
-PaginationArguments<project::GetWallets>::set_pagination(int page, int limit);
 
 }
 
