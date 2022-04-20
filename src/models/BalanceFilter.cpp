@@ -29,12 +29,6 @@ std::string BalanceFilter::serialize() const {
     if (or_filters.has_value()) {
         utils::set_array_member_from_type_vector<BalanceFilter>(document, OR_KEY, or_filters.value());
     }
-    if (project_uuid.has_value()) {
-        utils::set_string_member(document, PROJECT_UUID_KEY, project_uuid.value());
-    }
-    if (project_uuid_in.has_value()) {
-        utils::set_array_member_from_string_vector(document, PROJECT_UUID_IN_KEY, project_uuid_in.value());
-    }
     if (asset_id.has_value()) {
         utils::set_string_member(document, ASSET_ID_KEY, asset_id.value());
     }
@@ -64,16 +58,6 @@ BalanceFilter& BalanceFilter::set_and(const std::vector<BalanceFilter>& others) 
 
 BalanceFilter& BalanceFilter::set_or(const std::vector<BalanceFilter>& others) {
     or_filters = others;
-    return *this;
-}
-
-BalanceFilter& BalanceFilter::set_project_uuid(const std::string& project_uuid) {
-    BalanceFilter::project_uuid = project_uuid;
-    return *this;
-}
-
-BalanceFilter& BalanceFilter::set_project_uuid_in(const std::vector<std::string>& project_uuids) {
-    project_uuid_in = project_uuids;
     return *this;
 }
 

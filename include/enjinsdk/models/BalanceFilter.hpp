@@ -45,16 +45,6 @@ public:
     /// \return This filter for chaining.
     BalanceFilter& set_or(const std::vector<BalanceFilter>& others);
 
-    /// \brief Sets the project UUID to filter for.
-    /// \param project_uuid The project UUID.
-    /// \return This filter for chaining.
-    BalanceFilter& set_project_uuid(const std::string& project_uuid);
-
-    /// \brief Sets the project UUIDs to filter for.
-    /// \param project_uuids The project UUIDs.
-    /// \return This filter for chaining.
-    BalanceFilter& set_project_uuid_in(const std::vector<std::string>& project_uuids);
-
     /// \brief Sets the asset ID to filter for.
     /// \param asset_id The asset ID.
     /// \return This filter for chaining.
@@ -92,8 +82,6 @@ public:
 private:
     std::optional<std::vector<BalanceFilter>> and_filters;
     std::optional<std::vector<BalanceFilter>> or_filters;
-    std::optional<std::string> project_uuid;
-    std::optional<std::vector<std::string>> project_uuid_in;
     std::optional<std::string> asset_id;
     std::optional<std::vector<std::string>> asset_id_in;
     std::optional<std::string> wallet;
@@ -103,8 +91,6 @@ private:
 
     constexpr static char AND_KEY[] = "and";
     constexpr static char OR_KEY[] = "or";
-    constexpr static char PROJECT_UUID_KEY[] = "projectUuid";
-    constexpr static char PROJECT_UUID_IN_KEY[] = "projectUuid_in";
     constexpr static char ASSET_ID_KEY[] = "assetId";
     constexpr static char ASSET_ID_IN_KEY[] = "assetId_in";
     constexpr static char WALLET_KEY[] = "wallet";
