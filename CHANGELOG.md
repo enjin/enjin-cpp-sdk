@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.0.1004] - 2022-04-25
+### Changed
+- Removed `set_project_uuid` and `set_project_uuid_in` member-functions from `BalanceFilter`.
+
 ## [1.0.0.1003] - 2022-04-11
 ### Changed
 - `GetWallets` query in project schema no longer implements `PaginationArguments`.
@@ -37,7 +41,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 - Initial alpha release.
 
-[Unreleased]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.1003...HEAD
+[Unreleased]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.1004...HEAD
+[1.0.0.1004]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.1003...1.0.0.1004
 [1.0.0.1003]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.1002...1.0.0.1003
 [1.0.0.1002]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.1001...1.0.0.1002
 [1.0.0.1001]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.1000...1.0.0.1001
