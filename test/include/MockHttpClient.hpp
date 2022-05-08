@@ -39,6 +39,8 @@ public:
                 (override));
 };
 
+typedef testing::NiceMock<MockHttpClient> NiceMockHttpClient;
+
 }
 
 #endif //ENJINSDK_MOCKHTTPCLIENT_HPP

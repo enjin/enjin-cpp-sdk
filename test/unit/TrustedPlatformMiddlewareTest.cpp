@@ -17,31 +17,76 @@
 #include "enjinsdk/TrustedPlatformMiddleware.hpp"
 #include "MockHttpClient.hpp"
 #include <memory>
-#include <utility>
+#include <string>
 
 using namespace enjin::sdk;
 using namespace enjin::sdk::http;
 using namespace enjin::test::mocks;
-using ::testing::NiceMock;
 using ::testing::Return;
 
 class TrustedPlatformMiddlewareTest : public ::testing::Test {
 public:
-    static TrustedPlatformMiddleware create_default_middleware() {
-        return TrustedPlatformMiddleware(std::make_unique<NiceMock<MockHttpClient>>());
+    std::unique_ptr<TrustedPlatformMiddleware> class_under_test;
+
+protected:
+    void SetUp() override {
+        class_under_test = std::make_unique<TrustedPlatformMiddleware>(std::make_unique<NiceMockHttpClient>());
     }
 };
 
+TEST_F(TrustedPlatformMiddlewareTest, IsAuthenticatedAuthTokenIsNotEmptyOrWhitespaceReturnsTrue) {
+    // Arrange
+    const std::string auth_token("xyz");
+    class_under_test->set_auth_token(auth_token);
+
+    // Act
+    bool actual = class_under_test->is_authenticated();
+
+    // Assert
+    ASSERT_TRUE(actual);
+}
+
+TEST_F(TrustedPlatformMiddlewareTest, IsAuthenticatedAuthTokenIsNotSetReturnsFalse) {
+    // Act
+    bool actual = class_under_test->is_authenticated();
+
+    // Assert
+    ASSERT_FALSE(actual);
+}
+
+TEST_F(TrustedPlatformMiddlewareTest, IsAuthenticatedAuthTokenIsEmptyReturnsFalse) {
+    // Arrange
+    const std::string auth_token;
+    class_under_test->set_auth_token(auth_token);
+
+    // Act
+    bool actual = class_under_test->is_authenticated();
+
+    // Assert
+    ASSERT_FALSE(actual);
+}
+
+TEST_F(TrustedPlatformMiddlewareTest, IsAuthenticatedAuthTokenIsWhitespaceReturnsFalse) {
+    // Arrange
+    const std::string auth_token(" ");
+    class_under_test->set_auth_token(auth_token);
+
+    // Act
+    bool actual = class_under_test->is_authenticated();
+
+    // Assert
+    ASSERT_FALSE(actual);
+}
+
 TEST_F(TrustedPlatformMiddlewareTest, IsClosedHttpClientIsNotOpenReturnsTrue) {
     // Arrange - Data
-    auto middleware = create_default_middleware();
-    auto& client = dynamic_cast<NiceMock<MockHttpClient>&>(*middleware.get_client());
+    auto& client = dynamic_cast<NiceMockHttpClient&>(*class_under_test->get_client());
 
     // Arrange - Expectations
     EXPECT_CALL(client, is_open()).WillOnce(Return(false));
 
     // Act
-    bool actual = middleware.is_closed();
+    bool actual = class_under_test->is_closed();
 
     // Assert
     ASSERT_TRUE(actual);
@@ -49,36 +94,14 @@ TEST_F(TrustedPlatformMiddlewareTest, IsClosedHttpClientIsNotOpenReturnsTrue) {
 
 TEST_F(TrustedPlatformMiddlewareTest, IsClosedHttpClientIsOpenReturnsFalse) {
     // Arrange - Data
-    auto middleware = create_default_middleware();
-    auto& client = dynamic_cast<NiceMock<MockHttpClient>&>(*middleware.get_client());
+    auto& client = dynamic_cast<NiceMockHttpClient&>(*class_under_test->get_client());
 
     // Arrange - Expectations
     EXPECT_CALL(client, is_open()).WillOnce(Return(true));
 
     // Act
-    bool actual = middleware.is_closed();
+    bool actual = class_under_test->is_closed();
 
     // Assert
     ASSERT_FALSE(actual);
-}
-
-TEST_F(TrustedPlatformMiddlewareTest, IsClosedAfterMoveReturnsTrue) {
-    // Arrange
-    auto middleware = create_default_middleware();
-    auto other = std::move(middleware);
-
-    // Act
-    bool actual = middleware.is_closed();
-
-    // Assert
-    ASSERT_TRUE(actual);
-}
-
-TEST_F(TrustedPlatformMiddlewareTest, CloseAfterMoveDoesNotFail) {
-    // Arrange
-    auto middleware = create_default_middleware();
-    auto other = std::move(middleware);
-
-    // Assert
-    ASSERT_NO_FATAL_FAILURE(middleware.close());
 }
