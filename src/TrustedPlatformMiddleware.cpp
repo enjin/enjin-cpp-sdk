@@ -52,6 +52,22 @@ void TrustedPlatformMiddleware::close() {
     client->stop();
 }
 
+HttpRequest TrustedPlatformMiddleware::create_request() const {
+    HttpRequest req;
+
+    {
+        std::lock_guard<std::mutex> guard(auth_token_mutex);
+        if (!auth_token.empty()) {
+            std::stringstream ss;
+            ss << AUTHORIZATION_SCHEMA << " " << auth_token;
+
+            req.add_header(AUTHORIZATION, ss.str());
+        }
+    }
+
+    return req;
+}
+
 const graphql::GraphqlQueryRegistry& TrustedPlatformMiddleware::get_query_registry() const {
     return query_registry;
 }

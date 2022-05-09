@@ -14,8 +14,9 @@
  */
 
 #include "gtest/gtest.h"
-#include "enjinsdk/TrustedPlatformMiddleware.hpp"
 #include "MockHttpClient.hpp"
+#include "enjinsdk/HttpHeaders.hpp"
+#include "enjinsdk/TrustedPlatformMiddleware.hpp"
 #include <memory>
 #include <string>
 
@@ -24,12 +25,14 @@ using namespace enjin::sdk::http;
 using namespace enjin::test::mocks;
 using ::testing::Return;
 
-class TrustedPlatformMiddlewareTest : public ::testing::Test {
+class TrustedPlatformMiddlewareTest : public testing::Test {
 public:
     std::unique_ptr<TrustedPlatformMiddleware> class_under_test;
 
 protected:
     void SetUp() override {
+        testing::Test::SetUp();
+
         class_under_test = std::make_unique<TrustedPlatformMiddleware>(std::make_unique<NiceMockHttpClient>());
     }
 };
@@ -40,7 +43,7 @@ TEST_F(TrustedPlatformMiddlewareTest, IsAuthenticatedAuthTokenIsNotEmptyOrWhites
     class_under_test->set_auth_token(auth_token);
 
     // Act
-    bool actual = class_under_test->is_authenticated();
+    const bool actual = class_under_test->is_authenticated();
 
     // Assert
     ASSERT_TRUE(actual);
@@ -48,7 +51,7 @@ TEST_F(TrustedPlatformMiddlewareTest, IsAuthenticatedAuthTokenIsNotEmptyOrWhites
 
 TEST_F(TrustedPlatformMiddlewareTest, IsAuthenticatedAuthTokenIsNotSetReturnsFalse) {
     // Act
-    bool actual = class_under_test->is_authenticated();
+    const bool actual = class_under_test->is_authenticated();
 
     // Assert
     ASSERT_FALSE(actual);
@@ -60,7 +63,7 @@ TEST_F(TrustedPlatformMiddlewareTest, IsAuthenticatedAuthTokenIsEmptyReturnsFals
     class_under_test->set_auth_token(auth_token);
 
     // Act
-    bool actual = class_under_test->is_authenticated();
+    const bool actual = class_under_test->is_authenticated();
 
     // Assert
     ASSERT_FALSE(actual);
@@ -72,10 +75,36 @@ TEST_F(TrustedPlatformMiddlewareTest, IsAuthenticatedAuthTokenIsWhitespaceReturn
     class_under_test->set_auth_token(auth_token);
 
     // Act
-    bool actual = class_under_test->is_authenticated();
+    const bool actual = class_under_test->is_authenticated();
 
     // Assert
     ASSERT_FALSE(actual);
+}
+
+TEST_F(TrustedPlatformMiddlewareTest, CreateRequestRequestDoesNotHaveAuthorizationHeaderWhenAuthTokenIsNotSet) {
+    // Assumptions
+    ASSERT_FALSE(class_under_test->is_authenticated()) << "Assume middleware is not authenticated.";
+
+    // Act
+    const HttpRequest req = class_under_test->create_request();
+
+    // Assert
+    ASSERT_FALSE(req.has_header(AUTHORIZATION)) << "Assert request does not have authorization header.";
+}
+
+TEST_F(TrustedPlatformMiddlewareTest, CreateRequestRequestDoesHaveAuthorizationHeaderWhenAuthTokenIsSet) {
+    // Arrange
+    const std::string auth_token("xyz");
+    class_under_test->set_auth_token(auth_token);
+
+    // Assumptions
+    ASSERT_TRUE(class_under_test->is_authenticated()) << "Assume middleware is authenticated.";
+
+    // Act
+    const HttpRequest req = class_under_test->create_request();
+
+    // Assert
+    ASSERT_TRUE(req.has_header(AUTHORIZATION)) << "Assert request has authorization header.";
 }
 
 TEST_F(TrustedPlatformMiddlewareTest, IsClosedHttpClientIsNotOpenReturnsTrue) {
@@ -86,7 +115,7 @@ TEST_F(TrustedPlatformMiddlewareTest, IsClosedHttpClientIsNotOpenReturnsTrue) {
     EXPECT_CALL(client, is_open()).WillOnce(Return(false));
 
     // Act
-    bool actual = class_under_test->is_closed();
+    const bool actual = class_under_test->is_closed();
 
     // Assert
     ASSERT_TRUE(actual);
@@ -100,7 +129,7 @@ TEST_F(TrustedPlatformMiddlewareTest, IsClosedHttpClientIsOpenReturnsFalse) {
     EXPECT_CALL(client, is_open()).WillOnce(Return(true));
 
     // Act
-    bool actual = class_under_test->is_closed();
+    const bool actual = class_under_test->is_closed();
 
     // Assert
     ASSERT_FALSE(actual);

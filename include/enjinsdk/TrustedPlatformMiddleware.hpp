@@ -45,6 +45,10 @@ public:
     /// \brief Closes the connection with the platform.
     void close();
 
+    /// \brief Creates a new HTTP request and sets any necessary data needed for communicating with the platform.
+    /// \return The request.
+    http::HttpRequest create_request() const;
+
     /// \brief Returns the query registry used by the middleware.
     /// \return The query registry.
     [[nodiscard]] const graphql::GraphqlQueryRegistry& get_query_registry() const;
