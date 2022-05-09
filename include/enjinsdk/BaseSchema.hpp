@@ -51,10 +51,10 @@ protected:
     const std::unique_ptr<TrustedPlatformMiddleware> middleware;
 
     /// \brief The logger provider.
-    std::shared_ptr<utils::LoggerProvider> logger_provider;
+    const std::shared_ptr<utils::LoggerProvider> logger_provider;
 
     /// \brief The name of this schema.
-    std::string schema;
+    const std::string schema;
 
     /// \brief Constructs an instance of this class.
     /// \param http_client The HTTP client.
