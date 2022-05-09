@@ -19,9 +19,9 @@
 
 namespace enjin::sdk::player {
 
-PlayerSchema::PlayerSchema(TrustedPlatformMiddleware middleware,
+PlayerSchema::PlayerSchema(std::unique_ptr<http::IHttpClient> http_client,
                            std::shared_ptr<utils::LoggerProvider> logger_provider)
-        : shared::SharedSchema(std::move(middleware), "player", std::move(logger_provider)) {
+        : shared::SharedSchema(std::move(http_client), "player", std::move(logger_provider)) {
 }
 
 std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::advanced_send_asset(AdvancedSendAsset request) {

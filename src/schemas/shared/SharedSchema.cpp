@@ -19,10 +19,10 @@
 
 namespace enjin::sdk::shared {
 
-SharedSchema::SharedSchema(TrustedPlatformMiddleware middleware,
+SharedSchema::SharedSchema(std::unique_ptr<http::IHttpClient> http_client,
                            std::string schema,
                            std::shared_ptr<utils::LoggerProvider> logger_provider)
-        : BaseSchema(std::move(middleware), std::move(schema), std::move(logger_provider)) {
+        : BaseSchema(std::move(http_client), std::move(schema), std::move(logger_provider)) {
 }
 
 std::future<graphql::GraphqlResponse<bool>> SharedSchema::cancel_transaction(CancelTransaction request) {

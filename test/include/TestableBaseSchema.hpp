@@ -17,19 +17,20 @@
 #define ENJINSDK_TESTABLEBASESCHEMA_HPP
 
 #include "enjinsdk/BaseSchema.hpp"
+#include "enjinsdk/IHttpClient.hpp"
 #include <string>
 
 namespace enjin::test::utils {
 
 class TestableBaseSchema : public sdk::BaseSchema {
 public:
-    TestableBaseSchema();
+    TestableBaseSchema() = delete;
 
-    explicit TestableBaseSchema(sdk::TrustedPlatformMiddleware middleware);
+    explicit TestableBaseSchema(std::unique_ptr<sdk::http::IHttpClient> http_client);
 
     ~TestableBaseSchema() = default;
 
-    const sdk::TrustedPlatformMiddleware& get_middleware();
+    const std::unique_ptr<sdk::TrustedPlatformMiddleware>& get_middleware();
 
     std::string create_request_body(sdk::graphql::AbstractGraphqlRequest& request);
 

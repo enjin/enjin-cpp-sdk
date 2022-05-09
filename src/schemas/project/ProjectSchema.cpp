@@ -19,9 +19,9 @@
 
 namespace enjin::sdk::project {
 
-ProjectSchema::ProjectSchema(TrustedPlatformMiddleware middleware,
+ProjectSchema::ProjectSchema(std::unique_ptr<http::IHttpClient> http_client,
                              std::shared_ptr<utils::LoggerProvider> logger_provider)
-        : shared::SharedSchema(std::move(middleware), "project", std::move(logger_provider)) {
+        : shared::SharedSchema(std::move(http_client), "project", std::move(logger_provider)) {
 }
 
 std::future<graphql::GraphqlResponse<models::Request>> ProjectSchema::advanced_send_asset(AdvancedSendAsset request) {

@@ -29,8 +29,9 @@
 
 namespace enjin::sdk {
 
-PlayerClient::PlayerClient(TrustedPlatformMiddleware middleware, std::shared_ptr<utils::LoggerProvider> logger_provider)
-        : PlayerSchema(std::move(middleware), std::move(logger_provider)) {
+PlayerClient::PlayerClient(std::unique_ptr<http::IHttpClient> http_client,
+                           std::shared_ptr<utils::LoggerProvider> logger_provider)
+        : PlayerSchema(std::move(http_client), std::move(logger_provider)) {
 }
 
 PlayerClient::~PlayerClient() {
@@ -38,19 +39,19 @@ PlayerClient::~PlayerClient() {
 }
 
 void PlayerClient::auth(std::string token) {
-    middleware.get_handler()->set_auth_token(token);
+    middleware->set_auth_token(token);
 }
 
 void PlayerClient::close() {
-    middleware.close();
+    middleware->close();
 }
 
 bool PlayerClient::is_authenticated() const {
-    return middleware.get_handler()->is_authenticated();
+    return middleware->is_authenticated();
 }
 
 bool PlayerClient::is_closed() const {
-    return middleware.is_closed();
+    return middleware->is_closed();
 }
 
 PlayerClient::PlayerClientBuilder PlayerClient::builder() {
@@ -70,13 +71,13 @@ std::unique_ptr<PlayerClient> PlayerClient::PlayerClientBuilder::build() {
             client->set_logger(log_level, m_logger_provider);
         }
 
-        return std::unique_ptr<PlayerClient>(new PlayerClient(TrustedPlatformMiddleware(std::move(client)),
+        return std::unique_ptr<PlayerClient>(new PlayerClient(std::move(client),
                                                               m_logger_provider));
 #else
         throw std::runtime_error("Attempted building platform client without providing an HTTP client");
 #endif
     } else {
-        return std::unique_ptr<PlayerClient>(new PlayerClient(TrustedPlatformMiddleware(std::move(m_http_client)),
+        return std::unique_ptr<PlayerClient>(new PlayerClient(std::move(m_http_client),
                                                               m_logger_provider));
     }
 }

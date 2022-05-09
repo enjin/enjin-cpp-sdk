@@ -31,6 +31,8 @@ public:
 
     SharedSchema(const SharedSchema&) = delete;
 
+    SharedSchema(SharedSchema&& rhs) = delete;
+
     ~SharedSchema() override = default;
 
     std::future<graphql::GraphqlResponse<bool>> cancel_transaction(CancelTransaction request) override;
@@ -52,17 +54,13 @@ public:
     std::future<graphql::GraphqlResponse<std::vector<models::Asset>>> get_assets(GetAssets request) override;
 
 protected:
-    /// \brief Constructs the schema with the middleware and name.
-    /// \param middleware The middleware.
+    /// \brief Constructs an instance of this class.
+    /// \param http_client The HTTP client.
     /// \param schema The schema name.
     /// \param logger_provider The logger provider.
-    SharedSchema(TrustedPlatformMiddleware middleware,
+    SharedSchema(std::unique_ptr<http::IHttpClient> http_client,
                  std::string schema,
                  std::shared_ptr<utils::LoggerProvider> logger_provider);
-
-    /// \brief Move constructor.
-    /// \param rhs The schema being moved.
-    SharedSchema(SharedSchema&& rhs) = default;
 };
 
 }
