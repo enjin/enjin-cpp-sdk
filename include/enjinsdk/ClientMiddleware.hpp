@@ -13,34 +13,33 @@
  * limitations under the License.
  */
 
-#ifndef ENJINCPPSDK_TRUSTEDPLATFORMMIDDLEWARE_HPP
-#define ENJINCPPSDK_TRUSTEDPLATFORMMIDDLEWARE_HPP
+#ifndef ENJINSDK_CLIENTMIDDLEWARE_HPP
+#define ENJINSDK_CLIENTMIDDLEWARE_HPP
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/GraphqlQueryRegistry.hpp"
 #include "enjinsdk/HttpRequest.hpp"
 #include "enjinsdk/IHttpClient.hpp"
-#include "enjinsdk/TrustedPlatformHandler.hpp"
 #include <memory>
 #include <mutex>
 
 namespace enjin::sdk {
 
-/// \brief The middleware used by clients to communicate with the platform.
-class ENJINSDK_EXPORT TrustedPlatformMiddleware {
+/// \brief Middleware class used by clients to communicate with the platform.
+class ENJINSDK_EXPORT ClientMiddleware {
 public:
-    TrustedPlatformMiddleware() = delete;
+    ClientMiddleware() = delete;
 
     /// \brief Constructs the middleware with the underlying HTTP client and debug option.
     /// \param client The HTTP client.
-    explicit TrustedPlatformMiddleware(std::unique_ptr<http::IHttpClient> client);
+    explicit ClientMiddleware(std::unique_ptr<http::IHttpClient> client);
 
-    TrustedPlatformMiddleware(const TrustedPlatformMiddleware&) = delete;
+    ClientMiddleware(const ClientMiddleware&) = delete;
 
-    TrustedPlatformMiddleware(TrustedPlatformMiddleware&&) = delete;
+    ClientMiddleware(ClientMiddleware&&) = delete;
 
     /// \brief Default destructor.
-    ~TrustedPlatformMiddleware() = default;
+    ~ClientMiddleware() = default;
 
     /// \brief Closes the connection with the platform.
     void close();
@@ -86,4 +85,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_TRUSTEDPLATFORMMIDDLEWARE_HPP
+#endif //ENJINSDK_CLIENTMIDDLEWARE_HPP

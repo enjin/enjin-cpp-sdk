@@ -30,7 +30,7 @@ public:
 
     ~TestableBaseSchema() = default;
 
-    const std::unique_ptr<sdk::TrustedPlatformMiddleware>& get_middleware();
+    const std::unique_ptr<sdk::ClientMiddleware>& get_middleware();
 
     std::string create_request_body(sdk::graphql::AbstractGraphqlRequest& request);
 

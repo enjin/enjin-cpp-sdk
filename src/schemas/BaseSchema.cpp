@@ -26,7 +26,7 @@ using namespace enjin::sdk::utils;
 BaseSchema::BaseSchema(std::unique_ptr<IHttpClient> http_client,
                        std::string schema,
                        std::shared_ptr<LoggerProvider> logger_provider)
-        : middleware(std::make_unique<TrustedPlatformMiddleware>(std::move(http_client))),
+        : middleware(std::make_unique<ClientMiddleware>(std::move(http_client))),
           logger_provider(std::move(logger_provider)),
           schema(std::move(schema)) {
 }

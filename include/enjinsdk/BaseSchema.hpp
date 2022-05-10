@@ -19,7 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/GraphqlResponse.hpp"
 #include "enjinsdk/LoggerProvider.hpp"
-#include "enjinsdk/TrustedPlatformMiddleware.hpp"
+#include "enjinsdk/ClientMiddleware.hpp"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include <exception>
 #include <future>
@@ -48,7 +48,7 @@ public:
 
 protected:
     /// \brief The middleware for communicating with the platform.
-    const std::unique_ptr<TrustedPlatformMiddleware> middleware;
+    const std::unique_ptr<ClientMiddleware> middleware;
 
     /// \brief The logger provider.
     const std::shared_ptr<utils::LoggerProvider> logger_provider;

@@ -23,7 +23,7 @@ TestableBaseSchema::TestableBaseSchema(std::unique_ptr<sdk::http::IHttpClient> h
         : BaseSchema(std::move(http_client), "test", nullptr) {
 }
 
-const std::unique_ptr<sdk::TrustedPlatformMiddleware>& TestableBaseSchema::get_middleware() {
+const std::unique_ptr<sdk::ClientMiddleware>& TestableBaseSchema::get_middleware() {
     return middleware;
 }
 

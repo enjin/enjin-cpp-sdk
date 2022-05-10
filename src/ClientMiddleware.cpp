@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "enjinsdk/TrustedPlatformMiddleware.hpp"
+#include "enjinsdk/ClientMiddleware.hpp"
 
 #include "enjinsdk/HttpHeaders.hpp"
 #include "enjinsdk_utils/StringUtils.hpp"
@@ -25,7 +25,7 @@ using namespace enjin::sdk;
 using namespace enjin::sdk::http;
 using namespace enjin::utils;
 
-TrustedPlatformMiddleware::TrustedPlatformMiddleware(std::unique_ptr<IHttpClient> client) : client(std::move(client)) {
+ClientMiddleware::ClientMiddleware(std::unique_ptr<IHttpClient> client) : client(std::move(client)) {
     if (this->client == nullptr) {
         throw std::runtime_error("Nullptr for HTTP client on TrustedPlatformMiddleware construction.");
     }
@@ -44,7 +44,7 @@ TrustedPlatformMiddleware::TrustedPlatformMiddleware(std::unique_ptr<IHttpClient
     this->client->start();
 }
 
-void TrustedPlatformMiddleware::close() {
+void ClientMiddleware::close() {
     if (client == nullptr) {
         return;
     }
@@ -52,7 +52,7 @@ void TrustedPlatformMiddleware::close() {
     client->stop();
 }
 
-HttpRequest TrustedPlatformMiddleware::create_request() const {
+HttpRequest ClientMiddleware::create_request() const {
     HttpRequest req;
 
     {
@@ -68,24 +68,24 @@ HttpRequest TrustedPlatformMiddleware::create_request() const {
     return req;
 }
 
-const graphql::GraphqlQueryRegistry& TrustedPlatformMiddleware::get_query_registry() const {
+const graphql::GraphqlQueryRegistry& ClientMiddleware::get_query_registry() const {
     return query_registry;
 }
 
-const std::unique_ptr<http::IHttpClient>& TrustedPlatformMiddleware::get_client() const {
+const std::unique_ptr<http::IHttpClient>& ClientMiddleware::get_client() const {
     return client;
 }
 
-bool TrustedPlatformMiddleware::is_closed() const {
+bool ClientMiddleware::is_closed() const {
     return client == nullptr || !client->is_open();
 }
 
-void TrustedPlatformMiddleware::set_auth_token(std::string token) {
+void ClientMiddleware::set_auth_token(std::string token) {
     std::lock_guard<std::mutex> guard(auth_token_mutex);
     auth_token = std::move(token);
 }
 
-bool TrustedPlatformMiddleware::is_authenticated() const {
+bool ClientMiddleware::is_authenticated() const {
     std::lock_guard<std::mutex> guard(auth_token_mutex);
     return !is_empty_or_whitespace(auth_token);
 }
