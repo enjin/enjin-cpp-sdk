@@ -43,6 +43,8 @@ public:
 
 namespace enjin::sdk::shared {
 
+// AssetFragmentArguments functions
+
 template ENJINSDK_EXPORT player::GetPlayer&
 PlayerFragmentArguments<player::GetPlayer>::set_asset_id_format(models::AssetIdFormat asset_id_format);
 
@@ -68,13 +70,57 @@ template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetP
 
 template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_with_variant_metadata();
 
+// PlayerFragmentArguments functions
+
 template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_with_linking_info();
 
 template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_qr_size(int size);
 
 template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_with_wallet();
 
+// TransactionFragmentArguments functions
+
+template ENJINSDK_EXPORT player::GetPlayer&
+PlayerFragmentArguments<player::GetPlayer>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_with_blockchain_data();
+
+template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_with_meta();
+
+template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_with_encoded_data();
+
+template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_with_asset_data();
+
+template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_with_signed_txs();
+
+template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_with_error();
+
+template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_with_nonce();
+
+template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_with_state();
+
+template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_with_receipt();
+
+template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_with_receipt_logs();
+
+template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_with_log_event();
+
+template ENJINSDK_EXPORT player::GetPlayer&
+PlayerFragmentArguments<player::GetPlayer>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT player::GetPlayer&
+PlayerFragmentArguments<player::GetPlayer>::set_with_transaction_wallet_address();
+
+// WalletFragmentArguments functions
+
+template ENJINSDK_EXPORT player::GetPlayer&
+PlayerFragmentArguments<player::GetPlayer>::set_wallet_balance_filter(models::BalanceFilter filter);
+
 template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_with_assets_created();
+
+template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_with_wallet_balances();
+
+template ENJINSDK_EXPORT player::GetPlayer& PlayerFragmentArguments<player::GetPlayer>::set_with_wallet_transactions();
 
 }
 

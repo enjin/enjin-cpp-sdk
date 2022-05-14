@@ -32,6 +32,8 @@ public:
     static TestableWalletFragmentArguments create_default_arguments() {
         TestableWalletFragmentArguments arguments;
         set_asset_fragment_arguments(arguments);
+        set_balance_fragment_arguments(arguments);
+        set_transaction_fragment_arguments(arguments);
         set_wallet_fragment_arguments(arguments);
         return arguments;
     }
@@ -52,6 +54,30 @@ TEST_F(SharedWalletFragmentArgumentsTest, SerializeSetAssetFragmentFieldsReturns
     // Arrange
     const std::string expected(AssetFragmentJson);
     set_asset_fragment_arguments(class_under_test);
+
+    // Act
+    std::string actual = class_under_test.serialize();
+
+    // Assert
+    ASSERT_EQ(expected, actual);
+}
+
+TEST_F(SharedWalletFragmentArgumentsTest, SerializeSetBalanceFragmentFieldsReturnsExpectedJson) {
+    // Arrange
+    const std::string expected(BalanceFragmentJson);
+    set_balance_fragment_arguments(class_under_test);
+
+    // Act
+    std::string actual = class_under_test.serialize();
+
+    // Assert
+    ASSERT_EQ(expected, actual);
+}
+
+TEST_F(SharedWalletFragmentArgumentsTest, SerializeSetTransactionFragmentFieldsReturnsExpectedJson) {
+    // Arrange
+    const std::string expected(TransactionFragmentJson);
+    set_transaction_fragment_arguments(class_under_test);
 
     // Act
     std::string actual = class_under_test.serialize();

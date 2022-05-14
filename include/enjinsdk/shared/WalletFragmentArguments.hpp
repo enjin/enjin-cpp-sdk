@@ -18,15 +18,21 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/WalletFragmentArgumentsImpl.hpp"
+#include "enjinsdk/models/BalanceFilter.hpp"
 #include "enjinsdk/shared/AssetFragmentArguments.hpp"
+#include "enjinsdk/shared/BalanceFragmentArguments.hpp"
+#include "enjinsdk/shared/TransactionFragmentArguments.hpp"
 #include <string>
+#include <utility>
 
 namespace enjin::sdk::shared {
 
 /// \brief Fragment interface used to request certain information from wallets returned by the platform.
 /// \tparam T The type of the implementing class.
 template<class T>
-class ENJINSDK_EXPORT WalletFragmentArguments : public AssetFragmentArguments<T> {
+class ENJINSDK_EXPORT WalletFragmentArguments : public AssetFragmentArguments<T>,
+                                                public BalanceFragmentArguments<T>,
+                                                public TransactionFragmentArguments<T> {
 public:
     ~WalletFragmentArguments() override = default;
 
@@ -36,10 +42,32 @@ public:
 
     // WalletFragmentArguments functions
 
+    /// \brief Sets the balance filter when used with with_wallet_balances().
+    /// \param filter The filter.
+    /// \return This request for chaining.
+    virtual T& set_wallet_balance_filter(models::BalanceFilter filter) {
+        impl.set_wallet_balance_filter(std::move(filter));
+        return dynamic_cast<T&>(*this);
+    }
+
     /// Sets the request to include the assets created by the wallet.
     /// \return This request for chaining.
     virtual T& set_with_assets_created() {
         impl.set_with_assets_created();
+        return dynamic_cast<T&>(*this);
+    }
+
+    /// \brief Sets the request to include the asset balances of the wallet.
+    /// \return This request for chaining.
+    virtual T& set_with_wallet_balances() {
+        impl.set_with_wallet_balances();
+        return dynamic_cast<T&>(*this);
+    }
+
+    /// \brief Sets the request to include the transactions the wallet has signed.
+    /// \return This request for chaining.
+    virtual T& set_with_wallet_transactions() {
+        impl.set_with_wallet_transactions();
         return dynamic_cast<T&>(*this);
     }
 
@@ -130,6 +158,100 @@ public:
     /// \return This request for chaining.
     virtual T& set_with_variant_metadata() override {
         impl.set_with_variant_metadata();
+        return dynamic_cast<T&>(*this);
+    }
+
+    // BalanceFragmentArguments functions
+
+    virtual T& set_bal_id_format(models::AssetIdFormat bal_id_format) override {
+        impl.set_bal_id_format(bal_id_format);
+        return dynamic_cast<T&>(*this);
+    }
+
+    virtual T& set_bal_index_format(models::AssetIndexFormat bal_index_format) override {
+        impl.set_bal_index_format(bal_index_format);
+        return dynamic_cast<T&>(*this);
+    }
+
+    virtual T& set_with_bal_project_uuid() override {
+        impl.set_with_bal_project_uuid();
+        return dynamic_cast<T&>(*this);
+    }
+
+    virtual T& set_with_bal_wallet_address() override {
+        impl.set_with_bal_wallet_address();
+        return dynamic_cast<T&>(*this);
+    }
+
+    // TransactionFragmentArguments functions
+
+    virtual T& set_transaction_asset_id_format(models::AssetIdFormat asset_id_format) override {
+        impl.set_transaction_asset_id_format(asset_id_format);
+        return dynamic_cast<T&>(*this);
+    }
+
+    virtual T& set_with_blockchain_data() override {
+        impl.set_with_blockchain_data();
+        return dynamic_cast<T&>(*this);
+    }
+
+    virtual T& set_with_meta() override {
+        impl.set_with_meta();
+        return dynamic_cast<T&>(*this);
+    }
+
+    virtual T& set_with_encoded_data() override {
+        impl.set_with_encoded_data();
+        return dynamic_cast<T&>(*this);
+    }
+
+    virtual T& set_with_asset_data() override {
+        impl.set_with_asset_data();
+        return dynamic_cast<T&>(*this);
+    }
+
+    virtual T& set_with_signed_txs() override {
+        impl.set_with_signed_txs();
+        return dynamic_cast<T&>(*this);
+    }
+
+    virtual T& set_with_error() override {
+        impl.set_with_error();
+        return dynamic_cast<T&>(*this);
+    }
+
+    virtual T& set_with_nonce() override {
+        impl.set_with_nonce();
+        return dynamic_cast<T&>(*this);
+    }
+
+    virtual T& set_with_state() override {
+        impl.set_with_state();
+        return dynamic_cast<T&>(*this);
+    }
+
+    virtual T& set_with_receipt() override {
+        impl.set_with_receipt();
+        return dynamic_cast<T&>(*this);
+    }
+
+    virtual T& set_with_receipt_logs() override {
+        impl.set_with_receipt_logs();
+        return dynamic_cast<T&>(*this);
+    }
+
+    virtual T& set_with_log_event() override {
+        impl.set_with_log_event();
+        return dynamic_cast<T&>(*this);
+    }
+
+    virtual T& set_with_transaction_project_uuid() override {
+        impl.set_with_transaction_project_uuid();
+        return dynamic_cast<T&>(*this);
+    }
+
+    virtual T& set_with_transaction_wallet_address() override {
+        impl.set_with_transaction_wallet_address();
         return dynamic_cast<T&>(*this);
     }
 

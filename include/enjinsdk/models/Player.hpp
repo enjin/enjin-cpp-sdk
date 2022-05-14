@@ -20,6 +20,7 @@
 #include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/LinkingInfo.hpp"
 #include "enjinsdk/models/Wallet.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -28,10 +29,19 @@ namespace enjin::sdk::models {
 /// \brief Models a player on the platform.
 class ENJINSDK_EXPORT Player : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    Player() = default;
+    /// \brief Constructs an instance of this class.
+    Player();
 
-    ~Player() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    Player(const Player& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    Player(Player&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~Player() override;
 
     void deserialize(const std::string& json) override;
 
@@ -62,17 +72,9 @@ public:
     bool operator!=(const Player& rhs) const;
 
 private:
-    std::optional<std::string> id;
-    std::optional<LinkingInfo> linking_info;
-    std::optional<Wallet> wallet;
-    std::optional<std::string> created_at;
-    std::optional<std::string> updated_at;
+    class Impl;
 
-    constexpr static char ID_KEY[] = "id";
-    constexpr static char LINKING_INFO_KEY[] = "linkingInfo";
-    constexpr static char WALLET_KEY[] = "wallet";
-    constexpr static char CREATED_AT_KEY[] = "createdAt";
-    constexpr static char UPDATED_AT_KEY[] = "updatedAt";
+    std::unique_ptr<Impl> impl;
 };
 
 }

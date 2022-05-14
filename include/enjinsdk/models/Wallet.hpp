@@ -19,19 +19,35 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/Asset.hpp"
+#include "enjinsdk/models/Balance.hpp"
+#include "enjinsdk/models/Request.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 #include <vector>
 
 namespace enjin::sdk::models {
 
+class Balance;
+
+class Request;
+
 /// \brief Models a wallet on the platform.
 class ENJINSDK_EXPORT Wallet : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    Wallet() = default;
+    /// \brief Constructs an instance of this class.
+    Wallet();
 
-    ~Wallet() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    Wallet(const Wallet& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    Wallet(Wallet&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~Wallet() override;
 
     void deserialize(const std::string& json) override;
 
@@ -55,22 +71,22 @@ public:
     /// \return The assets.
     [[nodiscard]] const std::optional<std::vector<Asset>>& get_assets_created() const;
 
+    /// \brief Returns the balances of this wallet.
+    /// \return The balances.
+    [[nodiscard]] const std::optional<std::vector<Balance>>& get_balances() const;
+
+    /// \brief Returns the transactions this wallet has signed.
+    /// \return The transactions.
+    [[nodiscard]] const std::optional<std::vector<Request>>& get_transactions() const;
+
     bool operator==(const Wallet& rhs) const;
 
     bool operator!=(const Wallet& rhs) const;
 
 private:
-    std::optional<std::string> eth_address;
-    std::optional<float> enj_allowance;
-    std::optional<float> enj_balance;
-    std::optional<float> eth_balance;
-    std::optional<std::vector<Asset>> assets_created;
+    class Impl;
 
-    constexpr static char ETH_ADDRESS_KEY[] = "ethAddress";
-    constexpr static char ENJ_ALLOWANCE_KEY[] = "enjAllowance";
-    constexpr static char ENJ_BALANCE_KEY[] = "enjBalance";
-    constexpr static char ETH_BALANCE_KEY[] = "ethBalance";
-    constexpr static char ASSETS_CREATED_KEY[] = "assetsCreated";
+    std::unique_ptr<Impl> impl;
 };
 
 }

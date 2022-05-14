@@ -24,18 +24,30 @@
 #include "enjinsdk/models/RequestState.hpp"
 #include "enjinsdk/models/RequestType.hpp"
 #include "enjinsdk/models/Wallet.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
 namespace enjin::sdk::models {
 
+class Wallet;
+
 /// \brief Models a request on the platform.
 class ENJINSDK_EXPORT Request : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    Request() = default;
+    /// \brief Constructs an instance of this class.
+    Request();
 
-    ~Request() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    Request(const Request& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    Request(Request&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~Request() override;
 
     void deserialize(const std::string& json) override;
 
@@ -110,39 +122,9 @@ public:
     bool operator!=(const Request& rhs) const;
 
 private:
-    std::optional<int> id;
-    std::optional<std::string> transaction_id;
-    std::optional<std::string> title;
-    std::optional<std::string> contract;
-    std::optional<RequestType> type;
-    std::optional<std::string> value;
-    std::optional<std::string> retry_state;
-    std::optional<RequestState> state;
-    std::optional<bool> accepted;
-    std::optional<bool> project_wallet;
-    std::optional<BlockchainData> blockchain_data;
-    std::optional<Project> project;
-    std::optional<Asset> asset;
-    std::optional<Wallet> wallet;
-    std::optional<std::string> created_at;
-    std::optional<std::string> updated_at;
+    class Impl;
 
-    constexpr static char ID_KEY[] = "id";
-    constexpr static char TRANSACTION_ID_KEY[] = "transactionId";
-    constexpr static char TITLE_KEY[] = "title";
-    constexpr static char CONTRACT_KEY[] = "contract";
-    constexpr static char TYPE_KEY[] = "type";
-    constexpr static char VALUE_KEY[] = "value";
-    constexpr static char RETRY_STATE_KEY[] = "retryState";
-    constexpr static char STATE_KEY[] = "state";
-    constexpr static char ACCEPTED_KEY[] = "accepted";
-    constexpr static char PROJECT_WALLET_KEY[] = "projectWallet";
-    constexpr static char BLOCKCHAIN_DATA_KEY[] = "blockchainData";
-    constexpr static char PROJECT_KEY[] = "project";
-    constexpr static char ASSET_KEY[] = "asset";
-    constexpr static char WALLET_KEY[] = "wallet";
-    constexpr static char CREATED_AT_KEY[] = "createdAt";
-    constexpr static char UPDATED_AT_KEY[] = "updatedAt";
+    std::unique_ptr<Impl> impl;
 };
 
 }
