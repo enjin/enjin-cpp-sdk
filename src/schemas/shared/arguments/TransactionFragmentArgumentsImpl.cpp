@@ -23,10 +23,10 @@ namespace enjin::sdk::shared {
 std::string TransactionFragmentArgumentsImpl::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
-    if (asset_id_format.has_value()) {
+    if (transaction_asset_id_format.has_value()) {
         utils::set_string_member(document,
-                                 "assetIdFormat",
-                                 utils::serialize_asset_id_format(asset_id_format.value()));
+                                 "transactionAssetIdFormat",
+                                 utils::serialize_asset_id_format(transaction_asset_id_format.value()));
     }
     if (with_blockchain_data.has_value()) {
         utils::set_boolean_member(document, "withBlockchainData", with_blockchain_data.value());
@@ -64,12 +64,15 @@ std::string TransactionFragmentArgumentsImpl::serialize() const {
     if (with_transaction_project_uuid.has_value()) {
         utils::set_boolean_member(document, "withTransactionProjectUuid", with_transaction_project_uuid.value());
     }
+    if (with_transaction_wallet_address.has_value()) {
+        utils::set_boolean_member(document, "withTransactionWalletAddress", with_transaction_wallet_address.value());
+    }
 
     return utils::document_to_string(document);
 }
 
-void TransactionFragmentArgumentsImpl::set_asset_id_format(models::AssetIdFormat asset_id_format) {
-    TransactionFragmentArgumentsImpl::asset_id_format = asset_id_format;
+void TransactionFragmentArgumentsImpl::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format) {
+    transaction_asset_id_format = asset_id_format;
 }
 
 void TransactionFragmentArgumentsImpl::set_with_blockchain_data() {
@@ -120,20 +123,25 @@ void TransactionFragmentArgumentsImpl::set_with_transaction_project_uuid() {
     with_transaction_project_uuid = true;
 }
 
+void TransactionFragmentArgumentsImpl::set_with_transaction_wallet_address() {
+    with_transaction_wallet_address = true;
+}
+
 bool TransactionFragmentArgumentsImpl::operator==(const TransactionFragmentArgumentsImpl& rhs) const {
-    return asset_id_format == rhs.asset_id_format &&
-           with_blockchain_data == rhs.with_blockchain_data &&
-           with_meta == rhs.with_meta &&
-           with_encoded_data == rhs.with_encoded_data &&
-           with_asset_data == rhs.with_asset_data &&
-           with_signed_txs == rhs.with_signed_txs &&
-           with_error == rhs.with_error &&
-           with_nonce == rhs.with_nonce &&
-           with_state == rhs.with_state &&
-           with_receipt == rhs.with_receipt &&
-           with_receipt_logs == rhs.with_receipt_logs &&
-           with_log_event == rhs.with_log_event &&
-           with_transaction_project_uuid == rhs.with_transaction_project_uuid;
+    return transaction_asset_id_format == rhs.transaction_asset_id_format
+           && with_blockchain_data == rhs.with_blockchain_data
+           && with_meta == rhs.with_meta
+           && with_encoded_data == rhs.with_encoded_data
+           && with_asset_data == rhs.with_asset_data
+           && with_signed_txs == rhs.with_signed_txs
+           && with_error == rhs.with_error
+           && with_nonce == rhs.with_nonce
+           && with_state == rhs.with_state
+           && with_receipt == rhs.with_receipt
+           && with_receipt_logs == rhs.with_receipt_logs
+           && with_log_event == rhs.with_log_event
+           && with_transaction_project_uuid == rhs.with_transaction_project_uuid
+           && with_transaction_wallet_address == rhs.with_transaction_wallet_address;
 }
 
 bool TransactionFragmentArgumentsImpl::operator!=(const TransactionFragmentArgumentsImpl& rhs) const {

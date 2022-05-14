@@ -58,7 +58,7 @@ private:
 };
 
 template ENJINSDK_EXPORT GetRequests&
-TransactionFragmentArguments<GetRequests>::set_asset_id_format(models::AssetIdFormat asset_id_format);
+TransactionFragmentArguments<GetRequests>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
 
 template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_blockchain_data();
 
@@ -88,6 +88,8 @@ PaginationArguments<GetRequests>::set_pagination(models::PaginationOptions pagin
 template ENJINSDK_EXPORT GetRequests& PaginationArguments<GetRequests>::set_pagination(int page, int limit);
 
 template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_transaction_wallet_address();
 
 }
 

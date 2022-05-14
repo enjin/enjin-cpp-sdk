@@ -43,7 +43,7 @@ public:
 namespace enjin::sdk::shared {
 
 template ENJINSDK_EXPORT player::ApproveMaxEnj&
-TransactionFragmentArguments<player::ApproveMaxEnj>::set_asset_id_format(models::AssetIdFormat asset_id_format);
+TransactionFragmentArguments<player::ApproveMaxEnj>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
 
 template ENJINSDK_EXPORT player::ApproveMaxEnj&
 TransactionFragmentArguments<player::ApproveMaxEnj>::set_with_blockchain_data();
@@ -80,6 +80,9 @@ TransactionFragmentArguments<player::ApproveMaxEnj>::set_with_log_event();
 
 template ENJINSDK_EXPORT player::ApproveMaxEnj&
 TransactionFragmentArguments<player::ApproveMaxEnj>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT player::ApproveMaxEnj&
+TransactionFragmentArguments<player::ApproveMaxEnj>::set_with_transaction_wallet_address();
 
 }
 

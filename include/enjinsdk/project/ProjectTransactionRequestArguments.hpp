@@ -46,11 +46,8 @@ public:
 
     // TransactionFragmentArguments functions
 
-    /// \brief Sets the desired asset ID format.
-    /// \param asset_id_format The format.
-    /// \return This request for chaining.
-    virtual T& set_asset_id_format(models::AssetIdFormat asset_id_format) override {
-        impl.set_asset_id_format(asset_id_format);
+    virtual T& set_transaction_asset_id_format(models::AssetIdFormat asset_id_format) override {
+        impl.set_transaction_asset_id_format(asset_id_format);
         return dynamic_cast<T&>(*this);
     }
 
@@ -137,6 +134,11 @@ public:
     /// \return This request for chaining.
     virtual T& set_with_transaction_project_uuid() override {
         impl.set_with_transaction_project_uuid();
+        return dynamic_cast<T&>(*this);
+    }
+
+    virtual T& set_with_transaction_wallet_address() override {
+        impl.set_with_transaction_wallet_address();
         return dynamic_cast<T&>(*this);
     }
 

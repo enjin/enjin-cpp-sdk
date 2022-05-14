@@ -35,7 +35,7 @@ public:
 
     /// \brief Sets the value for the associated field to the passed value.
     /// \param asset_id_format The ID format.
-    void set_asset_id_format(models::AssetIdFormat asset_id_format);
+    void set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
 
     /// \brief Sets the value for the associated field to true.
     void set_with_blockchain_data();
@@ -73,12 +73,15 @@ public:
     /// \brief Sets the value for the associated field to true.
     void set_with_transaction_project_uuid();
 
+    /// \brief Sets the value for the associated field to true.
+    void set_with_transaction_wallet_address();
+
     bool operator==(const TransactionFragmentArgumentsImpl& rhs) const;
 
     bool operator!=(const TransactionFragmentArgumentsImpl& rhs) const;
 
 private:
-    std::optional<models::AssetIdFormat> asset_id_format;
+    std::optional<models::AssetIdFormat> transaction_asset_id_format;
     std::optional<bool> with_blockchain_data;
     std::optional<bool> with_meta;
     std::optional<bool> with_encoded_data;
@@ -91,6 +94,7 @@ private:
     std::optional<bool> with_receipt_logs;
     std::optional<bool> with_log_event;
     std::optional<bool> with_transaction_project_uuid;
+    std::optional<bool> with_transaction_wallet_address;
 };
 
 }

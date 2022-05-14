@@ -23,6 +23,7 @@
 #include "enjinsdk/models/Project.hpp"
 #include "enjinsdk/models/RequestState.hpp"
 #include "enjinsdk/models/RequestType.hpp"
+#include "enjinsdk/models/Wallet.hpp"
 #include <optional>
 #include <string>
 
@@ -90,6 +91,10 @@ public:
     /// \return The asset.
     [[nodiscard]] const std::optional<Asset>& get_asset() const;
 
+    /// Returns the wallet for this request.
+    /// \return The wallet.
+    [[nodiscard]] const std::optional<Wallet>& get_wallet() const;
+
     /// \brief Returns the datetime when this request was created.
     /// \return The datetime.
     /// \remarks The datetime is formatted using the ISO 8601 date format.
@@ -118,6 +123,7 @@ private:
     std::optional<BlockchainData> blockchain_data;
     std::optional<Project> project;
     std::optional<Asset> asset;
+    std::optional<Wallet> wallet;
     std::optional<std::string> created_at;
     std::optional<std::string> updated_at;
 
@@ -134,6 +140,7 @@ private:
     constexpr static char BLOCKCHAIN_DATA_KEY[] = "blockchainData";
     constexpr static char PROJECT_KEY[] = "project";
     constexpr static char ASSET_KEY[] = "asset";
+    constexpr static char WALLET_KEY[] = "wallet";
     constexpr static char CREATED_AT_KEY[] = "createdAt";
     constexpr static char UPDATED_AT_KEY[] = "updatedAt";
 };
