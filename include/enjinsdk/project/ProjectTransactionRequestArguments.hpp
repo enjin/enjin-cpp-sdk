@@ -34,11 +34,109 @@ public:
         return impl.serialize();
     }
 
+    // ProjectTransactionRequestArguments functions
+
     /// \brief Sets the Ethereum address of the sender.
     /// \param address The address.
     /// \return This request for chaining.
-    T& set_eth_address(const std::string& address) {
+    virtual T& set_eth_address(const std::string& address) {
         impl.set_eth_address(address);
+        return dynamic_cast<T&>(*this);
+    }
+
+    // TransactionFragmentArguments functions
+
+    /// \brief Sets the desired asset ID format.
+    /// \param asset_id_format The format.
+    /// \return This request for chaining.
+    virtual T& set_asset_id_format(models::AssetIdFormat asset_id_format) override {
+        impl.set_asset_id_format(asset_id_format);
+        return dynamic_cast<T&>(*this);
+    }
+
+    /// \brief Sets the request to include the blockchain data with the transaction.
+    /// \return This request for chaining.
+    virtual T& set_with_blockchain_data() override {
+        impl.set_with_blockchain_data();
+        return dynamic_cast<T&>(*this);
+    }
+
+    /// \brief Sets the request to include the metadata with the transaction.
+    /// \return This request for chaining.
+    virtual T& set_with_meta() override {
+        impl.set_with_meta();
+        return dynamic_cast<T&>(*this);
+    }
+
+    /// \brief Sets the request to include the encoded data with the transaction when used with
+    /// set_with_blockchain_data().
+    /// \return This request for chaining.
+    virtual T& set_with_encoded_data() override {
+        impl.set_with_encoded_data();
+        return dynamic_cast<T&>(*this);
+    }
+
+    /// \brief Sets the request to include the asset data with the transaction.
+    /// \return This request for chaining.
+    virtual T& set_with_asset_data() override {
+        impl.set_with_asset_data();
+        return dynamic_cast<T&>(*this);
+    }
+
+    /// \brief Sets the request to include the signed transactions with the transaction when used with
+    /// set_with_blockchain_data().
+    /// \return This request for chaining.
+    virtual T& set_with_signed_txs() override {
+        impl.set_with_signed_txs();
+        return dynamic_cast<T&>(*this);
+    }
+
+    /// \brief Sets the request to include the error with the transaction when used with set_with_blockchain_data().
+    /// \return This request for chaining.
+    virtual T& set_with_error() override {
+        impl.set_with_error();
+        return dynamic_cast<T&>(*this);
+    }
+
+    /// \brief Sets the request to include the nonce with the transaction when used with set_with_blockchain_data().
+    /// \return This request for chaining.
+    virtual T& set_with_nonce() override {
+        impl.set_with_nonce();
+        return dynamic_cast<T&>(*this);
+    }
+
+    /// \brief Sets the request to include the state with the transaction when used with set_with_blockchain_data().
+    /// \return This request for chaining.
+    virtual T& set_with_state() override {
+        impl.set_with_state();
+        return dynamic_cast<T&>(*this);
+    }
+
+    /// \brief Sets the request to include the receipt with the transaction when used with set_with_blockchain_data().
+    /// \return This request for chaining.
+    virtual T& set_with_receipt() override {
+        impl.set_with_receipt();
+        return dynamic_cast<T&>(*this);
+    }
+
+    /// \brief Sets the request to include the logs in the receipt when used with set_with_receipt().
+    /// \return This request for chaining.
+    virtual T& set_with_receipt_logs() override {
+        impl.set_with_receipt_logs();
+        return dynamic_cast<T&>(*this);
+    }
+
+    /// \brief Sets the request to include the event data in the receipt logs when used with set_with_receipt_logs().
+    /// \return This request for chaining.
+    virtual T& set_with_log_event() override {
+        impl.set_with_log_event();
+        return dynamic_cast<T&>(*this);
+    }
+
+    /// \brief Sets the request to include the project with its UUID field that this belongs to.
+    /// \return This request for chaining.
+    virtual T& set_with_transaction_project_uuid() override {
+        impl.set_with_transaction_project_uuid();
         return dynamic_cast<T&>(*this);
     }
 

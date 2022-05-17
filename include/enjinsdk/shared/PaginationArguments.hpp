@@ -38,7 +38,7 @@ public:
     /// \brief Sets the pagination options via a move.
     /// \param pagination The options to move.
     /// \return This request for chaining.
-    T& set_pagination(models::PaginationOptions pagination) {
+    virtual T& set_pagination(models::PaginationOptions pagination) {
         impl.set_pagination(std::move(pagination));
         return dynamic_cast<T&>(*this);
     }
@@ -47,7 +47,7 @@ public:
     /// \param page The page to start on.
     /// \param limit The number of items per page.
     /// \return This request for chaining.
-    T& set_pagination(int page, int limit) {
+    virtual T& set_pagination(int page, int limit) {
         impl.set_pagination(page, limit);
         return dynamic_cast<T&>(*this);
     }
