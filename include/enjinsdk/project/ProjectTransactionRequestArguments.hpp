@@ -140,6 +140,14 @@ public:
         return dynamic_cast<T&>(*this);
     }
 
+    bool operator==(const ProjectTransactionRequestArguments& rhs) const {
+        return impl == rhs.impl;
+    }
+
+    bool operator!=(const ProjectTransactionRequestArguments& rhs) const {
+        return rhs != *this;
+    }
+
 protected:
     /// \brief Default constructor.
     ProjectTransactionRequestArguments() = default;
