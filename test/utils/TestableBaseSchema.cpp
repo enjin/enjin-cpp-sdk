@@ -19,16 +19,11 @@
 
 namespace enjin::test::utils {
 
-TestableBaseSchema::TestableBaseSchema()
-        : TestableBaseSchema(sdk::TrustedPlatformMiddleware(nullptr)) {
+TestableBaseSchema::TestableBaseSchema(std::unique_ptr<sdk::http::IHttpClient> http_client)
+        : BaseSchema(std::move(http_client), "test", nullptr) {
 }
 
-TestableBaseSchema::TestableBaseSchema(sdk::TrustedPlatformMiddleware middleware)
-        : BaseSchema(std::move(middleware), "test", nullptr) {
-
-}
-
-const sdk::TrustedPlatformMiddleware& TestableBaseSchema::get_middleware() {
+const std::unique_ptr<sdk::ClientMiddleware>& TestableBaseSchema::get_middleware() {
     return middleware;
 }
 

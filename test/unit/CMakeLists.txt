@@ -1,6 +1,6 @@
 target_sources(${PROJECT_NAME}_tests
         PRIVATE
-        TrustedPlatformMiddlewareTest.cpp)
+        ClientMiddlewareTest.cpp)
 
 if (${ENJINSDK_INCLUDE_HTTP_CLIENT_IMPL})
     target_sources(${PROJECT_NAME}_tests

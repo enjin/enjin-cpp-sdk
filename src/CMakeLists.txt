@@ -7,7 +7,7 @@ target_sources(${PROJECT_NAME}
         PRIVATE
         PlayerClient.cpp
         ProjectClient.cpp
-        TrustedPlatformMiddleware.cpp)
+        ClientMiddleware.cpp)
 
 add_subdirectory(events)
 add_subdirectory(graphql)
