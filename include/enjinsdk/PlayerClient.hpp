@@ -19,7 +19,6 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/IHttpClient.hpp"
 #include "enjinsdk/IClient.hpp"
-#include "enjinsdk/TrustedPlatformMiddleware.hpp"
 #include "enjinsdk/player/PlayerSchema.hpp"
 #include <memory>
 #include <optional>
@@ -95,7 +94,8 @@ public:
     };
 
 private:
-    PlayerClient(TrustedPlatformMiddleware middleware, std::shared_ptr<utils::LoggerProvider> logger_provider);
+    PlayerClient(std::unique_ptr<http::IHttpClient> http_client,
+                 std::shared_ptr<utils::LoggerProvider> logger_provider);
 };
 
 }

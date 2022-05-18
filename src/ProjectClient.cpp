@@ -30,11 +30,11 @@
 
 namespace enjin::sdk {
 
-ProjectClient::ProjectClient(TrustedPlatformMiddleware middleware,
+ProjectClient::ProjectClient(std::unique_ptr<http::IHttpClient> http_client,
                              bool automatic_reauthentication,
                              std::shared_ptr<utils::LoggerProvider> logger_provider,
                              std::optional<std::function<void()>> reauthentication_stopped_handler)
-        : ProjectSchema(std::move(middleware), std::move(logger_provider)),
+        : ProjectSchema(std::move(http_client), std::move(logger_provider)),
           automatic_reauthentication_enabled(automatic_reauthentication),
           reauthentication_stopped_handler(std::move(reauthentication_stopped_handler)) {
     if (automatic_reauthentication) {
@@ -83,11 +83,11 @@ void ProjectClient::close() {
     }
     lock.unlock();
 
-    middleware.close();
+    middleware->close();
 }
 
 bool ProjectClient::is_authenticated() const {
-    return middleware.get_handler()->is_authenticated();
+    return middleware->is_authenticated();
 }
 
 bool ProjectClient::is_automatic_reauthentication_enabled() const {
@@ -95,7 +95,7 @@ bool ProjectClient::is_automatic_reauthentication_enabled() const {
 }
 
 bool ProjectClient::is_closed() const {
-    return middleware.is_closed();
+    return middleware->is_closed();
 }
 
 bool ProjectClient::is_reauthentication_running() const {
@@ -115,7 +115,7 @@ void ProjectClient::auth(std::optional<std::string> token, std::optional<long> e
     }
     lock.unlock();
 
-    middleware.get_handler()->set_auth_token(token.value_or(""));
+    middleware->set_auth_token(token.value_or(""));
 
     if (reauthentication_stopped_handler.has_value() && auth_timer != nullptr && !timer_restarted) {
         reauthentication_stopped_handler.value()();
@@ -191,7 +191,7 @@ std::unique_ptr<ProjectClient> ProjectClient::ProjectClientBuilder::build() {
             client->set_logger(log_level, m_logger_provider);
         }
 
-        return std::unique_ptr<ProjectClient>(new ProjectClient(TrustedPlatformMiddleware(std::move(client)),
+        return std::unique_ptr<ProjectClient>(new ProjectClient(std::move(client),
                                                                 m_automatic_reauthentication.value_or(false),
                                                                 m_logger_provider,
                                                                 std::move(m_reauthentication_stopped_handler)));
@@ -199,7 +199,7 @@ std::unique_ptr<ProjectClient> ProjectClient::ProjectClientBuilder::build() {
         throw std::runtime_error("Attempted building platform client without providing an HTTP client");
 #endif
     } else {
-        return std::unique_ptr<ProjectClient>(new ProjectClient(TrustedPlatformMiddleware(std::move(m_http_client)),
+        return std::unique_ptr<ProjectClient>(new ProjectClient(std::move(m_http_client),
                                                                 m_automatic_reauthentication.value_or(false),
                                                                 m_logger_provider,
                                                                 std::move(m_reauthentication_stopped_handler)));

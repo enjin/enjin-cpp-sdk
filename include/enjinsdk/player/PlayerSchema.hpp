@@ -30,6 +30,8 @@ public:
 
     PlayerSchema(const PlayerSchema&) = delete;
 
+    PlayerSchema(PlayerSchema&& rhs) = delete;
+
     ~PlayerSchema() override = default;
 
     std::future<graphql::GraphqlResponse<models::Request>> advanced_send_asset(AdvancedSendAsset request) override;
@@ -63,15 +65,11 @@ public:
     std::future<graphql::GraphqlResponse<bool>> unlink_wallet(UnlinkWallet request) override;
 
 protected:
-    /// \brief Constructs the schema with the middleware.
-    /// \param middleware The middleware.
+    /// \brief Constructs an instance of this class.
+    /// \param http_client The HTTP client.
     /// \param logger_provider The logger provider.
-    explicit PlayerSchema(TrustedPlatformMiddleware middleware,
-                          std::shared_ptr<utils::LoggerProvider> logger_provider);
-
-    /// \brief Move constructor.
-    /// \param rhs The schema being moved.
-    PlayerSchema(PlayerSchema&& rhs) = default;
+    PlayerSchema(std::unique_ptr<http::IHttpClient> http_client,
+                 std::shared_ptr<utils::LoggerProvider> logger_provider);
 };
 
 }

@@ -19,7 +19,6 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/IHttpClient.hpp"
 #include "enjinsdk/IClient.hpp"
-#include "enjinsdk/TrustedPlatformMiddleware.hpp"
 #include "enjinsdk/internal/Timer.hpp"
 #include "enjinsdk/models/AccessToken.hpp"
 #include "enjinsdk/project/ProjectSchema.hpp"
@@ -153,7 +152,7 @@ private:
     // Mutexes
     mutable std::mutex auth_mutex;
 
-    ProjectClient(TrustedPlatformMiddleware middleware,
+    ProjectClient(std::unique_ptr<http::IHttpClient> http_client,
                   bool automatic_reauthentication,
                   std::shared_ptr<utils::LoggerProvider> logger_provider,
                   std::optional<std::function<void()>> reauthentication_stopped_handler);

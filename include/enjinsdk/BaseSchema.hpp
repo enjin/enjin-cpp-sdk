@@ -19,7 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/GraphqlResponse.hpp"
 #include "enjinsdk/LoggerProvider.hpp"
-#include "enjinsdk/TrustedPlatformMiddleware.hpp"
+#include "enjinsdk/ClientMiddleware.hpp"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include <exception>
 #include <future>
@@ -37,6 +37,8 @@ public:
 
     BaseSchema(const BaseSchema&) = delete;
 
+    BaseSchema(BaseSchema&&) = delete;
+
     /// \brief Default destructor.
     ~BaseSchema() = default;
 
@@ -46,25 +48,21 @@ public:
 
 protected:
     /// \brief The middleware for communicating with the platform.
-    TrustedPlatformMiddleware middleware;
+    const std::unique_ptr<ClientMiddleware> middleware;
 
     /// \brief The logger provider.
-    std::shared_ptr<utils::LoggerProvider> logger_provider;
+    const std::shared_ptr<utils::LoggerProvider> logger_provider;
 
     /// \brief The name of this schema.
-    std::string schema;
+    const std::string schema;
 
-    /// \brief The sole constructor for a base schema.
-    /// \param middleware The platform middleware.
+    /// \brief Constructs an instance of this class.
+    /// \param http_client The HTTP client.
     /// \param schema The name of the schema.
     /// \param logger_provider The logger provider. Null pointer by default.
-    BaseSchema(TrustedPlatformMiddleware middleware,
+    BaseSchema(std::unique_ptr<http::IHttpClient> http_client,
                std::string schema,
                std::shared_ptr<utils::LoggerProvider> logger_provider = nullptr);
-
-    /// \brief Move constructor.
-    /// \param rhs The schema being moved.
-    BaseSchema(BaseSchema&& rhs) = default;
 
     /// \brief Creates the serialized request body to be sent to the platform.
     /// \param request The request.

@@ -13,35 +13,40 @@
  * limitations under the License.
  */
 
-#ifndef ENJINCPPSDK_TRUSTEDPLATFORMMIDDLEWARE_HPP
-#define ENJINCPPSDK_TRUSTEDPLATFORMMIDDLEWARE_HPP
+#ifndef ENJINSDK_CLIENTMIDDLEWARE_HPP
+#define ENJINSDK_CLIENTMIDDLEWARE_HPP
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/GraphqlQueryRegistry.hpp"
+#include "enjinsdk/HttpRequest.hpp"
 #include "enjinsdk/IHttpClient.hpp"
-#include "enjinsdk/TrustedPlatformHandler.hpp"
 #include <memory>
+#include <mutex>
 
 namespace enjin::sdk {
 
-/// \brief The middleware used by clients to communicate with the platform.
-class ENJINSDK_EXPORT TrustedPlatformMiddleware {
+/// \brief Middleware class used by clients to communicate with the platform.
+class ENJINSDK_EXPORT ClientMiddleware {
 public:
-    TrustedPlatformMiddleware() = delete;
+    ClientMiddleware() = delete;
 
     /// \brief Constructs the middleware with the underlying HTTP client and debug option.
     /// \param client The HTTP client.
-    explicit TrustedPlatformMiddleware(std::unique_ptr<http::IHttpClient> client);
+    explicit ClientMiddleware(std::unique_ptr<http::IHttpClient> client);
 
-    /// \brief Default move constructor.
-    /// \param middleware The middleware to move.
-    TrustedPlatformMiddleware(TrustedPlatformMiddleware&& middleware) = default;
+    ClientMiddleware(const ClientMiddleware&) = delete;
+
+    ClientMiddleware(ClientMiddleware&&) = delete;
 
     /// \brief Default destructor.
-    ~TrustedPlatformMiddleware() = default;
+    ~ClientMiddleware() = default;
 
     /// \brief Closes the connection with the platform.
     void close();
+
+    /// \brief Creates a new HTTP request and sets any necessary data needed for communicating with the platform.
+    /// \return The request.
+    http::HttpRequest create_request() const;
 
     /// \brief Returns the query registry used by the middleware.
     /// \return The query registry.
@@ -51,20 +56,33 @@ public:
     /// \return The HTTP client.
     [[nodiscard]] const std::unique_ptr<http::IHttpClient>& get_client() const;
 
-    /// \brief Returns the Trusted Platform handler used by the middleware.
-    /// \return The Trusted Platform handler.
-    [[nodiscard]] const std::shared_ptr<http::TrustedPlatformHandler>& get_handler() const;
+    /// \brief Determines whether this middleware is authenticated.
+    /// \return Whether this middleware is authenticated.
+    bool is_authenticated() const;
 
     /// \brief Determines if the connection this middleware has with the platform is closed.
     /// \return Whether the connection is closed.
     [[nodiscard]] bool is_closed() const;
 
+    /// \brief Sets the authentication token for this middleware.
+    /// \param auth_token The auth token.
+    void set_auth_token(std::string token);
+
 private:
+    std::string auth_token;
     graphql::GraphqlQueryRegistry query_registry;
     std::unique_ptr<http::IHttpClient> client;
-    std::shared_ptr<http::TrustedPlatformHandler> handler = std::make_shared<http::TrustedPlatformHandler>();
+
+    // Mutexes
+    mutable std::mutex auth_token_mutex;
+
+    /// \brief The schema of the Authorization request header.
+    static constexpr char AUTHORIZATION_SCHEMA[] = "Bearer";
+
+    /// \brief The prefix for the default user agent value of this SDK in "<product>/<version>" format.
+    static constexpr char USER_AGENT_PREFIX[] = "Enjin-CPP-SDK/v";
 };
 
 }
 
-#endif //ENJINCPPSDK_TRUSTEDPLATFORMMIDDLEWARE_HPP
+#endif //ENJINSDK_CLIENTMIDDLEWARE_HPP
