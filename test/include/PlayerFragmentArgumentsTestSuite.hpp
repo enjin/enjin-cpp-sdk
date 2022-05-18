@@ -28,10 +28,12 @@ class PlayerFragmentArgumentsTestSuite : public WalletFragmentArgumentsTestSuite
                   "Type T does not inherit from PlayerFragmentArguments.");
 
 public:
+    static constexpr char PlayerFragmentJson[] =
+            R"({"withLinkingInfo":true,"linkingCodeQrSize":1,"withPlayerWallet":true})";
+
     static void set_player_fragment_arguments(sdk::shared::PlayerFragmentArguments<T>& o) {
-        WalletFragmentArgumentsTestSuite<T>::set_wallet_fragment_arguments(o);
         o.set_with_linking_info()
-         .set_qr_size(0)
+         .set_qr_size(1)
          .set_with_wallet();
     }
 };
