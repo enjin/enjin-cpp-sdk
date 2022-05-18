@@ -145,7 +145,7 @@ public:
     }
 
     bool operator!=(const ProjectTransactionRequestArguments& rhs) const {
-        return rhs != *this;
+        return impl != rhs.impl;
     }
 
 protected:

@@ -71,7 +71,7 @@ public:
     }
 
     bool operator!=(const BalanceFragmentArguments& rhs) const {
-        return rhs != *this;
+        return impl != rhs.impl;
     }
 
 protected:

@@ -57,7 +57,7 @@ public:
     }
 
     bool operator!=(const PaginationArguments& rhs) const {
-        return rhs != *this;
+        return impl != rhs.impl;
     }
 
 protected:

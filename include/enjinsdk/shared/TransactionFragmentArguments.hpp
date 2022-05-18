@@ -132,7 +132,7 @@ public:
     }
 
     bool operator!=(const TransactionFragmentArguments& rhs) const {
-        return rhs != *this;
+        return impl != rhs.impl;
     }
 
 protected:

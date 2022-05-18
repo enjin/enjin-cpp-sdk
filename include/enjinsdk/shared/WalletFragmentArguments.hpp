@@ -138,7 +138,7 @@ public:
     }
 
     bool operator!=(const WalletFragmentArguments& rhs) const {
-        return rhs != *this;
+        return impl != rhs.impl;
     }
 
 protected:

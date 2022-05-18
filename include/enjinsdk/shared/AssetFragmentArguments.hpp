@@ -127,7 +127,7 @@ public:
     }
 
     bool operator!=(const AssetFragmentArguments& rhs) const {
-        return rhs != *this;
+        return impl != rhs.impl;
     }
 
 protected:

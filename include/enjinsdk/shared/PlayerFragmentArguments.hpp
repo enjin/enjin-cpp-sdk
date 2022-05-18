@@ -162,7 +162,7 @@ public:
     }
 
     bool operator!=(const PlayerFragmentArguments& rhs) const {
-        return rhs != *this;
+        return impl != rhs.impl;
     }
 
 protected:
