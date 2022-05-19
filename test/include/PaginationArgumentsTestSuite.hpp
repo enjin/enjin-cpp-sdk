@@ -27,8 +27,11 @@ class PaginationArgumentsTestSuite {
                   "Type T does not inherit from PaginationArguments.");
 
 public:
+    static constexpr char PaginationJson[] =
+            R"({"pagination":{"page":1,"limit":1}})";
+
     static void set_pagination_arguments(sdk::shared::PaginationArguments<T>& o) {
-        o.set_pagination(0, 0);
+        o.set_pagination(1, 1);
     }
 };
 

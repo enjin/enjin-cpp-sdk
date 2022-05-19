@@ -39,7 +39,7 @@ public:
     /// \brief Sets the desired asset ID format.
     /// \param bal_id_format The ID format.
     /// \return This request for chaining.
-    T& set_bal_id_format(models::AssetIdFormat bal_id_format) {
+    virtual T& set_bal_id_format(models::AssetIdFormat bal_id_format) {
         impl.set_bal_id_format(bal_id_format);
         return dynamic_cast<T&>(*this);
     }
@@ -47,21 +47,21 @@ public:
     /// \brief Sets the desired index format for non-fungible assets.
     /// \param bal_index_format The index format.
     /// \return This request for chaining.
-    T& set_bal_index_format(models::AssetIndexFormat bal_index_format) {
+    virtual T& set_bal_index_format(models::AssetIndexFormat bal_index_format) {
         impl.set_bal_index_format(bal_index_format);
         return dynamic_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the project UUID with the balance.
     /// \return This request for chaining.
-    T& set_with_bal_project_uuid() {
+    virtual T& set_with_bal_project_uuid() {
         impl.set_with_bal_project_uuid();
         return dynamic_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the wallet address with balance.
     /// \return This request for chaining.
-    T& set_with_bal_wallet_address() {
+    virtual T& set_with_bal_wallet_address() {
         impl.set_with_bal_wallet_address();
         return dynamic_cast<T&>(*this);
     }
@@ -71,7 +71,7 @@ public:
     }
 
     bool operator!=(const BalanceFragmentArguments& rhs) const {
-        return rhs != *this;
+        return impl != rhs.impl;
     }
 
 protected:

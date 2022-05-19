@@ -28,8 +28,10 @@ class WalletFragmentArgumentsTestSuite : public AssetFragmentArgumentsTestSuite<
                   "Type T does not inherit from WalletFragmentArguments.");
 
 public:
+    static constexpr char WalletFragmentJson[] =
+            R"({"withAssetsCreated":true})";
+
     static void set_wallet_fragment_arguments(sdk::shared::WalletFragmentArguments<T>& o) {
-        AssetFragmentArgumentsTestSuite<T>::set_asset_fragment_arguments(o);
         o.set_with_assets_created();
     }
 };

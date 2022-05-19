@@ -27,6 +27,9 @@ class AssetFragmentArgumentsTestSuite {
                   "Type T does not inherit from AssetFragmentArguments.");
 
 public:
+    static constexpr char AssetFragmentJson[] =
+            R"({"assetIdFormat":"hex64","withStateData":true,"withConfigData":true,"withAssetBlocks":true,"withCreator":true,"withMeltDetails":true,"withMetadataURI":true,"withSupplyDetails":true,"withTransferSettings":true,"withAssetVariantMode":true,"withAssetVariants":true,"withVariantMetadata":true})";
+
     static void set_asset_fragment_arguments(sdk::shared::AssetFragmentArguments<T>& o) {
         o.set_asset_id_format(sdk::models::AssetIdFormat::HEX64)
          .set_with_state_data()

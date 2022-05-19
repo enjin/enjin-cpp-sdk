@@ -27,6 +27,9 @@ class TransactionFragmentArgumentsTestSuite {
                   "Type T does not inherit from TransactionFragmentArguments.");
 
 public:
+    static constexpr char TransactionFragmentJson[] =
+            R"({"assetIdFormat":"hex64","withBlockchainData":true,"withMeta":true,"withEncodedData":true,"withAssetData":true,"withSignedTxs":true,"withError":true,"withNonce":true,"withState":true,"withReceipt":true,"withReceiptLogs":true,"withLogEvent":true,"withTransactionProjectUuid":true})";
+
     static void set_transaction_fragment_arguments(sdk::shared::TransactionFragmentArguments<T>& o) {
         o.set_asset_id_format(sdk::models::AssetIdFormat::HEX64)
          .set_with_blockchain_data()
