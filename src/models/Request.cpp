@@ -309,3 +309,8 @@ bool Request::operator==(const Request& rhs) const {
 bool Request::operator!=(const Request& rhs) const {
     return !(*this == rhs);
 }
+
+Request& Request::operator=(const Request& rhs) {
+    impl = std::make_unique<Impl>(*rhs.impl);
+    return *this;
+}

@@ -71,6 +71,8 @@ public:
 
     bool operator!=(const Player& rhs) const;
 
+    Player& operator=(const Player& rhs);
+
 private:
     class Impl;
 

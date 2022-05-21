@@ -134,3 +134,16 @@ TEST_F(WalletTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Assert
     ASSERT_FALSE(actual);
 }
+
+TEST_F(WalletTest, CopyOperatorCopyEqualsOriginal) {
+    // Arrange
+    Wallet original;
+    Wallet copy;
+    original.deserialize(POPULATED_JSON_OBJECT);
+
+    // Act
+    copy = original;
+
+    // Assert
+    ASSERT_EQ(original, copy);
+}

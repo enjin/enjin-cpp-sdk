@@ -121,6 +121,8 @@ public:
 
     bool operator!=(const Request& rhs) const;
 
+    Request& operator=(const Request& rhs);
+
 private:
     class Impl;
 

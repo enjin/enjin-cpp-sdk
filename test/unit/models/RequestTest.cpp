@@ -169,3 +169,16 @@ TEST_F(RequestTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Assert
     ASSERT_FALSE(actual);
 }
+
+TEST_F(RequestTest, CopyOperatorCopyEqualsOriginal) {
+    // Arrange
+    Request original;
+    Request copy;
+    original.deserialize(POPULATED_JSON_OBJECT);
+
+    // Act
+    copy = original;
+
+    // Assert
+    ASSERT_EQ(original, copy);
+}

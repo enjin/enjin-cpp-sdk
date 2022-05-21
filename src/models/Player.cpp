@@ -144,3 +144,8 @@ bool Player::operator==(const Player& rhs) const {
 bool Player::operator!=(const Player& rhs) const {
     return !(*this == rhs);
 }
+
+Player& enjin::sdk::models::Player::operator=(const Player& rhs) {
+    impl = std::make_unique<Impl>(*rhs.impl);
+    return *this;
+}

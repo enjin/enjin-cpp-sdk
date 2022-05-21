@@ -83,6 +83,8 @@ public:
 
     bool operator!=(const Wallet& rhs) const;
 
+    Wallet& operator=(const Wallet& rhs);
+
 private:
     class Impl;
 

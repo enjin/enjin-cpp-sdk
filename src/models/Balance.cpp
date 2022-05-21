@@ -144,3 +144,8 @@ bool Balance::operator==(const Balance& rhs) const {
 bool Balance::operator!=(const Balance& rhs) const {
     return !(*this == rhs);
 }
+
+Balance& enjin::sdk::models::Balance::operator=(const Balance& rhs) {
+    impl = std::make_unique<Impl>(*rhs.impl);
+    return *this;
+}

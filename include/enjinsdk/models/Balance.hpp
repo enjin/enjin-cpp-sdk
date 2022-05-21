@@ -71,6 +71,8 @@ public:
 
     bool operator!=(const Balance& rhs) const;
 
+    Balance& operator=(const Balance& rhs);
+
 private:
     class Impl;
 

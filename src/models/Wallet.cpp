@@ -174,3 +174,8 @@ bool Wallet::operator==(const Wallet& rhs) const {
 bool Wallet::operator!=(const Wallet& rhs) const {
     return !(*this == rhs);
 }
+
+Wallet& enjin::sdk::models::Wallet::operator=(const Wallet& rhs) {
+    impl = std::make_unique<Impl>(*rhs.impl);
+    return *this;
+}
