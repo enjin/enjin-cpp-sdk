@@ -56,7 +56,8 @@ private:
 };
 
 template ENJINSDK_EXPORT DecreaseMaxMeltFee&
-ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_asset_id_format(models::AssetIdFormat asset_id_format);
+ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_transaction_asset_id_format(
+        models::AssetIdFormat asset_id_format);
 
 template ENJINSDK_EXPORT DecreaseMaxMeltFee&
 ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_with_blockchain_data();
@@ -88,6 +89,9 @@ ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_with_log_event();
 
 template ENJINSDK_EXPORT DecreaseMaxMeltFee&
 ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT DecreaseMaxMeltFee&
+ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_with_transaction_wallet_address();
 
 template ENJINSDK_EXPORT DecreaseMaxMeltFee&
 ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_eth_address(const std::string& address);

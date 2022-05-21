@@ -39,7 +39,7 @@ public:
 namespace enjin::sdk::shared {
 
 template test::utils::TestableSharedTransactionFragmentArguments&
-TransactionFragmentArguments<test::utils::TestableSharedTransactionFragmentArguments>::set_asset_id_format(
+TransactionFragmentArguments<test::utils::TestableSharedTransactionFragmentArguments>::set_transaction_asset_id_format(
         models::AssetIdFormat asset_id_format);
 
 template test::utils::TestableSharedTransactionFragmentArguments&
@@ -77,6 +77,9 @@ TransactionFragmentArguments<test::utils::TestableSharedTransactionFragmentArgum
 
 template test::utils::TestableSharedTransactionFragmentArguments&
 TransactionFragmentArguments<test::utils::TestableSharedTransactionFragmentArguments>::set_with_transaction_project_uuid();
+
+template test::utils::TestableSharedTransactionFragmentArguments&
+TransactionFragmentArguments<test::utils::TestableSharedTransactionFragmentArguments>::set_with_transaction_wallet_address();
 
 }
 

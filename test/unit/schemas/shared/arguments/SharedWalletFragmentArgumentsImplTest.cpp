@@ -27,11 +27,14 @@ public:
     WalletFragmentArgumentsImpl class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"withAssetsCreated":true})";
+            R"({"walletBalanceFilter":{},"withAssetsCreated":true,"withWalletBalances":true,"withWalletTransactions":true})";
 
     static WalletFragmentArgumentsImpl create_default_arguments() {
         WalletFragmentArgumentsImpl arguments;
+        arguments.set_wallet_balance_filter({});
         arguments.set_with_assets_created();
+        arguments.set_with_wallet_balances();
+        arguments.set_with_wallet_transactions();
         return arguments;
     }
 };
@@ -50,7 +53,10 @@ TEST_F(SharedWalletFragmentArgumentsImplTest, SerializeNoSetFieldsReturnsEmptyJs
 TEST_F(SharedWalletFragmentArgumentsImplTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
+    class_under_test.set_wallet_balance_filter({});
     class_under_test.set_with_assets_created();
+    class_under_test.set_with_wallet_balances();
+    class_under_test.set_with_wallet_transactions();
 
     // Act
     std::string actual = class_under_test.serialize();

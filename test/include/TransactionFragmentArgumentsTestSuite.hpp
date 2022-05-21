@@ -28,10 +28,10 @@ class TransactionFragmentArgumentsTestSuite {
 
 public:
     static constexpr char TransactionFragmentJson[] =
-            R"({"assetIdFormat":"hex64","withBlockchainData":true,"withMeta":true,"withEncodedData":true,"withAssetData":true,"withSignedTxs":true,"withError":true,"withNonce":true,"withState":true,"withReceipt":true,"withReceiptLogs":true,"withLogEvent":true,"withTransactionProjectUuid":true})";
+            R"({"transactionAssetIdFormat":"hex64","withBlockchainData":true,"withMeta":true,"withEncodedData":true,"withAssetData":true,"withSignedTxs":true,"withError":true,"withNonce":true,"withState":true,"withReceipt":true,"withReceiptLogs":true,"withLogEvent":true,"withTransactionProjectUuid":true,"withTransactionWalletAddress":true})";
 
     static void set_transaction_fragment_arguments(sdk::shared::TransactionFragmentArguments<T>& o) {
-        o.set_asset_id_format(sdk::models::AssetIdFormat::HEX64)
+        o.set_transaction_asset_id_format(sdk::models::AssetIdFormat::HEX64)
          .set_with_blockchain_data()
          .set_with_meta()
          .set_with_encoded_data()
@@ -43,7 +43,8 @@ public:
          .set_with_receipt()
          .set_with_receipt_logs()
          .set_with_log_event()
-         .set_with_transaction_project_uuid();
+         .set_with_transaction_project_uuid()
+         .set_with_transaction_wallet_address();
     }
 };
 

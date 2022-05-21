@@ -49,7 +49,8 @@ private:
 };
 
 template ENJINSDK_EXPORT BridgeClaimAsset&
-ProjectTransactionRequestArguments<BridgeClaimAsset>::set_asset_id_format(models::AssetIdFormat asset_id_format);
+ProjectTransactionRequestArguments<BridgeClaimAsset>::set_transaction_asset_id_format(
+        models::AssetIdFormat asset_id_format);
 
 template ENJINSDK_EXPORT BridgeClaimAsset&
 ProjectTransactionRequestArguments<BridgeClaimAsset>::set_with_blockchain_data();
@@ -78,6 +79,9 @@ template ENJINSDK_EXPORT BridgeClaimAsset& ProjectTransactionRequestArguments<Br
 
 template ENJINSDK_EXPORT BridgeClaimAsset&
 ProjectTransactionRequestArguments<BridgeClaimAsset>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT BridgeClaimAsset&
+ProjectTransactionRequestArguments<BridgeClaimAsset>::set_with_transaction_wallet_address();
 
 template ENJINSDK_EXPORT BridgeClaimAsset&
 ProjectTransactionRequestArguments<BridgeClaimAsset>::set_eth_address(const std::string& address);

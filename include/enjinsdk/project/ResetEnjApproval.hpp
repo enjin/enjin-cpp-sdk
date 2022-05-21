@@ -40,7 +40,8 @@ public:
 };
 
 template ENJINSDK_EXPORT ResetEnjApproval&
-ProjectTransactionRequestArguments<ResetEnjApproval>::set_asset_id_format(models::AssetIdFormat asset_id_format);
+ProjectTransactionRequestArguments<ResetEnjApproval>::set_transaction_asset_id_format(
+        models::AssetIdFormat asset_id_format);
 
 template ENJINSDK_EXPORT ResetEnjApproval&
 ProjectTransactionRequestArguments<ResetEnjApproval>::set_with_blockchain_data();
@@ -69,6 +70,9 @@ template ENJINSDK_EXPORT ResetEnjApproval& ProjectTransactionRequestArguments<Re
 
 template ENJINSDK_EXPORT ResetEnjApproval&
 ProjectTransactionRequestArguments<ResetEnjApproval>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT ResetEnjApproval&
+ProjectTransactionRequestArguments<ResetEnjApproval>::set_with_transaction_wallet_address();
 
 template ENJINSDK_EXPORT ResetEnjApproval&
 ProjectTransactionRequestArguments<ResetEnjApproval>::set_eth_address(const std::string& address);

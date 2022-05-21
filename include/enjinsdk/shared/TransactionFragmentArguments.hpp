@@ -36,8 +36,8 @@ public:
     /// \brief Sets the desired asset ID format.
     /// \param asset_id_format The format.
     /// \return This request for chaining.
-    virtual T& set_asset_id_format(models::AssetIdFormat asset_id_format) {
-        impl.set_asset_id_format(asset_id_format);
+    virtual T& set_transaction_asset_id_format(models::AssetIdFormat asset_id_format) {
+        impl.set_transaction_asset_id_format(asset_id_format);
         return dynamic_cast<T&>(*this);
     }
 
@@ -120,10 +120,17 @@ public:
         return dynamic_cast<T&>(*this);
     }
 
-    /// \brief Sets the request to include the project with its UUID field that this belongs to.
+    /// \brief Sets the request to include the project with its UUID field that the transaction belongs to.
     /// \return This request for chaining.
     virtual T& set_with_transaction_project_uuid() {
         impl.set_with_transaction_project_uuid();
+        return dynamic_cast<T&>(*this);
+    }
+
+    /// \brief Sets the request to include the wallet with its Ethereum address that belongs to the transaction.
+    /// \return This request for chaining.
+    virtual T& set_with_transaction_wallet_address() {
+        impl.set_with_transaction_wallet_address();
         return dynamic_cast<T&>(*this);
     }
 

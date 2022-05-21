@@ -39,7 +39,7 @@ public:
 namespace enjin::sdk::project {
 
 template test::utils::TestableProjectTransactionRequestArguments&
-ProjectTransactionRequestArguments<test::utils::TestableProjectTransactionRequestArguments>::set_asset_id_format(
+ProjectTransactionRequestArguments<test::utils::TestableProjectTransactionRequestArguments>::set_transaction_asset_id_format(
         models::AssetIdFormat asset_id_format);
 
 template test::utils::TestableProjectTransactionRequestArguments&

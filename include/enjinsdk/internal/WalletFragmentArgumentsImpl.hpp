@@ -18,13 +18,18 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AssetFragmentArgumentsImpl.hpp"
+#include "enjinsdk/internal/BalanceFragmentArgumentsImpl.hpp"
+#include "enjinsdk/internal/TransactionFragmentArgumentsImpl.hpp"
+#include "enjinsdk/models/BalanceFilter.hpp"
 #include <optional>
 #include <string>
 
 namespace enjin::sdk::shared {
 
 /// \brief Internal implementation class for storing values of a GraphQL Wallet fragment.
-class ENJINSDK_EXPORT WalletFragmentArgumentsImpl : public AssetFragmentArgumentsImpl {
+class ENJINSDK_EXPORT WalletFragmentArgumentsImpl : public AssetFragmentArgumentsImpl,
+                                                    public BalanceFragmentArgumentsImpl,
+                                                    public TransactionFragmentArgumentsImpl {
 public:
     /// \brief Default constructor.
     WalletFragmentArgumentsImpl() = default;
@@ -33,15 +38,28 @@ public:
 
     [[nodiscard]] std::string serialize() const override;
 
+    /// \brief Sets the value for the associated field to the passed value.
+    /// \param filter The filter.
+    void set_wallet_balance_filter(models::BalanceFilter filter);
+
     /// \brief Sets the value for the associated field to true.
     void set_with_assets_created();
+
+    /// \brief Sets the value for the associated field to true.
+    void set_with_wallet_balances();
+
+    /// \brief Sets the value for the associated field to true.
+    void set_with_wallet_transactions();
 
     bool operator==(const WalletFragmentArgumentsImpl& rhs) const;
 
     bool operator!=(const WalletFragmentArgumentsImpl& rhs) const;
 
 private:
+    std::optional<models::BalanceFilter> wallet_balance_filter;
     std::optional<bool> with_assets_created;
+    std::optional<bool> with_wallet_balances;
+    std::optional<bool> with_wallet_transactions;
 };
 
 }

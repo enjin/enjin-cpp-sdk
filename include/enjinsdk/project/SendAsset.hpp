@@ -73,7 +73,7 @@ private:
 };
 
 template ENJINSDK_EXPORT SendAsset&
-ProjectTransactionRequestArguments<SendAsset>::set_asset_id_format(models::AssetIdFormat asset_id_format);
+ProjectTransactionRequestArguments<SendAsset>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
 
 template ENJINSDK_EXPORT SendAsset& ProjectTransactionRequestArguments<SendAsset>::set_with_blockchain_data();
 
@@ -98,6 +98,9 @@ template ENJINSDK_EXPORT SendAsset& ProjectTransactionRequestArguments<SendAsset
 template ENJINSDK_EXPORT SendAsset& ProjectTransactionRequestArguments<SendAsset>::set_with_log_event();
 
 template ENJINSDK_EXPORT SendAsset& ProjectTransactionRequestArguments<SendAsset>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT SendAsset&
+ProjectTransactionRequestArguments<SendAsset>::set_with_transaction_wallet_address();
 
 template ENJINSDK_EXPORT SendAsset&
 ProjectTransactionRequestArguments<SendAsset>::set_eth_address(const std::string& address);
