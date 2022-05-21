@@ -38,12 +38,12 @@ std::string WalletFragmentArgumentsImpl::serialize() const {
         set_boolean_member(document, "withAssetsCreated", with_assets_created.value());
     }
 
-    if (with_assets_created.has_value()) {
-        set_boolean_member(document, "withWalletBalances", with_assets_created.value());
+    if (with_wallet_balances.has_value()) {
+        set_boolean_member(document, "withWalletBalances", with_wallet_balances.value());
     }
 
-    if (with_assets_created.has_value()) {
-        set_boolean_member(document, "withWalletTransactions", with_assets_created.value());
+    if (with_wallet_transactions.has_value()) {
+        set_boolean_member(document, "withWalletTransactions", with_wallet_transactions.value());
     }
 
     return document_to_string(document);
