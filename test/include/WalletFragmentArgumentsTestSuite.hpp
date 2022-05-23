@@ -17,20 +17,29 @@
 #define ENJINSDK_WALLETFRAGMENTARGUMENTSTESTSUITE_HPP
 
 #include "AssetFragmentArgumentsTestSuite.hpp"
+#include "BalanceFragmentArgumentsTestSuite.hpp"
+#include "TransactionFragmentArgumentsTestSuite.hpp"
 #include "enjinsdk/shared/WalletFragmentArguments.hpp"
 #include <type_traits>
 
 namespace enjin::test::suites {
 
 template<class T>
-class WalletFragmentArgumentsTestSuite : public AssetFragmentArgumentsTestSuite<T> {
+class WalletFragmentArgumentsTestSuite : public AssetFragmentArgumentsTestSuite<T>,
+                                         public BalanceFragmentArgumentsTestSuite<T>,
+                                         public TransactionFragmentArgumentsTestSuite<T> {
     static_assert(std::is_base_of<sdk::shared::WalletFragmentArguments<T>, T>::value,
                   "Type T does not inherit from WalletFragmentArguments.");
 
 public:
+    static constexpr char WalletFragmentJson[] =
+            R"({"walletBalanceFilter":{},"withAssetsCreated":true,"withWalletBalances":true,"withWalletTransactions":true})";
+
     static void set_wallet_fragment_arguments(sdk::shared::WalletFragmentArguments<T>& o) {
-        AssetFragmentArgumentsTestSuite<T>::set_asset_fragment_arguments(o);
-        o.set_with_assets_created();
+        o.set_wallet_balance_filter({})
+         .set_with_assets_created()
+         .set_with_wallet_balances()
+         .set_with_wallet_transactions();
     }
 };
 

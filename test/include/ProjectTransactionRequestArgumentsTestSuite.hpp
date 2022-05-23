@@ -28,8 +28,10 @@ class ProjectTransactionRequestArgumentsTestSuite : public TransactionFragmentAr
                   "Type T does not inherit from ProjectTransactionRequestArguments.");
 
 public:
+    static constexpr char ProjectTransactionRequestJson[] =
+            R"({"ethAddress":"1"})";
+
     static void set_project_transaction_request_arguments(sdk::project::ProjectTransactionRequestArguments<T>& o) {
-        TransactionFragmentArgumentsTestSuite<T>::set_transaction_fragment_arguments(o);
         o.set_eth_address("1");
     }
 };

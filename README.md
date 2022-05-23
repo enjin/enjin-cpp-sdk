@@ -19,6 +19,8 @@ Sign up to Enjin Cloud: [Kovan (Testnet)](https://kovan.cloud.enjin.io/),
 
 * [Compatibility](#compatibility)
 * [Installation](#installation)
+    * [Conan](#conan)
+    * [Manual](#manual)
     * [Tests](#tests)
 * [Quick Start](#quick-start)
 * [Contributing](#contributing)
@@ -37,6 +39,13 @@ combinations tested are as follows:
 
 ## Installation
 
+### Conan
+
+Recipes for this SDK are available on [Conan Center](https://conan.io/center/enjincppsdk) for installation and package
+management.
+
+### Manual
+
 The SDK may be built as a static or shared (dynamic) library. Use the `ENJINSDK_BUILD_SHARED` CMake argument to build as
 a shared library and set it to "on" (off by default).
 
@@ -50,7 +59,7 @@ The following libraries are used by the SDK for some of its functionality and mu
 * [RapidJSON (1.1.0+)](https://github.com/Tencent/rapidjson) for processing JSON
 * [spdlog (1.8.0+)](https://github.com/gabime/spdlog) for the logger class
 * (optional) [cpp-httplib (0.8.5+)](https://github.com/yhirose/cpp-httplib) for a default HTTP client implementation
-  * [openssl (1.1.1)](https://github.com/openssl/openssl) for HTTPS support
+    * [openssl (1.1.1)](https://github.com/openssl/openssl) for HTTPS support
 * (optional) [IXWebSocket (11.0.4+)](https://github.com/machinezone/IXWebSocket) for a default websocket client
   implementation
 
@@ -84,8 +93,9 @@ to your target.
 
 ### Tests
 
-For running unit tests [Git (1.6.5+)](https://git-scm.com/) is required to run CMake's `ExternalProject_Add()` function
-to acquire [Googletest (1.10.0+)](https://github.com/google/googletest) to be used as the testing framework.
+For running unit tests in **manual** installations, [Git (1.6.5+)](https://git-scm.com/) is required to run
+CMake's `ExternalProject_Add()` function to acquire [Googletest (1.10.0+)](https://github.com/google/googletest) for the
+testing framework.
 
 To have the test executable built, set the CMake argument `ENJINSDK_BUILD_TESTS` to `ON` and leave the `BUILD_TESTING`
 option from CTest enabled.

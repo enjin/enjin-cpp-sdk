@@ -20,18 +20,30 @@
 #include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/Project.hpp"
 #include "enjinsdk/models/Wallet.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
 namespace enjin::sdk::models {
 
+class Wallet;
+
 /// \brief Models a asset balance.
 class ENJINSDK_EXPORT Balance : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    Balance() = default;
+    /// \brief Constructs an instance of this class.
+    Balance();
 
-    ~Balance() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    Balance(const Balance& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    Balance(Balance&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~Balance() override;
 
     void deserialize(const std::string& json) override;
 
@@ -59,18 +71,12 @@ public:
 
     bool operator!=(const Balance& rhs) const;
 
-private:
-    std::optional<std::string> id;
-    std::optional<std::string> index;
-    std::optional<int> value;
-    std::optional<Project> project;
-    std::optional<Wallet> wallet;
+    Balance& operator=(const Balance& rhs);
 
-    constexpr static char ID_KEY[] = "id";
-    constexpr static char INDEX_KEY[] = "index";
-    constexpr static char VALUE_KEY[] = "value";
-    constexpr static char PROJECT_KEY[] = "project";
-    constexpr static char WALLET_KEY[] = "wallet";
+private:
+    class Impl;
+
+    std::unique_ptr<Impl> impl;
 };
 
 }

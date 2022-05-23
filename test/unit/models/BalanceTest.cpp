@@ -130,3 +130,16 @@ TEST_F(BalanceTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Assert
     ASSERT_FALSE(actual);
 }
+
+TEST_F(BalanceTest, CopyOperatorCopyEqualsOriginal) {
+    // Arrange
+    Balance original;
+    Balance copy;
+    original.deserialize(POPULATED_JSON_OBJECT);
+
+    // Act
+    copy = original;
+
+    // Assert
+    ASSERT_EQ(original, copy);
+}

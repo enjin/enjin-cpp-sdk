@@ -28,11 +28,11 @@ public:
     TransactionFragmentArgumentsImpl class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"assetIdFormat":"hex64","withBlockchainData":true,"withMeta":true,"withEncodedData":true,"withAssetData":true,"withSignedTxs":true,"withError":true,"withNonce":true,"withState":true,"withReceipt":true,"withReceiptLogs":true,"withLogEvent":true,"withTransactionProjectUuid":true})";
+            R"({"transactionAssetIdFormat":"hex64","withBlockchainData":true,"withMeta":true,"withEncodedData":true,"withAssetData":true,"withSignedTxs":true,"withError":true,"withNonce":true,"withState":true,"withReceipt":true,"withReceiptLogs":true,"withLogEvent":true,"withTransactionProjectUuid":true,"withTransactionWalletAddress":true})";
 
     static TransactionFragmentArgumentsImpl create_default_arguments() {
         TransactionFragmentArgumentsImpl arguments;
-        arguments.set_asset_id_format(AssetIdFormat::HEX64);
+        arguments.set_transaction_asset_id_format(AssetIdFormat::HEX64);
         arguments.set_with_blockchain_data();
         arguments.set_with_meta();
         arguments.set_with_encoded_data();
@@ -45,6 +45,7 @@ public:
         arguments.set_with_receipt_logs();
         arguments.set_with_log_event();
         arguments.set_with_transaction_project_uuid();
+        arguments.set_with_transaction_wallet_address();
         return arguments;
     }
 };
@@ -63,7 +64,7 @@ TEST_F(SharedTransactionFragmentArgumentsImplTest, SerializeNoSetFieldsReturnsEm
 TEST_F(SharedTransactionFragmentArgumentsImplTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_asset_id_format(AssetIdFormat::HEX64);
+    class_under_test.set_transaction_asset_id_format(AssetIdFormat::HEX64);
     class_under_test.set_with_blockchain_data();
     class_under_test.set_with_meta();
     class_under_test.set_with_encoded_data();
@@ -76,6 +77,7 @@ TEST_F(SharedTransactionFragmentArgumentsImplTest, SerializeSetFieldsReturnsExpe
     class_under_test.set_with_receipt_logs();
     class_under_test.set_with_log_event();
     class_under_test.set_with_transaction_project_uuid();
+    class_under_test.set_with_transaction_wallet_address();
 
     // Act
     std::string actual = class_under_test.serialize();

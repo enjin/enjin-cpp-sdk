@@ -27,7 +27,7 @@ public:
     Request class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"id":1,"transactionId":"1","title":"1","contract":"1","type":"APPROVE","value":"1","retryState":"1","state":"PENDING","accepted":true,"projectWallet":true,"blockchainData":{},"project":{},"asset":{},"createdAt":"1","updatedAt":"1"})";
+            R"({"id":1,"transactionId":"1","title":"1","contract":"1","type":"APPROVE","value":"1","retryState":"1","state":"PENDING","accepted":true,"projectWallet":true,"blockchainData":{},"project":{},"asset":{},"wallet":{},"createdAt":"1","updatedAt":"1"})";
 };
 
 TEST_F(RequestTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
@@ -51,6 +51,7 @@ TEST_F(RequestTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
     EXPECT_FALSE(class_under_test.get_blockchain_data().has_value());
     EXPECT_FALSE(class_under_test.get_project().has_value());
     EXPECT_FALSE(class_under_test.get_asset().has_value());
+    EXPECT_FALSE(class_under_test.get_wallet().has_value());
     EXPECT_FALSE(class_under_test.get_created_at().has_value());
     EXPECT_FALSE(class_under_test.get_updated_at().has_value());
 }
@@ -76,6 +77,7 @@ TEST_F(RequestTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     EXPECT_FALSE(class_under_test.get_blockchain_data().has_value());
     EXPECT_FALSE(class_under_test.get_project().has_value());
     EXPECT_FALSE(class_under_test.get_asset().has_value());
+    EXPECT_FALSE(class_under_test.get_wallet().has_value());
     EXPECT_FALSE(class_under_test.get_created_at().has_value());
     EXPECT_FALSE(class_under_test.get_updated_at().has_value());
 }
@@ -90,6 +92,7 @@ TEST_F(RequestTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
     const BlockchainData expected_blockchain_data;
     const Project expected_project;
     const Asset expected_asset;
+    const Wallet expected_wallet;
 
     const std::string json(POPULATED_JSON_OBJECT);
 
@@ -110,6 +113,7 @@ TEST_F(RequestTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
     EXPECT_EQ(expected_blockchain_data, class_under_test.get_blockchain_data().value());
     EXPECT_EQ(expected_project, class_under_test.get_project().value());
     EXPECT_EQ(expected_asset, class_under_test.get_asset().value());
+    EXPECT_EQ(expected_wallet, class_under_test.get_wallet().value());
     EXPECT_EQ(expected_string, class_under_test.get_created_at().value());
     EXPECT_EQ(expected_string, class_under_test.get_updated_at().value());
 }
@@ -164,4 +168,17 @@ TEST_F(RequestTest, EqualityRightSideIsPopulatedReturnsFalse) {
 
     // Assert
     ASSERT_FALSE(actual);
+}
+
+TEST_F(RequestTest, CopyOperatorCopyEqualsOriginal) {
+    // Arrange
+    Request original;
+    Request copy;
+    original.deserialize(POPULATED_JSON_OBJECT);
+
+    // Act
+    copy = original;
+
+    // Assert
+    ASSERT_EQ(original, copy);
 }
