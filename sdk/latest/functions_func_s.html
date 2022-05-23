@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.1004</span>
+   &#160;<span id="projectnumber">1.0.0.1005</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -242,8 +242,8 @@ $(function() {
 <li>set_asset_id_format()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments.html#a6d7916441c77b2c52cf7525656443e36">enjin::sdk::shared::AssetFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments_impl.html#a2ffc961bc75c037974532a8ba889738d">enjin::sdk::shared::AssetFragmentArgumentsImpl</a>
-, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#a5cb79208b9b6c55365d813473b525fa5">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
-, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#a30718159e472541a14a23c3688bf838b">enjin::sdk::shared::TransactionFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a628dc5ae56e76c976cde680d81b7eb5c">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#af6a7ac8124d4fa807771f97933702eb7">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_asset_id_in()
 : <a class="el" href="classenjin_1_1sdk_1_1models_1_1_balance_filter.html#a8fd856cf44678f14f69349870163c16e">enjin::sdk::models::BalanceFilter</a>
@@ -270,10 +270,14 @@ $(function() {
 <li>set_bal_id_format()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_balance_fragment_arguments.html#a31c78fd67330e5ea4ef066820b11e040">enjin::sdk::shared::BalanceFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_balance_fragment_arguments_impl.html#a05cc7873c94f85858602851c7224b611">enjin::sdk::shared::BalanceFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#ad8b651792c7134c3a57123c702f41d51">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#aebcc16ee7ed9febbb34efd3d57b0ce7d">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_bal_index_format()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_balance_fragment_arguments.html#a0676443bced4f0398324acb5dcf40c8e">enjin::sdk::shared::BalanceFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_balance_fragment_arguments_impl.html#af2c7c4b4a7fd77a8e248e12cbdeba631">enjin::sdk::shared::BalanceFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a11f1992f8f430d7ee43ce4f5fdb90732">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#a08b38ff23b045e6c8e5f476fbe8895c7">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_close_handler()
 : <a class="el" href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#a3d1937ebb98cebab93d3e483a50cb5fe">enjin::sdk::websockets::IWebsocketClient</a>
@@ -420,7 +424,7 @@ $(function() {
 </li>
 <li>set_pagination()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_pagination_arguments.html#afcc03deda7adab8a8de9b78deedd56fa">enjin::sdk::shared::PaginationArguments&lt; T &gt;</a>
-, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_pagination_arguments_impl.html#a1a093692a1c0432691d1aa403cc45540">enjin::sdk::shared::PaginationArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_pagination_arguments_impl.html#a241aa8c022b25bbc0ba052c34ffbc4d0">enjin::sdk::shared::PaginationArgumentsImpl</a>
 </li>
 <li>set_qr_size()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a6e75fecd7eb6f48de167f0d1b4199908">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
@@ -458,6 +462,13 @@ $(function() {
 </li>
 <li>set_trade_id()
 : <a class="el" href="classenjin_1_1sdk_1_1project_1_1_complete_trade.html#a0656ac73b2fc103317f8e358516e88ae">enjin::sdk::project::CompleteTrade</a>
+</li>
+<li>set_transaction_asset_id_format()
+: <a class="el" href="classenjin_1_1sdk_1_1project_1_1_project_transaction_request_arguments.html#a115fb05d2648c2b655f3f1e5ca297f0b">enjin::sdk::project::ProjectTransactionRequestArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a76ff382a3facc310bf0142abd6fa45eb">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#a244f7631cc9079c4a34190e3f1221f62">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#a72af1ea1540d56fe50bfe9cb2f994239">enjin::sdk::shared::TransactionFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#ab89afd18a61d3ea301db5f55da93b625">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_transaction_id()
 : <a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_filter.html#a1596cec9c92c9894d3abbf46a87e423d">enjin::sdk::models::TransactionFilter</a>
@@ -543,6 +554,11 @@ $(function() {
 , <a class="el" href="classenjin_1_1sdk_1_1models_1_1_balance_filter.html#aa270a2eacb240abea0c36f52c5c1976e">enjin::sdk::models::BalanceFilter</a>
 , <a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_filter.html#a266250abdb2acc5cf0edf1380ccde97d">enjin::sdk::models::TransactionFilter</a>
 </li>
+<li>set_wallet_balance_filter()
+: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a9c8a1437e523851de0627f05c0a984fd">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#aa76ba787743c897e3a6c574ecd8b665d">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments_impl.html#a73aff81915b82efbea2b73cb814b65a0">enjin::sdk::shared::WalletFragmentArgumentsImpl</a>
+</li>
 <li>set_wallet_in()
 : <a class="el" href="classenjin_1_1sdk_1_1models_1_1_asset_filter.html#a2374db22c76b1931d1b41d5b794b1bd4">enjin::sdk::models::AssetFilter</a>
 , <a class="el" href="classenjin_1_1sdk_1_1models_1_1_balance_filter.html#a22d7f92b892c2af348a0f2351281ef1c">enjin::sdk::models::BalanceFilter</a>
@@ -559,38 +575,57 @@ $(function() {
 <li>set_with_asset_blocks()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments.html#a8bb072f70cb1a4e501b0fb4a3ae38168">enjin::sdk::shared::AssetFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments_impl.html#ac8c1e9444b7ab7da775ca7bbc94d84a9">enjin::sdk::shared::AssetFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a9921a060af192c020185ee49b7897030">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#a66353455ba34dc3cf6440da8a9c5f730">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_asset_data()
-: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#a476dce1c35d60d9058b11dca32630730">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
+: <a class="el" href="classenjin_1_1sdk_1_1project_1_1_project_transaction_request_arguments.html#a0f2328d5614d990d795d683444758a5b">enjin::sdk::project::ProjectTransactionRequestArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a9c087ee3ab2b158047b8e5a028b6ff35">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#a476dce1c35d60d9058b11dca32630730">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#abdb044f611aa939ade67db6c55904c6c">enjin::sdk::shared::TransactionFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#afdb2a6a9a4b9ed49b21a52a1b7eda603">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_asset_variant_mode()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments.html#a4cde32a30953f3d7f84bb2ce41fcee86">enjin::sdk::shared::AssetFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments_impl.html#a0a33a849a3d1ffea7fdb312e91384adf">enjin::sdk::shared::AssetFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#aa5daa23b4c96d7cfb833b56ab7d9ca93">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#ac9dc01060cca0ff0da65211b08c97ddf">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_asset_variants()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments.html#a72f3db4c7e3e244afda7aabd1a7937bf">enjin::sdk::shared::AssetFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments_impl.html#a50b85d4a713ec676b043ffde69ff6669">enjin::sdk::shared::AssetFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#ad85d2d046d0c0d5a0991dd51e94ea00d">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#acdbe5f5143e4aee309f820c088a5b10c">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_assets_created()
-: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#ad7e64af69e9346ba0ed1424644491fcb">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
+: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a51a9adfdbd4e219679e1958db6a1e65e">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#ad7e64af69e9346ba0ed1424644491fcb">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments_impl.html#af7a86eee369ae52a679d054df33b09fe">enjin::sdk::shared::WalletFragmentArgumentsImpl</a>
 </li>
 <li>set_with_bal_project_uuid()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_balance_fragment_arguments.html#a31a83bfb19a6343d356e0e8c7bcc7dcd">enjin::sdk::shared::BalanceFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_balance_fragment_arguments_impl.html#a29527cb79ebc40c2ad77a9b8192dc3a1">enjin::sdk::shared::BalanceFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a250c546fc750905179eb48c0eca9cbd8">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#a4d1532be8b5aedade693a822a62fd33c">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_bal_wallet_address()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_balance_fragment_arguments.html#af5c795764b6089c34955e8650e062ac2">enjin::sdk::shared::BalanceFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_balance_fragment_arguments_impl.html#ade186df520f7d1d6b9bf9fba30f5bc95">enjin::sdk::shared::BalanceFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a9df204f422b3b14a908d281650979768">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#a79f0fb3899c602a9307a483793c8bdfa">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_blockchain_data()
-: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#aea47f0b5392ac8e98569dc1cac585723">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
+: <a class="el" href="classenjin_1_1sdk_1_1project_1_1_project_transaction_request_arguments.html#abada28950a4ccc0fd7418c7d5e9434a6">enjin::sdk::project::ProjectTransactionRequestArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a5d20452b01dbdc69196dbecf051a485e">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#aea47f0b5392ac8e98569dc1cac585723">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#a34628f508d8a72d6356e221b781df9b8">enjin::sdk::shared::TransactionFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#afe3cab3426aab1ef18dcc5d9ba780154">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_config_data()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments.html#a8f4f8163e7b44857a77b34a328591bc4">enjin::sdk::shared::AssetFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments_impl.html#ae4797a6d9379c3532add58da229e5c56">enjin::sdk::shared::AssetFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a007889d4716905e1a925ce2a88bd58ab">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#a4268820991f75af09afd9b4e99034b61">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_contracts()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_get_platform.html#a7173a611608bfafe2318094ec08c4716">enjin::sdk::shared::GetPlatform</a>
@@ -598,81 +633,142 @@ $(function() {
 <li>set_with_creator()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments.html#a41f033ccabb11cd10e72f791c9dd6a02">enjin::sdk::shared::AssetFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments_impl.html#a6afa53109c7328b31723b808948af643">enjin::sdk::shared::AssetFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a6476f2580dd4aa0ad7c327701339880b">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#afaf7ff3d42ea9492d9b7972a81c448ab">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_encoded_data()
-: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#a2d35565c9333385b804a0ba60f408167">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
+: <a class="el" href="classenjin_1_1sdk_1_1project_1_1_project_transaction_request_arguments.html#a67af8ef71ad8c72b81dbc8dd2722ae01">enjin::sdk::project::ProjectTransactionRequestArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a13f9bdf2020d0655ad0f34a4fc7ae7c6">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#a2d35565c9333385b804a0ba60f408167">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#a81df0ecb129bb726682cbb61f9f37542">enjin::sdk::shared::TransactionFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#adb9112a26374942c824c4c9f39b06161">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_error()
-: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#ad0124bfdfbfa71aff7061ea9537e10e1">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
+: <a class="el" href="classenjin_1_1sdk_1_1project_1_1_project_transaction_request_arguments.html#a6c36a49e36b7f96b2d1a0724fa3bfee7">enjin::sdk::project::ProjectTransactionRequestArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a5153e26b18434c5b277b3cd5369333fd">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#ad0124bfdfbfa71aff7061ea9537e10e1">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#abc857004beacd614700b2ff1085fddc9">enjin::sdk::shared::TransactionFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#a0c716027a31c8e73ef40cf42d363cf9c">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_linking_info()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#ace5ceb89fed7cb6f6f43e9f0a961d533">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments_impl.html#a216970a880f51e644cff3b7bded97027">enjin::sdk::shared::PlayerFragmentArgumentsImpl</a>
 </li>
 <li>set_with_log_event()
-: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#a64d724b11ad9b2686290de61ee4ad0d3">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
+: <a class="el" href="classenjin_1_1sdk_1_1project_1_1_project_transaction_request_arguments.html#a2cb798c867868b91acb249d848857c72">enjin::sdk::project::ProjectTransactionRequestArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a2938f3aa03c45935102f534f1c660287">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#a64d724b11ad9b2686290de61ee4ad0d3">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#a7d525e6d029ffaf4c05dea500b3f1784">enjin::sdk::shared::TransactionFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#ae260f36f4d9cd4fd8e3c9be9383150b6">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_melt_details()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments.html#a9c58c87fa3db2ef84261453de750af1b">enjin::sdk::shared::AssetFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments_impl.html#a94d9b44aaa21a7b55e51858bfb976892">enjin::sdk::shared::AssetFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a5b9c45e986a1039a1c5cedd7f6a12711">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#a64b0165c32df69ecb834801f5e877ab4">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_meta()
-: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#a161aa84dcb25f20d3d06796e2dd337c0">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
+: <a class="el" href="classenjin_1_1sdk_1_1project_1_1_project_transaction_request_arguments.html#aae6bf961915f32f0e761ba2159314bf0">enjin::sdk::project::ProjectTransactionRequestArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#ab701da357c0e6371fa160a18310bd422">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#a161aa84dcb25f20d3d06796e2dd337c0">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#a1a55bedb85afbcd27dbeb3478ccc5563">enjin::sdk::shared::TransactionFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#a362e4d87e465b33a617c45321132437c">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_metadata_uri()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments.html#a0341a07d29cb0fe3a3ae50de7c469177">enjin::sdk::shared::AssetFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments_impl.html#a0e9d78c0d262e876b4a40e3bd20ae0ef">enjin::sdk::shared::AssetFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a6b6c6c0b1111de3beb41fa1f3b4e4cbc">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#a87e5719944c52f611ea5afbaffdf32a6">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_nonce()
-: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#a4b9c802dacdbb8cc20d18ece70fe5adb">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
+: <a class="el" href="classenjin_1_1sdk_1_1project_1_1_project_transaction_request_arguments.html#a5a07b9187e7ba616806988b2ea247cf3">enjin::sdk::project::ProjectTransactionRequestArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a769ca1dc6146b808acc1ab14aea5f31b">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#a4b9c802dacdbb8cc20d18ece70fe5adb">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#a257a41d0bb0352a4c40cecea197fe412">enjin::sdk::shared::TransactionFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#aeebaecc361576af60a53bc5679045d8a">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_notifications()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_get_platform.html#a3daa3b0d610a62181803ee4819d5d46c">enjin::sdk::shared::GetPlatform</a>
 </li>
 <li>set_with_receipt()
-: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#a666f2bfaca50c863b38f8fc455195494">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
+: <a class="el" href="classenjin_1_1sdk_1_1project_1_1_project_transaction_request_arguments.html#a4dd16f2afad1691b35c8b81cdda8d4d9">enjin::sdk::project::ProjectTransactionRequestArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a08361b1b22f1225184ba1009389d1171">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#a666f2bfaca50c863b38f8fc455195494">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#a6add5748c8688201450e04bd30d73841">enjin::sdk::shared::TransactionFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#af195ba31068d6bad5e037c923d391666">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_receipt_logs()
-: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#ab5f4ad6f00d7c4329b53c8328f6ddaf8">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
+: <a class="el" href="classenjin_1_1sdk_1_1project_1_1_project_transaction_request_arguments.html#aaaa734a1a624102eb0565f094ba7c2c1">enjin::sdk::project::ProjectTransactionRequestArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#abf7ed170d3c557f317f8fad696f5c5ec">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#ab5f4ad6f00d7c4329b53c8328f6ddaf8">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#a9c947442343bf808586c141bd87a1431">enjin::sdk::shared::TransactionFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#a72e8a8b228bed96b551c90cc265a2b03">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_signed_txs()
-: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#ad8d4a9c037267c8d1cea09586f31620e">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
+: <a class="el" href="classenjin_1_1sdk_1_1project_1_1_project_transaction_request_arguments.html#ad9c869ca2e0d5cd1777db10c2280f909">enjin::sdk::project::ProjectTransactionRequestArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#ab7f37c67ac3a1fe27df7dfe9ce25ba61">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#ad8d4a9c037267c8d1cea09586f31620e">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#aed2ab2eea7c6a3935e05b964d4b5d1ea">enjin::sdk::shared::TransactionFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#af035fe249a7893c21cfefd68f5284b6e">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_state()
-: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#a4d17ec0e9d6cd5d81794ee536c6e76d4">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
+: <a class="el" href="classenjin_1_1sdk_1_1project_1_1_project_transaction_request_arguments.html#a9f3b6b14da5d9339ea623087296dff27">enjin::sdk::project::ProjectTransactionRequestArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a18c06f78e0192524febd4ed379064859">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#a4d17ec0e9d6cd5d81794ee536c6e76d4">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#aa55b684306703e0efa0d7b52f9cc8fcb">enjin::sdk::shared::TransactionFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#a8813f608b7b8a0756b9a025f0c87e510">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_state_data()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments.html#adcdbac600b091bd86412f259405d766a">enjin::sdk::shared::AssetFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments_impl.html#a6095dc276dc19a98e611e952ec811990">enjin::sdk::shared::AssetFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a932c31cd836cee9d7215ceac1c8b878e">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#a42e29feb03a3e129a5501518ac0ff83e">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_supply_details()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments.html#a21c23a6ca68b7a5fc1a3a2a702f94110">enjin::sdk::shared::AssetFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments_impl.html#a82fcd99d343311982892e7325d58e471">enjin::sdk::shared::AssetFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#aacbbdff1234113a2ecca7e39fc4876d5">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#a669dbde940e52a723ab26d1fee84cfb4">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_transaction_project_uuid()
-: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#a8f81d20fbe1a8ad43cb4e16a89bb4521">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
+: <a class="el" href="classenjin_1_1sdk_1_1project_1_1_project_transaction_request_arguments.html#a820240d7a916609b4cd4b229dca4d6f8">enjin::sdk::project::ProjectTransactionRequestArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a6424346214bf4b4d28f9767cbb0ce8d7">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#a8f81d20fbe1a8ad43cb4e16a89bb4521">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#a782858ed1f276c4e18234378cd3f6723">enjin::sdk::shared::TransactionFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#a6e12fc462bf8a46e96bb68b400b54178">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
+</li>
+<li>set_with_transaction_wallet_address()
+: <a class="el" href="classenjin_1_1sdk_1_1project_1_1_project_transaction_request_arguments.html#a61ca432c332d46cfe17787e36e42d70a">enjin::sdk::project::ProjectTransactionRequestArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a414417c31a6a6206caa83fd97347fbe4">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#a839c1a33343c85c091f2c95d88d5e08b">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#a404f133ce00ea4644cc70176e192a742">enjin::sdk::shared::TransactionFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#a46f970ee77ad00bdae4f30676996056e">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_transfer_settings()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments.html#a9b55127d0ddd076b5a8ace502d7fe61b">enjin::sdk::shared::AssetFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments_impl.html#a6dd5d066f4daa8db198d198022bdae64">enjin::sdk::shared::AssetFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a63df7b5f2df72812f5bdc241fe8628a5">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#a814d55076afcc7fc42d7ee17713af5bb">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_variant_metadata()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments.html#af5e436a4079ce52a5336657383c097aa">enjin::sdk::shared::AssetFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_asset_fragment_arguments_impl.html#abdae37accfc3c1c047652d46f00d4fa8">enjin::sdk::shared::AssetFragmentArgumentsImpl</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a9cbcef18e61b933c400e3e4e528654c9">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#ac7205fa9ce4738f50c4673074f6c5393">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_wallet()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a6bf4dc824231192c409bf03401cbb649">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments_impl.html#ac9cdb6579315bbc13fa71699a8204755">enjin::sdk::shared::PlayerFragmentArgumentsImpl</a>
+</li>
+<li>set_with_wallet_balances()
+: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a24ea17444b7aa51970458f79e0ad69b4">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#a3f0185587e5da46b8afd07b6650de852">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments_impl.html#ab6f57edeae388663c6b3e89c8ec593df">enjin::sdk::shared::WalletFragmentArgumentsImpl</a>
+</li>
+<li>set_with_wallet_transactions()
+: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a917b82a02ac8def8fb033bfd8b5ac4ef">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#a185a4319a775cb3ad5ba68f95bd152c7">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments_impl.html#a96bfb3f544a9802a3d63c91f4c8d669d">enjin::sdk::shared::WalletFragmentArgumentsImpl</a>
 </li>
 <li>SetApprovalForAll()
 : <a class="el" href="classenjin_1_1sdk_1_1player_1_1_set_approval_for_all.html#a1b992b62264d396b79c7d12cac41a19b">enjin::sdk::player::SetApprovalForAll</a>
@@ -702,7 +798,7 @@ $(function() {
 </li>
 <li>start()
 : <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#aad34ea163d3a7a1977f88ba15554954e">enjin::sdk::events::IEventService</a>
-, <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#affd1bf5d91ba3dfa1b30e385e0510f54">enjin::sdk::events::PusherEventService</a>
+, <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#aaf0ee66d5753da157b5e2eb15a14fa4b">enjin::sdk::events::PusherEventService</a>
 , <a class="el" href="classenjin_1_1sdk_1_1http_1_1_i_http_client.html#a29096fb73c72010e2a71284464948586">enjin::sdk::http::IHttpClient</a>
 </li>
 <li>stop()
