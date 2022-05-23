@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.1004</span>
+   &#160;<span id="projectnumber">1.0.0.1005</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -81,7 +81,7 @@ $(function() {
 
 <p>Inherits <a class="el" href="classenjin_1_1sdk_1_1serialization_1_1_i_serializable.html">enjin::sdk::serialization::ISerializable</a>.</p>
 
-<p>Inherited by <a class="el" href="classenjin_1_1sdk_1_1project_1_1_project_transaction_request_arguments_impl.html">enjin::sdk::project::ProjectTransactionRequestArgumentsImpl</a>.</p>
+<p>Inherited by <a class="el" href="classenjin_1_1sdk_1_1project_1_1_project_transaction_request_arguments_impl.html">enjin::sdk::project::ProjectTransactionRequestArgumentsImpl</a>, and <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments_impl.html">enjin::sdk::shared::WalletFragmentArgumentsImpl</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -92,9 +92,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a201d514dfa18653dbdafc67c0f42ea2a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#a201d514dfa18653dbdafc67c0f42ea2a">serialize</a> () const override</td></tr>
 <tr class="memdesc:a201d514dfa18653dbdafc67c0f42ea2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a JSON string with this object's data.  <a href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#a201d514dfa18653dbdafc67c0f42ea2a">More...</a><br /></td></tr>
 <tr class="separator:a201d514dfa18653dbdafc67c0f42ea2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30718159e472541a14a23c3688bf838b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#a30718159e472541a14a23c3688bf838b">set_asset_id_format</a> (models::AssetIdFormat asset_id_format)</td></tr>
-<tr class="memdesc:a30718159e472541a14a23c3688bf838b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value for the associated field to the passed value.  <a href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#a30718159e472541a14a23c3688bf838b">More...</a><br /></td></tr>
-<tr class="separator:a30718159e472541a14a23c3688bf838b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72af1ea1540d56fe50bfe9cb2f994239"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#a72af1ea1540d56fe50bfe9cb2f994239">set_transaction_asset_id_format</a> (models::AssetIdFormat asset_id_format)</td></tr>
+<tr class="memdesc:a72af1ea1540d56fe50bfe9cb2f994239"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value for the associated field to the passed value.  <a href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#a72af1ea1540d56fe50bfe9cb2f994239">More...</a><br /></td></tr>
+<tr class="separator:a72af1ea1540d56fe50bfe9cb2f994239"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34628f508d8a72d6356e221b781df9b8"><td class="memItemLeft" align="right" valign="top"><a id="a34628f508d8a72d6356e221b781df9b8"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#a34628f508d8a72d6356e221b781df9b8">set_with_blockchain_data</a> ()</td></tr>
 <tr class="memdesc:a34628f508d8a72d6356e221b781df9b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value for the associated field to true. <br /></td></tr>
@@ -143,6 +143,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#a782858ed1f276c4e18234378cd3f6723">set_with_transaction_project_uuid</a> ()</td></tr>
 <tr class="memdesc:a782858ed1f276c4e18234378cd3f6723"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value for the associated field to true. <br /></td></tr>
 <tr class="separator:a782858ed1f276c4e18234378cd3f6723"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a404f133ce00ea4644cc70176e192a742"><td class="memItemLeft" align="right" valign="top"><a id="a404f133ce00ea4644cc70176e192a742"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html#a404f133ce00ea4644cc70176e192a742">set_with_transaction_wallet_address</a> ()</td></tr>
+<tr class="memdesc:a404f133ce00ea4644cc70176e192a742"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value for the associated field to true. <br /></td></tr>
+<tr class="separator:a404f133ce00ea4644cc70176e192a742"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d415a79972c7b90b22ec13927fcc7f0"><td class="memItemLeft" align="right" valign="top"><a id="a2d415a79972c7b90b22ec13927fcc7f0"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments_impl.html">TransactionFragmentArgumentsImpl</a> &amp;rhs) const</td></tr>
 <tr class="separator:a2d415a79972c7b90b22ec13927fcc7f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -187,16 +191,18 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 
 <p>Implements <a class="el" href="classenjin_1_1sdk_1_1serialization_1_1_i_serializable.html#afaf8116d2ecdd89c9d491bb16fee9f8d">enjin::sdk::serialization::ISerializable</a>.</p>
 
+<p>Reimplemented in <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments_impl.html#aef46fb93d3cca0f7797149b74f3ee55c">enjin::sdk::shared::WalletFragmentArgumentsImpl</a>.</p>
+
 </div>
 </div>
-<a id="a30718159e472541a14a23c3688bf838b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a30718159e472541a14a23c3688bf838b">&#9670;&nbsp;</a></span>set_asset_id_format()</h2>
+<a id="a72af1ea1540d56fe50bfe9cb2f994239"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72af1ea1540d56fe50bfe9cb2f994239">&#9670;&nbsp;</a></span>set_transaction_asset_id_format()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void enjin::sdk::shared::TransactionFragmentArgumentsImpl::set_asset_id_format </td>
+          <td class="memname">void enjin::sdk::shared::TransactionFragmentArgumentsImpl::set_transaction_asset_id_format </td>
           <td>(</td>
           <td class="paramtype">models::AssetIdFormat&#160;</td>
           <td class="paramname"><em>asset_id_format</em></td><td>)</td>
