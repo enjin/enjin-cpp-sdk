@@ -179,7 +179,6 @@ public:
         Document& outDocument = *out.pimpl->document;
         const Value& v = document->operator[](key.c_str());
 
-        outDocument.Clear();
         outDocument.CopyFrom(v, outDocument.GetAllocator());
         return true;
     }
@@ -336,6 +335,9 @@ private:
         return json_value;
     }
 };
+
+JsonValue::JsonValue() : pimpl(std::make_unique<Impl>(kNullType)) {
+}
 
 JsonValue::JsonValue(std::unique_ptr<Impl> ptr) : pimpl(std::move(ptr)) {
 }

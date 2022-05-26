@@ -27,7 +27,8 @@ namespace enjin::sdk::json {
 /// \brief Public API class for JSON functionality needed by this SDK.
 class ENJINSDK_EXPORT JsonValue final : public serialization::ISerializable {
 public:
-    JsonValue() = delete;
+    /// \brief Creates an instance of this class as a null value type.
+    JsonValue();
 
     /// \brief Constructs an instance as a copy of another.
     /// \param other The other instance.
