@@ -38,7 +38,7 @@ public:
                               .set_wallet("1")
                               .set_wallet_in(std::vector<std::string>())
                               .set_value(1)
-                              .set_value_is(Operator::GREATER_THAN);
+                              .set_value_is(Operator::GreaterThan);
     }
 };
 
@@ -63,7 +63,7 @@ TEST_F(BalanceFilterTest, SerializeSetFieldsReturnsExpectedJsonObject) {
                     .set_wallet("1")
                     .set_wallet_in(std::vector<std::string>())
                     .set_value(1)
-                    .set_value_is(Operator::GREATER_THAN);
+                    .set_value_is(Operator::GreaterThan);
 
     // Act
     std::string actual = class_under_test.serialize();

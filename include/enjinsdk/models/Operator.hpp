@@ -20,10 +20,10 @@ namespace enjin::sdk::models {
 
 /// \brief The operator type for filters.
 enum class Operator {
-    GREATER_THAN,
-    GREATER_THAN_OR_EQUAL,
-    LESS_THAN,
-    LESS_THAN_OR_EQUAL,
+    GreaterThan,
+    GreaterThanOrEqual,
+    LessThan,
+    LessThanOrEqual,
 };
 
 }

@@ -569,13 +569,13 @@ std::string serialize_http_method(http::HttpMethod v) noexcept {
 
 std::string serialize_operator(models::Operator v) noexcept {
     switch (v) {
-        case models::Operator::GREATER_THAN:
+        case models::Operator::GreaterThan:
             return "GREATER_THAN";
-        case models::Operator::GREATER_THAN_OR_EQUAL:
+        case models::Operator::GreaterThanOrEqual:
             return "GREATER_THAN_OR_EQUAL";
-        case models::Operator::LESS_THAN:
+        case models::Operator::LessThan:
             return "LESS_THAN";
-        case models::Operator::LESS_THAN_OR_EQUAL:
+        case models::Operator::LessThanOrEqual:
             return "LESS_THAN_OR_EQUAL";
         default:
             return "";
