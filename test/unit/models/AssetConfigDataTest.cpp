@@ -65,7 +65,7 @@ TEST_F(AssetConfigDataTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValu
     // Arrange
     const int expected_int = 1;
     const std::string expected_string("1");
-    const AssetTransferable expected_transferable = AssetTransferable::PERMANENT;
+    const AssetTransferable expected_transferable = AssetTransferable::Permanent;
     const AssetTransferFeeSettings expected_transfer_fee_settings;
     const std::string json(POPULATED_JSON_OBJECT);
 

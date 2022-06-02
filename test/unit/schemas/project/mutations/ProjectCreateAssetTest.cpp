@@ -40,7 +40,7 @@ public:
                 .set_supply_model(AssetSupplyModel::Fixed)
                 .set_melt_value("1")
                 .set_melt_fee_ratio(1)
-                .set_transferable(AssetTransferable::PERMANENT)
+                .set_transferable(AssetTransferable::Permanent)
                 .set_transfer_fee_settings(AssetTransferFeeSettingsInput())
                 .set_non_fungible(true);
         set_project_transaction_request_arguments(request);
@@ -68,7 +68,7 @@ TEST_F(ProjectCreateAssetTest, SerializeSetFieldsReturnsExpectedJsonObject) {
                     .set_supply_model(AssetSupplyModel::Fixed)
                     .set_melt_value("1")
                     .set_melt_fee_ratio(1)
-                    .set_transferable(AssetTransferable::PERMANENT)
+                    .set_transferable(AssetTransferable::Permanent)
                     .set_transfer_fee_settings(AssetTransferFeeSettingsInput())
                     .set_non_fungible(true);
 

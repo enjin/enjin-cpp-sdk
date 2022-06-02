@@ -206,14 +206,14 @@ models::AssetTransferFeeType deserialize_asset_transfer_fee_type(const std::stri
 models::AssetTransferable deserialize_asset_transferable(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "PERMANENT") {
-        return models::AssetTransferable::PERMANENT;
+        return models::AssetTransferable::Permanent;
     } else if (str == "TEMPORARY") {
-        return models::AssetTransferable::TEMPORARY;
+        return models::AssetTransferable::Temporary;
     } else if (str == "BOUND") {
-        return models::AssetTransferable::BOUND;
+        return models::AssetTransferable::Bound;
     }
 
-    return models::AssetTransferable::UNKNOWN;
+    return models::AssetTransferable::Unknown;
 }
 
 models::AssetVariantMode deserialize_asset_variant_mode(const std::string& s) noexcept {
@@ -516,11 +516,11 @@ std::string serialize_asset_transfer_fee_type(models::AssetTransferFeeType v) no
 
 std::string serialize_asset_transferable(models::AssetTransferable v) noexcept {
     switch (v) {
-        case models::AssetTransferable::PERMANENT:
+        case models::AssetTransferable::Permanent:
             return "PERMANENT";
-        case models::AssetTransferable::TEMPORARY:
+        case models::AssetTransferable::Temporary:
             return "TEMPORARY";
-        case models::AssetTransferable::BOUND:
+        case models::AssetTransferable::Bound:
             return "BOUND";
         default:
             return "UNKNOWN";
