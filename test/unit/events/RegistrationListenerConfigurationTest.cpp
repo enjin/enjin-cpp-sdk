@@ -27,36 +27,36 @@ using namespace enjin::test::mocks;
 class RegistrationListenerConfigurationTest : public testing::Test {
 public:
     inline static const std::vector<EventType> types = {
-            EventType::UNKNOWN,
-            EventType::PROJECT_CREATED,
-            EventType::PROJECT_DELETED,
-            EventType::PROJECT_LINKED,
-            EventType::PROJECT_LOCKED,
-            EventType::PROJECT_UNLINKED,
-            EventType::PROJECT_UNLOCKED,
-            EventType::PROJECT_UPDATED,
-            EventType::BLOCKCHAIN_LOG_PROCESSED,
-            EventType::MESSAGE_PROCESSED,
-            EventType::PLAYER_CREATED,
-            EventType::PLAYER_DELETED,
-            EventType::PLAYER_LINKED,
-            EventType::PLAYER_UNLINKED,
-            EventType::PLAYER_UPDATED,
-            EventType::ASSET_CREATED,
-            EventType::ASSET_MELTED,
-            EventType::ASSET_MINTED,
-            EventType::ASSET_TRANSFERRED,
-            EventType::ASSET_UPDATED,
-            EventType::TRADE_ASSET_COMPLETED,
-            EventType::TRADE_ASSET_CREATED,
-            EventType::TRANSACTION_BROADCAST,
-            EventType::TRANSACTION_CANCELED,
-            EventType::TRANSACTION_DROPPED,
-            EventType::TRANSACTION_EXECUTED,
-            EventType::TRANSACTION_FAILED,
-            EventType::TRANSACTION_PENDING,
-            EventType::TRANSACTION_PROCESSING,
-            EventType::TRANSACTION_UPDATED,
+            EventType::Unknown,
+            EventType::ProjectCreated,
+            EventType::ProjectDeleted,
+            EventType::ProjectLinked,
+            EventType::ProjectLocked,
+            EventType::ProjectUnlinked,
+            EventType::ProjectUnlocked,
+            EventType::ProjectUpdated,
+            EventType::BlockchainLogProcessed,
+            EventType::MessageProcessed,
+            EventType::PlayerCreated,
+            EventType::PlayerDeleted,
+            EventType::PlayerLinked,
+            EventType::PlayerUnlinked,
+            EventType::PlayerUpdated,
+            EventType::AssetCreated,
+            EventType::AssetMelted,
+            EventType::AssetMinted,
+            EventType::AssetTransferred,
+            EventType::AssetUpdated,
+            EventType::TradeAssetCompleted,
+            EventType::TradeAssetCreated,
+            EventType::TransactionBroadcast,
+            EventType::TransactionCanceled,
+            EventType::TransactionDropped,
+            EventType::TransactionExecuted,
+            EventType::TransactionFailed,
+            EventType::TransactionPending,
+            EventType::TransactionProcessing,
+            EventType::TransactionUpdated,
     };
 };
 
@@ -81,7 +81,7 @@ TEST_F(RegistrationListenerConfigurationTest, NoGivenMatcherRegistrationIsCreate
     auto registration = configuration.create();
 
     // Assert
-    for (auto t : types) {
+    for (auto t: types) {
         EXPECT_TRUE(registration.get_matcher()(t));
     }
 }
@@ -99,7 +99,7 @@ TEST_F(RegistrationListenerConfigurationTest, WithMatcherRegistrationIsCreatedWi
                                      .create();
 
     // Assert
-    for (auto t : types) {
+    for (auto t: types) {
         EXPECT_FALSE(registration.get_matcher()(t));
     }
 }
@@ -107,13 +107,13 @@ TEST_F(RegistrationListenerConfigurationTest, WithMatcherRegistrationIsCreatedWi
 TEST_F(RegistrationListenerConfigurationTest, WithAllowedEventsRegistrationIsCreatedWithCorrectMatcher) {
     // Arrange
     const std::vector<EventType> allowed_events = {
-            EventType::PLAYER_LINKED,
-            EventType::PLAYER_UNLINKED,
-            EventType::PLAYER_UPDATED,
-            EventType::ASSET_MELTED,
-            EventType::ASSET_MINTED,
-            EventType::ASSET_TRANSFERRED,
-            EventType::ASSET_UPDATED,
+            EventType::PlayerLinked,
+            EventType::PlayerUnlinked,
+            EventType::PlayerUpdated,
+            EventType::AssetMelted,
+            EventType::AssetMinted,
+            EventType::AssetTransferred,
+            EventType::AssetUpdated,
     };
     std::shared_ptr<IEventListener> mock_listener(new MockEventListener);
     EventListenerRegistration::RegistrationListenerConfiguration configuration(mock_listener);
@@ -123,7 +123,7 @@ TEST_F(RegistrationListenerConfigurationTest, WithAllowedEventsRegistrationIsCre
                                      .create();
 
     // Assert
-    for (auto t : types) {
+    for (auto t: types) {
         if (std::find(allowed_events.begin(), allowed_events.end(), t) != allowed_events.end()) {
             EXPECT_TRUE(registration.get_matcher()(t));
         } else {
@@ -135,13 +135,13 @@ TEST_F(RegistrationListenerConfigurationTest, WithAllowedEventsRegistrationIsCre
 TEST_F(RegistrationListenerConfigurationTest, WithIgnoredEventsRegistrationIsCreatedWithCorrectMatcher) {
     // Arrange
     const std::vector<EventType> ignored_events = {
-            EventType::PLAYER_LINKED,
-            EventType::PLAYER_UNLINKED,
-            EventType::PLAYER_UPDATED,
-            EventType::ASSET_MELTED,
-            EventType::ASSET_MINTED,
-            EventType::ASSET_TRANSFERRED,
-            EventType::ASSET_UPDATED,
+            EventType::PlayerLinked,
+            EventType::PlayerUnlinked,
+            EventType::PlayerUpdated,
+            EventType::AssetMelted,
+            EventType::AssetMinted,
+            EventType::AssetTransferred,
+            EventType::AssetUpdated,
     };
     std::shared_ptr<IEventListener> mock_listener(new MockEventListener);
     EventListenerRegistration::RegistrationListenerConfiguration configuration(mock_listener);
@@ -151,7 +151,7 @@ TEST_F(RegistrationListenerConfigurationTest, WithIgnoredEventsRegistrationIsCre
                                      .create();
 
     // Assert
-    for (auto t : types) {
+    for (auto t: types) {
         if (std::find(ignored_events.begin(), ignored_events.end(), t) == ignored_events.end()) {
             EXPECT_TRUE(registration.get_matcher()(t));
         } else {
