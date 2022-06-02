@@ -469,9 +469,9 @@ std::string serialize_asset_id_format(models::AssetIdFormat v) noexcept {
 
 std::string serialize_asset_index_format(models::AssetIndexFormat v) noexcept {
     switch (v) {
-        case models::AssetIndexFormat::HEX64:
+        case models::AssetIndexFormat::Hex64:
             return "hex64";
-        case models::AssetIndexFormat::UINT64:
+        case models::AssetIndexFormat::Uint64:
             return "uint64";
         default:
             return "";
