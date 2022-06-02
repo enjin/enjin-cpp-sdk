@@ -62,7 +62,7 @@ public:
     static std::string create_subscription_success_message(const std::string& channel = "") {
         std::stringstream ss;
         ss << R"({"event":")"
-           << PusherConstants::CHANNEL_SUBSCRIPTION_SUCCEEDED
+           << PusherConstants::ChannelSubscriptionSucceeded
            << R"(","channel":")"
            << channel
            << R"("})";

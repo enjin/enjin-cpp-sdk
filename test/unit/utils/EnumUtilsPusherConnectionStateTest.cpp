@@ -38,9 +38,9 @@ TEST_P(PusherConnectionStateTest, SerializeConnectionStateReturnsExpectedString)
 
 INSTANTIATE_TEST_SUITE_P(SerializePusherConnectionState,
                          PusherConnectionStateTest,
-                         testing::Values(std::make_tuple("ALL", PusherConnectionState::ALL),
-                                         std::make_tuple("CONNECTED", PusherConnectionState::CONNECTED),
-                                         std::make_tuple("CONNECTING", PusherConnectionState::CONNECTING),
-                                         std::make_tuple("DISCONNECTED", PusherConnectionState::DISCONNECTED),
-                                         std::make_tuple("DISCONNECTING", PusherConnectionState::DISCONNECTING),
-                                         std::make_tuple("RECONNECTING", PusherConnectionState::RECONNECTING)));
+                         testing::Values(std::make_tuple("ALL", PusherConnectionState::All),
+                                         std::make_tuple("CONNECTED", PusherConnectionState::Connected),
+                                         std::make_tuple("CONNECTING", PusherConnectionState::Connecting),
+                                         std::make_tuple("DISCONNECTED", PusherConnectionState::Disconnected),
+                                         std::make_tuple("DISCONNECTING", PusherConnectionState::Disconnecting),
+                                         std::make_tuple("RECONNECTING", PusherConnectionState::Reconnecting)));

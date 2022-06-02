@@ -52,7 +52,7 @@ TEST_F(PusherClientTest, ConnectClientConnectsToServer) {
 
     // Assert
     EXPECT_NO_THROW(future.get());
-    EXPECT_EQ(PusherConnectionState::CONNECTED, client.get_state());
+    EXPECT_EQ(PusherConnectionState::Connected, client.get_state());
 }
 
 TEST_F(PusherClientTest, DisconnectClientDisconnectsFromServer) {
@@ -62,7 +62,7 @@ TEST_F(PusherClientTest, DisconnectClientDisconnectsFromServer) {
 
     // Assert
     EXPECT_NO_THROW(client.disconnect().get());
-    EXPECT_EQ(PusherConnectionState::DISCONNECTED, client.get_state());
+    EXPECT_EQ(PusherConnectionState::Disconnected, client.get_state());
 }
 
 TEST_F(PusherClientTest, SubscribeClientSendsMessageToServerAndSubscribesToChannelAfterReceivingSuccessResponse) {

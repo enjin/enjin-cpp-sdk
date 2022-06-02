@@ -96,15 +96,15 @@ public:
         resubscribe_to_channels();
 
         client->set_on_connection_state_change_handler([this](pusher::PusherConnectionState state) {
-            if (logger_provider != nullptr && state != pusher::PusherConnectionState::ALL) {
+            if (logger_provider != nullptr && state != pusher::PusherConnectionState::All) {
                 std::stringstream ss;
                 ss << "Pusher client " << enjin::utils::to_lower(utils::serialize_pusher_connection_state(state));
                 logger_provider->log(utils::LogLevel::Info, ss.str());
             }
 
-            if (state == pusher::PusherConnectionState::CONNECTED && connected_handler.has_value()) {
+            if (state == pusher::PusherConnectionState::Connected && connected_handler.has_value()) {
                 connected_handler.value()();
-            } else if (state == pusher::PusherConnectionState::DISCONNECTED && disconnected_handler.has_value()) {
+            } else if (state == pusher::PusherConnectionState::Disconnected && disconnected_handler.has_value()) {
                 disconnected_handler.value()();
             }
         });
@@ -138,7 +138,7 @@ public:
     }
 
     [[nodiscard]] bool is_connected() const override {
-        return client != nullptr && client->get_state() == pusher::PusherConnectionState::CONNECTED;
+        return client != nullptr && client->get_state() == pusher::PusherConnectionState::Connected;
     }
 
     [[nodiscard]] bool is_registered(const IEventListener& listener) const override {

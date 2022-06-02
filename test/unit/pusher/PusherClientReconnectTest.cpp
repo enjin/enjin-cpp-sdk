@@ -61,7 +61,7 @@ TEST_F(PusherClientReconnectTest, ReceivesGenericClosingCodeAndReconnectToServer
     verify_call_count();
 
     // Assert
-    EXPECT_EQ(PusherConnectionState::CONNECTED, client.get_state());
+    EXPECT_EQ(PusherConnectionState::Connected, client.get_state());
 }
 
 TEST_F(PusherClientReconnectTest, ReceivesPusherClosingCodeDoesNotReconnectToServer) {
@@ -88,5 +88,5 @@ TEST_F(PusherClientReconnectTest, ReceivesPusherClosingCodeDoesNotReconnectToSer
     verify_call_count();
 
     // Assert
-    EXPECT_EQ(PusherConnectionState::DISCONNECTED, client.get_state());
+    EXPECT_EQ(PusherConnectionState::Disconnected, client.get_state());
 }

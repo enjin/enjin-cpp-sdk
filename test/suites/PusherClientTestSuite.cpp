@@ -43,7 +43,7 @@ pusher::PusherOptions PusherClientTestSuite::create_default_pusher_options() {
 std::string PusherClientTestSuite::create_subscription_error_message() {
     std::stringstream ss;
     ss << R"({"event":")"
-       << pusher::PusherConstants::CHANNEL_SUBSCRIPTION_ERROR
+       << pusher::PusherConstants::ChannelSubscriptionError
        << R"("})";
     return ss.str();
 }
@@ -52,7 +52,7 @@ std::string PusherClientTestSuite::create_subscription_success_message(const std
                                                                        const std::string& data) {
     std::stringstream ss;
     ss << R"({"event":")"
-       << pusher::PusherConstants::CHANNEL_SUBSCRIPTION_SUCCEEDED
+       << pusher::PusherConstants::ChannelSubscriptionSucceeded
        << R"(","channel":")"
        << channel
        << R"(","data":)"
