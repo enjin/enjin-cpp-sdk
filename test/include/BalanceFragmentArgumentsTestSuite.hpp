@@ -31,7 +31,7 @@ public:
             R"({"balIdFormat":"hex64","balIndexFormat":"hex64","withBalProjectUuid":true,"withBalWalletAddress":true})";
 
     static void set_balance_fragment_arguments(sdk::shared::BalanceFragmentArguments<T>& o) {
-        o.set_bal_id_format(sdk::models::AssetIdFormat::HEX64)
+        o.set_bal_id_format(sdk::models::AssetIdFormat::Hex64)
          .set_bal_index_format(sdk::models::AssetIndexFormat::HEX64)
          .set_with_bal_project_uuid()
          .set_with_bal_wallet_address();

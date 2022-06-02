@@ -38,6 +38,6 @@ TEST_P(AssetIdFormatTest, SerializeAssetIdFormatReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializeAssetIdFormat,
                          AssetIdFormatTest,
-                         testing::Values(std::make_tuple("hex64", AssetIdFormat::HEX64),
-                                         std::make_tuple("hex256", AssetIdFormat::HEX256),
-                                         std::make_tuple("uint256", AssetIdFormat::UINT256)));
+                         testing::Values(std::make_tuple("hex64", AssetIdFormat::Hex64),
+                                         std::make_tuple("hex256", AssetIdFormat::Hex256),
+                                         std::make_tuple("uint256", AssetIdFormat::Uint256)));

@@ -456,11 +456,11 @@ std::string serialize_asset_field(models::AssetField v) noexcept {
 
 std::string serialize_asset_id_format(models::AssetIdFormat v) noexcept {
     switch (v) {
-        case models::AssetIdFormat::HEX64:
+        case models::AssetIdFormat::Hex64:
             return "hex64";
-        case models::AssetIdFormat::HEX256:
+        case models::AssetIdFormat::Hex256:
             return "hex256";
-        case models::AssetIdFormat::UINT256:
+        case models::AssetIdFormat::Uint256:
             return "uint256";
         default:
             return "";

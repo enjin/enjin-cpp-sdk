@@ -32,7 +32,7 @@ public:
 
     static BalanceFragmentArgumentsImpl create_default_arguments() {
         BalanceFragmentArgumentsImpl arguments;
-        arguments.set_bal_id_format(AssetIdFormat::HEX64);
+        arguments.set_bal_id_format(AssetIdFormat::Hex64);
         arguments.set_bal_index_format(AssetIndexFormat::HEX64);
         arguments.set_with_bal_project_uuid();
         arguments.set_with_bal_wallet_address();
@@ -54,7 +54,7 @@ TEST_F(SharedBalanceFragmentArgumentsImplTest, SerializeNoSetFieldsReturnsEmptyJ
 TEST_F(SharedBalanceFragmentArgumentsImplTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_bal_id_format(AssetIdFormat::HEX64);
+    class_under_test.set_bal_id_format(AssetIdFormat::Hex64);
     class_under_test.set_bal_index_format(AssetIndexFormat::HEX64);
     class_under_test.set_with_bal_project_uuid();
     class_under_test.set_with_bal_wallet_address();

@@ -32,7 +32,7 @@ public:
 
     static AssetFragmentArgumentsImpl create_default_arguments() {
         AssetFragmentArgumentsImpl arguments;
-        arguments.set_asset_id_format(AssetIdFormat::HEX64);
+        arguments.set_asset_id_format(AssetIdFormat::Hex64);
         arguments.set_with_state_data();
         arguments.set_with_config_data();
         arguments.set_with_asset_blocks();
@@ -62,7 +62,7 @@ TEST_F(SharedAssetFragmentArgumentsImplTest, SerializeNoSetFieldsReturnsEmptyJso
 TEST_F(SharedAssetFragmentArgumentsImplTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_asset_id_format(AssetIdFormat::HEX64);
+    class_under_test.set_asset_id_format(AssetIdFormat::Hex64);
     class_under_test.set_with_state_data();
     class_under_test.set_with_config_data();
     class_under_test.set_with_asset_blocks();
