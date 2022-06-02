@@ -30,7 +30,7 @@ public:
 
     static AssetSort create_default_sort() {
         return AssetSort().set_field(AssetField::Id)
-                          .set_direction(SortDirection::ASCENDING);
+                          .set_direction(SortDirection::Ascending);
     }
 };
 
@@ -49,7 +49,7 @@ TEST_F(AssetSortTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_field(AssetField::Id)
-                    .set_direction(SortDirection::ASCENDING);
+                    .set_direction(SortDirection::Ascending);
 
     // Act
     std::string actual = class_under_test.serialize();

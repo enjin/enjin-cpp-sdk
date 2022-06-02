@@ -424,9 +424,9 @@ std::string serialize_request_type(models::RequestType v) noexcept {
 
 std::string serialize_sort_direction(models::SortDirection v) noexcept {
     switch (v) {
-        case models::SortDirection::ASCENDING:
+        case models::SortDirection::Ascending:
             return "asc";
-        case models::SortDirection::DESCENDING:
+        case models::SortDirection::Descending:
             return "desc";
         default:
             return "";

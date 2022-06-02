@@ -30,7 +30,7 @@ public:
 
     static TransactionSort create_default_sort() {
         return TransactionSort().set_field(TransactionField::ID)
-                                .set_direction(SortDirection::ASCENDING);
+                                .set_direction(SortDirection::Ascending);
     }
 };
 
@@ -49,7 +49,7 @@ TEST_F(TransactionSortTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_field(TransactionField::ID)
-                    .set_direction(SortDirection::ASCENDING);
+                    .set_direction(SortDirection::Ascending);
 
     // Act
     std::string actual = class_under_test.serialize();

@@ -38,5 +38,5 @@ TEST_P(SortDirectionTest, SerializeSortDirectionReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializeSortDirection,
                          SortDirectionTest,
-                         testing::Values(std::make_tuple("asc", SortDirection::ASCENDING),
-                                         std::make_tuple("desc", SortDirection::DESCENDING)));
+                         testing::Values(std::make_tuple("asc", SortDirection::Ascending),
+                                         std::make_tuple("desc", SortDirection::Descending)));
