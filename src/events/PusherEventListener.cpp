@@ -48,7 +48,7 @@ void PusherEventListener::on_event(const pusher::PusherEvent& event) {
     }
 
     EventTypeDef def = EventTypeDef::get_from_key(key);
-    if (def.get_type() == models::EventType::UNKNOWN) {
+    if (def.get_type() == models::EventType::Unknown) {
         if (logger != nullptr) {
             std::stringstream ss;
             ss << "Unknown event type for key " << def.get_key();

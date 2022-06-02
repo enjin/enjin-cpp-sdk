@@ -23,66 +23,66 @@ namespace enjin::sdk::utils {
 models::EventType deserialize_event_type(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "PROJECT_CREATED") {
-        return models::EventType::PROJECT_CREATED;
+        return models::EventType::ProjectCreated;
     } else if (str == "PROJECT_DELETED") {
-        return models::EventType::PROJECT_DELETED;
+        return models::EventType::ProjectDeleted;
     } else if (str == "PROJECT_LINKED") {
-        return models::EventType::PROJECT_LINKED;
+        return models::EventType::ProjectLinked;
     } else if (str == "PROJECT_LOCKED") {
-        return models::EventType::PROJECT_LOCKED;
+        return models::EventType::ProjectLocked;
     } else if (str == "PROJECT_UNLINKED") {
-        return models::EventType::PROJECT_UNLINKED;
+        return models::EventType::ProjectUnlinked;
     } else if (str == "PROJECT_UNLOCKED") {
-        return models::EventType::PROJECT_UNLOCKED;
+        return models::EventType::ProjectUnlocked;
     } else if (str == "PROJECT_UPDATED") {
-        return models::EventType::PROJECT_UPDATED;
+        return models::EventType::ProjectUpdated;
     } else if (str == "BLOCKCHAIN_LOG_PROCESSED") {
-        return models::EventType::BLOCKCHAIN_LOG_PROCESSED;
+        return models::EventType::BlockchainLogProcessed;
     } else if (str == "MESSAGE_PROCESSED") {
-        return models::EventType::MESSAGE_PROCESSED;
+        return models::EventType::MessageProcessed;
     } else if (str == "PLAYER_CREATED") {
-        return models::EventType::PLAYER_CREATED;
+        return models::EventType::PlayerCreated;
     } else if (str == "PLAYER_DELETED") {
-        return models::EventType::PLAYER_DELETED;
+        return models::EventType::PlayerDeleted;
     } else if (str == "PLAYER_LINKED") {
-        return models::EventType::PLAYER_LINKED;
+        return models::EventType::PlayerLinked;
     } else if (str == "PLAYER_UNLINKED") {
-        return models::EventType::PLAYER_UNLINKED;
+        return models::EventType::PlayerUnlinked;
     } else if (str == "PLAYER_UPDATED") {
-        return models::EventType::PLAYER_UPDATED;
+        return models::EventType::PlayerUpdated;
     } else if (str == "ASSET_CREATED") {
-        return models::EventType::ASSET_CREATED;
+        return models::EventType::AssetCreated;
     } else if (str == "ASSET_MELTED") {
-        return models::EventType::ASSET_MELTED;
+        return models::EventType::AssetMelted;
     } else if (str == "ASSET_MINTED") {
-        return models::EventType::ASSET_MINTED;
+        return models::EventType::AssetMinted;
     } else if (str == "ASSET_TRANSFERRED") {
-        return models::EventType::ASSET_TRANSFERRED;
+        return models::EventType::AssetTransferred;
     } else if (str == "ASSET_UPDATED") {
-        return models::EventType::ASSET_UPDATED;
+        return models::EventType::AssetUpdated;
     } else if (str == "TRADE_ASSET_COMPLETED") {
-        return models::EventType::TRADE_ASSET_COMPLETED;
+        return models::EventType::TradeAssetCompleted;
     } else if (str == "TRADE_ASSET_CREATED") {
-        return models::EventType::TRADE_ASSET_CREATED;
+        return models::EventType::TradeAssetCreated;
     } else if (str == "TRANSACTION_BROADCAST") {
-        return models::EventType::TRANSACTION_BROADCAST;
+        return models::EventType::TransactionBroadcast;
     } else if (str == "TRANSACTION_CANCELED") {
-        return models::EventType::TRANSACTION_CANCELED;
+        return models::EventType::TransactionCanceled;
     } else if (str == "TRANSACTION_DROPPED") {
-        return models::EventType::TRANSACTION_DROPPED;
+        return models::EventType::TransactionDropped;
     } else if (str == "TRANSACTION_EXECUTED") {
-        return models::EventType::TRANSACTION_EXECUTED;
+        return models::EventType::TransactionExecuted;
     } else if (str == "TRANSACTION_FAILED") {
-        return models::EventType::TRANSACTION_FAILED;
+        return models::EventType::TransactionFailed;
     } else if (str == "TRANSACTION_PENDING") {
-        return models::EventType::TRANSACTION_PENDING;
+        return models::EventType::TransactionPending;
     } else if (str == "TRANSACTION_PROCESSING") {
-        return models::EventType::TRANSACTION_PROCESSING;
+        return models::EventType::TransactionProcessing;
     } else if (str == "TRANSACTION_UPDATED") {
-        return models::EventType::TRANSACTION_UPDATED;
+        return models::EventType::TransactionUpdated;
     }
 
-    return models::EventType::UNKNOWN;
+    return models::EventType::Unknown;
 }
 
 models::RequestState deserialize_request_state(const std::string& s) noexcept {
@@ -258,63 +258,63 @@ http::HttpMethod deserialize_http_method(const std::string& s) {
 
 std::string serialize_event_type(models::EventType v) noexcept {
     switch (v) {
-        case models::EventType::PROJECT_CREATED:
+        case models::EventType::ProjectCreated:
             return "PROJECT_CREATED";
-        case models::EventType::PROJECT_DELETED:
+        case models::EventType::ProjectDeleted:
             return "PROJECT_DELETED";
-        case models::EventType::PROJECT_LINKED:
+        case models::EventType::ProjectLinked:
             return "PROJECT_LINKED";
-        case models::EventType::PROJECT_LOCKED:
+        case models::EventType::ProjectLocked:
             return "PROJECT_LOCKED";
-        case models::EventType::PROJECT_UNLINKED:
+        case models::EventType::ProjectUnlinked:
             return "PROJECT_UNLINKED";
-        case models::EventType::PROJECT_UNLOCKED:
+        case models::EventType::ProjectUnlocked:
             return "PROJECT_UNLOCKED";
-        case models::EventType::PROJECT_UPDATED:
+        case models::EventType::ProjectUpdated:
             return "PROJECT_UPDATED";
-        case models::EventType::BLOCKCHAIN_LOG_PROCESSED:
+        case models::EventType::BlockchainLogProcessed:
             return "BLOCKCHAIN_LOG_PROCESSED";
-        case models::EventType::MESSAGE_PROCESSED:
+        case models::EventType::MessageProcessed:
             return "MESSAGE_PROCESSED";
-        case models::EventType::PLAYER_CREATED:
+        case models::EventType::PlayerCreated:
             return "PLAYER_CREATED";
-        case models::EventType::PLAYER_DELETED:
+        case models::EventType::PlayerDeleted:
             return "PLAYER_DELETED";
-        case models::EventType::PLAYER_LINKED:
+        case models::EventType::PlayerLinked:
             return "PLAYER_LINKED";
-        case models::EventType::PLAYER_UNLINKED:
+        case models::EventType::PlayerUnlinked:
             return "PLAYER_UNLINKED";
-        case models::EventType::PLAYER_UPDATED:
+        case models::EventType::PlayerUpdated:
             return "PLAYER_UPDATED";
-        case models::EventType::ASSET_CREATED:
+        case models::EventType::AssetCreated:
             return "ASSET_CREATED";
-        case models::EventType::ASSET_MELTED:
+        case models::EventType::AssetMelted:
             return "ASSET_MELTED";
-        case models::EventType::ASSET_MINTED:
+        case models::EventType::AssetMinted:
             return "ASSET_MINTED";
-        case models::EventType::ASSET_TRANSFERRED:
+        case models::EventType::AssetTransferred:
             return "ASSET_TRANSFERRED";
-        case models::EventType::ASSET_UPDATED:
+        case models::EventType::AssetUpdated:
             return "ASSET_UPDATED";
-        case models::EventType::TRADE_ASSET_COMPLETED:
+        case models::EventType::TradeAssetCompleted:
             return "TRADE_ASSET_COMPLETED";
-        case models::EventType::TRADE_ASSET_CREATED:
+        case models::EventType::TradeAssetCreated:
             return "TRADE_ASSET_CREATED";
-        case models::EventType::TRANSACTION_BROADCAST:
+        case models::EventType::TransactionBroadcast:
             return "TRANSACTION_BROADCAST";
-        case models::EventType::TRANSACTION_CANCELED:
+        case models::EventType::TransactionCanceled:
             return "TRANSACTION_CANCELED";
-        case models::EventType::TRANSACTION_DROPPED:
+        case models::EventType::TransactionDropped:
             return "TRANSACTION_DROPPED";
-        case models::EventType::TRANSACTION_EXECUTED:
+        case models::EventType::TransactionExecuted:
             return "TRANSACTION_EXECUTED";
-        case models::EventType::TRANSACTION_FAILED:
+        case models::EventType::TransactionFailed:
             return "TRANSACTION_FAILED";
-        case models::EventType::TRANSACTION_PENDING:
+        case models::EventType::TransactionPending:
             return "TRANSACTION_PENDING";
-        case models::EventType::TRANSACTION_PROCESSING:
+        case models::EventType::TransactionProcessing:
             return "TRANSACTION_PROCESSING";
-        case models::EventType::TRANSACTION_UPDATED:
+        case models::EventType::TransactionUpdated:
             return "TRANSACTION_UPDATED";
         default:
             return "";
