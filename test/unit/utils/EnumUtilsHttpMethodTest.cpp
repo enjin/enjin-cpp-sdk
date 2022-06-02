@@ -50,12 +50,12 @@ TEST_P(HttpMethodTest, SerializeEventTypeReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializableEventType,
                          HttpMethodTest,
-                         testing::Values(std::make_tuple("GET", HttpMethod::GET),
-                                         std::make_tuple("HEAD", HttpMethod::HEAD),
-                                         std::make_tuple("POST", HttpMethod::POST),
-                                         std::make_tuple("PUT", HttpMethod::PUT),
-                                         std::make_tuple("DELETE", HttpMethod::DEL),
-                                         std::make_tuple("CONNECT", HttpMethod::CONNECT),
-                                         std::make_tuple("OPTIONS", HttpMethod::OPTIONS),
-                                         std::make_tuple("TRACE", HttpMethod::TRACE),
-                                         std::make_tuple("PATCH", HttpMethod::PATCH)));
+                         testing::Values(std::make_tuple("GET", HttpMethod::Get),
+                                         std::make_tuple("HEAD", HttpMethod::Head),
+                                         std::make_tuple("POST", HttpMethod::Post),
+                                         std::make_tuple("PUT", HttpMethod::Put),
+                                         std::make_tuple("DELETE", HttpMethod::Delete),
+                                         std::make_tuple("CONNECT", HttpMethod::Connect),
+                                         std::make_tuple("OPTIONS", HttpMethod::Options),
+                                         std::make_tuple("TRACE", HttpMethod::Trace),
+                                         std::make_tuple("PATCH", HttpMethod::Patch)));

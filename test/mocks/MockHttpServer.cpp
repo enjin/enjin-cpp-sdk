@@ -32,22 +32,22 @@ namespace enjin::test::mocks {
 // region Request
 
 Request& Request::using_delete() {
-    m_method = sdk::http::HttpMethod::DEL;
+    m_method = sdk::http::HttpMethod::Delete;
     return *this;
 }
 
 Request& Request::using_get() {
-    m_method = sdk::http::HttpMethod::GET;
+    m_method = sdk::http::HttpMethod::Get;
     return *this;
 }
 
 Request& Request::using_post() {
-    m_method = sdk::http::HttpMethod::POST;
+    m_method = sdk::http::HttpMethod::Post;
     return *this;
 }
 
 Request& Request::using_put() {
-    m_method = sdk::http::HttpMethod::PUT;
+    m_method = sdk::http::HttpMethod::Put;
     return *this;
 }
 
@@ -313,22 +313,22 @@ public:
         auto handler = create_handler(provider);
 
         switch (method) {
-            case sdk::http::HttpMethod::GET:
+            case sdk::http::HttpMethod::Get:
                 server.Get(path.c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::POST:
+            case sdk::http::HttpMethod::Post:
                 server.Post(path.c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::PUT:
+            case sdk::http::HttpMethod::Put:
                 server.Put(path.c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::DEL:
+            case sdk::http::HttpMethod::Delete:
                 server.Delete(path.c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::OPTIONS:
+            case sdk::http::HttpMethod::Options:
                 server.Options(path.c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::PATCH:
+            case sdk::http::HttpMethod::Patch:
                 server.Patch(path.c_str(), handler);
                 break;
             default:
@@ -439,16 +439,16 @@ private:
 
         auto method = convert_http_method(req.method);
         switch (method) {
-            case sdk::http::HttpMethod::GET:
+            case sdk::http::HttpMethod::Get:
                 new_req.using_get();
                 break;
-            case sdk::http::HttpMethod::POST:
+            case sdk::http::HttpMethod::Post:
                 new_req.using_post();
                 break;
-            case sdk::http::HttpMethod::PUT:
+            case sdk::http::HttpMethod::Put:
                 new_req.using_put();
                 break;
-            case sdk::http::HttpMethod::DEL:
+            case sdk::http::HttpMethod::Delete:
                 new_req.using_delete();
                 break;
             default:

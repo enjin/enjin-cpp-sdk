@@ -234,23 +234,23 @@ models::AssetVariantMode deserialize_asset_variant_mode(const std::string& s) no
 http::HttpMethod deserialize_http_method(const std::string& s) {
     std::string str = enjin::utils::to_upper(s);
     if (str == "GET") {
-        return http::HttpMethod::GET;
+        return http::HttpMethod::Get;
     } else if (str == "HEAD") {
-        return http::HttpMethod::HEAD;
+        return http::HttpMethod::Head;
     } else if (str == "POST") {
-        return http::HttpMethod::POST;
+        return http::HttpMethod::Post;
     } else if (str == "PUT") {
-        return http::HttpMethod::PUT;
+        return http::HttpMethod::Put;
     } else if (str == "DELETE") {
-        return http::HttpMethod::DEL;
+        return http::HttpMethod::Delete;
     } else if (str == "CONNECT") {
-        return http::HttpMethod::CONNECT;
+        return http::HttpMethod::Connect;
     } else if (str == "OPTIONS") {
-        return http::HttpMethod::OPTIONS;
+        return http::HttpMethod::Options;
     } else if (str == "TRACE") {
-        return http::HttpMethod::TRACE;
+        return http::HttpMethod::Trace;
     } else if (str == "PATCH") {
-        return http::HttpMethod::PATCH;
+        return http::HttpMethod::Patch;
     }
 
     throw std::runtime_error("No valid conversion for " + s + " to HTTP method.");
@@ -544,23 +544,23 @@ std::string serialize_asset_variant_mode(models::AssetVariantMode v) noexcept {
 
 std::string serialize_http_method(http::HttpMethod v) noexcept {
     switch (v) {
-        case http::HttpMethod::GET:
+        case http::HttpMethod::Get:
             return "GET";
-        case http::HttpMethod::HEAD:
+        case http::HttpMethod::Head:
             return "HEAD";
-        case http::HttpMethod::POST:
+        case http::HttpMethod::Post:
             return "POST";
-        case http::HttpMethod::PUT:
+        case http::HttpMethod::Put:
             return "PUT";
-        case http::HttpMethod::DEL:
+        case http::HttpMethod::Delete:
             return "DELETE";
-        case http::HttpMethod::CONNECT:
+        case http::HttpMethod::Connect:
             return "CONNECT";
-        case http::HttpMethod::OPTIONS:
+        case http::HttpMethod::Options:
             return "OPTIONS";
-        case http::HttpMethod::TRACE:
+        case http::HttpMethod::Trace:
             return "TRACE";
-        case http::HttpMethod::PATCH:
+        case http::HttpMethod::Patch:
             return "PATCH";
         default:
             return "";

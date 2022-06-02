@@ -37,7 +37,7 @@ public:
     static constexpr char JSON[] = "application/json; charset=utf-8";
 
     static HttpRequest create_dummy_request() {
-        return HttpRequest().set_method(HttpMethod::POST)
+        return HttpRequest().set_method(HttpMethod::Post)
                             .set_path_query_fragment("/")
                             .set_content_type(JSON)
                             .set_body("{}");

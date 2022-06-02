@@ -250,7 +250,7 @@ private:
     }
 
     void validate_request_method(const HttpRequest& req) {
-        if (req.get_method().has_value() && req.get_method().value() == HttpMethod::POST) {
+        if (req.get_method().has_value() && req.get_method().value() == HttpMethod::Post) {
             return;
         }
 
