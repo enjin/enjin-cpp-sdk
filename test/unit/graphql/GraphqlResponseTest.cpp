@@ -152,7 +152,7 @@ TEST_F(GraphqlResponseTest, HasErrorsReturnsTrue) {
 
 TEST_F(GraphqlResponseTest, HasErrorsReturnsFalse) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     GraphqlResponse<DummyObject> response(json);
@@ -163,7 +163,7 @@ TEST_F(GraphqlResponseTest, HasErrorsReturnsFalse) {
 
 TEST_F(GraphqlResponseTest, IsEmptyNonPaginatedTypeReturnsTrue) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     GraphqlResponse<DummyObject> response(json);
@@ -174,7 +174,7 @@ TEST_F(GraphqlResponseTest, IsEmptyNonPaginatedTypeReturnsTrue) {
 
 TEST_F(GraphqlResponseTest, IsEmptyPaginatedTypeReturnsTrue) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     GraphqlResponse<std::vector<DummyObject>> response(json);
@@ -235,7 +235,7 @@ TEST_F(GraphqlResponseTest, IsSuccessfulReturnsTrue) {
 
 TEST_F(GraphqlResponseTest, IsSuccessfulReturnsFalse) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     GraphqlResponse<DummyObject> response(json);
@@ -266,7 +266,7 @@ TEST_F(GraphqlResponseTest, IsPaginatedReturnsTrue) {
 
 TEST_F(GraphqlResponseTest, IsPaginatedReturnsFalse) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     GraphqlResponse<DummyObject> response(json);

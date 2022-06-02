@@ -19,13 +19,13 @@ namespace enjin::test::suites {
 
 pusher::PusherClient PusherClientTestSuite::create_testable_pusher_client() const {
     pusher::PusherOptions options = create_default_pusher_options();
-    return pusher::PusherClient(*fake_ws_client, DEFAULT_KEY, options);
+    return pusher::PusherClient(*fake_ws_client, DefaultKey, options);
 }
 
 std::string PusherClientTestSuite::create_default_event(const std::string& channel, const std::string& data) {
     std::stringstream ss;
     ss << R"({"event":")"
-       << DEFAULT_EVENT_NAME
+       << DefaultEventName
        << R"(","channel":")"
        << channel
        << R"(","data":)"
@@ -36,7 +36,7 @@ std::string PusherClientTestSuite::create_default_event(const std::string& chann
 
 pusher::PusherOptions PusherClientTestSuite::create_default_pusher_options() {
     return pusher::PusherOptions()
-            .set_cluster(DEFAULT_CLUSTER)
+            .set_cluster(DefaultCluster)
             .set_encrypted(true);
 }
 

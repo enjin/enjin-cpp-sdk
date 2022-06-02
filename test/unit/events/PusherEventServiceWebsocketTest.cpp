@@ -112,20 +112,20 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToProjectServiceSubscribesToCha
     const std::string project = DEFAULT_PROJECT;
     const std::string channel = ProjectChannel(create_default_platform(), project).channel();
     auto service = create_default_event_service();
-    mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PING_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PONG_TYPE);
+    mock_server.ignore_message_type(WebsocketMessageType::WebsocketOpenType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPingType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPongType);
     service.start().get();
 
     // Arrange - Expectations
     mock_server.next_message([this, &channel](const TestWebsocketMessage& message) {
         increment_call_counter();
-        EXPECT_EQ(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE, message.get_type());
+        EXPECT_EQ(WebsocketMessageType::WebsocketUtf8MessageType, message.get_type());
 
         std::string data = create_subscription_success_message(channel);
         TestWebsocketMessage response;
         response.set_data(std::vector<unsigned char>(data.begin(), data.end()));
-        response.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
+        response.set_type(WebsocketMessageType::WebsocketUtf8MessageType);
         mock_server.send_message(response);
     });
     set_expected_call_count(1);
@@ -147,15 +147,15 @@ TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToProjectServiceIsUnsubscribe
     const std::string project = DEFAULT_PROJECT;
     const std::string channel = ProjectChannel(create_default_platform(), project).channel();
     auto service = create_default_event_service();
-    mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PING_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PONG_TYPE);
+    mock_server.ignore_message_type(WebsocketMessageType::WebsocketOpenType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPingType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPongType);
     service.start().get();
     mock_server.next_message([this, &channel](const TestWebsocketMessage& message) {
         std::string data = create_subscription_success_message(channel);
         TestWebsocketMessage response;
         response.set_data(std::vector<unsigned char>(data.begin(), data.end()));
-        response.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
+        response.set_type(WebsocketMessageType::WebsocketUtf8MessageType);
         mock_server.send_message(response);
     });
     service.subscribe_to_project(project);
@@ -176,20 +176,20 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToPlayerServiceSubscribesToChan
     const std::string player(DEFAULT_PLAYER);
     const std::string channel = PlayerChannel(create_default_platform(), project, player).channel();
     auto service = create_default_event_service();
-    mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PING_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PONG_TYPE);
+    mock_server.ignore_message_type(WebsocketMessageType::WebsocketOpenType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPingType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPongType);
     service.start().get();
 
     // Arrange - Expectations
     mock_server.next_message([this, &channel](const TestWebsocketMessage& message) {
         increment_call_counter();
-        EXPECT_EQ(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE, message.get_type());
+        EXPECT_EQ(WebsocketMessageType::WebsocketUtf8MessageType, message.get_type());
 
         std::string data = create_subscription_success_message(channel);
         TestWebsocketMessage response;
         response.set_data(std::vector<unsigned char>(data.begin(), data.end()));
-        response.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
+        response.set_type(WebsocketMessageType::WebsocketUtf8MessageType);
         mock_server.send_message(response);
     });
     set_expected_call_count(1);
@@ -212,15 +212,15 @@ TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToPlayerServiceIsUnsubscribed
     const std::string player(DEFAULT_PLAYER);
     const std::string channel = PlayerChannel(create_default_platform(), project, player).channel();
     auto service = create_default_event_service();
-    mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PING_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PONG_TYPE);
+    mock_server.ignore_message_type(WebsocketMessageType::WebsocketOpenType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPingType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPongType);
     service.start().get();
     mock_server.next_message([this, &channel](const TestWebsocketMessage& message) {
         std::string data = create_subscription_success_message(channel);
         TestWebsocketMessage response;
         response.set_data(std::vector<unsigned char>(data.begin(), data.end()));
-        response.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
+        response.set_type(WebsocketMessageType::WebsocketUtf8MessageType);
         mock_server.send_message(response);
     });
     service.subscribe_to_player(project, player);
@@ -240,20 +240,20 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToAssetServiceSubscribesToChann
     const std::string asset(DEFAULT_ASSET);
     const std::string channel = AssetChannel(create_default_platform(), asset).channel();
     auto service = create_default_event_service();
-    mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PING_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PONG_TYPE);
+    mock_server.ignore_message_type(WebsocketMessageType::WebsocketOpenType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPingType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPongType);
     service.start().get();
 
     // Arrange - Expectations
     mock_server.next_message([this, &channel](const TestWebsocketMessage& message) {
         increment_call_counter();
-        EXPECT_EQ(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE, message.get_type());
+        EXPECT_EQ(WebsocketMessageType::WebsocketUtf8MessageType, message.get_type());
 
         std::string data = create_subscription_success_message(channel);
         TestWebsocketMessage response;
         response.set_data(std::vector<unsigned char>(data.begin(), data.end()));
-        response.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
+        response.set_type(WebsocketMessageType::WebsocketUtf8MessageType);
         mock_server.send_message(response);
     });
     set_expected_call_count(1);
@@ -275,15 +275,15 @@ TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToAssetServiceIsUnsubscribedF
     const std::string asset(DEFAULT_ASSET);
     const std::string channel = AssetChannel(create_default_platform(), asset).channel();
     auto service = create_default_event_service();
-    mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PING_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PONG_TYPE);
+    mock_server.ignore_message_type(WebsocketMessageType::WebsocketOpenType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPingType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPongType);
     service.start().get();
     mock_server.next_message([this, &channel](const TestWebsocketMessage& message) {
         std::string data = create_subscription_success_message(channel);
         TestWebsocketMessage response;
         response.set_data(std::vector<unsigned char>(data.begin(), data.end()));
-        response.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
+        response.set_type(WebsocketMessageType::WebsocketUtf8MessageType);
         mock_server.send_message(response);
     });
     service.subscribe_to_asset(asset);
@@ -303,20 +303,20 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToWalletServiceSubscribesToChan
     const std::string wallet(DEFAULT_WALLET);
     const std::string channel = WalletChannel(create_default_platform(), wallet).channel();
     auto service = create_default_event_service();
-    mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PING_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PONG_TYPE);
+    mock_server.ignore_message_type(WebsocketMessageType::WebsocketOpenType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPingType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPongType);
     service.start().get();
 
     // Arrange - Expectations
     mock_server.next_message([this, &channel](const TestWebsocketMessage& message) {
         increment_call_counter();
-        EXPECT_EQ(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE, message.get_type());
+        EXPECT_EQ(WebsocketMessageType::WebsocketUtf8MessageType, message.get_type());
 
         std::string data = create_subscription_success_message(channel);
         TestWebsocketMessage response;
         response.set_data(std::vector<unsigned char>(data.begin(), data.end()));
-        response.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
+        response.set_type(WebsocketMessageType::WebsocketUtf8MessageType);
         mock_server.send_message(response);
     });
     set_expected_call_count(1);
@@ -338,15 +338,15 @@ TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToWalletServiceIsUnsubscribed
     const std::string wallet(DEFAULT_WALLET);
     const std::string channel = WalletChannel(create_default_platform(), wallet).channel();
     auto service = create_default_event_service();
-    mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PING_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PONG_TYPE);
+    mock_server.ignore_message_type(WebsocketMessageType::WebsocketOpenType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPingType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPongType);
     service.start().get();
     mock_server.next_message([this, &channel](const TestWebsocketMessage& message) {
         std::string data = create_subscription_success_message(channel);
         TestWebsocketMessage response;
         response.set_data(std::vector<unsigned char>(data.begin(), data.end()));
-        response.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
+        response.set_type(WebsocketMessageType::WebsocketUtf8MessageType);
         mock_server.send_message(response);
     });
     service.subscribe_to_wallet(wallet);
@@ -368,18 +368,18 @@ TEST_F(PusherEventServiceWebsocketTest, StartPreviouslyActiveServiceResubscribes
     auto service = create_default_event_service();
     auto subscribe_func = [this, &channel](const TestWebsocketMessage& message) {
         increment_call_counter();
-        EXPECT_EQ(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE, message.get_type());
+        EXPECT_EQ(WebsocketMessageType::WebsocketUtf8MessageType, message.get_type());
 
         std::string data = create_subscription_success_message(channel);
         TestWebsocketMessage response;
         response.set_data(std::vector<unsigned char>(data.begin(), data.end()));
-        response.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
+        response.set_type(WebsocketMessageType::WebsocketUtf8MessageType);
         mock_server.send_message(response);
     };
-    mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PING_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PONG_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_CLOSE_TYPE);
+    mock_server.ignore_message_type(WebsocketMessageType::WebsocketOpenType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPingType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPongType)
+               .ignore_message_type(WebsocketMessageType::WebsocketCloseType);
     mock_server.next_message(subscribe_func); // Expect subscribe messages
     mock_server.next_message(subscribe_func); //
     set_expected_call_count(2);               //

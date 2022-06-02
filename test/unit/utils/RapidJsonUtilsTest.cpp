@@ -51,7 +51,7 @@ TEST_F(RapidJsonUtilsTest, JoinSerializedObjectToDocumentDocumentIsNotObjectThro
 
 TEST_F(RapidJsonUtilsTest, JoinSerializedObjectToDocumentJsonIsNotObjectDoesNothing) {
     // Arrange
-    const std::string expected(EMPTY_JSON_OBJECT);
+    const std::string expected(EmptyJsonObject);
     const std::string json(R"("1":1)");
     rapidjson::Document document;
     document.Parse(expected.c_str());
@@ -67,7 +67,7 @@ TEST_F(RapidJsonUtilsTest, JoinSerializedObjectToDocumentDocumentIsObjectAddsMem
     // Arrange
     const std::string expected_key(DEFAULT_KEY);
     rapidjson::Document document;
-    document.Parse(EMPTY_JSON_OBJECT);
+    document.Parse(EmptyJsonObject);
     std::stringstream s;
     s << R"({")"
       << expected_key
@@ -102,7 +102,7 @@ TEST_F(RapidJsonUtilsTest, JoinSerializedObjectsToDocumentDocumentIsNotObjectThr
 
 TEST_F(RapidJsonUtilsTest, JoinSerializedObjectsToDocumentJsonsAreNotObjectsDoesNothing) {
     // Arrange
-    const std::string expected(EMPTY_JSON_OBJECT);
+    const std::string expected(EmptyJsonObject);
     const std::vector<std::string> jsons({R"("1":1)"});
     rapidjson::Document document;
     document.Parse(expected.c_str());
@@ -119,7 +119,7 @@ TEST_F(RapidJsonUtilsTest, JoinSerializedObjectsToDocumentDocumentIsObjectAddsMe
     const std::string expected_key1("key1");
     const std::string expected_key2("key2");
     rapidjson::Document document;
-    document.Parse(EMPTY_JSON_OBJECT);
+    document.Parse(EmptyJsonObject);
     std::stringstream s1;
     s1 << R"({")"
        << expected_key1

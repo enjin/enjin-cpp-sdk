@@ -44,7 +44,7 @@ TEST_F(AssetTransferFeeSettingsTest, DeserializeEmptyStringFieldsDoNotHaveValues
 
 TEST_F(AssetTransferFeeSettingsTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     class_under_test.deserialize(json);

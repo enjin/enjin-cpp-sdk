@@ -40,7 +40,7 @@ protected:
 TEST_F(LoggerProviderTest, LogGivenMessageLogsDataAtDefaultLevel) {
     // Arrange - Data
     const LogLevel level = class_under_test->get_default_level();
-    const std::string message(DEFAULT_MESSAGE);
+    const std::string message(DefaultMessage);
 
     // Arrange - Stubbing
     ON_CALL(*mock_logger, is_loggable(level))
@@ -61,7 +61,7 @@ TEST_F(LoggerProviderTest, LogGivenMessageLogsDataAtDefaultLevel) {
 TEST_F(LoggerProviderTest, DebugGivenMessageLogsDataAtDebugLevel) {
     // Arrange - Data
     const LogLevel level = class_under_test->get_debug_level();
-    const std::string message(DEFAULT_MESSAGE);
+    const std::string message(DefaultMessage);
 
     // Arrange - Stubbing
     ON_CALL(*mock_logger, is_loggable(level))
@@ -82,7 +82,7 @@ TEST_F(LoggerProviderTest, DebugGivenMessageLogsDataAtDebugLevel) {
 TEST_F(LoggerProviderTest, LogGivenMessageAndExceptionLogsDataAtDefaultLevel) {
     // Arrange - Data
     const LogLevel level = class_under_test->get_default_level();
-    const std::string message(DEFAULT_MESSAGE);
+    const std::string message(DefaultMessage);
     const std::exception e = create_default_exception();
 
     // Arrange - Stubbing
@@ -104,7 +104,7 @@ TEST_F(LoggerProviderTest, LogGivenMessageAndExceptionLogsDataAtDefaultLevel) {
 TEST_F(LoggerProviderTest, DebugGivenMessageAndExceptionLogsDataAtDebugLevel) {
     // Arrange - Data
     const LogLevel level = class_under_test->get_debug_level();
-    const std::string message(DEFAULT_MESSAGE);
+    const std::string message(DefaultMessage);
     const std::exception e = create_default_exception();
 
     // Arrange - Stubbing
