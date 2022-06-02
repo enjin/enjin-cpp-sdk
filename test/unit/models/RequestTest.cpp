@@ -87,7 +87,7 @@ TEST_F(RequestTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
     const int expected_int = 1;
     const bool expected_bool = true;
     const std::string expected_string("1");
-    const RequestState expected_request_state = RequestState::PENDING;
+    const RequestState expected_request_state = RequestState::Pending;
     const RequestType expected_request_type = RequestType::APPROVE;
     const BlockchainData expected_blockchain_data;
     const Project expected_project;

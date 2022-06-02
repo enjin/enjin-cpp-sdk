@@ -46,7 +46,7 @@ public:
                                   .set_value_gte(1)
                                   .set_value_lt(1)
                                   .set_value_lte(1)
-                                  .set_state(RequestState::PENDING)
+                                  .set_state(RequestState::Pending)
                                   .set_state_in(std::vector<RequestState>())
                                   .set_wallet("1")
                                   .set_wallet_in(std::vector<std::string>());
@@ -82,7 +82,7 @@ TEST_F(TransactionFilterTest, SerializeSetFieldsReturnsExpectedJsonObject) {
                     .set_value_gte(1)
                     .set_value_lt(1)
                     .set_value_lte(1)
-                    .set_state(RequestState::PENDING)
+                    .set_state(RequestState::Pending)
                     .set_state_in(std::vector<RequestState>())
                     .set_wallet("1")
                     .set_wallet_in(std::vector<std::string>());
@@ -110,7 +110,7 @@ TEST_F(TransactionFilterTest, SerializeStateInReturnsFieldSetExpectedJsonObject)
     // Arrange
     const std::string expected(R"({"state_in":["PENDING","PENDING","PENDING"]})");
     std::vector<RequestState> states;
-    class_under_test.set_state_in({RequestState::PENDING, RequestState::PENDING, RequestState::PENDING});
+    class_under_test.set_state_in({RequestState::Pending, RequestState::Pending, RequestState::Pending});
 
     // Act
     std::string actual = class_under_test.serialize();

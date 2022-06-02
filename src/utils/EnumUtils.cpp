@@ -88,24 +88,24 @@ models::EventType deserialize_event_type(const std::string& s) noexcept {
 models::RequestState deserialize_request_state(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "PENDING") {
-        return models::RequestState::PENDING;
+        return models::RequestState::Pending;
     } else if (str == "BROADCAST") {
-        return models::RequestState::BROADCAST;
+        return models::RequestState::Broadcast;
     } else if (str == "TP_PROCESSING") {
-        return models::RequestState::TP_PROCESSING;
+        return models::RequestState::TpProcessing;
     } else if (str == "EXECUTED") {
-        return models::RequestState::EXECUTED;
+        return models::RequestState::Executed;
     } else if (str == "CANCELED_USER") {
-        return models::RequestState::CANCELED_USER;
+        return models::RequestState::CanceledUser;
     } else if (str == "CANCELED_PLATFORM") {
-        return models::RequestState::CANCELED_PLATFORM;
+        return models::RequestState::CanceledPlatform;
     } else if (str == "DROPPED") {
-        return models::RequestState::DROPPED;
+        return models::RequestState::Dropped;
     } else if (str == "FAILED") {
-        return models::RequestState::FAILED;
+        return models::RequestState::Failed;
     }
 
-    return models::RequestState::UNKNOWN;
+    return models::RequestState::Unknown;
 }
 
 models::RequestType deserialize_request_type(const std::string& s) noexcept {
@@ -342,21 +342,21 @@ std::string serialize_pusher_connection_state(pusher::PusherConnectionState v) n
 
 std::string serialize_request_state(models::RequestState v) noexcept {
     switch (v) {
-        case models::RequestState::PENDING:
+        case models::RequestState::Pending:
             return "PENDING";
-        case models::RequestState::BROADCAST:
+        case models::RequestState::Broadcast:
             return "BROADCAST";
-        case models::RequestState::TP_PROCESSING:
+        case models::RequestState::TpProcessing:
             return "TP_PROCESSING";
-        case models::RequestState::EXECUTED:
+        case models::RequestState::Executed:
             return "EXECUTED";
-        case models::RequestState::CANCELED_USER:
+        case models::RequestState::CanceledUser:
             return "CANCELED_USER";
-        case models::RequestState::CANCELED_PLATFORM:
+        case models::RequestState::CanceledPlatform:
             return "CANCELED_PLATFORM";
-        case models::RequestState::DROPPED:
+        case models::RequestState::Dropped:
             return "DROPPED";
-        case models::RequestState::FAILED:
+        case models::RequestState::Failed:
             return "FAILED";
         default:
             return "";

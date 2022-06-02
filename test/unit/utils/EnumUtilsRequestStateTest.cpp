@@ -50,12 +50,12 @@ TEST_P(RequestStateTest, SerializeRequestStateReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializableRequestState,
                          RequestStateTest,
-                         testing::Values(std::make_tuple("PENDING", RequestState::PENDING),
-                                         std::make_tuple("BROADCAST", RequestState::BROADCAST),
-                                         std::make_tuple("TP_PROCESSING", RequestState::TP_PROCESSING),
-                                         std::make_tuple("EXECUTED", RequestState::EXECUTED),
-                                         std::make_tuple("CANCELED_USER", RequestState::CANCELED_USER),
-                                         std::make_tuple("CANCELED_PLATFORM", RequestState::CANCELED_PLATFORM),
-                                         std::make_tuple("DROPPED", RequestState::DROPPED),
-                                         std::make_tuple("FAILED", RequestState::FAILED),
-                                         std::make_tuple("", RequestState::UNKNOWN)));
+                         testing::Values(std::make_tuple("PENDING", RequestState::Pending),
+                                         std::make_tuple("BROADCAST", RequestState::Broadcast),
+                                         std::make_tuple("TP_PROCESSING", RequestState::TpProcessing),
+                                         std::make_tuple("EXECUTED", RequestState::Executed),
+                                         std::make_tuple("CANCELED_USER", RequestState::CanceledUser),
+                                         std::make_tuple("CANCELED_PLATFORM", RequestState::CanceledPlatform),
+                                         std::make_tuple("DROPPED", RequestState::Dropped),
+                                         std::make_tuple("FAILED", RequestState::Failed),
+                                         std::make_tuple("", RequestState::Unknown)));
