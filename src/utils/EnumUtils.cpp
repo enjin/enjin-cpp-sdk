@@ -435,19 +435,19 @@ std::string serialize_sort_direction(models::SortDirection v) noexcept {
 
 std::string serialize_asset_field(models::AssetField v) noexcept {
     switch (v) {
-        case models::AssetField::ID:
+        case models::AssetField::Id:
             return "id";
-        case models::AssetField::NAME:
+        case models::AssetField::Name:
             return "name";
-        case models::AssetField::CIRCULATING_SUPPLY:
+        case models::AssetField::CirculatingSupply:
             return "circulatingSupply";
-        case models::AssetField::NON_FUNGIBLE:
+        case models::AssetField::NonFungible:
             return "nonFungible";
-        case models::AssetField::RESERVE:
+        case models::AssetField::Reserve:
             return "reserve";
-        case models::AssetField::TOTAL_SUPPLY:
+        case models::AssetField::TotalSupply:
             return "totalSupply";
-        case models::AssetField::CREATED_AT:
+        case models::AssetField::CreatedAt:
             return "createdAt";
         default:
             return "";

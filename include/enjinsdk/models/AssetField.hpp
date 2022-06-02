@@ -20,13 +20,13 @@ namespace enjin::sdk::models {
 
 /// \brief The fields of a Asset type for sorting.
 enum class AssetField {
-    ID,
-    NAME,
-    CIRCULATING_SUPPLY,
-    NON_FUNGIBLE,
-    RESERVE,
-    TOTAL_SUPPLY,
-    CREATED_AT,
+    Id,
+    Name,
+    CirculatingSupply,
+    NonFungible,
+    Reserve,
+    TotalSupply,
+    CreatedAt,
 };
 
 }
