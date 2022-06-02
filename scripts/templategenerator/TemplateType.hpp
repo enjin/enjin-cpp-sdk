@@ -25,9 +25,9 @@ namespace enjin::generator {
 class TemplateType {
 public:
     enum class Value {
-        FRAGMENT,
-        MUTATION,
-        QUERY,
+        Fragment,
+        Mutation,
+        Query,
     };
 
     TemplateType() = delete;
