@@ -111,60 +111,60 @@ models::RequestState deserialize_request_state(const std::string& s) noexcept {
 models::RequestType deserialize_request_type(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "ACCEPT_ASSIGNMENT") {
-        return models::RequestType::ACCEPT_ASSIGNMENT;
+        return models::RequestType::AcceptAssignment;
     } else if (str == "ASSIGN") {
-        return models::RequestType::ASSIGN;
+        return models::RequestType::Assign;
     } else if (str == "APPROVE") {
-        return models::RequestType::APPROVE;
+        return models::RequestType::Approve;
     } else if (str == "CREATE") {
-        return models::RequestType::CREATE;
+        return models::RequestType::Create;
     } else if (str == "MINT") {
-        return models::RequestType::MINT;
+        return models::RequestType::Mint;
     } else if (str == "SEND") {
-        return models::RequestType::SEND;
+        return models::RequestType::Send;
     } else if (str == "SEND_ENJ") {
-        return models::RequestType::SEND_ENJ;
+        return models::RequestType::SendEnj;
     } else if (str == "ADVANCED_SEND") {
-        return models::RequestType::ADVANCED_SEND;
+        return models::RequestType::AdvancedSend;
     } else if (str == "CREATE_TRADE") {
-        return models::RequestType::CREATE_TRADE;
+        return models::RequestType::CreateTrade;
     } else if (str == "CANCEL_TRADE") {
-        return models::RequestType::CANCEL_TRADE;
+        return models::RequestType::CancelTrade;
     } else if (str == "MELT") {
-        return models::RequestType::MELT;
+        return models::RequestType::Melt;
     } else if (str == "UPDATE_NAME") {
-        return models::RequestType::UPDATE_NAME;
+        return models::RequestType::UpdateName;
     } else if (str == "SET_ITEM_URI") {
-        return models::RequestType::SET_ITEM_URI;
+        return models::RequestType::SetItemUri;
     } else if (str == "SET_WHITELISTED") {
-        return models::RequestType::SET_WHITELISTED;
+        return models::RequestType::SetWhitelisted;
     } else if (str == "SET_TRANSFERABLE") {
-        return models::RequestType::SET_TRANSFERABLE;
+        return models::RequestType::SetTransferable;
     } else if (str == "SET_MELT_FEE") {
-        return models::RequestType::SET_MELT_FEE;
+        return models::RequestType::SetMeltFee;
     } else if (str == "DECREASE_MAX_MELT_FEE") {
-        return models::RequestType::DECREASE_MAX_MELT_FEE;
+        return models::RequestType::DecreaseMaxMeltFee;
     } else if (str == "SET_TRANSFER_FEE") {
-        return models::RequestType::SET_TRANSFER_FEE;
+        return models::RequestType::SetTransferFee;
     } else if (str == "DECREASE_MAX_TRANSFER_FEE") {
-        return models::RequestType::DECREASE_MAX_TRANSFER_FEE;
+        return models::RequestType::DecreaseMaxTransferFee;
     } else if (str == "RELEASE_RESERVE") {
-        return models::RequestType::RELEASE_RESERVE;
+        return models::RequestType::ReleaseReserve;
     } else if (str == "ADD_LOG") {
-        return models::RequestType::ADD_LOG;
+        return models::RequestType::AddLog;
     } else if (str == "SET_APPROVAL_FOR_ALL") {
-        return models::RequestType::SET_APPROVAL_FOR_ALL;
+        return models::RequestType::SetApprovalForAll;
     } else if (str == "MANAGE_UPDATE") {
-        return models::RequestType::MANAGE_UPDATE;
+        return models::RequestType::ManageUpdate;
     } else if (str == "SET_DECIMALS") {
-        return models::RequestType::SET_DECIMALS;
+        return models::RequestType::SetDecimals;
     } else if (str == "SET_SYMBOL") {
-        return models::RequestType::SET_SYMBOL;
+        return models::RequestType::SetSymbol;
     } else if (str == "MESSAGE") {
-        return models::RequestType::MESSAGE;
+        return models::RequestType::Message;
     }
 
-    return models::RequestType::UNKNOWN;
+    return models::RequestType::Unknown;
 }
 
 models::AssetSupplyModel deserialize_asset_supply_model(const std::string& s) noexcept {
@@ -365,57 +365,57 @@ std::string serialize_request_state(models::RequestState v) noexcept {
 
 std::string serialize_request_type(models::RequestType v) noexcept {
     switch (v) {
-        case models::RequestType::ACCEPT_ASSIGNMENT:
+        case models::RequestType::AcceptAssignment:
             return "ACCEPT_ASSIGNMENT";
-        case models::RequestType::ASSIGN:
+        case models::RequestType::Assign:
             return "ASSIGN";
-        case models::RequestType::APPROVE:
+        case models::RequestType::Approve:
             return "APPROVE";
-        case models::RequestType::CREATE:
+        case models::RequestType::Create:
             return "CREATE";
-        case models::RequestType::MINT:
+        case models::RequestType::Mint:
             return "MINT";
-        case models::RequestType::SEND:
+        case models::RequestType::Send:
             return "SEND";
-        case models::RequestType::SEND_ENJ:
+        case models::RequestType::SendEnj:
             return "SEND_ENJ";
-        case models::RequestType::ADVANCED_SEND:
+        case models::RequestType::AdvancedSend:
             return "ADVANCED_SEND";
-        case models::RequestType::CREATE_TRADE:
+        case models::RequestType::CreateTrade:
             return "CREATE_TRADE";
-        case models::RequestType::CANCEL_TRADE:
+        case models::RequestType::CancelTrade:
             return "CANCEL_TRADE";
-        case models::RequestType::MELT:
+        case models::RequestType::Melt:
             return "MELT";
-        case models::RequestType::UPDATE_NAME:
+        case models::RequestType::UpdateName:
             return "UPDATE_NAME";
-        case models::RequestType::SET_ITEM_URI:
+        case models::RequestType::SetItemUri:
             return "SET_ITEM_URI";
-        case models::RequestType::SET_WHITELISTED:
+        case models::RequestType::SetWhitelisted:
             return "SET_WHITELISTED";
-        case models::RequestType::SET_TRANSFERABLE:
+        case models::RequestType::SetTransferable:
             return "SET_TRANSFERABLE";
-        case models::RequestType::SET_MELT_FEE:
+        case models::RequestType::SetMeltFee:
             return "SET_MELT_FEE";
-        case models::RequestType::DECREASE_MAX_MELT_FEE:
+        case models::RequestType::DecreaseMaxMeltFee:
             return "DECREASE_MAX_MELT_FEE";
-        case models::RequestType::SET_TRANSFER_FEE:
+        case models::RequestType::SetTransferFee:
             return "SET_TRANSFER_FEE";
-        case models::RequestType::DECREASE_MAX_TRANSFER_FEE:
+        case models::RequestType::DecreaseMaxTransferFee:
             return "DECREASE_MAX_TRANSFER_FEE";
-        case models::RequestType::RELEASE_RESERVE:
+        case models::RequestType::ReleaseReserve:
             return "RELEASE_RESERVE";
-        case models::RequestType::ADD_LOG:
+        case models::RequestType::AddLog:
             return "ADD_LOG";
-        case models::RequestType::SET_APPROVAL_FOR_ALL:
+        case models::RequestType::SetApprovalForAll:
             return "SET_APPROVAL_FOR_ALL";
-        case models::RequestType::MANAGE_UPDATE:
+        case models::RequestType::ManageUpdate:
             return "MANAGE_UPDATE";
-        case models::RequestType::SET_DECIMALS:
+        case models::RequestType::SetDecimals:
             return "SET_DECIMALS";
-        case models::RequestType::SET_SYMBOL:
+        case models::RequestType::SetSymbol:
             return "SET_SYMBOL";
-        case models::RequestType::MESSAGE:
+        case models::RequestType::Message:
             return "MESSAGE";
         default:
             return "";
