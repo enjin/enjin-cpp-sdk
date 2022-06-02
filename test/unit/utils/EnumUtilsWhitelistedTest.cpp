@@ -38,9 +38,9 @@ TEST_P(WhitelistedTest, SerializeWhitelistedReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializeWhitelisted,
                          WhitelistedTest,
-                         testing::Values(std::make_tuple("NONE", Whitelisted::NONE),
-                                         std::make_tuple("SEND_AND_RECEIVE", Whitelisted::SEND_AND_RECEIVE),
-                                         std::make_tuple("SEND", Whitelisted::SEND),
-                                         std::make_tuple("RECEIVE", Whitelisted::RECEIVE),
-                                         std::make_tuple("NO_FEES", Whitelisted::NO_FEES),
-                                         std::make_tuple("ADDRESS", Whitelisted::ADDRESS)));
+                         testing::Values(std::make_tuple("NONE", Whitelisted::None),
+                                         std::make_tuple("SEND_AND_RECEIVE", Whitelisted::SendAndReceive),
+                                         std::make_tuple("SEND", Whitelisted::Send),
+                                         std::make_tuple("RECEIVE", Whitelisted::Receive),
+                                         std::make_tuple("NO_FEES", Whitelisted::NoFees),
+                                         std::make_tuple("ADDRESS", Whitelisted::Address)));

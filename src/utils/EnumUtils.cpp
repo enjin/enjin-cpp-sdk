@@ -601,17 +601,17 @@ std::string serialize_transaction_field(models::TransactionField v) noexcept {
 
 std::string serialize_whitelisted(models::Whitelisted v) noexcept {
     switch (v) {
-        case models::Whitelisted::NONE:
+        case models::Whitelisted::None:
             return "NONE";
-        case models::Whitelisted::SEND_AND_RECEIVE:
+        case models::Whitelisted::SendAndReceive:
             return "SEND_AND_RECEIVE";
-        case models::Whitelisted::SEND:
+        case models::Whitelisted::Send:
             return "SEND";
-        case models::Whitelisted::RECEIVE:
+        case models::Whitelisted::Receive:
             return "RECEIVE";
-        case models::Whitelisted::NO_FEES:
+        case models::Whitelisted::NoFees:
             return "NO_FEES";
-        case models::Whitelisted::ADDRESS:
+        case models::Whitelisted::Address:
             return "ADDRESS";
         default:
             return "";
