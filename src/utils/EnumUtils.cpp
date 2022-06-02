@@ -170,20 +170,20 @@ models::RequestType deserialize_request_type(const std::string& s) noexcept {
 models::AssetSupplyModel deserialize_asset_supply_model(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "FIXED") {
-        return models::AssetSupplyModel::FIXED;
+        return models::AssetSupplyModel::Fixed;
     } else if (str == "SETTABLE") {
-        return models::AssetSupplyModel::SETTABLE;
+        return models::AssetSupplyModel::Settable;
     } else if (str == "INFINITE") {
-        return models::AssetSupplyModel::INFINITE;
+        return models::AssetSupplyModel::Infinite;
     } else if (str == "COLLAPSING") {
-        return models::AssetSupplyModel::COLLAPSING;
+        return models::AssetSupplyModel::Collapsing;
     } else if (str == "ANNUAL_VALUE") {
-        return models::AssetSupplyModel::ANNUAL_VALUE;
+        return models::AssetSupplyModel::AnnualValue;
     } else if (str == "ANNUAL_PERCENTAGE") {
-        return models::AssetSupplyModel::ANNUAL_PERCENTAGE;
+        return models::AssetSupplyModel::AnnualPercentage;
     }
 
-    return models::AssetSupplyModel::UNKNOWN;
+    return models::AssetSupplyModel::Unknown;
 }
 
 models::AssetTransferFeeType deserialize_asset_transfer_fee_type(const std::string& s) noexcept {
@@ -480,17 +480,17 @@ std::string serialize_asset_index_format(models::AssetIndexFormat v) noexcept {
 
 std::string serialize_asset_supply_model(models::AssetSupplyModel v) noexcept {
     switch (v) {
-        case models::AssetSupplyModel::FIXED:
+        case models::AssetSupplyModel::Fixed:
             return "FIXED";
-        case models::AssetSupplyModel::SETTABLE:
+        case models::AssetSupplyModel::Settable:
             return "SETTABLE";
-        case models::AssetSupplyModel::INFINITE:
+        case models::AssetSupplyModel::Infinite:
             return "INFINITE";
-        case models::AssetSupplyModel::COLLAPSING:
+        case models::AssetSupplyModel::Collapsing:
             return "COLLAPSING";
-        case models::AssetSupplyModel::ANNUAL_VALUE:
+        case models::AssetSupplyModel::AnnualValue:
             return "ANNUAL_VALUE";
-        case models::AssetSupplyModel::ANNUAL_PERCENTAGE:
+        case models::AssetSupplyModel::AnnualPercentage:
             return "ANNUAL_PERCENTAGE";
         default:
             return "UNKNOWN";

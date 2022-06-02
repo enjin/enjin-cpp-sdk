@@ -50,10 +50,10 @@ TEST_P(AssetSupplyModelTest, SerializeAssetSupplyModelReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializableAssetSupplyModel,
                          AssetSupplyModelTest,
-                         testing::Values(std::make_tuple("UNKNOWN", AssetSupplyModel::UNKNOWN),
-                                         std::make_tuple("FIXED", AssetSupplyModel::FIXED),
-                                         std::make_tuple("SETTABLE", AssetSupplyModel::SETTABLE),
-                                         std::make_tuple("INFINITE", AssetSupplyModel::INFINITE),
-                                         std::make_tuple("COLLAPSING", AssetSupplyModel::COLLAPSING),
-                                         std::make_tuple("ANNUAL_VALUE", AssetSupplyModel::ANNUAL_VALUE),
-                                         std::make_tuple("ANNUAL_PERCENTAGE", AssetSupplyModel::ANNUAL_PERCENTAGE)));
+                         testing::Values(std::make_tuple("UNKNOWN", AssetSupplyModel::Unknown),
+                                         std::make_tuple("FIXED", AssetSupplyModel::Fixed),
+                                         std::make_tuple("SETTABLE", AssetSupplyModel::Settable),
+                                         std::make_tuple("INFINITE", AssetSupplyModel::Infinite),
+                                         std::make_tuple("COLLAPSING", AssetSupplyModel::Collapsing),
+                                         std::make_tuple("ANNUAL_VALUE", AssetSupplyModel::AnnualValue),
+                                         std::make_tuple("ANNUAL_PERCENTAGE", AssetSupplyModel::AnnualPercentage)));
