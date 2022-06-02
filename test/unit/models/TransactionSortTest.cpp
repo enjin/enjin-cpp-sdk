@@ -29,7 +29,7 @@ public:
             R"({"field":"id","direction":"asc"})";
 
     static TransactionSort create_default_sort() {
-        return TransactionSort().set_field(TransactionField::ID)
+        return TransactionSort().set_field(TransactionField::Id)
                                 .set_direction(SortDirection::Ascending);
     }
 };
@@ -48,7 +48,7 @@ TEST_F(TransactionSortTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
 TEST_F(TransactionSortTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_field(TransactionField::ID)
+    class_under_test.set_field(TransactionField::Id)
                     .set_direction(SortDirection::Ascending);
 
     // Act

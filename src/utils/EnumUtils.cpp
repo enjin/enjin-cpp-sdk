@@ -584,15 +584,15 @@ std::string serialize_operator(models::Operator v) noexcept {
 
 std::string serialize_transaction_field(models::TransactionField v) noexcept {
     switch (v) {
-        case models::TransactionField::ID:
+        case models::TransactionField::Id:
             return "id";
-        case models::TransactionField::STATE:
+        case models::TransactionField::State:
             return "state";
-        case models::TransactionField::TITLE:
+        case models::TransactionField::Title:
             return "title";
-        case models::TransactionField::CREATED_AT:
+        case models::TransactionField::CreatedAt:
             return "createdAt";
-        case models::TransactionField::UPDATED_AT:
+        case models::TransactionField::UpdatedAt:
             return "updatedAt";
         default:
             return "";
