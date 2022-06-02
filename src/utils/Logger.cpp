@@ -55,17 +55,17 @@ private:
 
     static spdlog::level::level_enum convert_log_level(LogLevel level) {
         switch (level) {
-            case LogLevel::TRACE:
+            case LogLevel::Trace:
                 return spdlog::level::trace;
-            case LogLevel::DEBUG:
+            case LogLevel::Debug:
                 return spdlog::level::debug;
-            case LogLevel::INFO:
+            case LogLevel::Info:
                 return spdlog::level::info;
-            case LogLevel::WARN:
+            case LogLevel::Warn:
                 return spdlog::level::warn;
-            case LogLevel::ERR:
+            case LogLevel::Error:
                 return spdlog::level::err;
-            case LogLevel::SEVERE:
+            case LogLevel::Severe:
                 return spdlog::level::critical;
             default:
                 return spdlog::level::off;

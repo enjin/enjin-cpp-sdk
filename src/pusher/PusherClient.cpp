@@ -308,7 +308,7 @@ void PusherClient::websocket_opened() {
 
 void PusherClient::websocket_closed(int close_status, const std::string&) {
     if (get_state() == PusherConnectionState::DISCONNECTED) {
-        logger_provider->log(sdk::utils::LogLevel::WARN, "Pusher client received close message while disconnected");
+        logger_provider->log(sdk::utils::LogLevel::Warn, "Pusher client received close message while disconnected");
         return;
     }
 

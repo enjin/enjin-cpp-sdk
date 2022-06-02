@@ -157,7 +157,7 @@ std::future<void> ProjectClient::send_request_and_auth(std::string uuid, std::st
             }
         } catch (const std::exception& e) {
             if (logger_provider != nullptr) {
-                logger_provider->log(utils::LogLevel::ERR, "Automatic AuthProject request failed.", e);
+                logger_provider->log(utils::LogLevel::Error, "Automatic AuthProject request failed.", e);
             }
 
             throw e;

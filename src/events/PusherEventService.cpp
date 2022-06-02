@@ -99,7 +99,7 @@ public:
             if (logger_provider != nullptr && state != pusher::PusherConnectionState::ALL) {
                 std::stringstream ss;
                 ss << "Pusher client " << enjin::utils::to_lower(utils::serialize_pusher_connection_state(state));
-                logger_provider->log(utils::LogLevel::INFO, ss.str());
+                logger_provider->log(utils::LogLevel::Info, ss.str());
             }
 
             if (state == pusher::PusherConnectionState::CONNECTED && connected_handler.has_value()) {
@@ -113,7 +113,7 @@ public:
             if (logger_provider != nullptr) {
                 std::stringstream ss;
                 ss << "Error on Pusher client: " << e.what();
-                logger_provider->log(utils::LogLevel::ERR, ss.str());
+                logger_provider->log(utils::LogLevel::Error, ss.str());
             }
 
             if (error_handler.has_value()) {

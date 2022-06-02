@@ -64,7 +64,7 @@ void BaseSchema::log_graphql_exception(const std::exception& e) {
 
     std::stringstream ss;
     ss << "An exception occurred processing GraphQL response: " << e.what();
-    logger_provider->log(utils::LogLevel::SEVERE, ss.str());
+    logger_provider->log(utils::LogLevel::Severe, ss.str());
 }
 
 http::HttpResponse BaseSchema::send_request(http::HttpRequest request) {

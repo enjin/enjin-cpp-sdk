@@ -149,7 +149,7 @@ private:
     void log_error(const std::string& message) {
         std::lock_guard<std::mutex> guard(logging_mutex);
         if (logger_provider != nullptr) {
-            logger_provider->log(utils::LogLevel::ERR, message);
+            logger_provider->log(utils::LogLevel::Error, message);
         }
     }
 

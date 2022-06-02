@@ -124,9 +124,9 @@ TEST_P(LoggerProviderLogLevelsTest, LogGivenMessageAndExceptionWithNonLoggableLe
 
 INSTANTIATE_TEST_SUITE_P(LogLevels,
                          LoggerProviderLogLevelsTest,
-                         testing::Values(LogLevel::TRACE,
-                                         LogLevel::DEBUG,
-                                         LogLevel::INFO,
-                                         LogLevel::WARN,
-                                         LogLevel::ERR,
-                                         LogLevel::SEVERE));
+                         testing::Values(LogLevel::Trace,
+                                         LogLevel::Debug,
+                                         LogLevel::Info,
+                                         LogLevel::Warn,
+                                         LogLevel::Error,
+                                         LogLevel::Severe));
