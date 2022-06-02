@@ -15,83 +15,102 @@
 
 #include "enjinsdk/models/TransactionFilter.hpp"
 
-#include "EnumUtils.hpp"
 #include "RapidJsonUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 std::string TransactionFilter::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (and_filters.has_value()) {
-        utils::set_array_member_from_type_vector<TransactionFilter>(document, AND_KEY, and_filters.value());
+        set_array_member_from_type_vector<TransactionFilter>(document, AND_KEY, and_filters.value());
     }
+
     if (or_filters.has_value()) {
-        utils::set_array_member_from_type_vector<TransactionFilter>(document, OR_KEY, or_filters.value());
+        set_array_member_from_type_vector<TransactionFilter>(document, OR_KEY, or_filters.value());
     }
+
     if (id.has_value()) {
-        utils::set_string_member(document, ID_KEY, id.value());
+        set_string_member(document, ID_KEY, id.value());
     }
+
     if (id_in.has_value()) {
-        utils::set_array_member_from_string_vector(document, ID_IN_KEY, id_in.value());
+        set_array_member_from_string_vector(document, ID_IN_KEY, id_in.value());
     }
+
     if (transaction_id.has_value()) {
-        utils::set_string_member(document, TRANSACTION_ID_KEY, transaction_id.value());
+        set_string_member(document, TRANSACTION_ID_KEY, transaction_id.value());
     }
+
     if (transaction_id_in.has_value()) {
-        utils::set_array_member_from_string_vector(document, TRANSACTION_ID_IN_KEY, transaction_id_in.value());
+        set_array_member_from_string_vector(document, TRANSACTION_ID_IN_KEY, transaction_id_in.value());
     }
+
     if (asset_id.has_value()) {
-        utils::set_string_member(document, ASSET_ID_KEY, asset_id.value());
+        set_string_member(document, ASSET_ID_KEY, asset_id.value());
     }
+
     if (asset_id_in.has_value()) {
-        utils::set_array_member_from_string_vector(document, ASSET_ID_IN_KEY, asset_id_in.value());
+        set_array_member_from_string_vector(document, ASSET_ID_IN_KEY, asset_id_in.value());
     }
+
     if (type.has_value()) {
-        utils::set_string_member(document, TYPE_KEY, utils::serialize_request_type(type.value()));
+        set_string_member(document, TYPE_KEY, EnumUtils::serialize_request_type(type.value()));
     }
+
     if (type_in.has_value()) {
         std::vector<std::string> v;
-        for (auto& e : type_in.value()) {
-            v.push_back(utils::serialize_request_type(e));
+        for (auto& e: type_in.value()) {
+            v.push_back(EnumUtils::serialize_request_type(e));
         }
 
-        utils::set_array_member_from_string_vector(document, TYPE_IN_KEY, v);
+        set_array_member_from_string_vector(document, TYPE_IN_KEY, v);
     }
+
     if (value.has_value()) {
-        utils::set_integer_member(document, VALUE_KEY, value.value());
+        set_integer_member(document, VALUE_KEY, value.value());
     }
+
     if (value_gt.has_value()) {
-        utils::set_integer_member(document, VALUE_GT_KEY, value_gt.value());
+        set_integer_member(document, VALUE_GT_KEY, value_gt.value());
     }
+
     if (value_gte.has_value()) {
-        utils::set_integer_member(document, VALUE_GTE_KEY, value_gte.value());
+        set_integer_member(document, VALUE_GTE_KEY, value_gte.value());
     }
+
     if (value_lt.has_value()) {
-        utils::set_integer_member(document, VALUE_LT_KEY, value_lt.value());
+        set_integer_member(document, VALUE_LT_KEY, value_lt.value());
     }
+
     if (value_lte.has_value()) {
-        utils::set_integer_member(document, VALUE_LTE_KEY, value_lte.value());
+        set_integer_member(document, VALUE_LTE_KEY, value_lte.value());
     }
+
     if (state.has_value()) {
-        utils::set_string_member(document, STATE_KEY, utils::serialize_request_state(state.value()));
+        set_string_member(document, STATE_KEY, EnumUtils::serialize_request_state(state.value()));
     }
+
     if (state_in.has_value()) {
         std::vector<std::string> v;
-        for (auto& e : state_in.value()) {
-            v.push_back(utils::serialize_request_state(e));
+        for (auto& e: state_in.value()) {
+            v.push_back(EnumUtils::serialize_request_state(e));
         }
 
-        utils::set_array_member_from_string_vector(document, STATE_IN_KEY, v);
-    }
-    if (wallet.has_value()) {
-        utils::set_string_member(document, WALLET_KEY, wallet.value());
-    }
-    if (wallet_in.has_value()) {
-        utils::set_array_member_from_string_vector(document, WALLET_IN_KEY, wallet_in.value());
+        set_array_member_from_string_vector(document, STATE_IN_KEY, v);
     }
 
-    return utils::document_to_string(document);
+    if (wallet.has_value()) {
+        set_string_member(document, WALLET_KEY, wallet.value());
+    }
+
+    if (wallet_in.has_value()) {
+        set_array_member_from_string_vector(document, WALLET_IN_KEY, wallet_in.value());
+    }
+
+    return document_to_string(document);
 }
 
 TransactionFilter& TransactionFilter::set_and(std::vector<TransactionFilter> others) {
@@ -190,29 +209,27 @@ TransactionFilter& TransactionFilter::set_wallet_in(std::vector<std::string> wal
 }
 
 bool TransactionFilter::operator==(const TransactionFilter& rhs) const {
-    return and_filters == rhs.and_filters &&
-           or_filters == rhs.or_filters &&
-           id == rhs.id &&
-           id_in == rhs.id_in &&
-           transaction_id == rhs.transaction_id &&
-           transaction_id_in == rhs.transaction_id_in &&
-           asset_id == rhs.asset_id &&
-           asset_id_in == rhs.asset_id_in &&
-           type == rhs.type &&
-           type_in == rhs.type_in &&
-           value == rhs.value &&
-           value_gt == rhs.value_gt &&
-           value_gte == rhs.value_gte &&
-           value_lt == rhs.value_lt &&
-           value_lte == rhs.value_lte &&
-           state == rhs.state &&
-           state_in == rhs.state_in &&
-           wallet == rhs.wallet &&
-           wallet_in == rhs.wallet_in;
+    return and_filters == rhs.and_filters
+           && or_filters == rhs.or_filters
+           && id == rhs.id
+           && id_in == rhs.id_in
+           && transaction_id == rhs.transaction_id
+           && transaction_id_in == rhs.transaction_id_in
+           && asset_id == rhs.asset_id
+           && asset_id_in == rhs.asset_id_in
+           && type == rhs.type
+           && type_in == rhs.type_in
+           && value == rhs.value
+           && value_gt == rhs.value_gt
+           && value_gte == rhs.value_gte
+           && value_lt == rhs.value_lt
+           && value_lte == rhs.value_lte
+           && state == rhs.state
+           && state_in == rhs.state_in
+           && wallet == rhs.wallet
+           && wallet_in == rhs.wallet_in;
 }
 
 bool TransactionFilter::operator!=(const TransactionFilter& rhs) const {
     return !(rhs == *this);
-}
-
 }

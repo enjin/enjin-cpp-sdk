@@ -15,8 +15,8 @@
 
 #include "enjinsdk/models/Request.hpp"
 
-#include "EnumUtils.hpp"
 #include "RapidJsonUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::serialization;
@@ -53,7 +53,7 @@ public:
         }
 
         if (document.HasMember(TYPE_KEY) && document[TYPE_KEY].IsString()) {
-            type.emplace(utils::deserialize_request_type(document[TYPE_KEY].GetString()));
+            type.emplace(EnumUtils::deserialize_request_type(document[TYPE_KEY].GetString()));
         }
 
         if (document.HasMember(VALUE_KEY) && document[VALUE_KEY].IsString()) {
@@ -65,7 +65,7 @@ public:
         }
 
         if (document.HasMember(STATE_KEY) && document[STATE_KEY].IsString()) {
-            state.emplace(deserialize_request_state(document[STATE_KEY].GetString()));
+            state.emplace(EnumUtils::deserialize_request_state(document[STATE_KEY].GetString()));
         }
 
         if (document.HasMember(ACCEPTED_KEY) && document[ACCEPTED_KEY].IsBool()) {

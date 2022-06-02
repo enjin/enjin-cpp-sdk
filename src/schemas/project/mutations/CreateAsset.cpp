@@ -15,50 +15,61 @@
 
 #include "enjinsdk/project/CreateAsset.hpp"
 
-#include "EnumUtils.hpp"
 #include "RapidJsonUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 #include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
 
-CreateAsset::CreateAsset() : graphql::AbstractGraphqlRequest("enjin.sdk.project.CreateAsset") {
+CreateAsset::CreateAsset() : AbstractGraphqlRequest("enjin.sdk.project.CreateAsset") {
 }
 
 std::string CreateAsset::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
+    join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
 
     if (name.has_value()) {
-        utils::set_string_member(document, "name", name.value());
-    }
-    if (total_supply.has_value()) {
-        utils::set_string_member(document, "totalSupply", total_supply.value());
-    }
-    if (initial_reserve.has_value()) {
-        utils::set_string_member(document, "initialReserve", initial_reserve.value());
-    }
-    if (supply_model.has_value()) {
-        utils::set_string_member(document, "supplyModel", utils::serialize_asset_supply_model(supply_model.value()));
-    }
-    if (melt_value.has_value()) {
-        utils::set_string_member(document, "meltValue", melt_value.value());
-    }
-    if (melt_fee_ratio.has_value()) {
-        utils::set_integer_member(document, "meltFeeRatio", melt_fee_ratio.value());
-    }
-    if (transferable.has_value()) {
-        utils::set_string_member(document, "transferable", utils::serialize_asset_transferable(transferable.value()));
-    }
-    if (transfer_fee_settings.has_value()) {
-        utils::set_object_member_from_type<models::AssetTransferFeeSettingsInput>(document,
-                                                                                  "transferFeeSettings",
-                                                                                  transfer_fee_settings.value());
-    }
-    if (non_fungible.has_value()) {
-        utils::set_boolean_member(document, "nonFungible", non_fungible.value());
+        set_string_member(document, "name", name.value());
     }
 
-    return utils::document_to_string(document);
+    if (total_supply.has_value()) {
+        set_string_member(document, "totalSupply", total_supply.value());
+    }
+
+    if (initial_reserve.has_value()) {
+        set_string_member(document, "initialReserve", initial_reserve.value());
+    }
+
+    if (supply_model.has_value()) {
+        set_string_member(document, "supplyModel", EnumUtils::serialize_asset_supply_model(supply_model.value()));
+    }
+
+    if (melt_value.has_value()) {
+        set_string_member(document, "meltValue", melt_value.value());
+    }
+
+    if (melt_fee_ratio.has_value()) {
+        set_integer_member(document, "meltFeeRatio", melt_fee_ratio.value());
+    }
+
+    if (transferable.has_value()) {
+        set_string_member(document, "transferable", EnumUtils::serialize_asset_transferable(transferable.value()));
+    }
+
+    if (transfer_fee_settings.has_value()) {
+        set_object_member_from_type<AssetTransferFeeSettingsInput>(document,
+                                                                   "transferFeeSettings",
+                                                                   transfer_fee_settings.value());
+    }
+
+    if (non_fungible.has_value()) {
+        set_boolean_member(document, "nonFungible", non_fungible.value());
+    }
+
+    return document_to_string(document);
 }
 
 CreateAsset& CreateAsset::set_name(std::string name) {
@@ -76,7 +87,7 @@ CreateAsset& CreateAsset::set_initial_reserve(std::string initial_reserve) {
     return *this;
 }
 
-CreateAsset& CreateAsset::set_supply_model(models::AssetSupplyModel supply_model) {
+CreateAsset& CreateAsset::set_supply_model(AssetSupplyModel supply_model) {
     CreateAsset::supply_model = supply_model;
     return *this;
 }
@@ -91,13 +102,13 @@ CreateAsset& CreateAsset::set_melt_fee_ratio(int melt_fee_ratio) {
     return *this;
 }
 
-CreateAsset& CreateAsset::set_transferable(models::AssetTransferable transferable) {
+CreateAsset& CreateAsset::set_transferable(AssetTransferable transferable) {
     CreateAsset::transferable = transferable;
     return *this;
 }
 
 CreateAsset&
-CreateAsset::set_transfer_fee_settings(models::AssetTransferFeeSettingsInput transfer_fee_settings) {
+CreateAsset::set_transfer_fee_settings(AssetTransferFeeSettingsInput transfer_fee_settings) {
     CreateAsset::transfer_fee_settings = std::move(transfer_fee_settings);
     return *this;
 }
@@ -108,23 +119,19 @@ CreateAsset& CreateAsset::set_non_fungible(bool non_fungible) {
 }
 
 bool CreateAsset::operator==(const CreateAsset& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const ProjectTransactionRequestArguments<CreateAsset>&>(*this) ==
-           static_cast<const ProjectTransactionRequestArguments<CreateAsset>&>(rhs) &&
-           name == rhs.name &&
-           total_supply == rhs.total_supply &&
-           initial_reserve == rhs.initial_reserve &&
-           supply_model == rhs.supply_model &&
-           melt_value == rhs.melt_value &&
-           melt_fee_ratio == rhs.melt_fee_ratio &&
-           transferable == rhs.transferable &&
-           transfer_fee_settings == rhs.transfer_fee_settings &&
-           non_fungible == rhs.non_fungible;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const ProjectTransactionRequestArguments<CreateAsset>&>(*this) == rhs
+           && name == rhs.name
+           && total_supply == rhs.total_supply
+           && initial_reserve == rhs.initial_reserve
+           && supply_model == rhs.supply_model
+           && melt_value == rhs.melt_value
+           && melt_fee_ratio == rhs.melt_fee_ratio
+           && transferable == rhs.transferable
+           && transfer_fee_settings == rhs.transfer_fee_settings
+           && non_fungible == rhs.non_fungible;
 }
 
 bool CreateAsset::operator!=(const CreateAsset& rhs) const {
     return !(rhs == *this);
-}
-
 }

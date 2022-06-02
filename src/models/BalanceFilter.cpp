@@ -15,40 +15,48 @@
 
 #include "enjinsdk/models/BalanceFilter.hpp"
 
-#include "EnumUtils.hpp"
 #include "RapidJsonUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 std::string BalanceFilter::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (and_filters.has_value()) {
-        utils::set_array_member_from_type_vector<BalanceFilter>(document, AND_KEY, and_filters.value());
-    }
-    if (or_filters.has_value()) {
-        utils::set_array_member_from_type_vector<BalanceFilter>(document, OR_KEY, or_filters.value());
-    }
-    if (asset_id.has_value()) {
-        utils::set_string_member(document, ASSET_ID_KEY, asset_id.value());
-    }
-    if (asset_id_in.has_value()) {
-        utils::set_array_member_from_string_vector(document, ASSET_ID_IN_KEY, asset_id_in.value());
-    }
-    if (wallet.has_value()) {
-        utils::set_string_member(document, WALLET_KEY, wallet.value());
-    }
-    if (wallet_in.has_value()) {
-        utils::set_array_member_from_string_vector(document, WALLET_IN_KEY, wallet_in.value());
-    }
-    if (value.has_value()) {
-        utils::set_integer_member(document, VALUE_KEY, value.value());
-    }
-    if (value_is.has_value()) {
-        utils::set_string_member(document, VALUE_IS_KEY, utils::serialize_operator(value_is.value()));
+        set_array_member_from_type_vector<BalanceFilter>(document, AND_KEY, and_filters.value());
     }
 
-    return utils::document_to_string(document);
+    if (or_filters.has_value()) {
+        set_array_member_from_type_vector<BalanceFilter>(document, OR_KEY, or_filters.value());
+    }
+
+    if (asset_id.has_value()) {
+        set_string_member(document, ASSET_ID_KEY, asset_id.value());
+    }
+
+    if (asset_id_in.has_value()) {
+        set_array_member_from_string_vector(document, ASSET_ID_IN_KEY, asset_id_in.value());
+    }
+
+    if (wallet.has_value()) {
+        set_string_member(document, WALLET_KEY, wallet.value());
+    }
+
+    if (wallet_in.has_value()) {
+        set_array_member_from_string_vector(document, WALLET_IN_KEY, wallet_in.value());
+    }
+
+    if (value.has_value()) {
+        set_integer_member(document, VALUE_KEY, value.value());
+    }
+
+    if (value_is.has_value()) {
+        set_string_member(document, VALUE_IS_KEY, EnumUtils::serialize_operator(value_is.value()));
+    }
+
+    return document_to_string(document);
 }
 
 BalanceFilter& BalanceFilter::set_and(std::vector<BalanceFilter> others) {
@@ -92,18 +100,16 @@ BalanceFilter& BalanceFilter::set_value_is(Operator value_is) {
 }
 
 bool BalanceFilter::operator==(const BalanceFilter& rhs) const {
-    return and_filters == rhs.and_filters &&
-           or_filters == rhs.or_filters &&
-           asset_id == rhs.asset_id &&
-           asset_id_in == rhs.asset_id_in &&
-           wallet == rhs.wallet &&
-           wallet_in == rhs.wallet_in &&
-           value == rhs.value &&
-           value_is == rhs.value_is;
+    return and_filters == rhs.and_filters
+           && or_filters == rhs.or_filters
+           && asset_id == rhs.asset_id
+           && asset_id_in == rhs.asset_id_in
+           && wallet == rhs.wallet
+           && wallet_in == rhs.wallet_in
+           && value == rhs.value
+           && value_is == rhs.value_is;
 }
 
 bool BalanceFilter::operator!=(const BalanceFilter& rhs) const {
     return !(rhs == *this);
-}
-
 }

@@ -15,63 +15,78 @@
 
 #include "enjinsdk/internal/TransactionFragmentArgumentsImpl.hpp"
 
-#include "EnumUtils.hpp"
 #include "RapidJsonUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 
-namespace enjin::sdk::shared {
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::shared;
+using namespace enjin::sdk::utils;
 
 std::string TransactionFragmentArgumentsImpl::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (transaction_asset_id_format.has_value()) {
-        utils::set_string_member(document,
-                                 "transactionAssetIdFormat",
-                                 utils::serialize_asset_id_format(transaction_asset_id_format.value()));
-    }
-    if (with_blockchain_data.has_value()) {
-        utils::set_boolean_member(document, "withBlockchainData", with_blockchain_data.value());
-    }
-    if (with_meta.has_value()) {
-        utils::set_boolean_member(document, "withMeta", with_meta.value());
-    }
-    if (with_encoded_data.has_value()) {
-        utils::set_boolean_member(document, "withEncodedData", with_encoded_data.value());
-    }
-    if (with_asset_data.has_value()) {
-        utils::set_boolean_member(document, "withAssetData", with_asset_data.value());
-    }
-    if (with_signed_txs.has_value()) {
-        utils::set_boolean_member(document, "withSignedTxs", with_signed_txs.value());
-    }
-    if (with_error.has_value()) {
-        utils::set_boolean_member(document, "withError", with_error.value());
-    }
-    if (with_nonce.has_value()) {
-        utils::set_boolean_member(document, "withNonce", with_nonce.value());
-    }
-    if (with_state.has_value()) {
-        utils::set_boolean_member(document, "withState", with_state.value());
-    }
-    if (with_receipt.has_value()) {
-        utils::set_boolean_member(document, "withReceipt", with_receipt.value());
-    }
-    if (with_receipt_logs.has_value()) {
-        utils::set_boolean_member(document, "withReceiptLogs", with_receipt_logs.value());
-    }
-    if (with_log_event.has_value()) {
-        utils::set_boolean_member(document, "withLogEvent", with_log_event.value());
-    }
-    if (with_transaction_project_uuid.has_value()) {
-        utils::set_boolean_member(document, "withTransactionProjectUuid", with_transaction_project_uuid.value());
-    }
-    if (with_transaction_wallet_address.has_value()) {
-        utils::set_boolean_member(document, "withTransactionWalletAddress", with_transaction_wallet_address.value());
+        set_string_member(document,
+                          "transactionAssetIdFormat",
+                          EnumUtils::serialize_asset_id_format(transaction_asset_id_format.value()));
     }
 
-    return utils::document_to_string(document);
+    if (with_blockchain_data.has_value()) {
+        set_boolean_member(document, "withBlockchainData", with_blockchain_data.value());
+    }
+
+    if (with_meta.has_value()) {
+        set_boolean_member(document, "withMeta", with_meta.value());
+    }
+
+    if (with_encoded_data.has_value()) {
+        set_boolean_member(document, "withEncodedData", with_encoded_data.value());
+    }
+
+    if (with_asset_data.has_value()) {
+        set_boolean_member(document, "withAssetData", with_asset_data.value());
+    }
+
+    if (with_signed_txs.has_value()) {
+        set_boolean_member(document, "withSignedTxs", with_signed_txs.value());
+    }
+
+    if (with_error.has_value()) {
+        set_boolean_member(document, "withError", with_error.value());
+    }
+
+    if (with_nonce.has_value()) {
+        set_boolean_member(document, "withNonce", with_nonce.value());
+    }
+
+    if (with_state.has_value()) {
+        set_boolean_member(document, "withState", with_state.value());
+    }
+
+    if (with_receipt.has_value()) {
+        set_boolean_member(document, "withReceipt", with_receipt.value());
+    }
+
+    if (with_receipt_logs.has_value()) {
+        set_boolean_member(document, "withReceiptLogs", with_receipt_logs.value());
+    }
+
+    if (with_log_event.has_value()) {
+        set_boolean_member(document, "withLogEvent", with_log_event.value());
+    }
+
+    if (with_transaction_project_uuid.has_value()) {
+        set_boolean_member(document, "withTransactionProjectUuid", with_transaction_project_uuid.value());
+    }
+
+    if (with_transaction_wallet_address.has_value()) {
+        set_boolean_member(document, "withTransactionWalletAddress", with_transaction_wallet_address.value());
+    }
+
+    return document_to_string(document);
 }
 
-void TransactionFragmentArgumentsImpl::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format) {
+void TransactionFragmentArgumentsImpl::set_transaction_asset_id_format(AssetIdFormat asset_id_format) {
     transaction_asset_id_format = asset_id_format;
 }
 
@@ -146,6 +161,4 @@ bool TransactionFragmentArgumentsImpl::operator==(const TransactionFragmentArgum
 
 bool TransactionFragmentArgumentsImpl::operator!=(const TransactionFragmentArgumentsImpl& rhs) const {
     return !(rhs == *this);
-}
-
 }

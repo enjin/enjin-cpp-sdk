@@ -15,30 +15,35 @@
 
 #include "enjinsdk/project/SetTransferable.hpp"
 
-#include "EnumUtils.hpp"
 #include "RapidJsonUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 #include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
 
-SetTransferable::SetTransferable() : graphql::AbstractGraphqlRequest("enjin.sdk.project.SetTransferable") {
+SetTransferable::SetTransferable() : AbstractGraphqlRequest("enjin.sdk.project.SetTransferable") {
 }
 
 std::string SetTransferable::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
+    join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
 
     if (asset_id.has_value()) {
-        utils::set_string_member(document, "assetId", asset_id.value());
-    }
-    if (asset_index.has_value()) {
-        utils::set_string_member(document, "assetIndex", asset_index.value());
-    }
-    if (transferable.has_value()) {
-        utils::set_string_member(document, "transferable", utils::serialize_asset_transferable(transferable.value()));
+        set_string_member(document, "assetId", asset_id.value());
     }
 
-    return utils::document_to_string(document);
+    if (asset_index.has_value()) {
+        set_string_member(document, "assetIndex", asset_index.value());
+    }
+
+    if (transferable.has_value()) {
+        set_string_member(document, "transferable", EnumUtils::serialize_asset_transferable(transferable.value()));
+    }
+
+    return document_to_string(document);
 }
 
 SetTransferable& SetTransferable::set_asset_id(std::string asset_id) {
@@ -51,23 +56,19 @@ SetTransferable& SetTransferable::set_asset_index(std::string asset_index) {
     return *this;
 }
 
-SetTransferable& SetTransferable::set_transferable(models::AssetTransferable transferable) {
+SetTransferable& SetTransferable::set_transferable(AssetTransferable transferable) {
     SetTransferable::transferable = transferable;
     return *this;
 }
 
 bool SetTransferable::operator==(const SetTransferable& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const ProjectTransactionRequestArguments<SetTransferable>&>(*this) ==
-           static_cast<const ProjectTransactionRequestArguments<SetTransferable>&>(rhs) &&
-           asset_id == rhs.asset_id &&
-           asset_index == rhs.asset_index &&
-           transferable == rhs.transferable;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const ProjectTransactionRequestArguments<SetTransferable>&>(*this) == rhs
+           && asset_id == rhs.asset_id
+           && asset_index == rhs.asset_index
+           && transferable == rhs.transferable;
 }
 
 bool SetTransferable::operator!=(const SetTransferable& rhs) const {
     return !(rhs == *this);
-}
-
 }

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "EnumUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 #include "gtest/gtest.h"
 #include <string>
 #include <tuple>
@@ -30,7 +30,7 @@ TEST_P(AssetVariantModeTest, DeserializeAssetVariantModeReturnsExpectedValue) {
     const std::string& str = std::get<0>(GetParam());
 
     // Act
-    AssetVariantMode actual = deserialize_asset_variant_mode(str);
+    AssetVariantMode actual = EnumUtils::deserialize_asset_variant_mode(str);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -42,7 +42,7 @@ TEST_P(AssetVariantModeTest, SerializeAssetVariantModeReturnsExpectedString) {
     AssetVariantMode value = std::get<1>(GetParam());
 
     // Act
-    std::string actual = serialize_asset_variant_mode(value);
+    std::string actual = EnumUtils::serialize_asset_variant_mode(value);
 
     // Assert
     ASSERT_EQ(expected, actual);

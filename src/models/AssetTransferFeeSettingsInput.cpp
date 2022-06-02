@@ -15,26 +15,29 @@
 
 #include "enjinsdk/models/AssetTransferFeeSettingsInput.hpp"
 
-#include "EnumUtils.hpp"
 #include "RapidJsonUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 #include <utility>
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 std::string AssetTransferFeeSettingsInput::serialize() const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     if (type.has_value()) {
-        utils::set_string_member(document, TYPE_KEY, utils::serialize_asset_transfer_fee_type(type.value()));
-    }
-    if (asset_id.has_value()) {
-        utils::set_string_member(document, ASSET_ID_KEY, asset_id.value());
-    }
-    if (value.has_value()) {
-        utils::set_string_member(document, VALUE_KEY, value.value());
+        set_string_member(document, TYPE_KEY, EnumUtils::serialize_asset_transfer_fee_type(type.value()));
     }
 
-    return utils::document_to_string(document);
+    if (asset_id.has_value()) {
+        set_string_member(document, ASSET_ID_KEY, asset_id.value());
+    }
+
+    if (value.has_value()) {
+        set_string_member(document, VALUE_KEY, value.value());
+    }
+
+    return document_to_string(document);
 }
 
 AssetTransferFeeSettingsInput& AssetTransferFeeSettingsInput::set_type(AssetTransferFeeType type) {
@@ -53,13 +56,11 @@ AssetTransferFeeSettingsInput& AssetTransferFeeSettingsInput::set_value(std::str
 }
 
 bool AssetTransferFeeSettingsInput::operator==(const AssetTransferFeeSettingsInput& rhs) const {
-    return type == rhs.type &&
-           asset_id == rhs.asset_id &&
-           value == rhs.value;
+    return type == rhs.type
+           && asset_id == rhs.asset_id
+           && value == rhs.value;
 }
 
 bool AssetTransferFeeSettingsInput::operator!=(const AssetTransferFeeSettingsInput& rhs) const {
     return !(rhs == *this);
-}
-
 }
