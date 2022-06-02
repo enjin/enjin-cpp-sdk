@@ -219,16 +219,16 @@ models::AssetTransferable deserialize_asset_transferable(const std::string& s) n
 models::AssetVariantMode deserialize_asset_variant_mode(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "NONE") {
-        return models::AssetVariantMode::NONE;
+        return models::AssetVariantMode::None;
     } else if (str == "BEAM") {
-        return models::AssetVariantMode::BEAM;
+        return models::AssetVariantMode::Beam;
     } else if (str == "ONCE") {
-        return models::AssetVariantMode::ONCE;
+        return models::AssetVariantMode::Once;
     } else if (str == "ALWAYS") {
-        return models::AssetVariantMode::ALWAYS;
+        return models::AssetVariantMode::Always;
     }
 
-    return models::AssetVariantMode::UNKNOWN;
+    return models::AssetVariantMode::Unknown;
 }
 
 http::HttpMethod deserialize_http_method(const std::string& s) {
@@ -529,13 +529,13 @@ std::string serialize_asset_transferable(models::AssetTransferable v) noexcept {
 
 std::string serialize_asset_variant_mode(models::AssetVariantMode v) noexcept {
     switch (v) {
-        case models::AssetVariantMode::NONE:
+        case models::AssetVariantMode::None:
             return "NONE";
-        case models::AssetVariantMode::BEAM:
+        case models::AssetVariantMode::Beam:
             return "BEAM";
-        case models::AssetVariantMode::ONCE:
+        case models::AssetVariantMode::Once:
             return "ONCE";
-        case models::AssetVariantMode::ALWAYS:
+        case models::AssetVariantMode::Always:
             return "ALWAYS";
         default:
             return "UNKNOWN";

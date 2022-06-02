@@ -70,7 +70,7 @@ TEST_F(AssetTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
     const std::string expected_string("1");
     const AssetStateData expected_state_data;
     const AssetConfigData expected_config_data;
-    const AssetVariantMode expected_variant_mode = AssetVariantMode::NONE;
+    const AssetVariantMode expected_variant_mode = AssetVariantMode::None;
     const std::string json(POPULATED_JSON_OBJECT);
 
     // Act
