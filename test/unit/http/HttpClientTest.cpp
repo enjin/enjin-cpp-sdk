@@ -146,7 +146,7 @@ TEST_F(HttpClientTest, SetDefaultRequestHeaderSentRequestHasHeader) {
 
 TEST_F(HttpClientTest, SetLoggerHttpLogLevelIsNoneExpectNoLogs) {
     // Arrange - Data
-    const HttpLogLevel log_level = HttpLogLevel::NONE;
+    const HttpLogLevel log_level = HttpLogLevel::None;
     const HttpRequest dummy_request = create_dummy_request();
     std::shared_ptr<NiceMockLogger> mock_logger = std::make_shared<NiceMockLogger>();
     class_under_test->start();
@@ -208,6 +208,6 @@ TEST_P(HttpClientLoggingTest, SetLoggerHttpLogLevelIsNotNoneExpectLogs) {
 
 INSTANTIATE_TEST_SUITE_P(HttpClientLoggingLevels,
                          HttpClientLoggingTest,
-                         testing::Values(HttpLogLevel::BASIC,
-                                         HttpLogLevel::HEADERS,
-                                         HttpLogLevel::BODY));
+                         testing::Values(HttpLogLevel::Basic,
+                                         HttpLogLevel::Headers,
+                                         HttpLogLevel::Body));
