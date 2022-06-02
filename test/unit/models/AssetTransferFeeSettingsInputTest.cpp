@@ -30,7 +30,7 @@ public:
             R"({"type":"NONE","assetId":"1","value":"1"})";
 
     static AssetTransferFeeSettingsInput create_default_transfer_fee_settings_input() {
-        return AssetTransferFeeSettingsInput().set_type(AssetTransferFeeType::NONE)
+        return AssetTransferFeeSettingsInput().set_type(AssetTransferFeeType::None)
                                               .set_asset_id("1")
                                               .set_value("1");
     }
@@ -50,7 +50,7 @@ TEST_F(AssetTransferFeeSettingsInputTest, SerializeNoSetFieldsReturnsEmptyJsonOb
 TEST_F(AssetTransferFeeSettingsInputTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_type(AssetTransferFeeType::NONE)
+    class_under_test.set_type(AssetTransferFeeType::None)
                     .set_asset_id("1")
                     .set_value("1");
 

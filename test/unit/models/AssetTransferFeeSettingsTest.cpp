@@ -58,7 +58,7 @@ TEST_F(AssetTransferFeeSettingsTest, DeserializeEmptyJsonObjectFieldsDoNotHaveVa
 TEST_F(AssetTransferFeeSettingsTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
     // Arrange
     const std::string expected_string("1");
-    const AssetTransferFeeType expected_type = AssetTransferFeeType::NONE;
+    const AssetTransferFeeType expected_type = AssetTransferFeeType::None;
     const std::string json(POPULATED_JSON_OBJECT);
 
     // Act

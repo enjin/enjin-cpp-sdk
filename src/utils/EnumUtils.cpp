@@ -189,18 +189,18 @@ models::AssetSupplyModel deserialize_asset_supply_model(const std::string& s) no
 models::AssetTransferFeeType deserialize_asset_transfer_fee_type(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "NONE") {
-        return models::AssetTransferFeeType::NONE;
+        return models::AssetTransferFeeType::None;
     } else if (str == "PER_TRANSFER") {
-        return models::AssetTransferFeeType::PER_TRANSFER;
+        return models::AssetTransferFeeType::PerTransfer;
     } else if (str == "PER_CRYPTO_ITEM") {
-        return models::AssetTransferFeeType::PER_CRYPTO_ITEM;
+        return models::AssetTransferFeeType::PerCryptoItem;
     } else if (str == "RATIO_CUT") {
-        return models::AssetTransferFeeType::RATIO_CUT;
+        return models::AssetTransferFeeType::RatioCut;
     } else if (str == "RATIO_EXTRA") {
-        return models::AssetTransferFeeType::RATIO_EXTRA;
+        return models::AssetTransferFeeType::RatioExtra;
     }
 
-    return models::AssetTransferFeeType::UNKNOWN;
+    return models::AssetTransferFeeType::Unknown;
 }
 
 models::AssetTransferable deserialize_asset_transferable(const std::string& s) noexcept {
@@ -499,15 +499,15 @@ std::string serialize_asset_supply_model(models::AssetSupplyModel v) noexcept {
 
 std::string serialize_asset_transfer_fee_type(models::AssetTransferFeeType v) noexcept {
     switch (v) {
-        case models::AssetTransferFeeType::NONE:
+        case models::AssetTransferFeeType::None:
             return "NONE";
-        case models::AssetTransferFeeType::PER_TRANSFER:
+        case models::AssetTransferFeeType::PerTransfer:
             return "PER_TRANSFER";
-        case models::AssetTransferFeeType::PER_CRYPTO_ITEM:
+        case models::AssetTransferFeeType::PerCryptoItem:
             return "PER_CRYPTO_ITEM";
-        case models::AssetTransferFeeType::RATIO_CUT:
+        case models::AssetTransferFeeType::RatioCut:
             return "RATIO_CUT";
-        case models::AssetTransferFeeType::RATIO_EXTRA:
+        case models::AssetTransferFeeType::RatioExtra:
             return "RATIO_EXTRA";
         default:
             return "UNKNOWN";

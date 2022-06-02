@@ -50,9 +50,9 @@ TEST_P(AssetTransferFeeTypeTest, SerializeAssetTransferFeeTypeReturnsExpectedStr
 
 INSTANTIATE_TEST_SUITE_P(SerializableAssetTransferFeeType,
                          AssetTransferFeeTypeTest,
-                         testing::Values(std::make_tuple("UNKNOWN", AssetTransferFeeType::UNKNOWN),
-                                         std::make_tuple("NONE", AssetTransferFeeType::NONE),
-                                         std::make_tuple("PER_TRANSFER", AssetTransferFeeType::PER_TRANSFER),
-                                         std::make_tuple("PER_CRYPTO_ITEM", AssetTransferFeeType::PER_CRYPTO_ITEM),
-                                         std::make_tuple("RATIO_CUT", AssetTransferFeeType::RATIO_CUT),
-                                         std::make_tuple("RATIO_EXTRA", AssetTransferFeeType::RATIO_EXTRA)));
+                         testing::Values(std::make_tuple("UNKNOWN", AssetTransferFeeType::Unknown),
+                                         std::make_tuple("NONE", AssetTransferFeeType::None),
+                                         std::make_tuple("PER_TRANSFER", AssetTransferFeeType::PerTransfer),
+                                         std::make_tuple("PER_CRYPTO_ITEM", AssetTransferFeeType::PerCryptoItem),
+                                         std::make_tuple("RATIO_CUT", AssetTransferFeeType::RatioCut),
+                                         std::make_tuple("RATIO_EXTRA", AssetTransferFeeType::RatioExtra)));
