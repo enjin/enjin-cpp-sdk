@@ -89,7 +89,7 @@ TEST_F(ClientMiddlewareTest, CreateRequestRequestDoesNotHaveAuthorizationHeaderW
     const HttpRequest req = class_under_test->create_request();
 
     // Assert
-    ASSERT_FALSE(req.has_header(AUTHORIZATION)) << "Assert request does not have authorization header.";
+    ASSERT_FALSE(req.has_header(Authorization)) << "Assert request does not have authorization header.";
 }
 
 TEST_F(ClientMiddlewareTest, CreateRequestRequestDoesHaveAuthorizationHeaderWhenAuthTokenIsSet) {
@@ -104,7 +104,7 @@ TEST_F(ClientMiddlewareTest, CreateRequestRequestDoesHaveAuthorizationHeaderWhen
     const HttpRequest req = class_under_test->create_request();
 
     // Assert
-    ASSERT_TRUE(req.has_header(AUTHORIZATION)) << "Assert request has authorization header.";
+    ASSERT_TRUE(req.has_header(Authorization)) << "Assert request has authorization header.";
 }
 
 TEST_F(ClientMiddlewareTest, IsClosedHttpClientIsNotOpenReturnsTrue) {

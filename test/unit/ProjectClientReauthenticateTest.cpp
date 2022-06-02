@@ -137,7 +137,7 @@ TEST_F(ProjectClientReauthenticateTest, AuthProjectGivenValidUuidAndSecretClient
     // Arrange - Data
     const std::string auth_token("FakeAuthToken");
     const std::string expected_path = "/graphql/project";
-    const std::string expected_header = AUTHORIZATION;
+    const std::string expected_header = Authorization;
     const std::string expected_header_value = "Bearer " + auth_token;
     const Request request = Request::create().with_path(expected_path).using_post();
     const AccessToken fake_token = create_fake_access_token(auth_token, 1);
@@ -147,7 +147,7 @@ TEST_F(ProjectClientReauthenticateTest, AuthProjectGivenValidUuidAndSecretClient
     mock_server.given(request)
                .respond_with(Response::create()
                                      .with_success()
-                                     .with_header(CONTENT_TYPE, JSON)
+                                     .with_header(ContentType, JSON)
                                      .with_body(response_body));
 
     // Assumption
@@ -194,7 +194,7 @@ TEST_F(ProjectClientReauthenticateTest, AuthGivenEmptyTokenStopsReauthentication
                               .using_post())
                .respond_with(Response::create()
                                      .with_success()
-                                     .with_header(CONTENT_TYPE, JSON)
+                                     .with_header(ContentType, JSON)
                                      .with_body(response_body));
 
     // Arrange - Data (continued)
@@ -226,7 +226,7 @@ TEST_P(ProjectClientReauthenticateTestInvalidDurations, AuthGivenInvalidDuration
                               .using_post())
                .respond_with(Response::create()
                                      .with_success()
-                                     .with_header(CONTENT_TYPE, JSON)
+                                     .with_header(ContentType, JSON)
                                      .with_body(response_body));
 
     // Arrange - Expectations

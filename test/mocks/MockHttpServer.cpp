@@ -388,7 +388,7 @@ private:
                 res.status = provider->get_response()->get_status_code().value();
 
                 auto& headers = provider->get_response()->get_headers();
-                auto iter = headers.find(sdk::http::CONTENT_TYPE);
+                auto iter = headers.find(sdk::http::ContentType);
                 if (iter == headers.end()) {
                     res.set_content(provider->get_response()->get_body().value(), DEFAULT_CONTENT_TYPE);
                 } else {

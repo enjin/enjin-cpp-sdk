@@ -95,7 +95,7 @@ TEST_F(HttpClientTest, SendRequestReceivesSuccessfulResponseAndReturnsExpected) 
                               .using_post())
                .respond_with(Response::create()
                                      .with_status_code(expected_code)
-                                     .with_header(CONTENT_TYPE, expected_content_type)
+                                     .with_header(ContentType, expected_content_type)
                                      .with_body(expected_body));
 
     // Act
@@ -104,7 +104,7 @@ TEST_F(HttpClientTest, SendRequestReceivesSuccessfulResponseAndReturnsExpected) 
     // Assert
     EXPECT_EQ(expected_code, response.get_code().value());
     EXPECT_EQ(expected_body, response.get_body().value());
-    EXPECT_EQ(expected_content_type, response.get_header_value(CONTENT_TYPE).value());
+    EXPECT_EQ(expected_content_type, response.get_header_value(ContentType).value());
 }
 
 TEST_F(HttpClientTest, SetDefaultRequestHeaderSentRequestHasHeader) {
@@ -122,7 +122,7 @@ TEST_F(HttpClientTest, SetDefaultRequestHeaderSentRequestHasHeader) {
                               .using_post())
                .respond_with(Response::create()
                                      .with_success()
-                                     .with_header(CONTENT_TYPE, JSON)
+                                     .with_header(ContentType, JSON)
                                      .with_body("{}"));
 
     // Arrange - Expectations
@@ -159,7 +159,7 @@ TEST_F(HttpClientTest, SetLoggerHttpLogLevelIsNoneExpectNoLogs) {
                               .using_post())
                .respond_with(Response::create()
                                      .with_success()
-                                     .with_header(CONTENT_TYPE, JSON)
+                                     .with_header(ContentType, JSON)
                                      .with_body("{}"));
     ON_CALL(*mock_logger, is_loggable(An<LogLevel>()))
             .WillByDefault(Return(true));
@@ -190,7 +190,7 @@ TEST_P(HttpClientLoggingTest, SetLoggerHttpLogLevelIsNotNoneExpectLogs) {
                               .using_post())
                .respond_with(Response::create()
                                      .with_success()
-                                     .with_header(CONTENT_TYPE, JSON)
+                                     .with_header(ContentType, JSON)
                                      .with_body("{}"));
     ON_CALL(*mock_logger, is_loggable(An<LogLevel>()))
             .WillByDefault(Return(true));
