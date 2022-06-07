@@ -320,6 +320,10 @@ public:
 
         Document::AllocatorType& allocator = document->GetAllocator();
 
+        if (document->HasMember(key.c_str())) {
+            document->RemoveMember(key.c_str());
+        }
+
         Value k(key.c_str(), allocator);
         Value v;
         v.CopyFrom(*value.pimpl->document, allocator);

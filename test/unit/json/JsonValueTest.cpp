@@ -523,7 +523,6 @@ TEST_F(JsonValueTest, TryParseAsObjectWithMalformedJsonReturnsFalse) {
     EXPECT_FALSE(json_value.is_object()) << "Value was set as an object after parse";
 }
 
-
 TEST_F(JsonValueTest, TryRemoveObjectFieldWithSetValueReturnsTrue) {
     // Arrange
     const std::string key = "key";
@@ -721,6 +720,30 @@ TEST_F(JsonValueTest, TrySetObjectFieldOnNonObjectValueReturnsFalse) {
 
     // Assert
     ASSERT_FALSE(actual);
+}
+
+TEST_F(JsonValueTest, TrySetObjectFieldObjectAlreadyHasFieldOverridesOldField) {
+    // Arrange
+    const std::string expected_key = "key";
+    const JsonValue expected_value = create_object_value();
+    JsonValue actual_value;
+    JsonValue json_value = JsonValue::create_object();
+    const JsonValue dummy_value = create_int_value();
+    const bool is_field_set = json_value.try_set_object_field(expected_key, dummy_value);
+
+    // Assumptions
+    ASSERT_TRUE(is_field_set) << "Assume field to be overridden was set";
+    ASSERT_TRUE(json_value.has_object_field(expected_key)) << "Assume value-object has field";
+
+    // Act
+    const bool result = json_value.try_set_object_field(expected_key, expected_value);
+
+    // Assert
+    EXPECT_TRUE(result) << "Try-setter returned false result";
+    EXPECT_TRUE(json_value.has_object_field(expected_key)) << "Value-object no longer has field for expected key";
+
+    json_value.try_get_object_field(expected_key, actual_value);
+    EXPECT_EQ(expected_value, actual_value) << "Actual field-value does not equal expected";
 }
 
 TEST_F(JsonValueTest, TrySetStringOnStringValueReturnsTrue) {
