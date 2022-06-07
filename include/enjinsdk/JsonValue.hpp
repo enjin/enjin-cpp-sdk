@@ -17,15 +17,15 @@
 #define ENJINSDK_JSONVALUE_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/ISerializable.hpp"
 #include <memory>
+#include <set>
 #include <string>
 #include <vector>
 
 namespace enjin::sdk::json {
 
 /// \brief Public API class for JSON functionality needed by this SDK.
-class ENJINSDK_EXPORT JsonValue final : public serialization::ISerializable {
+class ENJINSDK_EXPORT JsonValue final {
 public:
     /// \brief Creates an instance of this class as a null value type.
     JsonValue();
@@ -39,7 +39,17 @@ public:
     JsonValue(JsonValue&& other) noexcept;
 
     /// \brief Deconstructs this instance.
-    ~JsonValue() override;
+    ~JsonValue();
+
+    /// \brief Returns a set containing the field keys for this value-object.
+    /// \return The set containing the field keys.
+    /// \remarks If this value is not a JSON object then the returned set will be empty.
+    [[nodiscard]] std::set<std::string> get_object_field_keys() const;
+
+    /// \brief Determines if this value as a JSON object has the specified field.
+    /// \param key The field key.
+    /// \return Whether this value is a JSON object and has the specified field.
+    [[nodiscard]] bool has_object_field(const std::string& key) const;
 
     /// \brief Determines whether this represents a array value.
     /// \return Whether this represents a array value.
@@ -69,6 +79,10 @@ public:
     /// \return Whether this represents a null value.
     [[nodiscard]] bool is_null() const;
 
+    /// \brief Determines whether this represents a number value.
+    /// \return Whether this represents a number value.
+    [[nodiscard]] bool is_number() const;
+
     /// \brief Determines whether this represents a object value.
     /// \return Whether this represents a object value.
     [[nodiscard]] bool is_object() const;
@@ -79,7 +93,15 @@ public:
 
     /// \brief Returns a string representation of this value.
     /// \return The string representation of this value.
-    [[nodiscard]] std::string serialize() const override;
+    [[nodiscard]] std::string to_string() const;
+
+    /// \brief Tries to clear this value if it is an array.
+    /// \return Whether this value was cleared.
+    bool try_clear_array();
+
+    /// \brief Tries to clear this value if it is an object.
+    /// \return Whether this value was cleared.
+    bool try_clear_object();
 
     /// \brief Tries to get this value as a array and assign it to an out parameter.
     /// \param out The out parameter.
@@ -94,22 +116,22 @@ public:
     /// \brief Tries to get this value as a double and assign it to an out parameter.
     /// \param out The out parameter.
     /// \return Whether the out parameter was set.
-    bool try_get_double(double& out) const;
+    bool try_get_number(double& out) const;
 
     /// \brief Tries to get this value as a float and assign it to an out parameter.
     /// \param out The out parameter.
     /// \return Whether the out parameter was set.
-    bool try_get_float(float& out) const;
+    bool try_get_number(float& out) const;
 
     /// \brief Tries to get this value as a integer and assign it to an out parameter.
     /// \param out The out parameter.
     /// \return Whether the out parameter was set.
-    bool try_get_int(int& out) const;
+    bool try_get_number(int& out) const;
 
     /// \brief Tries to get this value as a 64-bit integer and assign it to an out parameter.
     /// \param out The out parameter.
     /// \return Whether the out parameter was set.
-    bool try_get_int64(int64_t& out) const;
+    bool try_get_number(int64_t& out) const;
 
     /// \brief Tries to get an object field from this value and assign it to an out parameter.
     /// \param key The field key.
@@ -121,6 +143,16 @@ public:
     /// \param out The out parameter.
     /// \return Whether the out parameter was set.
     bool try_get_string(std::string& out) const;
+
+    /// \brief Tries parsing this value as a JSON object from the given raw JSON.
+    /// \param raw The raw JSON.
+    /// \return Whether this value was updated.
+    bool try_parse_as_object(const std::string& raw);
+
+    /// \brief Tries to remove a object-field for this with the given JSON value.
+    /// \param key The field key.
+    /// \return Whether the object-field for this was removed.
+    bool try_remove_object_field(const std::string& key);
 
     /// \brief Tries to set an array element for this value with the given element.
     /// \param el The element.
@@ -135,22 +167,22 @@ public:
     /// \brief Tries to set this value with the given double.
     /// \param value The value.
     /// \return Whether this value was set with the given double.
-    bool try_set_double(double value);
+    bool try_set_number(double value);
 
     /// \brief Tries to set this value with the given float.
     /// \param value The value.
     /// \return Whether this value was set with the given float.
-    bool try_set_float(float value);
+    bool try_set_number(float value);
 
     /// \brief Tries to set this value with the given integer.
     /// \param value The value.
     /// \return Whether this value was set with the given integer.
-    bool try_set_int(int value);
+    bool try_set_number(int value);
 
     /// \brief Tries to set this value with the given 64-bit integer.
     /// \param value The value.
     /// \return Whether this value was set with the given 64-bit integer.
-    bool try_set_int64(int64_t value);
+    bool try_set_number(int64_t value);
 
     /// \brief Tries to set a object-field for this with the given JSON value.
     /// \param key The field key.

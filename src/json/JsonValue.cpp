@@ -21,10 +21,9 @@
 #include <utility>
 
 using namespace enjin::sdk::json;
-using namespace enjin::sdk::serialization;
 using namespace rapidjson;
 
-class JsonValue::Impl final : public ISerializable {
+class JsonValue::Impl final {
 public:
     Impl() = delete;
 
@@ -40,7 +39,24 @@ public:
 
     Impl(Impl&&) = default;
 
-    ~Impl() override = default;
+    ~Impl() = default;
+
+    [[nodiscard]] std::set<std::string> get_object_field_keys() const {
+        std::set<std::string> keys;
+
+        if (is_object()) {
+            for (const auto& member: document->GetObject()) {
+                std::string key(member.name.GetString());
+                keys.emplace(std::move(key));
+            }
+        }
+
+        return keys;
+    }
+
+    [[nodiscard]] bool has_object_field(const std::string& key) const {
+        return is_object() && document->HasMember(key.c_str());
+    }
 
     [[nodiscard]] bool is_array() const {
         return document->IsArray();
@@ -70,6 +86,10 @@ public:
         return document->IsNull();
     }
 
+    [[nodiscard]] bool is_number() const {
+        return document->IsNumber();
+    }
+
     [[nodiscard]] bool is_object() const {
         return document->IsObject();
     }
@@ -78,12 +98,30 @@ public:
         return document->IsString();
     }
 
-    [[nodiscard]] std::string serialize() const override {
+    [[nodiscard]] std::string to_string() const {
         StringBuffer buffer;
         Writer<StringBuffer> writer(buffer);
         document->Accept(writer);
 
         return {buffer.GetString()};
+    }
+
+    bool try_clear_array() {
+        if (!is_array()) {
+            return false;
+        }
+
+        document->Clear();
+        return true;
+    }
+
+    bool try_clear_object() {
+        if (!is_object()) {
+            return false;
+        }
+
+        document->RemoveAllMembers();
+        return true;
     }
 
     bool try_get_array(std::vector<JsonValue>& out) const {
@@ -93,16 +131,15 @@ public:
 
         out.clear();
 
-        const Value& arr = document->GetArray();
-        for (Value::ConstValueIterator itr = arr.Begin(); itr != arr.End(); itr++) {
-            switch (itr->GetType()) {
+        for (const auto& v: document->GetArray()) {
+            switch (v.GetType()) {
                 case kArrayType:
-                    out.push_back(create_value_from_array(*itr));
+                    out.push_back(create_value_from_array(v));
                     break;
 
                 case kFalseType:
                 case kTrueType:
-                    out.push_back(create_value_from_bool(*itr));
+                    out.push_back(create_value_from_bool(v));
                     break;
 
                 case kNullType:
@@ -110,15 +147,15 @@ public:
                     break;
 
                 case kNumberType:
-                    out.push_back(create_value_from_number(*itr));
+                    out.push_back(create_value_from_number(v));
                     break;
 
                 case kObjectType:
-                    out.push_back(create_value_from_object(*itr));
+                    out.push_back(create_value_from_object(v));
                     break;
 
                 case kStringType:
-                    out.push_back(create_value_from_string(*itr));
+                    out.push_back(create_value_from_string(v));
                     break;
             }
         }
@@ -135,7 +172,7 @@ public:
         return true;
     }
 
-    bool try_get_double(double& out) const {
+    bool try_get_number(double& out) const {
         if (!is_double()) {
             return false;
         }
@@ -144,7 +181,7 @@ public:
         return true;
     }
 
-    bool try_get_float(float& out) const {
+    bool try_get_number(float& out) const {
         if (!is_float()) {
             return false;
         }
@@ -153,7 +190,7 @@ public:
         return true;
     }
 
-    bool try_get_int(int& out) const {
+    bool try_get_number(int& out) const {
         if (!is_int()) {
             return false;
         }
@@ -162,7 +199,7 @@ public:
         return true;
     }
 
-    bool try_get_int64(int64_t& out) const {
+    bool try_get_number(int64_t& out) const {
         if (!is_int64()) {
             return false;
         }
@@ -172,14 +209,19 @@ public:
     }
 
     bool try_get_object_field(const std::string& key, JsonValue& out) const {
-        if (!is_object() || !document->HasMember(key.c_str())) {
+        if (!is_object()) {
             return false;
         }
 
-        Document& outDocument = *out.pimpl->document;
-        const Value& v = document->operator[](key.c_str());
+        if (document->HasMember(key.c_str())) {
+            Document& outDocument = *out.pimpl->document;
+            const Value& v = document->operator[](key.c_str());
 
-        outDocument.CopyFrom(v, outDocument.GetAllocator());
+            outDocument.CopyFrom(v, outDocument.GetAllocator());
+        } else {
+            out.pimpl->document = std::make_unique<Document>(kNullType);
+        }
+
         return true;
     }
 
@@ -190,6 +232,26 @@ public:
 
         out = std::string(document->GetString());
         return true;
+    }
+
+    bool try_parse_as_object(const std::string& raw) {
+        Document new_document;
+
+        new_document.Parse(raw.c_str());
+        if (!new_document.IsObject()) {
+            return false;
+        }
+
+        document->CopyFrom(new_document, document->GetAllocator());
+        return true;
+    }
+
+    bool try_remove_object_field(const std::string& key) {
+        if (!is_object()) {
+            return false;
+        }
+
+        return document->RemoveMember(key.c_str());
     }
 
     bool try_set_array_element(const JsonValue& el) {
@@ -215,7 +277,7 @@ public:
         return true;
     }
 
-    bool try_set_double(double value) {
+    bool try_set_number(double value) {
         if (!is_double()) {
             return false;
         }
@@ -224,7 +286,7 @@ public:
         return true;
     }
 
-    bool try_set_float(float value) {
+    bool try_set_number(float value) {
         if (!is_float()) {
             return false;
         }
@@ -233,7 +295,7 @@ public:
         return true;
     }
 
-    bool try_set_int(int value) {
+    bool try_set_number(int value) {
         if (!is_int()) {
             return false;
         }
@@ -242,7 +304,7 @@ public:
         return true;
     }
 
-    bool try_set_int64(int64_t value) {
+    bool try_set_number(int64_t value) {
         if (!is_int64()) {
             return false;
         }
@@ -349,6 +411,14 @@ JsonValue::JsonValue(JsonValue&& other) noexcept = default;
 
 JsonValue::~JsonValue() = default;
 
+std::set<std::string> JsonValue::get_object_field_keys() const {
+    return pimpl->get_object_field_keys();
+}
+
+bool JsonValue::has_object_field(const std::string& key) const {
+    return pimpl->has_object_field(key);
+}
+
 bool JsonValue::is_array() const {
     return pimpl->is_array();
 }
@@ -377,6 +447,10 @@ bool JsonValue::is_null() const {
     return pimpl->is_null();
 }
 
+bool JsonValue::is_number() const {
+    return pimpl->is_number();
+}
+
 bool JsonValue::is_object() const {
     return pimpl->is_object();
 }
@@ -385,8 +459,16 @@ bool JsonValue::is_string() const {
     return pimpl->is_string();
 }
 
-std::string JsonValue::serialize() const {
-    return pimpl->serialize();
+std::string JsonValue::to_string() const {
+    return pimpl->to_string();
+}
+
+bool JsonValue::try_clear_array() {
+    return pimpl->try_clear_array();
+}
+
+bool JsonValue::try_clear_object() {
+    return pimpl->try_clear_object();
 }
 
 bool JsonValue::try_get_array(std::vector<JsonValue>& out) const {
@@ -397,28 +479,36 @@ bool JsonValue::try_get_bool(bool& out) const {
     return pimpl->try_get_bool(out);
 }
 
-bool JsonValue::try_get_double(double& out) const {
-    return pimpl->try_get_double(out);
+bool JsonValue::try_get_number(double& out) const {
+    return pimpl->try_get_number(out);
 }
 
-bool JsonValue::try_get_float(float& out) const {
-    return pimpl->try_get_float(out);
+bool JsonValue::try_get_number(float& out) const {
+    return pimpl->try_get_number(out);
 }
 
-bool JsonValue::try_get_int(int& out) const {
-    return pimpl->try_get_int(out);
+bool JsonValue::try_get_number(int& out) const {
+    return pimpl->try_get_number(out);
 }
 
-bool JsonValue::try_get_int64(int64_t& out) const {
-    return pimpl->try_get_int64(out);
+bool JsonValue::try_get_number(int64_t& out) const {
+    return pimpl->try_get_number(out);
 }
 
 bool JsonValue::try_get_object_field(const std::string& key, JsonValue& out) const {
     return pimpl->try_get_object_field(key, out);
 }
 
+bool JsonValue::try_remove_object_field(const std::string& key) {
+    return pimpl->try_remove_object_field(key);
+}
+
 bool JsonValue::try_get_string(std::string& out) const {
     return pimpl->try_get_string(out);
+}
+
+bool JsonValue::try_parse_as_object(const std::string& raw) {
+    return pimpl->try_parse_as_object(raw);
 }
 
 bool JsonValue::try_set_array_element(const JsonValue& el) {
@@ -429,20 +519,20 @@ bool JsonValue::try_set_bool(bool value) {
     return pimpl->try_set_bool(value);
 }
 
-bool JsonValue::try_set_double(double value) {
-    return pimpl->try_set_double(value);
+bool JsonValue::try_set_number(double value) {
+    return pimpl->try_set_number(value);
 }
 
-bool JsonValue::try_set_float(float value) {
-    return pimpl->try_set_float(value);
+bool JsonValue::try_set_number(float value) {
+    return pimpl->try_set_number(value);
 }
 
-bool JsonValue::try_set_int(int value) {
-    return pimpl->try_set_int(value);
+bool JsonValue::try_set_number(int value) {
+    return pimpl->try_set_number(value);
 }
 
-bool JsonValue::try_set_int64(int64_t value) {
-    return pimpl->try_set_int64(value);
+bool JsonValue::try_set_number(int64_t value) {
+    return pimpl->try_set_number(value);
 }
 
 bool JsonValue::try_set_object_field(const std::string& key, const JsonValue& value) {
