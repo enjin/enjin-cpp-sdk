@@ -47,7 +47,7 @@ TEST_F(AssetVariantTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
 
 TEST_F(AssetVariantTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     class_under_test.deserialize(json);

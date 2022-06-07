@@ -20,10 +20,10 @@ namespace enjin::sdk::models {
 
 /// \brief Represents the transferable types of a asset.
 enum class AssetTransferable {
-    UNKNOWN, ///< SDK value for unknown values from the platform.
-    PERMANENT,
-    TEMPORARY,
-    BOUND,
+    Unknown, ///< SDK value for unknown values from the platform.
+    Permanent,
+    Temporary,
+    Bound,
 };
 
 }

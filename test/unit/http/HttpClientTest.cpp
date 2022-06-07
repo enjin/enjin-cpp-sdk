@@ -37,7 +37,7 @@ public:
     static constexpr char JSON[] = "application/json; charset=utf-8";
 
     static HttpRequest create_dummy_request() {
-        return HttpRequest().set_method(HttpMethod::POST)
+        return HttpRequest().set_method(HttpMethod::Post)
                             .set_path_query_fragment("/")
                             .set_content_type(JSON)
                             .set_body("{}");
@@ -95,7 +95,7 @@ TEST_F(HttpClientTest, SendRequestReceivesSuccessfulResponseAndReturnsExpected) 
                               .using_post())
                .respond_with(Response::create()
                                      .with_status_code(expected_code)
-                                     .with_header(CONTENT_TYPE, expected_content_type)
+                                     .with_header(ContentType, expected_content_type)
                                      .with_body(expected_body));
 
     // Act
@@ -104,7 +104,7 @@ TEST_F(HttpClientTest, SendRequestReceivesSuccessfulResponseAndReturnsExpected) 
     // Assert
     EXPECT_EQ(expected_code, response.get_code().value());
     EXPECT_EQ(expected_body, response.get_body().value());
-    EXPECT_EQ(expected_content_type, response.get_header_value(CONTENT_TYPE).value());
+    EXPECT_EQ(expected_content_type, response.get_header_value(ContentType).value());
 }
 
 TEST_F(HttpClientTest, SetDefaultRequestHeaderSentRequestHasHeader) {
@@ -122,7 +122,7 @@ TEST_F(HttpClientTest, SetDefaultRequestHeaderSentRequestHasHeader) {
                               .using_post())
                .respond_with(Response::create()
                                      .with_success()
-                                     .with_header(CONTENT_TYPE, JSON)
+                                     .with_header(ContentType, JSON)
                                      .with_body("{}"));
 
     // Arrange - Expectations
@@ -146,7 +146,7 @@ TEST_F(HttpClientTest, SetDefaultRequestHeaderSentRequestHasHeader) {
 
 TEST_F(HttpClientTest, SetLoggerHttpLogLevelIsNoneExpectNoLogs) {
     // Arrange - Data
-    const HttpLogLevel log_level = HttpLogLevel::NONE;
+    const HttpLogLevel log_level = HttpLogLevel::None;
     const HttpRequest dummy_request = create_dummy_request();
     std::shared_ptr<NiceMockLogger> mock_logger = std::make_shared<NiceMockLogger>();
     class_under_test->start();
@@ -159,7 +159,7 @@ TEST_F(HttpClientTest, SetLoggerHttpLogLevelIsNoneExpectNoLogs) {
                               .using_post())
                .respond_with(Response::create()
                                      .with_success()
-                                     .with_header(CONTENT_TYPE, JSON)
+                                     .with_header(ContentType, JSON)
                                      .with_body("{}"));
     ON_CALL(*mock_logger, is_loggable(An<LogLevel>()))
             .WillByDefault(Return(true));
@@ -190,7 +190,7 @@ TEST_P(HttpClientLoggingTest, SetLoggerHttpLogLevelIsNotNoneExpectLogs) {
                               .using_post())
                .respond_with(Response::create()
                                      .with_success()
-                                     .with_header(CONTENT_TYPE, JSON)
+                                     .with_header(ContentType, JSON)
                                      .with_body("{}"));
     ON_CALL(*mock_logger, is_loggable(An<LogLevel>()))
             .WillByDefault(Return(true));
@@ -208,6 +208,6 @@ TEST_P(HttpClientLoggingTest, SetLoggerHttpLogLevelIsNotNoneExpectLogs) {
 
 INSTANTIATE_TEST_SUITE_P(HttpClientLoggingLevels,
                          HttpClientLoggingTest,
-                         testing::Values(HttpLogLevel::BASIC,
-                                         HttpLogLevel::HEADERS,
-                                         HttpLogLevel::BODY));
+                         testing::Values(HttpLogLevel::Basic,
+                                         HttpLogLevel::Headers,
+                                         HttpLogLevel::Body));

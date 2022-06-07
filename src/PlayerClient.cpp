@@ -66,8 +66,8 @@ std::unique_ptr<PlayerClient> PlayerClient::PlayerClientBuilder::build() {
         }
 
         auto client = std::make_unique<http::HttpClient>(m_base_uri.value());
-        auto log_level = m_http_log_level.value_or(http::HttpLogLevel::NONE);
-        if (log_level != http::HttpLogLevel::NONE && m_logger_provider != nullptr) {
+        auto log_level = m_http_log_level.value_or(http::HttpLogLevel::None);
+        if (log_level != http::HttpLogLevel::None && m_logger_provider != nullptr) {
             client->set_logger(log_level, m_logger_provider);
         }
 

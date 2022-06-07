@@ -20,12 +20,12 @@ namespace enjin::sdk::utils {
 
 /// \brief Enum values dictating the severity level of a log message.
 enum class LogLevel {
-    TRACE,
-    DEBUG,
-    INFO,
-    WARN,
-    ERR,
-    SEVERE,
+    Trace,
+    Debug,
+    Info,
+    Warn,
+    Error,
+    Severe,
 };
 
 }

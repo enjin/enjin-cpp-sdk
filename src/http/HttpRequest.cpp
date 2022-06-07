@@ -37,7 +37,7 @@ HttpRequest& HttpRequest::set_body(std::string body) {
 }
 
 HttpRequest& HttpRequest::set_content_type(std::string content_type) {
-    headers.emplace(CONTENT_TYPE, std::move(content_type));
+    headers.emplace(ContentType, std::move(content_type));
     return *this;
 }
 
@@ -59,7 +59,7 @@ const std::optional<std::string>& HttpRequest::get_body() const {
 }
 
 std::optional<std::string> HttpRequest::get_content_type() const {
-    return get_header_value(CONTENT_TYPE);
+    return get_header_value(ContentType);
 }
 
 const std::map<std::string, std::string>& HttpRequest::get_headers() const {

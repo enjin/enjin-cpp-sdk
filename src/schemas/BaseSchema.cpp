@@ -45,7 +45,7 @@ std::string BaseSchema::create_request_body(AbstractGraphqlRequest& request) con
 HttpRequest BaseSchema::create_request(AbstractGraphqlRequest& request) const {
     HttpRequest req = middleware->create_request();
 
-    req.set_method(HttpMethod::POST)
+    req.set_method(HttpMethod::Post)
        .set_path_query_fragment(std::string("/graphql/").append(schema))
        .set_content_type(JSON)
        .set_body(create_request_body(request));
@@ -64,7 +64,7 @@ void BaseSchema::log_graphql_exception(const std::exception& e) {
 
     std::stringstream ss;
     ss << "An exception occurred processing GraphQL response: " << e.what();
-    logger_provider->log(utils::LogLevel::SEVERE, ss.str());
+    logger_provider->log(utils::LogLevel::Severe, ss.str());
 }
 
 http::HttpResponse BaseSchema::send_request(http::HttpRequest request) {

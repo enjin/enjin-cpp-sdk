@@ -28,7 +28,7 @@ class DummyObject : public sdk::serialization::IDeserializable,
 public:
     std::optional<int> id;
 
-    constexpr static char ID_KEY[] = "id";
+    constexpr static char IdKey[] = "id";
 
     DummyObject() = default;
 

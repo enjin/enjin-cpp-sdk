@@ -123,7 +123,7 @@ private:
 
     std::string key;
     PusherOptions options;
-    PusherConnectionState state = PusherConnectionState::DISCONNECTED;
+    PusherConnectionState state = PusherConnectionState::Disconnected;
 
     // Handlers
     std::optional<std::function<void(PusherConnectionState)>> on_connection_state_change;

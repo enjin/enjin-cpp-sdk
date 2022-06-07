@@ -112,7 +112,7 @@ TEST_F(HttpResponseTest, IsEmptyBodyIsEmptyStringReturnsTrue) {
 TEST_F(HttpResponseTest, IsEmptyBodyIsEmptyJsonObjectReturnsTrue) {
     // Arrange
     HttpResponse response = HttpResponse::builder()
-            .body(EMPTY_JSON_OBJECT)
+            .body(EmptyJsonObject)
             .build();
 
     // Act

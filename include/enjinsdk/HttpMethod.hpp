@@ -20,15 +20,15 @@ namespace enjin::sdk::http {
 
 /// \brief Enums representing HTTP methods.
 enum class HttpMethod {
-    GET,
-    HEAD,
-    POST,
-    PUT,
-    DEL,
-    CONNECT,
-    OPTIONS,
-    TRACE,
-    PATCH,
+    Get,
+    Head,
+    Post,
+    Put,
+    Delete,
+    Connect,
+    Options,
+    Trace,
+    Patch,
 };
 
 }

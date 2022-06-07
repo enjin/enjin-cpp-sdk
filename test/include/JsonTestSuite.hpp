@@ -20,7 +20,7 @@ namespace enjin::test::suites {
 
 class JsonTestSuite {
 public:
-    constexpr static char EMPTY_JSON_OBJECT[] = "{}";
+    constexpr static char EmptyJsonObject[] = "{}";
 };
 
 }

@@ -38,7 +38,7 @@ TEST_P(OperatorTest, SerializeOperatorReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializeOperator,
                          OperatorTest,
-                         testing::Values(std::make_tuple("GREATER_THAN", Operator::GREATER_THAN),
-                                         std::make_tuple("GREATER_THAN_OR_EQUAL", Operator::GREATER_THAN_OR_EQUAL),
-                                         std::make_tuple("LESS_THAN", Operator::LESS_THAN),
-                                         std::make_tuple("LESS_THAN_OR_EQUAL", Operator::LESS_THAN_OR_EQUAL)));
+                         testing::Values(std::make_tuple("GREATER_THAN", Operator::GreaterThan),
+                                         std::make_tuple("GREATER_THAN_OR_EQUAL", Operator::GreaterThanOrEqual),
+                                         std::make_tuple("LESS_THAN", Operator::LessThan),
+                                         std::make_tuple("LESS_THAN_OR_EQUAL", Operator::LessThanOrEqual)));

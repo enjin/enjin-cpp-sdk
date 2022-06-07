@@ -31,7 +31,7 @@ public:
             R"({"assetIdFormat":"hex64","withStateData":true,"withConfigData":true,"withAssetBlocks":true,"withCreator":true,"withMeltDetails":true,"withMetadataURI":true,"withSupplyDetails":true,"withTransferSettings":true,"withAssetVariantMode":true,"withAssetVariants":true,"withVariantMetadata":true})";
 
     static void set_asset_fragment_arguments(sdk::shared::AssetFragmentArguments<T>& o) {
-        o.set_asset_id_format(sdk::models::AssetIdFormat::HEX64)
+        o.set_asset_id_format(sdk::models::AssetIdFormat::Hex64)
          .set_with_state_data()
          .set_with_config_data()
          .set_with_asset_blocks()

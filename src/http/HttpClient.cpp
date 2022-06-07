@@ -121,7 +121,7 @@ private:
 
     bool open = false;
     std::map<std::string, std::string> default_headers;
-    HttpLogLevel log_level = HttpLogLevel::NONE;
+    HttpLogLevel log_level = HttpLogLevel::None;
 
     std::unique_ptr<httplib::Client> http_client;
     std::shared_ptr<utils::LoggerProvider> logger_provider;
@@ -149,13 +149,13 @@ private:
     void log_error(const std::string& message) {
         std::lock_guard<std::mutex> guard(logging_mutex);
         if (logger_provider != nullptr) {
-            logger_provider->log(utils::LogLevel::ERR, message);
+            logger_provider->log(utils::LogLevel::Error, message);
         }
     }
 
     void log_request(const httplib::Request& req) {
         std::lock_guard<std::mutex> guard(logging_mutex);
-        if (log_level == HttpLogLevel::NONE || logger_provider == nullptr) {
+        if (log_level == HttpLogLevel::None || logger_provider == nullptr) {
             return;
         }
 
@@ -166,7 +166,7 @@ private:
         const auto content_length = req.body.size();
 
         // Line
-        if (log_level == HttpLogLevel::BASIC) {
+        if (log_level == HttpLogLevel::Basic) {
             ss << "--> " << method << " " << uri << " (" << content_length << "-byte body)\n";
             logger_provider->log(ss.str());
             return;
@@ -179,7 +179,7 @@ private:
             ss << k << ": " << v << "\n";
         }
 
-        if (log_level == HttpLogLevel::HEADERS) {
+        if (log_level == HttpLogLevel::Headers) {
             ss << "<-- END " << method << "\n";
             logger_provider->log(ss.str());
             return;
@@ -194,7 +194,7 @@ private:
 
     void log_result(const httplib::Request& req, const httplib::Result& res, std::chrono::milliseconds rtt) {
         std::lock_guard<std::mutex> guard(logging_mutex);
-        if (log_level == HttpLogLevel::NONE || logger_provider == nullptr) {
+        if (log_level == HttpLogLevel::None || logger_provider == nullptr) {
             return;
         }
 
@@ -206,7 +206,7 @@ private:
         // Line
         ss << "<-- " << status << " " << uri << " (" << rtt.count() << "ms)\n";
 
-        if (log_level == HttpLogLevel::BASIC) {
+        if (log_level == HttpLogLevel::Basic) {
             logger_provider->log(ss.str());
             return;
         }
@@ -216,7 +216,7 @@ private:
             ss << k << ": " << v << "\n";
         }
 
-        if (log_level == HttpLogLevel::HEADERS) {
+        if (log_level == HttpLogLevel::Headers) {
             ss << "<-- END HTTP\n";
             logger_provider->log(ss.str());
             return;
@@ -250,7 +250,7 @@ private:
     }
 
     void validate_request_method(const HttpRequest& req) {
-        if (req.get_method().has_value() && req.get_method().value() == HttpMethod::POST) {
+        if (req.get_method().has_value() && req.get_method().value() == HttpMethod::Post) {
             return;
         }
 

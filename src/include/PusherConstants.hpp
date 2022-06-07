@@ -29,20 +29,20 @@ public:
     // Message keys
 
     /// \brief Key for subscribe messages.
-    static constexpr char CHANNEL_SUBSCRIBE[] = "pusher:subscribe";
+    static constexpr char ChannelSubscribe[] = "pusher:subscribe";
     /// \brief Key for unsubscribe messages.
-    static constexpr char CHANNEL_UNSUBSCRIBE[] = "pusher:unsubscribe";
+    static constexpr char ChannelUnsubscribe[] = "pusher:unsubscribe";
     /// \brief Key for subscription succeeded message.
-    static constexpr char CHANNEL_SUBSCRIPTION_SUCCEEDED[] = "pusher_internal:subscription_succeeded";
+    static constexpr char ChannelSubscriptionSucceeded[] = "pusher_internal:subscription_succeeded";
     /// \brief Key for subscription error message.
-    static constexpr char CHANNEL_SUBSCRIPTION_ERROR[] = "pusher_internal:subscription_error";
+    static constexpr char ChannelSubscriptionError[] = "pusher_internal:subscription_error";
 
     // Protocol schemas
 
     /// \brief Schema for not using encryption.
-    static constexpr char INSECURE_SCHEMA[] = "ws://";
+    static constexpr char InsecureSchema[] = "ws://";
     /// \brief Schema for using encryption.
-    static constexpr char SECURE_SCHEMA[] = "wss://";
+    static constexpr char SecureSchema[] = "wss://";
 };
 
 }

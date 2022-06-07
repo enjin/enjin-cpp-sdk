@@ -58,7 +58,7 @@ TEST_F(RequestTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
 
 TEST_F(RequestTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     class_under_test.deserialize(json);
@@ -87,8 +87,8 @@ TEST_F(RequestTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
     const int expected_int = 1;
     const bool expected_bool = true;
     const std::string expected_string("1");
-    const RequestState expected_request_state = RequestState::PENDING;
-    const RequestType expected_request_type = RequestType::APPROVE;
+    const RequestState expected_request_state = RequestState::Pending;
+    const RequestType expected_request_type = RequestType::Approve;
     const BlockchainData expected_blockchain_data;
     const Project expected_project;
     const Asset expected_asset;

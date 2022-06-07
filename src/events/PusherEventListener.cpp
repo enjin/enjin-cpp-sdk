@@ -36,23 +36,23 @@ void PusherEventListener::on_event(const pusher::PusherEvent& event) {
     if (logger != nullptr) {
         std::stringstream ss;
         ss << "Received event " << key << " on channel " << channel << " with results " << message;
-        logger->log(utils::LogLevel::INFO, ss.str());
+        logger->log(utils::LogLevel::Info, ss.str());
     }
 
     if (listeners.empty()) {
         if (logger != nullptr) {
-            logger->log(utils::LogLevel::INFO, "No registered listener when event was received");
+            logger->log(utils::LogLevel::Info, "No registered listener when event was received");
         }
 
         return;
     }
 
     EventTypeDef def = EventTypeDef::get_from_key(key);
-    if (def.get_type() == models::EventType::UNKNOWN) {
+    if (def.get_type() == models::EventType::Unknown) {
         if (logger != nullptr) {
             std::stringstream ss;
             ss << "Unknown event type for key " << def.get_key();
-            logger->log(utils::LogLevel::WARN, ss.str());
+            logger->log(utils::LogLevel::Warn, ss.str());
         }
 
         return;

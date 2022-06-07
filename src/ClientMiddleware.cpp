@@ -40,7 +40,7 @@ ClientMiddleware::ClientMiddleware(std::unique_ptr<IHttpClient> client) : client
     user_agent_ss << "?";
 #endif
 
-    this->client->set_default_request_header(USER_AGENT, user_agent_ss.str());
+    this->client->set_default_request_header(UserAgent, user_agent_ss.str());
     this->client->start();
 }
 
@@ -61,7 +61,7 @@ HttpRequest ClientMiddleware::create_request() const {
             std::stringstream ss;
             ss << AUTHORIZATION_SCHEMA << " " << auth_token;
 
-            req.add_header(AUTHORIZATION, ss.str());
+            req.add_header(Authorization, ss.str());
         }
     }
 

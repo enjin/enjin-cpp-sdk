@@ -47,7 +47,7 @@ TEST_F(PlayerTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
 
 TEST_F(PlayerTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     class_under_test.deserialize(json);

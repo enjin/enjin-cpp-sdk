@@ -23,8 +23,8 @@ class NotificationEventTest : public testing::Test {
 
 TEST_F(NotificationEventTest, EqualityBothSidesAreSameDefReturnsTrue) {
     // Arrange
-    NotificationEvent lhs = NotificationEvent(EventType::PROJECT_CREATED, "project", "xyz");
-    NotificationEvent rhs = NotificationEvent(EventType::PROJECT_CREATED, "project", "xyz");
+    NotificationEvent lhs = NotificationEvent(EventType::ProjectCreated, "project", "xyz");
+    NotificationEvent rhs = NotificationEvent(EventType::ProjectCreated, "project", "xyz");
 
     // Act
     bool actual = lhs == rhs;
@@ -35,8 +35,8 @@ TEST_F(NotificationEventTest, EqualityBothSidesAreSameDefReturnsTrue) {
 
 TEST_F(NotificationEventTest, EqualityBothSidesAreNotSameDefReturnsFalse) {
     // Arrange
-    NotificationEvent lhs = NotificationEvent(EventType::PROJECT_CREATED, "project", "xyz");
-    NotificationEvent rhs = NotificationEvent(EventType::PROJECT_DELETED, "player", "abc");
+    NotificationEvent lhs = NotificationEvent(EventType::ProjectCreated, "project", "xyz");
+    NotificationEvent rhs = NotificationEvent(EventType::ProjectDeleted, "player", "abc");
 
     // Act
     bool actual = lhs == rhs;

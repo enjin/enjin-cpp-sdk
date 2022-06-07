@@ -19,13 +19,13 @@
 namespace enjin::sdk::http {
 
 /// \brief The key for the authorization header.
-static constexpr char AUTHORIZATION[] = "Authorization";
+static constexpr char Authorization[] = "Authorization";
 
 /// \brief The key for the content-type header.
-static constexpr char CONTENT_TYPE[] = "Content-Type";
+static constexpr char ContentType[] = "Content-Type";
 
 /// \brief The key for the user-agent header.
-static constexpr char USER_AGENT[] = "User-Agent";
+static constexpr char UserAgent[] = "User-Agent";
 
 }
 

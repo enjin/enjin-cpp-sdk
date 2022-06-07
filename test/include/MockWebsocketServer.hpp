@@ -29,15 +29,15 @@ namespace enjin::test::mocks {
 
 /// \brief Enums representing the type of websocket message being sent or received.
 enum class WebsocketMessageType {
-    UNKNOWN,
-    WEBSOCKET_BINARY_MESSAGE_TYPE,
-    WEBSOCKET_BINARY_FRAGMENT_TYPE,
-    WEBSOCKET_UTF8_MESSAGE_TYPE,
-    WEBSOCKET_UTF8_FRAGMENT_TYPE,
-    WEBSOCKET_CLOSE_TYPE,
-    WEBSOCKET_OPEN_TYPE,
-    WEBSOCKET_PING_TYPE,
-    WEBSOCKET_PONG_TYPE,
+    Unknown,
+    WebsocketBinaryMessageType,
+    WebsocketBinaryFragmentType,
+    WebsocketUtf8MessageType,
+    WebsocketUtf8FragmentType,
+    WebsocketCloseType,
+    WebsocketOpenType,
+    WebsocketPingType,
+    WebsocketPongType,
 };
 
 /// \brief A websocket message used for testing.
@@ -67,7 +67,7 @@ public:
 
 private:
     std::vector<unsigned char> data;
-    WebsocketMessageType type = WebsocketMessageType::UNKNOWN;
+    WebsocketMessageType type = WebsocketMessageType::Unknown;
 };
 
 /// \brief A mock websocket server used for testing websocket messages.

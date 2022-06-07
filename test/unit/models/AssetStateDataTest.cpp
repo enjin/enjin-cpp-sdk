@@ -50,7 +50,7 @@ TEST_F(AssetStateDataTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
 
 TEST_F(AssetStateDataTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     class_under_test.deserialize(json);
@@ -72,7 +72,7 @@ TEST_F(AssetStateDataTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValue
     const bool expected_bool = true;
     const int expected_int = 1;
     const std::string expected_string("1");
-    const AssetSupplyModel expected_supply_model = AssetSupplyModel::FIXED;
+    const AssetSupplyModel expected_supply_model = AssetSupplyModel::Fixed;
     const std::string json(POPULATED_JSON_OBJECT);
 
     // Act

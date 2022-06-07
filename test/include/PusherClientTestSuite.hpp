@@ -33,10 +33,10 @@ namespace enjin::test::suites {
 
 class PusherClientTestSuite {
 public:
-    static constexpr char DEFAULT_CHANNEL_NAME[] = "test.channel";
-    static constexpr char DEFAULT_CLUSTER[] = "mt1";
-    static constexpr char DEFAULT_EVENT_NAME[] = "TestEvent";
-    static constexpr char DEFAULT_KEY[] = "xyz";
+    static constexpr char DefaultChannelName[] = "test.channel";
+    static constexpr char DefaultCluster[] = "mt1";
+    static constexpr char DefaultEventName[] = "TestEvent";
+    static constexpr char DefaultKey[] = "xyz";
 
     std::shared_ptr<mocks::FakeWebSocketClient> fake_ws_client = std::make_shared<mocks::FakeWebSocketClient>();
     mocks::MockWebsocketServer mock_server;
