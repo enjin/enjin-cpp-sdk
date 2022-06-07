@@ -31,9 +31,9 @@ class PusherClientReconnectTest : public PusherClientTestSuite,
                                   public testing::Test {
 protected:
     void SetUp() override {
-        mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_CLOSE_TYPE)
-                   .ignore_message_type(WebsocketMessageType::WEBSOCKET_PING_TYPE)
-                   .ignore_message_type(WebsocketMessageType::WEBSOCKET_PONG_TYPE);
+        mock_server.ignore_message_type(WebsocketMessageType::WebsocketCloseType)
+                   .ignore_message_type(WebsocketMessageType::WebsocketPingType)
+                   .ignore_message_type(WebsocketMessageType::WebsocketPongType);
     }
 };
 
@@ -48,7 +48,7 @@ TEST_F(PusherClientReconnectTest, ReceivesGenericClosingCodeAndReconnectToServer
     // Arrange - Expectations
     mock_server.next_message([this](const TestWebsocketMessage& message) {
         increment_call_counter();
-        EXPECT_EQ(WebsocketMessageType::WEBSOCKET_OPEN_TYPE, message.get_type());
+        EXPECT_EQ(WebsocketMessageType::WebsocketOpenType, message.get_type());
     });
     set_expected_call_count(1);
 
@@ -61,7 +61,7 @@ TEST_F(PusherClientReconnectTest, ReceivesGenericClosingCodeAndReconnectToServer
     verify_call_count();
 
     // Assert
-    EXPECT_EQ(PusherConnectionState::CONNECTED, client.get_state());
+    EXPECT_EQ(PusherConnectionState::Connected, client.get_state());
 }
 
 TEST_F(PusherClientReconnectTest, ReceivesPusherClosingCodeDoesNotReconnectToServer) {
@@ -75,7 +75,7 @@ TEST_F(PusherClientReconnectTest, ReceivesPusherClosingCodeDoesNotReconnectToSer
     // Arrange - Expectations
     mock_server.next_message([this](const TestWebsocketMessage& message) {
         increment_call_counter();
-        EXPECT_EQ(WebsocketMessageType::WEBSOCKET_OPEN_TYPE, message.get_type());
+        EXPECT_EQ(WebsocketMessageType::WebsocketOpenType, message.get_type());
     });
     set_expected_call_count(0);
 
@@ -88,5 +88,5 @@ TEST_F(PusherClientReconnectTest, ReceivesPusherClosingCodeDoesNotReconnectToSer
     verify_call_count();
 
     // Assert
-    EXPECT_EQ(PusherConnectionState::DISCONNECTED, client.get_state());
+    EXPECT_EQ(PusherConnectionState::Disconnected, client.get_state());
 }

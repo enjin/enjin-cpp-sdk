@@ -20,12 +20,12 @@ namespace enjin::sdk::models {
 
 /// \brief Represents the whitelist settings.
 enum class Whitelisted {
-    NONE,
-    SEND_AND_RECEIVE,
-    SEND,
-    RECEIVE,
-    NO_FEES,
-    ADDRESS,
+    None,
+    SendAndReceive,
+    Send,
+    Receive,
+    NoFees,
+    Address,
 };
 
 }

@@ -38,5 +38,5 @@ TEST_P(AssetIndexFormatTest, SerializeAssetIndexFormatReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializeAssetIndexFormat,
                          AssetIndexFormatTest,
-                         testing::Values(std::make_tuple("hex64", AssetIndexFormat::HEX64),
-                                         std::make_tuple("uint64", AssetIndexFormat::UINT64)));
+                         testing::Values(std::make_tuple("hex64", AssetIndexFormat::Hex64),
+                                         std::make_tuple("uint64", AssetIndexFormat::Uint64)));

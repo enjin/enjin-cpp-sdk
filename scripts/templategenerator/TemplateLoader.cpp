@@ -96,11 +96,11 @@ void TemplateLoader::load_and_cache_template_contents(const std::filesystem::pat
     }
 
     switch (type.value()) {
-        case TemplateType::Value::FRAGMENT:
+        case TemplateType::Value::Fragment:
             fragments->emplace(t_namespace.value(), Template(t_namespace.value(), type, contents, fragments));
             break;
-        case TemplateType::Value::MUTATION:
-        case TemplateType::Value::QUERY:
+        case TemplateType::Value::Mutation:
+        case TemplateType::Value::Query:
             operations.emplace(t_namespace.value(), Template(t_namespace.value(), type, contents, fragments));
             break;
         default:

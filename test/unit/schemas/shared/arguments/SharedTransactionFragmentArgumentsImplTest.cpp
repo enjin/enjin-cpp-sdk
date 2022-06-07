@@ -32,7 +32,7 @@ public:
 
     static TransactionFragmentArgumentsImpl create_default_arguments() {
         TransactionFragmentArgumentsImpl arguments;
-        arguments.set_transaction_asset_id_format(AssetIdFormat::HEX64);
+        arguments.set_transaction_asset_id_format(AssetIdFormat::Hex64);
         arguments.set_with_blockchain_data();
         arguments.set_with_meta();
         arguments.set_with_encoded_data();
@@ -52,7 +52,7 @@ public:
 
 TEST_F(SharedTransactionFragmentArgumentsImplTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
-    const std::string expected(EMPTY_JSON_OBJECT);
+    const std::string expected(EmptyJsonObject);
 
     // Act
     std::string actual = class_under_test.serialize();
@@ -64,7 +64,7 @@ TEST_F(SharedTransactionFragmentArgumentsImplTest, SerializeNoSetFieldsReturnsEm
 TEST_F(SharedTransactionFragmentArgumentsImplTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_transaction_asset_id_format(AssetIdFormat::HEX64);
+    class_under_test.set_transaction_asset_id_format(AssetIdFormat::Hex64);
     class_under_test.set_with_blockchain_data();
     class_under_test.set_with_meta();
     class_under_test.set_with_encoded_data();

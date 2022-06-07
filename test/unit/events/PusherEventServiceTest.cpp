@@ -32,36 +32,36 @@ public:
             R"({"network":"kovan","notifications":{"pusher":{"key":"1","options":{"cluster":"mt1","encrypted":true}}}})";
 
     static constexpr EventType EVENT_TYPES[] = {
-            EventType::UNKNOWN,
-            EventType::PROJECT_CREATED,
-            EventType::PROJECT_DELETED,
-            EventType::PROJECT_LINKED,
-            EventType::PROJECT_LOCKED,
-            EventType::PROJECT_UNLINKED,
-            EventType::PROJECT_UNLOCKED,
-            EventType::PROJECT_UPDATED,
-            EventType::BLOCKCHAIN_LOG_PROCESSED,
-            EventType::MESSAGE_PROCESSED,
-            EventType::PLAYER_CREATED,
-            EventType::PLAYER_DELETED,
-            EventType::PLAYER_LINKED,
-            EventType::PLAYER_UNLINKED,
-            EventType::PLAYER_UPDATED,
-            EventType::ASSET_CREATED,
-            EventType::ASSET_MELTED,
-            EventType::ASSET_MINTED,
-            EventType::ASSET_TRANSFERRED,
-            EventType::ASSET_UPDATED,
-            EventType::TRADE_ASSET_COMPLETED,
-            EventType::TRADE_ASSET_CREATED,
-            EventType::TRANSACTION_BROADCAST,
-            EventType::TRANSACTION_CANCELED,
-            EventType::TRANSACTION_DROPPED,
-            EventType::TRANSACTION_EXECUTED,
-            EventType::TRANSACTION_FAILED,
-            EventType::TRANSACTION_PENDING,
-            EventType::TRANSACTION_PROCESSING,
-            EventType::TRANSACTION_UPDATED,
+            EventType::Unknown,
+            EventType::ProjectCreated,
+            EventType::ProjectDeleted,
+            EventType::ProjectLinked,
+            EventType::ProjectLocked,
+            EventType::ProjectUnlinked,
+            EventType::ProjectUnlocked,
+            EventType::ProjectUpdated,
+            EventType::BlockchainLogProcessed,
+            EventType::MessageProcessed,
+            EventType::PlayerCreated,
+            EventType::PlayerDeleted,
+            EventType::PlayerLinked,
+            EventType::PlayerUnlinked,
+            EventType::PlayerUpdated,
+            EventType::AssetCreated,
+            EventType::AssetMelted,
+            EventType::AssetMinted,
+            EventType::AssetTransferred,
+            EventType::AssetUpdated,
+            EventType::TradeAssetCompleted,
+            EventType::TradeAssetCreated,
+            EventType::TransactionBroadcast,
+            EventType::TransactionCanceled,
+            EventType::TransactionDropped,
+            EventType::TransactionExecuted,
+            EventType::TransactionFailed,
+            EventType::TransactionPending,
+            EventType::TransactionProcessing,
+            EventType::TransactionUpdated,
     };
 
     static Platform create_default_platform() {
@@ -176,9 +176,9 @@ TEST_F(PusherEventServiceTest, RegisterListenerWithMatcherRegistrationHasMatcher
     std::shared_ptr<MockEventListener> listener = std::make_shared<MockEventListener>();
     std::function<bool(EventType)> matcher = [](EventType type) {
         switch (type) {
-            case EventType::PLAYER_CREATED:
-            case EventType::PLAYER_UPDATED:
-            case EventType::ASSET_TRANSFERRED:
+            case EventType::PlayerCreated:
+            case EventType::PlayerUpdated:
+            case EventType::AssetTransferred:
                 return true;
             default:
                 return false;
@@ -189,7 +189,7 @@ TEST_F(PusherEventServiceTest, RegisterListenerWithMatcherRegistrationHasMatcher
     auto registration = service.register_listener_with_matcher(listener, matcher);
 
     // Assert
-    for (EventType type : EVENT_TYPES) {
+    for (EventType type: EVENT_TYPES) {
         bool expected = matcher(type);
         bool actual = registration.get_matcher()(type);
         EXPECT_EQ(expected, actual);
@@ -199,14 +199,18 @@ TEST_F(PusherEventServiceTest, RegisterListenerWithMatcherRegistrationHasMatcher
 TEST_F(PusherEventServiceTest, RegisterListenerIncludingTypesRegistrationMatcherIncludesTypes) {
     // Arrange
     auto service = create_default_event_service();
-    std::vector<EventType> types = {EventType::PLAYER_CREATED, EventType::PLAYER_UPDATED, EventType::ASSET_TRANSFERRED};
+    std::vector<EventType> types = {
+            EventType::PlayerCreated,
+            EventType::PlayerUpdated,
+            EventType::AssetTransferred
+    };
     std::shared_ptr<MockEventListener> listener = std::make_shared<MockEventListener>();
 
     // Act
     auto registration = service.register_listener_including_types(listener, types);
 
     // Assert
-    for (EventType type : EVENT_TYPES) {
+    for (EventType type: EVENT_TYPES) {
         bool expected = std::find(types.begin(), types.end(), type) != types.end();
         bool actual = registration.get_matcher()(type);
         EXPECT_EQ(expected, actual);
@@ -216,14 +220,18 @@ TEST_F(PusherEventServiceTest, RegisterListenerIncludingTypesRegistrationMatcher
 TEST_F(PusherEventServiceTest, RegisterListenerExcludingTypesRegistrationMatcherExcludesTypes) {
     // Arrange
     auto service = create_default_event_service();
-    std::vector<EventType> types = {EventType::PLAYER_CREATED, EventType::PLAYER_UPDATED, EventType::ASSET_TRANSFERRED};
+    std::vector<EventType> types = {
+            EventType::PlayerCreated,
+            EventType::PlayerUpdated,
+            EventType::AssetTransferred
+    };
     std::shared_ptr<MockEventListener> listener = std::make_shared<MockEventListener>();
 
     // Act
     auto registration = service.register_listener_excluding_types(listener, types);
 
     // Assert
-    for (EventType type : EVENT_TYPES) {
+    for (EventType type: EVENT_TYPES) {
         bool expected = std::find(types.begin(), types.end(), type) == types.end();
         bool actual = registration.get_matcher()(type);
         EXPECT_EQ(expected, actual);

@@ -21,7 +21,7 @@
 
 namespace enjin::sdk::events {
 
-EventTypeDef::EventTypeDef() : type(models::EventType::UNKNOWN), channels({}), name(utils::serialize_event_type(type)) {
+EventTypeDef::EventTypeDef() : type(models::EventType::Unknown), channels({}), name(utils::serialize_event_type(type)) {
 }
 
 EventTypeDef::EventTypeDef(models::EventType type, std::string key, std::vector<std::string> channels)
@@ -98,7 +98,7 @@ EventTypeDef EventTypeDef::get_from_name(const std::string& name) {
 
     return iter != values.end()
            ? *iter
-           : *EventTypeDef::map[models::EventType::UNKNOWN];
+           : *EventTypeDef::map[models::EventType::Unknown];
 }
 
 EventTypeDef EventTypeDef::get_from_key(const std::string& key) {
@@ -109,7 +109,7 @@ EventTypeDef EventTypeDef::get_from_key(const std::string& key) {
 
     return iter != values.end()
            ? *iter
-           : *EventTypeDef::map[models::EventType::UNKNOWN];
+           : *EventTypeDef::map[models::EventType::Unknown];
 }
 
 std::unique_ptr<EventTypeDef>
@@ -120,96 +120,96 @@ EventTypeDef::create(models::EventType type, std::string key, std::vector<std::s
 std::map<models::EventType, std::unique_ptr<EventTypeDef>> EventTypeDef::create_map() {
     std::map<models::EventType, std::unique_ptr<EventTypeDef>> map;
 
-    map.emplace(models::EventType::UNKNOWN, create(models::EventType::UNKNOWN,
+    map.emplace(models::EventType::Unknown, create(models::EventType::Unknown,
                                                    "",
                                                    {}));
-    map.emplace(models::EventType::PROJECT_CREATED, create(models::EventType::PROJECT_CREATED,
-                                                           "EnjinCloud\\Events\\ProjectCreated",
-                                                           {"project"}));
-    map.emplace(models::EventType::PROJECT_DELETED, create(models::EventType::PROJECT_DELETED,
-                                                           "EnjinCloud\\Events\\ProjectDeleted",
-                                                           {"project"}));
-    map.emplace(models::EventType::PROJECT_LINKED, create(models::EventType::PROJECT_LINKED,
-                                                          "EnjinCloud\\Events\\ProjectLinked",
-                                                          {"project", "wallet"}));
-    map.emplace(models::EventType::PROJECT_LOCKED, create(models::EventType::PROJECT_LOCKED,
-                                                          "EnjinCloud\\Events\\ProjectLocked",
+    map.emplace(models::EventType::ProjectCreated, create(models::EventType::ProjectCreated,
+                                                          "EnjinCloud\\Events\\ProjectCreated",
                                                           {"project"}));
-    map.emplace(models::EventType::PROJECT_UNLINKED, create(models::EventType::PROJECT_UNLINKED,
-                                                            "EnjinCloud\\Events\\ProjectUnlinked",
-                                                            {"project", "wallet"}));
-    map.emplace(models::EventType::PROJECT_UNLOCKED, create(models::EventType::PROJECT_UNLOCKED,
-                                                            "EnjinCloud\\Events\\ProjectUnlocked",
-                                                            {"project"}));
-    map.emplace(models::EventType::PROJECT_UPDATED, create(models::EventType::PROJECT_UPDATED,
-                                                           "EnjinCloud\\Events\\ProjectUpdated",
+    map.emplace(models::EventType::ProjectDeleted, create(models::EventType::ProjectDeleted,
+                                                          "EnjinCloud\\Events\\ProjectDeleted",
+                                                          {"project"}));
+    map.emplace(models::EventType::ProjectLinked, create(models::EventType::ProjectLinked,
+                                                         "EnjinCloud\\Events\\ProjectLinked",
+                                                         {"project", "wallet"}));
+    map.emplace(models::EventType::ProjectLocked, create(models::EventType::ProjectLocked,
+                                                         "EnjinCloud\\Events\\ProjectLocked",
+                                                         {"project"}));
+    map.emplace(models::EventType::ProjectUnlinked, create(models::EventType::ProjectUnlinked,
+                                                           "EnjinCloud\\Events\\ProjectUnlinked",
+                                                           {"project", "wallet"}));
+    map.emplace(models::EventType::ProjectUnlocked, create(models::EventType::ProjectUnlocked,
+                                                           "EnjinCloud\\Events\\ProjectUnlocked",
                                                            {"project"}));
-    map.emplace(models::EventType::BLOCKCHAIN_LOG_PROCESSED, create(models::EventType::BLOCKCHAIN_LOG_PROCESSED,
-                                                                    "EnjinCloud\\Events\\BlockchainLogProcessed",
-                                                                    {"project", "asset", "wallet"}));
-    map.emplace(models::EventType::MESSAGE_PROCESSED, create(models::EventType::MESSAGE_PROCESSED,
-                                                             "EnjinCloud\\Events\\MessageProcessed",
-                                                             {"project", "asset", "wallet"}));
-    map.emplace(models::EventType::PLAYER_CREATED, create(models::EventType::PLAYER_CREATED,
-                                                          "EnjinCloud\\Events\\PlayerCreated",
-                                                          {"project", "player"}));
-    map.emplace(models::EventType::PLAYER_DELETED, create(models::EventType::PLAYER_DELETED,
-                                                          "EnjinCloud\\Events\\PlayerDeleted",
-                                                          {"project", "player"}));
-    map.emplace(models::EventType::PLAYER_LINKED, create(models::EventType::PLAYER_LINKED,
-                                                         "EnjinCloud\\Events\\PlayerLinked",
-                                                         {"project", "player", "wallet"}));
-    map.emplace(models::EventType::PLAYER_UNLINKED, create(models::EventType::PLAYER_UNLINKED,
-                                                           "EnjinCloud\\Events\\PlayerUnlinked",
-                                                           {"project", "player", "wallet"}));
-    map.emplace(models::EventType::PLAYER_UPDATED, create(models::EventType::PLAYER_UPDATED,
-                                                          "EnjinCloud\\Events\\PlayerUpdated",
-                                                          {"project", "player"}));
-    map.emplace(models::EventType::ASSET_CREATED, create(models::EventType::ASSET_CREATED,
-                                                         "EnjinCloud\\Events\\AssetCreated",
-                                                         {"project", "asset", "wallet"}));
-    map.emplace(models::EventType::ASSET_MELTED, create(models::EventType::ASSET_MELTED,
-                                                        "EnjinCloud\\Events\\AssetMelted",
-                                                        {"project", "asset", "wallet"}));
-    map.emplace(models::EventType::ASSET_MINTED, create(models::EventType::ASSET_MINTED,
-                                                        "EnjinCloud\\Events\\AssetMinted",
-                                                        {"project", "asset", "wallet"}));
-    map.emplace(models::EventType::ASSET_TRANSFERRED, create(models::EventType::ASSET_TRANSFERRED,
-                                                             "EnjinCloud\\Events\\AssetTransferred",
-                                                             {"project", "asset", "wallet"}));
-    map.emplace(models::EventType::ASSET_UPDATED, create(models::EventType::ASSET_UPDATED,
-                                                         "EnjinCloud\\Events\\AssetUpdated",
-                                                         {"project", "asset", "wallet"}));
-    map.emplace(models::EventType::TRADE_ASSET_COMPLETED, create(models::EventType::TRADE_ASSET_COMPLETED,
-                                                                 "EnjinCloud\\Events\\TradeAssetCompleted",
-                                                                 {"project", "asset", "wallet"}));
-    map.emplace(models::EventType::TRADE_ASSET_CREATED, create(models::EventType::TRADE_ASSET_CREATED,
-                                                               "EnjinCloud\\Events\\TradeAssetCreated",
-                                                               {"project", "asset", "wallet"}));
-    map.emplace(models::EventType::TRANSACTION_BROADCAST, create(models::EventType::TRANSACTION_BROADCAST,
-                                                                 "EnjinCloud\\Events\\TransactionBroadcast",
-                                                                 {"project", "asset", "wallet"}));
-    map.emplace(models::EventType::TRANSACTION_CANCELED, create(models::EventType::TRANSACTION_CANCELED,
-                                                                "EnjinCloud\\Events\\TransactionCanceled",
-                                                                {"project", "asset", "wallet"}));
-    map.emplace(models::EventType::TRANSACTION_DROPPED, create(models::EventType::TRANSACTION_DROPPED,
-                                                               "EnjinCloud\\Events\\TransactionDropped",
-                                                               {"project", "asset", "wallet"}));
-    map.emplace(models::EventType::TRANSACTION_EXECUTED, create(models::EventType::TRANSACTION_EXECUTED,
-                                                                "EnjinCloud\\Events\\TransactionExecuted",
-                                                                {"project", "asset", "wallet"}));
-    map.emplace(models::EventType::TRANSACTION_FAILED, create(models::EventType::TRANSACTION_FAILED,
-                                                              "EnjinCloud\\Events\\TransactionFailed",
-                                                              {"project", "asset", "wallet"}));
-    map.emplace(models::EventType::TRANSACTION_PENDING, create(models::EventType::TRANSACTION_PENDING,
-                                                               "EnjinCloud\\Events\\TransactionPending",
-                                                               {"project", "asset", "wallet"}));
-    map.emplace(models::EventType::TRANSACTION_PROCESSING, create(models::EventType::TRANSACTION_PROCESSING,
-                                                                  "EnjinCloud\\Events\\TransactionProcessing",
+    map.emplace(models::EventType::ProjectUpdated, create(models::EventType::ProjectUpdated,
+                                                          "EnjinCloud\\Events\\ProjectUpdated",
+                                                          {"project"}));
+    map.emplace(models::EventType::BlockchainLogProcessed, create(models::EventType::BlockchainLogProcessed,
+                                                                  "EnjinCloud\\Events\\BlockchainLogProcessed",
                                                                   {"project", "asset", "wallet"}));
-    map.emplace(models::EventType::TRANSACTION_UPDATED, create(models::EventType::TRANSACTION_UPDATED,
-                                                               "EnjinCloud\\Events\\TransactionUpdated",
+    map.emplace(models::EventType::MessageProcessed, create(models::EventType::MessageProcessed,
+                                                            "EnjinCloud\\Events\\MessageProcessed",
+                                                            {"project", "asset", "wallet"}));
+    map.emplace(models::EventType::PlayerCreated, create(models::EventType::PlayerCreated,
+                                                         "EnjinCloud\\Events\\PlayerCreated",
+                                                         {"project", "player"}));
+    map.emplace(models::EventType::PlayerDeleted, create(models::EventType::PlayerDeleted,
+                                                         "EnjinCloud\\Events\\PlayerDeleted",
+                                                         {"project", "player"}));
+    map.emplace(models::EventType::PlayerLinked, create(models::EventType::PlayerLinked,
+                                                        "EnjinCloud\\Events\\PlayerLinked",
+                                                        {"project", "player", "wallet"}));
+    map.emplace(models::EventType::PlayerUnlinked, create(models::EventType::PlayerUnlinked,
+                                                          "EnjinCloud\\Events\\PlayerUnlinked",
+                                                          {"project", "player", "wallet"}));
+    map.emplace(models::EventType::PlayerUpdated, create(models::EventType::PlayerUpdated,
+                                                         "EnjinCloud\\Events\\PlayerUpdated",
+                                                         {"project", "player"}));
+    map.emplace(models::EventType::AssetCreated, create(models::EventType::AssetCreated,
+                                                        "EnjinCloud\\Events\\AssetCreated",
+                                                        {"project", "asset", "wallet"}));
+    map.emplace(models::EventType::AssetMelted, create(models::EventType::AssetMelted,
+                                                       "EnjinCloud\\Events\\AssetMelted",
+                                                       {"project", "asset", "wallet"}));
+    map.emplace(models::EventType::AssetMinted, create(models::EventType::AssetMinted,
+                                                       "EnjinCloud\\Events\\AssetMinted",
+                                                       {"project", "asset", "wallet"}));
+    map.emplace(models::EventType::AssetTransferred, create(models::EventType::AssetTransferred,
+                                                            "EnjinCloud\\Events\\AssetTransferred",
+                                                            {"project", "asset", "wallet"}));
+    map.emplace(models::EventType::AssetUpdated, create(models::EventType::AssetUpdated,
+                                                        "EnjinCloud\\Events\\AssetUpdated",
+                                                        {"project", "asset", "wallet"}));
+    map.emplace(models::EventType::TradeAssetCompleted, create(models::EventType::TradeAssetCompleted,
+                                                               "EnjinCloud\\Events\\TradeAssetCompleted",
                                                                {"project", "asset", "wallet"}));
+    map.emplace(models::EventType::TradeAssetCreated, create(models::EventType::TradeAssetCreated,
+                                                             "EnjinCloud\\Events\\TradeAssetCreated",
+                                                             {"project", "asset", "wallet"}));
+    map.emplace(models::EventType::TransactionBroadcast, create(models::EventType::TransactionBroadcast,
+                                                                "EnjinCloud\\Events\\TransactionBroadcast",
+                                                                {"project", "asset", "wallet"}));
+    map.emplace(models::EventType::TransactionCanceled, create(models::EventType::TransactionCanceled,
+                                                               "EnjinCloud\\Events\\TransactionCanceled",
+                                                               {"project", "asset", "wallet"}));
+    map.emplace(models::EventType::TransactionDropped, create(models::EventType::TransactionDropped,
+                                                              "EnjinCloud\\Events\\TransactionDropped",
+                                                              {"project", "asset", "wallet"}));
+    map.emplace(models::EventType::TransactionExecuted, create(models::EventType::TransactionExecuted,
+                                                               "EnjinCloud\\Events\\TransactionExecuted",
+                                                               {"project", "asset", "wallet"}));
+    map.emplace(models::EventType::TransactionFailed, create(models::EventType::TransactionFailed,
+                                                             "EnjinCloud\\Events\\TransactionFailed",
+                                                             {"project", "asset", "wallet"}));
+    map.emplace(models::EventType::TransactionPending, create(models::EventType::TransactionPending,
+                                                              "EnjinCloud\\Events\\TransactionPending",
+                                                              {"project", "asset", "wallet"}));
+    map.emplace(models::EventType::TransactionProcessing, create(models::EventType::TransactionProcessing,
+                                                                 "EnjinCloud\\Events\\TransactionProcessing",
+                                                                 {"project", "asset", "wallet"}));
+    map.emplace(models::EventType::TransactionUpdated, create(models::EventType::TransactionUpdated,
+                                                              "EnjinCloud\\Events\\TransactionUpdated",
+                                                              {"project", "asset", "wallet"}));
 
     return map;
 }

@@ -46,7 +46,7 @@ TEST_F(ContractsTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
 
 TEST_F(ContractsTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     class_under_test.deserialize(json);

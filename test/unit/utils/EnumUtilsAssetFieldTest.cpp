@@ -38,10 +38,10 @@ TEST_P(AssetFieldTest, SerializeAssetFieldReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializeAssetField,
                          AssetFieldTest,
-                         testing::Values(std::make_tuple("id", AssetField::ID),
-                                         std::make_tuple("name", AssetField::NAME),
-                                         std::make_tuple("circulatingSupply", AssetField::CIRCULATING_SUPPLY),
-                                         std::make_tuple("nonFungible", AssetField::NON_FUNGIBLE),
-                                         std::make_tuple("reserve", AssetField::RESERVE),
-                                         std::make_tuple("totalSupply", AssetField::TOTAL_SUPPLY),
-                                         std::make_tuple("createdAt", AssetField::CREATED_AT)));
+                         testing::Values(std::make_tuple("id", AssetField::Id),
+                                         std::make_tuple("name", AssetField::Name),
+                                         std::make_tuple("circulatingSupply", AssetField::CirculatingSupply),
+                                         std::make_tuple("nonFungible", AssetField::NonFungible),
+                                         std::make_tuple("reserve", AssetField::Reserve),
+                                         std::make_tuple("totalSupply", AssetField::TotalSupply),
+                                         std::make_tuple("createdAt", AssetField::CreatedAt)));

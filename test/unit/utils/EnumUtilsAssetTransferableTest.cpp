@@ -50,7 +50,7 @@ TEST_P(AssetTransferableTest, SerializeAssetTransferableReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializableAssetTransferable,
                          AssetTransferableTest,
-                         testing::Values(std::make_tuple("UNKNOWN", AssetTransferable::UNKNOWN),
-                                         std::make_tuple("PERMANENT", AssetTransferable::PERMANENT),
-                                         std::make_tuple("TEMPORARY", AssetTransferable::TEMPORARY),
-                                         std::make_tuple("BOUND", AssetTransferable::BOUND)));
+                         testing::Values(std::make_tuple("UNKNOWN", AssetTransferable::Unknown),
+                                         std::make_tuple("PERMANENT", AssetTransferable::Permanent),
+                                         std::make_tuple("TEMPORARY", AssetTransferable::Temporary),
+                                         std::make_tuple("BOUND", AssetTransferable::Bound)));

@@ -36,7 +36,7 @@ public:
         SetWhitelisted request = SetWhitelisted()
                 .set_asset_id("1")
                 .set_account_address("1")
-                .set_whitelisted(Whitelisted::NONE)
+                .set_whitelisted(Whitelisted::None)
                 .set_whitelisted_address("1")
                 .set_on(true);
         set_project_transaction_request_arguments(request);
@@ -46,7 +46,7 @@ public:
 
 TEST_F(ProjectSetWhitelistedTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
-    const std::string expected(EMPTY_JSON_OBJECT);
+    const std::string expected(EmptyJsonObject);
 
     // Act
     std::string actual = class_under_test.serialize();
@@ -60,7 +60,7 @@ TEST_F(ProjectSetWhitelistedTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_asset_id("1")
                     .set_account_address("1")
-                    .set_whitelisted(Whitelisted::NONE)
+                    .set_whitelisted(Whitelisted::None)
                     .set_whitelisted_address("1")
                     .set_on(true);
 

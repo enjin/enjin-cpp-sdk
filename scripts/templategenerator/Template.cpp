@@ -41,7 +41,7 @@ std::string Template::compile() const {
     std::stringstream builder;
     builder << utils::join(" ", contents);
 
-    if (type.value() == TemplateType::Value::FRAGMENT) {
+    if (type.value() == TemplateType::Value::Fragment) {
         return builder.str();
     }
 

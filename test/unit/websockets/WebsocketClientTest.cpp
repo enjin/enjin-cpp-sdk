@@ -35,10 +35,10 @@ public:
 
 protected:
     void SetUp() override {
-        mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
-                   .ignore_message_type(WebsocketMessageType::WEBSOCKET_CLOSE_TYPE)
-                   .ignore_message_type(WebsocketMessageType::WEBSOCKET_PING_TYPE)
-                   .ignore_message_type(WebsocketMessageType::WEBSOCKET_PONG_TYPE);
+        mock_server.ignore_message_type(WebsocketMessageType::WebsocketOpenType)
+                   .ignore_message_type(WebsocketMessageType::WebsocketCloseType)
+                   .ignore_message_type(WebsocketMessageType::WebsocketPingType)
+                   .ignore_message_type(WebsocketMessageType::WebsocketPongType);
         class_under_test.connect(URI).get();
     }
 
@@ -56,13 +56,13 @@ protected:
 
 TEST_F(WebsocketClientConnectCloseTest, ConnectClientOpensConnectionWithServer) {
     // Arrange - Data
-    mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_PING_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PONG_TYPE);
+    mock_server.ignore_message_type(WebsocketMessageType::WebsocketPingType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPongType);
 
     // Arrange - Expectations
     mock_server.next_message([this](const TestWebsocketMessage& message) {
         increment_call_counter();
-        EXPECT_EQ(WebsocketMessageType::WEBSOCKET_OPEN_TYPE, message.get_type());
+        EXPECT_EQ(WebsocketMessageType::WebsocketOpenType, message.get_type());
     });
     set_expected_call_count(1);
 
@@ -79,9 +79,9 @@ TEST_F(WebsocketClientConnectCloseTest, ConnectClientOpensConnectionWithServer) 
  */
 TEST_F(WebsocketClientConnectCloseTest, ClientReconnectsAfterConnectionIsClosed) {
     // Arrange - Data
-    mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_CLOSE_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PING_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PONG_TYPE);
+    mock_server.ignore_message_type(WebsocketMessageType::WebsocketCloseType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPingType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPongType);
     class_under_test.set_allow_reconnecting(true);
     class_under_test.set_allowed_reconnect_attempts(5);
     class_under_test.connect(URI).get();
@@ -90,7 +90,7 @@ TEST_F(WebsocketClientConnectCloseTest, ClientReconnectsAfterConnectionIsClosed)
     // Arrange - Expectations
     mock_server.next_message([this](const TestWebsocketMessage& message) {
         increment_call_counter();
-        EXPECT_EQ(WebsocketMessageType::WEBSOCKET_OPEN_TYPE, message.get_type());
+        EXPECT_EQ(WebsocketMessageType::WebsocketOpenType, message.get_type());
     });
     set_expected_call_count(1);
 
@@ -116,15 +116,15 @@ TEST_F(WebsocketClientConnectCloseTest, ConnectConnectingResultsInErrorWhenFaile
 
 TEST_F(WebsocketClientConnectCloseTest, CloseClientClosesOpenConnectionWithServer) {
     // Arrange - Data
-    mock_server.ignore_message_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PING_TYPE)
-               .ignore_message_type(WebsocketMessageType::WEBSOCKET_PONG_TYPE);
+    mock_server.ignore_message_type(WebsocketMessageType::WebsocketOpenType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPingType)
+               .ignore_message_type(WebsocketMessageType::WebsocketPongType);
     class_under_test.connect(URI).get();
 
     // Arrange - Expectations
     mock_server.next_message([this](const TestWebsocketMessage& message) {
         increment_call_counter();
-        EXPECT_EQ(WebsocketMessageType::WEBSOCKET_CLOSE_TYPE, message.get_type());
+        EXPECT_EQ(WebsocketMessageType::WebsocketCloseType, message.get_type());
     });
     set_expected_call_count(1);
 
@@ -185,7 +185,7 @@ TEST_F(WebsocketClientTest, CloseWithArgsReceiveExpectedData) {
     const int expected_status = 1000;
     const std::string expected_message("Client disconnecting");
     TestWebsocketMessage message;
-    message.set_type(WebsocketMessageType::WEBSOCKET_CLOSE_TYPE);
+    message.set_type(WebsocketMessageType::WebsocketCloseType);
 
     // Arrange - Expectations
     class_under_test.set_close_handler([this, expected_status, expected_message](int actual_status,
@@ -234,7 +234,7 @@ TEST_F(WebsocketClientTest, SetMessageHandlerHandlerReceivesExpectedDataFromServ
     const std::string expected("message");
     TestWebsocketMessage message;
     message.set_data(std::vector<unsigned char>(expected.begin(), expected.end()));
-    message.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
+    message.set_type(WebsocketMessageType::WebsocketUtf8MessageType);
 
     // Arrange - Expectations
     class_under_test.set_message_handler([this, expected](const std::string& actual) {

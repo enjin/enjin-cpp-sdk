@@ -30,7 +30,7 @@ public:
     std::unique_ptr<PusherEventService> fake_service;
     std::shared_ptr<MockEventListener> mock_listener;
 
-    static constexpr EventType DEFAULT_EVENT_TYPE = EventType::PROJECT_CREATED;
+    static constexpr EventType DEFAULT_EVENT_TYPE = EventType::ProjectCreated;
 
     static NotificationEvent create_default_notification_event() {
         return NotificationEvent(DEFAULT_EVENT_TYPE, "enjincloud.test.project.1", "{}");

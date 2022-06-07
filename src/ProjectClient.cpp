@@ -157,7 +157,7 @@ std::future<void> ProjectClient::send_request_and_auth(std::string uuid, std::st
             }
         } catch (const std::exception& e) {
             if (logger_provider != nullptr) {
-                logger_provider->log(utils::LogLevel::ERR, "Automatic AuthProject request failed.", e);
+                logger_provider->log(utils::LogLevel::Error, "Automatic AuthProject request failed.", e);
             }
 
             throw e;
@@ -186,8 +186,8 @@ std::unique_ptr<ProjectClient> ProjectClient::ProjectClientBuilder::build() {
         }
 
         auto client = std::make_unique<http::HttpClient>(m_base_uri.value());
-        auto log_level = m_http_log_level.value_or(http::HttpLogLevel::NONE);
-        if (log_level != http::HttpLogLevel::NONE && m_logger_provider != nullptr) {
+        auto log_level = m_http_log_level.value_or(http::HttpLogLevel::None);
+        if (log_level != http::HttpLogLevel::None && m_logger_provider != nullptr) {
             client->set_logger(log_level, m_logger_provider);
         }
 

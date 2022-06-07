@@ -39,7 +39,7 @@ public:
 
 TEST_F(ProjectTransactionRequestArgumentsTest, SerializeNoSetFieldsReturnsEmptyJson) {
     // Arrange
-    const std::string expected(EMPTY_JSON_OBJECT);
+    const std::string expected(EmptyJsonObject);
 
     // Act
     std::string actual = class_under_test.serialize();

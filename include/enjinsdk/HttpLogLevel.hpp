@@ -20,10 +20,10 @@ namespace enjin::sdk::http {
 
 /// \brief Enum for different logging levels of HTTP traffic
 enum class HttpLogLevel {
-    NONE, ///< No logging.
-    BASIC, ///< Logs request and response lines.
-    HEADERS, ///< Logs request and response lines as well as their respective headers.
-    BODY, ///< Logs request and response lines as well as their respective headers and bodies if present.
+    None, ///< No logging.
+    Basic, ///< Logs request and response lines.
+    Headers, ///< Logs request and response lines as well as their respective headers.
+    Body, ///< Logs request and response lines as well as their respective headers and bodies if present.
 };
 
 }

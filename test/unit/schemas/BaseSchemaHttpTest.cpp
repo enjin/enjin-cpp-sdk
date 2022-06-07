@@ -65,7 +65,7 @@ TEST_F(BaseSchemaHttpTest, SendRequestForOneResponseIsSuccessfulReceivesExpected
                               .using_post())
                .respond_with(Response::create()
                                      .with_success()
-                                     .with_header(CONTENT_TYPE, {JSON})
+                                     .with_header(ContentType, {JSON})
                                      .with_body(R"({"data":{"result":)" + expected.serialize() + "}}"));
 
     // Act
@@ -88,7 +88,7 @@ TEST_F(BaseSchemaHttpTest, SendRequestForOneServerRespondsWithErrorReponseIsNotS
                               .using_post())
                .respond_with(Response::create()
                                      .with_status_code(400)
-                                     .with_header(CONTENT_TYPE, {JSON})
+                                     .with_header(ContentType, {JSON})
                                      .with_body("Test Error Response"));
 
     // Act
@@ -111,7 +111,7 @@ TEST_F(BaseSchemaHttpTest, SendRequestForMany) {
                               .using_post())
                .respond_with(Response::create()
                                      .with_success()
-                                     .with_header(CONTENT_TYPE, JSON)
+                                     .with_header(ContentType, JSON)
                                      .with_body(R"({"data":{"result":[)" +
                                                 expected.serialize() +
                                                 "," +
@@ -140,7 +140,7 @@ TEST_F(BaseSchemaHttpTest, SendRequestForManyServerRespondsWithErrorReponseIsNot
                               .using_post())
                .respond_with(Response::create()
                                      .with_status_code(400)
-                                     .with_header(CONTENT_TYPE, JSON)
+                                     .with_header(ContentType, JSON)
                                      .with_body("Test Error Response"));
 
     // Act

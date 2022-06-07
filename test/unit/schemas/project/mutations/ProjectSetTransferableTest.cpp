@@ -36,7 +36,7 @@ public:
         SetTransferable request = SetTransferable()
                 .set_asset_id("1")
                 .set_asset_index("1")
-                .set_transferable(AssetTransferable::PERMANENT);
+                .set_transferable(AssetTransferable::Permanent);
         set_project_transaction_request_arguments(request);
         return request;
     }
@@ -44,7 +44,7 @@ public:
 
 TEST_F(ProjectSetTransferableTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
-    const std::string expected(EMPTY_JSON_OBJECT);
+    const std::string expected(EmptyJsonObject);
 
     // Act
     std::string actual = class_under_test.serialize();
@@ -58,7 +58,7 @@ TEST_F(ProjectSetTransferableTest, SerializeSetFieldsReturnsExpectedJsonObject) 
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_asset_id("1")
                     .set_asset_index("1")
-                    .set_transferable(AssetTransferable::PERMANENT);
+                    .set_transferable(AssetTransferable::Permanent);
 
     // Act
     std::string actual = class_under_test.serialize();

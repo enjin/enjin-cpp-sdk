@@ -143,25 +143,25 @@ TEST_P(EventTypeDefFilterByChannelTypes, FilterByChannelTypesReturnsDefsWithChan
 
 INSTANTIATE_TEST_SUITE_P(GetFromNameTestCases,
                          EventTypeDefGetFromNameTest,
-                         testing::Values(std::make_tuple("", enjin::sdk::models::EventType::UNKNOWN),
+                         testing::Values(std::make_tuple("", enjin::sdk::models::EventType::Unknown),
                                          std::make_tuple("PROJECT_CREATED",
-                                                         enjin::sdk::models::EventType::PROJECT_CREATED)));
+                                                         enjin::sdk::models::EventType::ProjectCreated)));
 
 INSTANTIATE_TEST_SUITE_P(GetFromKeyTestCases,
                          EventTypeDefGetFromKeyTest,
                          testing::Values(std::make_tuple("EnjinCloud\\Events\\ProjectCreated",
-                                                         enjin::sdk::models::EventType::PROJECT_CREATED)));
+                                                         enjin::sdk::models::EventType::ProjectCreated)));
 
 INSTANTIATE_TEST_SUITE_P(DefInTypesTestCases,
                          EventTypeDefInTypesTest,
                          testing::Values(std::make_tuple("PROJECT_CREATED", std::vector<enjin::sdk::models::EventType>{
-                                 enjin::sdk::models::EventType::PROJECT_CREATED
+                                 enjin::sdk::models::EventType::ProjectCreated
                          })));
 
 INSTANTIATE_TEST_SUITE_P(DefNotInTypesTestCases,
                          EventTypeDefNotInTypesTest,
                          testing::Values(std::make_tuple("PROJECT_DELETED", std::vector<enjin::sdk::models::EventType>{
-                                 enjin::sdk::models::EventType::PROJECT_CREATED
+                                 enjin::sdk::models::EventType::ProjectCreated
                          })));
 
 INSTANTIATE_TEST_SUITE_P(FilterByChannelTypesTestCases,

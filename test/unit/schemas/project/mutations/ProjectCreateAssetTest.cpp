@@ -37,10 +37,10 @@ public:
                 .set_name("1")
                 .set_total_supply("1")
                 .set_initial_reserve("1")
-                .set_supply_model(AssetSupplyModel::FIXED)
+                .set_supply_model(AssetSupplyModel::Fixed)
                 .set_melt_value("1")
                 .set_melt_fee_ratio(1)
-                .set_transferable(AssetTransferable::PERMANENT)
+                .set_transferable(AssetTransferable::Permanent)
                 .set_transfer_fee_settings(AssetTransferFeeSettingsInput())
                 .set_non_fungible(true);
         set_project_transaction_request_arguments(request);
@@ -50,7 +50,7 @@ public:
 
 TEST_F(ProjectCreateAssetTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
-    const std::string expected(EMPTY_JSON_OBJECT);
+    const std::string expected(EmptyJsonObject);
 
     // Act
     std::string actual = class_under_test.serialize();
@@ -65,10 +65,10 @@ TEST_F(ProjectCreateAssetTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     class_under_test.set_name("1")
                     .set_total_supply("1")
                     .set_initial_reserve("1")
-                    .set_supply_model(AssetSupplyModel::FIXED)
+                    .set_supply_model(AssetSupplyModel::Fixed)
                     .set_melt_value("1")
                     .set_melt_fee_ratio(1)
-                    .set_transferable(AssetTransferable::PERMANENT)
+                    .set_transferable(AssetTransferable::Permanent)
                     .set_transfer_fee_settings(AssetTransferFeeSettingsInput())
                     .set_non_fungible(true);
 

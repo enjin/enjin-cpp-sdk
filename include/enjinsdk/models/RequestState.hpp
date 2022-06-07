@@ -20,15 +20,15 @@ namespace enjin::sdk::models {
 
 /// \brief Represents the state of a request.
 enum class RequestState {
-    UNKNOWN, ///< SDK value for unknown values.
-    PENDING,
-    BROADCAST,
-    TP_PROCESSING,
-    EXECUTED,
-    CANCELED_USER,
-    CANCELED_PLATFORM,
-    DROPPED,
-    FAILED,
+    Unknown, ///< SDK value for unknown values.
+    Pending,
+    Broadcast,
+    TpProcessing,
+    Executed,
+    CanceledUser,
+    CanceledPlatform,
+    Dropped,
+    Failed,
 };
 
 }

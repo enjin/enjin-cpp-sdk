@@ -23,7 +23,7 @@ namespace enjin::test::suites {
 
 class LoggerProviderTestSuite {
 public:
-    static constexpr char DEFAULT_MESSAGE[] = "Test Message";
+    static constexpr char DefaultMessage[] = "Test Message";
 
     std::shared_ptr<mocks::MockLogger> mock_logger;
 

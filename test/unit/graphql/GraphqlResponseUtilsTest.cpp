@@ -50,7 +50,7 @@ TEST_F(GraphqlResponseUtilsTest, GetBoolResultEmptyJsonReturnsEmptyOptional) {
 
 TEST_F(GraphqlResponseUtilsTest, GetBoolResultEmptyJsonObjectReturnsEmptyOptional) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     auto actual = get_bool_result(json);
@@ -105,7 +105,7 @@ TEST_F(GraphqlResponseUtilsTest, GetPaginationDataEmptyJsonReturnsEmptyOptional)
 
 TEST_F(GraphqlResponseUtilsTest, GetPaginationDataEmptyJsonObjectReturnsEmptyOptional) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     auto actual = get_pagination_data(json);
@@ -158,7 +158,7 @@ TEST_F(GraphqlResponseUtilsTest, GetSerializedObjectArrayEmptyJsonReturnsEmptyOp
 
 TEST_F(GraphqlResponseUtilsTest, GetSerializedObjectArrayNoResultReturnsEmptyOptional) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     auto actual = get_serialized_object_array(json);
@@ -207,7 +207,7 @@ TEST_F(GraphqlResponseUtilsTest, GetSerializedResultObjectEmptyJsonReturnsEmptyO
 
 TEST_F(GraphqlResponseUtilsTest, GetSerializedResultObjectNoResultKeyInJsonReturnsEmptyOptional) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     auto actual = get_serialized_result_object(json);
