@@ -85,55 +85,73 @@ public:
     /// \return This request for chaining.
     CreateAsset& set_non_fungible(bool non_fungible);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const CreateAsset& rhs) const;
 
     bool operator!=(const CreateAsset& rhs) const;
 
 private:
-    std::optional<std::string> name;
-    std::optional<std::string> total_supply;
-    std::optional<std::string> initial_reserve;
-    std::optional<models::AssetSupplyModel> supply_model;
-    std::optional<std::string> melt_value;
-    std::optional<int> melt_fee_ratio;
-    std::optional<models::AssetTransferable> transferable;
-    std::optional<models::AssetTransferFeeSettingsInput> transfer_fee_settings;
-    std::optional<bool> non_fungible;
+    std::optional<std::string> name_opt;
+    std::optional<std::string> total_supply_opt;
+    std::optional<std::string> initial_reserve_opt;
+    std::optional<models::AssetSupplyModel> supply_model_opt;
+    std::optional<std::string> melt_value_opt;
+    std::optional<int> melt_fee_ratio_opt;
+    std::optional<models::AssetTransferable> transferable_opt;
+    std::optional<models::AssetTransferFeeSettingsInput> transfer_fee_settings_opt;
+    std::optional<bool> non_fungible_opt;
 };
 
 template ENJINSDK_EXPORT CreateAsset&
-ProjectTransactionRequestArguments<CreateAsset>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
-
-template ENJINSDK_EXPORT CreateAsset& ProjectTransactionRequestArguments<CreateAsset>::set_with_blockchain_data();
-
-template ENJINSDK_EXPORT CreateAsset& ProjectTransactionRequestArguments<CreateAsset>::set_with_meta();
-
-template ENJINSDK_EXPORT CreateAsset& ProjectTransactionRequestArguments<CreateAsset>::set_with_encoded_data();
-
-template ENJINSDK_EXPORT CreateAsset& ProjectTransactionRequestArguments<CreateAsset>::set_with_asset_data();
-
-template ENJINSDK_EXPORT CreateAsset& ProjectTransactionRequestArguments<CreateAsset>::set_with_signed_txs();
-
-template ENJINSDK_EXPORT CreateAsset& ProjectTransactionRequestArguments<CreateAsset>::set_with_error();
-
-template ENJINSDK_EXPORT CreateAsset& ProjectTransactionRequestArguments<CreateAsset>::set_with_nonce();
-
-template ENJINSDK_EXPORT CreateAsset& ProjectTransactionRequestArguments<CreateAsset>::set_with_state();
-
-template ENJINSDK_EXPORT CreateAsset& ProjectTransactionRequestArguments<CreateAsset>::set_with_receipt();
-
-template ENJINSDK_EXPORT CreateAsset& ProjectTransactionRequestArguments<CreateAsset>::set_with_receipt_logs();
-
-template ENJINSDK_EXPORT CreateAsset& ProjectTransactionRequestArguments<CreateAsset>::set_with_log_event();
-
-template ENJINSDK_EXPORT CreateAsset&
-ProjectTransactionRequestArguments<CreateAsset>::set_with_transaction_project_uuid();
-
-template ENJINSDK_EXPORT CreateAsset&
-ProjectTransactionRequestArguments<CreateAsset>::set_with_transaction_wallet_address();
-
-template ENJINSDK_EXPORT CreateAsset&
 ProjectTransactionRequestArguments<CreateAsset>::set_eth_address(std::string address);
+
+}
+
+namespace enjin::sdk::shared {
+
+template ENJINSDK_EXPORT project::CreateAsset&
+TransactionFragmentArguments<project::CreateAsset>::set_transaction_asset_id_format(
+        models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT project::CreateAsset&
+TransactionFragmentArguments<project::CreateAsset>::set_with_blockchain_data();
+
+template ENJINSDK_EXPORT project::CreateAsset&
+TransactionFragmentArguments<project::CreateAsset>::set_with_meta();
+
+template ENJINSDK_EXPORT project::CreateAsset&
+TransactionFragmentArguments<project::CreateAsset>::set_with_encoded_data();
+
+template ENJINSDK_EXPORT project::CreateAsset&
+TransactionFragmentArguments<project::CreateAsset>::set_with_asset_data();
+
+template ENJINSDK_EXPORT project::CreateAsset&
+TransactionFragmentArguments<project::CreateAsset>::set_with_signed_txs();
+
+template ENJINSDK_EXPORT project::CreateAsset&
+TransactionFragmentArguments<project::CreateAsset>::set_with_error();
+
+template ENJINSDK_EXPORT project::CreateAsset&
+TransactionFragmentArguments<project::CreateAsset>::set_with_nonce();
+
+template ENJINSDK_EXPORT project::CreateAsset&
+TransactionFragmentArguments<project::CreateAsset>::set_with_state();
+
+template ENJINSDK_EXPORT project::CreateAsset&
+TransactionFragmentArguments<project::CreateAsset>::set_with_receipt();
+
+template ENJINSDK_EXPORT project::CreateAsset&
+TransactionFragmentArguments<project::CreateAsset>::set_with_receipt_logs();
+
+template ENJINSDK_EXPORT project::CreateAsset&
+TransactionFragmentArguments<project::CreateAsset>::set_with_log_event();
+
+template ENJINSDK_EXPORT project::CreateAsset&
+TransactionFragmentArguments<project::CreateAsset>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT project::CreateAsset&
+TransactionFragmentArguments<project::CreateAsset>::set_with_transaction_wallet_address();
 
 }
 

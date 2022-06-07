@@ -16,6 +16,7 @@
 #ifndef ENJINSDK_BALANCEFRAGMENTARGUMENTSTESTSUITE_HPP
 #define ENJINSDK_BALANCEFRAGMENTARGUMENTSTESTSUITE_HPP
 
+#include "enjinsdk/JsonValue.hpp"
 #include "enjinsdk/shared/BalanceFragmentArguments.hpp"
 #include <type_traits>
 
@@ -29,6 +30,13 @@ class BalanceFragmentArgumentsTestSuite {
 public:
     static constexpr char BalanceFragmentJson[] =
             R"({"balIdFormat":"hex64","balIndexFormat":"hex64","withBalProjectUuid":true,"withBalWalletAddress":true})";
+
+    static sdk::json::JsonValue create_json_object() {
+        sdk::json::JsonValue json;
+
+        json.try_parse_as_object(BalanceFragmentJson);
+        return json;
+    }
 
     static void set_balance_fragment_arguments(sdk::shared::BalanceFragmentArguments<T>& o) {
         o.set_bal_id_format(sdk::models::AssetIdFormat::Hex64)

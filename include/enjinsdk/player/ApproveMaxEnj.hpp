@@ -33,6 +33,8 @@ public:
 
     [[nodiscard]] std::string serialize() const override;
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const ApproveMaxEnj& rhs) const;
 
     bool operator!=(const ApproveMaxEnj& rhs) const;
@@ -43,7 +45,8 @@ public:
 namespace enjin::sdk::shared {
 
 template ENJINSDK_EXPORT player::ApproveMaxEnj&
-TransactionFragmentArguments<player::ApproveMaxEnj>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
+TransactionFragmentArguments<player::ApproveMaxEnj>::set_transaction_asset_id_format(
+        models::AssetIdFormat asset_id_format);
 
 template ENJINSDK_EXPORT player::ApproveMaxEnj&
 TransactionFragmentArguments<player::ApproveMaxEnj>::set_with_blockchain_data();

@@ -46,13 +46,15 @@ public:
     /// \remarks The value is in Wei as 10^18 (e.g. 1 ENJ = 1000000000000000000).
     SendEnj& set_value(std::string value);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const SendEnj& rhs) const;
 
     bool operator!=(const SendEnj& rhs) const;
 
 private:
-    std::optional<std::string> recipient_address;
-    std::optional<std::string> value;
+    std::optional<std::string> recipient_address_opt;
+    std::optional<std::string> value_opt;
 };
 
 }

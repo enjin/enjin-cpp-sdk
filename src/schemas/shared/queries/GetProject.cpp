@@ -15,26 +15,25 @@
 
 #include "enjinsdk/shared/GetProject.hpp"
 
-#include "RapidJsonUtils.hpp"
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::shared;
 
-namespace enjin::sdk::shared {
-
-GetProject::GetProject() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.GetProject") {
+GetProject::GetProject() : AbstractGraphqlRequest("enjin.sdk.shared.GetProject") {
 }
 
 std::string GetProject::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
+    return to_json().to_string();
+}
 
-    return utils::document_to_string(document);
+JsonValue GetProject::to_json() const {
+    return JsonValue::create_object();
 }
 
 bool GetProject::operator==(const GetProject& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs);
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs;
 }
 
 bool GetProject::operator!=(const GetProject& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

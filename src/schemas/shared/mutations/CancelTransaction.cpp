@@ -15,36 +15,38 @@
 
 #include "enjinsdk/shared/CancelTransaction.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 
-namespace enjin::sdk::shared {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::shared;
+using namespace enjin::sdk::utils;
 
-CancelTransaction::CancelTransaction() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.CancelTransaction") {
+CancelTransaction::CancelTransaction() : AbstractGraphqlRequest("enjin.sdk.shared.CancelTransaction") {
 }
 
 std::string CancelTransaction::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-
-    if (id.has_value()) {
-        utils::set_integer_member(document, "id", id.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
 CancelTransaction& CancelTransaction::set_id(int id) {
-    CancelTransaction::id = id;
+    id_opt = id;
     return *this;
 }
 
+JsonValue CancelTransaction::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::try_set_field(json, "id", id_opt);
+
+    return json;
+}
+
 bool CancelTransaction::operator==(const CancelTransaction& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           id == rhs.id;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && id_opt == rhs.id_opt;
 }
 
 bool CancelTransaction::operator!=(const CancelTransaction& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

@@ -48,48 +48,72 @@ public:
     /// \return This request for chaining.
     GetRequests& set_sort(models::TransactionSort sort);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const GetRequests& rhs) const;
 
     bool operator!=(const GetRequests& rhs) const;
 
 private:
-    std::optional<models::TransactionFilter> filter;
-    std::optional<models::TransactionSort> sort;
+    std::optional<models::TransactionFilter> filter_opt;
+    std::optional<models::TransactionSort> sort_opt;
 };
+
+// region TransactionFragmentArguments
 
 template ENJINSDK_EXPORT GetRequests&
 TransactionFragmentArguments<GetRequests>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
 
-template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_blockchain_data();
+template ENJINSDK_EXPORT GetRequests&
+TransactionFragmentArguments<GetRequests>::set_with_blockchain_data();
 
-template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_meta();
+template ENJINSDK_EXPORT GetRequests&
+TransactionFragmentArguments<GetRequests>::set_with_meta();
 
-template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_encoded_data();
+template ENJINSDK_EXPORT GetRequests&
+TransactionFragmentArguments<GetRequests>::set_with_encoded_data();
 
-template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_asset_data();
+template ENJINSDK_EXPORT GetRequests&
+TransactionFragmentArguments<GetRequests>::set_with_asset_data();
 
-template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_signed_txs();
+template ENJINSDK_EXPORT GetRequests&
+TransactionFragmentArguments<GetRequests>::set_with_signed_txs();
 
-template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_error();
+template ENJINSDK_EXPORT GetRequests&
+TransactionFragmentArguments<GetRequests>::set_with_error();
 
-template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_nonce();
+template ENJINSDK_EXPORT GetRequests&
+TransactionFragmentArguments<GetRequests>::set_with_nonce();
 
-template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_state();
+template ENJINSDK_EXPORT GetRequests&
+TransactionFragmentArguments<GetRequests>::set_with_state();
 
-template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_receipt();
+template ENJINSDK_EXPORT GetRequests&
+TransactionFragmentArguments<GetRequests>::set_with_receipt();
 
-template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_receipt_logs();
+template ENJINSDK_EXPORT GetRequests&
+TransactionFragmentArguments<GetRequests>::set_with_receipt_logs();
 
-template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_log_event();
+template ENJINSDK_EXPORT GetRequests&
+TransactionFragmentArguments<GetRequests>::set_with_log_event();
+
+template ENJINSDK_EXPORT GetRequests&
+TransactionFragmentArguments<GetRequests>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT GetRequests&
+TransactionFragmentArguments<GetRequests>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
+
+// region PaginationArguments
 
 template ENJINSDK_EXPORT GetRequests&
 PaginationArguments<GetRequests>::set_pagination(models::PaginationOptions pagination);
 
-template ENJINSDK_EXPORT GetRequests& PaginationArguments<GetRequests>::set_pagination(int page, int limit);
+template ENJINSDK_EXPORT GetRequests&
+PaginationArguments<GetRequests>::set_pagination(int page, int limit);
 
-template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_transaction_project_uuid();
-
-template ENJINSDK_EXPORT GetRequests& TransactionFragmentArguments<GetRequests>::set_with_transaction_wallet_address();
+// endregion PaginationArguments
 
 }
 

@@ -38,12 +38,14 @@ public:
     /// \return This request for chaining.
     CreatePlayer& set_id(std::string id);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const CreatePlayer& rhs) const;
 
     bool operator!=(const CreatePlayer& rhs) const;
 
 private:
-    std::optional<std::string> id;
+    std::optional<std::string> id_opt;
 };
 
 }

@@ -50,49 +50,66 @@ public:
     /// \return This request for chaining.
     SetUri& set_uri(std::string uri);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const SetUri& rhs) const;
 
     bool operator!=(const SetUri& rhs) const;
 
 private:
-    std::optional<std::string> asset_id;
-    std::optional<std::string> asset_index;
-    std::optional<std::string> uri;
+    std::optional<std::string> asset_id_opt;
+    std::optional<std::string> asset_index_opt;
+    std::optional<std::string> uri_opt;
 };
 
 template ENJINSDK_EXPORT SetUri&
-ProjectTransactionRequestArguments<SetUri>::set_transaction_asset_id_format(
-        models::AssetIdFormat asset_id_format);
-
-template ENJINSDK_EXPORT SetUri& ProjectTransactionRequestArguments<SetUri>::set_with_blockchain_data();
-
-template ENJINSDK_EXPORT SetUri& ProjectTransactionRequestArguments<SetUri>::set_with_meta();
-
-template ENJINSDK_EXPORT SetUri& ProjectTransactionRequestArguments<SetUri>::set_with_encoded_data();
-
-template ENJINSDK_EXPORT SetUri& ProjectTransactionRequestArguments<SetUri>::set_with_asset_data();
-
-template ENJINSDK_EXPORT SetUri& ProjectTransactionRequestArguments<SetUri>::set_with_signed_txs();
-
-template ENJINSDK_EXPORT SetUri& ProjectTransactionRequestArguments<SetUri>::set_with_error();
-
-template ENJINSDK_EXPORT SetUri& ProjectTransactionRequestArguments<SetUri>::set_with_nonce();
-
-template ENJINSDK_EXPORT SetUri& ProjectTransactionRequestArguments<SetUri>::set_with_state();
-
-template ENJINSDK_EXPORT SetUri& ProjectTransactionRequestArguments<SetUri>::set_with_receipt();
-
-template ENJINSDK_EXPORT SetUri& ProjectTransactionRequestArguments<SetUri>::set_with_receipt_logs();
-
-template ENJINSDK_EXPORT SetUri& ProjectTransactionRequestArguments<SetUri>::set_with_log_event();
-
-template ENJINSDK_EXPORT SetUri& ProjectTransactionRequestArguments<SetUri>::set_with_transaction_project_uuid();
-
-template ENJINSDK_EXPORT SetUri&
-ProjectTransactionRequestArguments<SetUri>::set_with_transaction_wallet_address();
-
-template ENJINSDK_EXPORT SetUri&
 ProjectTransactionRequestArguments<SetUri>::set_eth_address(std::string address);
+
+}
+
+namespace enjin::sdk::shared {
+
+template ENJINSDK_EXPORT project::SetUri&
+TransactionFragmentArguments<project::SetUri>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT project::SetUri&
+TransactionFragmentArguments<project::SetUri>::set_with_blockchain_data();
+
+template ENJINSDK_EXPORT project::SetUri&
+TransactionFragmentArguments<project::SetUri>::set_with_meta();
+
+template ENJINSDK_EXPORT project::SetUri&
+TransactionFragmentArguments<project::SetUri>::set_with_encoded_data();
+
+template ENJINSDK_EXPORT project::SetUri&
+TransactionFragmentArguments<project::SetUri>::set_with_asset_data();
+
+template ENJINSDK_EXPORT project::SetUri&
+TransactionFragmentArguments<project::SetUri>::set_with_signed_txs();
+
+template ENJINSDK_EXPORT project::SetUri&
+TransactionFragmentArguments<project::SetUri>::set_with_error();
+
+template ENJINSDK_EXPORT project::SetUri&
+TransactionFragmentArguments<project::SetUri>::set_with_nonce();
+
+template ENJINSDK_EXPORT project::SetUri&
+TransactionFragmentArguments<project::SetUri>::set_with_state();
+
+template ENJINSDK_EXPORT project::SetUri&
+TransactionFragmentArguments<project::SetUri>::set_with_receipt();
+
+template ENJINSDK_EXPORT project::SetUri&
+TransactionFragmentArguments<project::SetUri>::set_with_receipt_logs();
+
+template ENJINSDK_EXPORT project::SetUri&
+TransactionFragmentArguments<project::SetUri>::set_with_log_event();
+
+template ENJINSDK_EXPORT project::SetUri&
+TransactionFragmentArguments<project::SetUri>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT project::SetUri&
+TransactionFragmentArguments<project::SetUri>::set_with_transaction_wallet_address();
 
 }
 

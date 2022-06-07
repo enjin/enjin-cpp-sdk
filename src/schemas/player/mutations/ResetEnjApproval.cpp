@@ -15,24 +15,28 @@
 
 #include "enjinsdk/player/ResetEnjApproval.hpp"
 
-namespace enjin::sdk::player {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::player;
+using namespace enjin::sdk::shared;
 
-ResetEnjApproval::ResetEnjApproval() : graphql::AbstractGraphqlRequest("enjin.sdk.player.ResetEnjApproval") {
+ResetEnjApproval::ResetEnjApproval() : AbstractGraphqlRequest("enjin.sdk.player.ResetEnjApproval"),
+                                       TransactionFragmentArguments<ResetEnjApproval>() {
 }
 
 std::string ResetEnjApproval::serialize() const {
-    return TransactionFragmentArguments::serialize();
+    return TransactionFragmentArguments<ResetEnjApproval>::serialize();
+}
+
+JsonValue ResetEnjApproval::to_json() const {
+    return TransactionFragmentArguments<ResetEnjApproval>::to_json();
 }
 
 bool ResetEnjApproval::operator==(const ResetEnjApproval& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionFragmentArguments<ResetEnjApproval>&>(*this) ==
-           static_cast<const shared::TransactionFragmentArguments<ResetEnjApproval>&>(rhs);
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const TransactionFragmentArguments<ResetEnjApproval>&>(*this) == rhs;
 }
 
 bool ResetEnjApproval::operator!=(const ResetEnjApproval& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

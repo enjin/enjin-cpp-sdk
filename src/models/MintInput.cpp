@@ -15,40 +15,40 @@
 
 #include "enjinsdk/models/MintInput.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 std::string MintInput::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-
-    if (to.has_value()) {
-        utils::set_string_member(document, TO_KEY, to.value());
-    }
-    if (value.has_value()) {
-        utils::set_string_member(document, VALUE_KEY, value.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
 MintInput& MintInput::set_to(std::string address) {
-    to = std::move(address);
+    to_opt = std::move(address);
     return *this;
 }
 
 MintInput& MintInput::set_value(std::string value) {
-    MintInput::value = std::move(value);
+    value_opt = std::move(value);
     return *this;
 }
 
+JsonValue MintInput::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::try_set_field(json, "to", to_opt);
+    JsonUtils::try_set_field(json, "value", value_opt);
+
+    return json;
+}
+
 bool MintInput::operator==(const MintInput& rhs) const {
-    return to == rhs.to &&
-           value == rhs.value;
+    return to_opt == rhs.to_opt
+           && value_opt == rhs.value_opt;
 }
 
 bool MintInput::operator!=(const MintInput& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

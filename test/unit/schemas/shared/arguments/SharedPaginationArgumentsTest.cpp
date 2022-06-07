@@ -19,6 +19,7 @@
 #include "TestableSharedPaginationArguments.hpp"
 #include <string>
 
+using namespace enjin::sdk::json;
 using namespace enjin::test::suites;
 using namespace enjin::test::utils;
 
@@ -36,24 +37,24 @@ public:
     }
 };
 
-TEST_F(SharedPaginationArgumentsTest, SerializeNoSetFieldsReturnsEmptyJson) {
+TEST_F(SharedPaginationArgumentsTest, ToJsonNoSetFieldsReturnsEmptyJson) {
     // Arrange
-    const std::string expected(EmptyJsonObject);
+    const JsonValue expected = create_empty_json_object();
 
     // Act
-    std::string actual = class_under_test.serialize();
+    const JsonValue actual = class_under_test.to_json();
 
     // Assert
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(SharedPaginationArgumentsTest, SerializeSetPaginationFieldsReturnsExpectedJson) {
+TEST_F(SharedPaginationArgumentsTest, ToJsonSetPaginationFieldsReturnsExpectedJson) {
     // Arrange
-    const std::string expected(PaginationJson);
+    const JsonValue expected = PaginationArgumentsTestSuite::create_json_object();
     set_pagination_arguments(class_under_test);
 
     // Act
-    std::string actual = class_under_test.serialize();
+    const JsonValue actual = class_under_test.to_json();
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -61,11 +62,11 @@ TEST_F(SharedPaginationArgumentsTest, SerializeSetPaginationFieldsReturnsExpecte
 
 TEST_F(SharedPaginationArgumentsTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    TestableSharedPaginationArguments lhs;
-    TestableSharedPaginationArguments rhs;
+    const TestableSharedPaginationArguments lhs;
+    const TestableSharedPaginationArguments rhs;
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_TRUE(actual);
@@ -73,11 +74,11 @@ TEST_F(SharedPaginationArgumentsTest, EqualityNeitherSideIsPopulatedReturnsTrue)
 
 TEST_F(SharedPaginationArgumentsTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    TestableSharedPaginationArguments lhs = create_default_arguments();
-    TestableSharedPaginationArguments rhs = create_default_arguments();
+    const TestableSharedPaginationArguments lhs = create_default_arguments();
+    const TestableSharedPaginationArguments rhs = create_default_arguments();
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_TRUE(actual);
@@ -85,11 +86,11 @@ TEST_F(SharedPaginationArgumentsTest, EqualityBothSidesArePopulatedReturnsTrue) 
 
 TEST_F(SharedPaginationArgumentsTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    TestableSharedPaginationArguments lhs = create_default_arguments();
-    TestableSharedPaginationArguments rhs;
+    const TestableSharedPaginationArguments lhs = create_default_arguments();
+    const TestableSharedPaginationArguments rhs;
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_FALSE(actual);
@@ -97,11 +98,11 @@ TEST_F(SharedPaginationArgumentsTest, EqualityLeftSideIsPopulatedReturnsFalse) {
 
 TEST_F(SharedPaginationArgumentsTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    TestableSharedPaginationArguments lhs;
-    TestableSharedPaginationArguments rhs = create_default_arguments();
+    const TestableSharedPaginationArguments lhs;
+    const TestableSharedPaginationArguments rhs = create_default_arguments();
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_FALSE(actual);

@@ -15,24 +15,25 @@
 
 #include "enjinsdk/player/UnlinkWallet.hpp"
 
-#include "RapidJsonUtils.hpp"
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::player;
 
-namespace enjin::sdk::player {
-
-UnlinkWallet::UnlinkWallet() : graphql::AbstractGraphqlRequest("enjin.sdk.player.UnlinkWallet") {
+UnlinkWallet::UnlinkWallet() : AbstractGraphqlRequest("enjin.sdk.player.UnlinkWallet") {
 }
 
 std::string UnlinkWallet::serialize() const {
-    return utils::document_to_string(rapidjson::Document(rapidjson::kObjectType));
+    return to_json().to_string();
+}
+
+JsonValue UnlinkWallet::to_json() const {
+    return JsonValue::create_object();
 }
 
 bool UnlinkWallet::operator==(const UnlinkWallet& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs);
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs;
 }
 
 bool UnlinkWallet::operator!=(const UnlinkWallet& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

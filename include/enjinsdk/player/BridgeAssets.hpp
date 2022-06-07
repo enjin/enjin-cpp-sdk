@@ -46,13 +46,15 @@ public:
     /// \return This request for chaining.
     BridgeAssets& set_asset_indices(std::vector<std::string> asset_indices);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const BridgeAssets& rhs) const;
 
     bool operator!=(const BridgeAssets& rhs) const;
 
 private:
-    std::optional<std::string> asset_id;
-    std::optional<std::vector<std::string>> asset_indices;
+    std::optional<std::string> asset_id_opt;
+    std::optional<std::vector<std::string>> asset_indices_opt;
 };
 
 }
@@ -60,7 +62,8 @@ private:
 namespace enjin::sdk::shared {
 
 template ENJINSDK_EXPORT player::BridgeAssets&
-TransactionFragmentArguments<player::BridgeAssets>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
+TransactionFragmentArguments<player::BridgeAssets>::set_transaction_asset_id_format(
+        models::AssetIdFormat asset_id_format);
 
 template ENJINSDK_EXPORT player::BridgeAssets&
 TransactionFragmentArguments<player::BridgeAssets>::set_with_blockchain_data();

@@ -45,60 +45,66 @@ public:
     /// \return This request for chaining.
     DecreaseMaxTransferFee& set_max_transfer_fee(int max_transfer_fee);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const DecreaseMaxTransferFee& rhs) const;
 
     bool operator!=(const DecreaseMaxTransferFee& rhs) const;
 
 private:
-    std::optional<std::string> asset_id;
-    std::optional<int> max_transfer_fee;
+    std::optional<std::string> asset_id_opt;
+    std::optional<int> max_transfer_fee_opt;
 };
 
 template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_transaction_asset_id_format(
+ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_eth_address(std::string address);
+
+}
+
+namespace enjin::sdk::shared {
+
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_transaction_asset_id_format(
         models::AssetIdFormat asset_id_format);
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_blockchain_data();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_blockchain_data();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_meta();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_meta();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_encoded_data();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_encoded_data();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_asset_data();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_asset_data();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_signed_txs();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_signed_txs();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_error();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_error();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_nonce();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_nonce();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_state();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_state();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_receipt();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_receipt();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_receipt_logs();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_receipt_logs();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_log_event();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_log_event();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_transaction_project_uuid();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_transaction_project_uuid();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_transaction_wallet_address();
-
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_eth_address(std::string address);
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_transaction_wallet_address();
 
 }
 

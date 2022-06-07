@@ -15,58 +15,56 @@
 
 #include "enjinsdk/project/SetUri.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 #include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
 
-SetUri::SetUri() : graphql::AbstractGraphqlRequest("enjin.sdk.project.SetUri") {
+SetUri::SetUri() : AbstractGraphqlRequest("enjin.sdk.project.SetUri"),
+                   ProjectTransactionRequestArguments<SetUri>() {
 }
 
 std::string SetUri::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
-
-    if (asset_id.has_value()) {
-        utils::set_string_member(document, "assetId", asset_id.value());
-    }
-    if (asset_index.has_value()) {
-        utils::set_string_member(document, "assetIndex", asset_index.value());
-    }
-    if (uri.has_value()) {
-        utils::set_string_member(document, "uri", uri.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
 SetUri& SetUri::set_asset_id(std::string asset_id) {
-    SetUri::asset_id = std::move(asset_id);
+    asset_id_opt = std::move(asset_id);
     return *this;
 }
 
 SetUri& SetUri::set_asset_index(std::string asset_index) {
-    SetUri::asset_index = std::move(asset_index);
+    asset_index_opt = std::move(asset_index);
     return *this;
 }
 
 SetUri& SetUri::set_uri(std::string uri) {
-    SetUri::uri = std::move(uri);
+    uri_opt = std::move(uri);
     return *this;
 }
 
+JsonValue SetUri::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, ProjectTransactionRequestArguments<SetUri>::to_json());
+    JsonUtils::try_set_field(json, "assetId", asset_id_opt);
+    JsonUtils::try_set_field(json, "assetIndex", asset_index_opt);
+    JsonUtils::try_set_field(json, "uri", uri_opt);
+
+    return json;
+}
+
 bool SetUri::operator==(const SetUri& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const ProjectTransactionRequestArguments<SetUri>&>(*this) ==
-           static_cast<const ProjectTransactionRequestArguments<SetUri>&>(rhs) &&
-           asset_id == rhs.asset_id &&
-           asset_index == rhs.asset_index &&
-           uri == rhs.uri;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const ProjectTransactionRequestArguments<SetUri>&>(*this) == rhs
+           && asset_id_opt == rhs.asset_id_opt
+           && asset_index_opt == rhs.asset_index_opt
+           && uri_opt == rhs.uri_opt;
 }
 
 bool SetUri::operator!=(const SetUri& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

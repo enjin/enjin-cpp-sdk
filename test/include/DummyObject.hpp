@@ -40,6 +40,8 @@ public:
 
     [[nodiscard]] std::string serialize() const override;
 
+    [[nodiscard]] sdk::json::JsonValue to_json() const override;
+
     bool operator==(const DummyObject& rhs) const;
 
     bool operator!=(const DummyObject& rhs) const;

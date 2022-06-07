@@ -16,6 +16,7 @@
 #ifndef ENJINSDK_PROJECTTRANSACTIONREQUESTARGUMENTSTESTSUITE_HPP
 #define ENJINSDK_PROJECTTRANSACTIONREQUESTARGUMENTSTESTSUITE_HPP
 
+#include "enjinsdk/JsonValue.hpp"
 #include "TransactionFragmentArgumentsTestSuite.hpp"
 #include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
 #include <type_traits>
@@ -30,6 +31,13 @@ class ProjectTransactionRequestArgumentsTestSuite : public TransactionFragmentAr
 public:
     static constexpr char ProjectTransactionRequestJson[] =
             R"({"ethAddress":"1"})";
+
+    static sdk::json::JsonValue create_json_object() {
+        sdk::json::JsonValue json;
+
+        json.try_parse_as_object(ProjectTransactionRequestJson);
+        return json;
+    }
 
     static void set_project_transaction_request_arguments(sdk::project::ProjectTransactionRequestArguments<T>& o) {
         o.set_eth_address("1");

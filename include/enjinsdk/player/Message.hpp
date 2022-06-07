@@ -40,12 +40,14 @@ public:
     /// \return This request for chaining.
     Message& set_message(std::string message);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const Message& rhs) const;
 
     bool operator!=(const Message& rhs) const;
 
 private:
-    std::optional<std::string> message;
+    std::optional<std::string> message_opt;
 };
 
 }

@@ -43,16 +43,15 @@ public:
     /// \return This input for chaining.
     MintInput& set_value(std::string value);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const MintInput& rhs) const;
 
     bool operator!=(const MintInput& rhs) const;
 
 private:
-    std::optional<std::string> to;
-    std::optional<std::string> value;
-
-    constexpr static char TO_KEY[] = "to";
-    constexpr static char VALUE_KEY[] = "value";
+    std::optional<std::string> to_opt;
+    std::optional<std::string> value_opt;
 };
 
 }

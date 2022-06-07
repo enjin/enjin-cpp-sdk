@@ -41,12 +41,14 @@ public:
     /// \remarks The value is in Wei as 10^18 (e.g. 1 ENJ = 1000000000000000000).
     ApproveEnj& set_value(std::string value);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const ApproveEnj& rhs) const;
 
     bool operator!=(const ApproveEnj& rhs) const;
 
 private:
-    std::optional<std::string> value;
+    std::optional<std::string> value_opt;
 };
 
 }
@@ -54,7 +56,8 @@ private:
 namespace enjin::sdk::shared {
 
 template ENJINSDK_EXPORT player::ApproveEnj&
-TransactionFragmentArguments<player::ApproveEnj>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
+TransactionFragmentArguments<player::ApproveEnj>::set_transaction_asset_id_format(
+        models::AssetIdFormat asset_id_format);
 
 template ENJINSDK_EXPORT player::ApproveEnj&
 TransactionFragmentArguments<player::ApproveEnj>::set_with_blockchain_data();

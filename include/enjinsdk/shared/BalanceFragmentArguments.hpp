@@ -18,9 +18,10 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/ISerializable.hpp"
-#include "enjinsdk/internal/BalanceFragmentArgumentsImpl.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 #include "enjinsdk/models/AssetIdFormat.hpp"
 #include "enjinsdk/models/AssetIndexFormat.hpp"
+#include <optional>
 #include <string>
 #include <type_traits>
 
@@ -34,45 +35,59 @@ public:
     ~BalanceFragmentArguments() override = default;
 
     [[nodiscard]] std::string serialize() const override {
-        return impl.serialize();
+        return to_json().to_string();
     }
 
     /// \brief Sets the desired asset ID format.
     /// \param bal_id_format The ID format.
     /// \return This request for chaining.
-    virtual T& set_bal_id_format(models::AssetIdFormat bal_id_format) {
-        impl.set_bal_id_format(bal_id_format);
+    T& set_bal_id_format(models::AssetIdFormat bal_id_format) {
+        bal_id_format_opt = bal_id_format;
         return static_cast<T&>(*this);
     }
 
     /// \brief Sets the desired index format for non-fungible assets.
     /// \param bal_index_format The index format.
     /// \return This request for chaining.
-    virtual T& set_bal_index_format(models::AssetIndexFormat bal_index_format) {
-        impl.set_bal_index_format(bal_index_format);
+    T& set_bal_index_format(models::AssetIndexFormat bal_index_format) {
+        bal_index_format_opt = bal_index_format;
         return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the project UUID with the balance.
     /// \return This request for chaining.
-    virtual T& set_with_bal_project_uuid() {
-        impl.set_with_bal_project_uuid();
+    T& set_with_bal_project_uuid() {
+        with_bal_project_uuid_opt = true;
         return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the wallet address with balance.
     /// \return This request for chaining.
-    virtual T& set_with_bal_wallet_address() {
-        impl.set_with_bal_wallet_address();
+    T& set_with_bal_wallet_address() {
+        with_bal_wallet_address_opt = true;
         return static_cast<T&>(*this);
     }
 
+    [[nodiscard]] json::JsonValue to_json() const override {
+        json::JsonValue json = json::JsonValue::create_object();
+
+        utils::JsonUtils::try_set_field(json, "balIdFormat", bal_id_format_opt);
+        utils::JsonUtils::try_set_field(json, "balIndexFormat", bal_index_format_opt);
+        utils::JsonUtils::try_set_field(json, "withBalProjectUuid", with_bal_project_uuid_opt);
+        utils::JsonUtils::try_set_field(json, "withBalWalletAddress", with_bal_wallet_address_opt);
+
+        return json;
+    }
+
     bool operator==(const BalanceFragmentArguments& rhs) const {
-        return impl == rhs.impl;
+        return bal_id_format_opt == rhs.bal_id_format_opt
+               && bal_index_format_opt == rhs.bal_index_format_opt
+               && with_bal_project_uuid_opt == rhs.with_bal_project_uuid_opt
+               && with_bal_wallet_address_opt == rhs.with_bal_wallet_address_opt;
     }
 
     bool operator!=(const BalanceFragmentArguments& rhs) const {
-        return impl != rhs.impl;
+        return !(*this == rhs);
     }
 
 protected:
@@ -83,7 +98,10 @@ protected:
     }
 
 private:
-    BalanceFragmentArgumentsImpl impl;
+    std::optional<models::AssetIdFormat> bal_id_format_opt;
+    std::optional<models::AssetIndexFormat> bal_index_format_opt;
+    std::optional<bool> with_bal_project_uuid_opt;
+    std::optional<bool> with_bal_wallet_address_opt;
 };
 
 }

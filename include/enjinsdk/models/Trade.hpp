@@ -48,18 +48,16 @@ public:
     /// \return This input for chaining.
     Trade& set_value(std::string value);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const Trade& rhs) const;
 
     bool operator!=(const Trade& rhs) const;
 
 private:
-    std::optional<std::string> asset_id;
-    std::optional<std::string> asset_index;
-    std::optional<std::string> value;
-
-    constexpr static char ASSET_ID_KEY[] = "assetId";
-    constexpr static char ASSET_INDEX_KEY[] = "assetIndex";
-    constexpr static char VALUE_KEY[] = "value";
+    std::optional<std::string> asset_id_opt;
+    std::optional<std::string> asset_index_opt;
+    std::optional<std::string> value_opt;
 };
 
 }

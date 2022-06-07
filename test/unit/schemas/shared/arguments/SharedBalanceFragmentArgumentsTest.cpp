@@ -19,6 +19,7 @@
 #include "TestableSharedBalanceFragmentArguments.hpp"
 #include <string>
 
+using namespace enjin::sdk::json;
 using namespace enjin::test::suites;
 using namespace enjin::test::utils;
 
@@ -36,24 +37,24 @@ public:
     }
 };
 
-TEST_F(SharedBalanceFragmentArgumentsTest, SerializeNoSetFieldsReturnsEmptyJson) {
+TEST_F(SharedBalanceFragmentArgumentsTest, ToJsonNoSetFieldsReturnsEmptyJson) {
     // Arrange
-    const std::string expected(EmptyJsonObject);
+    const JsonValue expected = create_empty_json_object();
 
     // Act
-    std::string actual = class_under_test.serialize();
+    const JsonValue actual = class_under_test.to_json();
 
     // Assert
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(SharedBalanceFragmentArgumentsTest, SerializeSetBalanceFragmentFieldsReturnsExpectedJson) {
+TEST_F(SharedBalanceFragmentArgumentsTest, ToJsonSetBalanceFragmentFieldsReturnsExpectedJson) {
     // Arrange
-    const std::string expected(BalanceFragmentJson);
+    const JsonValue expected = BalanceFragmentArgumentsTestSuite::create_json_object();
     set_balance_fragment_arguments(class_under_test);
 
     // Act
-    std::string actual = class_under_test.serialize();
+    const JsonValue actual = class_under_test.to_json();
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -61,11 +62,11 @@ TEST_F(SharedBalanceFragmentArgumentsTest, SerializeSetBalanceFragmentFieldsRetu
 
 TEST_F(SharedBalanceFragmentArgumentsTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    TestableSharedBalanceFragmentArguments lhs;
-    TestableSharedBalanceFragmentArguments rhs;
+    const TestableSharedBalanceFragmentArguments lhs;
+    const TestableSharedBalanceFragmentArguments rhs;
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_TRUE(actual);
@@ -73,11 +74,11 @@ TEST_F(SharedBalanceFragmentArgumentsTest, EqualityNeitherSideIsPopulatedReturns
 
 TEST_F(SharedBalanceFragmentArgumentsTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    TestableSharedBalanceFragmentArguments lhs = create_default_arguments();
-    TestableSharedBalanceFragmentArguments rhs = create_default_arguments();
+    const TestableSharedBalanceFragmentArguments lhs = create_default_arguments();
+    const TestableSharedBalanceFragmentArguments rhs = create_default_arguments();
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_TRUE(actual);
@@ -85,11 +86,11 @@ TEST_F(SharedBalanceFragmentArgumentsTest, EqualityBothSidesArePopulatedReturnsT
 
 TEST_F(SharedBalanceFragmentArgumentsTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    TestableSharedBalanceFragmentArguments lhs = create_default_arguments();
-    TestableSharedBalanceFragmentArguments rhs;
+    const TestableSharedBalanceFragmentArguments lhs = create_default_arguments();
+    const TestableSharedBalanceFragmentArguments rhs;
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_FALSE(actual);
@@ -97,11 +98,11 @@ TEST_F(SharedBalanceFragmentArgumentsTest, EqualityLeftSideIsPopulatedReturnsFal
 
 TEST_F(SharedBalanceFragmentArgumentsTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    TestableSharedBalanceFragmentArguments lhs;
-    TestableSharedBalanceFragmentArguments rhs = create_default_arguments();
+    const TestableSharedBalanceFragmentArguments lhs;
+    const TestableSharedBalanceFragmentArguments rhs = create_default_arguments();
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_FALSE(actual);

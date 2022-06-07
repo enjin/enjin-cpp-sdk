@@ -15,24 +15,27 @@
 
 #include "enjinsdk/player/ApproveMaxEnj.hpp"
 
-namespace enjin::sdk::player {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::player;
 
-ApproveMaxEnj::ApproveMaxEnj() : graphql::AbstractGraphqlRequest("enjin.sdk.player.ApproveMaxEnj") {
+ApproveMaxEnj::ApproveMaxEnj() : AbstractGraphqlRequest("enjin.sdk.player.ApproveMaxEnj"),
+                                 TransactionFragmentArguments<ApproveMaxEnj>() {
 }
 
 std::string ApproveMaxEnj::serialize() const {
-    return TransactionFragmentArguments::serialize();
+    return TransactionFragmentArguments<ApproveMaxEnj>::serialize();
+}
+
+JsonValue ApproveMaxEnj::to_json() const {
+    return TransactionFragmentArguments<ApproveMaxEnj>::to_json();
 }
 
 bool ApproveMaxEnj::operator==(const ApproveMaxEnj& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionFragmentArguments<ApproveMaxEnj>&>(*this) ==
-           static_cast<const shared::TransactionFragmentArguments<ApproveMaxEnj>&>(rhs);
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const TransactionFragmentArguments<ApproveMaxEnj>&>(*this) == rhs;
 }
 
 bool ApproveMaxEnj::operator!=(const ApproveMaxEnj& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

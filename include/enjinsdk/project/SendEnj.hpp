@@ -46,46 +46,65 @@ public:
     /// \remarks The value is in Wei as 10^18 (e.g. 1 ENJ = 1000000000000000000).
     SendEnj& set_value(std::string value);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const SendEnj& rhs) const;
 
     bool operator!=(const SendEnj& rhs) const;
 
 private:
-    std::optional<std::string> recipient_address;
-    std::optional<std::string> value;
+    std::optional<std::string> recipient_address_opt;
+    std::optional<std::string> value_opt;
 };
 
 template ENJINSDK_EXPORT SendEnj&
-ProjectTransactionRequestArguments<SendEnj>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_blockchain_data();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_meta();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_encoded_data();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_asset_data();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_signed_txs();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_error();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_nonce();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_state();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_receipt();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_receipt_logs();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_log_event();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_transaction_project_uuid();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_transaction_wallet_address();
-
-template ENJINSDK_EXPORT SendEnj&
 ProjectTransactionRequestArguments<SendEnj>::set_eth_address(std::string address);
+
+}
+
+namespace enjin::sdk::shared {
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_blockchain_data();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_meta();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_encoded_data();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_asset_data();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_signed_txs();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_error();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_nonce();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_state();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_receipt();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_receipt_logs();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_log_event();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_transaction_wallet_address();
 
 }
 

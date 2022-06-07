@@ -37,12 +37,14 @@ public:
     /// \return This request for chaining.
     CancelTransaction& set_id(int id);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const CancelTransaction& rhs) const;
 
     bool operator!=(const CancelTransaction& rhs) const;
 
 private:
-    std::optional<int> id;
+    std::optional<int> id_opt;
 };
 
 }

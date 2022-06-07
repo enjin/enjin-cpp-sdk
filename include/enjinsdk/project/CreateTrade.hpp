@@ -52,49 +52,67 @@ public:
     /// \return This request for chaining.
     CreateTrade& set_recipient_address(std::string recipient_address);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const CreateTrade& rhs) const;
 
     bool operator!=(const CreateTrade& rhs) const;
 
 private:
-    std::optional<std::vector<models::Trade>> asking_assets;
-    std::optional<std::vector<models::Trade>> offering_assets;
-    std::optional<std::string> recipient_address;
+    std::optional<std::vector<models::Trade>> asking_assets_opt;
+    std::optional<std::vector<models::Trade>> offering_assets_opt;
+    std::optional<std::string> recipient_address_opt;
 };
 
 template ENJINSDK_EXPORT CreateTrade&
-ProjectTransactionRequestArguments<CreateTrade>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_blockchain_data();
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_meta();
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_encoded_data();
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_asset_data();
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_signed_txs();
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_error();
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_nonce();
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_state();
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_receipt();
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_receipt_logs();
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_log_event();
-
-template ENJINSDK_EXPORT CreateTrade&
-ProjectTransactionRequestArguments<CreateTrade>::set_with_transaction_project_uuid();
-
-template ENJINSDK_EXPORT CreateTrade&
-ProjectTransactionRequestArguments<CreateTrade>::set_with_transaction_wallet_address();
-
-template ENJINSDK_EXPORT CreateTrade&
 ProjectTransactionRequestArguments<CreateTrade>::set_eth_address(std::string address);
+
+}
+
+namespace enjin::sdk::shared {
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_transaction_asset_id_format(
+        models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_blockchain_data();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_meta();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_encoded_data();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_asset_data();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_signed_txs();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_error();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_nonce();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_state();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_receipt();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_receipt_logs();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_log_event();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_transaction_wallet_address();
 
 }
 

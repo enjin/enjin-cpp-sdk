@@ -15,58 +15,54 @@
 
 #include "enjinsdk/models/PlayerFilter.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 std::string PlayerFilter::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-
-    if (and_filters.has_value()) {
-        utils::set_array_member_from_type_vector<PlayerFilter>(document, AND_KEY, and_filters.value());
-    }
-    if (or_filters.has_value()) {
-        utils::set_array_member_from_type_vector<PlayerFilter>(document, OR_KEY, or_filters.value());
-    }
-    if (id.has_value()) {
-        utils::set_string_member(document, ID_KEY, id.value());
-    }
-    if (id_in.has_value()) {
-        utils::set_array_member_from_string_vector(document, ID_IN_KEY, id_in.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
 PlayerFilter& PlayerFilter::set_and(std::vector<PlayerFilter> others) {
-    and_filters = std::move(others);
+    and_filters_opt = std::move(others);
     return *this;
 }
 
 PlayerFilter& PlayerFilter::set_or(std::vector<PlayerFilter> others) {
-    or_filters = std::move(others);
+    or_filters_opt = std::move(others);
     return *this;
 }
 
 PlayerFilter& PlayerFilter::set_id(std::string id) {
-    PlayerFilter::id = std::move(id);
+    id_opt = std::move(id);
     return *this;
 }
 
 PlayerFilter& PlayerFilter::set_id_in(std::vector<std::string> ids) {
-    id_in = std::move(ids);
+    id_in_opt = std::move(ids);
     return *this;
 }
 
+JsonValue PlayerFilter::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::try_set_field(json, "and", and_filters_opt);
+    JsonUtils::try_set_field(json, "or", or_filters_opt);
+    JsonUtils::try_set_field(json, "id", id_opt);
+    JsonUtils::try_set_field(json, "id_in", id_in_opt);
+
+    return json;
+}
+
 bool PlayerFilter::operator==(const PlayerFilter& rhs) const {
-    return and_filters == rhs.and_filters &&
-           or_filters == rhs.or_filters &&
-           id == rhs.id &&
-           id_in == rhs.id_in;
+    return and_filters_opt == rhs.and_filters_opt
+           && or_filters_opt == rhs.or_filters_opt
+           && id_opt == rhs.id_opt
+           && id_in_opt == rhs.id_in_opt;
 }
 
 bool PlayerFilter::operator!=(const PlayerFilter& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

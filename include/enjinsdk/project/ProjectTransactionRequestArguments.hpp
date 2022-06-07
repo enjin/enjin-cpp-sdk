@@ -17,8 +17,10 @@
 #define ENJINSDK_PROJECTPROJECTTRANSACTIONREQUESTARGUMENTS_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/internal/ProjectTransactionRequestArgumentsImpl.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 #include "enjinsdk/shared/TransactionFragmentArguments.hpp"
+#include <optional>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -27,114 +29,50 @@ namespace enjin::sdk::project {
 
 /// \brief Interface used to set common arguments used in project transaction requests.
 /// \tparam T The type of the implementing class.
-template<typename T>
+template<class T>
 class ENJINSDK_EXPORT ProjectTransactionRequestArguments : public shared::TransactionFragmentArguments<T> {
 public:
     ~ProjectTransactionRequestArguments() override = default;
 
     [[nodiscard]] std::string serialize() const override {
-        return impl.serialize();
+        return to_json().to_string();
     }
-
-    // ProjectTransactionRequestArguments functions
 
     /// \brief Sets the Ethereum address of the sender.
     /// \param address The address.
     /// \return This request for chaining.
-    virtual T& set_eth_address(std::string address) {
-        impl.set_eth_address(std::move(address));
+    T& set_eth_address(std::string address) {
+        eth_address_opt = std::move(address);
         return static_cast<T&>(*this);
     }
 
-    // TransactionFragmentArguments functions
+    [[nodiscard]] json::JsonValue to_json() const override {
+        json::JsonValue json = json::JsonValue::create_object();
 
-    virtual T& set_transaction_asset_id_format(models::AssetIdFormat asset_id_format) override {
-        impl.set_transaction_asset_id_format(asset_id_format);
-        return dynamic_cast<T&>(*this);
-    }
+        utils::JsonUtils::join_object(json, shared::TransactionFragmentArguments<T>::to_json());
+        utils::JsonUtils::try_set_field(json, "ethAddress", eth_address_opt);
 
-    virtual T& set_with_blockchain_data() override {
-        impl.set_with_blockchain_data();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_meta() override {
-        impl.set_with_meta();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_encoded_data() override {
-        impl.set_with_encoded_data();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_asset_data() override {
-        impl.set_with_asset_data();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_signed_txs() override {
-        impl.set_with_signed_txs();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_error() override {
-        impl.set_with_error();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_nonce() override {
-        impl.set_with_nonce();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_state() override {
-        impl.set_with_state();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_receipt() override {
-        impl.set_with_receipt();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_receipt_logs() override {
-        impl.set_with_receipt_logs();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_log_event() override {
-        impl.set_with_log_event();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_transaction_project_uuid() override {
-        impl.set_with_transaction_project_uuid();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_transaction_wallet_address() override {
-        impl.set_with_transaction_wallet_address();
-        return dynamic_cast<T&>(*this);
+        return json;
     }
 
     bool operator==(const ProjectTransactionRequestArguments& rhs) const {
-        return impl == rhs.impl;
+        return static_cast<const shared::TransactionFragmentArguments<T>&>(*this) == rhs
+               && eth_address_opt == rhs.eth_address_opt;
     }
 
     bool operator!=(const ProjectTransactionRequestArguments& rhs) const {
-        return impl != rhs.impl;
+        return !(*this == rhs);
     }
 
 protected:
-    /// \brief Sole constructor.
-    ProjectTransactionRequestArguments() {
+    /// \brief Constructs an instance of this class.
+    ProjectTransactionRequestArguments() : shared::TransactionFragmentArguments<T>() {
         static_assert(std::is_base_of<ProjectTransactionRequestArguments, T>::value,
                       "Class T does not inherit from ProjectTransactionRequestArguments.");
     }
 
 private:
-    ProjectTransactionRequestArgumentsImpl impl;
+    std::optional<std::string> eth_address_opt;
 };
 
 }

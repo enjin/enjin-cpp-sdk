@@ -19,6 +19,7 @@
 #include "TransactionFragmentArgumentsTestSuite.hpp"
 #include <string>
 
+using namespace enjin::sdk::json;
 using namespace enjin::test::suites;
 using namespace enjin::test::utils;
 
@@ -36,24 +37,24 @@ public:
     }
 };
 
-TEST_F(SharedTransactionFragmentArgumentsTest, SerializeNoSetFieldsReturnsEmptyJson) {
+TEST_F(SharedTransactionFragmentArgumentsTest, ToJsonNoSetFieldsReturnsEmptyJson) {
     // Arrange
-    const std::string expected(EmptyJsonObject);
+    const JsonValue expected = create_empty_json_object();
 
     // Act
-    std::string actual = class_under_test.serialize();
+    const JsonValue actual = class_under_test.to_json();
 
     // Assert
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(SharedTransactionFragmentArgumentsTest, SerializeSetTransactionFragmentFieldsReturnsExpectedJson) {
+TEST_F(SharedTransactionFragmentArgumentsTest, ToJsonSetTransactionFragmentFieldsReturnsExpectedJson) {
     // Arrange
-    const std::string expected(TransactionFragmentJson);
+    const JsonValue expected = TransactionFragmentArgumentsTestSuite::create_json_object();
     set_transaction_fragment_arguments(class_under_test);
 
     // Act
-    std::string actual = class_under_test.serialize();
+    const JsonValue actual = class_under_test.to_json();
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -61,8 +62,8 @@ TEST_F(SharedTransactionFragmentArgumentsTest, SerializeSetTransactionFragmentFi
 
 TEST_F(SharedTransactionFragmentArgumentsTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    TestableSharedTransactionFragmentArguments lhs;
-    TestableSharedTransactionFragmentArguments rhs;
+    const TestableSharedTransactionFragmentArguments lhs;
+    const TestableSharedTransactionFragmentArguments rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -73,11 +74,11 @@ TEST_F(SharedTransactionFragmentArgumentsTest, EqualityNeitherSideIsPopulatedRet
 
 TEST_F(SharedTransactionFragmentArgumentsTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    TestableSharedTransactionFragmentArguments lhs = create_default_arguments();
-    TestableSharedTransactionFragmentArguments rhs = create_default_arguments();
+    const TestableSharedTransactionFragmentArguments lhs = create_default_arguments();
+    const TestableSharedTransactionFragmentArguments rhs = create_default_arguments();
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_TRUE(actual);
@@ -85,11 +86,11 @@ TEST_F(SharedTransactionFragmentArgumentsTest, EqualityBothSidesArePopulatedRetu
 
 TEST_F(SharedTransactionFragmentArgumentsTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    TestableSharedTransactionFragmentArguments lhs = create_default_arguments();
-    TestableSharedTransactionFragmentArguments rhs;
+    const TestableSharedTransactionFragmentArguments lhs = create_default_arguments();
+    const TestableSharedTransactionFragmentArguments rhs;
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_FALSE(actual);
@@ -97,11 +98,11 @@ TEST_F(SharedTransactionFragmentArgumentsTest, EqualityLeftSideIsPopulatedReturn
 
 TEST_F(SharedTransactionFragmentArgumentsTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    TestableSharedTransactionFragmentArguments lhs;
-    TestableSharedTransactionFragmentArguments rhs = create_default_arguments();
+    const TestableSharedTransactionFragmentArguments lhs;
+    const TestableSharedTransactionFragmentArguments rhs = create_default_arguments();
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_FALSE(actual);

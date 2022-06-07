@@ -15,41 +15,40 @@
 
 #include "enjinsdk/models/TransactionSort.hpp"
 
-#include "RapidJsonUtils.hpp"
-#include "enjinsdk/EnumUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 
+using namespace enjin::sdk::json;
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::utils;
 
 std::string TransactionSort::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-
-    if (field.has_value()) {
-        set_string_member(document, FIELD_KEY, EnumUtils::serialize_transaction_field(field.value()));
-    }
-
-    if (direction.has_value()) {
-        set_string_member(document, DIRECTION_KEY, EnumUtils::serialize_sort_direction(direction.value()));
-    }
-
-    return document_to_string(document);
+    return to_json().to_string();
 }
 
 TransactionSort& TransactionSort::set_field(TransactionField field) {
-    TransactionSort::field = field;
+    field_opt = field;
     return *this;
 }
 
 TransactionSort& TransactionSort::set_direction(SortDirection direction) {
-    TransactionSort::direction = direction;
+    direction_opt = direction;
     return *this;
 }
 
+JsonValue TransactionSort::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::try_set_field(json, "field", field_opt);
+    JsonUtils::try_set_field(json, "direction", direction_opt);
+
+    return json;
+}
+
 bool TransactionSort::operator==(const TransactionSort& rhs) const {
-    return field == rhs.field
-           && direction == rhs.direction;
+    return field_opt == rhs.field_opt
+           && direction_opt == rhs.direction_opt;
 }
 
 bool TransactionSort::operator!=(const TransactionSort& rhs) const {
-    return !(rhs == *this);
+    return !(*this == rhs);
 }

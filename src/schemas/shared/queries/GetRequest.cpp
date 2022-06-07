@@ -15,49 +15,49 @@
 
 #include "enjinsdk/shared/GetRequest.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 #include <utility>
 
-namespace enjin::sdk::shared {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::shared;
+using namespace enjin::sdk::utils;
 
-GetRequest::GetRequest() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.GetRequest") {
+GetRequest::GetRequest() : AbstractGraphqlRequest("enjin.sdk.shared.GetRequest"),
+                           TransactionFragmentArguments<GetRequest>() {
 }
 
 std::string GetRequest::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionFragmentArguments::serialize());
-
-    if (id.has_value()) {
-        utils::set_integer_member(document, "id", id.value());
-    }
-    if (transaction_id.has_value()) {
-        utils::set_string_member(document, "transactionId", transaction_id.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
 GetRequest& GetRequest::set_id(int id) {
-    GetRequest::id = id;
+    id_opt = id;
     return *this;
 }
 
 GetRequest& GetRequest::set_transaction_id(std::string id) {
-    transaction_id = std::move(id);
+    transaction_id_opt = std::move(id);
     return *this;
 }
 
+JsonValue GetRequest::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, TransactionFragmentArguments<GetRequest>::to_json());
+    JsonUtils::try_set_field(json, "id", id_opt);
+    JsonUtils::try_set_field(json, "transactionId", transaction_id_opt);
+
+    return json;
+}
+
 bool GetRequest::operator==(const GetRequest& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const TransactionFragmentArguments<GetRequest>&>(*this) ==
-           static_cast<const TransactionFragmentArguments<GetRequest>&>(rhs) &&
-           id == rhs.id &&
-           transaction_id == rhs.transaction_id;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const TransactionFragmentArguments<GetRequest>&>(*this) == rhs
+           && id_opt == rhs.id_opt
+           && transaction_id_opt == rhs.transaction_id_opt;
 }
 
 bool GetRequest::operator!=(const GetRequest& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

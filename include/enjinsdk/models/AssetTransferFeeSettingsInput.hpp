@@ -50,18 +50,16 @@ public:
     /// \return This input for chaining.
     AssetTransferFeeSettingsInput& set_value(std::string value);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const AssetTransferFeeSettingsInput& rhs) const;
 
     bool operator!=(const AssetTransferFeeSettingsInput& rhs) const;
 
 private:
-    std::optional<AssetTransferFeeType> type;
-    std::optional<std::string> asset_id;
-    std::optional<std::string> value;
-
-    constexpr static char TYPE_KEY[] = "type";
-    constexpr static char ASSET_ID_KEY[] = "assetId";
-    constexpr static char VALUE_KEY[] = "value";
+    std::optional<AssetTransferFeeType> type_opt;
+    std::optional<std::string> asset_id_opt;
+    std::optional<std::string> value_opt;
 };
 
 }
