@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-#ifndef ENJINCPPSDK_TRANSFER_HPP
-#define ENJINCPPSDK_TRANSFER_HPP
+#ifndef ENJINCPPSDK_TRANSFERINPUT_HPP
+#define ENJINCPPSDK_TRANSFERINPUT_HPP
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/ISerializable.hpp"
@@ -24,45 +24,45 @@
 namespace enjin::sdk::models {
 
 /// \brief Models a transfer input for transfer requests.
-class ENJINSDK_EXPORT Transfer : public serialization::ISerializable {
+class ENJINSDK_EXPORT TransferInput : public serialization::ISerializable {
 public:
     /// \brief Default constructor.
-    Transfer() = default;
+    TransferInput() = default;
 
-    ~Transfer() override = default;
+    ~TransferInput() override = default;
 
     [[nodiscard]] std::string serialize() const override;
 
     /// Sets the source Ethereum address.
     /// \param address The source.
     /// \return This input for chaining.
-    Transfer& set_from(std::string address);
+    TransferInput& set_from(std::string address);
 
     /// Sets the destination Ethereum address.
     /// \param address The destination.
     /// \return This input for chaining.
-    Transfer& set_to(std::string address);
+    TransferInput& set_to(std::string address);
 
     /// Sets the asset ID to transfer or ENJ if unused.
     /// \param id The ID.
     /// \return This input for chaining.
-    Transfer& set_asset_id(std::string id);
+    TransferInput& set_asset_id(std::string id);
 
     /// Sets the index for non-fungible assets.
     /// \param index The index.
     /// \return This input for chaining.
-    Transfer& set_asset_index(std::string index);
+    TransferInput& set_asset_index(std::string index);
 
     /// Sets the amount of assets to transfer.
     /// \param value The amount.
     /// \return This input for chaining.
-    Transfer& set_value(std::string value);
+    TransferInput& set_value(std::string value);
 
     [[nodiscard]] json::JsonValue to_json() const override;
 
-    bool operator==(const Transfer& rhs) const;
+    bool operator==(const TransferInput& rhs) const;
 
-    bool operator!=(const Transfer& rhs) const;
+    bool operator!=(const TransferInput& rhs) const;
 
 private:
     std::optional<std::string> from_opt;
@@ -74,4 +74,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_TRANSFER_HPP
+#endif //ENJINCPPSDK_TRANSFERINPUT_HPP

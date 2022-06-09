@@ -15,30 +15,30 @@
 
 #include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
-#include "enjinsdk/models/Transfer.hpp"
+#include "enjinsdk/models/TransferInput.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
 using namespace enjin::test::suites;
 
-class TransferTest : public JsonTestSuite,
-                     public testing::Test {
+class TransferInputTest : public JsonTestSuite,
+                          public testing::Test {
 public:
-    Transfer class_under_test;
+    TransferInput class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"from":"1","to":"1","assetId":"1","assetIndex":"1","value":"1"})";
 
-    static Transfer create_default_transfer() {
-        return Transfer().set_from("1")
-                         .set_to("1")
-                         .set_asset_id("1")
-                         .set_asset_index("1")
-                         .set_value("1");
+    static TransferInput create_default_transfer() {
+        return TransferInput().set_from("1")
+                              .set_to("1")
+                              .set_asset_id("1")
+                              .set_asset_index("1")
+                              .set_value("1");
     }
 };
 
-TEST_F(TransferTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
+TEST_F(TransferInputTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EmptyJsonObject);
 
@@ -49,7 +49,7 @@ TEST_F(TransferTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(TransferTest, SerializeSetFieldsReturnsExpectedJsonObject) {
+TEST_F(TransferInputTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_from("1")
@@ -65,10 +65,10 @@ TEST_F(TransferTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(TransferTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(TransferInputTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    Transfer lhs;
-    Transfer rhs;
+    TransferInput lhs;
+    TransferInput rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -77,10 +77,10 @@ TEST_F(TransferTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(TransferTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(TransferInputTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    Transfer lhs = create_default_transfer();
-    Transfer rhs = create_default_transfer();
+    TransferInput lhs = create_default_transfer();
+    TransferInput rhs = create_default_transfer();
 
     // Act
     bool actual = lhs == rhs;
@@ -89,10 +89,10 @@ TEST_F(TransferTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(TransferTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(TransferInputTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    Transfer lhs = create_default_transfer();
-    Transfer rhs;
+    TransferInput lhs = create_default_transfer();
+    TransferInput rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -101,10 +101,10 @@ TEST_F(TransferTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(TransferTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(TransferInputTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    Transfer lhs;
-    Transfer rhs = create_default_transfer();
+    TransferInput lhs;
+    TransferInput rhs = create_default_transfer();
 
     // Act
     bool actual = lhs == rhs;

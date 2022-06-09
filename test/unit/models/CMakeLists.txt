@@ -36,5 +36,5 @@ target_sources(${PROJECT_NAME}_tests
         TransactionLogTest.cpp
         TransactionReceiptTest.cpp
         TransactionSortInputTest.cpp
-        TransferTest.cpp
+        TransferInputTest.cpp
         WalletTest.cpp)

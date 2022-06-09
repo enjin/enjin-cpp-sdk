@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "enjinsdk/models/Transfer.hpp"
+#include "enjinsdk/models/TransferInput.hpp"
 
 #include "enjinsdk/JsonUtils.hpp"
 
@@ -21,36 +21,36 @@ using namespace enjin::sdk::json;
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::utils;
 
-std::string Transfer::serialize() const {
+std::string TransferInput::serialize() const {
     return to_json().to_string();
 }
 
-Transfer& Transfer::set_from(std::string address) {
+TransferInput& TransferInput::set_from(std::string address) {
     from_opt = std::move(address);
     return *this;
 }
 
-Transfer& Transfer::set_to(std::string address) {
+TransferInput& TransferInput::set_to(std::string address) {
     to_opt = std::move(address);
     return *this;
 }
 
-Transfer& Transfer::set_asset_id(std::string id) {
+TransferInput& TransferInput::set_asset_id(std::string id) {
     asset_id_opt = std::move(id);
     return *this;
 }
 
-Transfer& Transfer::set_asset_index(std::string index) {
+TransferInput& TransferInput::set_asset_index(std::string index) {
     asset_index_opt = std::move(index);
     return *this;
 }
 
-Transfer& Transfer::set_value(std::string value) {
+TransferInput& TransferInput::set_value(std::string value) {
     value_opt = std::move(value);
     return *this;
 }
 
-JsonValue Transfer::to_json() const {
+JsonValue TransferInput::to_json() const {
     JsonValue json = JsonValue::create_object();
 
     JsonUtils::try_set_field(json, "from", from_opt);
@@ -62,7 +62,7 @@ JsonValue Transfer::to_json() const {
     return json;
 }
 
-bool Transfer::operator==(const Transfer& rhs) const {
+bool TransferInput::operator==(const TransferInput& rhs) const {
     return from_opt == rhs.from_opt
            && to_opt == rhs.to_opt
            && asset_id_opt == rhs.asset_id_opt
@@ -70,6 +70,6 @@ bool Transfer::operator==(const Transfer& rhs) const {
            && value_opt == rhs.value_opt;
 }
 
-bool Transfer::operator!=(const Transfer& rhs) const {
+bool TransferInput::operator!=(const TransferInput& rhs) const {
     return !(*this == rhs);
 }
