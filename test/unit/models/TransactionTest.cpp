@@ -15,22 +15,22 @@
 
 #include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
-#include "enjinsdk/models/Request.hpp"
+#include "enjinsdk/models/Transaction.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
 using namespace enjin::test::suites;
 
-class RequestTest : public JsonTestSuite,
-                    public testing::Test {
+class TransactionTest : public JsonTestSuite,
+                        public testing::Test {
 public:
-    Request class_under_test;
+    Transaction class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"id":1,"transactionId":"1","title":"1","contract":"1","type":"APPROVE","value":"1","retryState":"1","state":"PENDING","accepted":true,"projectWallet":true,"blockchainData":{},"project":{},"asset":{},"wallet":{},"createdAt":"1","updatedAt":"1"})";
 };
 
-TEST_F(RequestTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
+TEST_F(TransactionTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
     // Arrange
     const std::string json;
 
@@ -56,7 +56,7 @@ TEST_F(RequestTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
     EXPECT_FALSE(class_under_test.get_updated_at().has_value());
 }
 
-TEST_F(RequestTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
+TEST_F(TransactionTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     // Arrange
     const std::string json(EmptyJsonObject);
 
@@ -82,13 +82,13 @@ TEST_F(RequestTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     EXPECT_FALSE(class_under_test.get_updated_at().has_value());
 }
 
-TEST_F(RequestTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
+TEST_F(TransactionTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
     // Arrange
     const int expected_int = 1;
     const bool expected_bool = true;
     const std::string expected_string("1");
-    const RequestState expected_request_state = RequestState::Pending;
-    const RequestType expected_request_type = RequestType::Approve;
+    const TransactionState expected_request_state = TransactionState::Pending;
+    const TransactionType expected_request_type = TransactionType::Approve;
     const BlockchainData expected_blockchain_data;
     const Project expected_project;
     const Asset expected_asset;
@@ -118,10 +118,10 @@ TEST_F(RequestTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues) {
     EXPECT_EQ(expected_string, class_under_test.get_updated_at().value());
 }
 
-TEST_F(RequestTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(TransactionTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    Request lhs;
-    Request rhs;
+    Transaction lhs;
+    Transaction rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -130,10 +130,10 @@ TEST_F(RequestTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(RequestTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(TransactionTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    Request lhs;
-    Request rhs;
+    Transaction lhs;
+    Transaction rhs;
     lhs.deserialize(POPULATED_JSON_OBJECT);
     rhs.deserialize(POPULATED_JSON_OBJECT);
 
@@ -144,10 +144,10 @@ TEST_F(RequestTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(RequestTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(TransactionTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    Request lhs;
-    Request rhs;
+    Transaction lhs;
+    Transaction rhs;
     lhs.deserialize(POPULATED_JSON_OBJECT);
 
     // Act
@@ -157,10 +157,10 @@ TEST_F(RequestTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(RequestTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(TransactionTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    Request lhs;
-    Request rhs;
+    Transaction lhs;
+    Transaction rhs;
     rhs.deserialize(POPULATED_JSON_OBJECT);
 
     // Act
@@ -170,10 +170,10 @@ TEST_F(RequestTest, EqualityRightSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(RequestTest, CopyOperatorCopyEqualsOriginal) {
+TEST_F(TransactionTest, CopyOperatorCopyEqualsOriginal) {
     // Arrange
-    Request original;
-    Request copy;
+    Transaction original;
+    Transaction copy;
     original.deserialize(POPULATED_JSON_OBJECT);
 
     // Act

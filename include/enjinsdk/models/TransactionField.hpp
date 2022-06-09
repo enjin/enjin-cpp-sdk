@@ -18,7 +18,7 @@
 
 namespace enjin::sdk::models {
 
-/// \brief The fields of a Transaction (Request) type for sorting.
+/// \brief The fields of a transaction for sorting.
 enum class TransactionField {
     Id,
     State,

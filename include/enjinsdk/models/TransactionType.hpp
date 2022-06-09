@@ -13,24 +13,42 @@
  * limitations under the License.
  */
 
-#ifndef ENJINCPPSDK_REQUESTSTATE_HPP
-#define ENJINCPPSDK_REQUESTSTATE_HPP
+#ifndef ENJINCPPSDK_TRANSACTIONTYPE_HPP
+#define ENJINCPPSDK_TRANSACTIONTYPE_HPP
 
 namespace enjin::sdk::models {
 
-/// \brief Represents the state of a request.
-enum class RequestState {
+/// \brief Represents the request type when creating or updating a transaction.
+enum class TransactionType {
     Unknown, ///< SDK value for unknown values.
-    Pending,
-    Broadcast,
-    TpProcessing,
-    Executed,
-    CanceledUser,
-    CanceledPlatform,
-    Dropped,
-    Failed,
+    AcceptAssignment,
+    Assign,
+    Approve,
+    Create,
+    Mint,
+    Send,
+    SendEnj,
+    AdvancedSend,
+    CreateTrade,
+    CancelTrade,
+    Melt,
+    UpdateName,
+    SetItemUri,
+    SetWhitelisted,
+    SetTransferable,
+    SetMeltFee,
+    DecreaseMaxMeltFee,
+    SetTransferFee,
+    DecreaseMaxTransferFee,
+    ReleaseReserve,
+    AddLog,
+    SetApprovalForAll,
+    ManageUpdate,
+    SetDecimals,
+    SetSymbol,
+    Message,
 };
 
 }
 
-#endif //ENJINCPPSDK_REQUESTSTATE_HPP
+#endif //ENJINCPPSDK_TRANSACTIONTYPE_HPP

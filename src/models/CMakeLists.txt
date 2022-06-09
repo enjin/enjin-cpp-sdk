@@ -28,7 +28,7 @@ target_sources(${PROJECT_NAME}
         Pusher.cpp
         PusherChannels.cpp
         PusherOptions.cpp
-        Request.cpp
+        Transaction.cpp
         SupplyModels.cpp
         Trade.cpp
         TransactionEvent.cpp

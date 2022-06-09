@@ -65,12 +65,12 @@ TransactionFilter& TransactionFilter::set_asset_id_in(std::vector<std::string> a
     return *this;
 }
 
-TransactionFilter& TransactionFilter::set_type(RequestType type) {
+TransactionFilter& TransactionFilter::set_type(TransactionType type) {
     type_opt = type;
     return *this;
 }
 
-TransactionFilter& TransactionFilter::set_type_in(std::vector<RequestType> types) {
+TransactionFilter& TransactionFilter::set_type_in(std::vector<TransactionType> types) {
     type_in_opt = std::move(types);
     return *this;
 }
@@ -100,12 +100,12 @@ TransactionFilter& TransactionFilter::set_value_lte(int value) {
     return *this;
 }
 
-TransactionFilter& TransactionFilter::set_state(RequestState state) {
+TransactionFilter& TransactionFilter::set_state(TransactionState state) {
     state_opt = state;
     return *this;
 }
 
-TransactionFilter& TransactionFilter::set_state_in(std::vector<RequestState> states) {
+TransactionFilter& TransactionFilter::set_state_in(std::vector<TransactionState> states) {
     state_in_opt = std::move(states);
     return *this;
 }

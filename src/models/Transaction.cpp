@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "enjinsdk/models/Request.hpp"
+#include "enjinsdk/models/Transaction.hpp"
 
 #include "enjinsdk/JsonUtils.hpp"
 #include "enjinsdk/JsonValue.hpp"
@@ -23,7 +23,7 @@ using namespace enjin::sdk::models;
 using namespace enjin::sdk::serialization;
 using namespace enjin::sdk::utils;
 
-class Request::Impl : public IDeserializable {
+class Transaction::Impl : public IDeserializable {
 public:
     Impl() = default;
 
@@ -87,7 +87,7 @@ public:
         return contract;
     }
 
-    [[nodiscard]] const std::optional<RequestType>& get_type() const {
+    [[nodiscard]] const std::optional<TransactionType>& get_type() const {
         return type;
     }
 
@@ -99,7 +99,7 @@ public:
         return retry_state;
     }
 
-    [[nodiscard]] const std::optional<RequestState>& get_state() const {
+    [[nodiscard]] const std::optional<TransactionState>& get_state() const {
         return state;
     }
 
@@ -162,10 +162,10 @@ private:
     std::optional<std::string> transaction_id;
     std::optional<std::string> title;
     std::optional<std::string> contract;
-    std::optional<RequestType> type;
+    std::optional<TransactionType> type;
     std::optional<std::string> value;
     std::optional<std::string> retry_state;
-    std::optional<RequestState> state;
+    std::optional<TransactionState> state;
     std::optional<bool> accepted;
     std::optional<bool> project_wallet;
     std::optional<BlockchainData> blockchain_data;
@@ -176,94 +176,94 @@ private:
     std::optional<std::string> updated_at;
 };
 
-Request::Request() : impl(std::make_unique<Impl>()) {
+Transaction::Transaction() : impl(std::make_unique<Impl>()) {
 }
 
-Request::Request(const Request& other) {
+Transaction::Transaction(const Transaction& other) {
     impl = std::make_unique<Impl>(*other.impl);
 }
 
-Request::Request(Request&& other) noexcept = default;
+Transaction::Transaction(Transaction&& other) noexcept = default;
 
-Request::~Request() = default;
+Transaction::~Transaction() = default;
 
-void Request::deserialize(const std::string& json) {
+void Transaction::deserialize(const std::string& json) {
     impl->deserialize(json);
 }
 
-const std::optional<int>& Request::get_id() const {
+const std::optional<int>& Transaction::get_id() const {
     return impl->get_id();
 }
 
-const std::optional<std::string>& Request::get_transaction_id() const {
+const std::optional<std::string>& Transaction::get_transaction_id() const {
     return impl->get_transaction_id();
 }
 
-const std::optional<std::string>& Request::get_title() const {
+const std::optional<std::string>& Transaction::get_title() const {
     return impl->get_title();
 }
 
-const std::optional<std::string>& Request::get_contract() const {
+const std::optional<std::string>& Transaction::get_contract() const {
     return impl->get_contract();
 }
 
-const std::optional<RequestType>& Request::get_type() const {
+const std::optional<TransactionType>& Transaction::get_type() const {
     return impl->get_type();
 }
 
-const std::optional<std::string>& Request::get_value() const {
+const std::optional<std::string>& Transaction::get_value() const {
     return impl->get_value();
 }
 
-const std::optional<std::string>& Request::get_retry_state() const {
+const std::optional<std::string>& Transaction::get_retry_state() const {
     return impl->get_retry_state();
 }
 
-const std::optional<RequestState>& Request::get_state() const {
+const std::optional<TransactionState>& Transaction::get_state() const {
     return impl->get_state();
 }
 
-const std::optional<bool>& Request::get_accepted() const {
+const std::optional<bool>& Transaction::get_accepted() const {
     return impl->get_accepted();
 }
 
-const std::optional<bool>& Request::get_project_wallet() const {
+const std::optional<bool>& Transaction::get_project_wallet() const {
     return impl->get_project_wallet();
 }
 
-const std::optional<BlockchainData>& Request::get_blockchain_data() const {
+const std::optional<BlockchainData>& Transaction::get_blockchain_data() const {
     return impl->get_blockchain_data();
 }
 
-const std::optional<Project>& Request::get_project() const {
+const std::optional<Project>& Transaction::get_project() const {
     return impl->get_project();
 }
 
-const std::optional<Asset>& Request::get_asset() const {
+const std::optional<Asset>& Transaction::get_asset() const {
     return impl->get_asset();
 }
 
-const std::optional<Wallet>& Request::get_wallet() const {
+const std::optional<Wallet>& Transaction::get_wallet() const {
     return impl->get_wallet();
 }
 
-const std::optional<std::string>& Request::get_created_at() const {
+const std::optional<std::string>& Transaction::get_created_at() const {
     return impl->get_created_at();
 }
 
-const std::optional<std::string>& Request::get_updated_at() const {
+const std::optional<std::string>& Transaction::get_updated_at() const {
     return impl->get_updated_at();
 }
 
-bool Request::operator==(const Request& rhs) const {
+bool Transaction::operator==(const Transaction& rhs) const {
     return *impl == *rhs.impl;
 }
 
-bool Request::operator!=(const Request& rhs) const {
+bool Transaction::operator!=(const Transaction& rhs) const {
     return *impl != *rhs.impl;
 }
 
-Request& Request::operator=(const Request& rhs) {
+Transaction& Transaction::operator=(const Transaction& rhs) {
     impl = std::make_unique<Impl>(*rhs.impl);
     return *this;
 }

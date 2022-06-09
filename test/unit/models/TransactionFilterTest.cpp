@@ -39,15 +39,15 @@ public:
                                   .set_transaction_id_in(std::vector<std::string>())
                                   .set_asset_id("1")
                                   .set_asset_id_in(std::vector<std::string>())
-                                  .set_type(RequestType::Approve)
-                                  .set_type_in(std::vector<RequestType>())
+                                  .set_type(TransactionType::Approve)
+                                  .set_type_in(std::vector<TransactionType>())
                                   .set_value(1)
                                   .set_value_gt(1)
                                   .set_value_gte(1)
                                   .set_value_lt(1)
                                   .set_value_lte(1)
-                                  .set_state(RequestState::Pending)
-                                  .set_state_in(std::vector<RequestState>())
+                                  .set_state(TransactionState::Pending)
+                                  .set_state_in(std::vector<TransactionState>())
                                   .set_wallet("1")
                                   .set_wallet_in(std::vector<std::string>());
     }
@@ -75,15 +75,15 @@ TEST_F(TransactionFilterTest, SerializeSetFieldsReturnsExpectedJsonObject) {
                     .set_transaction_id_in(std::vector<std::string>())
                     .set_asset_id("1")
                     .set_asset_id_in(std::vector<std::string>())
-                    .set_type(RequestType::Approve)
-                    .set_type_in(std::vector<RequestType>())
+                    .set_type(TransactionType::Approve)
+                    .set_type_in(std::vector<TransactionType>())
                     .set_value(1)
                     .set_value_gt(1)
                     .set_value_gte(1)
                     .set_value_lt(1)
                     .set_value_lte(1)
-                    .set_state(RequestState::Pending)
-                    .set_state_in(std::vector<RequestState>())
+                    .set_state(TransactionState::Pending)
+                    .set_state_in(std::vector<TransactionState>())
                     .set_wallet("1")
                     .set_wallet_in(std::vector<std::string>());
 
@@ -97,7 +97,7 @@ TEST_F(TransactionFilterTest, SerializeSetFieldsReturnsExpectedJsonObject) {
 TEST_F(TransactionFilterTest, SerializeRequestInFieldSetReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(R"({"type_in":["APPROVE","APPROVE","APPROVE"]})");
-    class_under_test.set_type_in({RequestType::Approve, RequestType::Approve, RequestType::Approve});
+    class_under_test.set_type_in({TransactionType::Approve, TransactionType::Approve, TransactionType::Approve});
 
     // Act
     std::string actual = class_under_test.serialize();
@@ -109,8 +109,8 @@ TEST_F(TransactionFilterTest, SerializeRequestInFieldSetReturnsExpectedJsonObjec
 TEST_F(TransactionFilterTest, SerializeStateInReturnsFieldSetExpectedJsonObject) {
     // Arrange
     const std::string expected(R"({"state_in":["PENDING","PENDING","PENDING"]})");
-    std::vector<RequestState> states;
-    class_under_test.set_state_in({RequestState::Pending, RequestState::Pending, RequestState::Pending});
+    std::vector<TransactionState> states;
+    class_under_test.set_state_in({TransactionState::Pending, TransactionState::Pending, TransactionState::Pending});
 
     // Act
     std::string actual = class_under_test.serialize();

@@ -13,16 +13,16 @@
  * limitations under the License.
  */
 
-#ifndef ENJINCPPSDK_REQUEST_HPP
-#define ENJINCPPSDK_REQUEST_HPP
+#ifndef ENJINCPPSDK_TRANSACTION_HPP
+#define ENJINCPPSDK_TRANSACTION_HPP
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/Asset.hpp"
 #include "enjinsdk/models/BlockchainData.hpp"
 #include "enjinsdk/models/Project.hpp"
-#include "enjinsdk/models/RequestState.hpp"
-#include "enjinsdk/models/RequestType.hpp"
+#include "enjinsdk/models/TransactionState.hpp"
+#include "enjinsdk/models/TransactionType.hpp"
 #include "enjinsdk/models/Wallet.hpp"
 #include <memory>
 #include <optional>
@@ -32,96 +32,96 @@ namespace enjin::sdk::models {
 
 class Wallet;
 
-/// \brief Models a request on the platform.
-class ENJINSDK_EXPORT Request : public serialization::IDeserializable {
+/// \brief Models a transaction on the platform.
+class ENJINSDK_EXPORT Transaction : public serialization::IDeserializable {
 public:
     /// \brief Constructs an instance of this class.
-    Request();
+    Transaction();
 
     /// \brief Constructs an instance as a copy of another.
     /// \param other The other instance.
-    Request(const Request& other);
+    Transaction(const Transaction& other);
 
     /// \brief Constructs an instance via move.
     /// \param other The other instance being moved.
-    Request(Request&& other) noexcept;
+    Transaction(Transaction&& other) noexcept;
 
     /// \brief Deconstructs this instance.
-    ~Request() override;
+    ~Transaction() override;
 
     void deserialize(const std::string& json) override;
 
-    /// \brief Returns the ID of this request.
+    /// \brief Returns the ID of this transaction.
     /// \return The ID.
     [[nodiscard]] const std::optional<int>& get_id() const;
 
-    /// \brief Returns the hash ID of this request.
+    /// \brief Returns the hash ID of this transaction.
     /// \return The hash ID.
     [[nodiscard]] const std::optional<std::string>& get_transaction_id() const;
 
-    /// \brief Returns the title of this request.
+    /// \brief Returns the title of this transaction.
     /// \return The title.
     [[nodiscard]] const std::optional<std::string>& get_title() const;
 
-    /// \brief Returns the contract address of this request.
+    /// \brief Returns the contract address of this transaction.
     /// \return The address.
     [[nodiscard]] const std::optional<std::string>& get_contract() const;
 
-    /// \brief Returns the type of this request.
-    /// \return The request type.
-    [[nodiscard]] const std::optional<RequestType>& get_type() const;
+    /// \brief Returns the type of this transaction.
+    /// \return The transaction type.
+    [[nodiscard]] const std::optional<TransactionType>& get_type() const;
 
-    /// \brief Returns the value of this request.
+    /// \brief Returns the value of this transaction.
     /// \return The value.
     [[nodiscard]] const std::optional<std::string>& get_value() const;
 
-    /// \brief Returns the retry state of this request.
+    /// \brief Returns the retry state of this transaction.
     /// \return The retry state.
     [[nodiscard]] const std::optional<std::string>& get_retry_state() const;
 
-    /// \brief Returns the state of this request.
-    /// \return The request state.
-    [[nodiscard]] const std::optional<RequestState>& get_state() const;
+    /// \brief Returns the state of this transaction.
+    /// \return The transaction state.
+    [[nodiscard]] const std::optional<TransactionState>& get_state() const;
 
-    /// \brief Returns if this request has been accepted or not.
-    /// \return Whether this request has been accepted or not.
+    /// \brief Returns if this transaction has been accepted or not.
+    /// \return Whether this transaction has been accepted or not.
     [[nodiscard]] const std::optional<bool>& get_accepted() const;
 
     /// \brief Returns if the wallet of the transaction is a project wallet.
     /// \return Whether the wallet is a project wallet.
     [[nodiscard]] const std::optional<bool>& get_project_wallet() const;
 
-    /// \brief Returns the blockchain data of this request.
+    /// \brief Returns the blockchain data of this transaction.
     /// \return The blockchain data.
     [[nodiscard]] const std::optional<BlockchainData>& get_blockchain_data() const;
 
-    /// \brief Returns the project of this request.
+    /// \brief Returns the project of this transaction.
     /// \return The project.
     [[nodiscard]] const std::optional<Project>& get_project() const;
 
-    /// \brief Returns the asset for this request.
+    /// \brief Returns the asset for this transaction.
     /// \return The asset.
     [[nodiscard]] const std::optional<Asset>& get_asset() const;
 
-    /// Returns the wallet for this request.
+    /// Returns the wallet for this transaction.
     /// \return The wallet.
     [[nodiscard]] const std::optional<Wallet>& get_wallet() const;
 
-    /// \brief Returns the datetime when this request was created.
+    /// \brief Returns the datetime when this transaction was created.
     /// \return The datetime.
     /// \remarks The datetime is formatted using the ISO 8601 date format.
     [[nodiscard]] const std::optional<std::string>& get_created_at() const;
 
-    /// \brief Returns the datetime when this request was last updated.
+    /// \brief Returns the datetime when this transaction was last updated.
     /// \return The datetime.
     /// \remarks The datetime is formatted using the ISO 8601 date format.
     [[nodiscard]] const std::optional<std::string>& get_updated_at() const;
 
-    bool operator==(const Request& rhs) const;
+    bool operator==(const Transaction& rhs) const;
 
-    bool operator!=(const Request& rhs) const;
+    bool operator!=(const Transaction& rhs) const;
 
-    Request& operator=(const Request& rhs);
+    Transaction& operator=(const Transaction& rhs);
 
 private:
     class Impl;
@@ -131,4 +131,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_REQUEST_HPP
+#endif //ENJINCPPSDK_TRANSACTION_HPP

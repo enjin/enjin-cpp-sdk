@@ -23,7 +23,7 @@ target_sources(${PROJECT_NAME}_tests
         PusherChannelsTest.cpp
         PusherOptionsTest.cpp
         PusherTest.cpp
-        RequestTest.cpp
+        TransactionTest.cpp
         SupplyModelsTest.cpp
         AssetConfigDataTest.cpp
         AssetFilterTest.cpp
