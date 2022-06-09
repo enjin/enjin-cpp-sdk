@@ -36,7 +36,7 @@ GetTransactions& GetTransactions::set_filter(TransactionFilter filter) {
     return *this;
 }
 
-GetTransactions& GetTransactions::set_sort(TransactionSort sort) {
+GetTransactions& GetTransactions::set_sort(TransactionSortInput sort) {
     sort_opt = std::move(sort);
     return *this;
 }

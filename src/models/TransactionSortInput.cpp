@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "enjinsdk/models/TransactionSort.hpp"
+#include "enjinsdk/models/TransactionSortInput.hpp"
 
 #include "enjinsdk/JsonUtils.hpp"
 
@@ -21,21 +21,21 @@ using namespace enjin::sdk::json;
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::utils;
 
-std::string TransactionSort::serialize() const {
+std::string TransactionSortInput::serialize() const {
     return to_json().to_string();
 }
 
-TransactionSort& TransactionSort::set_field(TransactionField field) {
+TransactionSortInput& TransactionSortInput::set_field(TransactionField field) {
     field_opt = field;
     return *this;
 }
 
-TransactionSort& TransactionSort::set_direction(SortDirection direction) {
+TransactionSortInput& TransactionSortInput::set_direction(SortDirection direction) {
     direction_opt = direction;
     return *this;
 }
 
-JsonValue TransactionSort::to_json() const {
+JsonValue TransactionSortInput::to_json() const {
     JsonValue json = JsonValue::create_object();
 
     JsonUtils::try_set_field(json, "field", field_opt);
@@ -44,11 +44,11 @@ JsonValue TransactionSort::to_json() const {
     return json;
 }
 
-bool TransactionSort::operator==(const TransactionSort& rhs) const {
+bool TransactionSortInput::operator==(const TransactionSortInput& rhs) const {
     return field_opt == rhs.field_opt
            && direction_opt == rhs.direction_opt;
 }
 
-bool TransactionSort::operator!=(const TransactionSort& rhs) const {
+bool TransactionSortInput::operator!=(const TransactionSortInput& rhs) const {
     return !(*this == rhs);
 }

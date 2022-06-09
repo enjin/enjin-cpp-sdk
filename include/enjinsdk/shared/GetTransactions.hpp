@@ -19,7 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/TransactionFilter.hpp"
-#include "enjinsdk/models/TransactionSort.hpp"
+#include "enjinsdk/models/TransactionSortInput.hpp"
 #include "enjinsdk/shared/PaginationArguments.hpp"
 #include "enjinsdk/shared/TransactionFragmentArguments.hpp"
 #include <optional>
@@ -44,9 +44,9 @@ public:
     GetTransactions& set_filter(models::TransactionFilter filter);
 
     /// Sets the request to sort the results by the specified options.
-    /// \param sort The sort options.
+    /// \param sort The sort input.
     /// \return This request for chaining.
-    GetTransactions& set_sort(models::TransactionSort sort);
+    GetTransactions& set_sort(models::TransactionSortInput sort);
 
     [[nodiscard]] json::JsonValue to_json() const override;
 
@@ -56,7 +56,7 @@ public:
 
 private:
     std::optional<models::TransactionFilter> filter_opt;
-    std::optional<models::TransactionSort> sort_opt;
+    std::optional<models::TransactionSortInput> sort_opt;
 };
 
 // region TransactionFragmentArguments

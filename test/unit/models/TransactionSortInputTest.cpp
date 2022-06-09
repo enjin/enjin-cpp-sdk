@@ -15,26 +15,26 @@
 
 #include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
-#include "enjinsdk/models/TransactionSort.hpp"
+#include "enjinsdk/models/TransactionSortInput.hpp"
 
 using namespace enjin::sdk::models;
 using namespace enjin::test::suites;
 
-class TransactionSortTest : public JsonTestSuite,
-                            public testing::Test {
+class TransactionSortInputTest : public JsonTestSuite,
+                                 public testing::Test {
 public:
-    TransactionSort class_under_test;
+    TransactionSortInput class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"field":"id","direction":"asc"})";
 
-    static TransactionSort create_default_sort() {
-        return TransactionSort().set_field(TransactionField::Id)
-                                .set_direction(SortDirection::Ascending);
+    static TransactionSortInput create_default_sort() {
+        return TransactionSortInput().set_field(TransactionField::Id)
+                                     .set_direction(SortDirection::Ascending);
     }
 };
 
-TEST_F(TransactionSortTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
+TEST_F(TransactionSortInputTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EmptyJsonObject);
 
@@ -45,7 +45,7 @@ TEST_F(TransactionSortTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(TransactionSortTest, SerializeSetFieldsReturnsExpectedJsonObject) {
+TEST_F(TransactionSortInputTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_field(TransactionField::Id)
@@ -58,10 +58,10 @@ TEST_F(TransactionSortTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(TransactionSortTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(TransactionSortInputTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    TransactionSort lhs;
-    TransactionSort rhs;
+    TransactionSortInput lhs;
+    TransactionSortInput rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -70,10 +70,10 @@ TEST_F(TransactionSortTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(TransactionSortTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(TransactionSortInputTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    TransactionSort lhs = create_default_sort();
-    TransactionSort rhs = create_default_sort();
+    TransactionSortInput lhs = create_default_sort();
+    TransactionSortInput rhs = create_default_sort();
 
     // Act
     bool actual = lhs == rhs;
@@ -82,10 +82,10 @@ TEST_F(TransactionSortTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(TransactionSortTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(TransactionSortInputTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    TransactionSort lhs = create_default_sort();
-    TransactionSort rhs;
+    TransactionSortInput lhs = create_default_sort();
+    TransactionSortInput rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -94,10 +94,10 @@ TEST_F(TransactionSortTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(TransactionSortTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(TransactionSortInputTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    TransactionSort lhs;
-    TransactionSort rhs = create_default_sort();
+    TransactionSortInput lhs;
+    TransactionSortInput rhs = create_default_sort();
 
     // Act
     bool actual = lhs == rhs;

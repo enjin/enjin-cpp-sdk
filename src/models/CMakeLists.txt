@@ -35,6 +35,6 @@ target_sources(${PROJECT_NAME}
         TransactionFilter.cpp
         TransactionLog.cpp
         TransactionReceipt.cpp
-        TransactionSort.cpp
+        TransactionSortInput.cpp
         Transfer.cpp
         Wallet.cpp)

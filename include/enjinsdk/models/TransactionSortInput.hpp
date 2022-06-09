@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-#ifndef ENJINCPPSDK_TRANSACTIONSORT_HPP
-#define ENJINCPPSDK_TRANSACTIONSORT_HPP
+#ifndef ENJINCPPSDK_TRANSACTIONSORTINPUT_HPP
+#define ENJINCPPSDK_TRANSACTIONSORTINPUT_HPP
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/ISerializable.hpp"
@@ -24,31 +24,31 @@
 
 namespace enjin::sdk::models {
 
-/// \brief Models sorting input for Transactions (Requests).
-class ENJINSDK_EXPORT TransactionSort : public serialization::ISerializable {
+/// \brief Models sorting input for transactions.
+class ENJINSDK_EXPORT TransactionSortInput : public serialization::ISerializable {
 public:
     /// \brief Default constructor.
-    TransactionSort() = default;
+    TransactionSortInput() = default;
 
-    ~TransactionSort() override = default;
+    ~TransactionSortInput() override = default;
 
     [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the field to sort by.
     /// \param field The field.
     /// \return This input for chaining.
-    TransactionSort& set_field(TransactionField field);
+    TransactionSortInput& set_field(TransactionField field);
 
     /// \brief Sets the direction to sort by.
     /// \param direction The direction.
     /// \return This input for chaining.
-    TransactionSort& set_direction(SortDirection direction);
+    TransactionSortInput& set_direction(SortDirection direction);
 
     [[nodiscard]] json::JsonValue to_json() const override;
 
-    bool operator==(const TransactionSort& rhs) const;
+    bool operator==(const TransactionSortInput& rhs) const;
 
-    bool operator!=(const TransactionSort& rhs) const;
+    bool operator!=(const TransactionSortInput& rhs) const;
 
 private:
     std::optional<TransactionField> field_opt;
@@ -57,4 +57,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_TRANSACTIONSORT_HPP
+#endif //ENJINCPPSDK_TRANSACTIONSORTINPUT_HPP

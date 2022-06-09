@@ -37,7 +37,7 @@ public:
     static GetTransactions create_default_request() {
         GetTransactions requests = GetTransactions()
                 .set_filter(TransactionFilter())
-                .set_sort(TransactionSort());
+                .set_sort(TransactionSortInput());
         set_transaction_fragment_arguments(requests);
         set_pagination_arguments(requests);
         return requests;
@@ -59,7 +59,7 @@ TEST_F(SharedGetTransactionsTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_filter(TransactionFilter())
-                    .set_sort(TransactionSort());
+                    .set_sort(TransactionSortInput());
 
     // Act
     std::string actual = class_under_test.serialize();
