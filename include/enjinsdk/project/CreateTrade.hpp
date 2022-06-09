@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/models/Trade.hpp"
+#include "enjinsdk/models/TradeInput.hpp"
 #include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
@@ -40,12 +40,12 @@ public:
     /// \brief Sets the assets the sender is asking for.
     /// \param assets The assets.
     /// \return This request for chaining.
-    CreateTrade& set_asking_assets(std::vector<models::Trade> assets);
+    CreateTrade& set_asking_assets(std::vector<models::TradeInput> assets);
 
     /// \brief Sets the assets to be offered bu the sender.
     /// \param assets The assets.
     /// \return This request for chaining.
-    CreateTrade& set_offering_assets(std::vector<models::Trade> assets);
+    CreateTrade& set_offering_assets(std::vector<models::TradeInput> assets);
 
     /// \brief Sets the wallet address of the recipient.
     /// \param recipient_address The address.
@@ -59,8 +59,8 @@ public:
     bool operator!=(const CreateTrade& rhs) const;
 
 private:
-    std::optional<std::vector<models::Trade>> asking_assets_opt;
-    std::optional<std::vector<models::Trade>> offering_assets_opt;
+    std::optional<std::vector<models::TradeInput>> asking_assets_opt;
+    std::optional<std::vector<models::TradeInput>> offering_assets_opt;
     std::optional<std::string> recipient_address_opt;
 };
 

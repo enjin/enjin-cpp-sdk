@@ -30,7 +30,7 @@ target_sources(${PROJECT_NAME}_tests
         AssetSortInputTest.cpp
         AssetStateDataTest.cpp
         AssetTest.cpp
-        TradeTest.cpp
+        TradeInputTest.cpp
         TransactionEventTest.cpp
         TransactionFilterTest.cpp
         TransactionLogTest.cpp

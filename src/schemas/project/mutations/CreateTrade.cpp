@@ -32,12 +32,12 @@ std::string CreateTrade::serialize() const {
     return to_json().to_string();
 }
 
-CreateTrade& CreateTrade::set_asking_assets(std::vector<Trade> assets) {
+CreateTrade& CreateTrade::set_asking_assets(std::vector<TradeInput> assets) {
     asking_assets_opt = std::move(assets);
     return *this;
 }
 
-CreateTrade& CreateTrade::set_offering_assets(std::vector<Trade> assets) {
+CreateTrade& CreateTrade::set_offering_assets(std::vector<TradeInput> assets) {
     offering_assets_opt = std::move(assets);
     return *this;
 }

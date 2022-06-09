@@ -30,7 +30,7 @@ target_sources(${PROJECT_NAME}
         PusherOptions.cpp
         Transaction.cpp
         SupplyModels.cpp
-        Trade.cpp
+        TradeInput.cpp
         TransactionEvent.cpp
         TransactionFilter.cpp
         TransactionLog.cpp

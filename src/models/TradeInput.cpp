@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "enjinsdk/models/Trade.hpp"
+#include "enjinsdk/models/TradeInput.hpp"
 
 #include "enjinsdk/JsonUtils.hpp"
 
@@ -21,26 +21,26 @@ using namespace enjin::sdk::json;
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::utils;
 
-std::string Trade::serialize() const {
+std::string TradeInput::serialize() const {
     return to_json().to_string();
 }
 
-Trade& Trade::set_asset_id(std::string id) {
+TradeInput& TradeInput::set_asset_id(std::string id) {
     asset_id_opt = std::move(id);
     return *this;
 }
 
-Trade& Trade::set_asset_index(std::string index) {
+TradeInput& TradeInput::set_asset_index(std::string index) {
     asset_index_opt = std::move(index);
     return *this;
 }
 
-Trade& Trade::set_value(std::string value) {
+TradeInput& TradeInput::set_value(std::string value) {
     value_opt = std::move(value);
     return *this;
 }
 
-JsonValue Trade::to_json() const {
+JsonValue TradeInput::to_json() const {
     JsonValue json = JsonValue::create_object();
 
     JsonUtils::try_set_field(json, "assetId", asset_id_opt);
@@ -50,12 +50,12 @@ JsonValue Trade::to_json() const {
     return json;
 }
 
-bool Trade::operator==(const Trade& rhs) const {
+bool TradeInput::operator==(const TradeInput& rhs) const {
     return asset_id_opt == rhs.asset_id_opt
            && asset_index_opt == rhs.asset_index_opt
            && value_opt == rhs.value_opt;
 }
 
-bool Trade::operator!=(const Trade& rhs) const {
+bool TradeInput::operator!=(const TradeInput& rhs) const {
     return !(*this == rhs);
 }

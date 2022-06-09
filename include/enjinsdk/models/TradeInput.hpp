@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-#ifndef ENJINCPPSDK_TRADE_HPP
-#define ENJINCPPSDK_TRADE_HPP
+#ifndef ENJINCPPSDK_TRADEINPUT_HPP
+#define ENJINCPPSDK_TRADEINPUT_HPP
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/ISerializable.hpp"
@@ -24,35 +24,35 @@
 namespace enjin::sdk::models {
 
 /// \brief Models a trade input for trade requests.
-class ENJINSDK_EXPORT Trade : public serialization::ISerializable {
+class ENJINSDK_EXPORT TradeInput : public serialization::ISerializable {
 public:
     /// \brief Default constructor.
-    Trade() = default;
+    TradeInput() = default;
 
-    ~Trade() override = default;
+    ~TradeInput() override = default;
 
     [[nodiscard]] std::string serialize() const override;
 
     /// Sets the asset ID to trade or ENJ if unused.
     /// \param id The ID.
     /// \return This input for chaining.
-    Trade& set_asset_id(std::string id);
+    TradeInput& set_asset_id(std::string id);
 
     /// Sets the index for non-fungible assets.
     /// \param index The index.
     /// \return This input for chaining.
-    Trade& set_asset_index(std::string index);
+    TradeInput& set_asset_index(std::string index);
 
     /// Sets the amount of assets to trade.
     /// \param value The amount.
     /// \return This input for chaining.
-    Trade& set_value(std::string value);
+    TradeInput& set_value(std::string value);
 
     [[nodiscard]] json::JsonValue to_json() const override;
 
-    bool operator==(const Trade& rhs) const;
+    bool operator==(const TradeInput& rhs) const;
 
-    bool operator!=(const Trade& rhs) const;
+    bool operator!=(const TradeInput& rhs) const;
 
 private:
     std::optional<std::string> asset_id_opt;
@@ -62,4 +62,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_TRADE_HPP
+#endif //ENJINCPPSDK_TRADEINPUT_HPP

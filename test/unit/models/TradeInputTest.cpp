@@ -15,28 +15,28 @@
 
 #include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
-#include "enjinsdk/models/Trade.hpp"
+#include "enjinsdk/models/TradeInput.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
 using namespace enjin::test::suites;
 
-class TradeTest : public JsonTestSuite,
-                  public testing::Test {
+class TradeInputTest : public JsonTestSuite,
+                       public testing::Test {
 public:
-    Trade class_under_test;
+    TradeInput class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"assetId":"1","assetIndex":"1","value":"1"})";
 
-    static Trade create_default_trade() {
-        return Trade().set_asset_id("1")
-                      .set_asset_index("1")
-                      .set_value("1");
+    static TradeInput create_default_trade() {
+        return TradeInput().set_asset_id("1")
+                           .set_asset_index("1")
+                           .set_value("1");
     }
 };
 
-TEST_F(TradeTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
+TEST_F(TradeInputTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EmptyJsonObject);
 
@@ -47,7 +47,7 @@ TEST_F(TradeTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(TradeTest, SerializeSetFieldsReturnsExpectedJsonObject) {
+TEST_F(TradeInputTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_asset_id("1")
@@ -61,10 +61,10 @@ TEST_F(TradeTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(TradeTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(TradeInputTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    Trade lhs;
-    Trade rhs;
+    TradeInput lhs;
+    TradeInput rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -73,10 +73,10 @@ TEST_F(TradeTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(TradeTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(TradeInputTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    Trade lhs = create_default_trade();
-    Trade rhs = create_default_trade();
+    TradeInput lhs = create_default_trade();
+    TradeInput rhs = create_default_trade();
 
     // Act
     bool actual = lhs == rhs;
@@ -85,10 +85,10 @@ TEST_F(TradeTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(TradeTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(TradeInputTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    Trade lhs = create_default_trade();
-    Trade rhs;
+    TradeInput lhs = create_default_trade();
+    TradeInput rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -97,10 +97,10 @@ TEST_F(TradeTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(TradeTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(TradeInputTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    Trade lhs;
-    Trade rhs = create_default_trade();
+    TradeInput lhs;
+    TradeInput rhs = create_default_trade();
 
     // Act
     bool actual = lhs == rhs;
