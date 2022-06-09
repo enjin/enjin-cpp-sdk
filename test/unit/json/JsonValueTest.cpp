@@ -379,10 +379,10 @@ TEST_F(JsonValueTest, TryGetNumberWithSetIntValueReturnsTrueAndOutParamEqualsExp
     EXPECT_EQ(expected, actual) << "Out param does not equal expected";
 }
 
-TEST_F(JsonValueTest, TryGetNumberWithSetInt64ValueReturnsTrueAndOutParamEqualsExpected) {
+TEST_F(JsonValueTest, TryGetNumberWithSetLongValueReturnsTrueAndOutParamEqualsExpected) {
     // Arrange
-    const int64_t expected = 1;
-    int64_t actual;
+    const long expected = 1L;
+    long actual;
     JsonValue json_value = JsonValue::create_number();
     const bool is_value_set = json_value.try_set_number(expected);
 
@@ -672,9 +672,9 @@ TEST_F(JsonValueTest, TrySetNumberGivenIntOnNonNumberValueReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(JsonValueTest, TrySetNumberGivenInt64OnNumberValueReturnsTrue) {
+TEST_F(JsonValueTest, TrySetNumberGivenLongOnNumberValueReturnsTrue) {
     // Arrange
-    const int64_t value = 1;
+    const long value = 1L;
     JsonValue json_value = JsonValue::create_number();
 
     // Act
@@ -684,9 +684,9 @@ TEST_F(JsonValueTest, TrySetNumberGivenInt64OnNumberValueReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(JsonValueTest, TrySetNumberGivenInt64OnNonNumberValueReturnsFalse) {
+TEST_F(JsonValueTest, TrySetNumberGivenLongOnNonNumberValueReturnsFalse) {
     // Arrange
-    const int64_t value = 1;
+    const long value = 1L;
     JsonValue json_value = JsonValue::create_null();
 
     // Act

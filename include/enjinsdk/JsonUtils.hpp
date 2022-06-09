@@ -27,6 +27,7 @@
 #include "enjinsdk/models/AssetSupplyModel.hpp"
 #include "enjinsdk/models/AssetTransferFeeType.hpp"
 #include "enjinsdk/models/AssetTransferable.hpp"
+#include "enjinsdk/models/AssetVariantMode.hpp"
 #include "enjinsdk/models/Operator.hpp"
 #include "enjinsdk/models/RequestState.hpp"
 #include "enjinsdk/models/RequestType.hpp"
@@ -165,7 +166,7 @@ public:
                       "Class T does not inherit from IDeserializable.");
 
         json::JsonValue value = json::JsonValue::create_object();
-        if (!json.try_get_object_field(key, value)) {
+        if (!json.try_get_object_field(key, value) || !value.is_object()) {
             return false;
         }
 
@@ -324,7 +325,7 @@ inline bool JsonUtils::try_get_field(const json::JsonValue& json,
     return false;
 }
 
-/// \brief Tries and set the optional with the specified 64-bit integer field.
+/// \brief Tries and set the optional with the specified long field.
 /// \param json The JSON value-object.
 /// \param key The name of the field.
 /// \param out_field The optional to write to.
@@ -333,8 +334,8 @@ inline bool JsonUtils::try_get_field(const json::JsonValue& json,
 template<>
 inline bool JsonUtils::try_get_field(const json::JsonValue& json,
                                      const std::string& key,
-                                     std::optional<int64_t>& out_field) {
-    int64_t new_field;
+                                     std::optional<long>& out_field) {
+    long new_field;
     json::JsonValue value;
 
     if (json.try_get_object_field(key, value) && value.try_get_number(new_field)) {
@@ -381,7 +382,167 @@ inline bool JsonUtils::try_get_field(const json::JsonValue& json,
     json::JsonValue value;
 
     if (json.try_get_object_field(key, value) && value.try_get_string(new_field)) {
-        out_field = new_field;
+        out_field.emplace(std::move(new_field));
+        return true;
+    }
+
+    out_field.reset();
+    return false;
+}
+
+/// \brief Tries and set the optional with the specified string-array field.
+/// \param json The JSON value-object.
+/// \param key The name of the field.
+/// \param out_field The optional to write to.
+/// \return Whether this action was successful.
+/// \remarks The out optional will be cleared if this operation is not successful.
+template<>
+inline bool JsonUtils::try_get_field(const json::JsonValue& json,
+                                     const std::string& key,
+                                     std::optional<std::vector<std::string>>& out_field) {
+    std::vector<json::JsonValue> value_array;
+    json::JsonValue value;
+
+    if (json.try_get_object_field(key, value) && value.try_get_array(value_array)) {
+        std::vector<std::string> new_field;
+
+        for (const json::JsonValue& el: value_array) {
+            new_field.push_back(el.to_string());
+        }
+
+        out_field.emplace(std::move(new_field));
+        return true;
+    }
+
+    out_field.reset();
+    return false;
+}
+
+/// \brief Tries and set the optional with the specified enum field.
+/// \param json The JSON value-object.
+/// \param key The name of the field.
+/// \param out_field The optional to write to.
+/// \return Whether this action was successful.
+/// \remarks The out optional will be cleared if this operation is not successful.
+template<>
+inline bool JsonUtils::try_get_field(const json::JsonValue& json,
+                                     const std::string& key,
+                                     std::optional<models::AssetSupplyModel>& out_field) {
+    std::string new_field;
+    json::JsonValue value;
+
+    if (json.try_get_object_field(key, value) && value.try_get_string(new_field)) {
+        out_field = EnumUtils::deserialize_asset_supply_model(new_field);
+        return true;
+    }
+
+    out_field.reset();
+    return false;
+}
+
+/// \brief Tries and set the optional with the specified enum field.
+/// \param json The JSON value-object.
+/// \param key The name of the field.
+/// \param out_field The optional to write to.
+/// \return Whether this action was successful.
+/// \remarks The out optional will be cleared if this operation is not successful.
+template<>
+inline bool JsonUtils::try_get_field(const json::JsonValue& json,
+                                     const std::string& key,
+                                     std::optional<models::AssetTransferFeeType>& out_field) {
+    std::string new_field;
+    json::JsonValue value;
+
+    if (json.try_get_object_field(key, value) && value.try_get_string(new_field)) {
+        out_field = EnumUtils::deserialize_asset_transfer_fee_type(new_field);
+        return true;
+    }
+
+    out_field.reset();
+    return false;
+}
+
+/// \brief Tries and set the optional with the specified enum field.
+/// \param json The JSON value-object.
+/// \param key The name of the field.
+/// \param out_field The optional to write to.
+/// \return Whether this action was successful.
+/// \remarks The out optional will be cleared if this operation is not successful.
+template<>
+inline bool JsonUtils::try_get_field(const json::JsonValue& json,
+                                     const std::string& key,
+                                     std::optional<models::AssetTransferable>& out_field) {
+    std::string new_field;
+    json::JsonValue value;
+
+    if (json.try_get_object_field(key, value) && value.try_get_string(new_field)) {
+        out_field = EnumUtils::deserialize_asset_transferable(new_field);
+        return true;
+    }
+
+    out_field.reset();
+    return false;
+}
+
+/// \brief Tries and set the optional with the specified enum field.
+/// \param json The JSON value-object.
+/// \param key The name of the field.
+/// \param out_field The optional to write to.
+/// \return Whether this action was successful.
+/// \remarks The out optional will be cleared if this operation is not successful.
+template<>
+inline bool JsonUtils::try_get_field(const json::JsonValue& json,
+                                     const std::string& key,
+                                     std::optional<models::AssetVariantMode>& out_field) {
+    std::string new_field;
+    json::JsonValue value;
+
+    if (json.try_get_object_field(key, value) && value.try_get_string(new_field)) {
+        out_field = EnumUtils::deserialize_asset_variant_mode(new_field);
+        return true;
+    }
+
+    out_field.reset();
+    return false;
+}
+
+/// \brief Tries and set the optional with the specified enum field.
+/// \param json The JSON value-object.
+/// \param key The name of the field.
+/// \param out_field The optional to write to.
+/// \return Whether this action was successful.
+/// \remarks The out optional will be cleared if this operation is not successful.
+template<>
+inline bool JsonUtils::try_get_field(const json::JsonValue& json,
+                                     const std::string& key,
+                                     std::optional<models::RequestState>& out_field) {
+    std::string new_field;
+    json::JsonValue value;
+
+    if (json.try_get_object_field(key, value) && value.try_get_string(new_field)) {
+        out_field = EnumUtils::deserialize_request_state(new_field);
+        return true;
+    }
+
+    out_field.reset();
+    return false;
+}
+
+/// \brief Tries and set the optional with the specified enum field.
+/// \param json The JSON value-object.
+/// \param key The name of the field.
+/// \param out_field The optional to write to.
+/// \return Whether this action was successful.
+/// \remarks The out optional will be cleared if this operation is not successful.
+template<>
+inline bool JsonUtils::try_get_field(const json::JsonValue& json,
+                                     const std::string& key,
+                                     std::optional<models::RequestType>& out_field) {
+    std::string new_field;
+    json::JsonValue value;
+
+    if (json.try_get_object_field(key, value) && value.try_get_string(new_field)) {
+        out_field = EnumUtils::deserialize_request_type(new_field);
         return true;
     }
 
@@ -473,8 +634,7 @@ inline bool JsonUtils::try_set_field(json::JsonValue& json,
     return false;
 }
 
-/// \brief Tries and set the specified field in the JSON value-object with the 64-bit integer contained within the
-/// optional.
+/// \brief Tries and set the specified field in the JSON value-object with the long contained within the optional.
 /// \param json The JSON value-object.
 /// \param key The name of the field.
 /// \param in_field The boolean to set.
@@ -482,7 +642,7 @@ inline bool JsonUtils::try_set_field(json::JsonValue& json,
 template<>
 inline bool JsonUtils::try_set_field(json::JsonValue& json,
                                      const std::string& key,
-                                     const std::optional<int64_t>& in_field) {
+                                     const std::optional<long>& in_field) {
     if (in_field.has_value()) {
         json::JsonValue value = json::JsonValue::create_number();
         value.try_set_number(in_field.value());

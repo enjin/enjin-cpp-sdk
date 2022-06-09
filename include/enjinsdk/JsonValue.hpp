@@ -128,10 +128,10 @@ public:
     /// \return Whether the out parameter was set.
     bool try_get_number(int& out) const;
 
-    /// \brief Tries to get this value as a 64-bit integer and assign it to an out parameter.
+    /// \brief Tries to get this value as a long and assign it to an out parameter.
     /// \param out The out parameter.
     /// \return Whether the out parameter was set.
-    bool try_get_number(int64_t& out) const;
+    bool try_get_number(long& out) const;
 
     /// \brief Tries to get an object field from this value and assign it to an out parameter.
     /// \param key The field key.
@@ -179,10 +179,10 @@ public:
     /// \return Whether this value was set with the given integer.
     bool try_set_number(int value);
 
-    /// \brief Tries to set this value with the given 64-bit integer.
+    /// \brief Tries to set this value with the given long.
     /// \param value The value.
-    /// \return Whether this value was set with the given 64-bit integer.
-    bool try_set_number(int64_t value);
+    /// \return Whether this value was set with the given integer.
+    bool try_set_number(long value);
 
     /// \brief Tries to set a object-field for this with the given JSON value.
     /// \param key The field key.

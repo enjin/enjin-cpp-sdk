@@ -199,8 +199,8 @@ public:
         return true;
     }
 
-    bool try_get_number(int64_t& out) const {
-        if (!is_int64()) {
+    bool try_get_number(long& out) const {
+        if (!is_number()) {
             return false;
         }
 
@@ -304,7 +304,7 @@ public:
         return true;
     }
 
-    bool try_set_number(int64_t value) {
+    bool try_set_number(long value) {
         if (!is_int64()) {
             return false;
         }
@@ -495,7 +495,7 @@ bool JsonValue::try_get_number(int& out) const {
     return pimpl->try_get_number(out);
 }
 
-bool JsonValue::try_get_number(int64_t& out) const {
+bool JsonValue::try_get_number(long& out) const {
     return pimpl->try_get_number(out);
 }
 
@@ -535,7 +535,7 @@ bool JsonValue::try_set_number(int value) {
     return pimpl->try_set_number(value);
 }
 
-bool JsonValue::try_set_number(int64_t value) {
+bool JsonValue::try_set_number(long value) {
     return pimpl->try_set_number(value);
 }
 

@@ -96,6 +96,23 @@ TEST_F(JsonUtilsTest, TryGetFieldForObjectFieldReturnsTrueAndOutFieldHasExpected
     ASSERT_EQ(expected, actual) << "Actual does not equal expected";
 }
 
+TEST_F(JsonUtilsTest, TryGetFieldForEmptyFieldReturnsFalseAndOutFieldIsEmpty) {
+    // Arrange
+    const std::string key = "key";
+    JsonValue json_value = JsonValue::create_object();
+    std::optional<DummyObject> out_field;
+
+    // Assumptions
+    ASSERT_FALSE(json_value.has_object_field(key)) << "Assume object field is not set";
+
+    // Act
+    const bool result = JsonUtils::try_get_field(json_value, key, out_field);
+
+    // Assert
+    EXPECT_FALSE(result) << "Try-get returned true result";
+    ASSERT_FALSE(out_field.has_value()) << "Out field was set";
+}
+
 TEST_F(JsonUtilsTest, TryGetFieldGetForArrayFieldReturnsTrueAndOutFieldHasExpectedData) {
     // Arrange
     const DummyObject expected = DummyObject::create_default_dummy_object();
