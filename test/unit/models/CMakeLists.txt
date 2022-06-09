@@ -27,7 +27,7 @@ target_sources(${PROJECT_NAME}_tests
         SupplyModelsTest.cpp
         AssetConfigDataTest.cpp
         AssetFilterTest.cpp
-        AssetSortTest.cpp
+        AssetSortInputTest.cpp
         AssetStateDataTest.cpp
         AssetTest.cpp
         TradeTest.cpp

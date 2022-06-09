@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "enjinsdk/models/AssetSort.hpp"
+#include "enjinsdk/models/AssetSortInput.hpp"
 
 #include "enjinsdk/JsonUtils.hpp"
 
@@ -21,21 +21,21 @@ using namespace enjin::sdk::json;
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::utils;
 
-std::string AssetSort::serialize() const {
+std::string AssetSortInput::serialize() const {
     return to_json().to_string();
 }
 
-AssetSort& AssetSort::set_field(AssetField field) {
+AssetSortInput& AssetSortInput::set_field(AssetField field) {
     field_opt = field;
     return *this;
 }
 
-AssetSort& AssetSort::set_direction(SortDirection direction) {
+AssetSortInput& AssetSortInput::set_direction(SortDirection direction) {
     direction_opt = direction;
     return *this;
 }
 
-JsonValue AssetSort::to_json() const {
+JsonValue AssetSortInput::to_json() const {
     JsonValue json = JsonValue::create_object();
 
     JsonUtils::try_set_field(json, "field", field_opt);
@@ -44,11 +44,11 @@ JsonValue AssetSort::to_json() const {
     return json;
 }
 
-bool AssetSort::operator==(const AssetSort& rhs) const {
+bool AssetSortInput::operator==(const AssetSortInput& rhs) const {
     return field_opt == rhs.field_opt
            && direction_opt == rhs.direction_opt;
 }
 
-bool AssetSort::operator!=(const AssetSort& rhs) const {
+bool AssetSortInput::operator!=(const AssetSortInput& rhs) const {
     return !(*this == rhs);
 }

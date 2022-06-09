@@ -15,26 +15,26 @@
 
 #include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
-#include "enjinsdk/models/AssetSort.hpp"
+#include "enjinsdk/models/AssetSortInput.hpp"
 
 using namespace enjin::sdk::models;
 using namespace enjin::test::suites;
 
-class AssetSortTest : public JsonTestSuite,
-                      public testing::Test {
+class AssetSortInputTest : public JsonTestSuite,
+                           public testing::Test {
 public:
-    AssetSort class_under_test;
+    AssetSortInput class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"field":"id","direction":"asc"})";
 
-    static AssetSort create_default_sort() {
-        return AssetSort().set_field(AssetField::Id)
-                          .set_direction(SortDirection::Ascending);
+    static AssetSortInput create_default_sort() {
+        return AssetSortInput().set_field(AssetField::Id)
+                               .set_direction(SortDirection::Ascending);
     }
 };
 
-TEST_F(AssetSortTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
+TEST_F(AssetSortInputTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EmptyJsonObject);
 
@@ -45,7 +45,7 @@ TEST_F(AssetSortTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(AssetSortTest, SerializeSetFieldsReturnsExpectedJsonObject) {
+TEST_F(AssetSortInputTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_field(AssetField::Id)
@@ -58,10 +58,10 @@ TEST_F(AssetSortTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(AssetSortTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(AssetSortInputTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    AssetSort lhs;
-    AssetSort rhs;
+    AssetSortInput lhs;
+    AssetSortInput rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -70,10 +70,10 @@ TEST_F(AssetSortTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(AssetSortTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(AssetSortInputTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    AssetSort lhs = create_default_sort();
-    AssetSort rhs = create_default_sort();
+    AssetSortInput lhs = create_default_sort();
+    AssetSortInput rhs = create_default_sort();
 
     // Act
     bool actual = lhs == rhs;
@@ -82,10 +82,10 @@ TEST_F(AssetSortTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(AssetSortTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(AssetSortInputTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    AssetSort lhs = create_default_sort();
-    AssetSort rhs;
+    AssetSortInput lhs = create_default_sort();
+    AssetSortInput rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -94,10 +94,10 @@ TEST_F(AssetSortTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(AssetSortTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(AssetSortInputTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    AssetSort lhs;
-    AssetSort rhs = create_default_sort();
+    AssetSortInput lhs;
+    AssetSortInput rhs = create_default_sort();
 
     // Act
     bool actual = lhs == rhs;

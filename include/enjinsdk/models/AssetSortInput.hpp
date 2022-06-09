@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-#ifndef ENJINCPPSDK_ASSETSORT_HPP
-#define ENJINCPPSDK_ASSETSORT_HPP
+#ifndef ENJINCPPSDK_ASSETSORTINPUT_HPP
+#define ENJINCPPSDK_ASSETSORTINPUT_HPP
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/ISerializable.hpp"
@@ -25,30 +25,30 @@
 namespace enjin::sdk::models {
 
 /// \brief Models sorting input for Assets.
-class ENJINSDK_EXPORT AssetSort : public serialization::ISerializable {
+class ENJINSDK_EXPORT AssetSortInput : public serialization::ISerializable {
 public:
     /// \brief Default constructor.
-    AssetSort() = default;
+    AssetSortInput() = default;
 
-    ~AssetSort() override = default;
+    ~AssetSortInput() override = default;
 
     [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the field to sort by.
     /// \param field The field.
     /// \return This input for chaining.
-    AssetSort& set_field(AssetField field);
+    AssetSortInput& set_field(AssetField field);
 
     /// \brief Sets the direction to sort by.
     /// \param direction The direction.
     /// \return This input for chaining.
-    AssetSort& set_direction(SortDirection direction);
+    AssetSortInput& set_direction(SortDirection direction);
 
     [[nodiscard]] json::JsonValue to_json() const override;
 
-    bool operator==(const AssetSort& rhs) const;
+    bool operator==(const AssetSortInput& rhs) const;
 
-    bool operator!=(const AssetSort& rhs) const;
+    bool operator!=(const AssetSortInput& rhs) const;
 
 private:
     std::optional<AssetField> field_opt;
@@ -57,4 +57,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_ASSETSORT_HPP
+#endif //ENJINCPPSDK_ASSETSORTINPUT_HPP
