@@ -48,15 +48,15 @@ const std::optional<std::string>& TransactionEvent::get_name() const {
     return name;
 }
 
-const std::optional<std::vector<std::string>>& TransactionEvent::get_inputs() const {
+const std::optional<std::vector<JsonValue>>& TransactionEvent::get_inputs() const {
     return inputs;
 }
 
-const std::optional<std::vector<std::string>>& TransactionEvent::get_non_indexed_inputs() const {
+const std::optional<std::vector<JsonValue>>& TransactionEvent::get_non_indexed_inputs() const {
     return non_indexed_inputs;
 }
 
-const std::optional<std::vector<std::string>>& TransactionEvent::get_indexed_inputs() const {
+const std::optional<std::vector<JsonValue>>& TransactionEvent::get_indexed_inputs() const {
     return indexed_inputs;
 }
 

@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
+#include "enjinsdk/JsonValue.hpp"
 #include <optional>
 #include <string>
 #include <vector>
@@ -38,17 +39,17 @@ public:
     /// \return The name.
     [[nodiscard]] const std::optional<std::string>& get_name() const;
 
-    /// \brief Returns the serialized parameters for this event.
+    /// \brief Returns the parameters for this event.
     /// \return The parameters.
-    [[nodiscard]] const std::optional<std::vector<std::string>>& get_inputs() const;
+    [[nodiscard]] const std::optional<std::vector<json::JsonValue>>& get_inputs() const;
 
-    /// \brief Returns the serialized non-indexed parameters for this event.
+    /// \brief Returns the non-indexed parameters for this event.
     /// \return The non-indexed parameters.
-    [[nodiscard]] const std::optional<std::vector<std::string>>& get_non_indexed_inputs() const;
+    [[nodiscard]] const std::optional<std::vector<json::JsonValue>>& get_non_indexed_inputs() const;
 
-    /// \brief Returns the serialized indexed parameters for this event.
+    /// \brief Returns the indexed parameters for this event.
     /// \return The indexed parameters.
-    [[nodiscard]] const std::optional<std::vector<std::string>>& get_indexed_inputs() const;
+    [[nodiscard]] const std::optional<std::vector<json::JsonValue>>& get_indexed_inputs() const;
 
     /// \brief Returns the event signature.
     /// \return The signature.
@@ -65,9 +66,9 @@ public:
 
 private:
     std::optional<std::string> name;
-    std::optional<std::vector<std::string>> inputs;
-    std::optional<std::vector<std::string>> non_indexed_inputs;
-    std::optional<std::vector<std::string>> indexed_inputs;
+    std::optional<std::vector<json::JsonValue>> inputs;
+    std::optional<std::vector<json::JsonValue>> non_indexed_inputs;
+    std::optional<std::vector<json::JsonValue>> indexed_inputs;
     std::optional<std::string> signature;
     std::optional<std::string> encoded_signature;
 };

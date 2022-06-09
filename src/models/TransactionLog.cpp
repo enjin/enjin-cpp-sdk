@@ -56,11 +56,11 @@ const std::optional<std::string>& TransactionLog::get_transaction_hash() const {
     return transaction_hash;
 }
 
-const std::optional<std::vector<std::string>>& TransactionLog::get_data() const {
+const std::optional<std::vector<JsonValue>>& TransactionLog::get_data() const {
     return data;
 }
 
-const std::optional<std::vector<std::string>>& TransactionLog::get_topics() const {
+const std::optional<std::vector<JsonValue>>& TransactionLog::get_topics() const {
     return topics;
 }
 

@@ -368,6 +368,28 @@ inline bool JsonUtils::try_get_field(const json::JsonValue& json,
     return false;
 }
 
+/// \brief Tries and set the optional with the specified array of JSON values field.
+/// \param json The JSON value-object.
+/// \param key The name of the field.
+/// \param out_field The optional to write to.
+/// \return Whether this action was successful.
+/// \remarks The out optional will be cleared if this operation is not successful.
+template<>
+inline bool JsonUtils::try_get_field(const json::JsonValue& json,
+                                     const std::string& key,
+                                     std::optional<std::vector<json::JsonValue>>& out_field) {
+    std::vector<json::JsonValue> value_array;
+    json::JsonValue value;
+
+    if (json.try_get_object_field(key, value) && value.try_get_array(value_array)) {
+        out_field.emplace(std::move(value_array));
+        return true;
+    }
+
+    out_field.reset();
+    return false;
+}
+
 /// \brief Tries and set the optional with the specified string field.
 /// \param json The JSON value-object.
 /// \param key The name of the field.
