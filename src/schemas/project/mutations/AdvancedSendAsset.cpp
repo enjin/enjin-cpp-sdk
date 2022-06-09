@@ -25,7 +25,7 @@ using namespace enjin::sdk::project;
 using namespace enjin::sdk::utils;
 
 AdvancedSendAsset::AdvancedSendAsset() : AbstractGraphqlRequest("enjin.sdk.project.AdvancedSendAsset"),
-                                         ProjectTransactionRequestArguments<AdvancedSendAsset>() {
+                                         TransactionRequestArguments<AdvancedSendAsset>() {
 }
 
 std::string AdvancedSendAsset::serialize() const {
@@ -45,7 +45,7 @@ AdvancedSendAsset& AdvancedSendAsset::set_data(std::string data) {
 JsonValue AdvancedSendAsset::to_json() const {
     JsonValue json = JsonValue::create_object();
 
-    JsonUtils::join_object(json, ProjectTransactionRequestArguments<AdvancedSendAsset>::to_json());
+    JsonUtils::join_object(json, TransactionRequestArguments<AdvancedSendAsset>::to_json());
     JsonUtils::try_set_field(json, "transfers", transfers_opt);
     JsonUtils::try_set_field(json, "data", data_opt);
 
@@ -54,7 +54,7 @@ JsonValue AdvancedSendAsset::to_json() const {
 
 bool AdvancedSendAsset::operator==(const AdvancedSendAsset& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const ProjectTransactionRequestArguments<AdvancedSendAsset>&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<AdvancedSendAsset>&>(*this) == rhs
            && transfers_opt == rhs.transfers_opt
            && data_opt == rhs.data_opt;
 }

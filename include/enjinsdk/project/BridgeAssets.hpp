@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 #include <vector>
@@ -27,7 +27,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for bridging multiple indices of an NFT in a single transaction.
 class ENJINSDK_EXPORT BridgeAssets : public graphql::AbstractGraphqlRequest,
-                                     public ProjectTransactionRequestArguments<BridgeAssets> {
+                                     public TransactionRequestArguments<BridgeAssets> {
 public:
     /// \brief Sole constructor.
     BridgeAssets();
@@ -57,12 +57,12 @@ private:
     std::optional<std::vector<std::string>> asset_indices;
 };
 
-// region ProjectTransactionRequestArguments
+// region TransactionRequestArguments
 
 template ENJINSDK_EXPORT BridgeAssets&
-ProjectTransactionRequestArguments<BridgeAssets>::set_eth_address(std::string address);
+TransactionRequestArguments<BridgeAssets>::set_eth_address(std::string address);
 
-// endregion ProjectTransactionRequestArguments
+// endregion TransactionRequestArguments
 
 }
 

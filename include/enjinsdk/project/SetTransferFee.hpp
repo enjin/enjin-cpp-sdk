@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for setting the transfer fee of a asset.
 class ENJINSDK_EXPORT SetTransferFee : public graphql::AbstractGraphqlRequest,
-                                       public ProjectTransactionRequestArguments<SetTransferFee> {
+                                       public TransactionRequestArguments<SetTransferFee> {
 public:
     /// \brief Default constructor.
     SetTransferFee();
@@ -56,12 +56,12 @@ private:
     std::optional<std::string> transfer_fee_opt;
 };
 
-// region ProjectTransactionRequestArguments
+// region TransactionRequestArguments
 
 template ENJINSDK_EXPORT SetTransferFee&
-ProjectTransactionRequestArguments<SetTransferFee>::set_eth_address(std::string address);
+TransactionRequestArguments<SetTransferFee>::set_eth_address(std::string address);
 
-// endregion ProjectTransactionRequestArguments
+// endregion TransactionRequestArguments
 
 }
 

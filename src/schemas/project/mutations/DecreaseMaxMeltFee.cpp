@@ -24,7 +24,7 @@ using namespace enjin::sdk::project;
 using namespace enjin::sdk::utils;
 
 DecreaseMaxMeltFee::DecreaseMaxMeltFee() : AbstractGraphqlRequest("enjin.sdk.project.DecreaseMaxMeltFee"),
-                                           ProjectTransactionRequestArguments<DecreaseMaxMeltFee>() {
+                                           TransactionRequestArguments<DecreaseMaxMeltFee>() {
 }
 
 std::string DecreaseMaxMeltFee::serialize() const {
@@ -44,7 +44,7 @@ DecreaseMaxMeltFee& DecreaseMaxMeltFee::set_max_melt_fee(int max_melt_fee) {
 JsonValue DecreaseMaxMeltFee::to_json() const {
     JsonValue json = JsonValue::create_object();
 
-    JsonUtils::join_object(json, ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::to_json());
+    JsonUtils::join_object(json, TransactionRequestArguments<DecreaseMaxMeltFee>::to_json());
     JsonUtils::try_set_field(json, "assetId", asset_id_opt);
     JsonUtils::try_set_field(json, "maxMeltFee", max_melt_fee_opt);
 
@@ -53,7 +53,7 @@ JsonValue DecreaseMaxMeltFee::to_json() const {
 
 bool DecreaseMaxMeltFee::operator==(const DecreaseMaxMeltFee& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const ProjectTransactionRequestArguments<DecreaseMaxMeltFee>&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<DecreaseMaxMeltFee>&>(*this) == rhs
            && asset_id_opt == rhs.asset_id_opt
            && max_melt_fee_opt == rhs.max_melt_fee_opt;
 }

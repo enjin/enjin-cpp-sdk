@@ -18,15 +18,15 @@
 
 #include "enjinsdk/JsonValue.hpp"
 #include "TransactionFragmentArgumentsTestSuite.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <type_traits>
 
 namespace enjin::test::suites {
 
 template<class T>
 class ProjectTransactionRequestArgumentsTestSuite : public TransactionFragmentArgumentsTestSuite<T> {
-    static_assert(std::is_base_of<sdk::project::ProjectTransactionRequestArguments<T>, T>::value,
-                  "Type T does not inherit from ProjectTransactionRequestArguments.");
+    static_assert(std::is_base_of<sdk::project::TransactionRequestArguments<T>, T>::value,
+                  "Type T does not inherit from TransactionRequestArguments.");
 
 public:
     static constexpr char ProjectTransactionRequestJson[] =
@@ -39,7 +39,7 @@ public:
         return json;
     }
 
-    static void set_project_transaction_request_arguments(sdk::project::ProjectTransactionRequestArguments<T>& o) {
+    static void set_project_transaction_request_arguments(sdk::project::TransactionRequestArguments<T>& o) {
         o.set_eth_address("1");
     }
 };

@@ -25,7 +25,7 @@ using namespace enjin::sdk::project;
 using namespace enjin::sdk::utils;
 
 MeltAsset::MeltAsset() : AbstractGraphqlRequest("enjin.sdk.project.MeltAsset"),
-                         ProjectTransactionRequestArguments<MeltAsset>() {
+                         TransactionRequestArguments<MeltAsset>() {
 }
 
 std::string MeltAsset::serialize() const {
@@ -40,7 +40,7 @@ MeltAsset& MeltAsset::set_melts(std::vector<MeltInput> melts) {
 JsonValue MeltAsset::to_json() const {
     JsonValue json = JsonValue::create_object();
 
-    JsonUtils::join_object(json, ProjectTransactionRequestArguments<MeltAsset>::to_json());
+    JsonUtils::join_object(json, TransactionRequestArguments<MeltAsset>::to_json());
     JsonUtils::try_set_field(json, "melts", melts_opt);
 
     return json;
@@ -48,7 +48,7 @@ JsonValue MeltAsset::to_json() const {
 
 bool MeltAsset::operator==(const MeltAsset& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const ProjectTransactionRequestArguments<MeltAsset>&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<MeltAsset>&>(*this) == rhs
            && melts_opt == rhs.melts_opt;
 }
 

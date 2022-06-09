@@ -26,7 +26,7 @@ using namespace enjin::sdk::project;
 using namespace enjin::sdk::utils;
 
 CreateAsset::CreateAsset() : AbstractGraphqlRequest("enjin.sdk.project.CreateAsset"),
-                             ProjectTransactionRequestArguments<CreateAsset>() {
+                             TransactionRequestArguments<CreateAsset>() {
 }
 
 std::string CreateAsset::serialize() const {
@@ -81,7 +81,7 @@ CreateAsset& CreateAsset::set_non_fungible(bool non_fungible) {
 JsonValue CreateAsset::to_json() const {
     JsonValue json = JsonValue::create_object();
 
-    JsonUtils::join_object(json, ProjectTransactionRequestArguments<CreateAsset>::to_json());
+    JsonUtils::join_object(json, TransactionRequestArguments<CreateAsset>::to_json());
     JsonUtils::try_set_field(json, "name", name_opt);
     JsonUtils::try_set_field(json, "totalSupply", total_supply_opt);
     JsonUtils::try_set_field(json, "initialReserve", initial_reserve_opt);
@@ -97,7 +97,7 @@ JsonValue CreateAsset::to_json() const {
 
 bool CreateAsset::operator==(const CreateAsset& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const ProjectTransactionRequestArguments<CreateAsset>&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<CreateAsset>&>(*this) == rhs
            && name_opt == rhs.name_opt
            && total_supply_opt == rhs.total_supply_opt
            && initial_reserve_opt == rhs.initial_reserve_opt

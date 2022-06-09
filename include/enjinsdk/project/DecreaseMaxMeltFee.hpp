@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for setting the max melt fee of an asset to a lower value.
 class ENJINSDK_EXPORT DecreaseMaxMeltFee : public graphql::AbstractGraphqlRequest,
-                                           public ProjectTransactionRequestArguments<DecreaseMaxMeltFee> {
+                                           public TransactionRequestArguments<DecreaseMaxMeltFee> {
 public:
     /// \brief Default constructor.
     DecreaseMaxMeltFee();
@@ -57,12 +57,12 @@ private:
     std::optional<int> max_melt_fee_opt;
 };
 
-// region ProjectTransactionRequestArguments
+// region TransactionRequestArguments
 
 template ENJINSDK_EXPORT DecreaseMaxMeltFee&
-ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_eth_address(std::string address);
+TransactionRequestArguments<DecreaseMaxMeltFee>::set_eth_address(std::string address);
 
-// endregion ProjectTransactionRequestArguments
+// endregion TransactionRequestArguments
 
 }
 

@@ -20,20 +20,20 @@ using namespace enjin::sdk::json;
 using namespace enjin::sdk::project;
 
 ResetEnjApproval::ResetEnjApproval() : AbstractGraphqlRequest("enjin.sdk.project.ResetEnjApproval"),
-                                       ProjectTransactionRequestArguments<ResetEnjApproval>() {
+                                       TransactionRequestArguments<ResetEnjApproval>() {
 }
 
 std::string ResetEnjApproval::serialize() const {
-    return ProjectTransactionRequestArguments<ResetEnjApproval>::serialize();
+    return TransactionRequestArguments<ResetEnjApproval>::serialize();
 }
 
 JsonValue ResetEnjApproval::to_json() const {
-    return ProjectTransactionRequestArguments<ResetEnjApproval>::to_json();
+    return TransactionRequestArguments<ResetEnjApproval>::to_json();
 }
 
 bool ResetEnjApproval::operator==(const ResetEnjApproval& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const ProjectTransactionRequestArguments<ResetEnjApproval>&>(*this) == rhs;
+           && static_cast<const TransactionRequestArguments<ResetEnjApproval>&>(*this) == rhs;
 }
 
 bool ResetEnjApproval::operator!=(const ResetEnjApproval& rhs) const {

@@ -25,7 +25,7 @@ using namespace enjin::sdk::project;
 using namespace enjin::sdk::utils;
 
 CreateTrade::CreateTrade() : AbstractGraphqlRequest("enjin.sdk.project.CreateTrade"),
-                             ProjectTransactionRequestArguments<CreateTrade>() {
+                             TransactionRequestArguments<CreateTrade>() {
 }
 
 std::string CreateTrade::serialize() const {
@@ -50,7 +50,7 @@ CreateTrade& CreateTrade::set_recipient_address(std::string recipient_address) {
 JsonValue CreateTrade::to_json() const {
     JsonValue json = JsonValue::create_object();
 
-    JsonUtils::join_object(json, ProjectTransactionRequestArguments<CreateTrade>::to_json());
+    JsonUtils::join_object(json, TransactionRequestArguments<CreateTrade>::to_json());
     JsonUtils::try_set_field(json, "askingAssets", asking_assets_opt);
     JsonUtils::try_set_field(json, "offeringAssets", offering_assets_opt);
     JsonUtils::try_set_field(json, "recipientAddress", recipient_address_opt);
@@ -60,7 +60,7 @@ JsonValue CreateTrade::to_json() const {
 
 bool CreateTrade::operator==(const CreateTrade& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const ProjectTransactionRequestArguments<CreateTrade>&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<CreateTrade>&>(*this) == rhs
            && asking_assets_opt == rhs.asking_assets_opt
            && offering_assets_opt == rhs.offering_assets_opt
            && recipient_address_opt == rhs.recipient_address_opt;

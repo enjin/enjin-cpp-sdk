@@ -25,7 +25,7 @@ using namespace enjin::sdk::project;
 using namespace enjin::sdk::utils;
 
 MintAsset::MintAsset() : AbstractGraphqlRequest("enjin.sdk.project.MintAsset"),
-                         ProjectTransactionRequestArguments<MintAsset>() {
+                         TransactionRequestArguments<MintAsset>() {
 }
 
 std::string MintAsset::serialize() const {
@@ -45,7 +45,7 @@ MintAsset& MintAsset::set_mints(std::vector<MintInput> mints) {
 JsonValue MintAsset::to_json() const {
     JsonValue json = JsonValue::create_object();
 
-    JsonUtils::join_object(json, ProjectTransactionRequestArguments<MintAsset>::to_json());
+    JsonUtils::join_object(json, TransactionRequestArguments<MintAsset>::to_json());
     JsonUtils::try_set_field(json, "assetId", asset_id_opt);
     JsonUtils::try_set_field(json, "mints", mints_opt);
 
@@ -54,7 +54,7 @@ JsonValue MintAsset::to_json() const {
 
 bool MintAsset::operator==(const MintAsset& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const ProjectTransactionRequestArguments<MintAsset>&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<MintAsset>&>(*this) == rhs
            && asset_id_opt == rhs.asset_id_opt
            && mints_opt == rhs.mints_opt;
 }

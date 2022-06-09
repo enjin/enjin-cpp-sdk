@@ -18,12 +18,12 @@
 
 #if(ENJINSDK_BUILD_SHARED == 0)
 
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 
 namespace enjin::test::utils {
 
 class TestableProjectTransactionRequestArguments
-        : public sdk::project::ProjectTransactionRequestArguments<TestableProjectTransactionRequestArguments> {
+        : public sdk::project::TransactionRequestArguments<TestableProjectTransactionRequestArguments> {
 public:
     TestableProjectTransactionRequestArguments() = default;
 
@@ -39,7 +39,7 @@ public:
 namespace enjin::sdk::project {
 
 template test::utils::TestableProjectTransactionRequestArguments&
-ProjectTransactionRequestArguments<test::utils::TestableProjectTransactionRequestArguments>::set_eth_address(
+TransactionRequestArguments<test::utils::TestableProjectTransactionRequestArguments>::set_eth_address(
         std::string address);
 
 }

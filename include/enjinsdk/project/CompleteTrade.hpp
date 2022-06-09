@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for completing a trade between two wallets.
 class ENJINSDK_EXPORT CompleteTrade : public graphql::AbstractGraphqlRequest,
-                                      public ProjectTransactionRequestArguments<CompleteTrade> {
+                                      public TransactionRequestArguments<CompleteTrade> {
 public:
     /// \brief Default constructor.
     CompleteTrade();
@@ -50,12 +50,12 @@ private:
     std::optional<std::string> trade_id_opt;
 };
 
-// region ProjectTransactionRequestArguments
+// region TransactionRequestArguments
 
 template ENJINSDK_EXPORT CompleteTrade&
-ProjectTransactionRequestArguments<CompleteTrade>::set_eth_address(std::string address);
+TransactionRequestArguments<CompleteTrade>::set_eth_address(std::string address);
 
-// endregion ProjectTransactionRequestArguments
+// endregion TransactionRequestArguments
 
 }
 

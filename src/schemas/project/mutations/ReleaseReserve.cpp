@@ -24,7 +24,7 @@ using namespace enjin::sdk::project;
 using namespace enjin::sdk::utils;
 
 ReleaseReserve::ReleaseReserve() : AbstractGraphqlRequest("enjin.sdk.project.ReleaseReserve"),
-                                   ProjectTransactionRequestArguments<ReleaseReserve>() {
+                                   TransactionRequestArguments<ReleaseReserve>() {
 }
 
 std::string ReleaseReserve::serialize() const {
@@ -44,7 +44,7 @@ ReleaseReserve& ReleaseReserve::set_value(std::string value) {
 JsonValue ReleaseReserve::to_json() const {
     JsonValue json = JsonValue::create_object();
 
-    JsonUtils::join_object(json, ProjectTransactionRequestArguments<ReleaseReserve>::to_json());
+    JsonUtils::join_object(json, TransactionRequestArguments<ReleaseReserve>::to_json());
     JsonUtils::try_set_field(json, "assetId", asset_id_opt);
     JsonUtils::try_set_field(json, "value", value_opt);
 
@@ -53,7 +53,7 @@ JsonValue ReleaseReserve::to_json() const {
 
 bool ReleaseReserve::operator==(const ReleaseReserve& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const ProjectTransactionRequestArguments<ReleaseReserve>&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<ReleaseReserve>&>(*this) == rhs
            && asset_id_opt == rhs.asset_id_opt
            && value_opt == rhs.value_opt;
 }

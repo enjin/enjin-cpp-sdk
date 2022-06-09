@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-#ifndef ENJINSDK_PROJECTPROJECTTRANSACTIONREQUESTARGUMENTS_HPP
-#define ENJINSDK_PROJECTPROJECTTRANSACTIONREQUESTARGUMENTS_HPP
+#ifndef ENJINSDK_PROJECTTRANSACTIONREQUESTARGUMENTS_HPP
+#define ENJINSDK_PROJECTTRANSACTIONREQUESTARGUMENTS_HPP
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/JsonUtils.hpp"
@@ -30,9 +30,9 @@ namespace enjin::sdk::project {
 /// \brief Interface used to set common arguments used in project transaction requests.
 /// \tparam T The type of the implementing class.
 template<class T>
-class ENJINSDK_EXPORT ProjectTransactionRequestArguments : public shared::TransactionFragmentArguments<T> {
+class ENJINSDK_EXPORT TransactionRequestArguments : public shared::TransactionFragmentArguments<T> {
 public:
-    ~ProjectTransactionRequestArguments() override = default;
+    ~TransactionRequestArguments() override = default;
 
     [[nodiscard]] std::string serialize() const override {
         return to_json().to_string();
@@ -55,20 +55,20 @@ public:
         return json;
     }
 
-    bool operator==(const ProjectTransactionRequestArguments& rhs) const {
+    bool operator==(const TransactionRequestArguments& rhs) const {
         return static_cast<const shared::TransactionFragmentArguments<T>&>(*this) == rhs
                && eth_address_opt == rhs.eth_address_opt;
     }
 
-    bool operator!=(const ProjectTransactionRequestArguments& rhs) const {
+    bool operator!=(const TransactionRequestArguments& rhs) const {
         return !(*this == rhs);
     }
 
 protected:
     /// \brief Constructs an instance of this class.
-    ProjectTransactionRequestArguments() : shared::TransactionFragmentArguments<T>() {
-        static_assert(std::is_base_of<ProjectTransactionRequestArguments, T>::value,
-                      "Class T does not inherit from ProjectTransactionRequestArguments.");
+    TransactionRequestArguments() : shared::TransactionFragmentArguments<T>() {
+        static_assert(std::is_base_of<TransactionRequestArguments, T>::value,
+                      "Class T does not inherit from TransactionRequestArguments.");
     }
 
 private:
@@ -77,4 +77,4 @@ private:
 
 }
 
-#endif //ENJINSDK_PROJECTPROJECTTRANSACTIONREQUESTARGUMENTS_HPP
+#endif //ENJINSDK_PROJECTTRANSACTIONREQUESTARGUMENTS_HPP

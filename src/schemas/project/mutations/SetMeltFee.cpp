@@ -24,7 +24,7 @@ using namespace enjin::sdk::project;
 using namespace enjin::sdk::utils;
 
 SetMeltFee::SetMeltFee() : AbstractGraphqlRequest("enjin.sdk.project.SetMeltFee"),
-                           ProjectTransactionRequestArguments<SetMeltFee>() {
+                           TransactionRequestArguments<SetMeltFee>() {
 }
 
 std::string SetMeltFee::serialize() const {
@@ -44,7 +44,7 @@ SetMeltFee& SetMeltFee::set_melt_fee(int melt_fee) {
 JsonValue SetMeltFee::to_json() const {
     JsonValue json = JsonValue::create_object();
 
-    JsonUtils::join_object(json, ProjectTransactionRequestArguments<SetMeltFee>::to_json());
+    JsonUtils::join_object(json, TransactionRequestArguments<SetMeltFee>::to_json());
     JsonUtils::try_set_field(json, "assetId", asset_id_opt);
     JsonUtils::try_set_field(json, "meltFee", melt_fee_opt);
 
@@ -53,7 +53,7 @@ JsonValue SetMeltFee::to_json() const {
 
 bool SetMeltFee::operator==(const SetMeltFee& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const ProjectTransactionRequestArguments<SetMeltFee>&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<SetMeltFee>&>(*this) == rhs
            && asset_id_opt == rhs.asset_id_opt
            && melt_fee_opt == rhs.melt_fee_opt;
 }

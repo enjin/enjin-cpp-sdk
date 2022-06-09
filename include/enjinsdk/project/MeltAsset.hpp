@@ -19,7 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/MeltInput.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <vector>
 
@@ -27,7 +27,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for melting a asset.
 class ENJINSDK_EXPORT MeltAsset : public graphql::AbstractGraphqlRequest,
-                                  public ProjectTransactionRequestArguments<MeltAsset> {
+                                  public TransactionRequestArguments<MeltAsset> {
 public:
     /// \brief Default constructor.
     MeltAsset();
@@ -51,12 +51,12 @@ private:
     std::optional<std::vector<models::MeltInput>> melts_opt;
 };
 
-// region ProjectTransactionRequestArguments
+// region TransactionRequestArguments
 
 template ENJINSDK_EXPORT MeltAsset&
-ProjectTransactionRequestArguments<MeltAsset>::set_eth_address(std::string address);
+TransactionRequestArguments<MeltAsset>::set_eth_address(std::string address);
 
-// endregion ProjectTransactionRequestArguments
+// endregion TransactionRequestArguments
 
 }
 
