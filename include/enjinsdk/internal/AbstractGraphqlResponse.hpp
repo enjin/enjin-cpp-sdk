@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/GraphqlError.hpp"
+#include "enjinsdk/JsonValue.hpp"
 #include "enjinsdk/models/PaginationCursor.hpp"
 #include <optional>
 #include <string>
@@ -37,7 +38,7 @@ public:
 
     /// \brief Returns the pagination cursor.
     /// \return Optional for the cursor.
-    [[nodiscard]] const std::optional<models::PaginationCursor>& get_cursor() const;
+    [[nodiscard]] virtual const std::optional<models::PaginationCursor>& get_cursor() const = 0;
 
     /// \brief Determines if the response has errors or not.
     /// \return Whether this response has errors.
@@ -54,19 +55,22 @@ public:
 
     /// \brief Determines if the response is paginated or not.
     /// \return Whether this response is paginated.
-    [[nodiscard]] bool is_paginated() const noexcept;
+    [[nodiscard]] virtual bool is_paginated() const noexcept = 0;
 
 protected:
-    std::optional<std::vector<GraphqlError>> errors;
-    std::optional<models::PaginationCursor> cursor;
+    /// \brief Constant-expression representing the expected key for results in most data objects.
+    static constexpr char ResultKey[] = "result";
 
-    /// \brief Processes the serialized GraphQL response.
-    /// \param json The JSON.
+    /// \brief Processes this response from raw JSON input..
+    /// \param json The raw JSON.
     void process(const std::string& json);
 
     /// \brief Processes the data member of a serialized GraphQL response.
-    /// \param data_json The JSON string of the member.
-    virtual void process_data(const std::string& data_json) = 0;
+    /// \param data The JSON object of the data field.
+    virtual void process_data(const json::JsonValue& data) = 0;
+
+private:
+    std::optional<std::vector<GraphqlError>> errors;
 };
 
 }
