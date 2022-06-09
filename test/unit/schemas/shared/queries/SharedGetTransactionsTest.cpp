@@ -16,7 +16,7 @@
 #include "JsonTestSuite.hpp"
 #include "PaginationArgumentsTestSuite.hpp"
 #include "TransactionFragmentArgumentsTestSuite.hpp"
-#include "enjinsdk/shared/GetRequests.hpp"
+#include "enjinsdk/shared/GetTransactions.hpp"
 #include "gtest/gtest.h"
 #include <string>
 
@@ -24,18 +24,18 @@ using namespace enjin::sdk::models;
 using namespace enjin::sdk::shared;
 using namespace enjin::test::suites;
 
-class SharedGetRequestsTest : public TransactionFragmentArgumentsTestSuite<GetRequests>,
-                              public PaginationArgumentsTestSuite<GetRequests>,
-                              public JsonTestSuite,
-                              public testing::Test {
+class SharedGetTransactionsTest : public TransactionFragmentArgumentsTestSuite<GetTransactions>,
+                                  public PaginationArgumentsTestSuite<GetTransactions>,
+                                  public JsonTestSuite,
+                                  public testing::Test {
 public:
-    GetRequests class_under_test;
+    GetTransactions class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"filter":{},"sort":{}})";
 
-    static GetRequests create_default_request() {
-        GetRequests requests = GetRequests()
+    static GetTransactions create_default_request() {
+        GetTransactions requests = GetTransactions()
                 .set_filter(TransactionFilter())
                 .set_sort(TransactionSort());
         set_transaction_fragment_arguments(requests);
@@ -44,7 +44,7 @@ public:
     }
 };
 
-TEST_F(SharedGetRequestsTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
+TEST_F(SharedGetTransactionsTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EmptyJsonObject);
 
@@ -55,7 +55,7 @@ TEST_F(SharedGetRequestsTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(SharedGetRequestsTest, SerializeSetFieldsReturnsExpectedJsonObject) {
+TEST_F(SharedGetTransactionsTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_filter(TransactionFilter())
@@ -68,10 +68,10 @@ TEST_F(SharedGetRequestsTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(SharedGetRequestsTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(SharedGetTransactionsTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    GetRequests lhs;
-    GetRequests rhs;
+    GetTransactions lhs;
+    GetTransactions rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -80,10 +80,10 @@ TEST_F(SharedGetRequestsTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(SharedGetRequestsTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(SharedGetTransactionsTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    GetRequests lhs = create_default_request();
-    GetRequests rhs = create_default_request();
+    GetTransactions lhs = create_default_request();
+    GetTransactions rhs = create_default_request();
 
     // Act
     bool actual = lhs == rhs;
@@ -92,10 +92,10 @@ TEST_F(SharedGetRequestsTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(SharedGetRequestsTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(SharedGetTransactionsTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    GetRequests lhs = create_default_request();
-    GetRequests rhs;
+    GetTransactions lhs = create_default_request();
+    GetTransactions rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -104,10 +104,10 @@ TEST_F(SharedGetRequestsTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(SharedGetRequestsTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(SharedGetTransactionsTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    GetRequests lhs;
-    GetRequests rhs = create_default_request();
+    GetTransactions lhs;
+    GetTransactions rhs = create_default_request();
 
     // Act
     bool actual = lhs == rhs;

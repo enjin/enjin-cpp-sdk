@@ -6,5 +6,5 @@ target_sources(${PROJECT_NAME}
         GetGasPrices.cpp
         GetPlatform.cpp
         GetProject.cpp
-        GetRequest.cpp
-        GetRequests.cpp)
+        GetTransaction.cpp
+        GetTransactions.cpp)

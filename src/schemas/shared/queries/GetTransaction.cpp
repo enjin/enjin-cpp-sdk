@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "enjinsdk/shared/GetRequest.hpp"
+#include "enjinsdk/shared/GetTransaction.hpp"
 
 #include "enjinsdk/JsonUtils.hpp"
 #include <utility>
@@ -23,41 +23,41 @@ using namespace enjin::sdk::json;
 using namespace enjin::sdk::shared;
 using namespace enjin::sdk::utils;
 
-GetRequest::GetRequest() : AbstractGraphqlRequest("enjin.sdk.shared.GetRequest"),
-                           TransactionFragmentArguments<GetRequest>() {
+GetTransaction::GetTransaction() : AbstractGraphqlRequest("enjin.sdk.shared.GetTransaction"),
+                                   TransactionFragmentArguments<GetTransaction>() {
 }
 
-std::string GetRequest::serialize() const {
+std::string GetTransaction::serialize() const {
     return to_json().to_string();
 }
 
-GetRequest& GetRequest::set_id(int id) {
+GetTransaction& GetTransaction::set_id(int id) {
     id_opt = id;
     return *this;
 }
 
-GetRequest& GetRequest::set_transaction_id(std::string id) {
+GetTransaction& GetTransaction::set_transaction_id(std::string id) {
     transaction_id_opt = std::move(id);
     return *this;
 }
 
-JsonValue GetRequest::to_json() const {
+JsonValue GetTransaction::to_json() const {
     JsonValue json = JsonValue::create_object();
 
-    JsonUtils::join_object(json, TransactionFragmentArguments<GetRequest>::to_json());
+    JsonUtils::join_object(json, TransactionFragmentArguments<GetTransaction>::to_json());
     JsonUtils::try_set_field(json, "id", id_opt);
     JsonUtils::try_set_field(json, "transactionId", transaction_id_opt);
 
     return json;
 }
 
-bool GetRequest::operator==(const GetRequest& rhs) const {
+bool GetTransaction::operator==(const GetTransaction& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const TransactionFragmentArguments<GetRequest>&>(*this) == rhs
+           && static_cast<const TransactionFragmentArguments<GetTransaction>&>(*this) == rhs
            && id_opt == rhs.id_opt
            && transaction_id_opt == rhs.transaction_id_opt;
 }
 
-bool GetRequest::operator!=(const GetRequest& rhs) const {
+bool GetTransaction::operator!=(const GetTransaction& rhs) const {
     return !(*this == rhs);
 }
