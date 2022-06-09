@@ -60,11 +60,6 @@ private:
     std::optional<int> code;
     std::optional<std::vector<std::map<std::string, int>>> locations;
     std::optional<std::string> details;
-
-    constexpr static char MESSAGE_KEY[] = "message";
-    constexpr static char CODE_KEY[] = "code";
-    constexpr static char LOCATIONS_KEY[] = "locations";
-    constexpr static char DETAILS_KEY[] = "details";
 };
 
 }

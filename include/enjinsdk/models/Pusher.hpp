@@ -60,11 +60,6 @@ private:
     std::optional<std::string> pusher_namespace;
     std::optional<PusherChannels> channels;
     std::optional<PusherOptions> options;
-
-    constexpr static char KEY_KEY[] = "key";
-    constexpr static char PUSHER_NAMESPACE_KEY[] = "namespace";
-    constexpr static char CHANNELS_KEY[] = "channels";
-    constexpr static char OPTIONS_KEY[] = "options";
 };
 
 }

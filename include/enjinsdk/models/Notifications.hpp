@@ -43,8 +43,6 @@ public:
 
 private:
     std::optional<Pusher> pusher;
-
-    constexpr static char PUSHER_KEY[] = "pusher";
 };
 
 }

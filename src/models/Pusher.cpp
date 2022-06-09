@@ -15,27 +15,29 @@
 
 #include "enjinsdk/models/Pusher.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 void Pusher::deserialize(const std::string& json) {
-    rapidjson::Document document;
-    document.Parse(json.c_str());
-    if (document.IsObject()) {
-        if (document.HasMember(KEY_KEY) && document[KEY_KEY].IsString()) {
-            key.emplace(document[KEY_KEY].GetString());
-        }
-        if (document.HasMember(PUSHER_NAMESPACE_KEY) && document[PUSHER_NAMESPACE_KEY].IsString()) {
-            pusher_namespace.emplace(document[PUSHER_NAMESPACE_KEY].GetString());
-        }
-        if (document.HasMember(CHANNELS_KEY) && document[CHANNELS_KEY].IsObject()) {
-            channels.emplace(utils::get_object_as_type<PusherChannels>(document, CHANNELS_KEY));
-        }
-        if (document.HasMember(OPTIONS_KEY) && document[OPTIONS_KEY].IsObject()) {
-            options.emplace(utils::get_object_as_type<PusherOptions>(document, OPTIONS_KEY));
-        }
+    JsonValue json_object;
+
+    if (!json_object.try_parse_as_object(json)) {
+        key.reset();
+        pusher_namespace.reset();
+        channels.reset();
+        options.reset();
+
+        return;
     }
+
+    JsonUtils::try_get_field(json_object, "key", key);
+    JsonUtils::try_get_field(json_object, "namespace", pusher_namespace);
+    JsonUtils::try_get_field(json_object, "channels", channels);
+    JsonUtils::try_get_field(json_object, "options", options);
 }
 
 const std::optional<std::string>& Pusher::get_key() const {
@@ -55,14 +57,12 @@ const std::optional<PusherOptions>& Pusher::get_options() const {
 }
 
 bool Pusher::operator==(const Pusher& rhs) const {
-    return key == rhs.key &&
-           pusher_namespace == rhs.pusher_namespace &&
-           channels == rhs.channels &&
-           options == rhs.options;
+    return key == rhs.key
+           && pusher_namespace == rhs.pusher_namespace
+           && channels == rhs.channels
+           && options == rhs.options;
 }
 
 bool Pusher::operator!=(const Pusher& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

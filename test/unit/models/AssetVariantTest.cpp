@@ -17,6 +17,7 @@
 #include "JsonTestSuite.hpp"
 #include "enjinsdk/models/AssetVariant.hpp"
 
+using namespace enjin::sdk::json;
 using namespace enjin::sdk::models;
 using namespace enjin::test::suites;
 
@@ -65,7 +66,7 @@ TEST_F(AssetVariantTest, DeserializePopulatedJsonObjectFieldsHaveExpectedValues)
     // Arrange
     const int expected_id = 1;
     const std::string expected_asset_id("1");
-    const std::string expected_variant_metadata("{}");
+    const JsonValue expected_variant_metadata = JsonValue::create_object();
     const int expected_usage_count = 1;
     const std::string expected_created_at("1");
     const std::string expected_updated_at("1");

@@ -15,27 +15,29 @@
 
 #include "enjinsdk/models/Contracts.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 void Contracts::deserialize(const std::string& json) {
-    rapidjson::Document document;
-    document.Parse(json.c_str());
-    if (document.IsObject()) {
-        if (document.HasMember(ENJ_KEY) && document[ENJ_KEY].IsString()) {
-            enj.emplace(document[ENJ_KEY].GetString());
-        }
-        if (document.HasMember(CRYPTO_ITEMS_KEY) && document[CRYPTO_ITEMS_KEY].IsString()) {
-            crypto_items.emplace(document[CRYPTO_ITEMS_KEY].GetString());
-        }
-        if (document.HasMember(PLATFORM_REGISTRY_KEY) && document[PLATFORM_REGISTRY_KEY].IsString()) {
-            platform_registry.emplace(document[PLATFORM_REGISTRY_KEY].GetString());
-        }
-        if (document.HasMember(SUPPLY_MODELS_KEY) && document[SUPPLY_MODELS_KEY].IsObject()) {
-            supply_models.emplace(utils::get_object_as_type<SupplyModels>(document, SUPPLY_MODELS_KEY));
-        }
+    JsonValue json_object;
+
+    if (!json_object.try_parse_as_object(json)) {
+        enj.reset();
+        crypto_items.reset();
+        platform_registry.reset();
+        supply_models.reset();
+
+        return;
     }
+
+    JsonUtils::try_get_field(json_object, "enj", enj);
+    JsonUtils::try_get_field(json_object, "cryptoItems", crypto_items);
+    JsonUtils::try_get_field(json_object, "platformRegistry", platform_registry);
+    JsonUtils::try_get_field(json_object, "supplyModels", supply_models);
 }
 
 const std::optional<std::string>& Contracts::get_enj() const {
@@ -55,14 +57,12 @@ const std::optional<SupplyModels>& Contracts::get_supply_models() const {
 }
 
 bool Contracts::operator==(const Contracts& rhs) const {
-    return enj == rhs.enj &&
-           crypto_items == rhs.crypto_items &&
-           platform_registry == rhs.platform_registry &&
-           supply_models == rhs.supply_models;
+    return enj == rhs.enj
+           && crypto_items == rhs.crypto_items
+           && platform_registry == rhs.platform_registry
+           && supply_models == rhs.supply_models;
 }
 
 bool Contracts::operator!=(const Contracts& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

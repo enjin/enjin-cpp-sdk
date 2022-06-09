@@ -54,10 +54,6 @@ private:
     std::optional<AssetTransferFeeType> type;
     std::optional<std::string> asset_id;
     std::optional<std::string> value;
-
-    constexpr static char TYPE_KEY[] = "type";
-    constexpr static char ASSET_ID_KEY[] = "assetId";
-    constexpr static char VALUE_KEY[] = "value";
 };
 
 }

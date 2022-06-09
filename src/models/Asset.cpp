@@ -15,49 +15,37 @@
 
 #include "enjinsdk/models/Asset.hpp"
 
-#include "RapidJsonUtils.hpp"
-#include "enjinsdk/EnumUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
+using namespace enjin::sdk::json;
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::utils;
 
 void Asset::deserialize(const std::string& json) {
-    rapidjson::Document document;
-    document.Parse(json.c_str());
+    JsonValue json_object;
 
-    if (document.IsObject()) {
-        if (document.HasMember(ID_KEY) && document[ID_KEY].IsString()) {
-            id.emplace(document[ID_KEY].GetString());
-        }
+    if (!json_object.try_parse_as_object(json)) {
+        id.reset();
+        name.reset();
+        state_data.reset();
+        config_data.reset();
+        variant_mode.reset();
+        variants.reset();
+        created_at.reset();
+        updated_at.reset();
 
-        if (document.HasMember(NAME_KEY) && document[NAME_KEY].IsString()) {
-            name.emplace(document[NAME_KEY].GetString());
-        }
-
-        if (document.HasMember(STATE_DATA_KEY) && document[STATE_DATA_KEY].IsObject()) {
-            state_data.emplace(get_object_as_type<AssetStateData>(document, STATE_DATA_KEY));
-        }
-
-        if (document.HasMember(CONFIG_DATA_KEY) && document[CONFIG_DATA_KEY].IsObject()) {
-            config_data.emplace(get_object_as_type<AssetConfigData>(document, CONFIG_DATA_KEY));
-        }
-
-        if (document.HasMember(VARIANT_MODE_KEY) && document[VARIANT_MODE_KEY].IsString()) {
-            variant_mode.emplace(EnumUtils::deserialize_asset_variant_mode(document[VARIANT_MODE_KEY].GetString()));
-        }
-
-        if (document.HasMember(VARIANTS_KEY) && document[VARIANTS_KEY].IsArray()) {
-            variants.emplace(get_array_as_type_vector<AssetVariant>(document, VARIANTS_KEY));
-        }
-
-        if (document.HasMember(CREATED_AT_KEY) && document[CREATED_AT_KEY].IsString()) {
-            created_at.emplace(document[CREATED_AT_KEY].GetString());
-        }
-
-        if (document.HasMember(UPDATED_AT_KEY) && document[UPDATED_AT_KEY].IsString()) {
-            updated_at.emplace(document[UPDATED_AT_KEY].GetString());
-        }
+        return;
     }
+
+    JsonUtils::try_get_field(json_object, "id", id);
+    JsonUtils::try_get_field(json_object, "name", name);
+    JsonUtils::try_get_field(json_object, "stateData", state_data);
+    JsonUtils::try_get_field(json_object, "configData", config_data);
+    JsonUtils::try_get_field(json_object, "variantMode", variant_mode);
+    JsonUtils::try_get_field(json_object, "variants", variants);
+    JsonUtils::try_get_field(json_object, "createdAt", created_at);
+    JsonUtils::try_get_field(json_object, "updatedAt", updated_at);
 }
 
 const std::optional<std::string>& Asset::get_id() const {
@@ -104,5 +92,5 @@ bool Asset::operator==(const Asset& rhs) const {
 }
 
 bool Asset::operator!=(const Asset& rhs) const {
-    return !(rhs == *this);
+    return !(*this == rhs);
 }

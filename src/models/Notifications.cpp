@@ -15,18 +15,23 @@
 
 #include "enjinsdk/models/Notifications.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 void Notifications::deserialize(const std::string& json) {
-    rapidjson::Document document;
-    document.Parse(json.c_str());
-    if (document.IsObject()) {
-        if (document.HasMember(PUSHER_KEY) && document[PUSHER_KEY].IsObject()) {
-            pusher.emplace(utils::get_object_as_type<Pusher>(document, PUSHER_KEY));
-        }
+    JsonValue json_object;
+
+    if (!json_object.try_parse_as_object(json)) {
+        pusher.reset();
+
+        return;
     }
+
+    JsonUtils::try_get_field(json_object, "pusher", pusher);
 }
 
 const std::optional<Pusher>& Notifications::get_pusher() const {
@@ -38,7 +43,5 @@ bool Notifications::operator==(const Notifications& rhs) const {
 }
 
 bool Notifications::operator!=(const Notifications& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

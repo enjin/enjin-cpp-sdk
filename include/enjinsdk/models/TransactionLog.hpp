@@ -70,13 +70,6 @@ private:
     std::optional<std::vector<std::string>> data;
     std::optional<std::vector<std::string>> topics;
     std::optional<TransactionEvent> event;
-
-    constexpr static char BLOCK_NUMBER_KEY[] = "blockNumber";
-    constexpr static char ADDRESS_KEY[] = "address";
-    constexpr static char TRANSACTION_HASH_KEY[] = "transactionHash";
-    constexpr static char DATA_KEY[] = "data";
-    constexpr static char TOPICS_KEY[] = "topics";
-    constexpr static char EVENT_KEY[] = "event";
 };
 
 }

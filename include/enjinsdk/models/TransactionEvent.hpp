@@ -70,13 +70,6 @@ private:
     std::optional<std::vector<std::string>> indexed_inputs;
     std::optional<std::string> signature;
     std::optional<std::string> encoded_signature;
-
-    constexpr static char NAME_KEY[] = "name";
-    constexpr static char INPUTS_KEY[] = "inputs";
-    constexpr static char NON_INDEXED_INPUTS_KEY[] = "nonIndexedInputs";
-    constexpr static char INDEXED_INPUTS_KEY[] = "indexedInputs";
-    constexpr static char SIGNATURE_KEY[] = "signature";
-    constexpr static char ENCODED_SIGNATURE_KEY[] = "encodedSignature";
 };
 
 }

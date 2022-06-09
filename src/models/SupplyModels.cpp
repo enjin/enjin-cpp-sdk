@@ -15,33 +15,33 @@
 
 #include "enjinsdk/models/SupplyModels.hpp"
 
-#include "rapidjson/document.h"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 void SupplyModels::deserialize(const std::string& json) {
-    rapidjson::Document document;
-    document.Parse(json.c_str());
-    if (document.IsObject()) {
-        if (document.HasMember(FIXED_KEY) && document[FIXED_KEY].IsString()) {
-            fixed.emplace(document[FIXED_KEY].GetString());
-        }
-        if (document.HasMember(SETTABLE_KEY) && document[SETTABLE_KEY].IsString()) {
-            settable.emplace(document[SETTABLE_KEY].GetString());
-        }
-        if (document.HasMember(INFINITE_KEY) && document[INFINITE_KEY].IsString()) {
-            infinite.emplace(document[INFINITE_KEY].GetString());
-        }
-        if (document.HasMember(COLLAPSING_KEY) && document[COLLAPSING_KEY].IsString()) {
-            collapsing.emplace(document[COLLAPSING_KEY].GetString());
-        }
-        if (document.HasMember(ANNUAL_VALUE_KEY) && document[ANNUAL_VALUE_KEY].IsString()) {
-            annual_value.emplace(document[ANNUAL_VALUE_KEY].GetString());
-        }
-        if (document.HasMember(ANNUAL_PERCENTAGE_KEY) && document[ANNUAL_PERCENTAGE_KEY].IsString()) {
-            annual_percentage.emplace(document[ANNUAL_PERCENTAGE_KEY].GetString());
-        }
+    JsonValue json_object;
+
+    if (!json_object.try_parse_as_object(json)) {
+        fixed.reset();
+        settable.reset();
+        infinite.reset();
+        collapsing.reset();
+        annual_value.reset();
+        annual_percentage.reset();
+
+        return;
     }
+
+    JsonUtils::try_get_field(json_object, "fixed", fixed);
+    JsonUtils::try_get_field(json_object, "settable", settable);
+    JsonUtils::try_get_field(json_object, "infinite", infinite);
+    JsonUtils::try_get_field(json_object, "collapsing", collapsing);
+    JsonUtils::try_get_field(json_object, "annualValue", annual_value);
+    JsonUtils::try_get_field(json_object, "annualPercentage", annual_percentage);
 }
 
 const std::optional<std::string>& SupplyModels::get_fixed() const {
@@ -69,16 +69,14 @@ const std::optional<std::string>& SupplyModels::get_annual_percentage() const {
 }
 
 bool SupplyModels::operator==(const SupplyModels& rhs) const {
-    return fixed == rhs.fixed &&
-           settable == rhs.settable &&
-           infinite == rhs.infinite &&
-           collapsing == rhs.collapsing &&
-           annual_value == rhs.annual_value &&
-           annual_percentage == rhs.annual_percentage;
+    return fixed == rhs.fixed
+           && settable == rhs.settable
+           && infinite == rhs.infinite
+           && collapsing == rhs.collapsing
+           && annual_value == rhs.annual_value
+           && annual_percentage == rhs.annual_percentage;
 }
 
 bool SupplyModels::operator!=(const SupplyModels& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

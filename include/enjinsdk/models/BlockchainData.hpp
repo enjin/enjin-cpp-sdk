@@ -74,14 +74,6 @@ private:
     std::optional<TransactionReceipt> receipt;
     std::optional<std::string> error;
     std::optional<std::string> nonce;
-
-    constexpr static char ENCODED_DATA_KEY[] = "encodedData";
-    constexpr static char SIGNED_TRANSACTION_KEY[] = "signedTransaction";
-    constexpr static char SIGNED_BACKUP_TRANSACTION_KEY[] = "signedBackupTransaction";
-    constexpr static char SIGNED_CANCEL_TRANSACTION_KEY[] = "signedCancelTransaction";
-    constexpr static char RECEIPT_KEY[] = "receipt";
-    constexpr static char ERROR_KEY[] = "error";
-    constexpr static char NONCE_KEY[] = "nonce";
 };
 
 }

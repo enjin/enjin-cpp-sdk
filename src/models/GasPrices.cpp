@@ -15,27 +15,29 @@
 
 #include "enjinsdk/models/GasPrices.hpp"
 
-#include "rapidjson/document.h"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 void GasPrices::deserialize(const std::string& json) {
-    rapidjson::Document document;
-    document.Parse(json.c_str());
-    if (document.IsObject()) {
-        if (document.HasMember(SAFE_LOW_KEY) && document[SAFE_LOW_KEY].IsNumber()) {
-            safe_low.emplace(document[SAFE_LOW_KEY].GetFloat());
-        }
-        if (document.HasMember(AVERAGE_KEY) && document[AVERAGE_KEY].IsNumber()) {
-            average.emplace(document[AVERAGE_KEY].GetFloat());
-        }
-        if (document.HasMember(FAST_KEY) && document[FAST_KEY].IsNumber()) {
-            fast.emplace(document[FAST_KEY].GetFloat());
-        }
-        if (document.HasMember(FASTEST_KEY) && document[FASTEST_KEY].IsNumber()) {
-            fastest.emplace(document[FASTEST_KEY].GetFloat());
-        }
+    JsonValue json_object;
+
+    if (!json_object.try_parse_as_object(json)) {
+        safe_low.reset();
+        average.reset();
+        fast.reset();
+        fastest.reset();
+
+        return;
     }
+
+    JsonUtils::try_get_field(json_object, "safeLow", safe_low);
+    JsonUtils::try_get_field(json_object, "average", average);
+    JsonUtils::try_get_field(json_object, "fast", fast);
+    JsonUtils::try_get_field(json_object, "fastest", fastest);
 }
 
 const std::optional<float>& GasPrices::get_safe_low() const {
@@ -55,14 +57,12 @@ const std::optional<float>& GasPrices::get_fastest() const {
 }
 
 bool GasPrices::operator==(const GasPrices& rhs) const {
-    return safe_low == rhs.safe_low &&
-           average == rhs.average &&
-           fast == rhs.fast &&
-           fastest == rhs.fastest;
+    return safe_low == rhs.safe_low
+           && average == rhs.average
+           && fast == rhs.fast
+           && fastest == rhs.fastest;
 }
 
 bool GasPrices::operator!=(const GasPrices& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

@@ -15,21 +15,25 @@
 
 #include "enjinsdk/models/AccessToken.hpp"
 
-#include "rapidjson/document.h"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 void AccessToken::deserialize(const std::string& json) {
-    rapidjson::Document document;
-    document.Parse(json.c_str());
-    if (document.IsObject()) {
-        if (document.HasMember(TOKEN_KEY) && document[TOKEN_KEY].IsString()) {
-            token.emplace(document[TOKEN_KEY].GetString());
-        }
-        if (document.HasMember(EXPIRES_IN_KEY) && document[EXPIRES_IN_KEY].IsInt()) {
-            expires_in.emplace(document[EXPIRES_IN_KEY].GetInt());
-        }
+    JsonValue json_object;
+
+    if (!json_object.try_parse_as_object(json)) {
+        token.reset();
+        expires_in.reset();
+
+        return;
     }
+
+    JsonUtils::try_get_field(json_object, "accessToken", token);
+    JsonUtils::try_get_field(json_object, "expiresIn", expires_in);
 }
 
 const std::optional<std::string>& AccessToken::get_token() const {
@@ -41,12 +45,10 @@ const std::optional<long>& AccessToken::get_expires_in() const {
 }
 
 bool AccessToken::operator==(const AccessToken& rhs) const {
-    return token == rhs.token &&
-           expires_in == rhs.expires_in;
+    return token == rhs.token
+           && expires_in == rhs.expires_in;
 }
 
 bool AccessToken::operator!=(const AccessToken& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

@@ -59,11 +59,6 @@ private:
     std::optional<std::string> crypto_items;
     std::optional<std::string> platform_registry;
     std::optional<SupplyModels> supply_models;
-
-    constexpr static char ENJ_KEY[] = "enj";
-    constexpr static char CRYPTO_ITEMS_KEY[] = "cryptoItems";
-    constexpr static char PLATFORM_REGISTRY_KEY[] = "platformRegistry";
-    constexpr static char SUPPLY_MODELS_KEY[] = "supplyModels";
 };
 
 }

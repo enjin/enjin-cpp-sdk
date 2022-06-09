@@ -15,27 +15,29 @@
 
 #include "enjinsdk/models/PusherChannels.hpp"
 
-#include "rapidjson/document.h"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 void PusherChannels::deserialize(const std::string& json) {
-    rapidjson::Document document;
-    document.Parse(json.c_str());
-    if (document.IsObject()) {
-        if (document.HasMember(PROJECT_KEY) && document[PROJECT_KEY].IsString()) {
-            project.emplace(document[PROJECT_KEY].GetString());
-        }
-        if (document.HasMember(PLAYER_KEY) && document[PLAYER_KEY].IsString()) {
-            player.emplace(document[PLAYER_KEY].GetString());
-        }
-        if (document.HasMember(ASSET_KEY) && document[ASSET_KEY].IsString()) {
-            asset.emplace(document[ASSET_KEY].GetString());
-        }
-        if (document.HasMember(WALLET_KEY) && document[WALLET_KEY].IsString()) {
-            wallet.emplace(document[WALLET_KEY].GetString());
-        }
+    JsonValue json_object;
+
+    if (!json_object.try_parse_as_object(json)) {
+        project.reset();
+        player.reset();
+        asset.reset();
+        wallet.reset();
+
+        return;
     }
+
+    JsonUtils::try_get_field(json_object, "project", project);
+    JsonUtils::try_get_field(json_object, "player", player);
+    JsonUtils::try_get_field(json_object, "asset", asset);
+    JsonUtils::try_get_field(json_object, "wallet", wallet);
 }
 
 const std::optional<std::string>& PusherChannels::get_project() const {
@@ -55,14 +57,12 @@ const std::optional<std::string>& PusherChannels::get_wallet() const {
 }
 
 bool PusherChannels::operator==(const PusherChannels& rhs) const {
-    return project == rhs.project &&
-           player == rhs.player &&
-           asset == rhs.asset &&
-           wallet == rhs.wallet;
+    return project == rhs.project
+           && player == rhs.player
+           && asset == rhs.asset
+           && wallet == rhs.wallet;
 }
 
 bool PusherChannels::operator!=(const PusherChannels& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

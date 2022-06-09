@@ -15,33 +15,33 @@
 
 #include "enjinsdk/models/Project.hpp"
 
-#include "rapidjson/document.h"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 void Project::deserialize(const std::string& json) {
-    rapidjson::Document document;
-    document.Parse(json.c_str());
-    if (document.IsObject()) {
-        if (document.HasMember(UUID_KEY) && document[UUID_KEY].IsString()) {
-            uuid.emplace(document[UUID_KEY].GetString());
-        }
-        if (document.HasMember(NAME_KEY) && document[NAME_KEY].IsString()) {
-            name.emplace(document[NAME_KEY].GetString());
-        }
-        if (document.HasMember(DESCRIPTION_KEY) && document[DESCRIPTION_KEY].IsString()) {
-            description.emplace(document[DESCRIPTION_KEY].GetString());
-        }
-        if (document.HasMember(IMAGE_KEY) && document[IMAGE_KEY].IsString()) {
-            image.emplace(document[IMAGE_KEY].GetString());
-        }
-        if (document.HasMember(CREATED_AT_KEY) && document[CREATED_AT_KEY].IsString()) {
-            created_at.emplace(document[CREATED_AT_KEY].GetString());
-        }
-        if (document.HasMember(UPDATED_AT_KEY) && document[UPDATED_AT_KEY].IsString()) {
-            updated_at.emplace(document[UPDATED_AT_KEY].GetString());
-        }
+    JsonValue json_object;
+
+    if (!json_object.try_parse_as_object(json)) {
+        uuid.reset();
+        name.reset();
+        description.reset();
+        image.reset();
+        created_at.reset();
+        updated_at.reset();
+
+        return;
     }
+
+    JsonUtils::try_get_field(json_object, "uuid", uuid);
+    JsonUtils::try_get_field(json_object, "name", name);
+    JsonUtils::try_get_field(json_object, "description", description);
+    JsonUtils::try_get_field(json_object, "image", image);
+    JsonUtils::try_get_field(json_object, "createdAt", created_at);
+    JsonUtils::try_get_field(json_object, "updatedAt", updated_at);
 }
 
 const std::optional<std::string>& Project::get_uuid() const {
@@ -69,16 +69,14 @@ const std::optional<std::string>& Project::get_updated_at() const {
 }
 
 bool Project::operator==(const Project& rhs) const {
-    return uuid == rhs.uuid &&
-           name == rhs.name &&
-           description == rhs.description &&
-           image == rhs.image &&
-           created_at == rhs.created_at &&
-           updated_at == rhs.updated_at;
+    return uuid == rhs.uuid
+           && name == rhs.name
+           && description == rhs.description
+           && image == rhs.image
+           && created_at == rhs.created_at
+           && updated_at == rhs.updated_at;
 }
 
 bool Project::operator!=(const Project& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

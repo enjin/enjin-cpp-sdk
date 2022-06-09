@@ -15,9 +15,10 @@
 
 #include "enjinsdk/models/Request.hpp"
 
-#include "RapidJsonUtils.hpp"
-#include "enjinsdk/EnumUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
+using namespace enjin::sdk::json;
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::serialization;
 using namespace enjin::sdk::utils;
@@ -29,76 +30,45 @@ public:
     ~Impl() override = default;
 
     void deserialize(const std::string& json) override {
-        rapidjson::Document document;
-        document.Parse(json.c_str());
+        JsonValue json_object;
 
-        if (!document.IsObject()) {
+        if (!json_object.try_parse_as_object(json)) {
+            id.reset();
+            transaction_id.reset();
+            title.reset();
+            contract.reset();
+            type.reset();
+            value.reset();
+            retry_state.reset();
+            state.reset();
+            accepted.reset();
+            project_wallet.reset();
+            blockchain_data.reset();
+            project.reset();
+            asset.reset();
+            wallet.reset();
+            created_at.reset();
+            updated_at.reset();
+
             return;
         }
 
-        if (document.HasMember(ID_KEY) && document[ID_KEY].IsInt()) {
-            id.emplace(document[ID_KEY].GetInt());
-        }
-
-        if (document.HasMember(TRANSACTION_ID_KEY) && document[TRANSACTION_ID_KEY].IsString()) {
-            transaction_id.emplace(document[TRANSACTION_ID_KEY].GetString());
-        }
-
-        if (document.HasMember(TITLE_KEY) && document[TITLE_KEY].IsString()) {
-            title.emplace(document[TITLE_KEY].GetString());
-        }
-
-        if (document.HasMember(CONTRACT_KEY) && document[CONTRACT_KEY].IsString()) {
-            contract.emplace(document[CONTRACT_KEY].GetString());
-        }
-
-        if (document.HasMember(TYPE_KEY) && document[TYPE_KEY].IsString()) {
-            type.emplace(EnumUtils::deserialize_request_type(document[TYPE_KEY].GetString()));
-        }
-
-        if (document.HasMember(VALUE_KEY) && document[VALUE_KEY].IsString()) {
-            value.emplace(document[VALUE_KEY].GetString());
-        }
-
-        if (document.HasMember(RETRY_STATE_KEY) && document[RETRY_STATE_KEY].IsString()) {
-            retry_state.emplace(document[RETRY_STATE_KEY].GetString());
-        }
-
-        if (document.HasMember(STATE_KEY) && document[STATE_KEY].IsString()) {
-            state.emplace(EnumUtils::deserialize_request_state(document[STATE_KEY].GetString()));
-        }
-
-        if (document.HasMember(ACCEPTED_KEY) && document[ACCEPTED_KEY].IsBool()) {
-            accepted.emplace(document[ACCEPTED_KEY].GetBool());
-        }
-
-        if (document.HasMember(PROJECT_WALLET_KEY) && document[PROJECT_WALLET_KEY].IsBool()) {
-            project_wallet.emplace(document[PROJECT_WALLET_KEY].GetBool());
-        }
-
-        if (document.HasMember(BLOCKCHAIN_DATA_KEY) && document[BLOCKCHAIN_DATA_KEY].IsObject()) {
-            blockchain_data.emplace(get_object_as_type<BlockchainData>(document, BLOCKCHAIN_DATA_KEY));
-        }
-
-        if (document.HasMember(PROJECT_KEY) && document[PROJECT_KEY].IsObject()) {
-            project.emplace(get_object_as_type<Project>(document, PROJECT_KEY));
-        }
-
-        if (document.HasMember(ASSET_KEY) && document[ASSET_KEY].IsObject()) {
-            asset.emplace(get_object_as_type<Asset>(document, ASSET_KEY));
-        }
-
-        if (document.HasMember(WALLET_KEY) && document[WALLET_KEY].IsObject()) {
-            wallet.emplace(get_object_as_type<Wallet>(document, WALLET_KEY));
-        }
-
-        if (document.HasMember(CREATED_AT_KEY) && document[CREATED_AT_KEY].IsString()) {
-            created_at.emplace(document[CREATED_AT_KEY].GetString());
-        }
-
-        if (document.HasMember(UPDATED_AT_KEY) && document[UPDATED_AT_KEY].IsString()) {
-            updated_at.emplace(document[UPDATED_AT_KEY].GetString());
-        }
+        JsonUtils::try_get_field(json_object, "id", id);
+        JsonUtils::try_get_field(json_object, "transactionId", transaction_id);
+        JsonUtils::try_get_field(json_object, "title", title);
+        JsonUtils::try_get_field(json_object, "contract", contract);
+        JsonUtils::try_get_field(json_object, "type", type);
+        JsonUtils::try_get_field(json_object, "value", value);
+        JsonUtils::try_get_field(json_object, "retryState", retry_state);
+        JsonUtils::try_get_field(json_object, "state", state);
+        JsonUtils::try_get_field(json_object, "accepted", accepted);
+        JsonUtils::try_get_field(json_object, "projectWallet", project_wallet);
+        JsonUtils::try_get_field(json_object, "blockchainData", blockchain_data);
+        JsonUtils::try_get_field(json_object, "project", project);
+        JsonUtils::try_get_field(json_object, "asset", asset);
+        JsonUtils::try_get_field(json_object, "wallet", wallet);
+        JsonUtils::try_get_field(json_object, "createdAt", created_at);
+        JsonUtils::try_get_field(json_object, "updatedAt", updated_at);
     }
 
     [[nodiscard]] const std::optional<int>& get_id() const {
@@ -204,23 +174,6 @@ private:
     std::optional<Wallet> wallet;
     std::optional<std::string> created_at;
     std::optional<std::string> updated_at;
-
-    constexpr static char ID_KEY[] = "id";
-    constexpr static char TRANSACTION_ID_KEY[] = "transactionId";
-    constexpr static char TITLE_KEY[] = "title";
-    constexpr static char CONTRACT_KEY[] = "contract";
-    constexpr static char TYPE_KEY[] = "type";
-    constexpr static char VALUE_KEY[] = "value";
-    constexpr static char RETRY_STATE_KEY[] = "retryState";
-    constexpr static char STATE_KEY[] = "state";
-    constexpr static char ACCEPTED_KEY[] = "accepted";
-    constexpr static char PROJECT_WALLET_KEY[] = "projectWallet";
-    constexpr static char BLOCKCHAIN_DATA_KEY[] = "blockchainData";
-    constexpr static char PROJECT_KEY[] = "project";
-    constexpr static char ASSET_KEY[] = "asset";
-    constexpr static char WALLET_KEY[] = "wallet";
-    constexpr static char CREATED_AT_KEY[] = "createdAt";
-    constexpr static char UPDATED_AT_KEY[] = "updatedAt";
 };
 
 Request::Request() : impl(std::make_unique<Impl>()) {
@@ -307,7 +260,7 @@ bool Request::operator==(const Request& rhs) const {
 }
 
 bool Request::operator!=(const Request& rhs) const {
-    return !(*this == rhs);
+    return *impl != *rhs.impl;
 }
 
 Request& Request::operator=(const Request& rhs) {
