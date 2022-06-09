@@ -33,7 +33,7 @@ std::string MeltAsset::serialize() const {
     return to_json().to_string();
 }
 
-MeltAsset& MeltAsset::set_melts(std::vector<Melt> melts) {
+MeltAsset& MeltAsset::set_melts(std::vector<MeltInput> melts) {
     melts_opt = std::move(melts);
     return *this;
 }

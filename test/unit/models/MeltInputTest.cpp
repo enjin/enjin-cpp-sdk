@@ -15,28 +15,28 @@
 
 #include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
-#include "enjinsdk/models/Melt.hpp"
+#include "enjinsdk/models/MeltInput.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
 using namespace enjin::test::suites;
 
-class MeltTest : public JsonTestSuite,
-                 public testing::Test {
+class MeltInputTest : public JsonTestSuite,
+                      public testing::Test {
 public:
-    Melt class_under_test;
+    MeltInput class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"assetId":"1","assetIndex":"1","value":"1"})";
 
-    static Melt create_default_melt() {
-        return Melt().set_asset_id("1")
-                     .set_asset_index("1")
-                     .set_value("1");
+    static MeltInput create_default_melt() {
+        return MeltInput().set_asset_id("1")
+                          .set_asset_index("1")
+                          .set_value("1");
     }
 };
 
-TEST_F(MeltTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
+TEST_F(MeltInputTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EmptyJsonObject);
 
@@ -47,7 +47,7 @@ TEST_F(MeltTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(MeltTest, SerializeSetFieldsReturnsExpectedJsonObject) {
+TEST_F(MeltInputTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_asset_id("1")
@@ -61,10 +61,10 @@ TEST_F(MeltTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(MeltTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(MeltInputTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    Melt lhs;
-    Melt rhs;
+    MeltInput lhs;
+    MeltInput rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -73,10 +73,10 @@ TEST_F(MeltTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(MeltTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(MeltInputTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    Melt lhs = create_default_melt();
-    Melt rhs = create_default_melt();
+    MeltInput lhs = create_default_melt();
+    MeltInput rhs = create_default_melt();
 
     // Act
     bool actual = lhs == rhs;
@@ -85,10 +85,10 @@ TEST_F(MeltTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(MeltTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(MeltInputTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    Melt lhs = create_default_melt();
-    Melt rhs;
+    MeltInput lhs = create_default_melt();
+    MeltInput rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -97,10 +97,10 @@ TEST_F(MeltTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(MeltTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(MeltInputTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    Melt lhs;
-    Melt rhs = create_default_melt();
+    MeltInput lhs;
+    MeltInput rhs = create_default_melt();
 
     // Act
     bool actual = lhs == rhs;

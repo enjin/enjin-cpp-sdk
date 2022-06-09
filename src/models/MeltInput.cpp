@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "enjinsdk/models/Melt.hpp"
+#include "enjinsdk/models/MeltInput.hpp"
 
 #include "enjinsdk/JsonUtils.hpp"
 
@@ -21,26 +21,26 @@ using namespace enjin::sdk::json;
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::utils;
 
-std::string Melt::serialize() const {
+std::string MeltInput::serialize() const {
     return to_json().to_string();
 }
 
-Melt& Melt::set_asset_id(std::string id) {
+MeltInput& MeltInput::set_asset_id(std::string id) {
     asset_id_opt = std::move(id);
     return *this;
 }
 
-Melt& Melt::set_asset_index(std::string index) {
+MeltInput& MeltInput::set_asset_index(std::string index) {
     asset_index_opt = std::move(index);
     return *this;
 }
 
-Melt& Melt::set_value(std::string value) {
+MeltInput& MeltInput::set_value(std::string value) {
     value_opt = std::move(value);
     return *this;
 }
 
-JsonValue Melt::to_json() const {
+JsonValue MeltInput::to_json() const {
     JsonValue json = JsonValue::create_object();
 
     JsonUtils::try_set_field(json, "assetId", asset_id_opt);
@@ -50,12 +50,12 @@ JsonValue Melt::to_json() const {
     return json;
 }
 
-bool Melt::operator==(const Melt& rhs) const {
+bool MeltInput::operator==(const MeltInput& rhs) const {
     return asset_id_opt == rhs.asset_id_opt
            && asset_index_opt == rhs.asset_index_opt
            && value_opt == rhs.value_opt;
 }
 
-bool Melt::operator!=(const Melt& rhs) const {
+bool MeltInput::operator!=(const MeltInput& rhs) const {
     return !(*this == rhs);
 }

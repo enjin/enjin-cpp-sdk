@@ -15,7 +15,7 @@ target_sources(${PROJECT_NAME}
         Contracts.cpp
         GasPrices.cpp
         LinkingInfo.cpp
-        Melt.cpp
+        MeltInput.cpp
         MintInput.cpp
         NotificationEvent.cpp
         Notifications.cpp

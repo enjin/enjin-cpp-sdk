@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/models/Melt.hpp"
+#include "enjinsdk/models/MeltInput.hpp"
 #include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
 #include <optional>
 #include <vector>
@@ -39,7 +39,7 @@ public:
     /// Sets the melts to be performed.
     /// \param melts The melts.
     /// \return This request for chaining.
-    MeltAsset& set_melts(std::vector<models::Melt> melts);
+    MeltAsset& set_melts(std::vector<models::MeltInput> melts);
 
     [[nodiscard]] json::JsonValue to_json() const override;
 
@@ -48,7 +48,7 @@ public:
     bool operator!=(const MeltAsset& rhs) const;
 
 private:
-    std::optional<std::vector<models::Melt>> melts_opt;
+    std::optional<std::vector<models::MeltInput>> melts_opt;
 };
 
 // region ProjectTransactionRequestArguments

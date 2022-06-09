@@ -10,7 +10,7 @@ target_sources(${PROJECT_NAME}_tests
         ContractsTest.cpp
         GasPricesTest.cpp
         LinkingInfoTest.cpp
-        MeltTest.cpp
+        MeltInputTest.cpp
         MintInputTest.cpp
         NotificationEventTest.cpp
         NotificationsTest.cpp

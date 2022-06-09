@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-#ifndef ENJINCPPSDK_MELT_HPP
-#define ENJINCPPSDK_MELT_HPP
+#ifndef ENJINCPPSDK_MELTINPUT_HPP
+#define ENJINCPPSDK_MELTINPUT_HPP
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/ISerializable.hpp"
@@ -24,35 +24,35 @@
 namespace enjin::sdk::models {
 
 /// \brief Models a melt input for melt requests.
-class ENJINSDK_EXPORT Melt : public serialization::ISerializable {
+class ENJINSDK_EXPORT MeltInput : public serialization::ISerializable {
 public:
     /// \brief Default constructor.
-    Melt() = default;
+    MeltInput() = default;
 
-    ~Melt() override = default;
+    ~MeltInput() override = default;
 
     [[nodiscard]] std::string serialize() const override;
 
     /// Sets the asset ID to melt.
     /// \param id The ID.
     /// \return This input for chaining.
-    Melt& set_asset_id(std::string id);
+    MeltInput& set_asset_id(std::string id);
 
     /// Sets the index of a non-fungible asset to melt.
     /// \param index The index.
     /// \return This input for chaining.
-    Melt& set_asset_index(std::string index);
+    MeltInput& set_asset_index(std::string index);
 
     /// Sets the amount of assets to melt.
     /// \param value The amount.
     /// \return This input for chaining.
-    Melt& set_value(std::string value);
+    MeltInput& set_value(std::string value);
 
     [[nodiscard]] json::JsonValue to_json() const override;
 
-    bool operator==(const Melt& rhs) const;
+    bool operator==(const MeltInput& rhs) const;
 
-    bool operator!=(const Melt& rhs) const;
+    bool operator!=(const MeltInput& rhs) const;
 
 private:
     std::optional<std::string> asset_id_opt;
@@ -62,4 +62,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_MELT_HPP
+#endif //ENJINCPPSDK_MELTINPUT_HPP
