@@ -56,6 +56,8 @@ private:
     std::optional<std::string> transaction_id_opt;
 };
 
+// region TransactionFragmentArguments
+
 template ENJINSDK_EXPORT GetRequest&
 TransactionFragmentArguments<GetRequest>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
 
@@ -97,6 +99,8 @@ TransactionFragmentArguments<GetRequest>::set_with_transaction_project_uuid();
 
 template ENJINSDK_EXPORT GetRequest&
 TransactionFragmentArguments<GetRequest>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

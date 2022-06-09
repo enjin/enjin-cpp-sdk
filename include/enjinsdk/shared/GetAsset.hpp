@@ -50,6 +50,8 @@ private:
     std::optional<std::string> id_opt;
 };
 
+// region AssetFragmentArguments
+
 template ENJINSDK_EXPORT GetAsset&
 AssetFragmentArguments<GetAsset>::set_asset_id_format(models::AssetIdFormat asset_id_format);
 
@@ -85,6 +87,8 @@ AssetFragmentArguments<GetAsset>::set_with_asset_variants();
 
 template ENJINSDK_EXPORT GetAsset&
 AssetFragmentArguments<GetAsset>::set_with_variant_metadata();
+
+// endregion AssetFragmentArguments
 
 }
 

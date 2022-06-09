@@ -61,6 +61,8 @@ private:
 
 namespace enjin::sdk::shared {
 
+// region TransactionFragmentArguments
+
 template ENJINSDK_EXPORT player::SendEnj&
 TransactionFragmentArguments<player::SendEnj>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
 
@@ -102,6 +104,8 @@ TransactionFragmentArguments<player::SendEnj>::set_with_transaction_project_uuid
 
 template ENJINSDK_EXPORT player::SendEnj&
 TransactionFragmentArguments<player::SendEnj>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

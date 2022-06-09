@@ -44,6 +44,8 @@ public:
 
 namespace enjin::sdk::shared {
 
+// region TransactionFragmentArguments
+
 template ENJINSDK_EXPORT player::ApproveMaxEnj&
 TransactionFragmentArguments<player::ApproveMaxEnj>::set_transaction_asset_id_format(
         models::AssetIdFormat asset_id_format);
@@ -86,6 +88,8 @@ TransactionFragmentArguments<player::ApproveMaxEnj>::set_with_transaction_projec
 
 template ENJINSDK_EXPORT player::ApproveMaxEnj&
 TransactionFragmentArguments<player::ApproveMaxEnj>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

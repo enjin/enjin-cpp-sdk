@@ -41,12 +41,18 @@ public:
     bool operator!=(const ResetEnjApproval& rhs) const;
 };
 
+// region ProjectTransactionRequestArguments
+
 template ENJINSDK_EXPORT ResetEnjApproval&
 ProjectTransactionRequestArguments<ResetEnjApproval>::set_eth_address(std::string address);
+
+// endregion ProjectTransactionRequestArguments
 
 }
 
 namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
 
 template ENJINSDK_EXPORT project::ResetEnjApproval&
 TransactionFragmentArguments<project::ResetEnjApproval>::set_transaction_asset_id_format(
@@ -90,6 +96,8 @@ TransactionFragmentArguments<project::ResetEnjApproval>::set_with_transaction_pr
 
 template ENJINSDK_EXPORT project::ResetEnjApproval&
 TransactionFragmentArguments<project::ResetEnjApproval>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

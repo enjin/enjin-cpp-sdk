@@ -66,6 +66,8 @@ private:
 
 namespace enjin::sdk::shared {
 
+// region TransactionFragmentArguments
+
 template ENJINSDK_EXPORT player::BridgeAsset&
 TransactionFragmentArguments<player::BridgeAsset>::set_transaction_asset_id_format(
         models::AssetIdFormat asset_id_format);
@@ -108,6 +110,8 @@ TransactionFragmentArguments<player::BridgeAsset>::set_with_transaction_project_
 
 template ENJINSDK_EXPORT player::BridgeAsset&
 TransactionFragmentArguments<player::BridgeAsset>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

@@ -103,12 +103,18 @@ private:
     std::optional<bool> non_fungible_opt;
 };
 
+// region ProjectTransactionRequestArguments
+
 template ENJINSDK_EXPORT CreateAsset&
 ProjectTransactionRequestArguments<CreateAsset>::set_eth_address(std::string address);
+
+// endregion ProjectTransactionRequestArguments
 
 }
 
 namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
 
 template ENJINSDK_EXPORT project::CreateAsset&
 TransactionFragmentArguments<project::CreateAsset>::set_transaction_asset_id_format(
@@ -152,6 +158,8 @@ TransactionFragmentArguments<project::CreateAsset>::set_with_transaction_project
 
 template ENJINSDK_EXPORT project::CreateAsset&
 TransactionFragmentArguments<project::CreateAsset>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

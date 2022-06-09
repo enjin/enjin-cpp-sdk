@@ -56,12 +56,18 @@ private:
     std::optional<int> max_transfer_fee_opt;
 };
 
+// region ProjectTransactionRequestArguments
+
 template ENJINSDK_EXPORT DecreaseMaxTransferFee&
 ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_eth_address(std::string address);
+
+// endregion ProjectTransactionRequestArguments
 
 }
 
 namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
 
 template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
 TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_transaction_asset_id_format(
@@ -105,6 +111,8 @@ TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_transact
 
 template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
 TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

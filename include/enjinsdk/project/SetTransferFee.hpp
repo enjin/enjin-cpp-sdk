@@ -56,12 +56,18 @@ private:
     std::optional<std::string> transfer_fee_opt;
 };
 
+// region ProjectTransactionRequestArguments
+
 template ENJINSDK_EXPORT SetTransferFee&
 ProjectTransactionRequestArguments<SetTransferFee>::set_eth_address(std::string address);
+
+// endregion ProjectTransactionRequestArguments
 
 }
 
 namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
 
 template ENJINSDK_EXPORT project::SetTransferFee&
 TransactionFragmentArguments<project::SetTransferFee>::set_transaction_asset_id_format(
@@ -105,6 +111,8 @@ TransactionFragmentArguments<project::SetTransferFee>::set_with_transaction_proj
 
 template ENJINSDK_EXPORT project::SetTransferFee&
 TransactionFragmentArguments<project::SetTransferFee>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

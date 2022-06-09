@@ -50,12 +50,18 @@ private:
     std::optional<std::string> asset_id_opt;
 };
 
+// region ProjectTransactionRequestArguments
+
 template ENJINSDK_EXPORT BridgeClaimAsset&
 ProjectTransactionRequestArguments<BridgeClaimAsset>::set_eth_address(std::string address);
+
+// endregion ProjectTransactionRequestArguments
 
 }
 
 namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
 
 template ENJINSDK_EXPORT project::BridgeClaimAsset&
 TransactionFragmentArguments<project::BridgeClaimAsset>::set_transaction_asset_id_format(
@@ -99,6 +105,8 @@ TransactionFragmentArguments<project::BridgeClaimAsset>::set_with_transaction_pr
 
 template ENJINSDK_EXPORT project::BridgeClaimAsset&
 TransactionFragmentArguments<project::BridgeClaimAsset>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

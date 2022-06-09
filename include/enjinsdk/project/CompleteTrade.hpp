@@ -50,12 +50,18 @@ private:
     std::optional<std::string> trade_id_opt;
 };
 
+// region ProjectTransactionRequestArguments
+
 template ENJINSDK_EXPORT CompleteTrade&
 ProjectTransactionRequestArguments<CompleteTrade>::set_eth_address(std::string address);
+
+// endregion ProjectTransactionRequestArguments
 
 }
 
 namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
 
 template ENJINSDK_EXPORT project::CompleteTrade&
 TransactionFragmentArguments<project::CompleteTrade>::set_transaction_asset_id_format(
@@ -99,6 +105,8 @@ TransactionFragmentArguments<project::CompleteTrade>::set_with_transaction_proje
 
 template ENJINSDK_EXPORT project::CompleteTrade&
 TransactionFragmentArguments<project::CompleteTrade>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

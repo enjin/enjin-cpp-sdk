@@ -51,12 +51,18 @@ private:
     std::optional<std::vector<models::Melt>> melts_opt;
 };
 
+// region ProjectTransactionRequestArguments
+
 template ENJINSDK_EXPORT MeltAsset&
 ProjectTransactionRequestArguments<MeltAsset>::set_eth_address(std::string address);
+
+// endregion ProjectTransactionRequestArguments
 
 }
 
 namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
 
 template ENJINSDK_EXPORT project::MeltAsset&
 TransactionFragmentArguments<project::MeltAsset>::set_transaction_asset_id_format(
@@ -100,6 +106,8 @@ TransactionFragmentArguments<project::MeltAsset>::set_with_transaction_project_u
 
 template ENJINSDK_EXPORT project::MeltAsset&
 TransactionFragmentArguments<project::MeltAsset>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

@@ -51,12 +51,18 @@ private:
     std::optional<std::string> value_opt;
 };
 
+// region ProjectTransactionRequestArguments
+
 template ENJINSDK_EXPORT ApproveEnj&
 ProjectTransactionRequestArguments<ApproveEnj>::set_eth_address(std::string address);
+
+// endregion ProjectTransactionRequestArguments
 
 }
 
 namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
 
 template ENJINSDK_EXPORT project::ApproveEnj&
 TransactionFragmentArguments<project::ApproveEnj>::set_transaction_asset_id_format(
@@ -100,6 +106,8 @@ TransactionFragmentArguments<project::ApproveEnj>::set_with_transaction_project_
 
 template ENJINSDK_EXPORT project::ApproveEnj&
 TransactionFragmentArguments<project::ApproveEnj>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

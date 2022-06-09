@@ -40,12 +40,18 @@ public:
     bool operator!=(const ApproveMaxEnj& rhs) const;
 };
 
+// region ProjectTransactionRequestArguments
+
 template ENJINSDK_EXPORT ApproveMaxEnj&
 ProjectTransactionRequestArguments<ApproveMaxEnj>::set_eth_address(std::string address);
+
+// endregion ProjectTransactionRequestArguments
 
 }
 
 namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
 
 template ENJINSDK_EXPORT project::ApproveMaxEnj&
 TransactionFragmentArguments<project::ApproveMaxEnj>::set_transaction_asset_id_format(
@@ -89,6 +95,8 @@ TransactionFragmentArguments<project::ApproveMaxEnj>::set_with_transaction_proje
 
 template ENJINSDK_EXPORT project::ApproveMaxEnj&
 TransactionFragmentArguments<project::ApproveMaxEnj>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

@@ -75,12 +75,18 @@ private:
     std::optional<bool> on_opt;
 };
 
+// region ProjectTransactionRequestArguments
+
 template ENJINSDK_EXPORT SetWhitelisted&
 ProjectTransactionRequestArguments<SetWhitelisted>::set_eth_address(std::string address);
+
+// endregion ProjectTransactionRequestArguments
 
 }
 
 namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
 
 template ENJINSDK_EXPORT project::SetWhitelisted&
 TransactionFragmentArguments<project::SetWhitelisted>::set_transaction_asset_id_format(
@@ -124,6 +130,8 @@ TransactionFragmentArguments<project::SetWhitelisted>::set_with_transaction_proj
 
 template ENJINSDK_EXPORT project::SetWhitelisted&
 TransactionFragmentArguments<project::SetWhitelisted>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 
