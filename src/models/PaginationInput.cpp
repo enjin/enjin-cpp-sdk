@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "enjinsdk/models/PaginationOptions.hpp"
+#include "enjinsdk/models/PaginationInput.hpp"
 
 #include "enjinsdk/JsonUtils.hpp"
 
@@ -21,21 +21,21 @@ using namespace enjin::sdk::json;
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::utils;
 
-std::string PaginationOptions::serialize() const {
+std::string PaginationInput::serialize() const {
     return to_json().to_string();
 }
 
-PaginationOptions& PaginationOptions::set_page(int page) {
+PaginationInput& PaginationInput::set_page(int page) {
     page_opt = page;
     return *this;
 }
 
-PaginationOptions& PaginationOptions::set_limit(int limit) {
+PaginationInput& PaginationInput::set_limit(int limit) {
     limit_opt = limit;
     return *this;
 }
 
-JsonValue PaginationOptions::to_json() const {
+JsonValue PaginationInput::to_json() const {
     JsonValue json = JsonValue::create_object();
 
     JsonUtils::try_set_field(json, "page", page_opt);
@@ -44,11 +44,11 @@ JsonValue PaginationOptions::to_json() const {
     return json;
 }
 
-bool PaginationOptions::operator==(const PaginationOptions& rhs) const {
+bool PaginationInput::operator==(const PaginationInput& rhs) const {
     return page_opt == rhs.page_opt
            && limit_opt == rhs.limit_opt;
 }
 
-bool PaginationOptions::operator!=(const PaginationOptions& rhs) const {
+bool PaginationInput::operator!=(const PaginationInput& rhs) const {
     return !(*this == rhs);
 }

@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-#ifndef ENJINCPPSDK_PAGINATIONOPTIONS_HPP
-#define ENJINCPPSDK_PAGINATIONOPTIONS_HPP
+#ifndef ENJINCPPSDK_PAGINATIONINPUT_HPP
+#define ENJINCPPSDK_PAGINATIONINPUT_HPP
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/ISerializable.hpp"
@@ -23,30 +23,30 @@
 namespace enjin::sdk::models {
 
 /// \brief Models a pagination input for pagination requests.
-class ENJINSDK_EXPORT PaginationOptions : public serialization::ISerializable {
+class ENJINSDK_EXPORT PaginationInput : public serialization::ISerializable {
 public:
     /// \brief Default constructor.
-    PaginationOptions() = default;
+    PaginationInput() = default;
 
-    ~PaginationOptions() override = default;
+    ~PaginationInput() override = default;
 
     [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the page number to start at for the pagination.
     /// \param page The page number.
     /// \return This input for chaining.
-    PaginationOptions& set_page(int page);
+    PaginationInput& set_page(int page);
 
     /// \brief Sets the number of items per page for the pagination.
     /// \param limit The number of items per page.
     /// \return This input for chaining.
-    PaginationOptions& set_limit(int limit);
+    PaginationInput& set_limit(int limit);
 
     [[nodiscard]] json::JsonValue to_json() const override;
 
-    bool operator==(const PaginationOptions& rhs) const;
+    bool operator==(const PaginationInput& rhs) const;
 
-    bool operator!=(const PaginationOptions& rhs) const;
+    bool operator!=(const PaginationInput& rhs) const;
 
 private:
     std::optional<int> page_opt;
@@ -55,4 +55,4 @@ private:
 
 }
 
-#endif //ENJINCPPSDK_PAGINATIONOPTIONS_HPP
+#endif //ENJINCPPSDK_PAGINATIONINPUT_HPP

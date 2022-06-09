@@ -108,7 +108,7 @@ TransactionFragmentArguments<GetTransactions>::set_with_transaction_wallet_addre
 // region PaginationArguments
 
 template ENJINSDK_EXPORT GetTransactions&
-PaginationArguments<GetTransactions>::set_pagination(models::PaginationOptions pagination);
+PaginationArguments<GetTransactions>::set_pagination(models::PaginationInput pagination);
 
 template ENJINSDK_EXPORT GetTransactions&
 PaginationArguments<GetTransactions>::set_pagination(int page, int limit);

@@ -116,7 +116,7 @@ BalanceFragmentArguments<project::GetPlayers>::set_with_bal_wallet_address();
 // region PaginationArguments
 
 template ENJINSDK_EXPORT project::GetPlayers&
-PaginationArguments<project::GetPlayers>::set_pagination(models::PaginationOptions pagination);
+PaginationArguments<project::GetPlayers>::set_pagination(models::PaginationInput pagination);
 
 template ENJINSDK_EXPORT project::GetPlayers&
 PaginationArguments<project::GetPlayers>::set_pagination(int page, int limit);

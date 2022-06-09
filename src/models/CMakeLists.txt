@@ -20,7 +20,7 @@ target_sources(${PROJECT_NAME}
         NotificationEvent.cpp
         Notifications.cpp
         PaginationCursor.cpp
-        PaginationOptions.cpp
+        PaginationInput.cpp
         Platform.cpp
         Player.cpp
         PlayerFilter.cpp

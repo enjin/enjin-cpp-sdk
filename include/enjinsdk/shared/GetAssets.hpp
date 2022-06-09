@@ -103,7 +103,7 @@ AssetFragmentArguments<GetAssets>::set_with_variant_metadata();
 // region PaginationArguments
 
 template ENJINSDK_EXPORT GetAssets&
-PaginationArguments<GetAssets>::set_pagination(models::PaginationOptions pagination);
+PaginationArguments<GetAssets>::set_pagination(models::PaginationInput pagination);
 
 template ENJINSDK_EXPORT GetAssets&
 PaginationArguments<GetAssets>::set_pagination(int page, int limit);

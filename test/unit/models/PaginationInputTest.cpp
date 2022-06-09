@@ -15,27 +15,27 @@
 
 #include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
-#include "enjinsdk/models/PaginationOptions.hpp"
+#include "enjinsdk/models/PaginationInput.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
 using namespace enjin::test::suites;
 
-class PaginationOptionsTest : public JsonTestSuite,
-                              public testing::Test {
+class PaginationInputTest : public JsonTestSuite,
+                            public testing::Test {
 public:
-    PaginationOptions class_under_test;
+    PaginationInput class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
             R"({"page":1,"limit":1})";
 
-    static PaginationOptions create_default_pagination_options() {
-        return PaginationOptions().set_page(1)
-                                  .set_limit(1);
+    static PaginationInput create_default_pagination_options() {
+        return PaginationInput().set_page(1)
+                                .set_limit(1);
     }
 };
 
-TEST_F(PaginationOptionsTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
+TEST_F(PaginationInputTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
     const std::string expected(EmptyJsonObject);
 
@@ -46,7 +46,7 @@ TEST_F(PaginationOptionsTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(PaginationOptionsTest, SerializeSetFieldsReturnsExpectedJsonObject) {
+TEST_F(PaginationInputTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_page(1)
@@ -59,10 +59,10 @@ TEST_F(PaginationOptionsTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(PaginationOptionsTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
+TEST_F(PaginationInputTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    PaginationOptions lhs;
-    PaginationOptions rhs;
+    PaginationInput lhs;
+    PaginationInput rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -71,10 +71,10 @@ TEST_F(PaginationOptionsTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(PaginationOptionsTest, EqualityBothSidesArePopulatedReturnsTrue) {
+TEST_F(PaginationInputTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    PaginationOptions lhs = create_default_pagination_options();
-    PaginationOptions rhs = create_default_pagination_options();
+    PaginationInput lhs = create_default_pagination_options();
+    PaginationInput rhs = create_default_pagination_options();
 
     // Act
     bool actual = lhs == rhs;
@@ -83,10 +83,10 @@ TEST_F(PaginationOptionsTest, EqualityBothSidesArePopulatedReturnsTrue) {
     ASSERT_TRUE(actual);
 }
 
-TEST_F(PaginationOptionsTest, EqualityLeftSideIsPopulatedReturnsFalse) {
+TEST_F(PaginationInputTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    PaginationOptions lhs = create_default_pagination_options();
-    PaginationOptions rhs;
+    PaginationInput lhs = create_default_pagination_options();
+    PaginationInput rhs;
 
     // Act
     bool actual = lhs == rhs;
@@ -95,10 +95,10 @@ TEST_F(PaginationOptionsTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     ASSERT_FALSE(actual);
 }
 
-TEST_F(PaginationOptionsTest, EqualityRightSideIsPopulatedReturnsFalse) {
+TEST_F(PaginationInputTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    PaginationOptions lhs;
-    PaginationOptions rhs = create_default_pagination_options();
+    PaginationInput lhs;
+    PaginationInput rhs = create_default_pagination_options();
 
     // Act
     bool actual = lhs == rhs;

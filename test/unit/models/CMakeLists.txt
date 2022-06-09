@@ -15,7 +15,7 @@ target_sources(${PROJECT_NAME}_tests
         NotificationEventTest.cpp
         NotificationsTest.cpp
         PaginationCursorTest.cpp
-        PaginationOptionsTest.cpp
+        PaginationInputTest.cpp
         PlatformTest.cpp
         PlayerFilterTest.cpp
         PlayerTest.cpp

@@ -71,7 +71,7 @@ BalanceFragmentArguments<GetBalances>::set_with_bal_wallet_address();
 // region PaginationArguments
 
 template ENJINSDK_EXPORT GetBalances&
-PaginationArguments<GetBalances>::set_pagination(models::PaginationOptions pagination);
+PaginationArguments<GetBalances>::set_pagination(models::PaginationInput pagination);
 
 template ENJINSDK_EXPORT GetBalances&
 PaginationArguments<GetBalances>::set_pagination(int page, int limit);
