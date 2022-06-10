@@ -116,7 +116,7 @@ public:
 
         /// \brief Builds the event service.
         /// \return The service.
-        [[nodiscard]] PusherEventService build();
+        [[nodiscard]] std::unique_ptr<PusherEventService> build();
 
         /// \brief Sets the platform model that the event service will use.
         /// \param platform The platform.

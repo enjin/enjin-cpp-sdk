@@ -25,6 +25,7 @@
 #include "PusherEventListener.hpp"
 #include "WalletChannel.hpp"
 #include <algorithm>
+#include <chrono>
 #include <exception>
 #include <stdexcept>
 #include <sstream>
@@ -65,7 +66,7 @@ std::string serialize_pusher_connection_state(PusherConnectionState v) noexcept 
     }
 }
 
-class PusherEventService::Impl : public IEventService {
+class PusherEventService::Impl final : public IEventService {
 public:
     Impl() = delete;
 
@@ -87,7 +88,11 @@ public:
               logger_provider(std::move(logger_provider)) {
     }
 
-    ~Impl() override = default;
+    ~Impl() override {
+        if (is_connected()) {
+            shutdown().wait_for(std::chrono::seconds(30));
+        }
+    }
 
     std::future<void> start() override {
         shutdown();
@@ -153,7 +158,7 @@ public:
 
     std::future<void> shutdown() override {
         if (client == nullptr) {
-            return create_failed_future("Event service has not been started.");
+            return create_completed_future();
         }
 
         return client->disconnect();
@@ -350,18 +355,18 @@ private:
 
 PusherEventService::PusherEventService(std::unique_ptr<IWebsocketClient> ws_client,
                                        std::shared_ptr<LoggerProvider> logger_provider)
-        : pimpl(new Impl(std::make_unique<PusherEventListener>(this),
-                         std::move(ws_client),
-                         std::move(logger_provider))) {
+        : pimpl(std::make_unique<Impl>(std::make_unique<PusherEventListener>(this),
+                                       std::move(ws_client),
+                                       std::move(logger_provider))) {
 }
 
 PusherEventService::PusherEventService(std::unique_ptr<IWebsocketClient> ws_client,
                                        std::shared_ptr<LoggerProvider> logger_provider,
                                        Platform platform)
-        : pimpl(new Impl(std::make_unique<PusherEventListener>(this),
-                         std::move(ws_client),
-                         std::move(logger_provider),
-                         std::move(platform))) {
+        : pimpl(std::make_unique<Impl>(std::make_unique<PusherEventListener>(this),
+                                       std::move(ws_client),
+                                       std::move(logger_provider),
+                                       std::move(platform))) {
 }
 
 PusherEventService::~PusherEventService() = default;
@@ -485,7 +490,7 @@ PusherEventService::PusherEventServiceBuilder PusherEventService::builder() {
     return {};
 }
 
-PusherEventService PusherEventService::PusherEventServiceBuilder::build() {
+std::unique_ptr<PusherEventService> PusherEventService::PusherEventServiceBuilder::build() {
     if (m_ws_client == nullptr) {
 #if ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL
         m_ws_client = std::make_unique<WebsocketClient>();
@@ -495,8 +500,11 @@ PusherEventService PusherEventService::PusherEventServiceBuilder::build() {
     }
 
     return m_platform.has_value()
-           ? PusherEventService(std::move(m_ws_client), std::move(m_logger_provider), m_platform.value())
-           : PusherEventService(std::move(m_ws_client), std::move(m_logger_provider));
+           ? std::unique_ptr<PusherEventService>(new PusherEventService(std::move(m_ws_client),
+                                                                        std::move(m_logger_provider),
+                                                                        m_platform.value()))
+           : std::unique_ptr<PusherEventService>(new PusherEventService(std::move(m_ws_client),
+                                                                        std::move(m_logger_provider)));
 }
 
 PusherEventService::PusherEventServiceBuilder&
