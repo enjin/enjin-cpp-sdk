@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -26,10 +27,19 @@ namespace enjin::sdk::models {
 /// \brief Models Pusher channels used by the platform.
 class ENJINSDK_EXPORT PusherChannels : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    PusherChannels() = default;
+    /// \brief Constructs an instance of this class.
+    PusherChannels();
 
-    ~PusherChannels() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    PusherChannels(const PusherChannels& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    PusherChannels(PusherChannels&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~PusherChannels() override;
 
     void deserialize(const std::string& json) override;
 
@@ -53,11 +63,12 @@ public:
 
     bool operator!=(const PusherChannels& rhs) const;
 
+    PusherChannels& operator=(const PusherChannels& rhs);
+
 private:
-    std::optional<std::string> project;
-    std::optional<std::string> player;
-    std::optional<std::string> asset;
-    std::optional<std::string> wallet;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

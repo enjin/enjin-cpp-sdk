@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/ISerializable.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 #include <vector>
@@ -27,10 +28,19 @@ namespace enjin::sdk::models {
 /// \brief Models a filter input for player queries.
 class ENJINSDK_EXPORT PlayerFilter : public serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    PlayerFilter() = default;
+    /// \brief Constructs an instance of this class.
+    PlayerFilter();
 
-    ~PlayerFilter() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    PlayerFilter(const PlayerFilter& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    PlayerFilter(PlayerFilter&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~PlayerFilter() override;
 
     [[nodiscard]] std::string serialize() const override;
 
@@ -60,11 +70,12 @@ public:
 
     bool operator!=(const PlayerFilter& rhs) const;
 
+    PlayerFilter& operator=(const PlayerFilter& rhs);
+
 private:
-    std::optional<std::vector<PlayerFilter>> and_filters_opt;
-    std::optional<std::vector<PlayerFilter>> or_filters_opt;
-    std::optional<std::string> id_opt;
-    std::optional<std::vector<std::string>> id_in_opt;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

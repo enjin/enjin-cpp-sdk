@@ -20,63 +20,130 @@
 
 using namespace enjin::sdk::json;
 using namespace enjin::sdk::models;
+using namespace enjin::sdk::serialization;
 using namespace enjin::sdk::utils;
 
-void Project::deserialize(const std::string& json) {
-    JsonValue json_object;
+class Project::Impl final : public IDeserializable {
+public:
+    Impl() = default;
 
-    if (!json_object.try_parse_as_object(json)) {
-        uuid.reset();
-        name.reset();
-        description.reset();
-        image.reset();
-        created_at.reset();
-        updated_at.reset();
+    ~Impl() override = default;
 
-        return;
+    void deserialize(const std::string& json) override {
+        JsonValue json_object;
+
+        if (!json_object.try_parse_as_object(json)) {
+            uuid.reset();
+            name.reset();
+            description.reset();
+            image.reset();
+            created_at.reset();
+            updated_at.reset();
+
+            return;
+        }
+
+        JsonUtils::try_get_field(json_object, "uuid", uuid);
+        JsonUtils::try_get_field(json_object, "name", name);
+        JsonUtils::try_get_field(json_object, "description", description);
+        JsonUtils::try_get_field(json_object, "image", image);
+        JsonUtils::try_get_field(json_object, "createdAt", created_at);
+        JsonUtils::try_get_field(json_object, "updatedAt", updated_at);
     }
 
-    JsonUtils::try_get_field(json_object, "uuid", uuid);
-    JsonUtils::try_get_field(json_object, "name", name);
-    JsonUtils::try_get_field(json_object, "description", description);
-    JsonUtils::try_get_field(json_object, "image", image);
-    JsonUtils::try_get_field(json_object, "createdAt", created_at);
-    JsonUtils::try_get_field(json_object, "updatedAt", updated_at);
+    [[nodiscard]] const std::optional<std::string>& get_uuid() const {
+        return uuid;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_name() const {
+        return name;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_description() const {
+        return description;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_image() const {
+        return image;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_created_at() const {
+        return created_at;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_updated_at() const {
+        return updated_at;
+    }
+
+    bool operator==(const Impl& rhs) const {
+        return uuid == rhs.uuid
+               && name == rhs.name
+               && description == rhs.description
+               && image == rhs.image
+               && created_at == rhs.created_at
+               && updated_at == rhs.updated_at;
+    }
+
+    bool operator!=(const Impl& rhs) const {
+        return !(*this == rhs);
+    }
+
+private:
+    std::optional<std::string> uuid;
+    std::optional<std::string> name;
+    std::optional<std::string> description;
+    std::optional<std::string> image;
+    std::optional<std::string> created_at;
+    std::optional<std::string> updated_at;
+};
+
+Project::Project() : pimpl(std::make_unique<Impl>()) {
+}
+
+Project::Project(const Project& other) : pimpl(std::make_unique<Impl>(*other.pimpl)) {
+}
+
+Project::Project(Project&& other) noexcept = default;
+
+Project::~Project() = default;
+
+void Project::deserialize(const std::string& json) {
+    pimpl->deserialize(json);
 }
 
 const std::optional<std::string>& Project::get_uuid() const {
-    return uuid;
+    return pimpl->get_uuid();
 }
 
 const std::optional<std::string>& Project::get_name() const {
-    return name;
+    return pimpl->get_name();
 }
 
 const std::optional<std::string>& Project::get_description() const {
-    return description;
+    return pimpl->get_description();
 }
 
 const std::optional<std::string>& Project::get_image() const {
-    return image;
+    return pimpl->get_image();
 }
 
 const std::optional<std::string>& Project::get_created_at() const {
-    return created_at;
+    return pimpl->get_created_at();
 }
 
 const std::optional<std::string>& Project::get_updated_at() const {
-    return updated_at;
+    return pimpl->get_updated_at();
 }
 
 bool Project::operator==(const Project& rhs) const {
-    return uuid == rhs.uuid
-           && name == rhs.name
-           && description == rhs.description
-           && image == rhs.image
-           && created_at == rhs.created_at
-           && updated_at == rhs.updated_at;
+    return *pimpl == *rhs.pimpl;
 }
 
 bool Project::operator!=(const Project& rhs) const {
-    return !(*this == rhs);
+    return *pimpl != *rhs.pimpl;
+}
+
+Project& Project::operator=(const Project& rhs) {
+    pimpl = std::make_unique<Impl>(*rhs.pimpl);
+    return *this;
 }

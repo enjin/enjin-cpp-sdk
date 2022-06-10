@@ -19,6 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/TransactionLog.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 #include <vector>
@@ -28,10 +29,19 @@ namespace enjin::sdk::models {
 /// \brief Models a receipt for a blockchain transaction.
 class ENJINSDK_EXPORT TransactionReceipt : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    TransactionReceipt() = default;
+    /// \brief Constructs an instance of this class.
+    TransactionReceipt();
 
-    ~TransactionReceipt() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    TransactionReceipt(const TransactionReceipt& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    TransactionReceipt(TransactionReceipt&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~TransactionReceipt() override;
 
     void deserialize(const std::string& json) override;
 
@@ -80,17 +90,12 @@ public:
 
     bool operator!=(const TransactionReceipt& rhs) const;
 
+    TransactionReceipt& operator=(const TransactionReceipt& rhs);
+
 private:
-    std::optional<std::string> block_hash;
-    std::optional<int> block_number;
-    std::optional<int> cumulative_gas_used;
-    std::optional<int> gas_used;
-    std::optional<std::string> from;
-    std::optional<std::string> to;
-    std::optional<std::string> transaction_hash;
-    std::optional<int> transaction_index;
-    std::optional<bool> status;
-    std::optional<std::vector<TransactionLog>> logs;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

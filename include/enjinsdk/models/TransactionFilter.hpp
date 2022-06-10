@@ -20,6 +20,7 @@
 #include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/models/TransactionState.hpp"
 #include "enjinsdk/models/TransactionType.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 #include <vector>
@@ -29,10 +30,19 @@ namespace enjin::sdk::models {
 /// \brief Models a filter input for transaction queries.
 class ENJINSDK_EXPORT TransactionFilter : public serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    TransactionFilter() = default;
+    /// \brief Constructs an instance of this class.
+    TransactionFilter();
 
-    ~TransactionFilter() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    TransactionFilter(const TransactionFilter& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    TransactionFilter(TransactionFilter&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~TransactionFilter() override;
 
     [[nodiscard]] std::string serialize() const override;
 
@@ -137,26 +147,12 @@ public:
 
     bool operator!=(const TransactionFilter& rhs) const;
 
+    TransactionFilter& operator=(const TransactionFilter& rhs);
+
 private:
-    std::optional<std::vector<TransactionFilter>> and_filters_opt;
-    std::optional<std::vector<TransactionFilter>> or_filters_opt;
-    std::optional<std::string> id_opt;
-    std::optional<std::vector<std::string>> id_in_opt;
-    std::optional<std::string> transaction_id_opt;
-    std::optional<std::vector<std::string>> transaction_id_in_opt;
-    std::optional<std::string> asset_id_opt;
-    std::optional<std::vector<std::string>> asset_id_in_opt;
-    std::optional<TransactionType> type_opt;
-    std::optional<std::vector<TransactionType>> type_in_opt;
-    std::optional<int> value_opt;
-    std::optional<int> value_gt_opt;
-    std::optional<int> value_gte_opt;
-    std::optional<int> value_lt_opt;
-    std::optional<int> value_lte_opt;
-    std::optional<TransactionState> state_opt;
-    std::optional<std::vector<TransactionState>> state_in_opt;
-    std::optional<std::string> wallet_opt;
-    std::optional<std::vector<std::string>> wallet_in_opt;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

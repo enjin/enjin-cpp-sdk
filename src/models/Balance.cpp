@@ -23,7 +23,7 @@ using namespace enjin::sdk::models;
 using namespace enjin::sdk::serialization;
 using namespace enjin::sdk::utils;
 
-class Balance::Impl : public IDeserializable {
+class Balance::Impl final : public IDeserializable {
 public:
     Impl() = default;
 
@@ -89,11 +89,10 @@ private:
     std::optional<Wallet> wallet;
 };
 
-Balance::Balance() : impl(std::make_unique<Impl>()) {
+Balance::Balance() : pimpl(std::make_unique<Impl>()) {
 }
 
-Balance::Balance(const Balance& other) {
-    impl = std::make_unique<Impl>(*other.impl);
+Balance::Balance(const Balance& other) : pimpl(std::make_unique<Impl>(*other.pimpl)) {
 }
 
 Balance::Balance(Balance&& other) noexcept = default;
@@ -101,38 +100,38 @@ Balance::Balance(Balance&& other) noexcept = default;
 Balance::~Balance() = default;
 
 void Balance::deserialize(const std::string& json) {
-    impl->deserialize(json);
+    pimpl->deserialize(json);
 }
 
 const std::optional<std::string>& Balance::get_id() const {
-    return impl->get_id();
+    return pimpl->get_id();
 }
 
 const std::optional<std::string>& Balance::get_index() const {
-    return impl->get_index();
+    return pimpl->get_index();
 }
 
 const std::optional<int>& Balance::get_value() const {
-    return impl->get_value();
+    return pimpl->get_value();
 }
 
 const std::optional<Project>& Balance::get_project() const {
-    return impl->get_project();
+    return pimpl->get_project();
 }
 
 const std::optional<Wallet>& Balance::get_wallet() const {
-    return impl->get_wallet();
+    return pimpl->get_wallet();
 }
 
 bool Balance::operator==(const Balance& rhs) const {
-    return *impl == *rhs.impl;
+    return *pimpl == *rhs.pimpl;
 }
 
 bool Balance::operator!=(const Balance& rhs) const {
-    return *impl != *rhs.impl;
+    return *pimpl != *rhs.pimpl;
 }
 
 Balance& enjin::sdk::models::Balance::operator=(const Balance& rhs) {
-    impl = std::make_unique<Impl>(*rhs.impl);
+    pimpl = std::make_unique<Impl>(*rhs.pimpl);
     return *this;
 }

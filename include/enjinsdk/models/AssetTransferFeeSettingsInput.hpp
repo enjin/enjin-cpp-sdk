@@ -20,6 +20,7 @@
 #include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/models/AssetTransferFeeSettings.hpp"
 #include "enjinsdk/models/AssetTransferFeeType.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -28,10 +29,19 @@ namespace enjin::sdk::models {
 /// \brief Models input for the transfer fee settings used in GraphQL requests.
 class ENJINSDK_EXPORT AssetTransferFeeSettingsInput : public serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    AssetTransferFeeSettingsInput() = default;
+    /// \brief Constructs an instance of this class.
+    AssetTransferFeeSettingsInput();
 
-    ~AssetTransferFeeSettingsInput() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    AssetTransferFeeSettingsInput(const AssetTransferFeeSettingsInput& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    AssetTransferFeeSettingsInput(AssetTransferFeeSettingsInput&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~AssetTransferFeeSettingsInput() override;
 
     [[nodiscard]] std::string serialize() const override;
 
@@ -56,10 +66,12 @@ public:
 
     bool operator!=(const AssetTransferFeeSettingsInput& rhs) const;
 
+    AssetTransferFeeSettingsInput& operator=(const AssetTransferFeeSettingsInput& rhs);
+
 private:
-    std::optional<AssetTransferFeeType> type_opt;
-    std::optional<std::string> asset_id_opt;
-    std::optional<std::string> value_opt;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

@@ -23,7 +23,7 @@ using namespace enjin::sdk::models;
 using namespace enjin::sdk::serialization;
 using namespace enjin::sdk::utils;
 
-class Wallet::Impl : public IDeserializable {
+class Wallet::Impl final : public IDeserializable {
 public:
     Impl() = default;
 
@@ -105,11 +105,10 @@ private:
     std::optional<std::vector<Transaction>> transactions;
 };
 
-Wallet::Wallet() : impl(std::make_unique<Impl>()) {
+Wallet::Wallet() : pimpl(std::make_unique<Impl>()) {
 }
 
-Wallet::Wallet(const Wallet& other) {
-    impl = std::make_unique<Impl>(*other.impl);
+Wallet::Wallet(const Wallet& other) : pimpl(std::make_unique<Impl>(*other.pimpl)) {
 }
 
 Wallet::Wallet(Wallet&& other) noexcept = default;
@@ -117,46 +116,46 @@ Wallet::Wallet(Wallet&& other) noexcept = default;
 Wallet::~Wallet() = default;
 
 void Wallet::deserialize(const std::string& json) {
-    impl->deserialize(json);
+    pimpl->deserialize(json);
 }
 
 const std::optional<std::string>& Wallet::get_eth_address() const {
-    return impl->get_eth_address();
+    return pimpl->get_eth_address();
 }
 
 const std::optional<float>& Wallet::get_enj_allowance() const {
-    return impl->get_enj_allowance();
+    return pimpl->get_enj_allowance();
 }
 
 const std::optional<float>& Wallet::get_enj_balance() const {
-    return impl->get_enj_balance();
+    return pimpl->get_enj_balance();
 }
 
 const std::optional<float>& Wallet::get_eth_balance() const {
-    return impl->get_eth_balance();
+    return pimpl->get_eth_balance();
 }
 
 const std::optional<std::vector<Asset>>& Wallet::get_assets_created() const {
-    return impl->get_assets_created();
+    return pimpl->get_assets_created();
 }
 
 const std::optional<std::vector<Balance>>& Wallet::get_balances() const {
-    return impl->get_balances();
+    return pimpl->get_balances();
 }
 
 const std::optional<std::vector<Transaction>>& Wallet::get_transactions() const {
-    return impl->get_transactions();
+    return pimpl->get_transactions();
 }
 
 bool Wallet::operator==(const Wallet& rhs) const {
-    return *impl == *rhs.impl;
+    return *pimpl == *rhs.pimpl;
 }
 
 bool Wallet::operator!=(const Wallet& rhs) const {
-    return *impl != *rhs.impl;
+    return *pimpl != *rhs.pimpl;
 }
 
 Wallet& enjin::sdk::models::Wallet::operator=(const Wallet& rhs) {
-    impl = std::make_unique<Impl>(*rhs.impl);
+    pimpl = std::make_unique<Impl>(*rhs.pimpl);
     return *this;
 }

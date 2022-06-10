@@ -19,6 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/JsonValue.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -27,10 +28,19 @@ namespace enjin::sdk::models {
 /// \brief Models a asset variant.
 class ENJINSDK_EXPORT AssetVariant : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    AssetVariant() = default;
+    /// \brief Constructs an instance of this class.
+    AssetVariant();
 
-    ~AssetVariant() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    AssetVariant(const AssetVariant& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    AssetVariant(AssetVariant&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~AssetVariant() override;
 
     void deserialize(const std::string& json) override;
 
@@ -64,13 +74,12 @@ public:
 
     bool operator!=(const AssetVariant& rhs) const;
 
+    AssetVariant& operator=(const AssetVariant& rhs);
+
 private:
-    std::optional<int> id;
-    std::optional<std::string> asset_id;
-    std::optional<json::JsonValue> variant_metadata;
-    std::optional<int> usage_count;
-    std::optional<std::string> created_at;
-    std::optional<std::string> updated_at;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

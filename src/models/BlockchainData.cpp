@@ -20,70 +20,142 @@
 
 using namespace enjin::sdk::json;
 using namespace enjin::sdk::models;
+using namespace enjin::sdk::serialization;
 using namespace enjin::sdk::utils;
 
-void enjin::sdk::models::BlockchainData::deserialize(const std::string& json) {
-    JsonValue json_object;
+class BlockchainData::Impl final : public IDeserializable {
+public:
+    Impl() = default;
 
-    if (!json_object.try_parse_as_object(json)) {
-        encoded_data.reset();
-        signed_transaction.reset();
-        signed_backup_transaction.reset();
-        signed_cancel_transaction.reset();
-        receipt.reset();
-        error.reset();
-        nonce.reset();
+    ~Impl() override = default;
 
-        return;
+    void deserialize(const std::string& json) override {
+        JsonValue json_object;
+
+        if (!json_object.try_parse_as_object(json)) {
+            encoded_data.reset();
+            signed_transaction.reset();
+            signed_backup_transaction.reset();
+            signed_cancel_transaction.reset();
+            receipt.reset();
+            error.reset();
+            nonce.reset();
+
+            return;
+        }
+
+        JsonUtils::try_get_field(json_object, "encodedData", encoded_data);
+        JsonUtils::try_get_field(json_object, "signedTransaction", signed_transaction);
+        JsonUtils::try_get_field(json_object, "signedBackupTransaction", signed_backup_transaction);
+        JsonUtils::try_get_field(json_object, "signedCancelTransaction", signed_cancel_transaction);
+        JsonUtils::try_get_field(json_object, "receipt", receipt);
+        JsonUtils::try_get_field(json_object, "error", error);
+        JsonUtils::try_get_field(json_object, "nonce", nonce);
     }
 
-    JsonUtils::try_get_field(json_object, "encodedData", encoded_data);
-    JsonUtils::try_get_field(json_object, "signedTransaction", signed_transaction);
-    JsonUtils::try_get_field(json_object, "signedBackupTransaction", signed_backup_transaction);
-    JsonUtils::try_get_field(json_object, "signedCancelTransaction", signed_cancel_transaction);
-    JsonUtils::try_get_field(json_object, "receipt", receipt);
-    JsonUtils::try_get_field(json_object, "error", error);
-    JsonUtils::try_get_field(json_object, "nonce", nonce);
+    [[nodiscard]] const std::optional<std::string>& get_encoded_data() const {
+        return encoded_data;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_signed_transaction() const {
+        return signed_transaction;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_signed_backup_transaction() const {
+        return signed_backup_transaction;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_signed_cancel_transaction() const {
+        return signed_cancel_transaction;
+    }
+
+    [[nodiscard]] const std::optional<TransactionReceipt>& get_receipt() const {
+        return receipt;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_error() const {
+        return error;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_nonce() const {
+        return nonce;
+    }
+
+    bool operator==(const Impl& rhs) const {
+        return encoded_data == rhs.encoded_data
+               && signed_transaction == rhs.signed_transaction
+               && signed_backup_transaction == rhs.signed_backup_transaction
+               && signed_cancel_transaction == rhs.signed_cancel_transaction
+               && receipt == rhs.receipt
+               && error == rhs.error
+               && nonce == rhs.nonce;
+    }
+
+    bool operator!=(const Impl& rhs) const {
+        return !(*this == rhs);
+    }
+
+private:
+    std::optional<std::string> encoded_data;
+    std::optional<std::string> signed_transaction;
+    std::optional<std::string> signed_backup_transaction;
+    std::optional<std::string> signed_cancel_transaction;
+    std::optional<TransactionReceipt> receipt;
+    std::optional<std::string> error;
+    std::optional<std::string> nonce;
+};
+
+BlockchainData::BlockchainData() : pimpl(std::make_unique<Impl>()) {
+}
+
+BlockchainData::BlockchainData(const BlockchainData& other) : pimpl(std::make_unique<Impl>(*other.pimpl)) {
+}
+
+BlockchainData::BlockchainData(BlockchainData&& other) noexcept = default;
+
+BlockchainData::~BlockchainData() = default;
+
+void BlockchainData::deserialize(const std::string& json) {
+    pimpl->deserialize(json);
 }
 
 const std::optional<std::string>& BlockchainData::get_encoded_data() const {
-    return encoded_data;
+    return pimpl->get_encoded_data();
 }
 
 const std::optional<std::string>& BlockchainData::get_signed_transaction() const {
-    return signed_transaction;
+    return pimpl->get_signed_transaction();
 }
 
 const std::optional<std::string>& BlockchainData::get_signed_backup_transaction() const {
-    return signed_backup_transaction;
+    return pimpl->get_signed_backup_transaction();
 }
 
 const std::optional<std::string>& BlockchainData::get_signed_cancel_transaction() const {
-    return signed_cancel_transaction;
+    return pimpl->get_signed_cancel_transaction();
 }
 
 const std::optional<TransactionReceipt>& BlockchainData::get_receipt() const {
-    return receipt;
+    return pimpl->get_receipt();
 }
 
 const std::optional<std::string>& BlockchainData::get_error() const {
-    return error;
+    return pimpl->get_error();
 }
 
 const std::optional<std::string>& BlockchainData::get_nonce() const {
-    return nonce;
+    return pimpl->get_nonce();
 }
 
 bool BlockchainData::operator==(const BlockchainData& rhs) const {
-    return encoded_data == rhs.encoded_data
-           && signed_transaction == rhs.signed_transaction
-           && signed_backup_transaction == rhs.signed_backup_transaction
-           && signed_cancel_transaction == rhs.signed_cancel_transaction
-           && receipt == rhs.receipt
-           && error == rhs.error
-           && nonce == rhs.nonce;
+    return *pimpl == *rhs.pimpl;
 }
 
 bool BlockchainData::operator!=(const BlockchainData& rhs) const {
-    return !(*this == rhs);
+    return *pimpl != *rhs.pimpl;
+}
+
+BlockchainData& BlockchainData::operator=(const BlockchainData& rhs) {
+    pimpl = std::make_unique<Impl>(*rhs.pimpl);
+    return *this;
 }

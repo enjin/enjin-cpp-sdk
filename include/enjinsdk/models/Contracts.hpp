@@ -19,6 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/SupplyModels.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -27,10 +28,19 @@ namespace enjin::sdk::models {
 /// \brief Models a smart contract used by the platform.
 class ENJINSDK_EXPORT Contracts : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    Contracts() = default;
+    /// \brief Constructs an instance of this class.
+    Contracts();
 
-    ~Contracts() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    Contracts(const Contracts& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    Contracts(Contracts&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~Contracts() override;
 
     void deserialize(const std::string& json) override;
 
@@ -54,11 +64,12 @@ public:
 
     bool operator!=(const Contracts& rhs) const;
 
+    Contracts& operator=(const Contracts& rhs);
+
 private:
-    std::optional<std::string> enj;
-    std::optional<std::string> crypto_items;
-    std::optional<std::string> platform_registry;
-    std::optional<SupplyModels> supply_models;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }
