@@ -38,6 +38,7 @@ public:
 
     PusherEventService(PusherEventService&& rhs) = delete;
 
+    /// \brief Deconstructs this instance
     ~PusherEventService() override;
 
     std::future<void> start() override;
