@@ -110,7 +110,7 @@ int main() {
     // Builds the project client to run on the Kovan test network.
     // See: https://kovan.cloud.enjin.io to sign up for the test network.
     std::unique_ptr<ProjectClient> client = ProjectClient::builder()
-        .base_uri(Kovan) // From EnjinHosts
+        .base_uri(EnjinHosts::Kovan)
         .build();
 
     // Creates the request to authenticate the client.
