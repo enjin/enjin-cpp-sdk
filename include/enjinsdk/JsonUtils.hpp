@@ -29,8 +29,8 @@
 #include "enjinsdk/models/AssetTransferable.hpp"
 #include "enjinsdk/models/AssetVariantMode.hpp"
 #include "enjinsdk/models/Operator.hpp"
-#include "enjinsdk/models/RequestState.hpp"
-#include "enjinsdk/models/RequestType.hpp"
+#include "enjinsdk/models/TransactionState.hpp"
+#include "enjinsdk/models/TransactionType.hpp"
 #include "enjinsdk/models/SortDirection.hpp"
 #include "enjinsdk/models/TransactionField.hpp"
 #include "enjinsdk/models/Whitelisted.hpp"
@@ -537,12 +537,12 @@ inline bool JsonUtils::try_get_field(const json::JsonValue& json,
 template<>
 inline bool JsonUtils::try_get_field(const json::JsonValue& json,
                                      const std::string& key,
-                                     std::optional<models::RequestState>& out_field) {
+                                     std::optional<models::TransactionState>& out_field) {
     std::string new_field;
     json::JsonValue value;
 
     if (json.try_get_object_field(key, value) && value.try_get_string(new_field)) {
-        out_field = EnumUtils::deserialize_request_state(new_field);
+        out_field = EnumUtils::deserialize_transaction_state(new_field);
         return true;
     }
 
@@ -559,12 +559,12 @@ inline bool JsonUtils::try_get_field(const json::JsonValue& json,
 template<>
 inline bool JsonUtils::try_get_field(const json::JsonValue& json,
                                      const std::string& key,
-                                     std::optional<models::RequestType>& out_field) {
+                                     std::optional<models::TransactionType>& out_field) {
     std::string new_field;
     json::JsonValue value;
 
     if (json.try_get_object_field(key, value) && value.try_get_string(new_field)) {
-        out_field = EnumUtils::deserialize_request_type(new_field);
+        out_field = EnumUtils::deserialize_transaction_type(new_field);
         return true;
     }
 
@@ -932,10 +932,10 @@ inline bool JsonUtils::try_set_field(json::JsonValue& json,
 template<>
 inline bool JsonUtils::try_set_field(json::JsonValue& json,
                                      const std::string& key,
-                                     const std::optional<models::RequestState>& in_field) {
+                                     const std::optional<models::TransactionState>& in_field) {
     if (in_field.has_value()) {
         json::JsonValue value = json::JsonValue::create_string();
-        value.try_set_string(EnumUtils::serialize_request_state(in_field.value()));
+        value.try_set_string(EnumUtils::serialize_transaction_state(in_field.value()));
 
         json.try_set_object_field(key, value);
         return true;
@@ -953,12 +953,12 @@ inline bool JsonUtils::try_set_field(json::JsonValue& json,
 template<>
 inline bool JsonUtils::try_set_field(json::JsonValue& json,
                                      const std::string& key,
-                                     const std::optional<std::vector<models::RequestState>>& in_field) {
+                                     const std::optional<std::vector<models::TransactionState>>& in_field) {
     if (in_field.has_value()) {
         std::vector<std::string> states;
 
-        for (const models::RequestState type: in_field.value()) {
-            states.push_back(EnumUtils::serialize_request_state(type));
+        for (const models::TransactionState type: in_field.value()) {
+            states.push_back(EnumUtils::serialize_transaction_state(type));
         }
 
         const std::optional<std::vector<std::string>> opt(std::move(states));
@@ -977,10 +977,10 @@ inline bool JsonUtils::try_set_field(json::JsonValue& json,
 template<>
 inline bool JsonUtils::try_set_field(json::JsonValue& json,
                                      const std::string& key,
-                                     const std::optional<models::RequestType>& in_field) {
+                                     const std::optional<models::TransactionType>& in_field) {
     if (in_field.has_value()) {
         json::JsonValue value = json::JsonValue::create_string();
-        value.try_set_string(EnumUtils::serialize_request_type(in_field.value()));
+        value.try_set_string(EnumUtils::serialize_transaction_type(in_field.value()));
 
         json.try_set_object_field(key, value);
         return true;
@@ -998,12 +998,12 @@ inline bool JsonUtils::try_set_field(json::JsonValue& json,
 template<>
 inline bool JsonUtils::try_set_field(json::JsonValue& json,
                                      const std::string& key,
-                                     const std::optional<std::vector<models::RequestType>>& in_field) {
+                                     const std::optional<std::vector<models::TransactionType>>& in_field) {
     if (in_field.has_value()) {
         std::vector<std::string> types;
 
-        for (const models::RequestType type: in_field.value()) {
-            types.push_back(EnumUtils::serialize_request_type(type));
+        for (const models::TransactionType type: in_field.value()) {
+            types.push_back(EnumUtils::serialize_transaction_type(type));
         }
 
         const std::optional<std::vector<std::string>> opt(std::move(types));

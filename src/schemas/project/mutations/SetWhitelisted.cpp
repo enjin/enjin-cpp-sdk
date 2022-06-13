@@ -25,7 +25,7 @@ using namespace enjin::sdk::project;
 using namespace enjin::sdk::utils;
 
 SetWhitelisted::SetWhitelisted() : AbstractGraphqlRequest("enjin.sdk.project.SetWhitelisted"),
-                                   ProjectTransactionRequestArguments<SetWhitelisted>() {
+                                   TransactionRequestArguments<SetWhitelisted>() {
 }
 
 std::string SetWhitelisted::serialize() const {
@@ -60,7 +60,7 @@ SetWhitelisted& SetWhitelisted::set_on(bool on) {
 JsonValue SetWhitelisted::to_json() const {
     JsonValue json = JsonValue::create_object();
 
-    JsonUtils::join_object(json, ProjectTransactionRequestArguments<SetWhitelisted>::to_json());
+    JsonUtils::join_object(json, TransactionRequestArguments<SetWhitelisted>::to_json());
     JsonUtils::try_set_field(json, "assetId", asset_id_opt);
     JsonUtils::try_set_field(json, "accountAddress", account_address_opt);
     JsonUtils::try_set_field(json, "whitelisted", whitelisted_opt);
@@ -72,7 +72,7 @@ JsonValue SetWhitelisted::to_json() const {
 
 bool SetWhitelisted::operator==(const SetWhitelisted& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const ProjectTransactionRequestArguments<SetWhitelisted>&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<SetWhitelisted>&>(*this) == rhs
            && asset_id_opt == rhs.asset_id_opt
            && account_address_opt == rhs.account_address_opt
            && whitelisted_opt == rhs.whitelisted_opt

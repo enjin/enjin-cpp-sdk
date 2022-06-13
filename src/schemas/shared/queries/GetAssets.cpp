@@ -20,6 +20,7 @@
 
 using namespace enjin::sdk::graphql;
 using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
 using namespace enjin::sdk::shared;
 using namespace enjin::sdk::utils;
 
@@ -32,12 +33,12 @@ std::string GetAssets::serialize() const {
     return to_json().to_string();
 }
 
-GetAssets& GetAssets::set_filter(models::AssetFilter filter) {
+GetAssets& GetAssets::set_filter(AssetFilter filter) {
     filter_opt = std::move(filter);
     return *this;
 }
 
-GetAssets& GetAssets::set_sort(models::AssetSort sort) {
+GetAssets& GetAssets::set_sort(AssetSortInput sort) {
     sort_opt = std::move(sort);
     return *this;
 }

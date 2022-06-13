@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for bridging an asset.
 class ENJINSDK_EXPORT BridgeAsset : public graphql::AbstractGraphqlRequest,
-                                    public ProjectTransactionRequestArguments<BridgeAsset> {
+                                    public TransactionRequestArguments<BridgeAsset> {
 public:
     /// \brief Sole constructor.
     BridgeAsset();
@@ -62,12 +62,12 @@ private:
     std::optional<std::string> value_opt;
 };
 
-// region ProjectTransactionRequestArguments
+// region TransactionRequestArguments
 
 template ENJINSDK_EXPORT BridgeAsset&
-ProjectTransactionRequestArguments<BridgeAsset>::set_eth_address(std::string address);
+TransactionRequestArguments<BridgeAsset>::set_eth_address(std::string address);
 
-// endregion ProjectTransactionRequestArguments
+// endregion TransactionRequestArguments
 
 }
 

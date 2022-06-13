@@ -18,8 +18,8 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/models/Melt.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/models/MeltInput.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <vector>
 
@@ -27,7 +27,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for melting a asset.
 class ENJINSDK_EXPORT MeltAsset : public graphql::AbstractGraphqlRequest,
-                                  public ProjectTransactionRequestArguments<MeltAsset> {
+                                  public TransactionRequestArguments<MeltAsset> {
 public:
     /// \brief Default constructor.
     MeltAsset();
@@ -39,7 +39,7 @@ public:
     /// Sets the melts to be performed.
     /// \param melts The melts.
     /// \return This request for chaining.
-    MeltAsset& set_melts(std::vector<models::Melt> melts);
+    MeltAsset& set_melts(std::vector<models::MeltInput> melts);
 
     [[nodiscard]] json::JsonValue to_json() const override;
 
@@ -48,15 +48,15 @@ public:
     bool operator!=(const MeltAsset& rhs) const;
 
 private:
-    std::optional<std::vector<models::Melt>> melts_opt;
+    std::optional<std::vector<models::MeltInput>> melts_opt;
 };
 
-// region ProjectTransactionRequestArguments
+// region TransactionRequestArguments
 
 template ENJINSDK_EXPORT MeltAsset&
-ProjectTransactionRequestArguments<MeltAsset>::set_eth_address(std::string address);
+TransactionRequestArguments<MeltAsset>::set_eth_address(std::string address);
 
-// endregion ProjectTransactionRequestArguments
+// endregion TransactionRequestArguments
 
 }
 

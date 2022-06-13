@@ -24,7 +24,7 @@ using namespace enjin::sdk::project;
 using namespace enjin::sdk::utils;
 
 SetTransferFee::SetTransferFee() : AbstractGraphqlRequest("enjin.sdk.project.SetTransferFee"),
-                                   ProjectTransactionRequestArguments<SetTransferFee>() {
+                                   TransactionRequestArguments<SetTransferFee>() {
 }
 
 std::string SetTransferFee::serialize() const {
@@ -44,7 +44,7 @@ SetTransferFee& SetTransferFee::set_transfer_fee(std::string transfer_fee) {
 JsonValue SetTransferFee::to_json() const {
     JsonValue json = JsonValue::create_object();
 
-    JsonUtils::join_object(json, ProjectTransactionRequestArguments<SetTransferFee>::to_json());
+    JsonUtils::join_object(json, TransactionRequestArguments<SetTransferFee>::to_json());
     JsonUtils::try_set_field(json, "assetId", asset_id_opt);
     JsonUtils::try_set_field(json, "transferFee", transfer_fee_opt);
 
@@ -53,7 +53,7 @@ JsonValue SetTransferFee::to_json() const {
 
 bool SetTransferFee::operator==(const SetTransferFee& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const ProjectTransactionRequestArguments<SetTransferFee>&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<SetTransferFee>&>(*this) == rhs
            && asset_id_opt == rhs.asset_id_opt
            && transfer_fee_opt == rhs.transfer_fee_opt;
 }

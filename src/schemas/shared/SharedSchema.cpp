@@ -45,12 +45,12 @@ std::future<graphql::GraphqlResponse<models::Project>> SharedSchema::get_project
     return send_request_for_one<models::Project>(request);
 }
 
-std::future<graphql::GraphqlResponse<models::Request>> SharedSchema::get_request(GetRequest request) {
-    return send_request_for_one<models::Request>(request);
+std::future<graphql::GraphqlResponse<models::Transaction>> SharedSchema::get_request(GetTransaction request) {
+    return send_request_for_one<models::Transaction>(request);
 }
 
-std::future<graphql::GraphqlResponse<std::vector<models::Request>>> SharedSchema::get_requests(GetRequests request) {
-    return send_request_for_many<models::Request>(request);
+std::future<graphql::GraphqlResponse<std::vector<models::Transaction>>> SharedSchema::get_requests(GetTransactions request) {
+    return send_request_for_many<models::Transaction>(request);
 }
 
 std::future<graphql::GraphqlResponse<models::Asset>> SharedSchema::get_asset(GetAsset request) {

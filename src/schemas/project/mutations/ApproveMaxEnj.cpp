@@ -23,7 +23,7 @@ using namespace enjin::sdk::project;
 using namespace enjin::sdk::utils;
 
 ApproveMaxEnj::ApproveMaxEnj() : AbstractGraphqlRequest("enjin.sdk.project.ApproveMaxEnj"),
-                                 ProjectTransactionRequestArguments<ApproveMaxEnj>() {
+                                 TransactionRequestArguments<ApproveMaxEnj>() {
 }
 
 std::string ApproveMaxEnj::serialize() const {
@@ -33,14 +33,14 @@ std::string ApproveMaxEnj::serialize() const {
 JsonValue ApproveMaxEnj::to_json() const {
     JsonValue json = JsonValue::create_object();
 
-    JsonUtils::join_object(json, ProjectTransactionRequestArguments<ApproveMaxEnj>::to_json());
+    JsonUtils::join_object(json, TransactionRequestArguments<ApproveMaxEnj>::to_json());
 
     return json;
 }
 
 bool ApproveMaxEnj::operator==(const ApproveMaxEnj& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const ProjectTransactionRequestArguments<ApproveMaxEnj>&>(*this) == rhs;
+           && static_cast<const TransactionRequestArguments<ApproveMaxEnj>&>(*this) == rhs;
 }
 
 bool ApproveMaxEnj::operator!=(const ApproveMaxEnj& rhs) const {

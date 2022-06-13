@@ -20,7 +20,7 @@
 #include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/JsonUtils.hpp"
 #include "enjinsdk/JsonValue.hpp"
-#include "enjinsdk/models/PaginationOptions.hpp"
+#include "enjinsdk/models/PaginationInput.hpp"
 #include <optional>
 #include <string>
 #include <type_traits>
@@ -40,9 +40,9 @@ public:
     }
 
     /// \brief Sets the pagination options via a move.
-    /// \param pagination The options to move.
+    /// \param pagination The pagination input.
     /// \return This request for chaining.
-    T& set_pagination(models::PaginationOptions pagination) {
+    T& set_pagination(models::PaginationInput pagination) {
         pagination_opt = std::move(pagination);
         return static_cast<T&>(*this);
     }
@@ -52,7 +52,7 @@ public:
     /// \param limit The number of items per page.
     /// \return This request for chaining.
     T& set_pagination(int page, int limit) {
-        pagination_opt = models::PaginationOptions().set_page(page).set_limit(limit);
+        pagination_opt = models::PaginationInput().set_page(page).set_limit(limit);
         return static_cast<T&>(*this);
     }
 
@@ -80,7 +80,7 @@ protected:
     }
 
 private:
-    std::optional<models::PaginationOptions> pagination_opt;
+    std::optional<models::PaginationInput> pagination_opt;
 };
 
 }

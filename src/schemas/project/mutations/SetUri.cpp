@@ -24,7 +24,7 @@ using namespace enjin::sdk::project;
 using namespace enjin::sdk::utils;
 
 SetUri::SetUri() : AbstractGraphqlRequest("enjin.sdk.project.SetUri"),
-                   ProjectTransactionRequestArguments<SetUri>() {
+                   TransactionRequestArguments<SetUri>() {
 }
 
 std::string SetUri::serialize() const {
@@ -49,7 +49,7 @@ SetUri& SetUri::set_uri(std::string uri) {
 JsonValue SetUri::to_json() const {
     JsonValue json = JsonValue::create_object();
 
-    JsonUtils::join_object(json, ProjectTransactionRequestArguments<SetUri>::to_json());
+    JsonUtils::join_object(json, TransactionRequestArguments<SetUri>::to_json());
     JsonUtils::try_set_field(json, "assetId", asset_id_opt);
     JsonUtils::try_set_field(json, "assetIndex", asset_index_opt);
     JsonUtils::try_set_field(json, "uri", uri_opt);
@@ -59,7 +59,7 @@ JsonValue SetUri::to_json() const {
 
 bool SetUri::operator==(const SetUri& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const ProjectTransactionRequestArguments<SetUri>&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<SetUri>&>(*this) == rhs
            && asset_id_opt == rhs.asset_id_opt
            && asset_index_opt == rhs.asset_index_opt
            && uri_opt == rhs.uri_opt;

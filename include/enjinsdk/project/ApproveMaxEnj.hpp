@@ -18,13 +18,13 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 
 namespace enjin::sdk::project {
 
 /// \brief Request for approving the crypto items contract to spend the maximum amount of ENJ.
 class ENJINSDK_EXPORT ApproveMaxEnj : public graphql::AbstractGraphqlRequest,
-                                      public ProjectTransactionRequestArguments<ApproveMaxEnj> {
+                                      public TransactionRequestArguments<ApproveMaxEnj> {
 public:
     /// \brief Default constructor.
     ApproveMaxEnj();
@@ -40,12 +40,12 @@ public:
     bool operator!=(const ApproveMaxEnj& rhs) const;
 };
 
-// region ProjectTransactionRequestArguments
+// region TransactionRequestArguments
 
 template ENJINSDK_EXPORT ApproveMaxEnj&
-ProjectTransactionRequestArguments<ApproveMaxEnj>::set_eth_address(std::string address);
+TransactionRequestArguments<ApproveMaxEnj>::set_eth_address(std::string address);
 
-// endregion ProjectTransactionRequestArguments
+// endregion TransactionRequestArguments
 
 }
 

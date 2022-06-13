@@ -24,7 +24,7 @@ using namespace enjin::sdk::project;
 using namespace enjin::sdk::utils;
 
 SetApprovalForAll::SetApprovalForAll() : AbstractGraphqlRequest("enjin.sdk.project.SetApprovalForAll"),
-                                         ProjectTransactionRequestArguments<SetApprovalForAll>() {
+                                         TransactionRequestArguments<SetApprovalForAll>() {
 }
 
 std::string SetApprovalForAll::serialize() const {
@@ -44,7 +44,7 @@ SetApprovalForAll& SetApprovalForAll::set_approved(bool approved) {
 JsonValue SetApprovalForAll::to_json() const {
     JsonValue json = JsonValue::create_object();
 
-    JsonUtils::join_object(json, ProjectTransactionRequestArguments<SetApprovalForAll>::to_json());
+    JsonUtils::join_object(json, TransactionRequestArguments<SetApprovalForAll>::to_json());
     JsonUtils::try_set_field(json, "operatorAddress", operator_address_opt);
     JsonUtils::try_set_field(json, "approved", approved_opt);
 
@@ -53,7 +53,7 @@ JsonValue SetApprovalForAll::to_json() const {
 
 bool SetApprovalForAll::operator==(const SetApprovalForAll& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const ProjectTransactionRequestArguments<SetApprovalForAll>&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<SetApprovalForAll>&>(*this) == rhs
            && operator_address_opt == rhs.operator_address_opt
            && approved_opt == rhs.approved_opt;
 }

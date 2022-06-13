@@ -90,86 +90,86 @@ EventType EnumUtils::deserialize_event_type(const std::string& s) noexcept {
     return EventType::Unknown;
 }
 
-RequestState EnumUtils::deserialize_request_state(const std::string& s) noexcept {
+TransactionState EnumUtils::deserialize_transaction_state(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "PENDING") {
-        return RequestState::Pending;
+        return TransactionState::Pending;
     } else if (str == "BROADCAST") {
-        return RequestState::Broadcast;
+        return TransactionState::Broadcast;
     } else if (str == "TP_PROCESSING") {
-        return RequestState::TpProcessing;
+        return TransactionState::TpProcessing;
     } else if (str == "EXECUTED") {
-        return RequestState::Executed;
+        return TransactionState::Executed;
     } else if (str == "CANCELED_USER") {
-        return RequestState::CanceledUser;
+        return TransactionState::CanceledUser;
     } else if (str == "CANCELED_PLATFORM") {
-        return RequestState::CanceledPlatform;
+        return TransactionState::CanceledPlatform;
     } else if (str == "DROPPED") {
-        return RequestState::Dropped;
+        return TransactionState::Dropped;
     } else if (str == "FAILED") {
-        return RequestState::Failed;
+        return TransactionState::Failed;
     }
 
-    return RequestState::Unknown;
+    return TransactionState::Unknown;
 }
 
-RequestType EnumUtils::deserialize_request_type(const std::string& s) noexcept {
+TransactionType EnumUtils::deserialize_transaction_type(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "ACCEPT_ASSIGNMENT") {
-        return RequestType::AcceptAssignment;
+        return TransactionType::AcceptAssignment;
     } else if (str == "ASSIGN") {
-        return RequestType::Assign;
+        return TransactionType::Assign;
     } else if (str == "APPROVE") {
-        return RequestType::Approve;
+        return TransactionType::Approve;
     } else if (str == "CREATE") {
-        return RequestType::Create;
+        return TransactionType::Create;
     } else if (str == "MINT") {
-        return RequestType::Mint;
+        return TransactionType::Mint;
     } else if (str == "SEND") {
-        return RequestType::Send;
+        return TransactionType::Send;
     } else if (str == "SEND_ENJ") {
-        return RequestType::SendEnj;
+        return TransactionType::SendEnj;
     } else if (str == "ADVANCED_SEND") {
-        return RequestType::AdvancedSend;
+        return TransactionType::AdvancedSend;
     } else if (str == "CREATE_TRADE") {
-        return RequestType::CreateTrade;
+        return TransactionType::CreateTrade;
     } else if (str == "CANCEL_TRADE") {
-        return RequestType::CancelTrade;
+        return TransactionType::CancelTrade;
     } else if (str == "MELT") {
-        return RequestType::Melt;
+        return TransactionType::Melt;
     } else if (str == "UPDATE_NAME") {
-        return RequestType::UpdateName;
+        return TransactionType::UpdateName;
     } else if (str == "SET_ITEM_URI") {
-        return RequestType::SetItemUri;
+        return TransactionType::SetItemUri;
     } else if (str == "SET_WHITELISTED") {
-        return RequestType::SetWhitelisted;
+        return TransactionType::SetWhitelisted;
     } else if (str == "SET_TRANSFERABLE") {
-        return RequestType::SetTransferable;
+        return TransactionType::SetTransferable;
     } else if (str == "SET_MELT_FEE") {
-        return RequestType::SetMeltFee;
+        return TransactionType::SetMeltFee;
     } else if (str == "DECREASE_MAX_MELT_FEE") {
-        return RequestType::DecreaseMaxMeltFee;
+        return TransactionType::DecreaseMaxMeltFee;
     } else if (str == "SET_TRANSFER_FEE") {
-        return RequestType::SetTransferFee;
+        return TransactionType::SetTransferFee;
     } else if (str == "DECREASE_MAX_TRANSFER_FEE") {
-        return RequestType::DecreaseMaxTransferFee;
+        return TransactionType::DecreaseMaxTransferFee;
     } else if (str == "RELEASE_RESERVE") {
-        return RequestType::ReleaseReserve;
+        return TransactionType::ReleaseReserve;
     } else if (str == "ADD_LOG") {
-        return RequestType::AddLog;
+        return TransactionType::AddLog;
     } else if (str == "SET_APPROVAL_FOR_ALL") {
-        return RequestType::SetApprovalForAll;
+        return TransactionType::SetApprovalForAll;
     } else if (str == "MANAGE_UPDATE") {
-        return RequestType::ManageUpdate;
+        return TransactionType::ManageUpdate;
     } else if (str == "SET_DECIMALS") {
-        return RequestType::SetDecimals;
+        return TransactionType::SetDecimals;
     } else if (str == "SET_SYMBOL") {
-        return RequestType::SetSymbol;
+        return TransactionType::SetSymbol;
     } else if (str == "MESSAGE") {
-        return RequestType::Message;
+        return TransactionType::Message;
     }
 
-    return RequestType::Unknown;
+    return TransactionType::Unknown;
 }
 
 AssetSupplyModel EnumUtils::deserialize_asset_supply_model(const std::string& s) noexcept {
@@ -326,82 +326,82 @@ std::string EnumUtils::serialize_event_type(EventType v) noexcept {
     }
 }
 
-std::string EnumUtils::serialize_request_state(RequestState v) noexcept {
+std::string EnumUtils::serialize_transaction_state(TransactionState v) noexcept {
     switch (v) {
-        case RequestState::Pending:
+        case TransactionState::Pending:
             return "PENDING";
-        case RequestState::Broadcast:
+        case TransactionState::Broadcast:
             return "BROADCAST";
-        case RequestState::TpProcessing:
+        case TransactionState::TpProcessing:
             return "TP_PROCESSING";
-        case RequestState::Executed:
+        case TransactionState::Executed:
             return "EXECUTED";
-        case RequestState::CanceledUser:
+        case TransactionState::CanceledUser:
             return "CANCELED_USER";
-        case RequestState::CanceledPlatform:
+        case TransactionState::CanceledPlatform:
             return "CANCELED_PLATFORM";
-        case RequestState::Dropped:
+        case TransactionState::Dropped:
             return "DROPPED";
-        case RequestState::Failed:
+        case TransactionState::Failed:
             return "FAILED";
         default:
             return "";
     }
 }
 
-std::string EnumUtils::serialize_request_type(RequestType v) noexcept {
+std::string EnumUtils::serialize_transaction_type(TransactionType v) noexcept {
     switch (v) {
-        case RequestType::AcceptAssignment:
+        case TransactionType::AcceptAssignment:
             return "ACCEPT_ASSIGNMENT";
-        case RequestType::Assign:
+        case TransactionType::Assign:
             return "ASSIGN";
-        case RequestType::Approve:
+        case TransactionType::Approve:
             return "APPROVE";
-        case RequestType::Create:
+        case TransactionType::Create:
             return "CREATE";
-        case RequestType::Mint:
+        case TransactionType::Mint:
             return "MINT";
-        case RequestType::Send:
+        case TransactionType::Send:
             return "SEND";
-        case RequestType::SendEnj:
+        case TransactionType::SendEnj:
             return "SEND_ENJ";
-        case RequestType::AdvancedSend:
+        case TransactionType::AdvancedSend:
             return "ADVANCED_SEND";
-        case RequestType::CreateTrade:
+        case TransactionType::CreateTrade:
             return "CREATE_TRADE";
-        case RequestType::CancelTrade:
+        case TransactionType::CancelTrade:
             return "CANCEL_TRADE";
-        case RequestType::Melt:
+        case TransactionType::Melt:
             return "MELT";
-        case RequestType::UpdateName:
+        case TransactionType::UpdateName:
             return "UPDATE_NAME";
-        case RequestType::SetItemUri:
+        case TransactionType::SetItemUri:
             return "SET_ITEM_URI";
-        case RequestType::SetWhitelisted:
+        case TransactionType::SetWhitelisted:
             return "SET_WHITELISTED";
-        case RequestType::SetTransferable:
+        case TransactionType::SetTransferable:
             return "SET_TRANSFERABLE";
-        case RequestType::SetMeltFee:
+        case TransactionType::SetMeltFee:
             return "SET_MELT_FEE";
-        case RequestType::DecreaseMaxMeltFee:
+        case TransactionType::DecreaseMaxMeltFee:
             return "DECREASE_MAX_MELT_FEE";
-        case RequestType::SetTransferFee:
+        case TransactionType::SetTransferFee:
             return "SET_TRANSFER_FEE";
-        case RequestType::DecreaseMaxTransferFee:
+        case TransactionType::DecreaseMaxTransferFee:
             return "DECREASE_MAX_TRANSFER_FEE";
-        case RequestType::ReleaseReserve:
+        case TransactionType::ReleaseReserve:
             return "RELEASE_RESERVE";
-        case RequestType::AddLog:
+        case TransactionType::AddLog:
             return "ADD_LOG";
-        case RequestType::SetApprovalForAll:
+        case TransactionType::SetApprovalForAll:
             return "SET_APPROVAL_FOR_ALL";
-        case RequestType::ManageUpdate:
+        case TransactionType::ManageUpdate:
             return "MANAGE_UPDATE";
-        case RequestType::SetDecimals:
+        case TransactionType::SetDecimals:
             return "SET_DECIMALS";
-        case RequestType::SetSymbol:
+        case TransactionType::SetSymbol:
             return "SET_SYMBOL";
-        case RequestType::Message:
+        case TransactionType::Message:
             return "MESSAGE";
         default:
             return "";

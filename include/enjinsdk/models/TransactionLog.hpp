@@ -44,7 +44,7 @@ public:
     /// \return The address.
     [[nodiscard]] const std::optional<std::string>& get_address() const;
 
-    /// \brief Returns the hash for the transaction (request).
+    /// \brief Returns the hash for the transaction.
     /// \return The hash.
     [[nodiscard]] const std::optional<std::string>& get_transaction_hash() const;
 
@@ -56,7 +56,7 @@ public:
     /// \return The topics.
     [[nodiscard]] const std::optional<std::vector<json::JsonValue>>& get_topics() const;
 
-    /// \brief Returns the transaction (request) event.
+    /// \brief Returns the transaction event.
     /// \return The transaction event.
     [[nodiscard]] const std::optional<TransactionEvent>& get_event() const;
 

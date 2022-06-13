@@ -24,7 +24,7 @@ using namespace enjin::sdk::project;
 using namespace enjin::sdk::utils;
 
 BridgeAsset::BridgeAsset() : AbstractGraphqlRequest("enjin.sdk.project.BridgeAsset"),
-                             ProjectTransactionRequestArguments<BridgeAsset>() {
+                             TransactionRequestArguments<BridgeAsset>() {
 }
 
 std::string BridgeAsset::serialize() const {
@@ -49,7 +49,7 @@ BridgeAsset& BridgeAsset::set_value(std::string value) {
 JsonValue BridgeAsset::to_json() const {
     JsonValue json = JsonValue::create_object();
 
-    JsonUtils::join_object(json, ProjectTransactionRequestArguments<BridgeAsset>::to_json());
+    JsonUtils::join_object(json, TransactionRequestArguments<BridgeAsset>::to_json());
     JsonUtils::try_set_field(json, "assetId", asset_id_opt);
     JsonUtils::try_set_field(json, "assetIndex", asset_index_opt);
     JsonUtils::try_set_field(json, "value", value_opt);
@@ -59,7 +59,7 @@ JsonValue BridgeAsset::to_json() const {
 
 bool BridgeAsset::operator==(const BridgeAsset& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const ProjectTransactionRequestArguments<BridgeAsset>&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<BridgeAsset>&>(*this) == rhs
            && asset_id_opt == rhs.asset_id_opt
            && asset_index_opt == rhs.asset_index_opt
            && value_opt == rhs.value_opt;

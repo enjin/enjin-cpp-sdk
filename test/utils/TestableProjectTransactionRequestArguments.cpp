@@ -20,12 +20,10 @@ using namespace enjin::test::utils;
 
 bool TestableProjectTransactionRequestArguments::operator==(
         const TestableProjectTransactionRequestArguments& rhs) const {
-    return static_cast<const ProjectTransactionRequestArguments<TestableProjectTransactionRequestArguments>&>(*this) ==
-           rhs;
+    return static_cast<const TransactionRequestArguments <TestableProjectTransactionRequestArguments>&>(*this) == rhs;
 }
 
 bool TestableProjectTransactionRequestArguments::operator!=(
         const TestableProjectTransactionRequestArguments& rhs) const {
-    return static_cast<const ProjectTransactionRequestArguments<TestableProjectTransactionRequestArguments>&>(*this) !=
-           rhs;
+    return static_cast<const TransactionRequestArguments <TestableProjectTransactionRequestArguments>&>(*this) != rhs;
 }
