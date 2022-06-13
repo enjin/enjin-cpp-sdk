@@ -20,17 +20,28 @@
 #include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/models/SortDirection.hpp"
 #include "enjinsdk/models/TransactionField.hpp"
+#include <memory>
 #include <optional>
+#include <string>
 
 namespace enjin::sdk::models {
 
 /// \brief Models sorting input for transactions.
 class ENJINSDK_EXPORT TransactionSortInput : public serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    TransactionSortInput() = default;
+    /// \brief Constructs an instance of this class.
+    TransactionSortInput();
 
-    ~TransactionSortInput() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    TransactionSortInput(const TransactionSortInput& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    TransactionSortInput(TransactionSortInput&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~TransactionSortInput() override;
 
     [[nodiscard]] std::string serialize() const override;
 
@@ -50,9 +61,12 @@ public:
 
     bool operator!=(const TransactionSortInput& rhs) const;
 
+    TransactionSortInput& operator=(const TransactionSortInput& rhs);
+
 private:
-    std::optional<TransactionField> field_opt;
-    std::optional<SortDirection> direction_opt;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

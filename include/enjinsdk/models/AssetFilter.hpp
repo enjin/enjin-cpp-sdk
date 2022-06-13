@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/ISerializable.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 #include <vector>
@@ -27,10 +28,19 @@ namespace enjin::sdk::models {
 /// \brief Models a filter input for asset queries.
 class ENJINSDK_EXPORT AssetFilter : public serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    AssetFilter() = default;
+    /// \brief Constructs an instance of this class.
+    AssetFilter();
 
-    ~AssetFilter() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    AssetFilter(const AssetFilter& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    AssetFilter(AssetFilter&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~AssetFilter() override;
 
     [[nodiscard]] std::string serialize() const override;
 
@@ -95,18 +105,12 @@ public:
 
     bool operator!=(const AssetFilter& rhs) const;
 
+    AssetFilter& operator=(const AssetFilter& rhs);
+
 private:
-    std::optional<std::vector<AssetFilter>> and_filters_opt;
-    std::optional<std::vector<AssetFilter>> or_filters_opt;
-    std::optional<std::string> id_opt;
-    std::optional<std::vector<std::string>> id_in_opt;
-    std::optional<std::string> name_opt;
-    std::optional<std::string> name_contains_opt;
-    std::optional<std::vector<std::string>> name_in_opt;
-    std::optional<std::string> name_starts_with_opt;
-    std::optional<std::string> name_ends_with_opt;
-    std::optional<std::string> wallet_opt;
-    std::optional<std::vector<std::string>> wallet_in_opt;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

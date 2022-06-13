@@ -18,17 +18,28 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/ISerializable.hpp"
+#include <memory>
 #include <optional>
+#include <string>
 
 namespace enjin::sdk::models {
 
 /// \brief Models a pagination input for pagination requests.
 class ENJINSDK_EXPORT PaginationInput : public serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    PaginationInput() = default;
+    /// \brief Constructs an instance of this class.
+    PaginationInput();
 
-    ~PaginationInput() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    PaginationInput(const PaginationInput& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    PaginationInput(PaginationInput&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~PaginationInput() override;
 
     [[nodiscard]] std::string serialize() const override;
 
@@ -48,9 +59,12 @@ public:
 
     bool operator!=(const PaginationInput& rhs) const;
 
+    PaginationInput& operator=(const PaginationInput& rhs);
+
 private:
-    std::optional<int> page_opt;
-    std::optional<int> limit_opt;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

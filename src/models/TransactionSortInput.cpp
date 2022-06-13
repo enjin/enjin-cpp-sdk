@@ -19,36 +19,88 @@
 
 using namespace enjin::sdk::json;
 using namespace enjin::sdk::models;
+using namespace enjin::sdk::serialization;
 using namespace enjin::sdk::utils;
 
+class TransactionSortInput::Impl final : public ISerializable {
+public:
+    Impl() = default;
+
+    ~Impl() override = default;
+
+    [[nodiscard]] std::string serialize() const override {
+        return to_json().to_string();
+    }
+
+    void set_field(TransactionField field) {
+        field_opt = field;
+    }
+
+    void set_direction(SortDirection direction) {
+        direction_opt = direction;
+    }
+
+    [[nodiscard]] json::JsonValue to_json() const override {
+        JsonValue json = JsonValue::create_object();
+
+        JsonUtils::try_set_field(json, "field", field_opt);
+        JsonUtils::try_set_field(json, "direction", direction_opt);
+
+        return json;
+    }
+
+    bool operator==(const Impl& rhs) const {
+        return field_opt == rhs.field_opt
+               && direction_opt == rhs.direction_opt;
+    }
+
+    bool operator!=(const Impl& rhs) const {
+        return !(*this == rhs);
+    }
+
+private:
+    std::optional<TransactionField> field_opt;
+    std::optional<SortDirection> direction_opt;
+};
+
+TransactionSortInput::TransactionSortInput() : pimpl(std::make_unique<Impl>()) {
+}
+
+TransactionSortInput::TransactionSortInput(const TransactionSortInput& other)
+        : pimpl(std::make_unique<Impl>(*other.pimpl)) {
+}
+
+TransactionSortInput::TransactionSortInput(TransactionSortInput&& other) noexcept = default;
+
+TransactionSortInput::~TransactionSortInput() = default;
+
 std::string TransactionSortInput::serialize() const {
-    return to_json().to_string();
+    return pimpl->serialize();
 }
 
 TransactionSortInput& TransactionSortInput::set_field(TransactionField field) {
-    field_opt = field;
+    pimpl->set_field(field);
     return *this;
 }
 
 TransactionSortInput& TransactionSortInput::set_direction(SortDirection direction) {
-    direction_opt = direction;
+    pimpl->set_direction(direction);
     return *this;
 }
 
 JsonValue TransactionSortInput::to_json() const {
-    JsonValue json = JsonValue::create_object();
-
-    JsonUtils::try_set_field(json, "field", field_opt);
-    JsonUtils::try_set_field(json, "direction", direction_opt);
-
-    return json;
+    return pimpl->to_json();
 }
 
 bool TransactionSortInput::operator==(const TransactionSortInput& rhs) const {
-    return field_opt == rhs.field_opt
-           && direction_opt == rhs.direction_opt;
+    return *pimpl == *rhs.pimpl;
 }
 
 bool TransactionSortInput::operator!=(const TransactionSortInput& rhs) const {
-    return !(*this == rhs);
+    return *pimpl != *rhs.pimpl;
+}
+
+TransactionSortInput& TransactionSortInput::operator=(const TransactionSortInput& rhs) {
+    pimpl = std::make_unique<Impl>(*rhs.pimpl);
+    return *this;
 }

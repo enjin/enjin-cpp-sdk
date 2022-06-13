@@ -23,7 +23,7 @@ using namespace enjin::sdk::models;
 using namespace enjin::sdk::serialization;
 using namespace enjin::sdk::utils;
 
-class Player::Impl : public IDeserializable {
+class Player::Impl final : public IDeserializable {
 public:
     Impl() = default;
 
@@ -89,11 +89,10 @@ private:
     std::optional<std::string> updated_at;
 };
 
-Player::Player() : impl(std::make_unique<Impl>()) {
+Player::Player() : pimpl(std::make_unique<Impl>()) {
 }
 
-Player::Player(const Player& other) {
-    impl = std::make_unique<Impl>(*other.impl);
+Player::Player(const Player& other) : pimpl(std::make_unique<Impl>(*other.pimpl)) {
 }
 
 Player::Player(Player&& other) noexcept = default;
@@ -101,38 +100,38 @@ Player::Player(Player&& other) noexcept = default;
 Player::~Player() = default;
 
 void Player::deserialize(const std::string& json) {
-    impl->deserialize(json);
+    pimpl->deserialize(json);
 }
 
 const std::optional<std::string>& Player::get_id() const {
-    return impl->get_id();
+    return pimpl->get_id();
 }
 
 const std::optional<LinkingInfo>& Player::get_linking_info() const {
-    return impl->get_linking_info();
+    return pimpl->get_linking_info();
 }
 
 const std::optional<Wallet>& Player::get_wallet() const {
-    return impl->get_wallet();
+    return pimpl->get_wallet();
 }
 
 const std::optional<std::string>& Player::get_created_at() const {
-    return impl->get_created_at();
+    return pimpl->get_created_at();
 }
 
 const std::optional<std::string>& Player::get_updated_at() const {
-    return impl->get_updated_at();
+    return pimpl->get_updated_at();
 }
 
 bool Player::operator==(const Player& rhs) const {
-    return *impl == *rhs.impl;
+    return *pimpl == *rhs.pimpl;
 }
 
 bool Player::operator!=(const Player& rhs) const {
-    return *impl != *rhs.impl;
+    return *pimpl != *rhs.pimpl;
 }
 
 Player& enjin::sdk::models::Player::operator=(const Player& rhs) {
-    impl = std::make_unique<Impl>(*rhs.impl);
+    pimpl = std::make_unique<Impl>(*rhs.pimpl);
     return *this;
 }

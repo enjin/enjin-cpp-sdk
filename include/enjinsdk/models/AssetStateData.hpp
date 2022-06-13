@@ -19,6 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/AssetSupplyModel.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -27,10 +28,19 @@ namespace enjin::sdk::models {
 /// \brief Models the state data of a asset.
 class ENJINSDK_EXPORT AssetStateData : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    AssetStateData() = default;
+    /// \brief Constructs an instance of this class.
+    AssetStateData();
 
-    ~AssetStateData() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    AssetStateData(const AssetStateData& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    AssetStateData(AssetStateData&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~AssetStateData() override;
 
     void deserialize(const std::string& json) override;
 
@@ -74,16 +84,12 @@ public:
 
     bool operator!=(const AssetStateData& rhs) const;
 
+    AssetStateData& operator=(const AssetStateData& rhs);
+
 private:
-    std::optional<bool> non_fungible;
-    std::optional<int> block_height;
-    std::optional<std::string> creator;
-    std::optional<int> first_block;
-    std::optional<std::string> reserve;
-    std::optional<AssetSupplyModel> supply_model;
-    std::optional<std::string> circulating_supply;
-    std::optional<std::string> mintable_supply;
-    std::optional<std::string> total_supply;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

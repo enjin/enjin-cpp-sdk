@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/ISerializable.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -26,10 +27,19 @@ namespace enjin::sdk::models {
 /// \brief Models a melt input for melt requests.
 class ENJINSDK_EXPORT MeltInput : public serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    MeltInput() = default;
+    /// \brief Constructs an instance of this class.
+    MeltInput();
 
-    ~MeltInput() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    MeltInput(const MeltInput& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    MeltInput(MeltInput&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~MeltInput() override;
 
     [[nodiscard]] std::string serialize() const override;
 
@@ -54,10 +64,12 @@ public:
 
     bool operator!=(const MeltInput& rhs) const;
 
+    MeltInput& operator=(const MeltInput& rhs);
+
 private:
-    std::optional<std::string> asset_id_opt;
-    std::optional<std::string> asset_index_opt;
-    std::optional<std::string> value_opt;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

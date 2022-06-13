@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/ISerializable.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -26,10 +27,19 @@ namespace enjin::sdk::models {
 /// \brief Models a transfer input for transfer requests.
 class ENJINSDK_EXPORT TransferInput : public serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    TransferInput() = default;
+    /// \brief Constructs an instance of this class.
+    TransferInput();
 
-    ~TransferInput() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    TransferInput(const TransferInput& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    TransferInput(TransferInput&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~TransferInput() override;
 
     [[nodiscard]] std::string serialize() const override;
 
@@ -64,12 +74,12 @@ public:
 
     bool operator!=(const TransferInput& rhs) const;
 
+    TransferInput& operator=(const TransferInput& rhs);
+
 private:
-    std::optional<std::string> from_opt;
-    std::optional<std::string> to_opt;
-    std::optional<std::string> asset_id_opt;
-    std::optional<std::string> asset_index_opt;
-    std::optional<std::string> value_opt;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

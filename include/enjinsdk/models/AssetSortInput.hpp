@@ -20,17 +20,28 @@
 #include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/models/SortDirection.hpp"
 #include "enjinsdk/models/AssetField.hpp"
+#include <memory>
 #include <optional>
+#include <string>
 
 namespace enjin::sdk::models {
 
 /// \brief Models sorting input for Assets.
 class ENJINSDK_EXPORT AssetSortInput : public serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    AssetSortInput() = default;
+    /// \brief Constructs an instance of this class.
+    AssetSortInput();
 
-    ~AssetSortInput() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    AssetSortInput(const AssetSortInput& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    AssetSortInput(AssetSortInput&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~AssetSortInput() override;
 
     [[nodiscard]] std::string serialize() const override;
 
@@ -50,9 +61,12 @@ public:
 
     bool operator!=(const AssetSortInput& rhs) const;
 
+    AssetSortInput& operator=(const AssetSortInput& rhs);
+
 private:
-    std::optional<AssetField> field_opt;
-    std::optional<SortDirection> direction_opt;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

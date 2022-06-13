@@ -20,49 +20,106 @@
 
 using namespace enjin::sdk::json;
 using namespace enjin::sdk::models;
+using namespace enjin::sdk::serialization;
 using namespace enjin::sdk::utils;
 
-void Pusher::deserialize(const std::string& json) {
-    JsonValue json_object;
+class Pusher::Impl final : public IDeserializable {
+public:
+    Impl() = default;
 
-    if (!json_object.try_parse_as_object(json)) {
-        key.reset();
-        pusher_namespace.reset();
-        channels.reset();
-        options.reset();
+    ~Impl() override = default;
 
-        return;
+    void deserialize(const std::string& json) override {
+        JsonValue json_object;
+
+        if (!json_object.try_parse_as_object(json)) {
+            key.reset();
+            pusher_namespace.reset();
+            channels.reset();
+            options.reset();
+
+            return;
+        }
+
+        JsonUtils::try_get_field(json_object, "key", key);
+        JsonUtils::try_get_field(json_object, "namespace", pusher_namespace);
+        JsonUtils::try_get_field(json_object, "channels", channels);
+        JsonUtils::try_get_field(json_object, "options", options);
     }
 
-    JsonUtils::try_get_field(json_object, "key", key);
-    JsonUtils::try_get_field(json_object, "namespace", pusher_namespace);
-    JsonUtils::try_get_field(json_object, "channels", channels);
-    JsonUtils::try_get_field(json_object, "options", options);
+    [[nodiscard]] const std::optional<std::string>& get_key() const {
+        return key;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_pusher_namespace() const {
+        return pusher_namespace;
+    }
+
+    [[nodiscard]] const std::optional<PusherChannels>& get_channels() const {
+        return channels;
+    }
+
+    [[nodiscard]] const std::optional<PusherOptions>& get_options() const {
+        return options;
+    }
+
+    bool operator==(const Impl& rhs) const {
+        return key == rhs.key
+               && pusher_namespace == rhs.pusher_namespace
+               && channels == rhs.channels
+               && options == rhs.options;
+    }
+
+    bool operator!=(const Impl& rhs) const {
+        return !(*this == rhs);
+    }
+
+private:
+    std::optional<std::string> key;
+    std::optional<std::string> pusher_namespace;
+    std::optional<PusherChannels> channels;
+    std::optional<PusherOptions> options;
+};
+
+void Pusher::deserialize(const std::string& json) {
+    pimpl->deserialize(json);
 }
 
 const std::optional<std::string>& Pusher::get_key() const {
-    return key;
+    return pimpl->get_key();
 }
 
 const std::optional<std::string>& Pusher::get_pusher_namespace() const {
-    return pusher_namespace;
+    return pimpl->get_pusher_namespace();
 }
 
 const std::optional<PusherChannels>& Pusher::get_channels() const {
-    return channels;
+    return pimpl->get_channels();
 }
 
 const std::optional<PusherOptions>& Pusher::get_options() const {
-    return options;
+    return pimpl->get_options();
 }
 
 bool Pusher::operator==(const Pusher& rhs) const {
-    return key == rhs.key
-           && pusher_namespace == rhs.pusher_namespace
-           && channels == rhs.channels
-           && options == rhs.options;
+    return *pimpl == *rhs.pimpl;
 }
 
 bool Pusher::operator!=(const Pusher& rhs) const {
-    return !(*this == rhs);
+    return *pimpl != *rhs.pimpl;
+}
+
+Pusher::Pusher() : pimpl(std::make_unique<Impl>()) {
+}
+
+Pusher::Pusher(const Pusher& other) : pimpl(std::make_unique<Impl>(*other.pimpl)) {
+}
+
+Pusher::Pusher(Pusher&& other) noexcept = default;
+
+Pusher::~Pusher() = default;
+
+Pusher& Pusher::operator=(const Pusher& rhs) {
+    pimpl = std::make_unique<Impl>(*rhs.pimpl);
+    return *this;
 }

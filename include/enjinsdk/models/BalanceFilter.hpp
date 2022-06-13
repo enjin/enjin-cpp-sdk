@@ -19,6 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/models/Operator.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 #include <vector>
@@ -28,10 +29,19 @@ namespace enjin::sdk::models {
 /// \brief Models a filter input for balance queries.
 class ENJINSDK_EXPORT BalanceFilter : public serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    BalanceFilter() = default;
+    /// \brief Constructs an instance of this class.
+    BalanceFilter();
 
-    ~BalanceFilter() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    BalanceFilter(const BalanceFilter& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    BalanceFilter(BalanceFilter&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~BalanceFilter() override;
 
     [[nodiscard]] std::string serialize() const override;
 
@@ -81,15 +91,12 @@ public:
 
     bool operator!=(const BalanceFilter& rhs) const;
 
+    BalanceFilter& operator=(const BalanceFilter& rhs);
+
 private:
-    std::optional<std::vector<BalanceFilter>> and_filters_opt;
-    std::optional<std::vector<BalanceFilter>> or_filters_opt;
-    std::optional<std::string> asset_id_opt;
-    std::optional<std::vector<std::string>> asset_id_in_opt;
-    std::optional<std::string> wallet_opt;
-    std::optional<std::vector<std::string>> wallet_in_opt;
-    std::optional<int> value_opt;
-    std::optional<Operator> value_is_opt;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

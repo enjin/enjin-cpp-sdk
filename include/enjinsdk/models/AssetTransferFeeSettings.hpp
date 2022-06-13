@@ -19,6 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/AssetTransferFeeType.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -27,10 +28,19 @@ namespace enjin::sdk::models {
 /// \brief Models transfer fee settings for an asset.
 class ENJINSDK_EXPORT AssetTransferFeeSettings : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    AssetTransferFeeSettings() = default;
+    /// \brief Constructs an instance of this class.
+    AssetTransferFeeSettings();
 
-    ~AssetTransferFeeSettings() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    AssetTransferFeeSettings(const AssetTransferFeeSettings& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    AssetTransferFeeSettings(AssetTransferFeeSettings&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~AssetTransferFeeSettings() override;
 
     void deserialize(const std::string& json) override;
 
@@ -50,10 +60,12 @@ public:
 
     bool operator!=(const AssetTransferFeeSettings& rhs) const;
 
+    AssetTransferFeeSettings& operator=(const AssetTransferFeeSettings& rhs);
+
 private:
-    std::optional<AssetTransferFeeType> type;
-    std::optional<std::string> asset_id;
-    std::optional<std::string> value;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }
