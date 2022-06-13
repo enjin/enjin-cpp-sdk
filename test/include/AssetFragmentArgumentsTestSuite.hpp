@@ -16,6 +16,7 @@
 #ifndef ENJINSDK_ASSETFRAGMENTARGUMENTSTESTSUITE_HPP
 #define ENJINSDK_ASSETFRAGMENTARGUMENTSTESTSUITE_HPP
 
+#include "enjinsdk/JsonValue.hpp"
 #include "enjinsdk/shared/AssetFragmentArguments.hpp"
 #include <type_traits>
 
@@ -29,6 +30,13 @@ class AssetFragmentArgumentsTestSuite {
 public:
     static constexpr char AssetFragmentJson[] =
             R"({"assetIdFormat":"hex64","withStateData":true,"withConfigData":true,"withAssetBlocks":true,"withCreator":true,"withMeltDetails":true,"withMetadataURI":true,"withSupplyDetails":true,"withTransferSettings":true,"withAssetVariantMode":true,"withAssetVariants":true,"withVariantMetadata":true})";
+
+    static sdk::json::JsonValue create_json_object() {
+        sdk::json::JsonValue json;
+
+        json.try_parse_as_object(AssetFragmentJson);
+        return json;
+    }
 
     static void set_asset_fragment_arguments(sdk::shared::AssetFragmentArguments<T>& o) {
         o.set_asset_id_format(sdk::models::AssetIdFormat::Hex64)

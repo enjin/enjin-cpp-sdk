@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "EnumUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 #include "gtest/gtest.h"
 #include <string>
 #include <tuple>
@@ -30,7 +30,7 @@ TEST_P(OperatorTest, SerializeOperatorReturnsExpectedString) {
     Operator value = std::get<1>(GetParam());
 
     // Act
-    std::string actual = serialize_operator(value);
+    std::string actual = EnumUtils::serialize_operator(value);
 
     // Assert
     ASSERT_EQ(expected, actual);

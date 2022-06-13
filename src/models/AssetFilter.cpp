@@ -15,121 +15,103 @@
 
 #include "enjinsdk/models/AssetFilter.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 std::string AssetFilter::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-
-    if (and_filters.has_value()) {
-        utils::set_array_member_from_type_vector<AssetFilter>(document, AND_KEY, and_filters.value());
-    }
-    if (or_filters.has_value()) {
-        utils::set_array_member_from_type_vector<AssetFilter>(document, OR_KEY, or_filters.value());
-    }
-    if (id.has_value()) {
-        utils::set_string_member(document, ID_KEY, id.value());
-    }
-    if (id_in.has_value()) {
-        utils::set_array_member_from_string_vector(document, ID_IN_KEY, id_in.value());
-    }
-    if (name.has_value()) {
-        utils::set_string_member(document, NAME_KEY, name.value());
-    }
-    if (name_contains.has_value()) {
-        utils::set_string_member(document, NAME_CONTAINS_KEY, name_contains.value());
-    }
-    if (name_in.has_value()) {
-        utils::set_array_member_from_string_vector(document, NAME_IN_KEY, name_in.value());
-    }
-    if (name_starts_with.has_value()) {
-        utils::set_string_member(document, NAME_STARTS_WITH_KEY, name_starts_with.value());
-    }
-    if (name_ends_with.has_value()) {
-        utils::set_string_member(document, NAME_ENDS_WITH_KEY, name_ends_with.value());
-    }
-    if (wallet.has_value()) {
-        utils::set_string_member(document, WALLET_KEY, wallet.value());
-    }
-    if (wallet_in.has_value()) {
-        utils::set_array_member_from_string_vector(document, WALLET_IN_KEY, wallet_in.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
 AssetFilter& AssetFilter::set_and(std::vector<AssetFilter> others) {
-    and_filters = std::move(others);
+    and_filters_opt = std::move(others);
     return *this;
 }
 
 AssetFilter& AssetFilter::set_or(std::vector<AssetFilter> others) {
-    or_filters = std::move(others);
+    or_filters_opt = std::move(others);
     return *this;
 }
 
 AssetFilter& AssetFilter::set_id(std::string id) {
-    AssetFilter::id = std::move(id);
+    id_opt = std::move(id);
     return *this;
 }
 
 AssetFilter& AssetFilter::set_id_in(std::vector<std::string> ids) {
-    id_in = std::move(ids);
+    id_in_opt = std::move(ids);
     return *this;
 }
 
 AssetFilter& AssetFilter::set_name(std::string name) {
-    AssetFilter::name = std::move(name);
+    name_opt = std::move(name);
     return *this;
 }
 
 AssetFilter& AssetFilter::set_name_contains(std::string text) {
-    name_contains = std::move(text);
+    name_contains_opt = std::move(text);
     return *this;
 }
 
 AssetFilter& AssetFilter::set_name_in(std::vector<std::string> names) {
-    name_in = std::move(names);
+    name_in_opt = std::move(names);
     return *this;
 }
 
 AssetFilter& AssetFilter::set_name_starts_with(std::string prefix) {
-    name_starts_with = std::move(prefix);
+    name_starts_with_opt = std::move(prefix);
     return *this;
 }
 
 AssetFilter& AssetFilter::set_name_ends_with(std::string suffix) {
-    name_ends_with = std::move(suffix);
+    name_ends_with_opt = std::move(suffix);
     return *this;
 }
 
 AssetFilter& AssetFilter::set_wallet(std::string wallet) {
-    AssetFilter::wallet = std::move(wallet);
+    wallet_opt = std::move(wallet);
     return *this;
 }
 
 AssetFilter& AssetFilter::set_wallet_in(std::vector<std::string> wallets) {
-    wallet_in = std::move(wallets);
+    wallet_in_opt = std::move(wallets);
     return *this;
 }
 
+JsonValue AssetFilter::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::try_set_field(json, "and", and_filters_opt);
+    JsonUtils::try_set_field(json, "or", or_filters_opt);
+    JsonUtils::try_set_field(json, "id", id_opt);
+    JsonUtils::try_set_field(json, "id_in", id_in_opt);
+    JsonUtils::try_set_field(json, "name", name_opt);
+    JsonUtils::try_set_field(json, "name_contains", name_contains_opt);
+    JsonUtils::try_set_field(json, "name_in", name_in_opt);
+    JsonUtils::try_set_field(json, "name_starts_with", name_starts_with_opt);
+    JsonUtils::try_set_field(json, "name_ends_with", name_ends_with_opt);
+    JsonUtils::try_set_field(json, "wallet", wallet_opt);
+    JsonUtils::try_set_field(json, "wallet_in", wallet_in_opt);
+
+    return json;
+}
+
 bool AssetFilter::operator==(const AssetFilter& rhs) const {
-    return and_filters == rhs.and_filters &&
-           or_filters == rhs.or_filters &&
-           id == rhs.id &&
-           id_in == rhs.id_in &&
-           name == rhs.name &&
-           name_contains == rhs.name_contains &&
-           name_in == rhs.name_in &&
-           name_starts_with == rhs.name_starts_with &&
-           name_ends_with == rhs.name_ends_with &&
-           wallet == rhs.wallet &&
-           wallet_in == rhs.wallet_in;
+    return and_filters_opt == rhs.and_filters_opt
+           && or_filters_opt == rhs.or_filters_opt
+           && id_opt == rhs.id_opt
+           && id_in_opt == rhs.id_in_opt
+           && name_opt == rhs.name_opt
+           && name_contains_opt == rhs.name_contains_opt
+           && name_in_opt == rhs.name_in_opt
+           && name_starts_with_opt == rhs.name_starts_with_opt
+           && name_ends_with_opt == rhs.name_ends_with_opt
+           && wallet_opt == rhs.wallet_opt
+           && wallet_in_opt == rhs.wallet_in_opt;
 }
 
 bool AssetFilter::operator!=(const AssetFilter& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

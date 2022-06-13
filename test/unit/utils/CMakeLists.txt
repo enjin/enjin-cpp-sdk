@@ -10,13 +10,13 @@ target_sources(${PROJECT_NAME}_tests
         EnumUtilsEventTypeTest.cpp
         EnumUtilsHttpMethodTest.cpp
         EnumUtilsOperatorTest.cpp
-        EnumUtilsPusherConnectionStateTest.cpp
         EnumUtilsRequestStateTest.cpp
         EnumUtilsRequestTypeTest.cpp
         EnumUtilsSortDirectionTest.cpp
         EnumUtilsTransactionFieldTest.cpp
         EnumUtilsWhitelistedTest.cpp
         FutureUtilsTest.cpp
+        JsonUtilsTest.cpp
         LoggerProviderTest.cpp
         LoggerProviderLogLevelsTest.cpp
         RapidJsonUtilsTest.cpp

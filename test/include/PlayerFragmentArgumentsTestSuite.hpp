@@ -17,6 +17,7 @@
 #define ENJINSDK_PLAYERFRAGMENTARGUMENTSTESTSUITE_HPP
 
 #include "WalletFragmentArgumentsTestSuite.hpp"
+#include "enjinsdk/JsonValue.hpp"
 #include "enjinsdk/shared/PlayerFragmentArguments.hpp"
 #include <type_traits>
 
@@ -30,6 +31,13 @@ class PlayerFragmentArgumentsTestSuite : public WalletFragmentArgumentsTestSuite
 public:
     static constexpr char PlayerFragmentJson[] =
             R"({"withLinkingInfo":true,"linkingCodeQrSize":1,"withPlayerWallet":true})";
+
+    static sdk::json::JsonValue create_json_object() {
+        sdk::json::JsonValue json;
+
+        json.try_parse_as_object(PlayerFragmentJson);
+        return json;
+    }
 
     static void set_player_fragment_arguments(sdk::shared::PlayerFragmentArguments<T>& o) {
         o.set_with_linking_info()

@@ -15,49 +15,50 @@
 
 #include "enjinsdk/project/MintAsset.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 #include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
 
-MintAsset::MintAsset() : graphql::AbstractGraphqlRequest("enjin.sdk.project.MintAsset") {
+MintAsset::MintAsset() : AbstractGraphqlRequest("enjin.sdk.project.MintAsset"),
+                         ProjectTransactionRequestArguments<MintAsset>() {
 }
 
 std::string MintAsset::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
-
-    if (asset_id.has_value()) {
-        utils::set_string_member(document, "assetId", asset_id.value());
-    }
-    if (mints.has_value()) {
-        utils::set_array_member_from_type_vector<models::MintInput>(document, "mints", mints.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
 MintAsset& MintAsset::set_asset_id(std::string asset_id) {
-    MintAsset::asset_id = std::move(asset_id);
+    asset_id_opt = std::move(asset_id);
     return *this;
 }
 
-MintAsset& MintAsset::set_mints(std::vector<models::MintInput> mints) {
-    MintAsset::mints = std::move(mints);
+MintAsset& MintAsset::set_mints(std::vector<MintInput> mints) {
+    mints_opt = std::move(mints);
     return *this;
+}
+
+JsonValue MintAsset::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, ProjectTransactionRequestArguments<MintAsset>::to_json());
+    JsonUtils::try_set_field(json, "assetId", asset_id_opt);
+    JsonUtils::try_set_field(json, "mints", mints_opt);
+
+    return json;
 }
 
 bool MintAsset::operator==(const MintAsset& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const ProjectTransactionRequestArguments<MintAsset>&>(*this) ==
-           static_cast<const ProjectTransactionRequestArguments<MintAsset>&>(rhs) &&
-           asset_id == rhs.asset_id &&
-           mints == rhs.mints;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const ProjectTransactionRequestArguments<MintAsset>&>(*this) == rhs
+           && asset_id_opt == rhs.asset_id_opt
+           && mints_opt == rhs.mints_opt;
 }
 
 bool MintAsset::operator!=(const MintAsset& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

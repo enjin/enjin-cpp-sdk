@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "EnumUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 #include "gtest/gtest.h"
 #include <string>
 #include <tuple>
@@ -30,7 +30,7 @@ TEST_P(EventTypeTest, DeserializeEventTypeReturnsExpectedValue) {
     const std::string& str = std::get<0>(GetParam());
 
     // Act
-    EventType actual = deserialize_event_type(str);
+    EventType actual = EnumUtils::deserialize_event_type(str);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -42,7 +42,7 @@ TEST_P(EventTypeTest, SerializeEventTypeReturnsExpectedString) {
     EventType value = std::get<1>(GetParam());
 
     // Act
-    std::string actual = serialize_event_type(value);
+    std::string actual = EnumUtils::serialize_event_type(value);
 
     // Assert
     ASSERT_EQ(expected, actual);

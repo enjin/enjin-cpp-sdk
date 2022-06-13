@@ -47,21 +47,26 @@ public:
     /// \return This request for chaining.
     AdvancedSendAsset& set_data(std::string data);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const AdvancedSendAsset& rhs) const;
 
     bool operator!=(const AdvancedSendAsset& rhs) const;
 
 private:
-    std::optional<std::vector<models::Transfer>> transfers;
-    std::optional<std::string> data;
+    std::optional<std::vector<models::Transfer>> transfers_opt;
+    std::optional<std::string> data_opt;
 };
 
 }
 
 namespace enjin::sdk::shared {
 
+// region TransactionFragmentArguments
+
 template ENJINSDK_EXPORT player::AdvancedSendAsset&
-TransactionFragmentArguments<player::AdvancedSendAsset>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
+TransactionFragmentArguments<player::AdvancedSendAsset>::set_transaction_asset_id_format(
+        models::AssetIdFormat asset_id_format);
 
 template ENJINSDK_EXPORT player::AdvancedSendAsset&
 TransactionFragmentArguments<player::AdvancedSendAsset>::set_with_blockchain_data();
@@ -101,6 +106,8 @@ TransactionFragmentArguments<player::AdvancedSendAsset>::set_with_transaction_pr
 
 template ENJINSDK_EXPORT player::AdvancedSendAsset&
 TransactionFragmentArguments<player::AdvancedSendAsset>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

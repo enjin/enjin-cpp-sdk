@@ -91,17 +91,6 @@ private:
     std::optional<int> transaction_index;
     std::optional<bool> status;
     std::optional<std::vector<TransactionLog>> logs;
-
-    constexpr static char BLOCK_HASH_KEY[] = "blockHash";
-    constexpr static char BLOCK_NUMBER_KEY[] = "blockNumber";
-    constexpr static char CUMULATIVE_GAS_USED_KEY[] = "cumulativeGasUsed";
-    constexpr static char GAS_USED_KEY[] = "gasUsed";
-    constexpr static char FROM_KEY[] = "from";
-    constexpr static char TO_KEY[] = "to";
-    constexpr static char TRANSACTION_HASH_KEY[] = "transactionHash";
-    constexpr static char TRANSACTION_INDEX_KEY[] = "transactionIndex";
-    constexpr static char STATUS_KEY[] = "status";
-    constexpr static char LOGS_KEY[] = "logs";
 };
 
 }

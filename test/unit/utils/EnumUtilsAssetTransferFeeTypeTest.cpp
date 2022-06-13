@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "EnumUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 #include "gtest/gtest.h"
 #include <string>
 #include <tuple>
@@ -30,7 +30,7 @@ TEST_P(AssetTransferFeeTypeTest, DeserializeAssetTransferFeeTypeReturnsExpectedV
     const std::string& str = std::get<0>(GetParam());
 
     // Act
-    AssetTransferFeeType actual = deserialize_asset_transfer_fee_type(str);
+    AssetTransferFeeType actual = EnumUtils::deserialize_asset_transfer_fee_type(str);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -42,7 +42,7 @@ TEST_P(AssetTransferFeeTypeTest, SerializeAssetTransferFeeTypeReturnsExpectedStr
     AssetTransferFeeType value = std::get<1>(GetParam());
 
     // Act
-    std::string actual = serialize_asset_transfer_fee_type(value);
+    std::string actual = EnumUtils::serialize_asset_transfer_fee_type(value);
 
     // Assert
     ASSERT_EQ(expected, actual);

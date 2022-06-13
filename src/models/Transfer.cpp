@@ -15,67 +15,61 @@
 
 #include "enjinsdk/models/Transfer.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 std::string Transfer::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-
-    if (from.has_value()) {
-        utils::set_string_member(document, FROM_KEY, from.value());
-    }
-    if (to.has_value()) {
-        utils::set_string_member(document, TO_KEY, to.value());
-    }
-    if (asset_id.has_value()) {
-        utils::set_string_member(document, ASSET_ID_KEY, asset_id.value());
-    }
-    if (asset_index.has_value()) {
-        utils::set_string_member(document, ASSET_INDEX_KEY, asset_index.value());
-    }
-    if (value.has_value()) {
-        utils::set_string_member(document, VALUE_KEY, value.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
 Transfer& Transfer::set_from(std::string address) {
-    from = std::move(address);
+    from_opt = std::move(address);
     return *this;
 }
 
 Transfer& Transfer::set_to(std::string address) {
-    to = std::move(address);
+    to_opt = std::move(address);
     return *this;
 }
 
 Transfer& Transfer::set_asset_id(std::string id) {
-    asset_id = std::move(id);
+    asset_id_opt = std::move(id);
     return *this;
 }
 
 Transfer& Transfer::set_asset_index(std::string index) {
-    asset_index = std::move(index);
+    asset_index_opt = std::move(index);
     return *this;
 }
 
 Transfer& Transfer::set_value(std::string value) {
-    Transfer::value = std::move(value);
+    value_opt = std::move(value);
     return *this;
 }
 
+JsonValue Transfer::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::try_set_field(json, "from", from_opt);
+    JsonUtils::try_set_field(json, "to", to_opt);
+    JsonUtils::try_set_field(json, "assetId", asset_id_opt);
+    JsonUtils::try_set_field(json, "assetIndex", asset_index_opt);
+    JsonUtils::try_set_field(json, "value", value_opt);
+
+    return json;
+}
+
 bool Transfer::operator==(const Transfer& rhs) const {
-    return from == rhs.from &&
-           to == rhs.to &&
-           asset_id == rhs.asset_id &&
-           asset_index == rhs.asset_index &&
-           value == rhs.value;
+    return from_opt == rhs.from_opt
+           && to_opt == rhs.to_opt
+           && asset_id_opt == rhs.asset_id_opt
+           && asset_index_opt == rhs.asset_index_opt
+           && value_opt == rhs.value_opt;
 }
 
 bool Transfer::operator!=(const Transfer& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

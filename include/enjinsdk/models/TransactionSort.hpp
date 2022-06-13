@@ -44,16 +44,15 @@ public:
     /// \return This input for chaining.
     TransactionSort& set_direction(SortDirection direction);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const TransactionSort& rhs) const;
 
     bool operator!=(const TransactionSort& rhs) const;
 
 private:
-    std::optional<TransactionField> field;
-    std::optional<SortDirection> direction;
-
-    constexpr static char FIELD_KEY[] = "field";
-    constexpr static char DIRECTION_KEY[] = "direction";
+    std::optional<TransactionField> field_opt;
+    std::optional<SortDirection> direction_opt;
 };
 
 }

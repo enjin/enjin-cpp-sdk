@@ -15,40 +15,42 @@
 
 #include "enjinsdk/project/BridgeClaimAsset.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 #include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
 
-BridgeClaimAsset::BridgeClaimAsset() : graphql::AbstractGraphqlRequest("enjin.sdk.project.BridgeClaimAsset") {
+BridgeClaimAsset::BridgeClaimAsset() : AbstractGraphqlRequest("enjin.sdk.project.BridgeClaimAsset"),
+                                       ProjectTransactionRequestArguments<BridgeClaimAsset>() {
 }
 
 std::string BridgeClaimAsset::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
-
-    if (asset_id.has_value()) {
-        utils::set_string_member(document, "assetId", asset_id.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
 BridgeClaimAsset& BridgeClaimAsset::set_asset_id(std::string asset_id) {
-    BridgeClaimAsset::asset_id = std::move(asset_id);
+    asset_id_opt = std::move(asset_id);
     return *this;
 }
 
+JsonValue BridgeClaimAsset::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, ProjectTransactionRequestArguments<BridgeClaimAsset>::to_json());
+    JsonUtils::try_set_field(json, "assetId", asset_id_opt);
+
+    return json;
+}
+
 bool BridgeClaimAsset::operator==(const BridgeClaimAsset& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const ProjectTransactionRequestArguments<BridgeClaimAsset>&>(*this) ==
-           static_cast<const ProjectTransactionRequestArguments<BridgeClaimAsset>&>(rhs) &&
-           asset_id == rhs.asset_id;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const ProjectTransactionRequestArguments<BridgeClaimAsset>&>(*this) == rhs
+           && asset_id_opt == rhs.asset_id_opt;
 }
 
 bool BridgeClaimAsset::operator!=(const BridgeClaimAsset& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

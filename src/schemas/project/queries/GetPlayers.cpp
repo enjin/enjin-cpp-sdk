@@ -15,44 +15,47 @@
 
 #include "enjinsdk/project/GetPlayers.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::shared;
+using namespace enjin::sdk::utils;
 
-GetPlayers::GetPlayers() : graphql::AbstractGraphqlRequest("enjin.sdk.project.GetPlayers") {
+GetPlayers::GetPlayers() : AbstractGraphqlRequest("enjin.sdk.project.GetPlayers"),
+                           PlayerFragmentArguments<GetPlayers>(),
+                           PaginationArguments<GetPlayers>() {
 }
 
 std::string GetPlayers::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_objects_to_document(document, {
-            PlayerFragmentArguments::serialize(),
-            PaginationArguments::serialize()
-    });
-
-    if (filter.has_value()) {
-        utils::set_object_member_from_type<models::PlayerFilter>(document, "filter", filter.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
-GetPlayers& GetPlayers::set_filter(models::PlayerFilter filter) {
-    GetPlayers::filter = std::move(filter);
+GetPlayers& GetPlayers::set_filter(PlayerFilter filter) {
+    filter_opt = std::move(filter);
     return *this;
 }
 
+JsonValue GetPlayers::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, PlayerFragmentArguments<GetPlayers>::to_json());
+    JsonUtils::join_object(json, PaginationArguments<GetPlayers>::to_json());
+    JsonUtils::try_set_field(json, "filter", filter_opt);
+
+    return json;
+}
+
 bool GetPlayers::operator==(const GetPlayers& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::PlayerFragmentArguments<GetPlayers>&>(*this) ==
-           static_cast<const shared::PlayerFragmentArguments<GetPlayers>&>(rhs) &&
-           static_cast<const shared::PaginationArguments<GetPlayers>&>(*this) ==
-           static_cast<const shared::PaginationArguments<GetPlayers>&>(rhs) &&
-           filter == rhs.filter;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const PlayerFragmentArguments<GetPlayers>&>(*this) == rhs
+           && static_cast<const PaginationArguments<GetPlayers>&>(*this) == rhs
+           && filter_opt == rhs.filter_opt;
 }
 
 bool GetPlayers::operator!=(const GetPlayers& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

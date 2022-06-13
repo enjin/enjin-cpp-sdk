@@ -37,45 +37,81 @@ public:
 
 namespace enjin::sdk::shared {
 
+// region AssetFragmentArguments
+
 template test::utils::TestableWalletFragmentArguments&
-WalletFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_asset_id_format(
+AssetFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_asset_id_format(
         models::AssetIdFormat asset_id_format);
 
 template test::utils::TestableWalletFragmentArguments&
-WalletFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_state_data();
+AssetFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_state_data();
 
 template test::utils::TestableWalletFragmentArguments&
-WalletFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_config_data();
+AssetFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_config_data();
 
 template test::utils::TestableWalletFragmentArguments&
-WalletFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_asset_blocks();
+AssetFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_asset_blocks();
 
 template test::utils::TestableWalletFragmentArguments&
-WalletFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_creator();
+AssetFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_creator();
 
 template test::utils::TestableWalletFragmentArguments&
-WalletFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_melt_details();
+AssetFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_melt_details();
 
 template test::utils::TestableWalletFragmentArguments&
-WalletFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_metadata_uri();
+AssetFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_metadata_uri();
 
 template test::utils::TestableWalletFragmentArguments&
-WalletFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_supply_details();
+AssetFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_supply_details();
 
 template test::utils::TestableWalletFragmentArguments&
-WalletFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_transfer_settings();
+AssetFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_transfer_settings();
 
 template test::utils::TestableWalletFragmentArguments&
-WalletFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_asset_variant_mode();
+AssetFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_asset_variant_mode();
 
 template test::utils::TestableWalletFragmentArguments&
-WalletFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_asset_variants();
+AssetFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_asset_variants();
 
 template test::utils::TestableWalletFragmentArguments&
-WalletFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_variant_metadata();
+AssetFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_variant_metadata();
+
+// endregion AssetFragmentArguments
+
+// region BalanceFragmentArguments
+
+template test::utils::TestableWalletFragmentArguments&
+BalanceFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_bal_id_format(
+        models::AssetIdFormat bal_id_format);
+
+template test::utils::TestableWalletFragmentArguments&
+BalanceFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_bal_index_format(
+        models::AssetIndexFormat bal_index_format);
+
+template test::utils::TestableWalletFragmentArguments&
+BalanceFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_bal_project_uuid();
+
+template test::utils::TestableWalletFragmentArguments&
+BalanceFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_bal_wallet_address();
+
+// endregion BalanceFragmentArguments
+
+// region WalletFragmentArguments
+
+template test::utils::TestableWalletFragmentArguments&
+WalletFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_wallet_balance_filter(
+        models::BalanceFilter filter);
 
 template test::utils::TestableWalletFragmentArguments&
 WalletFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_assets_created();
+
+template test::utils::TestableWalletFragmentArguments&
+WalletFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_wallet_balances();
+
+template test::utils::TestableWalletFragmentArguments&
+WalletFragmentArguments<test::utils::TestableWalletFragmentArguments>::set_with_wallet_transactions();
+
+// endregion WalletFragmentArguments
 
 }
 

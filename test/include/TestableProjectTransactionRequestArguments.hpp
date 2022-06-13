@@ -39,48 +39,52 @@ public:
 namespace enjin::sdk::project {
 
 template test::utils::TestableProjectTransactionRequestArguments&
-ProjectTransactionRequestArguments<test::utils::TestableProjectTransactionRequestArguments>::set_transaction_asset_id_format(
+ProjectTransactionRequestArguments<test::utils::TestableProjectTransactionRequestArguments>::set_eth_address(
+        std::string address);
+
+}
+
+namespace enjin::sdk::shared {
+
+template test::utils::TestableProjectTransactionRequestArguments&
+TransactionFragmentArguments<test::utils::TestableProjectTransactionRequestArguments>::set_transaction_asset_id_format(
         models::AssetIdFormat asset_id_format);
 
 template test::utils::TestableProjectTransactionRequestArguments&
-ProjectTransactionRequestArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_blockchain_data();
+TransactionFragmentArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_blockchain_data();
 
 template test::utils::TestableProjectTransactionRequestArguments&
-ProjectTransactionRequestArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_meta();
+TransactionFragmentArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_meta();
 
 template test::utils::TestableProjectTransactionRequestArguments&
-ProjectTransactionRequestArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_encoded_data();
+TransactionFragmentArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_encoded_data();
 
 template test::utils::TestableProjectTransactionRequestArguments&
-ProjectTransactionRequestArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_asset_data();
+TransactionFragmentArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_asset_data();
 
 template test::utils::TestableProjectTransactionRequestArguments&
-ProjectTransactionRequestArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_signed_txs();
+TransactionFragmentArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_signed_txs();
 
 template test::utils::TestableProjectTransactionRequestArguments&
-ProjectTransactionRequestArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_error();
+TransactionFragmentArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_error();
 
 template test::utils::TestableProjectTransactionRequestArguments&
-ProjectTransactionRequestArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_nonce();
+TransactionFragmentArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_nonce();
 
 template test::utils::TestableProjectTransactionRequestArguments&
-ProjectTransactionRequestArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_state();
+TransactionFragmentArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_state();
 
 template test::utils::TestableProjectTransactionRequestArguments&
-ProjectTransactionRequestArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_receipt();
+TransactionFragmentArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_receipt();
 
 template test::utils::TestableProjectTransactionRequestArguments&
-ProjectTransactionRequestArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_receipt_logs();
+TransactionFragmentArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_receipt_logs();
 
 template test::utils::TestableProjectTransactionRequestArguments&
-ProjectTransactionRequestArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_log_event();
+TransactionFragmentArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_log_event();
 
 template test::utils::TestableProjectTransactionRequestArguments&
-ProjectTransactionRequestArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_transaction_project_uuid();
-
-template test::utils::TestableProjectTransactionRequestArguments&
-ProjectTransactionRequestArguments<test::utils::TestableProjectTransactionRequestArguments>::set_eth_address(
-        std::string address);
+TransactionFragmentArguments<test::utils::TestableProjectTransactionRequestArguments>::set_with_transaction_project_uuid();
 
 }
 

@@ -89,34 +89,24 @@ public:
     /// \return This filter for chaining.
     AssetFilter& set_wallet_in(std::vector<std::string> wallets);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const AssetFilter& rhs) const;
 
     bool operator!=(const AssetFilter& rhs) const;
 
 private:
-    std::optional<std::vector<AssetFilter>> and_filters;
-    std::optional<std::vector<AssetFilter>> or_filters;
-    std::optional<std::string> id;
-    std::optional<std::vector<std::string>> id_in;
-    std::optional<std::string> name;
-    std::optional<std::string> name_contains;
-    std::optional<std::vector<std::string>> name_in;
-    std::optional<std::string> name_starts_with;
-    std::optional<std::string> name_ends_with;
-    std::optional<std::string> wallet;
-    std::optional<std::vector<std::string>> wallet_in;
-
-    constexpr static char AND_KEY[] = "and";
-    constexpr static char OR_KEY[] = "or";
-    constexpr static char ID_KEY[] = "id";
-    constexpr static char ID_IN_KEY[] = "id_in";
-    constexpr static char NAME_KEY[] = "name";
-    constexpr static char NAME_CONTAINS_KEY[] = "name_contains";
-    constexpr static char NAME_IN_KEY[] = "name_in";
-    constexpr static char NAME_STARTS_WITH_KEY[] = "name_starts_with";
-    constexpr static char NAME_ENDS_WITH_KEY[] = "name_ends_with";
-    constexpr static char WALLET_KEY[] = "wallet";
-    constexpr static char WALLET_IN_KEY[] = "wallet_in";
+    std::optional<std::vector<AssetFilter>> and_filters_opt;
+    std::optional<std::vector<AssetFilter>> or_filters_opt;
+    std::optional<std::string> id_opt;
+    std::optional<std::vector<std::string>> id_in_opt;
+    std::optional<std::string> name_opt;
+    std::optional<std::string> name_contains_opt;
+    std::optional<std::vector<std::string>> name_in_opt;
+    std::optional<std::string> name_starts_with_opt;
+    std::optional<std::string> name_ends_with_opt;
+    std::optional<std::string> wallet_opt;
+    std::optional<std::vector<std::string>> wallet_in_opt;
 };
 
 }

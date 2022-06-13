@@ -27,7 +27,7 @@ public:
     TransactionLog class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"blockNumber":1,"address":"1","transactionHash":"1","data":[],"topics":[],"event":{}})";
+            R"({"blockNumber":1,"address":"1","transactionHash":"1","data":[{},{}],"topics":[{},{}],"event":{}})";
 };
 
 TEST_F(TransactionLogTest, DeserializeEmptyStringFieldsDoNotHaveValues) {

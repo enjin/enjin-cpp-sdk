@@ -40,20 +40,25 @@ public:
     /// \return This request for chaining.
     BridgeClaimAsset& set_asset_id(std::string asset_id);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const BridgeClaimAsset& rhs) const;
 
     bool operator!=(const BridgeClaimAsset& rhs) const;
 
 private:
-    std::optional<std::string> asset_id;
+    std::optional<std::string> asset_id_opt;
 };
 
 }
 
 namespace enjin::sdk::shared {
 
+// region TransactionFragmentArguments
+
 template ENJINSDK_EXPORT player::BridgeClaimAsset&
-TransactionFragmentArguments<player::BridgeClaimAsset>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
+TransactionFragmentArguments<player::BridgeClaimAsset>::set_transaction_asset_id_format(
+        models::AssetIdFormat asset_id_format);
 
 template ENJINSDK_EXPORT player::BridgeClaimAsset&
 TransactionFragmentArguments<player::BridgeClaimAsset>::set_with_blockchain_data();
@@ -93,6 +98,8 @@ TransactionFragmentArguments<player::BridgeClaimAsset>::set_with_transaction_pro
 
 template ENJINSDK_EXPORT player::BridgeClaimAsset&
 TransactionFragmentArguments<player::BridgeClaimAsset>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

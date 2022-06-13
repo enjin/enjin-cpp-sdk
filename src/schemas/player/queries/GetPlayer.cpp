@@ -15,24 +15,28 @@
 
 #include "enjinsdk/player/GetPlayer.hpp"
 
-namespace enjin::sdk::player {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::player;
+using namespace enjin::sdk::shared;
 
-GetPlayer::GetPlayer() : graphql::AbstractGraphqlRequest("enjin.sdk.player.GetPlayer") {
+GetPlayer::GetPlayer() : AbstractGraphqlRequest("enjin.sdk.player.GetPlayer"),
+                         PlayerFragmentArguments<GetPlayer>() {
 }
 
 std::string GetPlayer::serialize() const {
-    return PlayerFragmentArguments::serialize();
+    return PlayerFragmentArguments<GetPlayer>::serialize();
+}
+
+JsonValue GetPlayer::to_json() const {
+    return PlayerFragmentArguments<GetPlayer>::to_json();
 }
 
 bool GetPlayer::operator==(const GetPlayer& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::PlayerFragmentArguments<GetPlayer>&>(*this) ==
-           static_cast<const shared::PlayerFragmentArguments<GetPlayer>&>(rhs);
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const PlayerFragmentArguments<GetPlayer>&>(*this) == rhs;
 }
 
 bool GetPlayer::operator!=(const GetPlayer& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

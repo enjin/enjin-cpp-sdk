@@ -60,21 +60,25 @@ public:
     /// \return This request for chaining.
     SendAsset& set_data(std::string data);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const SendAsset& rhs) const;
 
     bool operator!=(const SendAsset& rhs) const;
 
 private:
-    std::optional<std::string> recipient_address;
-    std::optional<std::string> asset_id;
-    std::optional<std::string> asset_index;
-    std::optional<std::string> value;
-    std::optional<std::string> data;
+    std::optional<std::string> recipient_address_opt;
+    std::optional<std::string> asset_id_opt;
+    std::optional<std::string> asset_index_opt;
+    std::optional<std::string> value_opt;
+    std::optional<std::string> data_opt;
 };
 
 }
 
 namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
 
 template ENJINSDK_EXPORT player::SendAsset&
 TransactionFragmentArguments<player::SendAsset>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
@@ -117,6 +121,8 @@ TransactionFragmentArguments<player::SendAsset>::set_with_transaction_project_uu
 
 template ENJINSDK_EXPORT player::SendAsset&
 TransactionFragmentArguments<player::SendAsset>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

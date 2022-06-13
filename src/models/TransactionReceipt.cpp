@@ -15,45 +15,41 @@
 
 #include "enjinsdk/models/TransactionReceipt.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 void TransactionReceipt::deserialize(const std::string& json) {
-    rapidjson::Document document;
-    document.Parse(json.c_str());
-    if (document.IsObject()) {
-        if (document.HasMember(BLOCK_HASH_KEY) && document[BLOCK_HASH_KEY].IsString()) {
-            block_hash.emplace(document[BLOCK_HASH_KEY].GetString());
-        }
-        if (document.HasMember(BLOCK_NUMBER_KEY) && document[BLOCK_NUMBER_KEY].IsInt()) {
-            block_number.emplace(document[BLOCK_NUMBER_KEY].GetInt());
-        }
-        if (document.HasMember(CUMULATIVE_GAS_USED_KEY) && document[CUMULATIVE_GAS_USED_KEY].IsInt()) {
-            cumulative_gas_used.emplace(document[CUMULATIVE_GAS_USED_KEY].GetInt());
-        }
-        if (document.HasMember(GAS_USED_KEY) && document[GAS_USED_KEY].IsInt()) {
-            gas_used.emplace(document[GAS_USED_KEY].GetInt());
-        }
-        if (document.HasMember(FROM_KEY) && document[FROM_KEY].IsString()) {
-            from.emplace(document[FROM_KEY].GetString());
-        }
-        if (document.HasMember(TO_KEY) && document[TO_KEY].IsString()) {
-            to.emplace(document[TO_KEY].GetString());
-        }
-        if (document.HasMember(TRANSACTION_HASH_KEY) && document[TRANSACTION_HASH_KEY].IsString()) {
-            transaction_hash.emplace(document[TRANSACTION_HASH_KEY].GetString());
-        }
-        if (document.HasMember(TRANSACTION_INDEX_KEY) && document[TRANSACTION_INDEX_KEY].IsInt()) {
-            transaction_index.emplace(document[TRANSACTION_INDEX_KEY].GetInt());
-        }
-        if (document.HasMember(STATUS_KEY) && document[STATUS_KEY].IsBool()) {
-            status.emplace(document[STATUS_KEY].GetBool());
-        }
-        if (document.HasMember(LOGS_KEY) && document[LOGS_KEY].IsArray()) {
-            logs.emplace(utils::get_array_as_type_vector<TransactionLog>(document, LOGS_KEY));
-        }
+    JsonValue json_object;
+
+    if (!json_object.try_parse_as_object(json)) {
+        block_hash.reset();
+        block_number.reset();
+        cumulative_gas_used.reset();
+        gas_used.reset();
+        from.reset();
+        to.reset();
+        transaction_hash.reset();
+        transaction_index.reset();
+        status.reset();
+        logs.reset();
+
+        return;
     }
+
+    JsonUtils::try_get_field(json_object, "blockHash", block_hash);
+    JsonUtils::try_get_field(json_object, "blockNumber", block_number);
+    JsonUtils::try_get_field(json_object, "cumulativeGasUsed", cumulative_gas_used);
+    JsonUtils::try_get_field(json_object, "gasUsed", gas_used);
+    JsonUtils::try_get_field(json_object, "from", from);
+    JsonUtils::try_get_field(json_object, "to", to);
+    JsonUtils::try_get_field(json_object, "transactionHash", transaction_hash);
+    JsonUtils::try_get_field(json_object, "transactionIndex", transaction_index);
+    JsonUtils::try_get_field(json_object, "status", status);
+    JsonUtils::try_get_field(json_object, "logs", logs);
 }
 
 const std::optional<std::string>& TransactionReceipt::get_block_hash() const {
@@ -97,20 +93,18 @@ const std::optional<std::vector<TransactionLog>>& TransactionReceipt::get_logs()
 }
 
 bool TransactionReceipt::operator==(const TransactionReceipt& rhs) const {
-    return block_hash == rhs.block_hash &&
-           block_number == rhs.block_number &&
-           cumulative_gas_used == rhs.cumulative_gas_used &&
-           gas_used == rhs.gas_used &&
-           from == rhs.from &&
-           to == rhs.to &&
-           transaction_hash == rhs.transaction_hash &&
-           transaction_index == rhs.transaction_index &&
-           status == rhs.status &&
-           logs == rhs.logs;
+    return block_hash == rhs.block_hash
+           && block_number == rhs.block_number
+           && cumulative_gas_used == rhs.cumulative_gas_used
+           && gas_used == rhs.gas_used
+           && from == rhs.from
+           && to == rhs.to
+           && transaction_hash == rhs.transaction_hash
+           && transaction_index == rhs.transaction_index
+           && status == rhs.status
+           && logs == rhs.logs;
 }
 
 bool TransactionReceipt::operator!=(const TransactionReceipt& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

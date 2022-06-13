@@ -58,22 +58,18 @@ public:
     /// \return This input for chaining.
     Transfer& set_value(std::string value);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const Transfer& rhs) const;
 
     bool operator!=(const Transfer& rhs) const;
 
 private:
-    std::optional<std::string> from;
-    std::optional<std::string> to;
-    std::optional<std::string> asset_id;
-    std::optional<std::string> asset_index;
-    std::optional<std::string> value;
-
-    constexpr static char FROM_KEY[] = "from";
-    constexpr static char TO_KEY[] = "to";
-    constexpr static char ASSET_ID_KEY[] = "assetId";
-    constexpr static char ASSET_INDEX_KEY[] = "assetIndex";
-    constexpr static char VALUE_KEY[] = "value";
+    std::optional<std::string> from_opt;
+    std::optional<std::string> to_opt;
+    std::optional<std::string> asset_id_opt;
+    std::optional<std::string> asset_index_opt;
+    std::optional<std::string> value_opt;
 };
 
 }

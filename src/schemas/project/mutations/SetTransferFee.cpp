@@ -15,49 +15,49 @@
 
 #include "enjinsdk/project/SetTransferFee.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 #include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
 
-SetTransferFee::SetTransferFee() : graphql::AbstractGraphqlRequest("enjin.sdk.project.SetTransferFee") {
+SetTransferFee::SetTransferFee() : AbstractGraphqlRequest("enjin.sdk.project.SetTransferFee"),
+                                   ProjectTransactionRequestArguments<SetTransferFee>() {
 }
 
 std::string SetTransferFee::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
-
-    if (asset_id.has_value()) {
-        utils::set_string_member(document, "assetId", asset_id.value());
-    }
-    if (transfer_fee.has_value()) {
-        utils::set_string_member(document, "transferFee", transfer_fee.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
 SetTransferFee& SetTransferFee::set_asset_id(std::string asset_id) {
-    SetTransferFee::asset_id = std::move(asset_id);
+    asset_id_opt = std::move(asset_id);
     return *this;
 }
 
 SetTransferFee& SetTransferFee::set_transfer_fee(std::string transfer_fee) {
-    SetTransferFee::transfer_fee = std::move(transfer_fee);
+    transfer_fee_opt = std::move(transfer_fee);
     return *this;
 }
 
+JsonValue SetTransferFee::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, ProjectTransactionRequestArguments<SetTransferFee>::to_json());
+    JsonUtils::try_set_field(json, "assetId", asset_id_opt);
+    JsonUtils::try_set_field(json, "transferFee", transfer_fee_opt);
+
+    return json;
+}
+
 bool SetTransferFee::operator==(const SetTransferFee& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const ProjectTransactionRequestArguments<SetTransferFee>&>(*this) ==
-           static_cast<const ProjectTransactionRequestArguments<SetTransferFee>&>(rhs) &&
-           asset_id == rhs.asset_id &&
-           transfer_fee == rhs.transfer_fee;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const ProjectTransactionRequestArguments<SetTransferFee>&>(*this) == rhs
+           && asset_id_opt == rhs.asset_id_opt
+           && transfer_fee_opt == rhs.transfer_fee_opt;
 }
 
 bool SetTransferFee::operator!=(const SetTransferFee& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

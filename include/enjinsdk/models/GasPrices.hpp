@@ -61,11 +61,6 @@ private:
     std::optional<float> average;
     std::optional<float> fast;
     std::optional<float> fastest;
-
-    constexpr static char SAFE_LOW_KEY[] = "safeLow";
-    constexpr static char AVERAGE_KEY[] = "average";
-    constexpr static char FAST_KEY[] = "fast";
-    constexpr static char FASTEST_KEY[] = "fastest";
 };
 
 }

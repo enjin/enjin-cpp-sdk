@@ -48,9 +48,6 @@ public:
 private:
     std::optional<std::string> cluster;
     std::optional<bool> encrypted;
-
-    constexpr static char CLUSTER_KEY[] = "cluster";
-    constexpr static char ENCRYPTED_KEY[] = "encrypted";
 };
 
 }

@@ -18,8 +18,10 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/ISerializable.hpp"
-#include "enjinsdk/internal/PaginationArgumentsImpl.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 #include "enjinsdk/models/PaginationOptions.hpp"
+#include <optional>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -34,14 +36,14 @@ public:
     ~PaginationArguments() override = default;
 
     [[nodiscard]] std::string serialize() const override {
-        return impl.serialize();
+        return to_json().to_string();
     }
 
     /// \brief Sets the pagination options via a move.
     /// \param pagination The options to move.
     /// \return This request for chaining.
-    virtual T& set_pagination(models::PaginationOptions pagination) {
-        impl.set_pagination(std::move(pagination));
+    T& set_pagination(models::PaginationOptions pagination) {
+        pagination_opt = std::move(pagination);
         return static_cast<T&>(*this);
     }
 
@@ -49,17 +51,25 @@ public:
     /// \param page The page to start on.
     /// \param limit The number of items per page.
     /// \return This request for chaining.
-    virtual T& set_pagination(int page, int limit) {
-        impl.set_pagination(page, limit);
+    T& set_pagination(int page, int limit) {
+        pagination_opt = models::PaginationOptions().set_page(page).set_limit(limit);
         return static_cast<T&>(*this);
     }
 
+    [[nodiscard]] json::JsonValue to_json() const override {
+        json::JsonValue json = json::JsonValue::create_object();
+
+        utils::JsonUtils::try_set_field(json, "pagination", pagination_opt);
+
+        return json;
+    }
+
     bool operator==(const PaginationArguments& rhs) const {
-        return impl == rhs.impl;
+        return pagination_opt == rhs.pagination_opt;
     }
 
     bool operator!=(const PaginationArguments& rhs) const {
-        return impl != rhs.impl;
+        return !(*this == rhs);
     }
 
 protected:
@@ -70,7 +80,7 @@ protected:
     }
 
 private:
-    PaginationArgumentsImpl impl;
+    std::optional<models::PaginationOptions> pagination_opt;
 };
 
 }

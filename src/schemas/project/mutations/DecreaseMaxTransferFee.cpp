@@ -15,50 +15,49 @@
 
 #include "enjinsdk/project/DecreaseMaxTransferFee.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 #include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
 
-DecreaseMaxTransferFee::DecreaseMaxTransferFee()
-        : graphql::AbstractGraphqlRequest("enjin.sdk.project.DecreaseMaxTransferFee") {
+DecreaseMaxTransferFee::DecreaseMaxTransferFee() : AbstractGraphqlRequest("enjin.sdk.project.DecreaseMaxTransferFee"),
+                                                   ProjectTransactionRequestArguments<DecreaseMaxTransferFee>() {
 }
 
 std::string DecreaseMaxTransferFee::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
-
-    if (asset_id.has_value()) {
-        utils::set_string_member(document, "assetId", asset_id.value());
-    }
-    if (max_transfer_fee.has_value()) {
-        utils::set_integer_member(document, "maxTransferFee", max_transfer_fee.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
 DecreaseMaxTransferFee& DecreaseMaxTransferFee::set_asset_id(std::string asset_id) {
-    DecreaseMaxTransferFee::asset_id = std::move(asset_id);
+    asset_id_opt = std::move(asset_id);
     return *this;
 }
 
 DecreaseMaxTransferFee& DecreaseMaxTransferFee::set_max_transfer_fee(int max_transfer_fee) {
-    DecreaseMaxTransferFee::max_transfer_fee = max_transfer_fee;
+    max_transfer_fee_opt = max_transfer_fee;
     return *this;
 }
 
+JsonValue DecreaseMaxTransferFee::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::to_json());
+    JsonUtils::try_set_field(json, "assetId", asset_id_opt);
+    JsonUtils::try_set_field(json, "maxTransferFee", max_transfer_fee_opt);
+
+    return json;
+}
+
 bool DecreaseMaxTransferFee::operator==(const DecreaseMaxTransferFee& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const ProjectTransactionRequestArguments<DecreaseMaxTransferFee>&>(*this) ==
-           static_cast<const ProjectTransactionRequestArguments<DecreaseMaxTransferFee>&>(rhs) &&
-           asset_id == rhs.asset_id &&
-           max_transfer_fee == rhs.max_transfer_fee;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const ProjectTransactionRequestArguments<DecreaseMaxTransferFee>&>(*this) == rhs
+           && asset_id_opt == rhs.asset_id_opt
+           && max_transfer_fee_opt == rhs.max_transfer_fee_opt;
 }
 
 bool DecreaseMaxTransferFee::operator!=(const DecreaseMaxTransferFee& rhs) const {
     return !(rhs == *this);
-}
-
 }

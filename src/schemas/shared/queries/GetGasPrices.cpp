@@ -15,24 +15,25 @@
 
 #include "enjinsdk/shared/GetGasPrices.hpp"
 
-#include "RapidJsonUtils.hpp"
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::shared;
 
-namespace enjin::sdk::shared {
-
-GetGasPrices::GetGasPrices() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.GetGasPrices") {
+GetGasPrices::GetGasPrices() : AbstractGraphqlRequest("enjin.sdk.shared.GetGasPrices") {
 }
 
 std::string GetGasPrices::serialize() const {
-    return utils::document_to_string(rapidjson::Document(rapidjson::kObjectType));
+    return to_json().to_string();
+}
+
+JsonValue GetGasPrices::to_json() const {
+    return JsonValue::create_object();
 }
 
 bool GetGasPrices::operator==(const GetGasPrices& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs);
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs;
 }
 
 bool GetGasPrices::operator!=(const GetGasPrices& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

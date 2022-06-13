@@ -15,49 +15,47 @@
 
 #include "enjinsdk/models/Trade.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 std::string Trade::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-
-    if (asset_id.has_value()) {
-        utils::set_string_member(document, ASSET_ID_KEY, asset_id.value());
-    }
-    if (asset_index.has_value()) {
-        utils::set_string_member(document, ASSET_INDEX_KEY, asset_index.value());
-    }
-    if (value.has_value()) {
-        utils::set_string_member(document, VALUE_KEY, value.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
 Trade& Trade::set_asset_id(std::string id) {
-    asset_id = std::move(id);
+    asset_id_opt = std::move(id);
     return *this;
 }
 
 Trade& Trade::set_asset_index(std::string index) {
-    asset_index = std::move(index);
+    asset_index_opt = std::move(index);
     return *this;
 }
 
 Trade& Trade::set_value(std::string value) {
-    Trade::value = std::move(value);
+    value_opt = std::move(value);
     return *this;
 }
 
+JsonValue Trade::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::try_set_field(json, "assetId", asset_id_opt);
+    JsonUtils::try_set_field(json, "assetIndex", asset_index_opt);
+    JsonUtils::try_set_field(json, "value", value_opt);
+
+    return json;
+}
+
 bool Trade::operator==(const Trade& rhs) const {
-    return asset_id == rhs.asset_id &&
-           asset_index == rhs.asset_index &&
-           value == rhs.value;
+    return asset_id_opt == rhs.asset_id_opt
+           && asset_index_opt == rhs.asset_index_opt
+           && value_opt == rhs.value_opt;
 }
 
 bool Trade::operator!=(const Trade& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

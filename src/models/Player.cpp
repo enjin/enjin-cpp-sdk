@@ -15,8 +15,10 @@
 
 #include "enjinsdk/models/Player.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
+using namespace enjin::sdk::json;
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::serialization;
 using namespace enjin::sdk::utils;
@@ -28,32 +30,23 @@ public:
     ~Impl() override = default;
 
     void deserialize(const std::string& json) override {
-        rapidjson::Document document;
-        document.Parse(json.c_str());
+        JsonValue json_object;
 
-        if (!document.IsObject()) {
+        if (!json_object.try_parse_as_object(json)) {
+            id.reset();
+            linking_info.reset();
+            wallet.reset();
+            created_at.reset();
+            updated_at.reset();
+
             return;
         }
 
-        if (document.HasMember(ID_KEY) && document[ID_KEY].IsString()) {
-            id.emplace(document[ID_KEY].GetString());
-        }
-
-        if (document.HasMember(LINKING_INFO_KEY) && document[LINKING_INFO_KEY].IsObject()) {
-            linking_info.emplace(get_object_as_type<LinkingInfo>(document, LINKING_INFO_KEY));
-        }
-
-        if (document.HasMember(WALLET_KEY) && document[WALLET_KEY].IsObject()) {
-            wallet.emplace(get_object_as_type<Wallet>(document, WALLET_KEY));
-        }
-
-        if (document.HasMember(CREATED_AT_KEY) && document[CREATED_AT_KEY].IsString()) {
-            created_at.emplace(document[CREATED_AT_KEY].GetString());
-        }
-
-        if (document.HasMember(UPDATED_AT_KEY) && document[UPDATED_AT_KEY].IsString()) {
-            updated_at.emplace(document[UPDATED_AT_KEY].GetString());
-        }
+        JsonUtils::try_get_field(json_object, "id", id);
+        JsonUtils::try_get_field(json_object, "linkingInfo", linking_info);
+        JsonUtils::try_get_field(json_object, "wallet", wallet);
+        JsonUtils::try_get_field(json_object, "createdAt", created_at);
+        JsonUtils::try_get_field(json_object, "updatedAt", updated_at);
     }
 
     [[nodiscard]] const std::optional<std::string>& get_id() const {
@@ -94,12 +87,6 @@ private:
     std::optional<Wallet> wallet;
     std::optional<std::string> created_at;
     std::optional<std::string> updated_at;
-
-    constexpr static char ID_KEY[] = "id";
-    constexpr static char LINKING_INFO_KEY[] = "linkingInfo";
-    constexpr static char WALLET_KEY[] = "wallet";
-    constexpr static char CREATED_AT_KEY[] = "createdAt";
-    constexpr static char UPDATED_AT_KEY[] = "updatedAt";
 };
 
 Player::Player() : impl(std::make_unique<Impl>()) {
@@ -142,7 +129,7 @@ bool Player::operator==(const Player& rhs) const {
 }
 
 bool Player::operator!=(const Player& rhs) const {
-    return !(*this == rhs);
+    return *impl != *rhs.impl;
 }
 
 Player& enjin::sdk::models::Player::operator=(const Player& rhs) {

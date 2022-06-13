@@ -47,47 +47,74 @@ public:
     /// \return This request for chaining.
     MintAsset& set_mints(std::vector<models::MintInput> mints);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const MintAsset& rhs) const;
 
     bool operator!=(const MintAsset& rhs) const;
 
 private:
-    std::optional<std::string> asset_id;
-    std::optional<std::vector<models::MintInput>> mints;
+    std::optional<std::string> asset_id_opt;
+    std::optional<std::vector<models::MintInput>> mints_opt;
 };
 
-template ENJINSDK_EXPORT MintAsset&
-ProjectTransactionRequestArguments<MintAsset>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
-
-template ENJINSDK_EXPORT MintAsset& ProjectTransactionRequestArguments<MintAsset>::set_with_blockchain_data();
-
-template ENJINSDK_EXPORT MintAsset& ProjectTransactionRequestArguments<MintAsset>::set_with_meta();
-
-template ENJINSDK_EXPORT MintAsset& ProjectTransactionRequestArguments<MintAsset>::set_with_encoded_data();
-
-template ENJINSDK_EXPORT MintAsset& ProjectTransactionRequestArguments<MintAsset>::set_with_asset_data();
-
-template ENJINSDK_EXPORT MintAsset& ProjectTransactionRequestArguments<MintAsset>::set_with_signed_txs();
-
-template ENJINSDK_EXPORT MintAsset& ProjectTransactionRequestArguments<MintAsset>::set_with_error();
-
-template ENJINSDK_EXPORT MintAsset& ProjectTransactionRequestArguments<MintAsset>::set_with_nonce();
-
-template ENJINSDK_EXPORT MintAsset& ProjectTransactionRequestArguments<MintAsset>::set_with_state();
-
-template ENJINSDK_EXPORT MintAsset& ProjectTransactionRequestArguments<MintAsset>::set_with_receipt();
-
-template ENJINSDK_EXPORT MintAsset& ProjectTransactionRequestArguments<MintAsset>::set_with_receipt_logs();
-
-template ENJINSDK_EXPORT MintAsset& ProjectTransactionRequestArguments<MintAsset>::set_with_log_event();
-
-template ENJINSDK_EXPORT MintAsset& ProjectTransactionRequestArguments<MintAsset>::set_with_transaction_project_uuid();
-
-template ENJINSDK_EXPORT MintAsset&
-ProjectTransactionRequestArguments<MintAsset>::set_with_transaction_wallet_address();
+// region ProjectTransactionRequestArguments
 
 template ENJINSDK_EXPORT MintAsset&
 ProjectTransactionRequestArguments<MintAsset>::set_eth_address(std::string address);
+
+// endregion ProjectTransactionRequestArguments
+
+}
+
+namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
+
+template ENJINSDK_EXPORT project::MintAsset&
+TransactionFragmentArguments<project::MintAsset>::set_transaction_asset_id_format(
+        models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT project::MintAsset&
+TransactionFragmentArguments<project::MintAsset>::set_with_blockchain_data();
+
+template ENJINSDK_EXPORT project::MintAsset&
+TransactionFragmentArguments<project::MintAsset>::set_with_meta();
+
+template ENJINSDK_EXPORT project::MintAsset&
+TransactionFragmentArguments<project::MintAsset>::set_with_encoded_data();
+
+template ENJINSDK_EXPORT project::MintAsset&
+TransactionFragmentArguments<project::MintAsset>::set_with_asset_data();
+
+template ENJINSDK_EXPORT project::MintAsset&
+TransactionFragmentArguments<project::MintAsset>::set_with_signed_txs();
+
+template ENJINSDK_EXPORT project::MintAsset&
+TransactionFragmentArguments<project::MintAsset>::set_with_error();
+
+template ENJINSDK_EXPORT project::MintAsset&
+TransactionFragmentArguments<project::MintAsset>::set_with_nonce();
+
+template ENJINSDK_EXPORT project::MintAsset&
+TransactionFragmentArguments<project::MintAsset>::set_with_state();
+
+template ENJINSDK_EXPORT project::MintAsset&
+TransactionFragmentArguments<project::MintAsset>::set_with_receipt();
+
+template ENJINSDK_EXPORT project::MintAsset&
+TransactionFragmentArguments<project::MintAsset>::set_with_receipt_logs();
+
+template ENJINSDK_EXPORT project::MintAsset&
+TransactionFragmentArguments<project::MintAsset>::set_with_log_event();
+
+template ENJINSDK_EXPORT project::MintAsset&
+TransactionFragmentArguments<project::MintAsset>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT project::MintAsset&
+TransactionFragmentArguments<project::MintAsset>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

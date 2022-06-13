@@ -15,24 +15,28 @@
 
 #include "enjinsdk/player/GetWallet.hpp"
 
-namespace enjin::sdk::player {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::player;
+using namespace enjin::sdk::shared;
 
-GetWallet::GetWallet() : graphql::AbstractGraphqlRequest("enjin.sdk.player.GetWallet") {
+GetWallet::GetWallet() : AbstractGraphqlRequest("enjin.sdk.player.GetWallet"),
+                         WalletFragmentArguments<GetWallet>() {
 }
 
 std::string GetWallet::serialize() const {
-    return WalletFragmentArguments::serialize();
+    return WalletFragmentArguments<GetWallet>::serialize();
+}
+
+JsonValue GetWallet::to_json() const {
+    return WalletFragmentArguments<GetWallet>::to_json();
 }
 
 bool GetWallet::operator==(const GetWallet& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::WalletFragmentArguments<GetWallet>&>(*this) ==
-           static_cast<const shared::WalletFragmentArguments<GetWallet>&>(rhs);
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const WalletFragmentArguments<GetWallet>&>(*this) == rhs;
 }
 
 bool GetWallet::operator!=(const GetWallet& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

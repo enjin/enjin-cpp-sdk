@@ -15,49 +15,49 @@
 
 #include "enjinsdk/project/SetApprovalForAll.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 #include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
 
-SetApprovalForAll::SetApprovalForAll() : graphql::AbstractGraphqlRequest("enjin.sdk.project.SetApprovalForAll") {
+SetApprovalForAll::SetApprovalForAll() : AbstractGraphqlRequest("enjin.sdk.project.SetApprovalForAll"),
+                                         ProjectTransactionRequestArguments<SetApprovalForAll>() {
 }
 
 std::string SetApprovalForAll::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
-
-    if (operator_address.has_value()) {
-        utils::set_string_member(document, "operatorAddress", operator_address.value());
-    }
-    if (approved.has_value()) {
-        utils::set_boolean_member(document, "approved", approved.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
 SetApprovalForAll& SetApprovalForAll::set_operator_address(std::string operator_address) {
-    SetApprovalForAll::operator_address = std::move(operator_address);
+    operator_address_opt = std::move(operator_address);
     return *this;
 }
 
 SetApprovalForAll& SetApprovalForAll::set_approved(bool approved) {
-    SetApprovalForAll::approved = approved;
+    approved_opt = approved;
     return *this;
 }
 
+JsonValue SetApprovalForAll::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, ProjectTransactionRequestArguments<SetApprovalForAll>::to_json());
+    JsonUtils::try_set_field(json, "operatorAddress", operator_address_opt);
+    JsonUtils::try_set_field(json, "approved", approved_opt);
+
+    return json;
+}
+
 bool SetApprovalForAll::operator==(const SetApprovalForAll& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const ProjectTransactionRequestArguments<SetApprovalForAll>&>(*this) ==
-           static_cast<const ProjectTransactionRequestArguments<SetApprovalForAll>&>(rhs) &&
-           operator_address == rhs.operator_address &&
-           approved == rhs.approved;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const ProjectTransactionRequestArguments<SetApprovalForAll>&>(*this) == rhs
+           && operator_address_opt == rhs.operator_address_opt
+           && approved_opt == rhs.approved_opt;
 }
 
 bool SetApprovalForAll::operator!=(const SetApprovalForAll& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

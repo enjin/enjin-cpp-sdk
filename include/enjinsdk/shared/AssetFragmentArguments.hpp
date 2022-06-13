@@ -18,8 +18,9 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/ISerializable.hpp"
-#include "enjinsdk/internal/AssetFragmentArgumentsImpl.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 #include "enjinsdk/models/AssetIdFormat.hpp"
+#include <optional>
 #include <string>
 #include <type_traits>
 
@@ -33,103 +34,133 @@ public:
     ~AssetFragmentArguments() override = default;
 
     [[nodiscard]] std::string serialize() const override {
-        return impl.serialize();
+        return to_json().to_string();
     }
 
     /// \brief Sets the desired asset ID format.
     /// \param asset_id_format The format.
     /// \return This request for chaining.
-    virtual T& set_asset_id_format(models::AssetIdFormat asset_id_format) {
-        impl.set_asset_id_format(asset_id_format);
+    T& set_asset_id_format(models::AssetIdFormat asset_id_format) {
+        asset_id_format_opt = asset_id_format;
         return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the state data with the asset.
     /// \return This request for chaining.
-    virtual T& set_with_state_data() {
-        impl.set_with_state_data();
+    T& set_with_state_data() {
+        with_state_data_opt = true;
         return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the configuration data with the asset.
     /// \return This request for chaining.
-    virtual T& set_with_config_data() {
-        impl.set_with_config_data();
+    T& set_with_config_data() {
+        with_config_data_opt = true;
         return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the block data with the asset when used with set_with_state_data().
     /// \return This request for chaining.
-    virtual T& set_with_asset_blocks() {
-        impl.set_with_asset_blocks();
+    T& set_with_asset_blocks() {
+        with_asset_blocks_opt = true;
         return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the creator with the asset when used with set_with_state_data().
     /// \return This request for chaining.
-    virtual T& set_with_creator() {
-        impl.set_with_creator();
+    T& set_with_creator() {
+        with_creator_opt = true;
         return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the melt details with the asset when used with set_with_config_data().
     /// \return This request for chaining.
-    virtual T& set_with_melt_details() {
-        impl.set_with_melt_details();
+    T& set_with_melt_details() {
+        with_melt_details_opt = true;
         return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the metadata URI with the asset when used with set_with_config_data().
     /// \return This request for chaining.
-    virtual T& set_with_metadata_uri() {
-        impl.set_with_metadata_uri();
+    T& set_with_metadata_uri() {
+        with_metadata_uri_opt = true;
         return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the supply details with the asset when used with
     /// set_with_state_data().
     /// \return This request for chaining.
-    virtual T& set_with_supply_details() {
-        impl.set_with_supply_details();
+    T& set_with_supply_details() {
+        with_supply_details_opt = true;
         return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the transfer settings with the asset when used with
     /// set_with_config_data().
     /// \return This request for chaining.
-    virtual T& set_with_transfer_settings() {
-        impl.set_with_transfer_settings();
+    T& set_with_transfer_settings() {
+        with_transfer_settings_opt = true;
         return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the variant mode with the asset.
     /// \return This request for chaining.
-    virtual T& set_with_asset_variant_mode() {
-        impl.set_with_asset_variant_mode();
+    T& set_with_asset_variant_mode() {
+        with_asset_variant_mode_opt = true;
         return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the variants with the asset.
     /// \return This request for chaining.
-    virtual T& set_with_asset_variants() {
-        impl.set_with_asset_variants();
+    T& set_with_asset_variants() {
+        with_asset_variants_opt = true;
         return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the metadata for the variants with the asset when used with
     /// set_with_asset_variants().
     /// \return This request for chaining.
-    virtual T& set_with_variant_metadata() {
-        impl.set_with_variant_metadata();
+    T& set_with_variant_metadata() {
+        with_variant_metadata_opt = true;
         return static_cast<T&>(*this);
     }
 
+    [[nodiscard]] json::JsonValue to_json() const override {
+        json::JsonValue json = json::JsonValue::create_object();
+
+        utils::JsonUtils::try_set_field(json, "assetIdFormat", asset_id_format_opt);
+        utils::JsonUtils::try_set_field(json, "withStateData", with_state_data_opt);
+        utils::JsonUtils::try_set_field(json, "withConfigData", with_config_data_opt);
+        utils::JsonUtils::try_set_field(json, "withAssetBlocks", with_asset_blocks_opt);
+        utils::JsonUtils::try_set_field(json, "withCreator", with_creator_opt);
+        utils::JsonUtils::try_set_field(json, "withMeltDetails", with_melt_details_opt);
+        utils::JsonUtils::try_set_field(json, "withMetadataURI", with_metadata_uri_opt);
+        utils::JsonUtils::try_set_field(json, "withSupplyDetails", with_supply_details_opt);
+        utils::JsonUtils::try_set_field(json, "withTransferSettings", with_transfer_settings_opt);
+        utils::JsonUtils::try_set_field(json, "withAssetVariantMode", with_asset_variant_mode_opt);
+        utils::JsonUtils::try_set_field(json, "withAssetVariants", with_asset_variants_opt);
+        utils::JsonUtils::try_set_field(json, "withVariantMetadata", with_variant_metadata_opt);
+
+        return json;
+    }
+
     bool operator==(const AssetFragmentArguments& rhs) const {
-        return impl == rhs.impl;
+        return asset_id_format_opt == rhs.asset_id_format_opt
+               && with_state_data_opt == rhs.with_state_data_opt
+               && with_config_data_opt == rhs.with_config_data_opt
+               && with_asset_blocks_opt == rhs.with_asset_blocks_opt
+               && with_creator_opt == rhs.with_creator_opt
+               && with_melt_details_opt == rhs.with_melt_details_opt
+               && with_metadata_uri_opt == rhs.with_metadata_uri_opt
+               && with_supply_details_opt == rhs.with_supply_details_opt
+               && with_transfer_settings_opt == rhs.with_transfer_settings_opt
+               && with_asset_variant_mode_opt == rhs.with_asset_variant_mode_opt
+               && with_asset_variants_opt == rhs.with_asset_variants_opt
+               && with_variant_metadata_opt == rhs.with_variant_metadata_opt;
     }
 
     bool operator!=(const AssetFragmentArguments& rhs) const {
-        return impl != rhs.impl;
+        return !(*this == rhs);
     }
 
 protected:
@@ -140,7 +171,18 @@ protected:
     }
 
 private:
-    AssetFragmentArgumentsImpl impl;
+    std::optional<models::AssetIdFormat> asset_id_format_opt;
+    std::optional<bool> with_state_data_opt;
+    std::optional<bool> with_config_data_opt;
+    std::optional<bool> with_asset_blocks_opt;
+    std::optional<bool> with_creator_opt;
+    std::optional<bool> with_melt_details_opt;
+    std::optional<bool> with_metadata_uri_opt;
+    std::optional<bool> with_supply_details_opt;
+    std::optional<bool> with_transfer_settings_opt;
+    std::optional<bool> with_asset_variant_mode_opt;
+    std::optional<bool> with_asset_variants_opt;
+    std::optional<bool> with_variant_metadata_opt;
 };
 
 }

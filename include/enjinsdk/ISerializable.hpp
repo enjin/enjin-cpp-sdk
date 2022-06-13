@@ -17,6 +17,7 @@
 #define ENJINCPPSDK_SERIALIZABLE_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/JsonValue.hpp"
 #include <string>
 
 namespace enjin::sdk::serialization {
@@ -31,6 +32,10 @@ public:
     /// \return This object as a JSON string.
     /// \remark Null fields are to be omitted from the JSON string.
     [[nodiscard]] virtual std::string serialize() const = 0;
+
+    /// \brief Returns a JSON value representing this object.
+    /// \return The JSON value.
+    [[nodiscard]] virtual json::JsonValue to_json() const = 0;
 };
 
 }

@@ -15,51 +15,48 @@
 
 #include "enjinsdk/models/AssetTransferFeeSettingsInput.hpp"
 
-#include "EnumUtils.hpp"
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 #include <utility>
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 std::string AssetTransferFeeSettingsInput::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-
-    if (type.has_value()) {
-        utils::set_string_member(document, TYPE_KEY, utils::serialize_asset_transfer_fee_type(type.value()));
-    }
-    if (asset_id.has_value()) {
-        utils::set_string_member(document, ASSET_ID_KEY, asset_id.value());
-    }
-    if (value.has_value()) {
-        utils::set_string_member(document, VALUE_KEY, value.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
 AssetTransferFeeSettingsInput& AssetTransferFeeSettingsInput::set_type(AssetTransferFeeType type) {
-    AssetTransferFeeSettingsInput::type = type;
+    AssetTransferFeeSettingsInput::type_opt = type;
     return *this;
 }
 
 AssetTransferFeeSettingsInput& AssetTransferFeeSettingsInput::set_asset_id(std::string asset_id) {
-    AssetTransferFeeSettingsInput::asset_id = std::move(asset_id);
+    AssetTransferFeeSettingsInput::asset_id_opt = std::move(asset_id);
     return *this;
 }
 
 AssetTransferFeeSettingsInput& AssetTransferFeeSettingsInput::set_value(std::string value) {
-    AssetTransferFeeSettingsInput::value = std::move(value);
+    AssetTransferFeeSettingsInput::value_opt = std::move(value);
     return *this;
 }
 
+JsonValue AssetTransferFeeSettingsInput::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::try_set_field(json, "type", type_opt);
+    JsonUtils::try_set_field(json, "assetId", asset_id_opt);
+    JsonUtils::try_set_field(json, "value", value_opt);
+
+    return json;
+}
+
 bool AssetTransferFeeSettingsInput::operator==(const AssetTransferFeeSettingsInput& rhs) const {
-    return type == rhs.type &&
-           asset_id == rhs.asset_id &&
-           value == rhs.value;
+    return type_opt == rhs.type_opt
+           && asset_id_opt == rhs.asset_id_opt
+           && value_opt == rhs.value_opt;
 }
 
 bool AssetTransferFeeSettingsInput::operator!=(const AssetTransferFeeSettingsInput& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

@@ -41,17 +41,21 @@ public:
     /// \return This request for chaining.
     MeltAsset& set_melts(std::vector<models::Melt> melts);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const MeltAsset& rhs) const;
 
     bool operator!=(const MeltAsset& rhs) const;
 
 private:
-    std::optional<std::vector<models::Melt>> melts;
+    std::optional<std::vector<models::Melt>> melts_opt;
 };
 
 }
 
 namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
 
 template ENJINSDK_EXPORT player::MeltAsset&
 TransactionFragmentArguments<player::MeltAsset>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
@@ -94,6 +98,8 @@ TransactionFragmentArguments<player::MeltAsset>::set_with_transaction_project_uu
 
 template ENJINSDK_EXPORT player::MeltAsset&
 TransactionFragmentArguments<player::MeltAsset>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

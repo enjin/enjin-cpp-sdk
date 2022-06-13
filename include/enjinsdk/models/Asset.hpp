@@ -85,15 +85,6 @@ private:
     std::optional<std::vector<AssetVariant>> variants;
     std::optional<std::string> created_at;
     std::optional<std::string> updated_at;
-
-    constexpr static char ID_KEY[] = "id";
-    constexpr static char NAME_KEY[] = "name";
-    constexpr static char STATE_DATA_KEY[] = "stateData";
-    constexpr static char CONFIG_DATA_KEY[] = "configData";
-    constexpr static char VARIANT_MODE_KEY[] = "variantMode";
-    constexpr static char VARIANTS_KEY[] = "variants";
-    constexpr static char CREATED_AT_KEY[] = "createdAt";
-    constexpr static char UPDATED_AT_KEY[] = "updatedAt";
 };
 
 }
