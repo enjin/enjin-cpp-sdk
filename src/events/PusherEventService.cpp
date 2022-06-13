@@ -25,6 +25,7 @@
 #include "PusherEventListener.hpp"
 #include "WalletChannel.hpp"
 #include <algorithm>
+#include <chrono>
 #include <exception>
 #include <stdexcept>
 #include <sstream>
@@ -65,7 +66,7 @@ std::string serialize_pusher_connection_state(PusherConnectionState v) noexcept 
     }
 }
 
-class PusherEventService::Impl : public IEventService {
+class PusherEventService::Impl final : public IEventService {
 public:
     Impl() = delete;
 
@@ -87,7 +88,11 @@ public:
               logger_provider(std::move(logger_provider)) {
     }
 
-    ~Impl() override = default;
+    ~Impl() override {
+        if (is_connected()) {
+            shutdown().wait_for(std::chrono::seconds(30));
+        }
+    }
 
     std::future<void> start() override {
         shutdown();
@@ -153,7 +158,7 @@ public:
 
     std::future<void> shutdown() override {
         if (client == nullptr) {
-            return create_failed_future("Event service has not been started.");
+            return create_completed_future();
         }
 
         return client->disconnect();
@@ -350,148 +355,142 @@ private:
 
 PusherEventService::PusherEventService(std::unique_ptr<IWebsocketClient> ws_client,
                                        std::shared_ptr<LoggerProvider> logger_provider)
-        : impl(new Impl(std::make_unique<PusherEventListener>(this),
-                        std::move(ws_client),
-                        std::move(logger_provider))) {
+        : pimpl(std::make_unique<Impl>(std::make_unique<PusherEventListener>(this),
+                                       std::move(ws_client),
+                                       std::move(logger_provider))) {
 }
 
 PusherEventService::PusherEventService(std::unique_ptr<IWebsocketClient> ws_client,
                                        std::shared_ptr<LoggerProvider> logger_provider,
                                        Platform platform)
-        : impl(new Impl(std::make_unique<PusherEventListener>(this),
-                        std::move(ws_client),
-                        std::move(logger_provider),
-                        std::move(platform))) {
+        : pimpl(std::make_unique<Impl>(std::make_unique<PusherEventListener>(this),
+                                       std::move(ws_client),
+                                       std::move(logger_provider),
+                                       std::move(platform))) {
 }
 
-PusherEventService::PusherEventService(PusherEventService&& rhs) noexcept: impl(rhs.impl) {
-    rhs.impl = nullptr;
-}
-
-PusherEventService::~PusherEventService() {
-    delete impl;
-}
+PusherEventService::~PusherEventService() = default;
 
 std::future<void> PusherEventService::start() {
-    return impl->start();
+    return pimpl->start();
 }
 
 std::future<void> PusherEventService::start(Platform platform) {
-    return impl->start(platform);
+    return pimpl->start(platform);
 }
 
 std::future<void> PusherEventService::shutdown() {
-    return impl->shutdown();
+    return pimpl->shutdown();
 }
 
 bool PusherEventService::is_connected() const {
-    return impl->is_connected();
+    return pimpl->is_connected();
 }
 
 bool PusherEventService::is_registered(const IEventListener& listener) const {
-    return impl->is_registered(listener);
+    return pimpl->is_registered(listener);
 }
 
 void PusherEventService::set_connected_handler(std::function<void()> handler) {
-    impl->set_connected_handler(handler);
+    pimpl->set_connected_handler(handler);
 }
 
 void PusherEventService::set_disconnected_handler(std::function<void()> handler) {
-    impl->set_disconnected_handler(std::move(handler));
+    pimpl->set_disconnected_handler(std::move(handler));
 }
 
 void PusherEventService::set_error_handler(std::function<void(const std::exception&)> handler) {
-    impl->set_error_handler(std::move(handler));
+    pimpl->set_error_handler(std::move(handler));
 }
 
 const EventListenerRegistration&
 PusherEventService::register_listener(std::shared_ptr<IEventListener> listener) {
-    return impl->register_listener(std::move(listener));
+    return pimpl->register_listener(std::move(listener));
 }
 
 const EventListenerRegistration&
 PusherEventService::register_listener_with_matcher(std::shared_ptr<IEventListener> listener,
                                                    std::function<bool(EventType)> matcher) {
-    return impl->register_listener_with_matcher(std::move(listener), std::move(matcher));
+    return pimpl->register_listener_with_matcher(std::move(listener), std::move(matcher));
 }
 
 const EventListenerRegistration&
 PusherEventService::register_listener_including_types(std::shared_ptr<IEventListener> listener,
                                                       std::vector<EventType> types) {
-    return impl->register_listener_including_types(std::move(listener), std::move(types));
+    return pimpl->register_listener_including_types(std::move(listener), std::move(types));
 }
 
 const EventListenerRegistration&
 PusherEventService::register_listener_excluding_types(std::shared_ptr<IEventListener> listener,
                                                       std::vector<EventType> types) {
-    return impl->register_listener_excluding_types(std::move(listener), std::move(types));
+    return pimpl->register_listener_excluding_types(std::move(listener), std::move(types));
 }
 
 void PusherEventService::unregister_listener(const IEventListener& listener) {
-    impl->unregister_listener(listener);
+    pimpl->unregister_listener(listener);
 }
 
 void PusherEventService::subscribe_to_project(std::string project) {
-    impl->subscribe_to_project(std::move(project));
+    pimpl->subscribe_to_project(std::move(project));
 }
 
 void PusherEventService::unsubscribe_to_project(std::string project) {
-    impl->unsubscribe_to_project(std::move(project));
+    pimpl->unsubscribe_to_project(std::move(project));
 }
 
 bool PusherEventService::is_subscribed_to_project(std::string project) const {
-    return impl->is_subscribed_to_project(std::move(project));
+    return pimpl->is_subscribed_to_project(std::move(project));
 }
 
 void PusherEventService::subscribe_to_player(std::string project, std::string player) {
-    impl->subscribe_to_player(std::move(project), std::move(player));
+    pimpl->subscribe_to_player(std::move(project), std::move(player));
 }
 
 void PusherEventService::unsubscribe_to_player(std::string project, std::string player) {
-    impl->unsubscribe_to_player(std::move(project), std::move(player));
+    pimpl->unsubscribe_to_player(std::move(project), std::move(player));
 }
 
 bool PusherEventService::is_subscribed_to_player(std::string project, std::string player) const {
-    return impl->is_subscribed_to_player(std::move(project), std::move(player));
+    return pimpl->is_subscribed_to_player(std::move(project), std::move(player));
 }
 
 void PusherEventService::subscribe_to_asset(std::string asset) {
-    impl->subscribe_to_asset(std::move(asset));
+    pimpl->subscribe_to_asset(std::move(asset));
 }
 
 void PusherEventService::unsubscribe_to_asset(std::string asset) {
-    impl->unsubscribe_to_asset(std::move(asset));
+    pimpl->unsubscribe_to_asset(std::move(asset));
 }
 
 bool PusherEventService::is_subscribed_to_asset(std::string asset) const {
-    return impl->is_subscribed_to_asset(std::move(asset));
+    return pimpl->is_subscribed_to_asset(std::move(asset));
 }
 
 void PusherEventService::subscribe_to_wallet(std::string wallet) {
-    impl->subscribe_to_wallet(std::move(wallet));
+    pimpl->subscribe_to_wallet(std::move(wallet));
 }
 
 void PusherEventService::unsubscribe_to_wallet(std::string wallet) {
-    impl->unsubscribe_to_wallet(std::move(wallet));
+    pimpl->unsubscribe_to_wallet(std::move(wallet));
 }
 
 bool PusherEventService::is_subscribed_to_wallet(std::string wallet) const {
-    return impl->is_subscribed_to_wallet(std::move(wallet));
+    return pimpl->is_subscribed_to_wallet(std::move(wallet));
 }
 
 const std::vector<EventListenerRegistration>& PusherEventService::get_listeners() const {
-    return impl->get_listeners();
+    return pimpl->get_listeners();
 }
 
 const std::shared_ptr<LoggerProvider>& PusherEventService::get_logger_provider() const {
-    return impl->get_logger_provider();
+    return pimpl->get_logger_provider();
 }
 
 PusherEventService::PusherEventServiceBuilder PusherEventService::builder() {
     return {};
 }
 
-PusherEventService PusherEventService::PusherEventServiceBuilder::build() {
+std::unique_ptr<PusherEventService> PusherEventService::PusherEventServiceBuilder::build() {
     if (m_ws_client == nullptr) {
 #if ENJINSDK_INCLUDE_WEBSOCKET_CLIENT_IMPL
         m_ws_client = std::make_unique<WebsocketClient>();
@@ -501,8 +500,11 @@ PusherEventService PusherEventService::PusherEventServiceBuilder::build() {
     }
 
     return m_platform.has_value()
-           ? PusherEventService(std::move(m_ws_client), std::move(m_logger_provider), m_platform.value())
-           : PusherEventService(std::move(m_ws_client), std::move(m_logger_provider));
+           ? std::unique_ptr<PusherEventService>(new PusherEventService(std::move(m_ws_client),
+                                                                        std::move(m_logger_provider),
+                                                                        m_platform.value()))
+           : std::unique_ptr<PusherEventService>(new PusherEventService(std::move(m_ws_client),
+                                                                        std::move(m_logger_provider)));
 }
 
 PusherEventService::PusherEventServiceBuilder&

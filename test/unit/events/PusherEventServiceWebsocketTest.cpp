@@ -37,26 +37,21 @@ using namespace enjin::test::suites;
 class PusherEventServiceWebsocketTest : public VerificationTestSuite,
                                         public testing::Test {
 public:
-    static constexpr char DEFAULT_PROJECT[] = "1";
-    static constexpr char DEFAULT_PLAYER[] = "player1";
-    static constexpr char DEFAULT_ASSET[] = "0x0";
-    static constexpr char DEFAULT_WALLET[] = "0x1";
-    static constexpr char PLATFORM_JSON[] =
+    static constexpr char DefaultProject[] = "1";
+    static constexpr char DefaultPlayer[] = "player1";
+    static constexpr char DefaultAsset[] = "0x0";
+    static constexpr char DefaultWallet[] = "0x1";
+    static constexpr char PlatformJson[] =
             R"({"network":"kovan","notifications":{"pusher":{"key":"1","options":{"cluster":"mt1","encrypted":true}}}})";
+
+    std::unique_ptr<PusherEventService> class_under_test;
 
     MockWebsocketServer mock_server;
 
     static Platform create_default_platform() {
         Platform platform;
-        platform.deserialize(PLATFORM_JSON);
+        platform.deserialize(PlatformJson);
         return platform;
-    }
-
-    static PusherEventService create_default_event_service() {
-        return PusherEventService::builder()
-                .ws_client(std::make_unique<FakeWebSocketClient>())
-                .platform(create_default_platform())
-                .build();
     }
 
     static std::string create_subscription_success_message(const std::string& channel = "") {
@@ -70,57 +65,57 @@ public:
     }
 
 protected:
+    void SetUp() override {
+        class_under_test = PusherEventService::builder()
+                .ws_client(std::make_unique<FakeWebSocketClient>())
+                .platform(create_default_platform())
+                .build();
+    }
+
     void TearDown() override {
+        class_under_test->shutdown().get();
         mock_server.close(1000, "Teardown");
     }
 };
 
 TEST_F(PusherEventServiceWebsocketTest, StartAndShutdownDoNotThrowExceptions) {
-    // Arrange
-    auto service = create_default_event_service();
-
     // Assert
-    EXPECT_NO_THROW(service.start().get());
-    EXPECT_NO_THROW(service.shutdown().get());
+    EXPECT_NO_THROW(class_under_test->start().get()) << "Service start threw an error";
+    EXPECT_NO_THROW(class_under_test->shutdown().get()) << "Service shutdown threw an error";
 }
 
 TEST_F(PusherEventServiceWebsocketTest, IsConnectedServiceNotStartedReturnsFalse) {
-    // Arrange
-    auto service = create_default_event_service();
-
     // Act
-    bool actual = service.is_connected();
+    const bool actual = class_under_test->is_connected();
 
     // Assert
-    EXPECT_FALSE(actual);
+    ASSERT_FALSE(actual);
 }
 
 TEST_F(PusherEventServiceWebsocketTest, IsConnectedServiceStartedAndConnectedToServerReturnsTrue) {
     // Arrange
-    auto service = create_default_event_service();
-    service.start().get();
+    class_under_test->start().get();
 
     // Act
-    bool actual = service.is_connected();
+    const bool actual = class_under_test->is_connected();
 
     // Assert
-    EXPECT_TRUE(actual);
+    ASSERT_TRUE(actual);
 }
 
 TEST_F(PusherEventServiceWebsocketTest, SubscribeToProjectServiceSubscribesToChannel) {
     // Arrange - Data
-    const std::string project = DEFAULT_PROJECT;
+    const std::string project = DefaultProject;
     const std::string channel = ProjectChannel(create_default_platform(), project).channel();
-    auto service = create_default_event_service();
     mock_server.ignore_message_type(WebsocketMessageType::WebsocketOpenType)
                .ignore_message_type(WebsocketMessageType::WebsocketPingType)
                .ignore_message_type(WebsocketMessageType::WebsocketPongType);
-    service.start().get();
+    class_under_test->start().get();
 
     // Arrange - Expectations
     mock_server.next_message([this, &channel](const TestWebsocketMessage& message) {
         increment_call_counter();
-        EXPECT_EQ(WebsocketMessageType::WebsocketUtf8MessageType, message.get_type());
+        EXPECT_EQ(WebsocketMessageType::WebsocketUtf8MessageType, message.get_type()) << "Unexpected message type";
 
         std::string data = create_subscription_success_message(channel);
         TestWebsocketMessage response;
@@ -130,13 +125,16 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToProjectServiceSubscribesToCha
     });
     set_expected_call_count(1);
 
+    // Assumptions
+    ASSERT_FALSE(class_under_test->is_subscribed_to_project(project)) << "Assume not pre-subscribed to channel";
+
     // Act
-    service.subscribe_to_project(project);
+    class_under_test->subscribe_to_project(project);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Assert
-    EXPECT_TRUE(service.is_subscribed_to_project(project));
+    EXPECT_TRUE(class_under_test->is_subscribed_to_project(project)) << "Service was not subscribed to channel";
 
     // Verify
     verify_call_count();
@@ -144,13 +142,12 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToProjectServiceSubscribesToCha
 
 TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToProjectServiceIsUnsubscribedFromChannel) {
     // Arrange
-    const std::string project = DEFAULT_PROJECT;
+    const std::string project = DefaultProject;
     const std::string channel = ProjectChannel(create_default_platform(), project).channel();
-    auto service = create_default_event_service();
     mock_server.ignore_message_type(WebsocketMessageType::WebsocketOpenType)
                .ignore_message_type(WebsocketMessageType::WebsocketPingType)
                .ignore_message_type(WebsocketMessageType::WebsocketPongType);
-    service.start().get();
+    class_under_test->start().get();
     mock_server.next_message([this, &channel](const TestWebsocketMessage& message) {
         std::string data = create_subscription_success_message(channel);
         TestWebsocketMessage response;
@@ -158,33 +155,32 @@ TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToProjectServiceIsUnsubscribe
         response.set_type(WebsocketMessageType::WebsocketUtf8MessageType);
         mock_server.send_message(response);
     });
-    service.subscribe_to_project(project);
+    class_under_test->subscribe_to_project(project);
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Act
-    service.unsubscribe_to_project(project);
+    class_under_test->unsubscribe_to_project(project);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Assert
-    EXPECT_FALSE(service.is_subscribed_to_project(project));
+    ASSERT_FALSE(class_under_test->is_subscribed_to_project(project));
 }
 
 TEST_F(PusherEventServiceWebsocketTest, SubscribeToPlayerServiceSubscribesToChannel) {
     // Arrange - Data
-    const std::string project = DEFAULT_PROJECT;
-    const std::string player(DEFAULT_PLAYER);
+    const std::string project = DefaultProject;
+    const std::string player(DefaultPlayer);
     const std::string channel = PlayerChannel(create_default_platform(), project, player).channel();
-    auto service = create_default_event_service();
     mock_server.ignore_message_type(WebsocketMessageType::WebsocketOpenType)
                .ignore_message_type(WebsocketMessageType::WebsocketPingType)
                .ignore_message_type(WebsocketMessageType::WebsocketPongType);
-    service.start().get();
+    class_under_test->start().get();
 
     // Arrange - Expectations
     mock_server.next_message([this, &channel](const TestWebsocketMessage& message) {
         increment_call_counter();
-        EXPECT_EQ(WebsocketMessageType::WebsocketUtf8MessageType, message.get_type());
+        EXPECT_EQ(WebsocketMessageType::WebsocketUtf8MessageType, message.get_type()) << "Unexpected message type";
 
         std::string data = create_subscription_success_message(channel);
         TestWebsocketMessage response;
@@ -194,13 +190,16 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToPlayerServiceSubscribesToChan
     });
     set_expected_call_count(1);
 
+    // Assumptions
+    ASSERT_FALSE(class_under_test->is_subscribed_to_player(project, player)) << "Assume not pre-subscribed to channel";
+
     // Act
-    service.subscribe_to_player(project, player);
+    class_under_test->subscribe_to_player(project, player);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Assert
-    EXPECT_TRUE(service.is_subscribed_to_player(project, player));
+    EXPECT_TRUE(class_under_test->is_subscribed_to_player(project, player)) << "Service was not subscribed to channel";
 
     // Verify
     verify_call_count();
@@ -208,14 +207,13 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToPlayerServiceSubscribesToChan
 
 TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToPlayerServiceIsUnsubscribedFromChannel) {
     // Arrange
-    const std::string project = DEFAULT_PROJECT;
-    const std::string player(DEFAULT_PLAYER);
+    const std::string project = DefaultProject;
+    const std::string player(DefaultPlayer);
     const std::string channel = PlayerChannel(create_default_platform(), project, player).channel();
-    auto service = create_default_event_service();
     mock_server.ignore_message_type(WebsocketMessageType::WebsocketOpenType)
                .ignore_message_type(WebsocketMessageType::WebsocketPingType)
                .ignore_message_type(WebsocketMessageType::WebsocketPongType);
-    service.start().get();
+    class_under_test->start().get();
     mock_server.next_message([this, &channel](const TestWebsocketMessage& message) {
         std::string data = create_subscription_success_message(channel);
         TestWebsocketMessage response;
@@ -223,32 +221,31 @@ TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToPlayerServiceIsUnsubscribed
         response.set_type(WebsocketMessageType::WebsocketUtf8MessageType);
         mock_server.send_message(response);
     });
-    service.subscribe_to_player(project, player);
+    class_under_test->subscribe_to_player(project, player);
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Act
-    service.unsubscribe_to_player(project, player);
+    class_under_test->unsubscribe_to_player(project, player);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Assert
-    EXPECT_FALSE(service.is_subscribed_to_player(project, player));
+    ASSERT_FALSE(class_under_test->is_subscribed_to_player(project, player));
 }
 
 TEST_F(PusherEventServiceWebsocketTest, SubscribeToAssetServiceSubscribesToChannel) {
     // Arrange - Data
-    const std::string asset(DEFAULT_ASSET);
+    const std::string asset(DefaultAsset);
     const std::string channel = AssetChannel(create_default_platform(), asset).channel();
-    auto service = create_default_event_service();
     mock_server.ignore_message_type(WebsocketMessageType::WebsocketOpenType)
                .ignore_message_type(WebsocketMessageType::WebsocketPingType)
                .ignore_message_type(WebsocketMessageType::WebsocketPongType);
-    service.start().get();
+    class_under_test->start().get();
 
     // Arrange - Expectations
     mock_server.next_message([this, &channel](const TestWebsocketMessage& message) {
         increment_call_counter();
-        EXPECT_EQ(WebsocketMessageType::WebsocketUtf8MessageType, message.get_type());
+        EXPECT_EQ(WebsocketMessageType::WebsocketUtf8MessageType, message.get_type()) << "Unexpected message type";
 
         std::string data = create_subscription_success_message(channel);
         TestWebsocketMessage response;
@@ -258,13 +255,16 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToAssetServiceSubscribesToChann
     });
     set_expected_call_count(1);
 
+    // Assumptions
+    ASSERT_FALSE(class_under_test->is_subscribed_to_asset(asset)) << "Assume not pre-subscribed to channel";
+
     // Act
-    service.subscribe_to_asset(asset);
+    class_under_test->subscribe_to_asset(asset);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Assert
-    EXPECT_TRUE(service.is_subscribed_to_asset(asset));
+    EXPECT_TRUE(class_under_test->is_subscribed_to_asset(asset)) << "Service was not subscribed to channel";
 
     // Verify
     verify_call_count();
@@ -272,13 +272,12 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToAssetServiceSubscribesToChann
 
 TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToAssetServiceIsUnsubscribedFromChannel) {
     // Arrange
-    const std::string asset(DEFAULT_ASSET);
+    const std::string asset(DefaultAsset);
     const std::string channel = AssetChannel(create_default_platform(), asset).channel();
-    auto service = create_default_event_service();
     mock_server.ignore_message_type(WebsocketMessageType::WebsocketOpenType)
                .ignore_message_type(WebsocketMessageType::WebsocketPingType)
                .ignore_message_type(WebsocketMessageType::WebsocketPongType);
-    service.start().get();
+    class_under_test->start().get();
     mock_server.next_message([this, &channel](const TestWebsocketMessage& message) {
         std::string data = create_subscription_success_message(channel);
         TestWebsocketMessage response;
@@ -286,32 +285,31 @@ TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToAssetServiceIsUnsubscribedF
         response.set_type(WebsocketMessageType::WebsocketUtf8MessageType);
         mock_server.send_message(response);
     });
-    service.subscribe_to_asset(asset);
+    class_under_test->subscribe_to_asset(asset);
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Act
-    service.unsubscribe_to_asset(asset);
+    class_under_test->unsubscribe_to_asset(asset);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Assert
-    EXPECT_FALSE(service.is_subscribed_to_asset(asset));
+    ASSERT_FALSE(class_under_test->is_subscribed_to_asset(asset));
 }
 
 TEST_F(PusherEventServiceWebsocketTest, SubscribeToWalletServiceSubscribesToChannel) {
     // Arrange - Data
-    const std::string wallet(DEFAULT_WALLET);
+    const std::string wallet(DefaultWallet);
     const std::string channel = WalletChannel(create_default_platform(), wallet).channel();
-    auto service = create_default_event_service();
     mock_server.ignore_message_type(WebsocketMessageType::WebsocketOpenType)
                .ignore_message_type(WebsocketMessageType::WebsocketPingType)
                .ignore_message_type(WebsocketMessageType::WebsocketPongType);
-    service.start().get();
+    class_under_test->start().get();
 
     // Arrange - Expectations
     mock_server.next_message([this, &channel](const TestWebsocketMessage& message) {
         increment_call_counter();
-        EXPECT_EQ(WebsocketMessageType::WebsocketUtf8MessageType, message.get_type());
+        EXPECT_EQ(WebsocketMessageType::WebsocketUtf8MessageType, message.get_type()) << "Unexpected message type";
 
         std::string data = create_subscription_success_message(channel);
         TestWebsocketMessage response;
@@ -321,13 +319,16 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToWalletServiceSubscribesToChan
     });
     set_expected_call_count(1);
 
+    // Assumptions
+    ASSERT_FALSE(class_under_test->is_subscribed_to_wallet(wallet)) << "Assume not pre-subscribed to channel";
+
     // Act
-    service.subscribe_to_wallet(wallet);
+    class_under_test->subscribe_to_wallet(wallet);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Assert
-    EXPECT_TRUE(service.is_subscribed_to_wallet(wallet));
+    EXPECT_TRUE(class_under_test->is_subscribed_to_wallet(wallet)) << "Service was not subscribed to channel";
 
     // Verify
     verify_call_count();
@@ -335,13 +336,12 @@ TEST_F(PusherEventServiceWebsocketTest, SubscribeToWalletServiceSubscribesToChan
 
 TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToWalletServiceIsUnsubscribedFromChannel) {
     // Arrange
-    const std::string wallet(DEFAULT_WALLET);
+    const std::string wallet(DefaultWallet);
     const std::string channel = WalletChannel(create_default_platform(), wallet).channel();
-    auto service = create_default_event_service();
     mock_server.ignore_message_type(WebsocketMessageType::WebsocketOpenType)
                .ignore_message_type(WebsocketMessageType::WebsocketPingType)
                .ignore_message_type(WebsocketMessageType::WebsocketPongType);
-    service.start().get();
+    class_under_test->start().get();
     mock_server.next_message([this, &channel](const TestWebsocketMessage& message) {
         std::string data = create_subscription_success_message(channel);
         TestWebsocketMessage response;
@@ -349,26 +349,25 @@ TEST_F(PusherEventServiceWebsocketTest, UnsubscribeToWalletServiceIsUnsubscribed
         response.set_type(WebsocketMessageType::WebsocketUtf8MessageType);
         mock_server.send_message(response);
     });
-    service.subscribe_to_wallet(wallet);
+    class_under_test->subscribe_to_wallet(wallet);
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Act
-    service.unsubscribe_to_wallet(wallet);
+    class_under_test->unsubscribe_to_wallet(wallet);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     // Assert
-    EXPECT_FALSE(service.is_subscribed_to_wallet(wallet));
+    ASSERT_FALSE(class_under_test->is_subscribed_to_wallet(wallet));
 }
 
 TEST_F(PusherEventServiceWebsocketTest, StartPreviouslyActiveServiceResubscribesToChannels) {
     // Arrange - Data & Expectations
-    const std::string project = DEFAULT_PROJECT;
+    const std::string project = DefaultProject;
     const std::string channel = ProjectChannel(create_default_platform(), project).channel();
-    auto service = create_default_event_service();
     auto subscribe_func = [this, &channel](const TestWebsocketMessage& message) {
         increment_call_counter();
-        EXPECT_EQ(WebsocketMessageType::WebsocketUtf8MessageType, message.get_type());
+        EXPECT_EQ(WebsocketMessageType::WebsocketUtf8MessageType, message.get_type()) << "Unexpected message type";
 
         std::string data = create_subscription_success_message(channel);
         TestWebsocketMessage response;
@@ -383,18 +382,19 @@ TEST_F(PusherEventServiceWebsocketTest, StartPreviouslyActiveServiceResubscribes
     mock_server.next_message(subscribe_func); // Expect subscribe messages
     mock_server.next_message(subscribe_func); //
     set_expected_call_count(2);               //
-    service.start().get();                 // Service is started for first time and subscribes to the channel
-    service.subscribe_to_project(project); //
+    class_under_test->start().get();                 // Service is started for first time and subscribes to the channel
+    class_under_test->subscribe_to_project(project); //
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    service.shutdown().get(); // Shutdown the service to be restarted on 'Act'
+    class_under_test->shutdown().get(); // Shutdown the service to be restarted on 'Act'
 
-    EXPECT_TRUE(service.is_subscribed_to_project(project));
+    // Assumptions
+    ASSERT_TRUE(class_under_test->is_subscribed_to_project(project)) << "Assume service is pre-subscribed to channel";
 
     // Act
-    service.start().get();
+    class_under_test->start().get();
 
     // Assert
-    EXPECT_TRUE(service.is_subscribed_to_project(project));
+    EXPECT_TRUE(class_under_test->is_subscribed_to_project(project)) << "Service was not resubscribed to channel";
 
     // Verify
     verify_call_count();
