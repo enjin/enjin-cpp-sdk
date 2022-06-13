@@ -15,37 +15,39 @@
 
 #include "enjinsdk/project/AuthPlayer.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 #include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
 
-AuthPlayer::AuthPlayer() : graphql::AbstractGraphqlRequest("enjin.sdk.project.AuthPlayer") {
+AuthPlayer::AuthPlayer() : AbstractGraphqlRequest("enjin.sdk.project.AuthPlayer") {
 }
 
 std::string AuthPlayer::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-
-    if (id.has_value()) {
-        utils::set_string_member(document, "id", id.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
 AuthPlayer& AuthPlayer::set_id(std::string id) {
-    AuthPlayer::id = std::move(id);
+    id_opt = std::move(id);
     return *this;
 }
 
+JsonValue AuthPlayer::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::try_set_field(json, "id", id_opt);
+
+    return json;
+}
+
 bool AuthPlayer::operator==(const AuthPlayer& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           id == rhs.id;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && id_opt == rhs.id_opt;
 }
 
 bool AuthPlayer::operator!=(const AuthPlayer& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "EnumUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 #include "gtest/gtest.h"
 #include <string>
 #include <tuple>
@@ -30,7 +30,7 @@ TEST_P(WhitelistedTest, SerializeWhitelistedReturnsExpectedString) {
     Whitelisted value = std::get<1>(GetParam());
 
     // Act
-    std::string actual = serialize_whitelisted(value);
+    std::string actual = EnumUtils::serialize_whitelisted(value);
 
     // Assert
     ASSERT_EQ(expected, actual);

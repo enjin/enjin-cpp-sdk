@@ -15,8 +15,8 @@
 
 #include "MockHttpServer.hpp"
 
-#include "EnumUtils.hpp"
 #include "httplib.h"
+#include "enjinsdk/EnumUtils.hpp"
 #include "enjinsdk/HttpHeaders.hpp"
 #include "enjinsdk_utils/StringUtils.hpp"
 #include <memory>
@@ -27,27 +27,29 @@
 #include <thread>
 #include <utility>
 
-namespace enjin::test::mocks {
+using namespace enjin::sdk::http;
+using namespace enjin::sdk::utils;
+using namespace enjin::test::mocks;
 
 // region Request
 
 Request& Request::using_delete() {
-    m_method = sdk::http::HttpMethod::Delete;
+    m_method = HttpMethod::Delete;
     return *this;
 }
 
 Request& Request::using_get() {
-    m_method = sdk::http::HttpMethod::Get;
+    m_method = HttpMethod::Get;
     return *this;
 }
 
 Request& Request::using_post() {
-    m_method = sdk::http::HttpMethod::Post;
+    m_method = HttpMethod::Post;
     return *this;
 }
 
 Request& Request::using_put() {
-    m_method = sdk::http::HttpMethod::Put;
+    m_method = HttpMethod::Put;
     return *this;
 }
 
@@ -69,7 +71,7 @@ const std::optional<std::string>& Request::get_path() const {
     return m_path;
 }
 
-const std::optional<sdk::http::HttpMethod>& Request::get_method() const {
+const std::optional<HttpMethod>& Request::get_method() const {
     return m_method;
 }
 
@@ -287,7 +289,7 @@ public:
         }
     }
 
-    void next_message(std::function<void(const sdk::http::HttpRequest&)> handler) {
+    void next_message(std::function<void(const HttpRequest&)> handler) {
         std::lock_guard<std::mutex> guard(messages_mutex);
         message_handlers.emplace(std::move(handler));
     }
@@ -313,22 +315,22 @@ public:
         auto handler = create_handler(provider);
 
         switch (method) {
-            case sdk::http::HttpMethod::Get:
+            case HttpMethod::Get:
                 server.Get(path.c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::Post:
+            case HttpMethod::Post:
                 server.Post(path.c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::Put:
+            case HttpMethod::Put:
                 server.Put(path.c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::Delete:
+            case HttpMethod::Delete:
                 server.Delete(path.c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::Options:
+            case HttpMethod::Options:
                 server.Options(path.c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::Patch:
+            case HttpMethod::Patch:
                 server.Patch(path.c_str(), handler);
                 break;
             default:
@@ -366,7 +368,7 @@ private:
     std::optional<int> port;
 
     std::map<std::string, std::unique_ptr<ResponseProvider>> response_provider_map;
-    std::queue<std::function<void(sdk::http::HttpRequest)>> message_handlers;
+    std::queue<std::function<void(HttpRequest)>> message_handlers;
     std::map<Request, std::vector<LogEntry>> log_entries;
 
     // Threads
@@ -388,7 +390,7 @@ private:
                 res.status = provider->get_response()->get_status_code().value();
 
                 auto& headers = provider->get_response()->get_headers();
-                auto iter = headers.find(sdk::http::ContentType);
+                auto iter = headers.find(ContentType);
                 if (iter == headers.end()) {
                     res.set_content(provider->get_response()->get_body().value(), DEFAULT_CONTENT_TYPE);
                 } else {
@@ -398,9 +400,10 @@ private:
                 log_entry.set_response_message(create_response_message(res));
             }
 
-            std::unique_lock<std::mutex> lock(log_entries_mutex);
-            log_entries.at(convert_request(req)).push_back(std::move(log_entry));
-            lock.unlock();
+            {
+                std::lock_guard<std::mutex> guard(log_entries_mutex);
+                log_entries.at(convert_request(req)).push_back(std::move(log_entry));
+            }
 
             process_next_message(req);
         }};
@@ -408,28 +411,30 @@ private:
 
     void process_next_message(const httplib::Request& req) {
         std::unique_lock<std::mutex> lock(messages_mutex);
+
         if (message_handlers.empty()) {
             return;
         }
 
         auto handler = message_handlers.front();
         message_handlers.pop();
+
         lock.unlock();
 
-        auto request = sdk::http::HttpRequest()
+        auto request = HttpRequest()
                 .set_method(convert_http_method(req.method))
                 .set_path_query_fragment(req.path)
                 .set_body(req.body);
 
-        for (const auto&[k, v]: req.headers) {
+        for (const auto& [k, v]: req.headers) {
             request.add_header(k, v);
         }
 
         handler(request);
     }
 
-    static sdk::http::HttpMethod convert_http_method(const std::string& method) {
-        return sdk::utils::deserialize_http_method(utils::to_upper(method));
+    static HttpMethod convert_http_method(const std::string& method) {
+        return EnumUtils::deserialize_http_method(utils::to_upper(method));
     }
 
     static Request convert_request(const httplib::Request& req) {
@@ -439,16 +444,16 @@ private:
 
         auto method = convert_http_method(req.method);
         switch (method) {
-            case sdk::http::HttpMethod::Get:
+            case HttpMethod::Get:
                 new_req.using_get();
                 break;
-            case sdk::http::HttpMethod::Post:
+            case HttpMethod::Post:
                 new_req.using_post();
                 break;
-            case sdk::http::HttpMethod::Put:
+            case HttpMethod::Put:
                 new_req.using_put();
                 break;
-            case sdk::http::HttpMethod::Delete:
+            case HttpMethod::Delete:
                 new_req.using_delete();
                 break;
             default:
@@ -464,7 +469,7 @@ private:
                 .set_method(req.method)
                 .set_body(req.body);
 
-        for (const auto& [k, v] : req.headers) {
+        for (const auto& [k, v]: req.headers) {
             msg.add_header(k, v);
         }
 
@@ -476,7 +481,7 @@ private:
                 .set_status_code(res.status)
                 .set_body(res.body);
 
-        for (const auto& [k, v] : res.headers) {
+        for (const auto& [k, v]: res.headers) {
             msg.add_header(k, v);
         }
 
@@ -503,7 +508,7 @@ void MockHttpServer::stop() {
     impl->stop();
 }
 
-void MockHttpServer::next_message(std::function<void(const sdk::http::HttpRequest&)> handler) {
+void MockHttpServer::next_message(std::function<void(const HttpRequest&)> handler) {
     impl->next_message(std::move(handler));
 }
 
@@ -520,5 +525,3 @@ std::vector<LogEntry> MockHttpServer::find_received_requests(const Request& requ
 }
 
 // endregion MockHttpServer
-
-}

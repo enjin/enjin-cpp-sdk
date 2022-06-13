@@ -54,20 +54,17 @@ public:
     /// \return This filter for chaining.
     PlayerFilter& set_id_in(std::vector<std::string> ids);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const PlayerFilter& rhs) const;
 
     bool operator!=(const PlayerFilter& rhs) const;
 
 private:
-    std::optional<std::vector<PlayerFilter>> and_filters;
-    std::optional<std::vector<PlayerFilter>> or_filters;
-    std::optional<std::string> id;
-    std::optional<std::vector<std::string>> id_in;
-
-    constexpr static char AND_KEY[] = "and";
-    constexpr static char OR_KEY[] = "or";
-    constexpr static char ID_KEY[] = "id";
-    constexpr static char ID_IN_KEY[] = "id_in";
+    std::optional<std::vector<PlayerFilter>> and_filters_opt;
+    std::optional<std::vector<PlayerFilter>> or_filters_opt;
+    std::optional<std::string> id_opt;
+    std::optional<std::vector<std::string>> id_in_opt;
 };
 
 }

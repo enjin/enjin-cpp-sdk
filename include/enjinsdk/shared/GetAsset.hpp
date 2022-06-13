@@ -18,7 +18,6 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/models/Asset.hpp"
 #include "enjinsdk/shared/AssetFragmentArguments.hpp"
 #include <optional>
 #include <string>
@@ -41,38 +40,55 @@ public:
     /// \return This request for chaining.
     GetAsset& set_id(std::string id);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const GetAsset& rhs) const;
 
     bool operator!=(const GetAsset& rhs) const;
 
 private:
-    std::optional<std::string> id;
+    std::optional<std::string> id_opt;
 };
+
+// region AssetFragmentArguments
 
 template ENJINSDK_EXPORT GetAsset&
 AssetFragmentArguments<GetAsset>::set_asset_id_format(models::AssetIdFormat asset_id_format);
 
-template ENJINSDK_EXPORT GetAsset& AssetFragmentArguments<GetAsset>::set_with_state_data();
+template ENJINSDK_EXPORT GetAsset&
+AssetFragmentArguments<GetAsset>::set_with_state_data();
 
-template ENJINSDK_EXPORT GetAsset& AssetFragmentArguments<GetAsset>::set_with_config_data();
+template ENJINSDK_EXPORT GetAsset&
+AssetFragmentArguments<GetAsset>::set_with_config_data();
 
-template ENJINSDK_EXPORT GetAsset& AssetFragmentArguments<GetAsset>::set_with_asset_blocks();
+template ENJINSDK_EXPORT GetAsset&
+AssetFragmentArguments<GetAsset>::set_with_asset_blocks();
 
-template ENJINSDK_EXPORT GetAsset& AssetFragmentArguments<GetAsset>::set_with_creator();
+template ENJINSDK_EXPORT GetAsset&
+AssetFragmentArguments<GetAsset>::set_with_creator();
 
-template ENJINSDK_EXPORT GetAsset& AssetFragmentArguments<GetAsset>::set_with_melt_details();
+template ENJINSDK_EXPORT GetAsset&
+AssetFragmentArguments<GetAsset>::set_with_melt_details();
 
-template ENJINSDK_EXPORT GetAsset& AssetFragmentArguments<GetAsset>::set_with_metadata_uri();
+template ENJINSDK_EXPORT GetAsset&
+AssetFragmentArguments<GetAsset>::set_with_metadata_uri();
 
-template ENJINSDK_EXPORT GetAsset& AssetFragmentArguments<GetAsset>::set_with_supply_details();
+template ENJINSDK_EXPORT GetAsset&
+AssetFragmentArguments<GetAsset>::set_with_supply_details();
 
-template ENJINSDK_EXPORT GetAsset& AssetFragmentArguments<GetAsset>::set_with_transfer_settings();
+template ENJINSDK_EXPORT GetAsset&
+AssetFragmentArguments<GetAsset>::set_with_transfer_settings();
 
-template ENJINSDK_EXPORT GetAsset& AssetFragmentArguments<GetAsset>::set_with_asset_variant_mode();
+template ENJINSDK_EXPORT GetAsset&
+AssetFragmentArguments<GetAsset>::set_with_asset_variant_mode();
 
-template ENJINSDK_EXPORT GetAsset& AssetFragmentArguments<GetAsset>::set_with_asset_variants();
+template ENJINSDK_EXPORT GetAsset&
+AssetFragmentArguments<GetAsset>::set_with_asset_variants();
 
-template ENJINSDK_EXPORT GetAsset& AssetFragmentArguments<GetAsset>::set_with_variant_metadata();
+template ENJINSDK_EXPORT GetAsset&
+AssetFragmentArguments<GetAsset>::set_with_variant_metadata();
+
+// endregion AssetFragmentArguments
 
 }
 

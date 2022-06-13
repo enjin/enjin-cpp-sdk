@@ -15,19 +15,14 @@
 
 #include "enjinsdk/internal/AbstractGraphqlResponse.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 
-namespace enjin::sdk::graphql {
-
-constexpr char DATA_KEY[] = "data";
-constexpr char ERRORS_KEY[] = "errors";
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::utils;
 
 const std::optional<std::vector<GraphqlError>>& AbstractGraphqlResponse::get_errors() const {
     return errors;
-}
-
-const std::optional<models::PaginationCursor>& AbstractGraphqlResponse::get_cursor() const {
-    return cursor;
 }
 
 bool AbstractGraphqlResponse::has_errors() const noexcept {
@@ -38,22 +33,18 @@ bool AbstractGraphqlResponse::is_successful() const noexcept {
     return !(is_empty() || has_errors());
 }
 
-bool AbstractGraphqlResponse::is_paginated() const noexcept {
-    return cursor.has_value();
-}
-
 void AbstractGraphqlResponse::process(const std::string& json) {
-    rapidjson::Document document;
-    document.Parse(json.c_str());
-    if (document.IsObject()) {
-        if (document.HasMember(DATA_KEY) && document[DATA_KEY].IsObject()) {
-            process_data(utils::get_object_as_string(document, DATA_KEY));
-        }
+    JsonValue json_object;
 
-        if (document.HasMember(ERRORS_KEY) && document[ERRORS_KEY].IsArray()) {
-            errors.emplace(utils::get_array_as_type_vector<GraphqlError>(document, ERRORS_KEY));
-        }
+    if (!json_object.try_parse_as_object(json)) {
+        return;
     }
-}
 
+    JsonUtils::try_get_field(json_object, "errors", errors);
+
+    JsonValue data_object;
+
+    if (json_object.try_get_object_field("data", data_object) && data_object.is_object()) {
+        process_data(data_object);
+    }
 }

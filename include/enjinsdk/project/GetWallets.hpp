@@ -46,92 +46,139 @@ public:
     /// \return This request for chaining.
     GetWallets& set_eth_addresses(std::vector<std::string> eth_addresses);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const GetWallets& rhs) const;
 
     bool operator!=(const GetWallets& rhs) const;
 
 private:
-    std::optional<std::vector<std::string>> user_ids;
-    std::optional<std::vector<std::string>> eth_addresses;
+    std::optional<std::vector<std::string>> user_ids_opt;
+    std::optional<std::vector<std::string>> eth_addresses_opt;
 };
 
 }
 
 namespace enjin::sdk::shared {
 
-// AssetFragmentArguments functions
+// region AssetFragmentArguments
 
 template ENJINSDK_EXPORT project::GetWallets&
-WalletFragmentArguments<project::GetWallets>::set_asset_id_format(models::AssetIdFormat asset_id_format);
-
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_state_data();
-
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_config_data();
-
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_asset_blocks();
-
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_creator();
-
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_melt_details();
-
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_metadata_uri();
-
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_supply_details();
+AssetFragmentArguments<project::GetWallets>::set_asset_id_format(models::AssetIdFormat asset_id_format);
 
 template ENJINSDK_EXPORT project::GetWallets&
-WalletFragmentArguments<project::GetWallets>::set_with_transfer_settings();
+AssetFragmentArguments<project::GetWallets>::set_with_state_data();
 
 template ENJINSDK_EXPORT project::GetWallets&
-WalletFragmentArguments<project::GetWallets>::set_with_asset_variant_mode();
-
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_asset_variants();
-
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_variant_metadata();
-
-// TransactionFragmentArguments functions
+AssetFragmentArguments<project::GetWallets>::set_with_config_data();
 
 template ENJINSDK_EXPORT project::GetWallets&
-WalletFragmentArguments<project::GetWallets>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
-
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_blockchain_data();
-
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_meta();
-
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_encoded_data();
-
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_asset_data();
-
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_signed_txs();
-
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_error();
-
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_nonce();
-
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_state();
-
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_receipt();
-
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_receipt_logs();
-
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_log_event();
+AssetFragmentArguments<project::GetWallets>::set_with_asset_blocks();
 
 template ENJINSDK_EXPORT project::GetWallets&
-WalletFragmentArguments<project::GetWallets>::set_with_transaction_project_uuid();
+AssetFragmentArguments<project::GetWallets>::set_with_creator();
 
 template ENJINSDK_EXPORT project::GetWallets&
-WalletFragmentArguments<project::GetWallets>::set_with_transaction_wallet_address();
+AssetFragmentArguments<project::GetWallets>::set_with_melt_details();
 
-// WalletFragmentArguments functions
+template ENJINSDK_EXPORT project::GetWallets&
+AssetFragmentArguments<project::GetWallets>::set_with_metadata_uri();
+
+template ENJINSDK_EXPORT project::GetWallets&
+AssetFragmentArguments<project::GetWallets>::set_with_supply_details();
+
+template ENJINSDK_EXPORT project::GetWallets&
+AssetFragmentArguments<project::GetWallets>::set_with_transfer_settings();
+
+template ENJINSDK_EXPORT project::GetWallets&
+AssetFragmentArguments<project::GetWallets>::set_with_asset_variant_mode();
+
+template ENJINSDK_EXPORT project::GetWallets&
+AssetFragmentArguments<project::GetWallets>::set_with_asset_variants();
+
+template ENJINSDK_EXPORT project::GetWallets&
+AssetFragmentArguments<project::GetWallets>::set_with_variant_metadata();
+
+// endregion AssetFragmentArguments
+
+// region BalanceFragmentArguments
+
+template ENJINSDK_EXPORT project::GetWallets&
+BalanceFragmentArguments<project::GetWallets>::set_bal_id_format(models::AssetIdFormat bal_id_format);
+
+template ENJINSDK_EXPORT project::GetWallets&
+BalanceFragmentArguments<project::GetWallets>::set_bal_index_format(models::AssetIndexFormat bal_index_format);
+
+template ENJINSDK_EXPORT project::GetWallets&
+BalanceFragmentArguments<project::GetWallets>::set_with_bal_project_uuid();
+
+template ENJINSDK_EXPORT project::GetWallets&
+BalanceFragmentArguments<project::GetWallets>::set_with_bal_wallet_address();
+
+// endregion BalanceFragmentArguments
+
+// region TransactionFragmentArguments
+
+template ENJINSDK_EXPORT project::GetWallets&
+TransactionFragmentArguments<project::GetWallets>::set_transaction_asset_id_format(
+        models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT project::GetWallets&
+TransactionFragmentArguments<project::GetWallets>::set_with_blockchain_data();
+
+template ENJINSDK_EXPORT project::GetWallets&
+TransactionFragmentArguments<project::GetWallets>::set_with_meta();
+
+template ENJINSDK_EXPORT project::GetWallets&
+TransactionFragmentArguments<project::GetWallets>::set_with_encoded_data();
+
+template ENJINSDK_EXPORT project::GetWallets&
+TransactionFragmentArguments<project::GetWallets>::set_with_asset_data();
+
+template ENJINSDK_EXPORT project::GetWallets&
+TransactionFragmentArguments<project::GetWallets>::set_with_signed_txs();
+
+template ENJINSDK_EXPORT project::GetWallets&
+TransactionFragmentArguments<project::GetWallets>::set_with_error();
+
+template ENJINSDK_EXPORT project::GetWallets&
+TransactionFragmentArguments<project::GetWallets>::set_with_nonce();
+
+template ENJINSDK_EXPORT project::GetWallets&
+TransactionFragmentArguments<project::GetWallets>::set_with_state();
+
+template ENJINSDK_EXPORT project::GetWallets&
+TransactionFragmentArguments<project::GetWallets>::set_with_receipt();
+
+template ENJINSDK_EXPORT project::GetWallets&
+TransactionFragmentArguments<project::GetWallets>::set_with_receipt_logs();
+
+template ENJINSDK_EXPORT project::GetWallets&
+TransactionFragmentArguments<project::GetWallets>::set_with_log_event();
+
+template ENJINSDK_EXPORT project::GetWallets&
+TransactionFragmentArguments<project::GetWallets>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT project::GetWallets&
+TransactionFragmentArguments<project::GetWallets>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
+
+// region WalletFragmentArguments
 
 template ENJINSDK_EXPORT project::GetWallets&
 WalletFragmentArguments<project::GetWallets>::set_wallet_balance_filter(models::BalanceFilter filter);
 
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_assets_created();
+template ENJINSDK_EXPORT project::GetWallets&
+WalletFragmentArguments<project::GetWallets>::set_with_assets_created();
 
-template ENJINSDK_EXPORT project::GetWallets& WalletFragmentArguments<project::GetWallets>::set_with_wallet_balances();
+template ENJINSDK_EXPORT project::GetWallets&
+WalletFragmentArguments<project::GetWallets>::set_with_wallet_balances();
 
 template ENJINSDK_EXPORT project::GetWallets&
 WalletFragmentArguments<project::GetWallets>::set_with_wallet_transactions();
+
+// endregion WalletFragmentArguments
 
 }
 

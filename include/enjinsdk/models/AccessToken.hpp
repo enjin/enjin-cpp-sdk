@@ -48,9 +48,6 @@ public:
 private:
     std::optional<std::string> token;
     std::optional<long> expires_in;
-
-    constexpr static char TOKEN_KEY[] = "accessToken";
-    constexpr static char EXPIRES_IN_KEY[] = "expiresIn";
 };
 
 }

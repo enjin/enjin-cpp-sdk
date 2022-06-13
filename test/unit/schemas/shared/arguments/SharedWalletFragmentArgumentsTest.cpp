@@ -19,6 +19,7 @@
 #include "WalletFragmentArgumentsTestSuite.hpp"
 #include <string>
 
+using namespace enjin::sdk::json;
 using namespace enjin::test::suites;
 using namespace enjin::test::utils;
 
@@ -39,54 +40,54 @@ public:
     }
 };
 
-TEST_F(SharedWalletFragmentArgumentsTest, SerializeNoSetFieldsReturnsEmptyJson) {
+TEST_F(SharedWalletFragmentArgumentsTest, ToJsonNoSetFieldsReturnsEmptyJson) {
     // Arrange
-    const std::string expected(EmptyJsonObject);
+    const JsonValue expected = create_empty_json_object();
 
     // Act
-    std::string actual = class_under_test.serialize();
+    const JsonValue actual = class_under_test.to_json();
 
     // Assert
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(SharedWalletFragmentArgumentsTest, SerializeSetAssetFragmentFieldsReturnsExpectedJson) {
+TEST_F(SharedWalletFragmentArgumentsTest, ToJsonSetAssetFragmentFieldsReturnsExpectedJson) {
     // Arrange
-    const std::string expected(AssetFragmentJson);
+    const JsonValue expected = AssetFragmentArgumentsTestSuite::create_json_object();
     set_asset_fragment_arguments(class_under_test);
 
     // Act
-    std::string actual = class_under_test.serialize();
+    const JsonValue actual = class_under_test.to_json();
 
     // Assert
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(SharedWalletFragmentArgumentsTest, SerializeSetBalanceFragmentFieldsReturnsExpectedJson) {
+TEST_F(SharedWalletFragmentArgumentsTest, ToJsonSetBalanceFragmentFieldsReturnsExpectedJson) {
     // Arrange
-    const std::string expected(BalanceFragmentJson);
+    const JsonValue expected = BalanceFragmentArgumentsTestSuite::create_json_object();
     set_balance_fragment_arguments(class_under_test);
 
     // Act
-    std::string actual = class_under_test.serialize();
+    const JsonValue actual = class_under_test.to_json();
 
     // Assert
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(SharedWalletFragmentArgumentsTest, SerializeSetTransactionFragmentFieldsReturnsExpectedJson) {
+TEST_F(SharedWalletFragmentArgumentsTest, ToJsonSetTransactionFragmentFieldsReturnsExpectedJson) {
     // Arrange
-    const std::string expected(TransactionFragmentJson);
+    const JsonValue expected = TransactionFragmentArgumentsTestSuite::create_json_object();
     set_transaction_fragment_arguments(class_under_test);
 
     // Act
-    std::string actual = class_under_test.serialize();
+    const JsonValue actual = class_under_test.to_json();
 
     // Assert
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(SharedWalletFragmentArgumentsTest, SerializeSetWalletFragmentFieldsReturnsExpectedJson) {
+TEST_F(SharedWalletFragmentArgumentsTest, ToJsonSetWalletFragmentFieldsReturnsExpectedJson) {
     // Arrange
     const std::string expected(WalletFragmentJson);
     set_wallet_fragment_arguments(class_under_test);
@@ -100,11 +101,11 @@ TEST_F(SharedWalletFragmentArgumentsTest, SerializeSetWalletFragmentFieldsReturn
 
 TEST_F(SharedWalletFragmentArgumentsTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    TestableWalletFragmentArguments lhs;
-    TestableWalletFragmentArguments rhs;
+    const TestableWalletFragmentArguments lhs;
+    const TestableWalletFragmentArguments rhs;
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_TRUE(actual);
@@ -112,11 +113,11 @@ TEST_F(SharedWalletFragmentArgumentsTest, EqualityNeitherSideIsPopulatedReturnsT
 
 TEST_F(SharedWalletFragmentArgumentsTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    TestableWalletFragmentArguments lhs = create_default_arguments();
-    TestableWalletFragmentArguments rhs = create_default_arguments();
+    const TestableWalletFragmentArguments lhs = create_default_arguments();
+    const TestableWalletFragmentArguments rhs = create_default_arguments();
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_TRUE(actual);
@@ -124,11 +125,11 @@ TEST_F(SharedWalletFragmentArgumentsTest, EqualityBothSidesArePopulatedReturnsTr
 
 TEST_F(SharedWalletFragmentArgumentsTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    TestableWalletFragmentArguments lhs = create_default_arguments();
-    TestableWalletFragmentArguments rhs;
+    const TestableWalletFragmentArguments lhs = create_default_arguments();
+    const TestableWalletFragmentArguments rhs;
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_FALSE(actual);
@@ -136,11 +137,11 @@ TEST_F(SharedWalletFragmentArgumentsTest, EqualityLeftSideIsPopulatedReturnsFals
 
 TEST_F(SharedWalletFragmentArgumentsTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    TestableWalletFragmentArguments lhs;
-    TestableWalletFragmentArguments rhs = create_default_arguments();
+    const TestableWalletFragmentArguments lhs;
+    const TestableWalletFragmentArguments rhs = create_default_arguments();
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_FALSE(actual);

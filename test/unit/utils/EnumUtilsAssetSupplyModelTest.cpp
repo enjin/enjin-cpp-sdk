@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "EnumUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 #include "gtest/gtest.h"
 #include <string>
 #include <tuple>
@@ -30,7 +30,7 @@ TEST_P(AssetSupplyModelTest, DeserializeAssetSupplyModelReturnsExpectedValue) {
     const std::string& str = std::get<0>(GetParam());
 
     // Act
-    AssetSupplyModel actual = deserialize_asset_supply_model(str);
+    AssetSupplyModel actual = EnumUtils::deserialize_asset_supply_model(str);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -42,7 +42,7 @@ TEST_P(AssetSupplyModelTest, SerializeAssetSupplyModelReturnsExpectedString) {
     AssetSupplyModel value = std::get<1>(GetParam());
 
     // Act
-    std::string actual = serialize_asset_supply_model(value);
+    std::string actual = EnumUtils::serialize_asset_supply_model(value);
 
     // Assert
     ASSERT_EQ(expected, actual);

@@ -70,13 +70,6 @@ private:
     std::optional<std::string> image;
     std::optional<std::string> created_at;
     std::optional<std::string> updated_at;
-
-    constexpr static char UUID_KEY[] = "uuid";
-    constexpr static char NAME_KEY[] = "name";
-    constexpr static char DESCRIPTION_KEY[] = "description";
-    constexpr static char IMAGE_KEY[] = "image";
-    constexpr static char CREATED_AT_KEY[] = "createdAt";
-    constexpr static char UPDATED_AT_KEY[] = "updatedAt";
 };
 
 }

@@ -15,10 +15,12 @@
 
 #include "FakeGraphqlRequest.hpp"
 
-namespace enjin::test::mocks {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::test::mocks;
 
 FakeGraphqlRequest::FakeGraphqlRequest(std::string serialize_string)
-        : sdk::graphql::AbstractGraphqlRequest("test"),
+        : AbstractGraphqlRequest("test"),
           serialize_string(std::move(serialize_string)) {
 };
 
@@ -26,4 +28,6 @@ std::string FakeGraphqlRequest::serialize() const {
     return serialize_string;
 }
 
+JsonValue FakeGraphqlRequest::to_json() const {
+    return {};
 }

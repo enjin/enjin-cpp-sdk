@@ -32,6 +32,8 @@ public:
 
     [[nodiscard]] std::string serialize() const override;
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const UnlinkWallet& rhs) const;
 
     bool operator!=(const UnlinkWallet& rhs) const;

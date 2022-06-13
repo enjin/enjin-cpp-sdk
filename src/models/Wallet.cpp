@@ -15,8 +15,10 @@
 
 #include "enjinsdk/models/Wallet.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
+using namespace enjin::sdk::json;
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::serialization;
 using namespace enjin::sdk::utils;
@@ -28,40 +30,27 @@ public:
     ~Impl() override = default;
 
     void deserialize(const std::string& json) override {
-        rapidjson::Document document;
-        document.Parse(json.c_str());
+        JsonValue json_object;
 
-        if (!document.IsObject()) {
+        if (!json_object.try_parse_as_object(json)) {
+            eth_address.reset();
+            enj_allowance.reset();
+            enj_balance.reset();
+            eth_balance.reset();
+            assets_created.reset();
+            balances.reset();
+            transactions.reset();
+
             return;
         }
 
-        if (document.HasMember(ETH_ADDRESS_KEY) && document[ETH_ADDRESS_KEY].IsString()) {
-            eth_address.emplace(document[ETH_ADDRESS_KEY].GetString());
-        }
-
-        if (document.HasMember(ENJ_ALLOWANCE_KEY) && document[ENJ_ALLOWANCE_KEY].IsFloat()) {
-            enj_allowance.emplace(document[ENJ_ALLOWANCE_KEY].GetFloat());
-        }
-
-        if (document.HasMember(ENJ_BALANCE_KEY) && document[ENJ_BALANCE_KEY].IsFloat()) {
-            enj_balance.emplace(document[ENJ_BALANCE_KEY].GetFloat());
-        }
-
-        if (document.HasMember(ETH_BALANCE_KEY) && document[ETH_BALANCE_KEY].IsFloat()) {
-            eth_balance.emplace(document[ETH_BALANCE_KEY].GetFloat());
-        }
-
-        if (document.HasMember(ASSETS_CREATED_KEY) && document[ASSETS_CREATED_KEY].IsArray()) {
-            assets_created.emplace(get_array_as_type_vector<Asset>(document, ASSETS_CREATED_KEY));
-        }
-
-        if (document.HasMember(BALANCES_KEY) && document[BALANCES_KEY].IsArray()) {
-            balances.emplace(get_array_as_type_vector<Balance>(document, BALANCES_KEY));
-        }
-
-        if (document.HasMember(TRANSACTIONS_KEY) && document[TRANSACTIONS_KEY].IsArray()) {
-            transactions.emplace(get_array_as_type_vector<Request>(document, TRANSACTIONS_KEY));
-        }
+        JsonUtils::try_get_field(json_object, "ethAddress", eth_address);
+        JsonUtils::try_get_field(json_object, "enjAllowance", enj_allowance);
+        JsonUtils::try_get_field(json_object, "enjBalance", enj_balance);
+        JsonUtils::try_get_field(json_object, "ethBalance", eth_balance);
+        JsonUtils::try_get_field(json_object, "assetsCreated", assets_created);
+        JsonUtils::try_get_field(json_object, "balances", balances);
+        JsonUtils::try_get_field(json_object, "transactions", transactions);
     }
 
     [[nodiscard]] const std::optional<std::string>& get_eth_address() const {
@@ -114,14 +103,6 @@ private:
     std::optional<std::vector<Asset>> assets_created;
     std::optional<std::vector<Balance>> balances;
     std::optional<std::vector<Request>> transactions;
-
-    constexpr static char ETH_ADDRESS_KEY[] = "ethAddress";
-    constexpr static char ENJ_ALLOWANCE_KEY[] = "enjAllowance";
-    constexpr static char ENJ_BALANCE_KEY[] = "enjBalance";
-    constexpr static char ETH_BALANCE_KEY[] = "ethBalance";
-    constexpr static char ASSETS_CREATED_KEY[] = "assetsCreated";
-    constexpr static char BALANCES_KEY[] = "balances";
-    constexpr static char TRANSACTIONS_KEY[] = "transactions";
 };
 
 Wallet::Wallet() : impl(std::make_unique<Impl>()) {
@@ -172,7 +153,7 @@ bool Wallet::operator==(const Wallet& rhs) const {
 }
 
 bool Wallet::operator!=(const Wallet& rhs) const {
-    return !(*this == rhs);
+    return *impl != *rhs.impl;
 }
 
 Wallet& enjin::sdk::models::Wallet::operator=(const Wallet& rhs) {

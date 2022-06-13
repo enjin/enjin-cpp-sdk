@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
+#include "enjinsdk/JsonValue.hpp"
 #include <optional>
 #include <string>
 
@@ -43,7 +44,7 @@ public:
 
     /// \brief Returns the metadata of this variant.
     /// \return The metadata.
-    [[nodiscard]] const std::optional<std::string>& get_variant_metadata() const;
+    [[nodiscard]] const std::optional<json::JsonValue>& get_variant_metadata() const;
 
     /// \brief Returns the usage count of this variant.
     /// \return The usage count.
@@ -66,17 +67,10 @@ public:
 private:
     std::optional<int> id;
     std::optional<std::string> asset_id;
-    std::optional<std::string> variant_metadata;
+    std::optional<json::JsonValue> variant_metadata;
     std::optional<int> usage_count;
     std::optional<std::string> created_at;
     std::optional<std::string> updated_at;
-
-    constexpr static char ID_KEY[] = "id";
-    constexpr static char ASSET_ID_KEY[] = "assetId";
-    constexpr static char VARIANT_METADATA_KEY[] = "variantMetadata";
-    constexpr static char USAGE_COUNT_KEY[] = "usageCount";
-    constexpr static char CREATED_AT_KEY[] = "createdAt";
-    constexpr static char UPDATED_AT_KEY[] = "updatedAt";
 };
 
 }

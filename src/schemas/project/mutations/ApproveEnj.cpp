@@ -15,40 +15,42 @@
 
 #include "enjinsdk/project/ApproveEnj.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 #include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
 
-ApproveEnj::ApproveEnj() : graphql::AbstractGraphqlRequest("enjin.sdk.project.ApproveEnj") {
+ApproveEnj::ApproveEnj() : AbstractGraphqlRequest("enjin.sdk.project.ApproveEnj"),
+                           ProjectTransactionRequestArguments<ApproveEnj>() {
 }
 
 std::string ApproveEnj::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
-
-    if (value.has_value()) {
-        utils::set_string_member(document, "value", value.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
 ApproveEnj& ApproveEnj::set_value(std::string value) {
-    ApproveEnj::value = std::move(value);
+    value_opt = std::move(value);
     return *this;
 }
 
+JsonValue ApproveEnj::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, ProjectTransactionRequestArguments<ApproveEnj>::to_json());
+    JsonUtils::try_set_field(json, "value", value_opt);
+
+    return json;
+}
+
 bool ApproveEnj::operator==(const ApproveEnj& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const ProjectTransactionRequestArguments<ApproveEnj>&>(*this) ==
-           static_cast<const ProjectTransactionRequestArguments<ApproveEnj>&>(rhs) &&
-           value == rhs.value;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const ProjectTransactionRequestArguments<ApproveEnj>&>(*this) == rhs
+           && value_opt == rhs.value_opt;
 }
 
 bool ApproveEnj::operator!=(const ApproveEnj& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

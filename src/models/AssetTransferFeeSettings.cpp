@@ -15,25 +15,27 @@
 
 #include "enjinsdk/models/AssetTransferFeeSettings.hpp"
 
-#include "EnumUtils.hpp"
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 void AssetTransferFeeSettings::deserialize(const std::string& json) {
-    rapidjson::Document document;
-    document.Parse(json.c_str());
-    if (document.IsObject()) {
-        if (document.HasMember(TYPE_KEY) && document[TYPE_KEY].IsString()) {
-            type.emplace(utils::deserialize_asset_transfer_fee_type(document[TYPE_KEY].GetString()));
-        }
-        if (document.HasMember(ASSET_ID_KEY) && document[ASSET_ID_KEY].IsString()) {
-            asset_id.emplace(document[ASSET_ID_KEY].GetString());
-        }
-        if (document.HasMember(VALUE_KEY) && document[VALUE_KEY].IsString()) {
-            value.emplace(document[VALUE_KEY].GetString());
-        }
+    JsonValue json_object;
+
+    if (!json_object.try_parse_as_object(json)) {
+        type.reset();
+        asset_id.reset();
+        value.reset();
+
+        return;
     }
+
+    JsonUtils::try_get_field(json_object, "type", type);
+    JsonUtils::try_get_field(json_object, "assetId", asset_id);
+    JsonUtils::try_get_field(json_object, "value", value);
 }
 
 const std::optional<AssetTransferFeeType>& AssetTransferFeeSettings::get_type() const {
@@ -49,13 +51,11 @@ const std::optional<std::string>& AssetTransferFeeSettings::get_value() const {
 }
 
 bool AssetTransferFeeSettings::operator==(const AssetTransferFeeSettings& rhs) const {
-    return type == rhs.type &&
-           asset_id == rhs.asset_id &&
-           value == rhs.value;
+    return type == rhs.type
+           && asset_id == rhs.asset_id
+           && value == rhs.value;
 }
 
 bool AssetTransferFeeSettings::operator!=(const AssetTransferFeeSettings& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

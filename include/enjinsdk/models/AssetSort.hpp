@@ -44,16 +44,15 @@ public:
     /// \return This input for chaining.
     AssetSort& set_direction(SortDirection direction);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const AssetSort& rhs) const;
 
     bool operator!=(const AssetSort& rhs) const;
 
 private:
-    std::optional<AssetField> field;
-    std::optional<SortDirection> direction;
-
-    constexpr static char FIELD_KEY[] = "field";
-    constexpr static char DIRECTION_KEY[] = "direction";
+    std::optional<AssetField> field_opt;
+    std::optional<SortDirection> direction_opt;
 };
 
 }

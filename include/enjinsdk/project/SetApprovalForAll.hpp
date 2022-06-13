@@ -45,54 +45,74 @@ public:
     /// \return This request for chaining.
     SetApprovalForAll& set_approved(bool approved);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const SetApprovalForAll& rhs) const;
 
     bool operator!=(const SetApprovalForAll& rhs) const;
 
 private:
-    std::optional<std::string> operator_address;
-    std::optional<bool> approved;
+    std::optional<std::string> operator_address_opt;
+    std::optional<bool> approved_opt;
 };
 
-template ENJINSDK_EXPORT SetApprovalForAll&
-ProjectTransactionRequestArguments<SetApprovalForAll>::set_transaction_asset_id_format(
-        models::AssetIdFormat asset_id_format);
-
-template ENJINSDK_EXPORT SetApprovalForAll&
-ProjectTransactionRequestArguments<SetApprovalForAll>::set_with_blockchain_data();
-
-template ENJINSDK_EXPORT SetApprovalForAll& ProjectTransactionRequestArguments<SetApprovalForAll>::set_with_meta();
-
-template ENJINSDK_EXPORT SetApprovalForAll&
-ProjectTransactionRequestArguments<SetApprovalForAll>::set_with_encoded_data();
-
-template ENJINSDK_EXPORT SetApprovalForAll&
-ProjectTransactionRequestArguments<SetApprovalForAll>::set_with_asset_data();
-
-template ENJINSDK_EXPORT SetApprovalForAll&
-ProjectTransactionRequestArguments<SetApprovalForAll>::set_with_signed_txs();
-
-template ENJINSDK_EXPORT SetApprovalForAll& ProjectTransactionRequestArguments<SetApprovalForAll>::set_with_error();
-
-template ENJINSDK_EXPORT SetApprovalForAll& ProjectTransactionRequestArguments<SetApprovalForAll>::set_with_nonce();
-
-template ENJINSDK_EXPORT SetApprovalForAll& ProjectTransactionRequestArguments<SetApprovalForAll>::set_with_state();
-
-template ENJINSDK_EXPORT SetApprovalForAll& ProjectTransactionRequestArguments<SetApprovalForAll>::set_with_receipt();
-
-template ENJINSDK_EXPORT SetApprovalForAll&
-ProjectTransactionRequestArguments<SetApprovalForAll>::set_with_receipt_logs();
-
-template ENJINSDK_EXPORT SetApprovalForAll& ProjectTransactionRequestArguments<SetApprovalForAll>::set_with_log_event();
-
-template ENJINSDK_EXPORT SetApprovalForAll&
-ProjectTransactionRequestArguments<SetApprovalForAll>::set_with_transaction_project_uuid();
-
-template ENJINSDK_EXPORT SetApprovalForAll&
-ProjectTransactionRequestArguments<SetApprovalForAll>::set_with_transaction_wallet_address();
+// region ProjectTransactionRequestArguments
 
 template ENJINSDK_EXPORT SetApprovalForAll&
 ProjectTransactionRequestArguments<SetApprovalForAll>::set_eth_address(std::string address);
+
+// endregion ProjectTransactionRequestArguments
+
+}
+
+namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
+
+template ENJINSDK_EXPORT project::SetApprovalForAll&
+TransactionFragmentArguments<project::SetApprovalForAll>::set_transaction_asset_id_format(
+        models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT project::SetApprovalForAll&
+TransactionFragmentArguments<project::SetApprovalForAll>::set_with_blockchain_data();
+
+template ENJINSDK_EXPORT project::SetApprovalForAll&
+TransactionFragmentArguments<project::SetApprovalForAll>::set_with_meta();
+
+template ENJINSDK_EXPORT project::SetApprovalForAll&
+TransactionFragmentArguments<project::SetApprovalForAll>::set_with_encoded_data();
+
+template ENJINSDK_EXPORT project::SetApprovalForAll&
+TransactionFragmentArguments<project::SetApprovalForAll>::set_with_asset_data();
+
+template ENJINSDK_EXPORT project::SetApprovalForAll&
+TransactionFragmentArguments<project::SetApprovalForAll>::set_with_signed_txs();
+
+template ENJINSDK_EXPORT project::SetApprovalForAll&
+TransactionFragmentArguments<project::SetApprovalForAll>::set_with_error();
+
+template ENJINSDK_EXPORT project::SetApprovalForAll&
+TransactionFragmentArguments<project::SetApprovalForAll>::set_with_nonce();
+
+template ENJINSDK_EXPORT project::SetApprovalForAll&
+TransactionFragmentArguments<project::SetApprovalForAll>::set_with_state();
+
+template ENJINSDK_EXPORT project::SetApprovalForAll&
+TransactionFragmentArguments<project::SetApprovalForAll>::set_with_receipt();
+
+template ENJINSDK_EXPORT project::SetApprovalForAll&
+TransactionFragmentArguments<project::SetApprovalForAll>::set_with_receipt_logs();
+
+template ENJINSDK_EXPORT project::SetApprovalForAll&
+TransactionFragmentArguments<project::SetApprovalForAll>::set_with_log_event();
+
+template ENJINSDK_EXPORT project::SetApprovalForAll&
+TransactionFragmentArguments<project::SetApprovalForAll>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT project::SetApprovalForAll&
+TransactionFragmentArguments<project::SetApprovalForAll>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

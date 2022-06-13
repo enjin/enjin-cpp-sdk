@@ -15,41 +15,40 @@
 
 #include "enjinsdk/models/AssetSort.hpp"
 
-#include "EnumUtils.hpp"
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 std::string AssetSort::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-
-    if (field.has_value()) {
-        utils::set_string_member(document, FIELD_KEY, utils::serialize_asset_field(field.value()));
-    }
-    if (direction.has_value()) {
-        utils::set_string_member(document, DIRECTION_KEY, utils::serialize_sort_direction(direction.value()));
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
 AssetSort& AssetSort::set_field(AssetField field) {
-    AssetSort::field = field;
+    field_opt = field;
     return *this;
 }
 
 AssetSort& AssetSort::set_direction(SortDirection direction) {
-    AssetSort::direction = direction;
+    direction_opt = direction;
     return *this;
 }
 
+JsonValue AssetSort::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::try_set_field(json, "field", field_opt);
+    JsonUtils::try_set_field(json, "direction", direction_opt);
+
+    return json;
+}
+
 bool AssetSort::operator==(const AssetSort& rhs) const {
-    return field == rhs.field &&
-           direction == rhs.direction;
+    return field_opt == rhs.field_opt
+           && direction_opt == rhs.direction_opt;
 }
 
 bool AssetSort::operator!=(const AssetSort& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

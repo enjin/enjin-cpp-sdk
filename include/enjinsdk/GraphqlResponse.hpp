@@ -19,12 +19,13 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/GraphqlError.hpp"
 #include "enjinsdk/IDeserializable.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 #include "enjinsdk/internal/AbstractGraphqlResponse.hpp"
-#include "enjinsdk/internal/GraphqlResponseUtils.hpp"
 #include "enjinsdk/models/PaginationCursor.hpp"
 #include <optional>
 #include <string>
 #include <type_traits>
+#include <utility>
 #include <vector>
 
 namespace enjin::sdk::graphql {
@@ -50,7 +51,17 @@ public:
         process(raw);
     };
 
+    GraphqlResponse(const GraphqlResponse<T>& other) : result(other.esult) {
+    }
+
+    GraphqlResponse(GraphqlResponse<T>&& other) noexcept: result(std::move(other.result)) {
+    }
+
     ~GraphqlResponse() override = default;
+
+    [[nodiscard]] const std::optional<models::PaginationCursor>& get_cursor() const override {
+        return empty_cursor;
+    }
 
     /// \brief Returns the result of the response.
     /// \return Optional for the result.
@@ -62,24 +73,40 @@ public:
         return !result.has_value();
     }
 
-protected:
-    std::optional<T> result;
+    [[nodiscard]] bool is_paginated() const noexcept override {
+        return false;
+    }
 
-    void process_data(const std::string& data_json) override {
-        auto json = get_serialized_result_object(data_json);
-        if (json.has_value()) {
-            T t;
-            t.deserialize(json.value());
-            result.emplace(t);
+    GraphqlResponse<T>& operator=(const GraphqlResponse<T>& rhs) {
+        result = rhs.result;
+
+        return *this;
+    }
+
+protected:
+    void process_data(const json::JsonValue& data) override {
+        T new_result;
+
+        if (utils::JsonUtils::try_get_object_as_type(data, ResultKey, new_result)) {
+            result.emplace(std::move(new_result));
         }
     }
+
+private:
+    const std::optional<models::PaginationCursor> empty_cursor;
+    std::optional<T> result;
 };
 
 /// \brief Specialized member function for responses containing booleans instead of platform objects.
 /// \param data_json The JSON string of the member.
 template<>
-inline void GraphqlResponse<bool>::process_data(const std::string& data_json) {
-    result.emplace(get_bool_result(data_json));
+inline void GraphqlResponse<bool>::process_data(const json::JsonValue& data) {
+    bool new_result;
+    json::JsonValue value;
+
+    if (data.try_get_object_field(ResultKey, value) && value.try_get_bool(new_result)) {
+        result = new_result;
+    }
 }
 
 /// \brief Models the body of a GraphQL response for paginated responses or responses with many objects.
@@ -98,7 +125,18 @@ public:
         process(raw);
     };
 
+    GraphqlResponse(const GraphqlResponse<std::vector<T>>& other) : cursor(other.cursor), result(other.result) {
+    }
+
+    GraphqlResponse(GraphqlResponse<std::vector<T>>&& other) noexcept: cursor(std::move(other.cursor)),
+                                                                       result(std::move(other.result)) {
+    }
+
     ~GraphqlResponse() override = default;
+
+    [[nodiscard]] const std::optional<models::PaginationCursor>& get_cursor() const override {
+        return cursor;
+    }
 
     /// \brief Returns the result of the response.
     /// \return Optional for the result.
@@ -110,35 +148,77 @@ public:
         return !result.has_value();
     }
 
+    [[nodiscard]] bool is_paginated() const noexcept override {
+        return cursor.has_value();
+    }
+
+    GraphqlResponse<std::vector<T>>& operator=(const GraphqlResponse<std::vector<T>>& rhs) {
+        cursor = rhs.cursor;
+        result = rhs.result;
+
+        return *this;
+    }
+
 protected:
+    void process_data(const json::JsonValue& data) override {
+        if (is_result_paginated(data)) {
+            process_paginated_result(data);
+        } else {
+            process_non_paginated_result(data);
+        }
+    }
+
+private:
+    std::optional<models::PaginationCursor> cursor;
     std::optional<std::vector<T>> result;
 
-    void process_data(const std::string& data_json) override {
-        if (is_json_paginated(data_json)) {
-            auto pagination_pair = get_pagination_data(data_json);
-            if (pagination_pair.has_value()) {
-                cursor = pagination_pair.value().first;
+    static constexpr char CursorKey[] = "cursor";
+    static constexpr char ItemsKey[] = "items";
 
-                std::vector<T> items;
-                for (const auto& el_json : pagination_pair.value().second) {
-                    T t;
-                    t.deserialize(el_json);
-                    items.push_back(t);
-                }
-                result.emplace(items);
-            }
-        } else {
-            auto jsons = get_serialized_object_array(data_json);
-            if (jsons.has_value()) {
-                std::vector<T> items;
-                for (const auto& el_json : jsons.value()) {
-                    T t;
-                    t.deserialize(el_json);
-                    items.push_back(t);
-                }
-                result.emplace(items);
-            }
+    /// \brief Processes non-paginated data to form the result.
+    /// \param data The data JSON object.
+    void process_non_paginated_result(const json::JsonValue& data) {
+        std::vector<T> new_result;
+
+        if (utils::JsonUtils::try_get_array_as_type_array(data, ResultKey, new_result)) {
+            result.emplace(std::move(new_result));
         }
+    }
+
+    /// \brief Processes paginated data to form the result and pagination cursor.
+    /// \param data The data JSON object.
+    void process_paginated_result(const json::JsonValue& data) {
+        json::JsonValue result_object;
+
+        if (!data.try_get_object_field(ResultKey, result_object)) {
+            return;
+        }
+
+        models::PaginationCursor new_cursor;
+        std::vector<T> new_result;
+
+        if (utils::JsonUtils::try_get_object_as_type(result_object, CursorKey, new_cursor)) {
+            cursor.emplace(std::move(new_cursor));
+        }
+
+        if (utils::JsonUtils::try_get_array_as_type_array(result_object, ItemsKey, new_result)) {
+            result.emplace(std::move(new_result));
+        }
+    }
+
+    /// \brief Determines whether the data is paginated.
+    /// \param data The data JSON object.
+    /// \return Whether the data is paginated.
+    static bool is_result_paginated(const json::JsonValue& data) {
+        json::JsonValue result_object;
+
+        if (data.try_get_object_field(ResultKey, result_object)) {
+            json::JsonValue cursor_object;
+
+            return result_object.try_get_object_field(CursorKey, cursor_object) && cursor_object.is_object();
+        }
+
+        return false;
     }
 };
 

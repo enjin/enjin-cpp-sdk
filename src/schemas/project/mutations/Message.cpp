@@ -15,39 +15,41 @@
 
 #include "enjinsdk/project/Message.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
 
-Message::Message() : graphql::AbstractGraphqlRequest("enjin.sdk.project.Message") {
+Message::Message() : AbstractGraphqlRequest("enjin.sdk.project.Message"),
+                     ProjectTransactionRequestArguments<Message>() {
 }
 
 std::string Message::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
-
-    if (message.has_value()) {
-        utils::set_string_member(document, "message", message.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
 Message& Message::set_message(std::string message) {
-    Message::message = std::move(message);
+    message_opt = std::move(message);
     return *this;
 }
 
+JsonValue Message::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, ProjectTransactionRequestArguments<Message>::to_json());
+    JsonUtils::try_set_field(json, "message", message_opt);
+
+    return json;
+}
+
 bool Message::operator==(const Message& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const ProjectTransactionRequestArguments<Message>&>(*this) ==
-           static_cast<const ProjectTransactionRequestArguments<Message>&>(rhs) &&
-           message == rhs.message;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const ProjectTransactionRequestArguments<Message>&>(*this) == rhs
+           && message_opt == rhs.message_opt;
 }
 
 bool Message::operator!=(const Message& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

@@ -45,43 +45,62 @@ public:
     /// \return This request for chaining.
     GetRequest& set_transaction_id(std::string id);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const GetRequest& rhs) const;
 
     bool operator!=(const GetRequest& rhs) const;
 
 private:
-    std::optional<int> id;
-    std::optional<std::string> transaction_id;
+    std::optional<int> id_opt;
+    std::optional<std::string> transaction_id_opt;
 };
+
+// region TransactionFragmentArguments
 
 template ENJINSDK_EXPORT GetRequest&
 TransactionFragmentArguments<GetRequest>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
 
-template ENJINSDK_EXPORT GetRequest& TransactionFragmentArguments<GetRequest>::set_with_blockchain_data();
+template ENJINSDK_EXPORT GetRequest&
+TransactionFragmentArguments<GetRequest>::set_with_blockchain_data();
 
-template ENJINSDK_EXPORT GetRequest& TransactionFragmentArguments<GetRequest>::set_with_meta();
+template ENJINSDK_EXPORT GetRequest&
+TransactionFragmentArguments<GetRequest>::set_with_meta();
 
-template ENJINSDK_EXPORT GetRequest& TransactionFragmentArguments<GetRequest>::set_with_encoded_data();
+template ENJINSDK_EXPORT GetRequest&
+TransactionFragmentArguments<GetRequest>::set_with_encoded_data();
 
-template ENJINSDK_EXPORT GetRequest& TransactionFragmentArguments<GetRequest>::set_with_asset_data();
+template ENJINSDK_EXPORT GetRequest&
+TransactionFragmentArguments<GetRequest>::set_with_asset_data();
 
-template ENJINSDK_EXPORT GetRequest& TransactionFragmentArguments<GetRequest>::set_with_signed_txs();
+template ENJINSDK_EXPORT GetRequest&
+TransactionFragmentArguments<GetRequest>::set_with_signed_txs();
 
-template ENJINSDK_EXPORT GetRequest& TransactionFragmentArguments<GetRequest>::set_with_error();
+template ENJINSDK_EXPORT GetRequest&
+TransactionFragmentArguments<GetRequest>::set_with_error();
 
-template ENJINSDK_EXPORT GetRequest& TransactionFragmentArguments<GetRequest>::set_with_nonce();
+template ENJINSDK_EXPORT GetRequest&
+TransactionFragmentArguments<GetRequest>::set_with_nonce();
 
-template ENJINSDK_EXPORT GetRequest& TransactionFragmentArguments<GetRequest>::set_with_state();
+template ENJINSDK_EXPORT GetRequest&
+TransactionFragmentArguments<GetRequest>::set_with_state();
 
-template ENJINSDK_EXPORT GetRequest& TransactionFragmentArguments<GetRequest>::set_with_receipt();
+template ENJINSDK_EXPORT GetRequest&
+TransactionFragmentArguments<GetRequest>::set_with_receipt();
 
-template ENJINSDK_EXPORT GetRequest& TransactionFragmentArguments<GetRequest>::set_with_receipt_logs();
+template ENJINSDK_EXPORT GetRequest&
+TransactionFragmentArguments<GetRequest>::set_with_receipt_logs();
 
-template ENJINSDK_EXPORT GetRequest& TransactionFragmentArguments<GetRequest>::set_with_log_event();
+template ENJINSDK_EXPORT GetRequest&
+TransactionFragmentArguments<GetRequest>::set_with_log_event();
 
-template ENJINSDK_EXPORT GetRequest& TransactionFragmentArguments<GetRequest>::set_with_transaction_project_uuid();
+template ENJINSDK_EXPORT GetRequest&
+TransactionFragmentArguments<GetRequest>::set_with_transaction_project_uuid();
 
-template ENJINSDK_EXPORT GetRequest& TransactionFragmentArguments<GetRequest>::set_with_transaction_wallet_address();
+template ENJINSDK_EXPORT GetRequest&
+TransactionFragmentArguments<GetRequest>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

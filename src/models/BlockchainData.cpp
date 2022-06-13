@@ -15,36 +15,35 @@
 
 #include "enjinsdk/models/BlockchainData.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 void enjin::sdk::models::BlockchainData::deserialize(const std::string& json) {
-    rapidjson::Document document;
-    document.Parse(json.c_str());
-    if (document.IsObject()) {
-        if (document.HasMember(ENCODED_DATA_KEY) && document[ENCODED_DATA_KEY].IsString()) {
-            encoded_data.emplace(document[ENCODED_DATA_KEY].GetString());
-        }
-        if (document.HasMember(SIGNED_TRANSACTION_KEY) && document[SIGNED_TRANSACTION_KEY].IsString()) {
-            signed_transaction.emplace(document[SIGNED_TRANSACTION_KEY].GetString());
-        }
-        if (document.HasMember(SIGNED_BACKUP_TRANSACTION_KEY) && document[SIGNED_BACKUP_TRANSACTION_KEY].IsString()) {
-            signed_backup_transaction.emplace(document[SIGNED_BACKUP_TRANSACTION_KEY].GetString());
-        }
-        if (document.HasMember(SIGNED_CANCEL_TRANSACTION_KEY) && document[SIGNED_CANCEL_TRANSACTION_KEY].IsString()) {
-            signed_cancel_transaction.emplace(document[SIGNED_CANCEL_TRANSACTION_KEY].GetString());
-        }
-        if (document.HasMember(RECEIPT_KEY) && document[RECEIPT_KEY].IsObject()) {
-            receipt.emplace(utils::get_object_as_type<TransactionReceipt>(document, RECEIPT_KEY));
-        }
-        if (document.HasMember(ERROR_KEY) && document[ERROR_KEY].IsString()) {
-            error.emplace(document[ERROR_KEY].GetString());
-        }
-        if (document.HasMember(NONCE_KEY) && document[NONCE_KEY].IsString()) {
-            nonce.emplace(document[NONCE_KEY].GetString());
-        }
+    JsonValue json_object;
+
+    if (!json_object.try_parse_as_object(json)) {
+        encoded_data.reset();
+        signed_transaction.reset();
+        signed_backup_transaction.reset();
+        signed_cancel_transaction.reset();
+        receipt.reset();
+        error.reset();
+        nonce.reset();
+
+        return;
     }
+
+    JsonUtils::try_get_field(json_object, "encodedData", encoded_data);
+    JsonUtils::try_get_field(json_object, "signedTransaction", signed_transaction);
+    JsonUtils::try_get_field(json_object, "signedBackupTransaction", signed_backup_transaction);
+    JsonUtils::try_get_field(json_object, "signedCancelTransaction", signed_cancel_transaction);
+    JsonUtils::try_get_field(json_object, "receipt", receipt);
+    JsonUtils::try_get_field(json_object, "error", error);
+    JsonUtils::try_get_field(json_object, "nonce", nonce);
 }
 
 const std::optional<std::string>& BlockchainData::get_encoded_data() const {
@@ -76,17 +75,15 @@ const std::optional<std::string>& BlockchainData::get_nonce() const {
 }
 
 bool BlockchainData::operator==(const BlockchainData& rhs) const {
-    return encoded_data == rhs.encoded_data &&
-           signed_transaction == rhs.signed_transaction &&
-           signed_backup_transaction == rhs.signed_backup_transaction &&
-           signed_cancel_transaction == rhs.signed_cancel_transaction &&
-           receipt == rhs.receipt &&
-           error == rhs.error &&
-           nonce == rhs.nonce;
+    return encoded_data == rhs.encoded_data
+           && signed_transaction == rhs.signed_transaction
+           && signed_backup_transaction == rhs.signed_backup_transaction
+           && signed_cancel_transaction == rhs.signed_cancel_transaction
+           && receipt == rhs.receipt
+           && error == rhs.error
+           && nonce == rhs.nonce;
 }
 
 bool BlockchainData::operator!=(const BlockchainData& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

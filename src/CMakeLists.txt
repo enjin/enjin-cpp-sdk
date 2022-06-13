@@ -12,6 +12,7 @@ target_sources(${PROJECT_NAME}
 add_subdirectory(events)
 add_subdirectory(graphql)
 add_subdirectory(http)
+add_subdirectory(json)
 add_subdirectory(models)
 add_subdirectory(pusher)
 add_subdirectory(schemas)

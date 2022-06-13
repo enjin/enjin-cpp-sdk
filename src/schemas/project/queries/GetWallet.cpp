@@ -15,48 +15,50 @@
 
 #include "enjinsdk/project/GetWallet.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::shared;
+using namespace enjin::sdk::utils;
 
-GetWallet::GetWallet() : graphql::AbstractGraphqlRequest("enjin.sdk.project.GetWallet") {
+GetWallet::GetWallet() : AbstractGraphqlRequest("enjin.sdk.project.GetWallet"),
+                         WalletFragmentArguments<GetWallet>() {
 }
 
 std::string GetWallet::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, WalletFragmentArguments::serialize());
-
-    if (user_id.has_value()) {
-        utils::set_string_member(document, "userId", user_id.value());
-    }
-    if (eth_address.has_value()) {
-        utils::set_string_member(document, "ethAddress", eth_address.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
 GetWallet& GetWallet::set_user_id(std::string user_id) {
-    GetWallet::user_id = std::move(user_id);
+    user_id_opt = std::move(user_id);
     return *this;
 }
 
 GetWallet& GetWallet::set_eth_address(std::string eth_address) {
-    GetWallet::eth_address = std::move(eth_address);
+    eth_address_opt = std::move(eth_address);
     return *this;
 }
 
+JsonValue GetWallet::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, WalletFragmentArguments<GetWallet>::to_json());
+    JsonUtils::try_set_field(json, "userId", user_id_opt);
+    JsonUtils::try_set_field(json, "ethAddress", eth_address_opt);
+
+    return json;
+}
+
 bool GetWallet::operator==(const GetWallet& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::WalletFragmentArguments<GetWallet>&>(*this) ==
-           static_cast<const shared::WalletFragmentArguments<GetWallet>&>(rhs) &&
-           user_id == rhs.user_id &&
-           eth_address == rhs.eth_address;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const WalletFragmentArguments<GetWallet>&>(*this) == rhs
+           && user_id_opt == rhs.user_id_opt
+           && eth_address_opt == rhs.eth_address_opt;
 }
 
 bool GetWallet::operator!=(const GetWallet& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

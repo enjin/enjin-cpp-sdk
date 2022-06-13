@@ -75,28 +75,21 @@ public:
     /// \return This filter for chaining.
     BalanceFilter& set_value_is(Operator value_is);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const BalanceFilter& rhs) const;
 
     bool operator!=(const BalanceFilter& rhs) const;
 
 private:
-    std::optional<std::vector<BalanceFilter>> and_filters;
-    std::optional<std::vector<BalanceFilter>> or_filters;
-    std::optional<std::string> asset_id;
-    std::optional<std::vector<std::string>> asset_id_in;
-    std::optional<std::string> wallet;
-    std::optional<std::vector<std::string>> wallet_in;
-    std::optional<int> value;
-    std::optional<Operator> value_is;
-
-    constexpr static char AND_KEY[] = "and";
-    constexpr static char OR_KEY[] = "or";
-    constexpr static char ASSET_ID_KEY[] = "assetId";
-    constexpr static char ASSET_ID_IN_KEY[] = "assetId_in";
-    constexpr static char WALLET_KEY[] = "wallet";
-    constexpr static char WALLET_IN_KEY[] = "wallet_in";
-    constexpr static char VALUE_KEY[] = "value";
-    constexpr static char VALUE_IS_KEY[] = "value_is";
+    std::optional<std::vector<BalanceFilter>> and_filters_opt;
+    std::optional<std::vector<BalanceFilter>> or_filters_opt;
+    std::optional<std::string> asset_id_opt;
+    std::optional<std::vector<std::string>> asset_id_in_opt;
+    std::optional<std::string> wallet_opt;
+    std::optional<std::vector<std::string>> wallet_in_opt;
+    std::optional<int> value_opt;
+    std::optional<Operator> value_is_opt;
 };
 
 }

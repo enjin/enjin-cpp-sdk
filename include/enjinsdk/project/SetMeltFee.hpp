@@ -46,48 +46,74 @@ public:
     /// \remarks The ratio is in the range 0-5000 to allow fractional ratios, e.g. 1 = 0.01%, 5000 = 50%, ect...
     SetMeltFee& set_melt_fee(int melt_fee);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const SetMeltFee& rhs) const;
 
     bool operator!=(const SetMeltFee& rhs) const;
 
 private:
-    std::optional<std::string> asset_id;
-    std::optional<int> melt_fee;
+    std::optional<std::string> asset_id_opt;
+    std::optional<int> melt_fee_opt;
 };
 
-template ENJINSDK_EXPORT SetMeltFee&
-ProjectTransactionRequestArguments<SetMeltFee>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_blockchain_data();
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_meta();
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_encoded_data();
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_asset_data();
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_signed_txs();
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_error();
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_nonce();
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_state();
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_receipt();
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_receipt_logs();
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_log_event();
-
-template ENJINSDK_EXPORT SetMeltFee&
-ProjectTransactionRequestArguments<SetMeltFee>::set_with_transaction_project_uuid();
-
-template ENJINSDK_EXPORT SetMeltFee&
-ProjectTransactionRequestArguments<SetMeltFee>::set_with_transaction_wallet_address();
+// region ProjectTransactionRequestArguments
 
 template ENJINSDK_EXPORT SetMeltFee&
 ProjectTransactionRequestArguments<SetMeltFee>::set_eth_address(std::string address);
+
+// endregion ProjectTransactionRequestArguments
+
+}
+
+namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_transaction_asset_id_format(
+        models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_blockchain_data();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_meta();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_encoded_data();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_asset_data();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_signed_txs();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_error();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_nonce();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_state();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_receipt();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_receipt_logs();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_log_event();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

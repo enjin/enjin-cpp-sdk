@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
+#include "enjinsdk/JsonValue.hpp"
 #include "enjinsdk/models/TransactionEvent.hpp"
 #include <optional>
 #include <string>
@@ -47,13 +48,13 @@ public:
     /// \return The hash.
     [[nodiscard]] const std::optional<std::string>& get_transaction_hash() const;
 
-    /// \brief Returns the serialized data objects.
-    /// \return The serialized data objects.
-    [[nodiscard]] const std::optional<std::vector<std::string>>& get_data() const;
+    /// \brief Returns the data objects.
+    /// \return The data objects.
+    [[nodiscard]] const std::optional<std::vector<json::JsonValue>>& get_data() const;
 
-    /// \brief Returns the serialized topics.
-    /// \return The serialized topics.
-    [[nodiscard]] const std::optional<std::vector<std::string>>& get_topics() const;
+    /// \brief Returns the topics.
+    /// \return The topics.
+    [[nodiscard]] const std::optional<std::vector<json::JsonValue>>& get_topics() const;
 
     /// \brief Returns the transaction (request) event.
     /// \return The transaction event.
@@ -67,16 +68,9 @@ private:
     std::optional<int> block_number;
     std::optional<std::string> address;
     std::optional<std::string> transaction_hash;
-    std::optional<std::vector<std::string>> data;
-    std::optional<std::vector<std::string>> topics;
+    std::optional<std::vector<json::JsonValue>> data;
+    std::optional<std::vector<json::JsonValue>> topics;
     std::optional<TransactionEvent> event;
-
-    constexpr static char BLOCK_NUMBER_KEY[] = "blockNumber";
-    constexpr static char ADDRESS_KEY[] = "address";
-    constexpr static char TRANSACTION_HASH_KEY[] = "transactionHash";
-    constexpr static char DATA_KEY[] = "data";
-    constexpr static char TOPICS_KEY[] = "topics";
-    constexpr static char EVENT_KEY[] = "event";
 };
 
 }

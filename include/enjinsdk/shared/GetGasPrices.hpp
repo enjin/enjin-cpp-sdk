@@ -31,6 +31,8 @@ public:
 
     [[nodiscard]] std::string serialize() const override;
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const GetGasPrices& rhs) const;
 
     bool operator!=(const GetGasPrices& rhs) const;

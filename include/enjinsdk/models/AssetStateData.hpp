@@ -84,16 +84,6 @@ private:
     std::optional<std::string> circulating_supply;
     std::optional<std::string> mintable_supply;
     std::optional<std::string> total_supply;
-
-    constexpr static char NONFUNGIBLE_KEY[] = "nonFungible";
-    constexpr static char BLOCK_HEIGHT_KEY[] = "blockHeight";
-    constexpr static char CREATOR_KEY[] = "creator";
-    constexpr static char FIRST_BLOCK_KEY[] = "firstBlock";
-    constexpr static char RESERVE_KEY[] = "reserve";
-    constexpr static char SUPPLY_MODEL_KEY[] = "supplyModel";
-    constexpr static char CIRCULATING_SUPPLY_KEY[] = "circulatingSupply";
-    constexpr static char MINTABLE_SUPPLY_KEY[] = "mintableSupply";
-    constexpr static char TOTAL_SUPPLY_KEY[] = "totalSupply";
 };
 
 }

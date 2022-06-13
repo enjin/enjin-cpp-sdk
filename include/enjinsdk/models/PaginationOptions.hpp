@@ -42,16 +42,15 @@ public:
     /// \return This input for chaining.
     PaginationOptions& set_limit(int limit);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const PaginationOptions& rhs) const;
 
     bool operator!=(const PaginationOptions& rhs) const;
 
 private:
-    std::optional<int> page;
-    std::optional<int> limit;
-
-    constexpr static char PAGE_KEY[] = "page";
-    constexpr static char LIMIT_KEY[] = "limit";
+    std::optional<int> page_opt;
+    std::optional<int> limit_opt;
 };
 
 }

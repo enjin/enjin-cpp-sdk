@@ -15,8 +15,10 @@
 
 #include "enjinsdk/models/Balance.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
+using namespace enjin::sdk::json;
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::serialization;
 using namespace enjin::sdk::utils;
@@ -28,32 +30,23 @@ public:
     ~Impl() override = default;
 
     void deserialize(const std::string& json) override {
-        rapidjson::Document document;
-        document.Parse(json.c_str());
+        JsonValue json_object;
 
-        if (!document.IsObject()) {
+        if (!json_object.try_parse_as_object(json)) {
+            id.reset();
+            index.reset();
+            value.reset();
+            project.reset();
+            wallet.reset();
+
             return;
         }
 
-        if (document.HasMember(ID_KEY) && document[ID_KEY].IsString()) {
-            id.emplace(document[ID_KEY].GetString());
-        }
-
-        if (document.HasMember(INDEX_KEY) && document[INDEX_KEY].IsString()) {
-            index.emplace(document[INDEX_KEY].GetString());
-        }
-
-        if (document.HasMember(VALUE_KEY) && document[VALUE_KEY].IsInt()) {
-            value.emplace(document[VALUE_KEY].GetInt());
-        }
-
-        if (document.HasMember(PROJECT_KEY) && document[PROJECT_KEY].IsObject()) {
-            project.emplace(get_object_as_type<Project>(document, PROJECT_KEY));
-        }
-
-        if (document.HasMember(WALLET_KEY) && document[WALLET_KEY].IsObject()) {
-            wallet.emplace(get_object_as_type<Wallet>(document, WALLET_KEY));
-        }
+        JsonUtils::try_get_field(json_object, "id", id);
+        JsonUtils::try_get_field(json_object, "index", index);
+        JsonUtils::try_get_field(json_object, "value", value);
+        JsonUtils::try_get_field(json_object, "project", project);
+        JsonUtils::try_get_field(json_object, "wallet", wallet);
     }
 
     [[nodiscard]] const std::optional<std::string>& get_id() const {
@@ -94,12 +87,6 @@ private:
     std::optional<int> value;
     std::optional<Project> project;
     std::optional<Wallet> wallet;
-
-    constexpr static char ID_KEY[] = "id";
-    constexpr static char INDEX_KEY[] = "index";
-    constexpr static char VALUE_KEY[] = "value";
-    constexpr static char PROJECT_KEY[] = "project";
-    constexpr static char WALLET_KEY[] = "wallet";
 };
 
 Balance::Balance() : impl(std::make_unique<Impl>()) {
@@ -142,7 +129,7 @@ bool Balance::operator==(const Balance& rhs) const {
 }
 
 bool Balance::operator!=(const Balance& rhs) const {
-    return !(*this == rhs);
+    return *impl != *rhs.impl;
 }
 
 Balance& enjin::sdk::models::Balance::operator=(const Balance& rhs) {

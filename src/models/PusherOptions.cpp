@@ -15,21 +15,25 @@
 
 #include "enjinsdk/models/PusherOptions.hpp"
 
-#include "rapidjson/document.h"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 void PusherOptions::deserialize(const std::string& json) {
-    rapidjson::Document document;
-    document.Parse(json.c_str());
-    if (document.IsObject()) {
-        if (document.HasMember(CLUSTER_KEY) && document[CLUSTER_KEY].IsString()) {
-            cluster.emplace(document[CLUSTER_KEY].GetString());
-        }
-        if (document.HasMember(ENCRYPTED_KEY) && document[ENCRYPTED_KEY].IsBool()) {
-            encrypted.emplace(document[ENCRYPTED_KEY].GetBool());
-        }
+    JsonValue json_object;
+
+    if (!json_object.try_parse_as_object(json)) {
+        cluster.reset();
+        encrypted.reset();
+
+        return;
     }
+
+    JsonUtils::try_get_field(json_object, "cluster", cluster);
+    JsonUtils::try_get_field(json_object, "encrypted", encrypted);
 }
 
 const std::optional<std::string>& PusherOptions::get_cluster() const {
@@ -41,12 +45,10 @@ const std::optional<bool>& PusherOptions::get_encrypted() const {
 }
 
 bool PusherOptions::operator==(const PusherOptions& rhs) const {
-    return cluster == rhs.cluster &&
-           encrypted == rhs.encrypted;
+    return cluster == rhs.cluster
+           && encrypted == rhs.encrypted;
 }
 
 bool PusherOptions::operator!=(const PusherOptions& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

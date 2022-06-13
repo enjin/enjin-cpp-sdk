@@ -17,8 +17,8 @@
 
 #include "HttpClient.hpp"
 
-#include "EnumUtils.hpp"
 #include "httplib.h"
+#include "enjinsdk/EnumUtils.hpp"
 #include "enjinsdk_utils/StringUtils.hpp"
 #include <chrono>
 #include <iterator>
@@ -28,7 +28,9 @@
 #include <stdexcept>
 #include <utility>
 
-namespace enjin::sdk::http {
+using namespace enjin::sdk::http;
+using namespace enjin::sdk::utils;
+using namespace enjin::utils;
 
 class HttpClient::Impl : public IHttpClient {
 public:
@@ -70,7 +72,7 @@ public:
 
             auto req = httplib::Request();
             req.path = request.get_path_query_fragment().value();
-            req.method = utils::serialize_http_method(request.get_method().value());
+            req.method = EnumUtils::serialize_http_method(request.get_method().value());
             req.headers = create_headers(request);
             req.body = request.get_body().value();
 
@@ -87,7 +89,7 @@ public:
             }
 
             auto builder = HttpResponse::builder();
-            for (auto&[key, value]: res->headers) {
+            for (auto& [key, value]: res->headers) {
                 builder.add_header(key, value);
             }
 
@@ -161,7 +163,7 @@ private:
 
         std::stringstream ss;
 
-        const auto method = enjin::utils::to_upper(req.method);
+        const auto method = to_upper(req.method);
         const auto uri = base_uri + req.path;
         const auto content_length = req.body.size();
 
@@ -175,7 +177,7 @@ private:
         ss << "--> " << method << " " << uri << "\n";
 
         // Headers
-        for (const auto&[k, v]: req.headers) {
+        for (const auto& [k, v]: req.headers) {
             ss << k << ": " << v << "\n";
         }
 
@@ -212,7 +214,7 @@ private:
         }
 
         // Headers
-        for (const auto&[k, v]: res->headers) {
+        for (const auto& [k, v]: res->headers) {
             ss << k << ": " << v << "\n";
         }
 
@@ -336,6 +338,4 @@ void HttpClient::set_default_request_header(std::string key, std::string value) 
 
 void HttpClient::set_logger(HttpLogLevel level, std::shared_ptr<utils::LoggerProvider> logger_provider) {
     impl->set_logger(level, std::move(logger_provider));
-}
-
 }

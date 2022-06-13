@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "EnumUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 #include "gtest/gtest.h"
 #include <string>
 #include <tuple>
@@ -30,7 +30,7 @@ TEST_P(AssetTransferableTest, DeserializeAssetTransferableReturnsExpectedValue) 
     const std::string& str = std::get<0>(GetParam());
 
     // Act
-    AssetTransferable actual = deserialize_asset_transferable(str);
+    AssetTransferable actual = EnumUtils::deserialize_asset_transferable(str);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -42,7 +42,7 @@ TEST_P(AssetTransferableTest, SerializeAssetTransferableReturnsExpectedString) {
     AssetTransferable value = std::get<1>(GetParam());
 
     // Act
-    std::string actual = serialize_asset_transferable(value);
+    std::string actual = EnumUtils::serialize_asset_transferable(value);
 
     // Assert
     ASSERT_EQ(expected, actual);

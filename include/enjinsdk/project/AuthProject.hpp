@@ -43,13 +43,15 @@ public:
     /// \return This request for chaining.
     AuthProject& set_secret(std::string secret);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const AuthProject& rhs) const;
 
     bool operator!=(const AuthProject& rhs) const;
 
 private:
-    std::optional<std::string> uuid;
-    std::optional<std::string> secret;
+    std::optional<std::string> uuid_opt;
+    std::optional<std::string> secret_opt;
 };
 
 }

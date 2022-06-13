@@ -68,13 +68,6 @@ private:
     std::optional<std::string> collapsing;
     std::optional<std::string> annual_value;
     std::optional<std::string> annual_percentage;
-
-    constexpr static char FIXED_KEY[] = "fixed";
-    constexpr static char SETTABLE_KEY[] = "settable";
-    constexpr static char INFINITE_KEY[] = "infinite";
-    constexpr static char COLLAPSING_KEY[] = "collapsing";
-    constexpr static char ANNUAL_VALUE_KEY[] = "annualValue";
-    constexpr static char ANNUAL_PERCENTAGE_KEY[] = "annualPercentage";
 };
 
 }

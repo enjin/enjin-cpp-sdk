@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "EnumUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 #include "gtest/gtest.h"
 #include <string>
 #include <tuple>
@@ -30,7 +30,7 @@ TEST_P(HttpMethodTest, DeserializeEventTypeReturnsExpectedValue) {
     const std::string& str = std::get<0>(GetParam());
 
     // Act
-    HttpMethod actual = deserialize_http_method(str);
+    HttpMethod actual = EnumUtils::deserialize_http_method(str);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -42,7 +42,7 @@ TEST_P(HttpMethodTest, SerializeEventTypeReturnsExpectedString) {
     const HttpMethod value = std::get<1>(GetParam());
 
     // Act
-    std::string actual = serialize_http_method(value);
+    std::string actual = EnumUtils::serialize_http_method(value);
 
     // Assert
     ASSERT_EQ(expected, actual);

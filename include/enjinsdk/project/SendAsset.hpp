@@ -60,50 +60,77 @@ public:
     /// \return This request for chaining.
     SendAsset& set_data(std::string data);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const SendAsset& rhs) const;
 
     bool operator!=(const SendAsset& rhs) const;
 
 private:
-    std::optional<std::string> recipient_address;
-    std::optional<std::string> asset_id;
-    std::optional<std::string> asset_index;
-    std::optional<std::string> value;
-    std::optional<std::string> data;
+    std::optional<std::string> recipient_address_opt;
+    std::optional<std::string> asset_id_opt;
+    std::optional<std::string> asset_index_opt;
+    std::optional<std::string> value_opt;
+    std::optional<std::string> data_opt;
 };
 
-template ENJINSDK_EXPORT SendAsset&
-ProjectTransactionRequestArguments<SendAsset>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
-
-template ENJINSDK_EXPORT SendAsset& ProjectTransactionRequestArguments<SendAsset>::set_with_blockchain_data();
-
-template ENJINSDK_EXPORT SendAsset& ProjectTransactionRequestArguments<SendAsset>::set_with_meta();
-
-template ENJINSDK_EXPORT SendAsset& ProjectTransactionRequestArguments<SendAsset>::set_with_encoded_data();
-
-template ENJINSDK_EXPORT SendAsset& ProjectTransactionRequestArguments<SendAsset>::set_with_asset_data();
-
-template ENJINSDK_EXPORT SendAsset& ProjectTransactionRequestArguments<SendAsset>::set_with_signed_txs();
-
-template ENJINSDK_EXPORT SendAsset& ProjectTransactionRequestArguments<SendAsset>::set_with_error();
-
-template ENJINSDK_EXPORT SendAsset& ProjectTransactionRequestArguments<SendAsset>::set_with_nonce();
-
-template ENJINSDK_EXPORT SendAsset& ProjectTransactionRequestArguments<SendAsset>::set_with_state();
-
-template ENJINSDK_EXPORT SendAsset& ProjectTransactionRequestArguments<SendAsset>::set_with_receipt();
-
-template ENJINSDK_EXPORT SendAsset& ProjectTransactionRequestArguments<SendAsset>::set_with_receipt_logs();
-
-template ENJINSDK_EXPORT SendAsset& ProjectTransactionRequestArguments<SendAsset>::set_with_log_event();
-
-template ENJINSDK_EXPORT SendAsset& ProjectTransactionRequestArguments<SendAsset>::set_with_transaction_project_uuid();
-
-template ENJINSDK_EXPORT SendAsset&
-ProjectTransactionRequestArguments<SendAsset>::set_with_transaction_wallet_address();
+// region ProjectTransactionRequestArguments
 
 template ENJINSDK_EXPORT SendAsset&
 ProjectTransactionRequestArguments<SendAsset>::set_eth_address(std::string address);
+
+// endregion ProjectTransactionRequestArguments
+
+}
+
+namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
+
+template ENJINSDK_EXPORT project::SendAsset&
+TransactionFragmentArguments<project::SendAsset>::set_transaction_asset_id_format(
+        models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT project::SendAsset&
+TransactionFragmentArguments<project::SendAsset>::set_with_blockchain_data();
+
+template ENJINSDK_EXPORT project::SendAsset&
+TransactionFragmentArguments<project::SendAsset>::set_with_meta();
+
+template ENJINSDK_EXPORT project::SendAsset&
+TransactionFragmentArguments<project::SendAsset>::set_with_encoded_data();
+
+template ENJINSDK_EXPORT project::SendAsset&
+TransactionFragmentArguments<project::SendAsset>::set_with_asset_data();
+
+template ENJINSDK_EXPORT project::SendAsset&
+TransactionFragmentArguments<project::SendAsset>::set_with_signed_txs();
+
+template ENJINSDK_EXPORT project::SendAsset&
+TransactionFragmentArguments<project::SendAsset>::set_with_error();
+
+template ENJINSDK_EXPORT project::SendAsset&
+TransactionFragmentArguments<project::SendAsset>::set_with_nonce();
+
+template ENJINSDK_EXPORT project::SendAsset&
+TransactionFragmentArguments<project::SendAsset>::set_with_state();
+
+template ENJINSDK_EXPORT project::SendAsset&
+TransactionFragmentArguments<project::SendAsset>::set_with_receipt();
+
+template ENJINSDK_EXPORT project::SendAsset&
+TransactionFragmentArguments<project::SendAsset>::set_with_receipt_logs();
+
+template ENJINSDK_EXPORT project::SendAsset&
+TransactionFragmentArguments<project::SendAsset>::set_with_log_event();
+
+template ENJINSDK_EXPORT project::SendAsset&
+TransactionFragmentArguments<project::SendAsset>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT project::SendAsset&
+TransactionFragmentArguments<project::SendAsset>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

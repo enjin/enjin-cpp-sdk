@@ -15,40 +15,40 @@
 
 #include "enjinsdk/models/PaginationOptions.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 std::string PaginationOptions::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-
-    if (page.has_value()) {
-        utils::set_integer_member(document, PAGE_KEY, page.value());
-    }
-    if (limit.has_value()) {
-        utils::set_integer_member(document, LIMIT_KEY, limit.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
 PaginationOptions& PaginationOptions::set_page(int page) {
-    PaginationOptions::page = page;
+    page_opt = page;
     return *this;
 }
 
 PaginationOptions& PaginationOptions::set_limit(int limit) {
-    PaginationOptions::limit = limit;
+    limit_opt = limit;
     return *this;
 }
 
+JsonValue PaginationOptions::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::try_set_field(json, "page", page_opt);
+    JsonUtils::try_set_field(json, "limit", limit_opt);
+
+    return json;
+}
+
 bool PaginationOptions::operator==(const PaginationOptions& rhs) const {
-    return page == rhs.page &&
-           limit == rhs.limit;
+    return page_opt == rhs.page_opt
+           && limit_opt == rhs.limit_opt;
 }
 
 bool PaginationOptions::operator!=(const PaginationOptions& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

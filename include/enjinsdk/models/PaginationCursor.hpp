@@ -78,15 +78,6 @@ private:
     std::optional<int> to;
     std::optional<int> last_page;
     std::optional<bool> has_more_pages;
-
-    constexpr static char TOTAL_KEY[] = "total";
-    constexpr static char PER_PAGE_KEY[] = "perPage";
-    constexpr static char CURRENT_PAGE_KEY[] = "currentPage";
-    constexpr static char HAS_PAGES_KEY[] = "hasPages";
-    constexpr static char FROM_KEY[] = "from";
-    constexpr static char TO_KEY[] = "to";
-    constexpr static char LAST_PAGE_KEY[] = "lastPage";
-    constexpr static char HAS_MORE_PAGES_KEY[] = "hasMorePages";
 };
 
 }

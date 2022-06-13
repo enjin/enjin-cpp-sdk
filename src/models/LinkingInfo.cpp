@@ -15,21 +15,25 @@
 
 #include "enjinsdk/models/LinkingInfo.hpp"
 
-#include "rapidjson/document.h"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
 void enjin::sdk::models::LinkingInfo::deserialize(const std::string& json) {
-    rapidjson::Document document;
-    document.Parse(json.c_str());
-    if (document.IsObject()) {
-        if (document.HasMember(CODE_KEY) && document[CODE_KEY].IsString()) {
-            code.emplace(document[CODE_KEY].GetString());
-        }
-        if (document.HasMember(QR_KEY) && document[QR_KEY].IsString()) {
-            qr.emplace(document[QR_KEY].GetString());
-        }
+    JsonValue json_object;
+
+    if (!json_object.try_parse_as_object(json)) {
+        code.reset();
+        qr.reset();
+
+        return;
     }
+
+    JsonUtils::try_get_field(json_object, "code", code);
+    JsonUtils::try_get_field(json_object, "qr", qr);
 }
 
 const std::optional<std::string>& LinkingInfo::get_code() const {
@@ -41,12 +45,10 @@ const std::optional<std::string>& LinkingInfo::get_qr() const {
 }
 
 bool LinkingInfo::operator==(const LinkingInfo& rhs) const {
-    return code == rhs.code &&
-           qr == rhs.qr;
+    return code == rhs.code
+           && qr == rhs.qr;
 }
 
 bool LinkingInfo::operator!=(const LinkingInfo& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

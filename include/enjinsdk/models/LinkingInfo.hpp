@@ -48,9 +48,6 @@ public:
 private:
     std::optional<std::string> code;
     std::optional<std::string> qr;
-
-    constexpr static char CODE_KEY[] = "code";
-    constexpr static char QR_KEY[] = "qr";
 };
 
 }

@@ -15,45 +15,46 @@
 
 #include "enjinsdk/shared/GetBalances.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 #include <utility>
 
-namespace enjin::sdk::shared {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::shared;
+using namespace enjin::sdk::utils;
 
-GetBalances::GetBalances() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.GetBalances") {
+GetBalances::GetBalances() : AbstractGraphqlRequest("enjin.sdk.shared.GetBalances"),
+                             BalanceFragmentArguments<GetBalances>(),
+                             PaginationArguments<GetBalances>() {
 }
 
 std::string GetBalances::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_objects_to_document(document, {
-            BalanceFragmentArguments::serialize(),
-            PaginationArguments::serialize()
-    });
-
-    if (filter.has_value()) {
-        utils::set_object_member_from_type<models::BalanceFilter>(document, "filter", filter.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
-GetBalances& GetBalances::set_filter(models::BalanceFilter filter) {
-    GetBalances::filter = std::move(filter);
+GetBalances& GetBalances::set_filter(BalanceFilter filter) {
+    filter_opt = std::move(filter);
     return *this;
 }
 
+JsonValue GetBalances::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, BalanceFragmentArguments<GetBalances>::to_json());
+    JsonUtils::join_object(json, PaginationArguments<GetBalances>::to_json());
+    JsonUtils::try_set_field(json, "filter", filter_opt);
+
+    return json;
+}
+
 bool GetBalances::operator==(const GetBalances& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const BalanceFragmentArguments<GetBalances>&>(*this) ==
-           static_cast<const BalanceFragmentArguments<GetBalances>&>(rhs) &&
-           static_cast<const PaginationArguments<GetBalances>&>(*this) ==
-           static_cast<const PaginationArguments<GetBalances>&>(rhs) &&
-           filter == rhs.filter;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const BalanceFragmentArguments<GetBalances>&>(*this) == rhs
+           && static_cast<const PaginationArguments<GetBalances>&>(*this) == rhs
+           && filter_opt == rhs.filter_opt;
 }
 
 bool GetBalances::operator!=(const GetBalances& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

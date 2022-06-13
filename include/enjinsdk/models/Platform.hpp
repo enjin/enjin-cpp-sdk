@@ -65,12 +65,6 @@ private:
     std::optional<std::string> network;
     std::optional<Contracts> contracts;
     std::optional<Notifications> notifications;
-
-    constexpr static char ID_KEY[] = "id";
-    constexpr static char NAME_KEY[] = "name";
-    constexpr static char NETWORK_KEY[] = "network";
-    constexpr static char CONTRACTS_KEY[] = "contracts";
-    constexpr static char NOTIFICATIONS_KEY[] = "notifications";
 };
 
 }

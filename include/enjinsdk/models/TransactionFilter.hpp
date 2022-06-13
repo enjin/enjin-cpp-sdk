@@ -131,50 +131,32 @@ public:
     /// \return This filter for chaining.
     TransactionFilter& set_wallet_in(std::vector<std::string> wallets);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const TransactionFilter& rhs) const;
 
     bool operator!=(const TransactionFilter& rhs) const;
 
 private:
-    std::optional<std::vector<TransactionFilter>> and_filters;
-    std::optional<std::vector<TransactionFilter>> or_filters;
-    std::optional<std::string> id;
-    std::optional<std::vector<std::string>> id_in;
-    std::optional<std::string> transaction_id;
-    std::optional<std::vector<std::string>> transaction_id_in;
-    std::optional<std::string> asset_id;
-    std::optional<std::vector<std::string>> asset_id_in;
-    std::optional<RequestType> type;
-    std::optional<std::vector<RequestType>> type_in;
-    std::optional<int> value;
-    std::optional<int> value_gt;
-    std::optional<int> value_gte;
-    std::optional<int> value_lt;
-    std::optional<int> value_lte;
-    std::optional<RequestState> state;
-    std::optional<std::vector<RequestState>> state_in;
-    std::optional<std::string> wallet;
-    std::optional<std::vector<std::string>> wallet_in;
-
-    constexpr static char AND_KEY[] = "and";
-    constexpr static char OR_KEY[] = "or";
-    constexpr static char ID_KEY[] = "id";
-    constexpr static char ID_IN_KEY[] = "id_in";
-    constexpr static char TRANSACTION_ID_KEY[] = "transactionId";
-    constexpr static char TRANSACTION_ID_IN_KEY[] = "transactionId_in";
-    constexpr static char ASSET_ID_KEY[] = "assetId";
-    constexpr static char ASSET_ID_IN_KEY[] = "assetId_in";
-    constexpr static char TYPE_KEY[] = "type";
-    constexpr static char TYPE_IN_KEY[] = "type_in";
-    constexpr static char VALUE_KEY[] = "value";
-    constexpr static char VALUE_GT_KEY[] = "value_gt";
-    constexpr static char VALUE_GTE_KEY[] = "value_gte";
-    constexpr static char VALUE_LT_KEY[] = "value_lt";
-    constexpr static char VALUE_LTE_KEY[] = "value_lte";
-    constexpr static char STATE_KEY[] = "state";
-    constexpr static char STATE_IN_KEY[] = "state_in";
-    constexpr static char WALLET_KEY[] = "wallet";
-    constexpr static char WALLET_IN_KEY[] = "wallet_in";
+    std::optional<std::vector<TransactionFilter>> and_filters_opt;
+    std::optional<std::vector<TransactionFilter>> or_filters_opt;
+    std::optional<std::string> id_opt;
+    std::optional<std::vector<std::string>> id_in_opt;
+    std::optional<std::string> transaction_id_opt;
+    std::optional<std::vector<std::string>> transaction_id_in_opt;
+    std::optional<std::string> asset_id_opt;
+    std::optional<std::vector<std::string>> asset_id_in_opt;
+    std::optional<RequestType> type_opt;
+    std::optional<std::vector<RequestType>> type_in_opt;
+    std::optional<int> value_opt;
+    std::optional<int> value_gt_opt;
+    std::optional<int> value_gte_opt;
+    std::optional<int> value_lt_opt;
+    std::optional<int> value_lte_opt;
+    std::optional<RequestState> state_opt;
+    std::optional<std::vector<RequestState>> state_in_opt;
+    std::optional<std::string> wallet_opt;
+    std::optional<std::vector<std::string>> wallet_in_opt;
 };
 
 }

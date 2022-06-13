@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "EnumUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 #include "gtest/gtest.h"
 #include <string>
 #include <tuple>
@@ -30,7 +30,7 @@ TEST_P(RequestStateTest, DeserializeRequestStateReturnsExpectedValue) {
     const std::string& str = std::get<0>(GetParam());
 
     // Act
-    RequestState actual = deserialize_request_state(str);
+    RequestState actual = EnumUtils::deserialize_request_state(str);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -42,7 +42,7 @@ TEST_P(RequestStateTest, SerializeRequestStateReturnsExpectedString) {
     RequestState value = std::get<1>(GetParam());
 
     // Act
-    std::string actual = serialize_request_state(value);
+    std::string actual = EnumUtils::serialize_request_state(value);
 
     // Assert
     ASSERT_EQ(expected, actual);

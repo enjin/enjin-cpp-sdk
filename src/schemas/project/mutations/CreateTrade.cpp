@@ -15,59 +15,57 @@
 
 #include "enjinsdk/project/CreateTrade.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
 #include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
 
-CreateTrade::CreateTrade() : graphql::AbstractGraphqlRequest("enjin.sdk.project.CreateTrade") {
-
+CreateTrade::CreateTrade() : AbstractGraphqlRequest("enjin.sdk.project.CreateTrade"),
+                             ProjectTransactionRequestArguments<CreateTrade>() {
 }
 
 std::string CreateTrade::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
-
-    if (asking_assets.has_value()) {
-        utils::set_array_member_from_type_vector<models::Trade>(document, "askingAssets", asking_assets.value());
-    }
-    if (offering_assets.has_value()) {
-        utils::set_array_member_from_type_vector<models::Trade>(document, "offeringAssets", offering_assets.value());
-    }
-    if (recipient_address.has_value()) {
-        utils::set_string_member(document, "recipientAddress", recipient_address.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
-CreateTrade& CreateTrade::set_asking_assets(std::vector<models::Trade> assets) {
-    asking_assets = std::move(assets);
+CreateTrade& CreateTrade::set_asking_assets(std::vector<Trade> assets) {
+    asking_assets_opt = std::move(assets);
     return *this;
 }
 
-CreateTrade& CreateTrade::set_offering_assets(std::vector<models::Trade> assets) {
-    offering_assets = std::move(assets);
+CreateTrade& CreateTrade::set_offering_assets(std::vector<Trade> assets) {
+    offering_assets_opt = std::move(assets);
     return *this;
 }
 
 CreateTrade& CreateTrade::set_recipient_address(std::string recipient_address) {
-    CreateTrade::recipient_address = std::move(recipient_address);
+    recipient_address_opt = std::move(recipient_address);
     return *this;
 }
 
+JsonValue CreateTrade::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, ProjectTransactionRequestArguments<CreateTrade>::to_json());
+    JsonUtils::try_set_field(json, "askingAssets", asking_assets_opt);
+    JsonUtils::try_set_field(json, "offeringAssets", offering_assets_opt);
+    JsonUtils::try_set_field(json, "recipientAddress", recipient_address_opt);
+
+    return json;
+}
+
 bool CreateTrade::operator==(const CreateTrade& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const ProjectTransactionRequestArguments<CreateTrade>&>(*this) ==
-           static_cast<const ProjectTransactionRequestArguments<CreateTrade>&>(rhs) &&
-           asking_assets == rhs.asking_assets &&
-           offering_assets == rhs.offering_assets &&
-           recipient_address == rhs.recipient_address;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const ProjectTransactionRequestArguments<CreateTrade>&>(*this) == rhs
+           && asking_assets_opt == rhs.asking_assets_opt
+           && offering_assets_opt == rhs.offering_assets_opt
+           && recipient_address_opt == rhs.recipient_address_opt;
 }
 
 bool CreateTrade::operator!=(const CreateTrade& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }
