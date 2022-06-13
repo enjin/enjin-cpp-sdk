@@ -20,63 +20,130 @@
 
 using namespace enjin::sdk::json;
 using namespace enjin::sdk::models;
+using namespace enjin::sdk::serialization;
 using namespace enjin::sdk::utils;
 
-void SupplyModels::deserialize(const std::string& json) {
-    JsonValue json_object;
+class SupplyModels::Impl final : public IDeserializable {
+public:
+    Impl() = default;
 
-    if (!json_object.try_parse_as_object(json)) {
-        fixed.reset();
-        settable.reset();
-        infinite.reset();
-        collapsing.reset();
-        annual_value.reset();
-        annual_percentage.reset();
+    ~Impl() override = default;
 
-        return;
+    void deserialize(const std::string& json) override {
+        JsonValue json_object;
+
+        if (!json_object.try_parse_as_object(json)) {
+            fixed.reset();
+            settable.reset();
+            infinite.reset();
+            collapsing.reset();
+            annual_value.reset();
+            annual_percentage.reset();
+
+            return;
+        }
+
+        JsonUtils::try_get_field(json_object, "fixed", fixed);
+        JsonUtils::try_get_field(json_object, "settable", settable);
+        JsonUtils::try_get_field(json_object, "infinite", infinite);
+        JsonUtils::try_get_field(json_object, "collapsing", collapsing);
+        JsonUtils::try_get_field(json_object, "annualValue", annual_value);
+        JsonUtils::try_get_field(json_object, "annualPercentage", annual_percentage);
     }
 
-    JsonUtils::try_get_field(json_object, "fixed", fixed);
-    JsonUtils::try_get_field(json_object, "settable", settable);
-    JsonUtils::try_get_field(json_object, "infinite", infinite);
-    JsonUtils::try_get_field(json_object, "collapsing", collapsing);
-    JsonUtils::try_get_field(json_object, "annualValue", annual_value);
-    JsonUtils::try_get_field(json_object, "annualPercentage", annual_percentage);
+    [[nodiscard]] const std::optional<std::string>& get_fixed() const {
+        return fixed;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_settable() const {
+        return settable;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_infinite() const {
+        return infinite;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_collapsing() const {
+        return collapsing;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_annual_value() const {
+        return annual_value;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_annual_percentage() const {
+        return annual_percentage;
+    }
+
+    bool operator==(const Impl& rhs) const {
+        return fixed == rhs.fixed
+               && settable == rhs.settable
+               && infinite == rhs.infinite
+               && collapsing == rhs.collapsing
+               && annual_value == rhs.annual_value
+               && annual_percentage == rhs.annual_percentage;
+    }
+
+    bool operator!=(const Impl& rhs) const {
+        return !(*this == rhs);
+    }
+
+private:
+    std::optional<std::string> fixed;
+    std::optional<std::string> settable;
+    std::optional<std::string> infinite;
+    std::optional<std::string> collapsing;
+    std::optional<std::string> annual_value;
+    std::optional<std::string> annual_percentage;
+};
+
+SupplyModels::SupplyModels() : pimpl(std::make_unique<Impl>()) {
+}
+
+SupplyModels::SupplyModels(const SupplyModels& other) : pimpl(std::make_unique<Impl>(*other.pimpl)) {
+}
+
+SupplyModels::SupplyModels(SupplyModels&& other) noexcept = default;
+
+SupplyModels::~SupplyModels() = default;
+
+void SupplyModels::deserialize(const std::string& json) {
+    pimpl->deserialize(json);
 }
 
 const std::optional<std::string>& SupplyModels::get_fixed() const {
-    return fixed;
+    return pimpl->get_fixed();
 }
 
 const std::optional<std::string>& SupplyModels::get_settable() const {
-    return settable;
+    return pimpl->get_settable();
 }
 
 const std::optional<std::string>& SupplyModels::get_infinite() const {
-    return infinite;
+    return pimpl->get_infinite();
 }
 
 const std::optional<std::string>& SupplyModels::get_collapsing() const {
-    return collapsing;
+    return pimpl->get_collapsing();
 }
 
 const std::optional<std::string>& SupplyModels::get_annual_value() const {
-    return annual_value;
+    return pimpl->get_annual_value();
 }
 
 const std::optional<std::string>& SupplyModels::get_annual_percentage() const {
-    return annual_percentage;
+    return pimpl->get_annual_percentage();
 }
 
 bool SupplyModels::operator==(const SupplyModels& rhs) const {
-    return fixed == rhs.fixed
-           && settable == rhs.settable
-           && infinite == rhs.infinite
-           && collapsing == rhs.collapsing
-           && annual_value == rhs.annual_value
-           && annual_percentage == rhs.annual_percentage;
+    return *pimpl == *rhs.pimpl;
 }
 
 bool SupplyModels::operator!=(const SupplyModels& rhs) const {
-    return !(*this == rhs);
+    return *pimpl != *rhs.pimpl;
+}
+
+SupplyModels& SupplyModels::operator=(const SupplyModels& rhs) {
+    pimpl = std::make_unique<Impl>(*rhs.pimpl);
+    return *this;
 }

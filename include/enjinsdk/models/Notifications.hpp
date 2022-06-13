@@ -19,17 +19,28 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/Pusher.hpp"
+#include <memory>
 #include <optional>
+#include <string>
 
 namespace enjin::sdk::models {
 
 /// \brief Models the notification drivers and settings for the platform.
 class ENJINSDK_EXPORT Notifications : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    Notifications() = default;
+    /// \brief Constructs an instance of this class.
+    Notifications();
 
-    ~Notifications() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    Notifications(const Notifications& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    Notifications(Notifications&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~Notifications() override;
 
     void deserialize(const std::string& json) override;
 
@@ -41,8 +52,12 @@ public:
 
     bool operator!=(const Notifications& rhs) const;
 
+    Notifications& operator=(const Notifications& rhs);
+
 private:
-    std::optional<Pusher> pusher;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

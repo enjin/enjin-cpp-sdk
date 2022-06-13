@@ -20,6 +20,7 @@
 #include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/AssetTransferFeeSettings.hpp"
 #include "enjinsdk/models/AssetTransferable.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -28,10 +29,19 @@ namespace enjin::sdk::models {
 /// \brief Models the configuration data of a asset.
 class ENJINSDK_EXPORT AssetConfigData : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    AssetConfigData() = default;
+    /// \brief Constructs an instance of this class.
+    AssetConfigData();
 
-    ~AssetConfigData() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    AssetConfigData(const AssetConfigData& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    AssetConfigData(AssetConfigData&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~AssetConfigData() override;
 
     void deserialize(const std::string& json) override;
 
@@ -67,13 +77,12 @@ public:
 
     bool operator!=(const AssetConfigData& rhs) const;
 
+    AssetConfigData& operator=(const AssetConfigData& rhs);
+
 private:
-    std::optional<int> melt_fee_ratio;
-    std::optional<int> melt_fee_max_ratio;
-    std::optional<std::string> melt_value;
-    std::optional<std::string> metadata_uri;
-    std::optional<AssetTransferable> transferable;
-    std::optional<AssetTransferFeeSettings> transfer_fee_settings;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -26,10 +27,19 @@ namespace enjin::sdk::models {
 /// \brief Models a project on the platform.
 class ENJINSDK_EXPORT Project : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    Project() = default;
+    /// \brief Constructs an instance of this class.
+    Project();
 
-    ~Project() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    Project(const Project& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    Project(Project&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~Project() override;
 
     void deserialize(const std::string& json) override;
 
@@ -63,13 +73,12 @@ public:
 
     bool operator!=(const Project& rhs) const;
 
+    Project& operator=(const Project& rhs);
+
 private:
-    std::optional<std::string> uuid;
-    std::optional<std::string> name;
-    std::optional<std::string> description;
-    std::optional<std::string> image;
-    std::optional<std::string> created_at;
-    std::optional<std::string> updated_at;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

@@ -19,6 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/JsonValue.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 #include <vector>
@@ -28,10 +29,19 @@ namespace enjin::sdk::models {
 /// \brief Models a blockchain transaction event.
 class ENJINSDK_EXPORT TransactionEvent : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    TransactionEvent() = default;
+    /// \brief Constructs an instance of this class.
+    TransactionEvent();
 
-    ~TransactionEvent() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    TransactionEvent(const TransactionEvent& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    TransactionEvent(TransactionEvent&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~TransactionEvent() override;
 
     void deserialize(const std::string& json) override;
 
@@ -64,13 +74,12 @@ public:
 
     bool operator!=(const TransactionEvent& rhs) const;
 
+    TransactionEvent& operator=(const TransactionEvent& rhs);
+
 private:
-    std::optional<std::string> name;
-    std::optional<std::vector<json::JsonValue>> inputs;
-    std::optional<std::vector<json::JsonValue>> non_indexed_inputs;
-    std::optional<std::vector<json::JsonValue>> indexed_inputs;
-    std::optional<std::string> signature;
-    std::optional<std::string> encoded_signature;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

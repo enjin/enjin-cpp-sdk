@@ -20,28 +20,70 @@
 
 using namespace enjin::sdk::json;
 using namespace enjin::sdk::models;
+using namespace enjin::sdk::serialization;
 using namespace enjin::sdk::utils;
 
-void Notifications::deserialize(const std::string& json) {
-    JsonValue json_object;
+class Notifications::Impl final : public IDeserializable {
+public:
+    Impl() = default;
 
-    if (!json_object.try_parse_as_object(json)) {
-        pusher.reset();
+    ~Impl() override = default;
 
-        return;
+    void deserialize(const std::string& json) override {
+        JsonValue json_object;
+
+        if (!json_object.try_parse_as_object(json)) {
+            pusher.reset();
+
+            return;
+        }
+
+        JsonUtils::try_get_field(json_object, "pusher", pusher);
     }
 
-    JsonUtils::try_get_field(json_object, "pusher", pusher);
+    [[nodiscard]] const std::optional<Pusher>& get_pusher() const {
+        return pusher;
+    }
+
+    bool operator==(const Impl& rhs) const {
+        return pusher == rhs.pusher;
+    }
+
+    bool operator!=(const Impl& rhs) const {
+        return !(*this == rhs);
+    }
+
+private:
+    std::optional<Pusher> pusher;
+};
+
+Notifications::Notifications() : pimpl(std::make_unique<Impl>()) {
+}
+
+Notifications::Notifications(const Notifications& other) : pimpl(std::make_unique<Impl>(*other.pimpl)) {
+}
+
+Notifications::Notifications(Notifications&& other) noexcept = default;
+
+Notifications::~Notifications() = default;
+
+void Notifications::deserialize(const std::string& json) {
+    pimpl->deserialize(json);
 }
 
 const std::optional<Pusher>& Notifications::get_pusher() const {
-    return pusher;
+    return pimpl->get_pusher();
 }
 
 bool Notifications::operator==(const Notifications& rhs) const {
-    return pusher == rhs.pusher;
+    return *pimpl == *rhs.pimpl;
 }
 
 bool Notifications::operator!=(const Notifications& rhs) const {
-    return !(*this == rhs);
+    return *pimpl != *rhs.pimpl;
+}
+
+Notifications& Notifications::operator=(const Notifications& rhs) {
+    pimpl = std::make_unique<Impl>(*rhs.pimpl);
+    return *this;
 }

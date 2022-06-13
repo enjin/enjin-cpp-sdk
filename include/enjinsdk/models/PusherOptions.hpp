@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -26,10 +27,19 @@ namespace enjin::sdk::models {
 /// \brief Models Pusher options used by the platform.
 class ENJINSDK_EXPORT PusherOptions : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    PusherOptions() = default;
+    /// \brief Constructs an instance of this class.
+    PusherOptions();
 
-    ~PusherOptions() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    PusherOptions(const PusherOptions& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    PusherOptions(PusherOptions&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~PusherOptions() override;
 
     void deserialize(const std::string& json) override;
 
@@ -45,9 +55,12 @@ public:
 
     bool operator!=(const PusherOptions& rhs) const;
 
+    PusherOptions& operator=(const PusherOptions& rhs);
+
 private:
-    std::optional<std::string> cluster;
-    std::optional<bool> encrypted;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

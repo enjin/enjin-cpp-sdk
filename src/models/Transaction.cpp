@@ -176,11 +176,10 @@ private:
     std::optional<std::string> updated_at;
 };
 
-Transaction::Transaction() : impl(std::make_unique<Impl>()) {
+Transaction::Transaction() : pimpl(std::make_unique<Impl>()) {
 }
 
-Transaction::Transaction(const Transaction& other) {
-    impl = std::make_unique<Impl>(*other.impl);
+Transaction::Transaction(const Transaction& other) : pimpl(std::make_unique<Impl>(*other.pimpl)) {
 }
 
 Transaction::Transaction(Transaction&& other) noexcept = default;
@@ -188,82 +187,82 @@ Transaction::Transaction(Transaction&& other) noexcept = default;
 Transaction::~Transaction() = default;
 
 void Transaction::deserialize(const std::string& json) {
-    impl->deserialize(json);
+    pimpl->deserialize(json);
 }
 
 const std::optional<int>& Transaction::get_id() const {
-    return impl->get_id();
+    return pimpl->get_id();
 }
 
 const std::optional<std::string>& Transaction::get_transaction_id() const {
-    return impl->get_transaction_id();
+    return pimpl->get_transaction_id();
 }
 
 const std::optional<std::string>& Transaction::get_title() const {
-    return impl->get_title();
+    return pimpl->get_title();
 }
 
 const std::optional<std::string>& Transaction::get_contract() const {
-    return impl->get_contract();
+    return pimpl->get_contract();
 }
 
 const std::optional<TransactionType>& Transaction::get_type() const {
-    return impl->get_type();
+    return pimpl->get_type();
 }
 
 const std::optional<std::string>& Transaction::get_value() const {
-    return impl->get_value();
+    return pimpl->get_value();
 }
 
 const std::optional<std::string>& Transaction::get_retry_state() const {
-    return impl->get_retry_state();
+    return pimpl->get_retry_state();
 }
 
 const std::optional<TransactionState>& Transaction::get_state() const {
-    return impl->get_state();
+    return pimpl->get_state();
 }
 
 const std::optional<bool>& Transaction::get_accepted() const {
-    return impl->get_accepted();
+    return pimpl->get_accepted();
 }
 
 const std::optional<bool>& Transaction::get_project_wallet() const {
-    return impl->get_project_wallet();
+    return pimpl->get_project_wallet();
 }
 
 const std::optional<BlockchainData>& Transaction::get_blockchain_data() const {
-    return impl->get_blockchain_data();
+    return pimpl->get_blockchain_data();
 }
 
 const std::optional<Project>& Transaction::get_project() const {
-    return impl->get_project();
+    return pimpl->get_project();
 }
 
 const std::optional<Asset>& Transaction::get_asset() const {
-    return impl->get_asset();
+    return pimpl->get_asset();
 }
 
 const std::optional<Wallet>& Transaction::get_wallet() const {
-    return impl->get_wallet();
+    return pimpl->get_wallet();
 }
 
 const std::optional<std::string>& Transaction::get_created_at() const {
-    return impl->get_created_at();
+    return pimpl->get_created_at();
 }
 
 const std::optional<std::string>& Transaction::get_updated_at() const {
-    return impl->get_updated_at();
+    return pimpl->get_updated_at();
 }
 
 bool Transaction::operator==(const Transaction& rhs) const {
-    return *impl == *rhs.impl;
+    return *pimpl == *rhs.pimpl;
 }
 
 bool Transaction::operator!=(const Transaction& rhs) const {
-    return *impl != *rhs.impl;
+    return *pimpl != *rhs.pimpl;
 }
 
 Transaction& Transaction::operator=(const Transaction& rhs) {
-    impl = std::make_unique<Impl>(*rhs.impl);
+    pimpl = std::make_unique<Impl>(*rhs.pimpl);
     return *this;
 }

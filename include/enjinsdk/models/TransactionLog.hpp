@@ -20,6 +20,7 @@
 #include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/JsonValue.hpp"
 #include "enjinsdk/models/TransactionEvent.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 #include <vector>
@@ -29,10 +30,19 @@ namespace enjin::sdk::models {
 /// \brief Models a blockchain transaction log.
 class ENJINSDK_EXPORT TransactionLog : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    TransactionLog() = default;
+    /// \brief Constructs an instance of this class.
+    TransactionLog();
 
-    ~TransactionLog() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    TransactionLog(const TransactionLog& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    TransactionLog(TransactionLog&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~TransactionLog() override;
 
     void deserialize(const std::string& json) override;
 
@@ -64,13 +74,12 @@ public:
 
     bool operator!=(const TransactionLog& rhs) const;
 
+    TransactionLog& operator=(const TransactionLog& rhs);
+
 private:
-    std::optional<int> block_number;
-    std::optional<std::string> address;
-    std::optional<std::string> transaction_hash;
-    std::optional<std::vector<json::JsonValue>> data;
-    std::optional<std::vector<json::JsonValue>> topics;
-    std::optional<TransactionEvent> event;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

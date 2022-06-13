@@ -19,6 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/TransactionReceipt.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -27,10 +28,19 @@ namespace enjin::sdk::models {
 /// \brief Models the blockchain data of a request.
 class ENJINSDK_EXPORT BlockchainData : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    BlockchainData() = default;
+    /// \brief Constructs an instance of this class.
+    BlockchainData();
 
-    ~BlockchainData() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    BlockchainData(const BlockchainData& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    BlockchainData(BlockchainData&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~BlockchainData() override;
 
     void deserialize(const std::string& json) override;
 
@@ -66,14 +76,12 @@ public:
 
     bool operator!=(const BlockchainData& rhs) const;
 
+    BlockchainData& operator=(const BlockchainData& rhs);
+
 private:
-    std::optional<std::string> encoded_data;
-    std::optional<std::string> signed_transaction;
-    std::optional<std::string> signed_backup_transaction;
-    std::optional<std::string> signed_cancel_transaction;
-    std::optional<TransactionReceipt> receipt;
-    std::optional<std::string> error;
-    std::optional<std::string> nonce;
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }
