@@ -36,10 +36,9 @@ public:
 
     PusherEventService(const PusherEventService&) = delete;
 
-    /// \brief Move constructor.
-    /// \param rhs The service being moved.
-    PusherEventService(PusherEventService&& rhs) noexcept;
+    PusherEventService(PusherEventService&& rhs) = delete;
 
+    /// \brief Deconstructs this instance
     ~PusherEventService() override;
 
     std::future<void> start() override;
@@ -118,7 +117,7 @@ public:
 
         /// \brief Builds the event service.
         /// \return The service.
-        [[nodiscard]] PusherEventService build();
+        [[nodiscard]] std::unique_ptr<PusherEventService> build();
 
         /// \brief Sets the platform model that the event service will use.
         /// \param platform The platform.
@@ -148,7 +147,7 @@ public:
 private:
     class Impl;
 
-    Impl* impl;
+    std::unique_ptr<Impl> pimpl;
 
     explicit PusherEventService(std::unique_ptr<websockets::IWebsocketClient> ws_client,
                                 std::shared_ptr<utils::LoggerProvider> logger_provider);

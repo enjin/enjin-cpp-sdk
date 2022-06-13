@@ -30,10 +30,10 @@ public:
     std::unique_ptr<PusherEventService> fake_service;
     std::shared_ptr<MockEventListener> mock_listener;
 
-    static constexpr EventType DEFAULT_EVENT_TYPE = EventType::ProjectCreated;
+    static constexpr EventType DefaultEventType = EventType::ProjectCreated;
 
     static NotificationEvent create_default_notification_event() {
-        return NotificationEvent(DEFAULT_EVENT_TYPE, "enjincloud.test.project.1", "{}");
+        return {DefaultEventType, "enjincloud.test.project.1", "{}"};
     }
 
     static PusherEvent create_default_pusher_event() {
@@ -45,9 +45,9 @@ public:
 
 protected:
     void SetUp() override {
-        fake_service = std::make_unique<PusherEventService>(PusherEventService::builder()
+        fake_service = PusherEventService::builder()
                 .ws_client(std::make_unique<MockWebsocketClient>())
-                .build());
+                .build();
         class_under_test = std::make_unique<PusherEventListener>(fake_service.get());
         mock_listener = std::make_shared<MockEventListener>();
     }
@@ -57,7 +57,7 @@ TEST_F(PusherEventListenerTest, OnEventForAllowedEventWithRegisteredListenerDoes
     // Arrange - Data
     const NotificationEvent notification_event = create_default_notification_event();
     const PusherEvent pusher_event = create_default_pusher_event();
-    fake_service->register_listener_including_types(mock_listener, {DEFAULT_EVENT_TYPE});
+    fake_service->register_listener_including_types(mock_listener, {DefaultEventType});
 
     // Arrange - Expectations
     EXPECT_CALL(*mock_listener, notification_received(notification_event))
@@ -73,7 +73,7 @@ TEST_F(PusherEventListenerTest, OnEventForIgnoredEventWithRegisteredListenerDoes
     // Arrange - Data
     const NotificationEvent notification_event = create_default_notification_event();
     const PusherEvent pusher_event = create_default_pusher_event();
-    fake_service->register_listener_excluding_types(mock_listener, {DEFAULT_EVENT_TYPE});
+    fake_service->register_listener_excluding_types(mock_listener, {DefaultEventType});
 
     // Arrange - Expectations
     EXPECT_CALL(*mock_listener, notification_received(notification_event))
