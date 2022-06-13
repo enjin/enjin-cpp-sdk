@@ -24,7 +24,7 @@ using namespace enjin::sdk::project;
 using namespace enjin::sdk::utils;
 
 SendAsset::SendAsset() : AbstractGraphqlRequest("enjin.sdk.project.SendAsset"),
-                         ProjectTransactionRequestArguments<SendAsset>() {
+                         TransactionRequestArguments<SendAsset>() {
 }
 
 std::string SendAsset::serialize() const {
@@ -59,7 +59,7 @@ SendAsset& SendAsset::set_data(std::string data) {
 JsonValue SendAsset::to_json() const {
     JsonValue json = JsonValue::create_object();
 
-    JsonUtils::join_object(json, ProjectTransactionRequestArguments<SendAsset>::to_json());
+    JsonUtils::join_object(json, TransactionRequestArguments<SendAsset>::to_json());
     JsonUtils::try_set_field(json, "recipientAddress", recipient_address_opt);
     JsonUtils::try_set_field(json, "assetId", asset_id_opt);
     JsonUtils::try_set_field(json, "assetIndex", asset_index_opt);
@@ -71,7 +71,7 @@ JsonValue SendAsset::to_json() const {
 
 bool SendAsset::operator==(const SendAsset& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const ProjectTransactionRequestArguments<SendAsset>&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<SendAsset>&>(*this) == rhs
            && recipient_address_opt == rhs.recipient_address_opt
            && asset_id_opt == rhs.asset_id_opt
            && asset_index_opt == rhs.asset_index_opt

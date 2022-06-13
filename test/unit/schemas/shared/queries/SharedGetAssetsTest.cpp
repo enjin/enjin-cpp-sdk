@@ -37,7 +37,7 @@ public:
     static GetAssets create_default_request() {
         GetAssets request = GetAssets()
                 .set_filter(AssetFilter())
-                .set_sort(AssetSort());
+                .set_sort(AssetSortInput());
         set_asset_fragment_arguments(request);
         set_pagination_arguments(request);
         return request;
@@ -59,7 +59,7 @@ TEST_F(SharedGetAssetsTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
     class_under_test.set_filter(AssetFilter())
-                    .set_sort(AssetSort());
+                    .set_sort(AssetSortInput());
 
     // Act
     std::string actual = class_under_test.serialize();

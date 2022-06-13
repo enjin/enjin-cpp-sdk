@@ -18,14 +18,14 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 
 namespace enjin::sdk::project {
 
 /// \brief Request for resetting the crypto items contract approval for ENJ.
 class ENJINSDK_EXPORT ResetEnjApproval : public graphql::AbstractGraphqlRequest,
-                                         public ProjectTransactionRequestArguments<ResetEnjApproval> {
+                                         public TransactionRequestArguments<ResetEnjApproval> {
 public:
     /// \brief Default constructor.
     ResetEnjApproval();
@@ -41,12 +41,12 @@ public:
     bool operator!=(const ResetEnjApproval& rhs) const;
 };
 
-// region ProjectTransactionRequestArguments
+// region TransactionRequestArguments
 
 template ENJINSDK_EXPORT ResetEnjApproval&
-ProjectTransactionRequestArguments<ResetEnjApproval>::set_eth_address(std::string address);
+TransactionRequestArguments<ResetEnjApproval>::set_eth_address(std::string address);
 
-// endregion ProjectTransactionRequestArguments
+// endregion TransactionRequestArguments
 
 }
 

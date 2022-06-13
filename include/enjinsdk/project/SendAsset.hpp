@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for sending a asset.
 class ENJINSDK_EXPORT SendAsset : public graphql::AbstractGraphqlRequest,
-                                  public ProjectTransactionRequestArguments<SendAsset> {
+                                  public TransactionRequestArguments<SendAsset> {
 public:
     /// \brief Default constructor.
     SendAsset();
@@ -74,12 +74,12 @@ private:
     std::optional<std::string> data_opt;
 };
 
-// region ProjectTransactionRequestArguments
+// region TransactionRequestArguments
 
 template ENJINSDK_EXPORT SendAsset&
-ProjectTransactionRequestArguments<SendAsset>::set_eth_address(std::string address);
+TransactionRequestArguments<SendAsset>::set_eth_address(std::string address);
 
-// endregion ProjectTransactionRequestArguments
+// endregion TransactionRequestArguments
 
 }
 

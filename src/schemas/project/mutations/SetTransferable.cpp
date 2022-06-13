@@ -25,7 +25,7 @@ using namespace enjin::sdk::project;
 using namespace enjin::sdk::utils;
 
 SetTransferable::SetTransferable() : AbstractGraphqlRequest("enjin.sdk.project.SetTransferable"),
-                                     ProjectTransactionRequestArguments<SetTransferable>() {
+                                     TransactionRequestArguments<SetTransferable>() {
 }
 
 std::string SetTransferable::serialize() const {
@@ -50,7 +50,7 @@ SetTransferable& SetTransferable::set_transferable(AssetTransferable transferabl
 JsonValue SetTransferable::to_json() const {
     JsonValue json = JsonValue::create_object();
 
-    JsonUtils::join_object(json, ProjectTransactionRequestArguments<SetTransferable>::to_json());
+    JsonUtils::join_object(json, TransactionRequestArguments<SetTransferable>::to_json());
     JsonUtils::try_set_field(json, "assetId", asset_id_opt);
     JsonUtils::try_set_field(json, "assetIndex", asset_index_opt);
     JsonUtils::try_set_field(json, "transferable", transferable_opt);
@@ -60,7 +60,7 @@ JsonValue SetTransferable::to_json() const {
 
 bool SetTransferable::operator==(const SetTransferable& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const ProjectTransactionRequestArguments<SetTransferable>&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<SetTransferable>&>(*this) == rhs
            && asset_id_opt == rhs.asset_id_opt
            && asset_index_opt == rhs.asset_index_opt
            && transferable_opt == rhs.transferable_opt;

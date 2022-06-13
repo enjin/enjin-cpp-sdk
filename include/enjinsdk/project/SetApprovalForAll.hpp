@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for allowing an operator complete control of all assets owned by the caller.
 class ENJINSDK_EXPORT SetApprovalForAll : public graphql::AbstractGraphqlRequest,
-                                          public ProjectTransactionRequestArguments<SetApprovalForAll> {
+                                          public TransactionRequestArguments<SetApprovalForAll> {
 public:
     /// \brief Default constructor.
     SetApprovalForAll();
@@ -56,12 +56,12 @@ private:
     std::optional<bool> approved_opt;
 };
 
-// region ProjectTransactionRequestArguments
+// region TransactionRequestArguments
 
 template ENJINSDK_EXPORT SetApprovalForAll&
-ProjectTransactionRequestArguments<SetApprovalForAll>::set_eth_address(std::string address);
+TransactionRequestArguments<SetApprovalForAll>::set_eth_address(std::string address);
 
-// endregion ProjectTransactionRequestArguments
+// endregion TransactionRequestArguments
 
 }
 

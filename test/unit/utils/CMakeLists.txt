@@ -10,8 +10,8 @@ target_sources(${PROJECT_NAME}_tests
         EnumUtilsEventTypeTest.cpp
         EnumUtilsHttpMethodTest.cpp
         EnumUtilsOperatorTest.cpp
-        EnumUtilsRequestStateTest.cpp
-        EnumUtilsRequestTypeTest.cpp
+        EnumUtilsTransactionStateTest.cpp
+        EnumUtilsTransactionTypeTest.cpp
         EnumUtilsSortDirectionTest.cpp
         EnumUtilsTransactionFieldTest.cpp
         EnumUtilsWhitelistedTest.cpp

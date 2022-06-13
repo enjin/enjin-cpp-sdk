@@ -77,7 +77,7 @@ public:
         return balances;
     }
 
-    [[nodiscard]] const std::optional<std::vector<Request>>& get_transactions() const {
+    [[nodiscard]] const std::optional<std::vector<Transaction>>& get_transactions() const {
         return transactions;
     }
 
@@ -102,7 +102,7 @@ private:
     std::optional<float> eth_balance;
     std::optional<std::vector<Asset>> assets_created;
     std::optional<std::vector<Balance>> balances;
-    std::optional<std::vector<Request>> transactions;
+    std::optional<std::vector<Transaction>> transactions;
 };
 
 Wallet::Wallet() : impl(std::make_unique<Impl>()) {
@@ -144,7 +144,7 @@ const std::optional<std::vector<Balance>>& Wallet::get_balances() const {
     return impl->get_balances();
 }
 
-const std::optional<std::vector<Request>>& Wallet::get_transactions() const {
+const std::optional<std::vector<Transaction>>& Wallet::get_transactions() const {
     return impl->get_transactions();
 }
 

@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/models/Transfer.hpp"
+#include "enjinsdk/models/TransferInput.hpp"
 #include "enjinsdk/shared/TransactionFragmentArguments.hpp"
 #include <optional>
 #include <string>
@@ -40,7 +40,7 @@ public:
     /// \brief Sets the different transfers to perform.
     /// \param transfers The transfers.
     /// \return This request for chaining.
-    AdvancedSendAsset& set_transfers(std::vector<models::Transfer> transfers);
+    AdvancedSendAsset& set_transfers(std::vector<models::TransferInput> transfers);
 
     /// \brief Sets the data to forward with the transaction.
     /// \param data The data.
@@ -54,7 +54,7 @@ public:
     bool operator!=(const AdvancedSendAsset& rhs) const;
 
 private:
-    std::optional<std::vector<models::Transfer>> transfers_opt;
+    std::optional<std::vector<models::TransferInput>> transfers_opt;
     std::optional<std::string> data_opt;
 };
 

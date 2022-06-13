@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for approving the crypto items contract to spend ENJ.
 class ENJINSDK_EXPORT ApproveEnj : public graphql::AbstractGraphqlRequest,
-                                   public ProjectTransactionRequestArguments<ApproveEnj> {
+                                   public TransactionRequestArguments<ApproveEnj> {
 public:
     /// \brief Default constructor.
     ApproveEnj();
@@ -51,12 +51,12 @@ private:
     std::optional<std::string> value_opt;
 };
 
-// region ProjectTransactionRequestArguments
+// region TransactionRequestArguments
 
 template ENJINSDK_EXPORT ApproveEnj&
-ProjectTransactionRequestArguments<ApproveEnj>::set_eth_address(std::string address);
+TransactionRequestArguments<ApproveEnj>::set_eth_address(std::string address);
 
-// endregion ProjectTransactionRequestArguments
+// endregion TransactionRequestArguments
 
 }
 

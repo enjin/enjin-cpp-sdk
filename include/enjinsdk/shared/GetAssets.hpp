@@ -19,7 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/AssetFilter.hpp"
-#include "enjinsdk/models/AssetSort.hpp"
+#include "enjinsdk/models/AssetSortInput.hpp"
 #include "enjinsdk/shared/PaginationArguments.hpp"
 #include "enjinsdk/shared/AssetFragmentArguments.hpp"
 #include <optional>
@@ -45,9 +45,9 @@ public:
     GetAssets& set_filter(models::AssetFilter filter);
 
     /// \brief Sets the request to sort the results by the specified options.
-    /// \param sort The sort options.
+    /// \param sort The sort input.
     /// \return This request for chaining.
-    GetAssets& set_sort(models::AssetSort sort);
+    GetAssets& set_sort(models::AssetSortInput sort);
 
     [[nodiscard]] json::JsonValue to_json() const override;
 
@@ -57,7 +57,7 @@ public:
 
 private:
     std::optional<models::AssetFilter> filter_opt;
-    std::optional<models::AssetSort> sort_opt;
+    std::optional<models::AssetSortInput> sort_opt;
 };
 
 // region AssetFragmentArguments
@@ -103,7 +103,7 @@ AssetFragmentArguments<GetAssets>::set_with_variant_metadata();
 // region PaginationArguments
 
 template ENJINSDK_EXPORT GetAssets&
-PaginationArguments<GetAssets>::set_pagination(models::PaginationOptions pagination);
+PaginationArguments<GetAssets>::set_pagination(models::PaginationInput pagination);
 
 template ENJINSDK_EXPORT GetAssets&
 PaginationArguments<GetAssets>::set_pagination(int page, int limit);

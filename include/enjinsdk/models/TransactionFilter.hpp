@@ -18,8 +18,8 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/ISerializable.hpp"
-#include "enjinsdk/models/RequestState.hpp"
-#include "enjinsdk/models/RequestType.hpp"
+#include "enjinsdk/models/TransactionState.hpp"
+#include "enjinsdk/models/TransactionType.hpp"
 #include <optional>
 #include <string>
 #include <vector>
@@ -79,12 +79,12 @@ public:
     /// \brief Sets the transaction type to filter for.
     /// \param type The type.
     /// \return This filter for chaining.
-    TransactionFilter& set_type(RequestType type);
+    TransactionFilter& set_type(TransactionType type);
 
     /// \brief Sets the transaction types to filter for.
     /// \param types The types.
     /// \return This filter for chaining.
-    TransactionFilter& set_type_in(std::vector<RequestType> types);
+    TransactionFilter& set_type_in(std::vector<TransactionType> types);
 
     /// \brief Sets the filter to include transactions equal to the passed value.
     /// \param value The value to compare by.
@@ -114,12 +114,12 @@ public:
     /// \brief Sets the request state to filter for.
     /// \param state The state.
     /// \return This filter for chaining.
-    TransactionFilter& set_state(RequestState state);
+    TransactionFilter& set_state(TransactionState state);
 
     /// \brief Sets the request states to filter for.
     /// \param states The states.
     /// \return This filter for chaining.
-    TransactionFilter& set_state_in(std::vector<RequestState> states);
+    TransactionFilter& set_state_in(std::vector<TransactionState> states);
 
     /// \brief Sets the wallet to filter for.
     /// \param wallet The wallet address.
@@ -146,15 +146,15 @@ private:
     std::optional<std::vector<std::string>> transaction_id_in_opt;
     std::optional<std::string> asset_id_opt;
     std::optional<std::vector<std::string>> asset_id_in_opt;
-    std::optional<RequestType> type_opt;
-    std::optional<std::vector<RequestType>> type_in_opt;
+    std::optional<TransactionType> type_opt;
+    std::optional<std::vector<TransactionType>> type_in_opt;
     std::optional<int> value_opt;
     std::optional<int> value_gt_opt;
     std::optional<int> value_gte_opt;
     std::optional<int> value_lt_opt;
     std::optional<int> value_lte_opt;
-    std::optional<RequestState> state_opt;
-    std::optional<std::vector<RequestState>> state_in_opt;
+    std::optional<TransactionState> state_opt;
+    std::optional<std::vector<TransactionState>> state_in_opt;
     std::optional<std::string> wallet_opt;
     std::optional<std::vector<std::string>> wallet_in_opt;
 };

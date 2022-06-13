@@ -24,7 +24,7 @@ using namespace enjin::sdk::project;
 using namespace enjin::sdk::utils;
 
 SendEnj::SendEnj() : AbstractGraphqlRequest("enjin.sdk.project.SendEnj"),
-                     ProjectTransactionRequestArguments<SendEnj>() {
+                     TransactionRequestArguments<SendEnj>() {
 }
 
 std::string SendEnj::serialize() const {
@@ -44,7 +44,7 @@ SendEnj& SendEnj::set_value(std::string value) {
 JsonValue SendEnj::to_json() const {
     JsonValue json = JsonValue::create_object();
 
-    JsonUtils::join_object(json, ProjectTransactionRequestArguments<SendEnj>::to_json());
+    JsonUtils::join_object(json, TransactionRequestArguments<SendEnj>::to_json());
     JsonUtils::try_set_field(json, "recipientAddress", recipient_address_opt);
     JsonUtils::try_set_field(json, "value", value_opt);
 
@@ -53,7 +53,7 @@ JsonValue SendEnj::to_json() const {
 
 bool SendEnj::operator==(const SendEnj& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const ProjectTransactionRequestArguments<SendEnj>&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<SendEnj>&>(*this) == rhs
            && recipient_address_opt == rhs.recipient_address_opt
            && value_opt == rhs.value_opt;
 }

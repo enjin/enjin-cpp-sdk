@@ -24,7 +24,7 @@ using namespace enjin::sdk::project;
 using namespace enjin::sdk::utils;
 
 ApproveEnj::ApproveEnj() : AbstractGraphqlRequest("enjin.sdk.project.ApproveEnj"),
-                           ProjectTransactionRequestArguments<ApproveEnj>() {
+                           TransactionRequestArguments<ApproveEnj>() {
 }
 
 std::string ApproveEnj::serialize() const {
@@ -39,7 +39,7 @@ ApproveEnj& ApproveEnj::set_value(std::string value) {
 JsonValue ApproveEnj::to_json() const {
     JsonValue json = JsonValue::create_object();
 
-    JsonUtils::join_object(json, ProjectTransactionRequestArguments<ApproveEnj>::to_json());
+    JsonUtils::join_object(json, TransactionRequestArguments<ApproveEnj>::to_json());
     JsonUtils::try_set_field(json, "value", value_opt);
 
     return json;
@@ -47,7 +47,7 @@ JsonValue ApproveEnj::to_json() const {
 
 bool ApproveEnj::operator==(const ApproveEnj& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const ProjectTransactionRequestArguments<ApproveEnj>&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<ApproveEnj>&>(*this) == rhs
            && value_opt == rhs.value_opt;
 }
 

@@ -34,7 +34,7 @@ public:
 
     static AdvancedSendAsset create_default_request() {
         AdvancedSendAsset request = AdvancedSendAsset()
-                .set_transfers(std::vector<Transfer>())
+                .set_transfers(std::vector<TransferInput>())
                 .set_data("1");
         set_project_transaction_request_arguments(request);
         return request;
@@ -55,7 +55,7 @@ TEST_F(ProjectAdvancedSendAssetTest, SerializeNoSetFieldsReturnsEmptyJsonObject)
 TEST_F(ProjectAdvancedSendAssetTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_transfers(std::vector<Transfer>())
+    class_under_test.set_transfers(std::vector<TransferInput>())
                     .set_data("1");
 
     // Act

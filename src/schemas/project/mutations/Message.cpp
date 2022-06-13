@@ -23,7 +23,7 @@ using namespace enjin::sdk::project;
 using namespace enjin::sdk::utils;
 
 Message::Message() : AbstractGraphqlRequest("enjin.sdk.project.Message"),
-                     ProjectTransactionRequestArguments<Message>() {
+                     TransactionRequestArguments<Message>() {
 }
 
 std::string Message::serialize() const {
@@ -38,7 +38,7 @@ Message& Message::set_message(std::string message) {
 JsonValue Message::to_json() const {
     JsonValue json = JsonValue::create_object();
 
-    JsonUtils::join_object(json, ProjectTransactionRequestArguments<Message>::to_json());
+    JsonUtils::join_object(json, TransactionRequestArguments<Message>::to_json());
     JsonUtils::try_set_field(json, "message", message_opt);
 
     return json;
@@ -46,7 +46,7 @@ JsonValue Message::to_json() const {
 
 bool Message::operator==(const Message& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const ProjectTransactionRequestArguments<Message>&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<Message>&>(*this) == rhs
            && message_opt == rhs.message_opt;
 }
 

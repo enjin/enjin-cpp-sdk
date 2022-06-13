@@ -39,7 +39,7 @@ namespace enjin::sdk::shared {
 
 template test::utils::TestableSharedPaginationArguments&
 PaginationArguments<test::utils::TestableSharedPaginationArguments>::set_pagination(
-        models::PaginationOptions pagination);
+        models::PaginationInput pagination);
 
 template test::utils::TestableSharedPaginationArguments&
 PaginationArguments<test::utils::TestableSharedPaginationArguments>::set_pagination(int page, int limit);

@@ -19,8 +19,8 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/HttpMethod.hpp"
 #include "enjinsdk/models/EventType.hpp"
-#include "enjinsdk/models/RequestState.hpp"
-#include "enjinsdk/models/RequestType.hpp"
+#include "enjinsdk/models/TransactionState.hpp"
+#include "enjinsdk/models/TransactionType.hpp"
 #include "enjinsdk/models/SortDirection.hpp"
 #include "enjinsdk/models/AssetField.hpp"
 #include "enjinsdk/models/AssetIdFormat.hpp"
@@ -48,15 +48,15 @@ public:
     /// \return The event type.
     static models::EventType deserialize_event_type(const std::string& s) noexcept;
 
-    /// \brief Deserializes the request state from a string.
+    /// \brief Deserializes the transaction state from a string.
     /// \param s The serialized string.
     /// \return The request state.
-    static models::RequestState deserialize_request_state(const std::string& s) noexcept;
+    static models::TransactionState deserialize_transaction_state(const std::string& s) noexcept;
 
-    /// \brief Deserializes the request type from a string.
+    /// \brief Deserializes the transaction type from a string.
     /// \param s The serialized string.
     /// \return The request type.
-    static models::RequestType deserialize_request_type(const std::string& s) noexcept;
+    static models::TransactionType deserialize_transaction_type(const std::string& s) noexcept;
 
     /// \brief Deserializes the asset supply model from a string.
     /// \param s The serialized string.
@@ -88,15 +88,15 @@ public:
     /// \return The serialized value.
     static std::string serialize_event_type(models::EventType v) noexcept;
 
-    /// \brief Serializes the request state into a string.
+    /// \brief Serializes the transaction state into a string.
     /// \param v The enum value.
     /// \return The serialized value.
-    static std::string serialize_request_state(models::RequestState v) noexcept;
+    static std::string serialize_transaction_state(models::TransactionState v) noexcept;
 
-    /// \brief Serializes the request type into a string.
+    /// \brief Serializes the transaction type into a string.
     /// \param v The enum value.
     /// \return The serialized value.
-    static std::string serialize_request_type(models::RequestType v) noexcept;
+    static std::string serialize_transaction_type(models::TransactionType v) noexcept;
 
     /// \brief Serializes the sort direction into a string.
     /// \param v The enum value.

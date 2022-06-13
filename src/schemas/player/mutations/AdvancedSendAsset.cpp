@@ -33,7 +33,7 @@ std::string AdvancedSendAsset::serialize() const {
     return to_json().to_string();
 }
 
-AdvancedSendAsset& AdvancedSendAsset::set_transfers(std::vector<Transfer> transfers) {
+AdvancedSendAsset& AdvancedSendAsset::set_transfers(std::vector<TransferInput> transfers) {
     transfers_opt = std::move(transfers);
     return *this;
 }

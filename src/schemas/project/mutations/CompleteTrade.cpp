@@ -24,7 +24,7 @@ using namespace enjin::sdk::project;
 using namespace enjin::sdk::utils;
 
 CompleteTrade::CompleteTrade() : AbstractGraphqlRequest("enjin.sdk.project.CompleteTrade"),
-                                 ProjectTransactionRequestArguments<CompleteTrade>() {
+                                 TransactionRequestArguments<CompleteTrade>() {
 }
 
 std::string CompleteTrade::serialize() const {
@@ -39,7 +39,7 @@ CompleteTrade& CompleteTrade::set_trade_id(std::string id) {
 JsonValue CompleteTrade::to_json() const {
     JsonValue json = JsonValue::create_object();
 
-    JsonUtils::join_object(json, ProjectTransactionRequestArguments<CompleteTrade>::to_json());
+    JsonUtils::join_object(json, TransactionRequestArguments<CompleteTrade>::to_json());
     JsonUtils::try_set_field(json, "tradeId", trade_id_opt);
 
     return json;
@@ -47,7 +47,7 @@ JsonValue CompleteTrade::to_json() const {
 
 bool CompleteTrade::operator==(const CompleteTrade& rhs) const {
     return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
-           && static_cast<const ProjectTransactionRequestArguments<CompleteTrade>&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<CompleteTrade>&>(*this) == rhs
            && trade_id_opt == rhs.trade_id_opt;
 }
 

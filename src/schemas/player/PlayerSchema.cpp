@@ -24,28 +24,28 @@ PlayerSchema::PlayerSchema(std::unique_ptr<http::IHttpClient> http_client,
         : shared::SharedSchema(std::move(http_client), "player", std::move(logger_provider)) {
 }
 
-std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::advanced_send_asset(AdvancedSendAsset request) {
-    return send_request_for_one<models::Request>(request);
+std::future<graphql::GraphqlResponse<models::Transaction>> PlayerSchema::advanced_send_asset(AdvancedSendAsset request) {
+    return send_request_for_one<models::Transaction>(request);
 }
 
-std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::approve_enj(ApproveEnj request) {
-    return send_request_for_one<models::Request>(request);
+std::future<graphql::GraphqlResponse<models::Transaction>> PlayerSchema::approve_enj(ApproveEnj request) {
+    return send_request_for_one<models::Transaction>(request);
 }
 
-std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::approve_enj_max(ApproveMaxEnj request) {
-    return send_request_for_one<models::Request>(request);
+std::future<graphql::GraphqlResponse<models::Transaction>> PlayerSchema::approve_enj_max(ApproveMaxEnj request) {
+    return send_request_for_one<models::Transaction>(request);
 }
 
-std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::bridge_asset(BridgeAsset request) {
-    return send_request_for_one<models::Request>(request);
+std::future<graphql::GraphqlResponse<models::Transaction>> PlayerSchema::bridge_asset(BridgeAsset request) {
+    return send_request_for_one<models::Transaction>(request);
 }
 
-std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::bridge_assets(BridgeAssets request) {
-    return send_request_for_one<models::Request>(request);
+std::future<graphql::GraphqlResponse<models::Transaction>> PlayerSchema::bridge_assets(BridgeAssets request) {
+    return send_request_for_one<models::Transaction>(request);
 }
 
-std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::bridge_claim_asset(BridgeClaimAsset request) {
-    return send_request_for_one<models::Request>(request);
+std::future<graphql::GraphqlResponse<models::Transaction>> PlayerSchema::bridge_claim_asset(BridgeClaimAsset request) {
+    return send_request_for_one<models::Transaction>(request);
 }
 
 std::future<graphql::GraphqlResponse<models::Player>> PlayerSchema::get_player(GetPlayer request) {
@@ -56,28 +56,28 @@ std::future<graphql::GraphqlResponse<models::Wallet>> PlayerSchema::get_wallet(G
     return send_request_for_one<models::Wallet>(request);
 }
 
-std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::melt_asset(MeltAsset request) {
-    return send_request_for_one<models::Request>(request);
+std::future<graphql::GraphqlResponse<models::Transaction>> PlayerSchema::melt_asset(MeltAsset request) {
+    return send_request_for_one<models::Transaction>(request);
 }
 
-std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::message(Message request) {
-    return send_request_for_one<models::Request>(request);
+std::future<graphql::GraphqlResponse<models::Transaction>> PlayerSchema::message(Message request) {
+    return send_request_for_one<models::Transaction>(request);
 }
 
-std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::reset_enj_approval(ResetEnjApproval request) {
-    return send_request_for_one<models::Request>(request);
+std::future<graphql::GraphqlResponse<models::Transaction>> PlayerSchema::reset_enj_approval(ResetEnjApproval request) {
+    return send_request_for_one<models::Transaction>(request);
 }
 
-std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::send_asset(SendAsset request) {
-    return send_request_for_one<models::Request>(request);
+std::future<graphql::GraphqlResponse<models::Transaction>> PlayerSchema::send_asset(SendAsset request) {
+    return send_request_for_one<models::Transaction>(request);
 }
 
-std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::send_enj(SendEnj request) {
-    return send_request_for_one<models::Request>(request);
+std::future<graphql::GraphqlResponse<models::Transaction>> PlayerSchema::send_enj(SendEnj request) {
+    return send_request_for_one<models::Transaction>(request);
 }
 
-std::future<graphql::GraphqlResponse<models::Request>> PlayerSchema::set_approval_for_all(SetApprovalForAll request) {
-    return send_request_for_one<models::Request>(request);
+std::future<graphql::GraphqlResponse<models::Transaction>> PlayerSchema::set_approval_for_all(SetApprovalForAll request) {
+    return send_request_for_one<models::Transaction>(request);
 }
 
 std::future<graphql::GraphqlResponse<bool>> PlayerSchema::unlink_wallet(UnlinkWallet request) {

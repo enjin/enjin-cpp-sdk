@@ -22,15 +22,15 @@
 #include "enjinsdk/models/GasPrices.hpp"
 #include "enjinsdk/models/Platform.hpp"
 #include "enjinsdk/models/Project.hpp"
-#include "enjinsdk/models/Request.hpp"
+#include "enjinsdk/models/Transaction.hpp"
 #include "enjinsdk/models/Asset.hpp"
 #include "enjinsdk/shared/CancelTransaction.hpp"
 #include "enjinsdk/shared/GetBalances.hpp"
 #include "enjinsdk/shared/GetGasPrices.hpp"
 #include "enjinsdk/shared/GetPlatform.hpp"
 #include "enjinsdk/shared/GetProject.hpp"
-#include "enjinsdk/shared/GetRequest.hpp"
-#include "enjinsdk/shared/GetRequests.hpp"
+#include "enjinsdk/shared/GetTransaction.hpp"
+#include "enjinsdk/shared/GetTransactions.hpp"
 #include "enjinsdk/shared/GetAsset.hpp"
 #include "enjinsdk/shared/GetAssets.hpp"
 #include <future>
@@ -72,12 +72,12 @@ public:
     /// \brief Sends the GetRequest request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> get_request(GetRequest request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> get_request(GetTransaction request) = 0;
 
     /// \brief Sends the GetRequests request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<std::vector<models::Request>>> get_requests(GetRequests request) = 0;
+    virtual std::future<graphql::GraphqlResponse<std::vector<models::Transaction>>> get_requests(GetTransactions request) = 0;
 
     /// \brief Sends the GetAsset request to the platform.
     /// \param request The request.

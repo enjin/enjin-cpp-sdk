@@ -45,9 +45,9 @@ public:
 
     std::future<graphql::GraphqlResponse<models::Project>> get_project(GetProject request) override;
 
-    std::future<graphql::GraphqlResponse<models::Request>> get_request(GetRequest request) override;
+    std::future<graphql::GraphqlResponse<models::Transaction>> get_request(GetTransaction request) override;
 
-    std::future<graphql::GraphqlResponse<std::vector<models::Request>>> get_requests(GetRequests request) override;
+    std::future<graphql::GraphqlResponse<std::vector<models::Transaction>>> get_requests(GetTransactions request) override;
 
     std::future<graphql::GraphqlResponse<models::Asset>> get_asset(GetAsset request) override;
 

@@ -18,8 +18,8 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/models/Transfer.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/models/TransferInput.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 #include <vector>
@@ -28,7 +28,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for sending one or more assets in a single transaction.
 class ENJINSDK_EXPORT AdvancedSendAsset : public graphql::AbstractGraphqlRequest,
-                                          public ProjectTransactionRequestArguments<AdvancedSendAsset> {
+                                          public TransactionRequestArguments<AdvancedSendAsset> {
 public:
     /// \brief Default constructor.
     AdvancedSendAsset();
@@ -40,7 +40,7 @@ public:
     /// \brief Sets the different transfers to perform.
     /// \param transfers The transfers.
     /// \return This request for chaining.
-    AdvancedSendAsset& set_transfers(std::vector<models::Transfer> transfers);
+    AdvancedSendAsset& set_transfers(std::vector<models::TransferInput> transfers);
 
     /// \brief Sets the data to forward with the transaction.
     /// \param data The data.
@@ -54,16 +54,16 @@ public:
     bool operator!=(const AdvancedSendAsset& rhs) const;
 
 private:
-    std::optional<std::vector<models::Transfer>> transfers_opt;
+    std::optional<std::vector<models::TransferInput>> transfers_opt;
     std::optional<std::string> data_opt;
 };
 
-// region ProjectTransactionRequestArguments
+// region TransactionRequestArguments
 
 template ENJINSDK_EXPORT AdvancedSendAsset&
-ProjectTransactionRequestArguments<AdvancedSendAsset>::set_eth_address(std::string address);
+TransactionRequestArguments<AdvancedSendAsset>::set_eth_address(std::string address);
 
-// endregion ProjectTransactionRequestArguments
+// endregion TransactionRequestArguments
 
 }
 

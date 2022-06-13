@@ -10,12 +10,12 @@ target_sources(${PROJECT_NAME}_tests
         ContractsTest.cpp
         GasPricesTest.cpp
         LinkingInfoTest.cpp
-        MeltTest.cpp
+        MeltInputTest.cpp
         MintInputTest.cpp
         NotificationEventTest.cpp
         NotificationsTest.cpp
         PaginationCursorTest.cpp
-        PaginationOptionsTest.cpp
+        PaginationInputTest.cpp
         PlatformTest.cpp
         PlayerFilterTest.cpp
         PlayerTest.cpp
@@ -23,18 +23,18 @@ target_sources(${PROJECT_NAME}_tests
         PusherChannelsTest.cpp
         PusherOptionsTest.cpp
         PusherTest.cpp
-        RequestTest.cpp
+        TransactionTest.cpp
         SupplyModelsTest.cpp
         AssetConfigDataTest.cpp
         AssetFilterTest.cpp
-        AssetSortTest.cpp
+        AssetSortInputTest.cpp
         AssetStateDataTest.cpp
         AssetTest.cpp
-        TradeTest.cpp
+        TradeInputTest.cpp
         TransactionEventTest.cpp
         TransactionFilterTest.cpp
         TransactionLogTest.cpp
         TransactionReceiptTest.cpp
-        TransactionSortTest.cpp
-        TransferTest.cpp
+        TransactionSortInputTest.cpp
+        TransferInputTest.cpp
         WalletTest.cpp)

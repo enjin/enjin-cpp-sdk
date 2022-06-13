@@ -21,7 +21,7 @@
 #include "enjinsdk/models/AssetSupplyModel.hpp"
 #include "enjinsdk/models/AssetTransferFeeSettingsInput.hpp"
 #include "enjinsdk/models/AssetTransferable.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -29,7 +29,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for creating a asset on the platform.
 class ENJINSDK_EXPORT CreateAsset : public graphql::AbstractGraphqlRequest,
-                                    public ProjectTransactionRequestArguments<CreateAsset> {
+                                    public TransactionRequestArguments<CreateAsset> {
 public:
     /// \brief Default constructor.
     CreateAsset();
@@ -103,12 +103,12 @@ private:
     std::optional<bool> non_fungible_opt;
 };
 
-// region ProjectTransactionRequestArguments
+// region TransactionRequestArguments
 
 template ENJINSDK_EXPORT CreateAsset&
-ProjectTransactionRequestArguments<CreateAsset>::set_eth_address(std::string address);
+TransactionRequestArguments<CreateAsset>::set_eth_address(std::string address);
 
-// endregion ProjectTransactionRequestArguments
+// endregion TransactionRequestArguments
 
 }
 
