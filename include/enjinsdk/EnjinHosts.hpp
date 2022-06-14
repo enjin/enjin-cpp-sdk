@@ -16,16 +16,26 @@
 #ifndef ENJINCPPSDK_ENJINHOSTS_HPP
 #define ENJINCPPSDK_ENJINHOSTS_HPP
 
+#include "enjinsdk_export.h"
+
 namespace enjin::sdk {
 
-/// \brief The URI for the Enjin Platform on the Goerli test network.
-static constexpr char Goerli[] = "https://goerli.cloud.enjin.io";
+/// \brief The network hosts used by the Enjin Platform.
+class ENJINSDK_EXPORT EnjinHosts final {
+public:
+    EnjinHosts() = delete;
 
-/// \brief The URI for the main Enjin Cloud.
-static constexpr char MainNet[] = "https://cloud.enjin.io";
+    ~EnjinHosts() = delete;
 
-/// \brief The URI for the JumpNet network.
-static constexpr char JumpNet[] = "https://jumpnet.cloud.enjin.io";
+    /// \brief The URI for the Enjin Platform on the Goerli test network.
+    static constexpr char Goerli[] = "https://goerli.cloud.enjin.io";
+
+    /// \brief The URI for the main Enjin Cloud.
+    static constexpr char MainNet[] = "https://cloud.enjin.io";
+
+    /// \brief The URI for the JumpNet network.
+    static constexpr char JumpNet[] = "https://jumpnet.cloud.enjin.io";
+};
 
 }
 

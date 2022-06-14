@@ -120,7 +120,7 @@ int main() {
     // Builds the project client to run on the Goerli test network.
     // See: https://goerli.cloud.enjin.io to sign up for the test network.
     std::unique_ptr<ProjectClient> client = ProjectClient::builder()
-        .base_uri(Goerli) // From EnjinHosts
+        .base_uri(EnjinHosts::Goerli)
         .build();
 
     // Creates the request to authenticate the client.
