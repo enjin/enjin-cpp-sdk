@@ -42,7 +42,7 @@ public:
     static constexpr char DEFAULT_ASSET[] = "0x0";
     static constexpr char DEFAULT_WALLET[] = "0x1";
     static constexpr char PLATFORM_JSON[] =
-            R"({"network":"kovan","notifications":{"pusher":{"key":"1","options":{"cluster":"mt1","encrypted":true}}}})";
+            R"({"network":"test","notifications":{"pusher":{"key":"1","options":{"cluster":"mt1","encrypted":true}}}})";
 
     MockWebsocketServer mock_server;
 

@@ -167,6 +167,6 @@ INSTANTIATE_TEST_SUITE_P(DefNotInTypesTestCases,
 INSTANTIATE_TEST_SUITE_P(FilterByChannelTypesTestCases,
                          EventTypeDefFilterByChannelTypes,
                          testing::Values("player",
-                                         "enjincloud.kovan.wallet.0x0",
-                                         "enjincloud.mainnet.project.1234",
+                                         "enjincloud.test.wallet.0x0",
+                                         "enjincloud.test.project.1234",
                                          "xyz"));
