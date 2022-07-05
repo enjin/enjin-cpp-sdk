@@ -7,6 +7,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.0.1006] - 2022-07-05
+
+### Added
+
+- Added `GOERLI` to `EnjinHosts.hpp`.
+
+### Removed
+
+- Removed `KOVAN` from `EnjinHosts.hpp`.
+
 ## [1.0.0.1005] - 2022-05-23
 
 ### Added
@@ -78,7 +88,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Initial alpha release.
 
-[Unreleased]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.1005...HEAD
+[Unreleased]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.1006...HEAD
+
+[1.0.0.1006]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.1005...1.0.0.1006
 
 [1.0.0.1005]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.1004...1.0.0.1005
 
