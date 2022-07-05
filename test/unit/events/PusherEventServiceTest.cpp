@@ -29,7 +29,7 @@ using namespace enjin::test::mocks;
 class PusherEventServiceTest : public testing::Test {
 public:
     static constexpr char PLATFORM_JSON[] =
-            R"({"network":"kovan","notifications":{"pusher":{"key":"1","options":{"cluster":"mt1","encrypted":true}}}})";
+            R"({"network":"test","notifications":{"pusher":{"key":"1","options":{"cluster":"mt1","encrypted":true}}}})";
 
     static constexpr EventType EVENT_TYPES[] = {
             EventType::UNKNOWN,

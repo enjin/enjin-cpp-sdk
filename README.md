@@ -7,7 +7,7 @@ Create blockchain video games and applications using the C++ programming languag
 
 [Learn more](https://enjin.io/) about the Enjin blockchain platform.
 
-Sign up to Enjin Cloud: [Kovan (Testnet)](https://kovan.cloud.enjin.io/),
+Sign up to Enjin Cloud: [Goerli (Testnet)](https://goerli.cloud.enjin.io/),
 [Mainnet (Production)](https://cloud.enjin.io/) or [JumpNet](https://jumpnet.cloud.enjin.io/).
 
 ### Resources
@@ -117,10 +117,10 @@ using namespace enjin::sdk::models;
 using namespace enjin::sdk::project;
 
 int main() {
-    // Builds the project client to run on the Kovan test network.
-    // See: https://kovan.cloud.enjin.io to sign up for the test network.
+    // Builds the project client to run on the Goerli test network.
+    // See: https://goerli.cloud.enjin.io to sign up for the test network.
     std::unique_ptr<ProjectClient> client = ProjectClientBuilder()
-        .base_uri(KOVAN) // From EnjinHosts
+        .base_uri(GOERLI) // From EnjinHosts
         .build();
 
     // Creates the request to authenticate the client.

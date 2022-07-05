@@ -27,7 +27,7 @@ class PlayerChannelTest : public ChannelsTestSuite,
 
 TEST_F(PlayerChannelTest, ChannelReturnsExpectedString) {
     // Arrange
-    const std::string expected("enjincloud.kovan.project.1.player.1");
+    const std::string expected("enjincloud.test.project.1.player.1");
     PlayerChannel channel(create_default_platform(), "1", "1");
 
     // Act
