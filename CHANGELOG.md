@@ -7,6 +7,77 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.0.2000] - 2022-07-18
+
+### Added
+
+- Added `JsonValue` class.
+- Added `JsonUtils` utility class.
+- Added `EnumUtils` utility class.
+- Added `to_json()` member-function to `ISerializable`.
+- Added reauthentication features to `ProjectClient`.
+- Added `close()` and `is_closed()` member-functions to `ClientMiddleware`.
+
+### Changed
+
+- Enums and constant expressions now use pascal case instead of upper-snake-case for their naming convention.
+- Renamed `DEL` value in `HttpMethod` to `Delete`.
+- Renamed `ERR` value in `LogLevel` to `Error`.
+- Renamed `AssetSort` to `AssetSortInput`.
+- Renamed `Melt` to `MeltInput`.
+- Renamed `PaginationOptions` to `PaginationInput`.
+- Renamed `Request` to `Transaction`.
+- Renamed `RequestState` to `TransactionState`.
+- Renamed `RequestType` to `TransactionType`.
+- Renamed `Trade` to `TradeInput`.
+- Renamed `TransactionSort` to `TransactionSortInput`.
+- Renamed `Transfers` to `TransferInput`.
+- Renamed `GetRequest` to `GetTransaction`.
+- Renamed `GetRequests` to `GetTransactions`.
+- Renamed `ProjectTransactionRequestArguments` to `TransactionRequestArguments`.
+- Renamed `TrustedPlatformMiddleware` to `ClientMiddleware`.
+- Moved `AssetTransferFeeSettingsInput` to its own header file.
+- Moved `HttpMethod` to its own header file.
+- Moved `LogLevel` to its own header file.
+- `HttpRequest` now uses setter member-functions instead of a builder.
+- Getters in `HttpRequest` now return an optional.
+- Builders are now nested in the classes they are implemented for.
+- Build function in builder for `PusherEventService` now returns a unique-pointer.
+- Moved Enjin host URI expressions in EnjinHosts.hpp into a utility class named `EnjinHosts`.
+- Changed the type of value contained within the optional for `AssetVariant::get_variant_metadata()` from a string
+  to `JsonValue`.
+- Changed the type of value contained within the optional for `TransactionEvent::get_inputs()` from a vector of strings
+  to a vector of type `JsonValue`.
+- Changed the type of value contained within the optional for `TransactionEvent::get_non_indexedinputs()` from a vector
+  of strings to a vector of type `JsonValue`.
+- Changed the type of value contained within the optional for `TransactionEvent::get_indexed_inputs()` from a vector of
+  strings to a vector of type `JsonValue`.
+- Changed the type of value contained within the optional for `TransactionLog::get_data()` from a vector of strings to a
+  vector of type `JsonValue`.
+- Changed the type of value contained within the optional for `TransactionLog::get_topics()` from a vector of strings to
+  a vector of type `JsonValue`.
+- Changed methods to use pass-by-value instead of pass-by-reference where appropriate.
+- Moved functionality of `TrustedPlatformHandler` over to `ClientMiddleware`.
+- Copy and move constructors for `PlayerClient`, `ProjectClient`, and `PusherEventService` are now explicitly deleted.
+- Constructors for schema classes now take a unique-pointer for an HTTP client instead of a middleware.
+- The future returned by `PusherEventService::shutdown()` no longer completes exceptionally if the function is called
+  prior to starting the service.
+- The destructor for `PusherEventService` now attempts to shut down the service.
+- Argument interfaces for requests no longer override parent functions to access internal implementations.
+- Argument interfaces for requests now use static-cast instead of dynamic-cast for their chaining functions.
+- Content-Type header for `HttpRequest` is now stored in its headers set.
+
+### Removed
+
+- Removed internal argument implementation classes.
+- Removed class `LoggerImpl` from public space.
+
+### Fixed
+
+- `ClientMiddleware` now checks if its HTTP client is null.
+- Added template specializations of `BalanceFragmentArguments` for `GetPlayer`, `GetPlayers`, `GetWallet`,
+  and `GetWallets` requests.
+
 ## [1.0.0.1006] - 2022-07-05
 
 ### Added
@@ -88,7 +159,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Initial alpha release.
 
-[Unreleased]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.1006...HEAD
+[Unreleased]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.2000...HEAD
+
+[1.0.0.2000]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.1006...1.0.0.2000
 
 [1.0.0.1006]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.1005...1.0.0.1006
 
