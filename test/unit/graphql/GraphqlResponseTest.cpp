@@ -22,6 +22,7 @@
 #include <vector>
 
 using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::models;
 using namespace enjin::test::suites;
 using namespace enjin::test::utils;
 
@@ -33,8 +34,8 @@ public:
     constexpr static char POPULATED_ERROR_JSON[] =
             R"({"message":"xyz","code":1,"details":"xyz","locations":[{"key":1}]})";
 
-    static enjin::sdk::models::PaginationCursor create_default_pagination_cursor() {
-        enjin::sdk::models::PaginationCursor cursor;
+    static PaginationCursor create_default_pagination_cursor() {
+        PaginationCursor cursor;
         cursor.deserialize(POPULATED_CURSOR_JSON);
         return cursor;
     }
@@ -55,7 +56,7 @@ TEST_F(GraphqlResponseTest, ConstructorParsesOneType) {
       << R"(}})";
 
     // Act
-    GraphqlResponse<enjin::test::utils::DummyObject> response(s.str());
+    GraphqlResponse<DummyObject> response(s.str());
 
     // Assert
     ASSERT_EQ(expected, response.get_result().value());
@@ -87,7 +88,7 @@ TEST_F(GraphqlResponseTest, ConstructorParsesManyType) {
     GraphqlResponse<std::vector<DummyObject>> response(s.str());
 
     // Assert
-    for (const auto& actual : response.get_result().value()) {
+    for (const auto& actual: response.get_result().value()) {
         EXPECT_EQ(expected, actual);
     }
 }
@@ -95,7 +96,7 @@ TEST_F(GraphqlResponseTest, ConstructorParsesManyType) {
 TEST_F(GraphqlResponseTest, ConstructorParsesPaginatedType) {
     // Arrange
     DummyObject expected_obj = DummyObject::create_default_dummy_object();
-    enjin::sdk::models::PaginationCursor expected_cursor = create_default_pagination_cursor();
+    PaginationCursor expected_cursor = create_default_pagination_cursor();
     std::stringstream s;
     s << R"({"data":{"result":{"items":[)"
       << expected_obj.serialize()
@@ -111,7 +112,7 @@ TEST_F(GraphqlResponseTest, ConstructorParsesPaginatedType) {
     // Assert
     ASSERT_TRUE(response.get_result().has_value());
     ASSERT_TRUE(response.get_cursor().has_value());
-    for (const auto& actual : response.get_result().value()) {
+    for (const auto& actual: response.get_result().value()) {
         EXPECT_EQ(expected_obj, actual);
     }
     EXPECT_EQ(expected_cursor, response.get_cursor().value());
@@ -130,7 +131,7 @@ TEST_F(GraphqlResponseTest, ConstructorParsesErrors) {
 
     // Assert
     ASSERT_TRUE(response.get_errors().has_value());
-    for (const auto& actual : response.get_errors().value()) {
+    for (const auto& actual: response.get_errors().value()) {
         EXPECT_EQ(expected, actual);
     }
 }
@@ -152,7 +153,7 @@ TEST_F(GraphqlResponseTest, HasErrorsReturnsTrue) {
 
 TEST_F(GraphqlResponseTest, HasErrorsReturnsFalse) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     GraphqlResponse<DummyObject> response(json);
@@ -163,7 +164,7 @@ TEST_F(GraphqlResponseTest, HasErrorsReturnsFalse) {
 
 TEST_F(GraphqlResponseTest, IsEmptyNonPaginatedTypeReturnsTrue) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     GraphqlResponse<DummyObject> response(json);
@@ -174,7 +175,7 @@ TEST_F(GraphqlResponseTest, IsEmptyNonPaginatedTypeReturnsTrue) {
 
 TEST_F(GraphqlResponseTest, IsEmptyPaginatedTypeReturnsTrue) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     GraphqlResponse<std::vector<DummyObject>> response(json);
@@ -185,10 +186,10 @@ TEST_F(GraphqlResponseTest, IsEmptyPaginatedTypeReturnsTrue) {
 
 TEST_F(GraphqlResponseTest, IsEmptyNonPaginatedTypeReturnsFalse) {
     // Arrange
-    DummyObject expected = DummyObject::create_default_dummy_object();
+    DummyObject dummy_obj = DummyObject::create_default_dummy_object();
     std::stringstream s;
     s << R"({"data":{"result":)"
-      << expected.serialize()
+      << dummy_obj.serialize()
       << R"(}})";
 
     // Act
@@ -200,13 +201,12 @@ TEST_F(GraphqlResponseTest, IsEmptyNonPaginatedTypeReturnsFalse) {
 
 TEST_F(GraphqlResponseTest, IsEmptyPaginatedTypeReturnsFalse) {
     // Arrange
-    DummyObject expected_obj = DummyObject::create_default_dummy_object();
-    enjin::sdk::models::PaginationCursor expected_cursor = create_default_pagination_cursor();
+    DummyObject dummy_obj = DummyObject::create_default_dummy_object();
     std::stringstream s;
     s << R"({"data":{"result":{"items":[)"
-      << expected_obj.serialize()
+      << dummy_obj.serialize()
       << R"(,)"
-      << expected_obj.serialize()
+      << dummy_obj.serialize()
       << R"(],"cursor":)"
       << POPULATED_CURSOR_JSON
       << R"(}}})";
@@ -220,10 +220,10 @@ TEST_F(GraphqlResponseTest, IsEmptyPaginatedTypeReturnsFalse) {
 
 TEST_F(GraphqlResponseTest, IsSuccessfulReturnsTrue) {
     // Arrange
-    DummyObject expected = DummyObject::create_default_dummy_object();
+    DummyObject dummy_obj = DummyObject::create_default_dummy_object();
     std::stringstream s;
     s << R"({"data":{"result":)"
-      << expected.serialize()
+      << dummy_obj.serialize()
       << R"(}})";
 
     // Act
@@ -235,7 +235,7 @@ TEST_F(GraphqlResponseTest, IsSuccessfulReturnsTrue) {
 
 TEST_F(GraphqlResponseTest, IsSuccessfulReturnsFalse) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     GraphqlResponse<DummyObject> response(json);
@@ -246,13 +246,12 @@ TEST_F(GraphqlResponseTest, IsSuccessfulReturnsFalse) {
 
 TEST_F(GraphqlResponseTest, IsPaginatedReturnsTrue) {
     // Arrange
-    DummyObject expected_obj = DummyObject::create_default_dummy_object();
-    enjin::sdk::models::PaginationCursor expected_cursor = create_default_pagination_cursor();
+    DummyObject dummy_obj = DummyObject::create_default_dummy_object();
     std::stringstream s;
     s << R"({"data":{"result":{"items":[)"
-      << expected_obj.serialize()
+      << dummy_obj.serialize()
       << R"(,)"
-      << expected_obj.serialize()
+      << dummy_obj.serialize()
       << R"(],"cursor":)"
       << POPULATED_CURSOR_JSON
       << R"(}}})";
@@ -266,7 +265,7 @@ TEST_F(GraphqlResponseTest, IsPaginatedReturnsTrue) {
 
 TEST_F(GraphqlResponseTest, IsPaginatedReturnsFalse) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     GraphqlResponse<DummyObject> response(json);

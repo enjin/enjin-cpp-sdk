@@ -22,6 +22,7 @@
 #include "enjinsdk/models/AssetStateData.hpp"
 #include "enjinsdk/models/AssetVariant.hpp"
 #include "enjinsdk/models/AssetVariantMode.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 #include <vector>
@@ -31,10 +32,19 @@ namespace enjin::sdk::models {
 /// \brief Models a asset on the platform.
 class ENJINSDK_EXPORT Asset : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    Asset() = default;
+    /// \brief Constructs an instance of this class.
+    Asset();
 
-    ~Asset() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    Asset(const Asset& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    Asset(Asset&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~Asset() override;
 
     void deserialize(const std::string& json) override;
 
@@ -76,24 +86,12 @@ public:
 
     bool operator!=(const Asset& rhs) const;
 
-private:
-    std::optional<std::string> id;
-    std::optional<std::string> name;
-    std::optional<AssetStateData> state_data;
-    std::optional<AssetConfigData> config_data;
-    std::optional<AssetVariantMode> variant_mode;
-    std::optional<std::vector<AssetVariant>> variants;
-    std::optional<std::string> created_at;
-    std::optional<std::string> updated_at;
+    Asset& operator=(const Asset& rhs);
 
-    constexpr static char ID_KEY[] = "id";
-    constexpr static char NAME_KEY[] = "name";
-    constexpr static char STATE_DATA_KEY[] = "stateData";
-    constexpr static char CONFIG_DATA_KEY[] = "configData";
-    constexpr static char VARIANT_MODE_KEY[] = "variantMode";
-    constexpr static char VARIANTS_KEY[] = "variants";
-    constexpr static char CREATED_AT_KEY[] = "createdAt";
-    constexpr static char UPDATED_AT_KEY[] = "updatedAt";
+private:
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

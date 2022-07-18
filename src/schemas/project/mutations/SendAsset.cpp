@@ -15,75 +15,70 @@
 
 #include "enjinsdk/project/SendAsset.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
 
-SendAsset::SendAsset() : graphql::AbstractGraphqlRequest("enjin.sdk.project.SendAsset") {
+SendAsset::SendAsset() : AbstractGraphqlRequest("enjin.sdk.project.SendAsset"),
+                         TransactionRequestArguments<SendAsset>() {
 }
 
 std::string SendAsset::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
-
-    if (recipient_address.has_value()) {
-        utils::set_string_member(document, "recipientAddress", recipient_address.value());
-    }
-    if (asset_id.has_value()) {
-        utils::set_string_member(document, "assetId", asset_id.value());
-    }
-    if (asset_index.has_value()) {
-        utils::set_string_member(document, "assetIndex", asset_index.value());
-    }
-    if (value.has_value()) {
-        utils::set_string_member(document, "value", value.value());
-    }
-    if (data.has_value()) {
-        utils::set_string_member(document, "data", data.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
-SendAsset& SendAsset::set_recipient_address(const std::string& recipient_address) {
-    SendAsset::recipient_address = recipient_address;
+SendAsset& SendAsset::set_recipient_address(std::string recipient_address) {
+    recipient_address_opt = std::move(recipient_address);
     return *this;
 }
 
-SendAsset& SendAsset::set_asset_id(const std::string& asset_id) {
-    SendAsset::asset_id = asset_id;
+SendAsset& SendAsset::set_asset_id(std::string asset_id) {
+    asset_id_opt = std::move(asset_id);
     return *this;
 }
 
-SendAsset& SendAsset::set_asset_index(const std::string& asset_index) {
-    SendAsset::asset_index = asset_index;
+SendAsset& SendAsset::set_asset_index(std::string asset_index) {
+    asset_index_opt = std::move(asset_index);
     return *this;
 }
 
-SendAsset& SendAsset::set_value(const std::string& value) {
-    SendAsset::value = value;
+SendAsset& SendAsset::set_value(std::string value) {
+    value_opt = std::move(value);
     return *this;
 }
 
-SendAsset& SendAsset::set_data(const std::string& data) {
-    SendAsset::data = data;
+SendAsset& SendAsset::set_data(std::string data) {
+    data_opt = std::move(data);
     return *this;
+}
+
+JsonValue SendAsset::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, TransactionRequestArguments<SendAsset>::to_json());
+    JsonUtils::try_set_field(json, "recipientAddress", recipient_address_opt);
+    JsonUtils::try_set_field(json, "assetId", asset_id_opt);
+    JsonUtils::try_set_field(json, "assetIndex", asset_index_opt);
+    JsonUtils::try_set_field(json, "value", value_opt);
+    JsonUtils::try_set_field(json, "data", data_opt);
+
+    return json;
 }
 
 bool SendAsset::operator==(const SendAsset& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const ProjectTransactionRequestArguments<SendAsset>&>(*this) ==
-           static_cast<const ProjectTransactionRequestArguments<SendAsset>&>(rhs) &&
-           recipient_address == rhs.recipient_address &&
-           asset_id == rhs.asset_id &&
-           asset_index == rhs.asset_index &&
-           value == rhs.value &&
-           data == rhs.data;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<SendAsset>&>(*this) == rhs
+           && recipient_address_opt == rhs.recipient_address_opt
+           && asset_id_opt == rhs.asset_id_opt
+           && asset_index_opt == rhs.asset_index_opt
+           && value_opt == rhs.value_opt
+           && data_opt == rhs.data_opt;
 }
 
 bool SendAsset::operator!=(const SendAsset& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

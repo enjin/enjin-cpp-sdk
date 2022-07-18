@@ -15,53 +15,53 @@
 
 #include "enjinsdk/shared/GetAssets.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include <utility>
 
-namespace enjin::sdk::shared {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::shared;
+using namespace enjin::sdk::utils;
 
-GetAssets::GetAssets() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.GetAssets") {
+GetAssets::GetAssets() : AbstractGraphqlRequest("enjin.sdk.shared.GetAssets"),
+                         AssetFragmentArguments<GetAssets>(),
+                         PaginationArguments<GetAssets>() {
 }
 
 std::string GetAssets::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_objects_to_document(document, {
-            AssetFragmentArguments::serialize(),
-            PaginationArguments::serialize()
-    });
-
-    if (filter.has_value()) {
-        utils::set_object_member_from_type<models::AssetFilter>(document, "filter", filter.value());
-    }
-    if (sort.has_value()) {
-        utils::set_object_member_from_type<models::AssetSort>(document, "sort", sort.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
-GetAssets& GetAssets::set_filter(const models::AssetFilter& filter) {
-    GetAssets::filter = filter;
+GetAssets& GetAssets::set_filter(AssetFilter filter) {
+    filter_opt = std::move(filter);
     return *this;
 }
 
-GetAssets& GetAssets::set_sort(const models::AssetSort& sort) {
-    GetAssets::sort = sort;
+GetAssets& GetAssets::set_sort(AssetSortInput sort) {
+    sort_opt = std::move(sort);
     return *this;
+}
+
+JsonValue GetAssets::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, AssetFragmentArguments<GetAssets>::to_json());
+    JsonUtils::join_object(json, PaginationArguments<GetAssets>::to_json());
+    JsonUtils::try_set_field(json, "filter", filter_opt);
+    JsonUtils::try_set_field(json, "sort", sort_opt);
+
+    return json;
 }
 
 bool GetAssets::operator==(const GetAssets& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const AssetFragmentArguments<GetAssets>&>(*this) ==
-           static_cast<const AssetFragmentArguments<GetAssets>&>(rhs) &&
-           static_cast<const PaginationArguments<GetAssets>&>(*this) ==
-           static_cast<const PaginationArguments<GetAssets>&>(rhs) &&
-           filter == rhs.filter &&
-           sort == rhs.sort;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const AssetFragmentArguments<GetAssets>&>(*this) == rhs
+           && static_cast<const PaginationArguments<GetAssets>&>(*this) == rhs
+           && filter_opt == rhs.filter_opt
+           && sort_opt == rhs.sort_opt;
 }
 
 bool GetAssets::operator!=(const GetAssets& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

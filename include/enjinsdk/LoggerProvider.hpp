@@ -16,8 +16,9 @@
 #ifndef ENJINSDK_LOGGERPROVIDER_HPP
 #define ENJINSDK_LOGGERPROVIDER_HPP
 
-#include "enjinsdk/ILogger.hpp"
 #include "enjinsdk_export.h"
+#include "enjinsdk/ILogger.hpp"
+#include "enjinsdk/LogLevel.hpp"
 #include <memory>
 #include <string>
 
@@ -33,8 +34,8 @@ public:
     /// \param default_level The default logging level.
     /// \param debug_level The debug logging level.
     explicit LoggerProvider(std::shared_ptr<ILogger> logger,
-                            LogLevel default_level = LogLevel::INFO,
-                            LogLevel debug_level = LogLevel::DEBUG);
+                            LogLevel default_level = LogLevel::Info,
+                            LogLevel debug_level = LogLevel::Debug);
 
     /// \brief Default destructor.
     ~LoggerProvider() = default;

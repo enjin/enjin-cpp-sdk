@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "EnumUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 #include "gtest/gtest.h"
 #include <string>
 #include <tuple>
@@ -30,7 +30,7 @@ TEST_P(AssetSupplyModelTest, DeserializeAssetSupplyModelReturnsExpectedValue) {
     const std::string& str = std::get<0>(GetParam());
 
     // Act
-    AssetSupplyModel actual = deserialize_asset_supply_model(str);
+    AssetSupplyModel actual = EnumUtils::deserialize_asset_supply_model(str);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -42,7 +42,7 @@ TEST_P(AssetSupplyModelTest, SerializeAssetSupplyModelReturnsExpectedString) {
     AssetSupplyModel value = std::get<1>(GetParam());
 
     // Act
-    std::string actual = serialize_asset_supply_model(value);
+    std::string actual = EnumUtils::serialize_asset_supply_model(value);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -50,10 +50,10 @@ TEST_P(AssetSupplyModelTest, SerializeAssetSupplyModelReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializableAssetSupplyModel,
                          AssetSupplyModelTest,
-                         testing::Values(std::make_tuple("UNKNOWN", AssetSupplyModel::UNKNOWN),
-                                         std::make_tuple("FIXED", AssetSupplyModel::FIXED),
-                                         std::make_tuple("SETTABLE", AssetSupplyModel::SETTABLE),
-                                         std::make_tuple("INFINITE", AssetSupplyModel::INFINITE),
-                                         std::make_tuple("COLLAPSING", AssetSupplyModel::COLLAPSING),
-                                         std::make_tuple("ANNUAL_VALUE", AssetSupplyModel::ANNUAL_VALUE),
-                                         std::make_tuple("ANNUAL_PERCENTAGE", AssetSupplyModel::ANNUAL_PERCENTAGE)));
+                         testing::Values(std::make_tuple("UNKNOWN", AssetSupplyModel::Unknown),
+                                         std::make_tuple("FIXED", AssetSupplyModel::Fixed),
+                                         std::make_tuple("SETTABLE", AssetSupplyModel::Settable),
+                                         std::make_tuple("INFINITE", AssetSupplyModel::Infinite),
+                                         std::make_tuple("COLLAPSING", AssetSupplyModel::Collapsing),
+                                         std::make_tuple("ANNUAL_VALUE", AssetSupplyModel::AnnualValue),
+                                         std::make_tuple("ANNUAL_PERCENTAGE", AssetSupplyModel::AnnualPercentage)));

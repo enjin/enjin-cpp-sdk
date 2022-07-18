@@ -22,9 +22,6 @@
 
 namespace enjin::sdk::utils {
 
-/// \brief Implementation of the logger used internally.
-class ENJINSDK_EXPORT LoggerImpl;
-
 /// \brief Basic logger class for logging messages to stdout.
 class ENJINSDK_EXPORT Logger : public ILogger {
 public:
@@ -40,7 +37,9 @@ public:
     [[nodiscard]] bool is_loggable(LogLevel level) const override;
 
 private:
-    LoggerImpl* impl;
+    class Impl;
+
+    Impl* impl;
 };
 
 }

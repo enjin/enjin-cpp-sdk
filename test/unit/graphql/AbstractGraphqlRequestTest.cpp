@@ -18,8 +18,9 @@
 #include <string>
 
 using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
 
-class AbstractGraphqlRequestTest : public ::testing::Test {
+class AbstractGraphqlRequestTest : public testing::Test {
 public:
     class TestableGraphqlRequest : public AbstractGraphqlRequest {
     public:
@@ -29,7 +30,11 @@ public:
         }
 
         [[nodiscard]] std::string serialize() const override {
-            return std::string();
+            return to_json().to_string();
+        }
+
+        [[nodiscard]] JsonValue to_json() const override {
+            return JsonValue::create_object();
         }
     };
 };

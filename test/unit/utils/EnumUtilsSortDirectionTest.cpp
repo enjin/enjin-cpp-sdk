@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "EnumUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 #include "gtest/gtest.h"
 #include <string>
 #include <tuple>
@@ -30,7 +30,7 @@ TEST_P(SortDirectionTest, SerializeSortDirectionReturnsExpectedString) {
     SortDirection value = std::get<1>(GetParam());
 
     // Act
-    std::string actual = serialize_sort_direction(value);
+    std::string actual = EnumUtils::serialize_sort_direction(value);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -38,5 +38,5 @@ TEST_P(SortDirectionTest, SerializeSortDirectionReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializeSortDirection,
                          SortDirectionTest,
-                         testing::Values(std::make_tuple("asc", SortDirection::ASCENDING),
-                                         std::make_tuple("desc", SortDirection::DESCENDING)));
+                         testing::Values(std::make_tuple("asc", SortDirection::Ascending),
+                                         std::make_tuple("desc", SortDirection::Descending)));

@@ -16,11 +16,19 @@
 #ifndef ENJINCPPSDK_JSONTESTSUITE_HPP
 #define ENJINCPPSDK_JSONTESTSUITE_HPP
 
+#include "enjinsdk/JsonValue.hpp"
+
 namespace enjin::test::suites {
 
 class JsonTestSuite {
 public:
-    constexpr static char EMPTY_JSON_OBJECT[] = "{}";
+    constexpr static char EmptyJsonObject[] = "{}";
+
+    static sdk::json::JsonValue create_empty_json_object() {
+        sdk::json::JsonValue json = sdk::json::JsonValue::create_object();
+
+        return json;
+    }
 };
 
 }

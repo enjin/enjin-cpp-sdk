@@ -19,6 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/AssetSupplyModel.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -27,10 +28,19 @@ namespace enjin::sdk::models {
 /// \brief Models the state data of a asset.
 class ENJINSDK_EXPORT AssetStateData : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    AssetStateData() = default;
+    /// \brief Constructs an instance of this class.
+    AssetStateData();
 
-    ~AssetStateData() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    AssetStateData(const AssetStateData& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    AssetStateData(AssetStateData&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~AssetStateData() override;
 
     void deserialize(const std::string& json) override;
 
@@ -74,26 +84,12 @@ public:
 
     bool operator!=(const AssetStateData& rhs) const;
 
-private:
-    std::optional<bool> non_fungible;
-    std::optional<int> block_height;
-    std::optional<std::string> creator;
-    std::optional<int> first_block;
-    std::optional<std::string> reserve;
-    std::optional<AssetSupplyModel> supply_model;
-    std::optional<std::string> circulating_supply;
-    std::optional<std::string> mintable_supply;
-    std::optional<std::string> total_supply;
+    AssetStateData& operator=(const AssetStateData& rhs);
 
-    constexpr static char NONFUNGIBLE_KEY[] = "nonFungible";
-    constexpr static char BLOCK_HEIGHT_KEY[] = "blockHeight";
-    constexpr static char CREATOR_KEY[] = "creator";
-    constexpr static char FIRST_BLOCK_KEY[] = "firstBlock";
-    constexpr static char RESERVE_KEY[] = "reserve";
-    constexpr static char SUPPLY_MODEL_KEY[] = "supplyModel";
-    constexpr static char CIRCULATING_SUPPLY_KEY[] = "circulatingSupply";
-    constexpr static char MINTABLE_SUPPLY_KEY[] = "mintableSupply";
-    constexpr static char TOTAL_SUPPLY_KEY[] = "totalSupply";
+private:
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

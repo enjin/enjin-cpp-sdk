@@ -15,40 +15,92 @@
 
 #include "enjinsdk/models/MintInput.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include <utility>
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::serialization;
+using namespace enjin::sdk::utils;
+
+class MintInput::Impl final : public ISerializable {
+public:
+    Impl() = default;
+
+    ~Impl() override = default;
+
+    [[nodiscard]] std::string serialize() const override {
+        return to_json().to_string();
+    }
+
+    void set_to(std::string address) {
+        to_opt = std::move(address);
+    }
+
+    void set_value(std::string value) {
+        value_opt = std::move(value);
+    }
+
+    [[nodiscard]] json::JsonValue to_json() const override {
+        JsonValue json = JsonValue::create_object();
+
+        JsonUtils::try_set_field(json, "to", to_opt);
+        JsonUtils::try_set_field(json, "value", value_opt);
+
+        return json;
+    }
+
+    bool operator==(const Impl& rhs) const {
+        return to_opt == rhs.to_opt
+               && value_opt == rhs.value_opt;
+    }
+
+    bool operator!=(const Impl& rhs) const {
+        return !(*this == rhs);
+    }
+
+private:
+    std::optional<std::string> to_opt;
+    std::optional<std::string> value_opt;
+};
+
+MintInput::MintInput() : pimpl(std::make_unique<Impl>()) {
+}
+
+MintInput::MintInput(const MintInput& other) : pimpl(std::make_unique<Impl>(*other.pimpl)) {
+}
+
+MintInput::MintInput(MintInput&& other) noexcept = default;
+
+MintInput::~MintInput() = default;
 
 std::string MintInput::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-
-    if (to.has_value()) {
-        utils::set_string_member(document, TO_KEY, to.value());
-    }
-    if (value.has_value()) {
-        utils::set_string_member(document, VALUE_KEY, value.value());
-    }
-
-    return utils::document_to_string(document);
+    return pimpl->serialize();
 }
 
-MintInput& MintInput::set_to(const std::string& address) {
-    to = address;
+MintInput& MintInput::set_to(std::string address) {
+    pimpl->set_to(std::move(address));
     return *this;
 }
 
-MintInput& MintInput::set_value(const std::string& value) {
-    MintInput::value = value;
+MintInput& MintInput::set_value(std::string value) {
+    pimpl->set_value(std::move(value));
     return *this;
+}
+
+JsonValue MintInput::to_json() const {
+    return pimpl->to_json();
 }
 
 bool MintInput::operator==(const MintInput& rhs) const {
-    return to == rhs.to &&
-           value == rhs.value;
+    return *pimpl == *rhs.pimpl;
 }
 
 bool MintInput::operator!=(const MintInput& rhs) const {
-    return !(rhs == *this);
+    return *pimpl != *rhs.pimpl;
 }
 
+MintInput& MintInput::operator=(const MintInput& rhs) {
+    pimpl = std::make_unique<Impl>(*rhs.pimpl);
+    return *this;
 }

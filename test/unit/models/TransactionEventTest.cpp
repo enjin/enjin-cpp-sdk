@@ -26,7 +26,7 @@ public:
     TransactionEvent class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"name":"1","inputs":[],"nonIndexedInputs":[],"indexedInputs":[],"signature":"1","encodedSignature":"1"})";
+            R"({"name":"1","inputs":[{},{}],"nonIndexedInputs":[{},{}],"indexedInputs":[{},{}],"signature":"1","encodedSignature":"1"})";
 };
 
 TEST_F(TransactionEventTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
@@ -47,7 +47,7 @@ TEST_F(TransactionEventTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
 
 TEST_F(TransactionEventTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     class_under_test.deserialize(json);

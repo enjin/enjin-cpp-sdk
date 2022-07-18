@@ -16,6 +16,7 @@
 #include "enjinsdk/GraphqlQueryRegistry.hpp"
 
 #include "TemplateConstants.hpp"
+#include <utility>
 
 namespace enjin::sdk::graphql {
 
@@ -23,9 +24,9 @@ GraphqlQueryRegistry::GraphqlQueryRegistry() {
     register_template_constants();
 }
 
-bool GraphqlQueryRegistry::register_template(const std::string& name, const std::string& query) {
+bool GraphqlQueryRegistry::register_template(std::string name, std::string query) {
     if (registered.find(name) == registered.end()) {
-        registered.emplace(name, query);
+        registered.emplace(std::move(name), std::move(query));
         return true;
     }
 
@@ -48,7 +49,7 @@ std::string GraphqlQueryRegistry::get_operation_for_name(const std::string& name
         return std::string();
     }
 
-    return std::string(iter->second);
+    return iter->second;
 }
 
 }

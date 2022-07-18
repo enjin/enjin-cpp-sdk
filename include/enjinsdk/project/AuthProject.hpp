@@ -36,20 +36,22 @@ public:
     /// \brief Sets the project UUID.
     /// \param uuid The UUID.
     /// \return This request for chaining.
-    AuthProject& set_uuid(const std::string& uuid);
+    AuthProject& set_uuid(std::string uuid);
 
     /// \brief Sets the secret.
     /// \param secret The secret.
     /// \return This request for chaining.
-    AuthProject& set_secret(const std::string& secret);
+    AuthProject& set_secret(std::string secret);
+
+    [[nodiscard]] json::JsonValue to_json() const override;
 
     bool operator==(const AuthProject& rhs) const;
 
     bool operator!=(const AuthProject& rhs) const;
 
 private:
-    std::optional<std::string> uuid;
-    std::optional<std::string> secret;
+    std::optional<std::string> uuid_opt;
+    std::optional<std::string> secret_opt;
 };
 
 }

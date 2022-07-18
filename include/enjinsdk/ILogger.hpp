@@ -17,19 +17,10 @@
 #define ENJINSDK_ILOGGER_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/LogLevel.hpp"
 #include <string>
 
 namespace enjin::sdk::utils {
-
-/// \brief Enum values dictating the severity level of a log message.
-enum class LogLevel {
-    TRACE,
-    DEBUG,
-    INFO,
-    WARN,
-    ERR,
-    SEVERE,
-};
 
 /// \brief Logger interface to be implemented for use by the SDK.
 class ENJINSDK_EXPORT ILogger {

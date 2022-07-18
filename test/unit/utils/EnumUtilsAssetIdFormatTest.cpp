@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "EnumUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 #include "gtest/gtest.h"
 #include <string>
 #include <tuple>
@@ -30,7 +30,7 @@ TEST_P(AssetIdFormatTest, SerializeAssetIdFormatReturnsExpectedString) {
     AssetIdFormat value = std::get<1>(GetParam());
 
     // Act
-    std::string actual = serialize_asset_id_format(value);
+    std::string actual = EnumUtils::serialize_asset_id_format(value);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -38,6 +38,6 @@ TEST_P(AssetIdFormatTest, SerializeAssetIdFormatReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializeAssetIdFormat,
                          AssetIdFormatTest,
-                         testing::Values(std::make_tuple("hex64", AssetIdFormat::HEX64),
-                                         std::make_tuple("hex256", AssetIdFormat::HEX256),
-                                         std::make_tuple("uint256", AssetIdFormat::UINT256)));
+                         testing::Values(std::make_tuple("hex64", AssetIdFormat::Hex64),
+                                         std::make_tuple("hex256", AssetIdFormat::Hex256),
+                                         std::make_tuple("uint256", AssetIdFormat::Uint256)));

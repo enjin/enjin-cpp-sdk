@@ -36,14 +36,16 @@ public:
     /// \brief Sets the Ethereum address of the wallet to unlink.
     /// \param eth_address The address.
     /// \return This request for chaining.
-    UnlinkWallet& set_eth_address(const std::string& eth_address);
+    UnlinkWallet& set_eth_address(std::string eth_address);
+
+    [[nodiscard]] json::JsonValue to_json() const override;
 
     bool operator==(const UnlinkWallet& rhs) const;
 
     bool operator!=(const UnlinkWallet& rhs) const;
 
 private:
-    std::optional<std::string> eth_address;
+    std::optional<std::string> eth_address_opt;
 };
 
 }

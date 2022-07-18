@@ -19,8 +19,8 @@
 #include "HttpClient.hpp"
 #include "MockHttpServer.hpp"
 #include "TestableBaseSchema.hpp"
+#include "enjinsdk/HttpHeaders.hpp"
 #include <memory>
-#include <sstream>
 #include <string>
 
 using namespace enjin::sdk;
@@ -30,17 +30,16 @@ using namespace enjin::test::utils;
 
 class BaseSchemaHttpTest : public testing::Test {
 public:
-    static constexpr HttpMethod HTTP_METHOD = HttpMethod::Post;
+    MockHttpServer mock_server;
+
     static constexpr char DEFAULT_PATH_QUERY_FRAGMENT[] = "/graphql/test";
     static constexpr char JSON[] = "application/json; charset=utf-8";
 
-    MockHttpServer mock_server;
-
     TestableBaseSchema create_testable_base_schema() {
-        auto client = std::make_unique<http::HttpClient>(mock_server.uri());
+        auto client = std::make_unique<HttpClient>(mock_server.uri());
         client->start();
 
-        return TestableBaseSchema(TrustedPlatformMiddleware(std::move(client)));
+        return TestableBaseSchema(std::move(client));
     }
 
 protected:
@@ -58,24 +57,16 @@ TEST_F(BaseSchemaHttpTest, SendRequestForOneResponseIsSuccessfulReceivesExpected
     DummyObject expected = DummyObject::create_default_dummy_object();
     TestableBaseSchema schema = create_testable_base_schema();
     FakeGraphqlRequest fake_request(expected.serialize());
-    std::string req_body = schema.create_request_body(fake_request);
-    std::stringstream res_body;
-    res_body << R"({"data":{"result":)"
-             << expected.serialize()
-             << R"(}})";
-    HttpRequest http_req = http::HttpRequestBuilder().method(HTTP_METHOD)
-                                                     .path_query_fragment(DEFAULT_PATH_QUERY_FRAGMENT)
-                                                     .content_type(JSON)
-                                                     .body(req_body)
-                                                     .build();
-    HttpResponse http_res = http::HttpResponseBuilder().code(200)
-                                                       .content_type(JSON)
-                                                       .body(res_body.str())
-                                                       .build();
 
     // Arrange - Stubbing
-    mock_server.given(http_req)
-               .respond_with(http_res);
+    mock_server.given(Request::create()
+                              .with_path(DEFAULT_PATH_QUERY_FRAGMENT)
+                              .with_body(schema.create_request_body(fake_request))
+                              .using_post())
+               .respond_with(Response::create()
+                                     .with_success()
+                                     .with_header(ContentType, {JSON})
+                                     .with_body(R"({"data":{"result":)" + expected.serialize() + "}}"));
 
     // Act
     auto response = schema.send_request_for_one<DummyObject>(fake_request).get();
@@ -89,20 +80,16 @@ TEST_F(BaseSchemaHttpTest, SendRequestForOneServerRespondsWithErrorReponseIsNotS
     TestableBaseSchema schema = create_testable_base_schema();
     DummyObject dummy_object = DummyObject::create_default_dummy_object();
     FakeGraphqlRequest fake_request(dummy_object.serialize());
-    std::string req_body = schema.create_request_body(fake_request);
-    HttpRequest http_req = http::HttpRequestBuilder().method(HTTP_METHOD)
-                                                     .path_query_fragment(DEFAULT_PATH_QUERY_FRAGMENT)
-                                                     .content_type(JSON)
-                                                     .body(req_body)
-                                                     .build();
-    HttpResponse http_res = http::HttpResponseBuilder().code(400)
-                                                       .content_type(JSON)
-                                                       .body("Test Error Response")
-                                                       .build();
 
     // Arrange - Stubbing
-    mock_server.given(http_req)
-               .respond_with(http_res);
+    mock_server.given(Request::create()
+                              .with_path(DEFAULT_PATH_QUERY_FRAGMENT)
+                              .with_body(schema.create_request_body(fake_request))
+                              .using_post())
+               .respond_with(Response::create()
+                                     .with_status_code(400)
+                                     .with_header(ContentType, {JSON})
+                                     .with_body("Test Error Response"));
 
     // Act
     auto response = schema.send_request_for_one<DummyObject>(fake_request).get();
@@ -116,32 +103,26 @@ TEST_F(BaseSchemaHttpTest, SendRequestForMany) {
     DummyObject expected = DummyObject::create_default_dummy_object();
     TestableBaseSchema schema = create_testable_base_schema();
     FakeGraphqlRequest fake_request(expected.serialize());
-    std::string req_body = schema.create_request_body(fake_request);
-    std::stringstream res_body;
-    res_body << R"({"data":{"result":[)"
-             << expected.serialize()
-             << R"(,)"
-             << expected.serialize()
-             << R"(]}})";
-    HttpRequest http_req = http::HttpRequestBuilder().method(HTTP_METHOD)
-                                                     .path_query_fragment(DEFAULT_PATH_QUERY_FRAGMENT)
-                                                     .content_type(JSON)
-                                                     .body(req_body)
-                                                     .build();
-    HttpResponse http_res = http::HttpResponseBuilder().code(200)
-                                                       .content_type(JSON)
-                                                       .body(res_body.str())
-                                                       .build();
 
     // Arrange - Stubbing
-    mock_server.given(http_req)
-               .respond_with(http_res);
+    mock_server.given(Request::create()
+                              .with_path(DEFAULT_PATH_QUERY_FRAGMENT)
+                              .with_body(schema.create_request_body(fake_request))
+                              .using_post())
+               .respond_with(Response::create()
+                                     .with_success()
+                                     .with_header(ContentType, JSON)
+                                     .with_body(R"({"data":{"result":[)" +
+                                                expected.serialize() +
+                                                "," +
+                                                expected.serialize() +
+                                                "]}}"));
 
     // Act
     auto response = schema.send_request_for_many<DummyObject>(fake_request).get();
 
     // Assert
-    for (const auto& actual : response.get_result().value()) {
+    for (const auto& actual: response.get_result().value()) {
         EXPECT_EQ(expected, actual);
     }
 }
@@ -151,20 +132,16 @@ TEST_F(BaseSchemaHttpTest, SendRequestForManyServerRespondsWithErrorReponseIsNot
     TestableBaseSchema schema = create_testable_base_schema();
     DummyObject dummy_object = DummyObject::create_default_dummy_object();
     FakeGraphqlRequest fake_request(dummy_object.serialize());
-    std::string req_body = schema.create_request_body(fake_request);
-    HttpRequest http_req = http::HttpRequestBuilder().method(HTTP_METHOD)
-                                                     .path_query_fragment(DEFAULT_PATH_QUERY_FRAGMENT)
-                                                     .content_type(JSON)
-                                                     .body(req_body)
-                                                     .build();
-    HttpResponse http_res = http::HttpResponseBuilder().code(400)
-                                                       .content_type(JSON)
-                                                       .body("Test Error Response")
-                                                       .build();
 
     // Arrange - Stubbing
-    mock_server.given(http_req)
-               .respond_with(http_res);
+    mock_server.given(Request::create()
+                              .with_path(DEFAULT_PATH_QUERY_FRAGMENT)
+                              .with_body(schema.create_request_body(fake_request))
+                              .using_post())
+               .respond_with(Response::create()
+                                     .with_status_code(400)
+                                     .with_header(ContentType, JSON)
+                                     .with_body("Test Error Response"));
 
     // Act
     auto response = schema.send_request_for_one<DummyObject>(fake_request).get();

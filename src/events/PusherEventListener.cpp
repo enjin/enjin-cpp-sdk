@@ -17,6 +17,7 @@
 
 #include "EventTypeDef.hpp"
 #include <sstream>
+#include <string>
 
 namespace enjin::sdk::events {
 
@@ -24,9 +25,9 @@ PusherEventListener::PusherEventListener(PusherEventService* service) : service(
 }
 
 void PusherEventListener::on_event(const pusher::PusherEvent& event) {
-    const std::string& key = event.get_event_name().value_or("");
-    const std::string& channel = event.get_channel_name().value_or("");
-    const std::string& message = event.get_data().value_or("");
+    const std::string key = event.get_event_name().value_or("");
+    const std::string channel = event.get_channel_name().value_or("");
+    const std::string message = event.get_data().value_or("");
 
     auto listeners = service->get_listeners();
     auto logger = service->get_logger_provider();
@@ -35,23 +36,23 @@ void PusherEventListener::on_event(const pusher::PusherEvent& event) {
     if (logger != nullptr) {
         std::stringstream ss;
         ss << "Received event " << key << " on channel " << channel << " with results " << message;
-        logger->log(utils::LogLevel::INFO, ss.str());
+        logger->log(utils::LogLevel::Info, ss.str());
     }
 
     if (listeners.empty()) {
         if (logger != nullptr) {
-            logger->log(utils::LogLevel::INFO, "No registered listener when event was received");
+            logger->log(utils::LogLevel::Info, "No registered listener when event was received");
         }
 
         return;
     }
 
     EventTypeDef def = EventTypeDef::get_from_key(key);
-    if (def.get_type() == models::EventType::UNKNOWN) {
+    if (def.get_type() == models::EventType::Unknown) {
         if (logger != nullptr) {
             std::stringstream ss;
             ss << "Unknown event type for key " << def.get_key();
-            logger->log(utils::LogLevel::WARN, ss.str());
+            logger->log(utils::LogLevel::Warn, ss.str());
         }
 
         return;

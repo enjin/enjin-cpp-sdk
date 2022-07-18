@@ -18,8 +18,8 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
-#include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/models/AssetTransferFeeType.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -28,10 +28,19 @@ namespace enjin::sdk::models {
 /// \brief Models transfer fee settings for an asset.
 class ENJINSDK_EXPORT AssetTransferFeeSettings : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    AssetTransferFeeSettings() = default;
+    /// \brief Constructs an instance of this class.
+    AssetTransferFeeSettings();
 
-    ~AssetTransferFeeSettings() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    AssetTransferFeeSettings(const AssetTransferFeeSettings& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    AssetTransferFeeSettings(AssetTransferFeeSettings&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~AssetTransferFeeSettings() override;
 
     void deserialize(const std::string& json) override;
 
@@ -51,45 +60,12 @@ public:
 
     bool operator!=(const AssetTransferFeeSettings& rhs) const;
 
-protected:
-    std::optional<AssetTransferFeeType> type;
-    std::optional<std::string> asset_id;
-    std::optional<std::string> value;
+    AssetTransferFeeSettings& operator=(const AssetTransferFeeSettings& rhs);
 
-    constexpr static char TYPE_KEY[] = "type";
-    constexpr static char ASSET_ID_KEY[] = "assetId";
-    constexpr static char VALUE_KEY[] = "value";
-};
+private:
+    class Impl;
 
-/// \brief Models input for the transfer fee settings used in GraphQL requests.
-class ENJINSDK_EXPORT AssetTransferFeeSettingsInput : public AssetTransferFeeSettings,
-                                                      public serialization::ISerializable {
-public:
-    /// \brief Default constructor.
-    AssetTransferFeeSettingsInput() = default;
-
-    ~AssetTransferFeeSettingsInput() override = default;
-
-    [[nodiscard]] std::string serialize() const override;
-
-    /// \brief Sets the transfer type for this input.
-    /// \param type The type.
-    /// \return This input for chaining.
-    AssetTransferFeeSettingsInput& set_type(AssetTransferFeeType type);
-
-    /// \brief Sets the asset ID for this input.
-    /// \param asset_id The ID.
-    /// \return This input for chaining.
-    AssetTransferFeeSettingsInput& set_asset_id(const std::string& asset_id);
-
-    /// \brief Sets the value in Wei for this input.
-    /// \param value The value.
-    /// \return This input for chaining.
-    AssetTransferFeeSettingsInput& set_value(const std::string& value);
-
-    bool operator==(const AssetTransferFeeSettingsInput& rhs) const;
-
-    bool operator!=(const AssetTransferFeeSettingsInput& rhs) const;
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

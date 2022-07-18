@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -26,10 +27,19 @@ namespace enjin::sdk::models {
 /// \brief Models a pagination cursor for queries.
 class ENJINSDK_EXPORT PaginationCursor : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    PaginationCursor() = default;
+    /// \brief Constructs an instance of this class.
+    PaginationCursor();
 
-    ~PaginationCursor() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    PaginationCursor(const PaginationCursor& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    PaginationCursor(PaginationCursor&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~PaginationCursor() override;
 
     void deserialize(const std::string& json) override;
 
@@ -69,24 +79,12 @@ public:
 
     bool operator!=(const PaginationCursor& rhs) const;
 
-private:
-    std::optional<int> total;
-    std::optional<int> per_page;
-    std::optional<int> current_page;
-    std::optional<bool> has_pages;
-    std::optional<int> from;
-    std::optional<int> to;
-    std::optional<int> last_page;
-    std::optional<bool> has_more_pages;
+    PaginationCursor& operator=(const PaginationCursor& rhs);
 
-    constexpr static char TOTAL_KEY[] = "total";
-    constexpr static char PER_PAGE_KEY[] = "perPage";
-    constexpr static char CURRENT_PAGE_KEY[] = "currentPage";
-    constexpr static char HAS_PAGES_KEY[] = "hasPages";
-    constexpr static char FROM_KEY[] = "from";
-    constexpr static char TO_KEY[] = "to";
-    constexpr static char LAST_PAGE_KEY[] = "lastPage";
-    constexpr static char HAS_MORE_PAGES_KEY[] = "hasMorePages";
+private:
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

@@ -15,57 +15,56 @@
 
 #include "enjinsdk/project/BridgeAsset.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
 
-BridgeAsset::BridgeAsset() : graphql::AbstractGraphqlRequest("enjin.sdk.project.BridgeAsset") {
+BridgeAsset::BridgeAsset() : AbstractGraphqlRequest("enjin.sdk.project.BridgeAsset"),
+                             TransactionRequestArguments<BridgeAsset>() {
 }
 
 std::string BridgeAsset::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
-
-    if (asset_id.has_value()) {
-        utils::set_string_member(document, "assetId", asset_id.value());
-    }
-    if (asset_index.has_value()) {
-        utils::set_string_member(document, "assetIndex", asset_index.value());
-    }
-    if (value.has_value()) {
-        utils::set_string_member(document, "value", value.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
 BridgeAsset& BridgeAsset::set_asset_id(std::string asset_id) {
-    BridgeAsset::asset_id = asset_id;
+    asset_id_opt = std::move(asset_id);
     return *this;
 }
 
 BridgeAsset& BridgeAsset::set_asset_index(std::string asset_index) {
-    BridgeAsset::asset_index = asset_index;
+    asset_index_opt = std::move(asset_index);
     return *this;
 }
 
 BridgeAsset& BridgeAsset::set_value(std::string value) {
-    BridgeAsset::value = value;
+    value_opt = std::move(value);
     return *this;
 }
 
+JsonValue BridgeAsset::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, TransactionRequestArguments<BridgeAsset>::to_json());
+    JsonUtils::try_set_field(json, "assetId", asset_id_opt);
+    JsonUtils::try_set_field(json, "assetIndex", asset_index_opt);
+    JsonUtils::try_set_field(json, "value", value_opt);
+
+    return json;
+}
+
 bool BridgeAsset::operator==(const BridgeAsset& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const ProjectTransactionRequestArguments<BridgeAsset>&>(*this) ==
-           static_cast<const ProjectTransactionRequestArguments<BridgeAsset>&>(rhs) &&
-           asset_id == rhs.asset_id &&
-           asset_index == rhs.asset_index &&
-           value == rhs.value;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<BridgeAsset>&>(*this) == rhs
+           && asset_id_opt == rhs.asset_id_opt
+           && asset_index_opt == rhs.asset_index_opt
+           && value_opt == rhs.value_opt;
 }
 
 bool BridgeAsset::operator!=(const BridgeAsset& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

@@ -15,48 +15,50 @@
 
 #include "enjinsdk/player/SendEnj.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include <utility>
 
-namespace enjin::sdk::player {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::player;
+using namespace enjin::sdk::shared;
+using namespace enjin::sdk::utils;
 
-SendEnj::SendEnj() : graphql::AbstractGraphqlRequest("enjin.sdk.player.SendEnj") {
+SendEnj::SendEnj() : AbstractGraphqlRequest("enjin.sdk.player.SendEnj"),
+                     TransactionFragmentArguments<SendEnj>() {
 }
 
 std::string SendEnj::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionFragmentArguments::serialize());
-
-    if (recipient_address.has_value()) {
-        utils::set_string_member(document, "recipientAddress", recipient_address.value());
-    }
-    if (value.has_value()) {
-        utils::set_string_member(document, "value", value.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
-SendEnj& SendEnj::set_recipient_address(const std::string& recipient_address) {
-    SendEnj::recipient_address = recipient_address;
+SendEnj& SendEnj::set_recipient_address(std::string recipient_address) {
+    recipient_address_opt = std::move(recipient_address);
     return *this;
 }
 
-SendEnj& SendEnj::set_value(const std::string& value) {
-    SendEnj::value = value;
+SendEnj& SendEnj::set_value(std::string value) {
+    value_opt = std::move(value);
     return *this;
+}
+
+JsonValue SendEnj::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, TransactionFragmentArguments<SendEnj>::to_json());
+    JsonUtils::try_set_field(json, "recipientAddress", recipient_address_opt);
+    JsonUtils::try_set_field(json, "value", value_opt);
+
+    return json;
 }
 
 bool SendEnj::operator==(const SendEnj& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionFragmentArguments<SendEnj>&>(*this) ==
-           static_cast<const shared::TransactionFragmentArguments<SendEnj>&>(rhs) &&
-           recipient_address == rhs.recipient_address &&
-           value == rhs.value;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const TransactionFragmentArguments<SendEnj>&>(*this) == rhs
+           && recipient_address_opt == rhs.recipient_address_opt
+           && value_opt == rhs.value_opt;
 }
 
 bool SendEnj::operator!=(const SendEnj& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

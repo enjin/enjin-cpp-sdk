@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "EnumUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 #include "gtest/gtest.h"
 #include <string>
 #include <tuple>
@@ -30,7 +30,7 @@ TEST_P(WhitelistedTest, SerializeWhitelistedReturnsExpectedString) {
     Whitelisted value = std::get<1>(GetParam());
 
     // Act
-    std::string actual = serialize_whitelisted(value);
+    std::string actual = EnumUtils::serialize_whitelisted(value);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -38,9 +38,9 @@ TEST_P(WhitelistedTest, SerializeWhitelistedReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializeWhitelisted,
                          WhitelistedTest,
-                         testing::Values(std::make_tuple("NONE", Whitelisted::NONE),
-                                         std::make_tuple("SEND_AND_RECEIVE", Whitelisted::SEND_AND_RECEIVE),
-                                         std::make_tuple("SEND", Whitelisted::SEND),
-                                         std::make_tuple("RECEIVE", Whitelisted::RECEIVE),
-                                         std::make_tuple("NO_FEES", Whitelisted::NO_FEES),
-                                         std::make_tuple("ADDRESS", Whitelisted::ADDRESS)));
+                         testing::Values(std::make_tuple("NONE", Whitelisted::None),
+                                         std::make_tuple("SEND_AND_RECEIVE", Whitelisted::SendAndReceive),
+                                         std::make_tuple("SEND", Whitelisted::Send),
+                                         std::make_tuple("RECEIVE", Whitelisted::Receive),
+                                         std::make_tuple("NO_FEES", Whitelisted::NoFees),
+                                         std::make_tuple("ADDRESS", Whitelisted::Address)));

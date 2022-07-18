@@ -18,6 +18,8 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
+#include "enjinsdk/JsonValue.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 #include <vector>
@@ -27,10 +29,19 @@ namespace enjin::sdk::models {
 /// \brief Models a blockchain transaction event.
 class ENJINSDK_EXPORT TransactionEvent : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    TransactionEvent() = default;
+    /// \brief Constructs an instance of this class.
+    TransactionEvent();
 
-    ~TransactionEvent() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    TransactionEvent(const TransactionEvent& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    TransactionEvent(TransactionEvent&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~TransactionEvent() override;
 
     void deserialize(const std::string& json) override;
 
@@ -38,17 +49,17 @@ public:
     /// \return The name.
     [[nodiscard]] const std::optional<std::string>& get_name() const;
 
-    /// \brief Returns the serialized parameters for this event.
+    /// \brief Returns the parameters for this event.
     /// \return The parameters.
-    [[nodiscard]] const std::optional<std::vector<std::string>>& get_inputs() const;
+    [[nodiscard]] const std::optional<std::vector<json::JsonValue>>& get_inputs() const;
 
-    /// \brief Returns the serialized non-indexed parameters for this event.
+    /// \brief Returns the non-indexed parameters for this event.
     /// \return The non-indexed parameters.
-    [[nodiscard]] const std::optional<std::vector<std::string>>& get_non_indexed_inputs() const;
+    [[nodiscard]] const std::optional<std::vector<json::JsonValue>>& get_non_indexed_inputs() const;
 
-    /// \brief Returns the serialized indexed parameters for this event.
+    /// \brief Returns the indexed parameters for this event.
     /// \return The indexed parameters.
-    [[nodiscard]] const std::optional<std::vector<std::string>>& get_indexed_inputs() const;
+    [[nodiscard]] const std::optional<std::vector<json::JsonValue>>& get_indexed_inputs() const;
 
     /// \brief Returns the event signature.
     /// \return The signature.
@@ -63,20 +74,12 @@ public:
 
     bool operator!=(const TransactionEvent& rhs) const;
 
-private:
-    std::optional<std::string> name;
-    std::optional<std::vector<std::string>> inputs;
-    std::optional<std::vector<std::string>> non_indexed_inputs;
-    std::optional<std::vector<std::string>> indexed_inputs;
-    std::optional<std::string> signature;
-    std::optional<std::string> encoded_signature;
+    TransactionEvent& operator=(const TransactionEvent& rhs);
 
-    constexpr static char NAME_KEY[] = "name";
-    constexpr static char INPUTS_KEY[] = "inputs";
-    constexpr static char NON_INDEXED_INPUTS_KEY[] = "nonIndexedInputs";
-    constexpr static char INDEXED_INPUTS_KEY[] = "indexedInputs";
-    constexpr static char SIGNATURE_KEY[] = "signature";
-    constexpr static char ENCODED_SIGNATURE_KEY[] = "encodedSignature";
+private:
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

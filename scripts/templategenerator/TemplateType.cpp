@@ -28,11 +28,11 @@ TemplateType::Value TemplateType::value() const {
 
 std::string TemplateType::to_string() const {
     switch (m_value) {
-        case TemplateType::Value::FRAGMENT:
+        case TemplateType::Value::Fragment:
             return "FRAGMENT";
-        case TemplateType::Value::MUTATION:
+        case TemplateType::Value::Mutation:
             return "MUTATION";
-        case TemplateType::Value::QUERY:
+        case TemplateType::Value::Query:
             return "QUERY";
         default:
             throw std::runtime_error("Unknown template type");
@@ -54,9 +54,9 @@ std::ostream& operator<<(std::ostream& os, const TemplateType& type) {
 
 std::vector<TemplateType> TemplateType::values() {
     return std::vector<TemplateType>({
-        TemplateType(TemplateType::Value::FRAGMENT),
-        TemplateType(TemplateType::Value::MUTATION),
-        TemplateType(TemplateType::Value::QUERY),
+        TemplateType(TemplateType::Value::Fragment),
+        TemplateType(TemplateType::Value::Mutation),
+        TemplateType(TemplateType::Value::Query),
     });
 }
 

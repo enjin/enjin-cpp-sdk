@@ -17,50 +17,17 @@
 #define ENJINCPPSDK_HTTPRESPONSE_HPP
 
 #include "enjinsdk_export.h"
+#include <map>
 #include <optional>
 #include <string>
 
 namespace enjin::sdk::http {
 
-class HttpResponse;
-
-/// \brief Builder class for HttpResponse class.
-class ENJINSDK_EXPORT HttpResponseBuilder {
-public:
-    /// \brief Default constructor.
-    HttpResponseBuilder() = default;
-
-    /// \brief Default destructor.
-    ~HttpResponseBuilder() = default;
-
-    /// \brief Builds the response.
-    /// \return The built response.
-    [[nodiscard]] HttpResponse build();
-
-    /// \brief Sets the status code the response will be built with.
-    /// \param code The status code.
-    /// \return This builder for chaining.
-    HttpResponseBuilder& code(unsigned short code);
-
-    /// \brief Sets the body data the response will be built with.
-    /// \param body The response body.
-    /// \return This builder for chaining.
-    HttpResponseBuilder& body(const std::string& body);
-
-    /// \brief Sets the content type header the response will be built with.
-    /// \param content_type The content type.
-    /// \return This builder for chaining.
-    HttpResponseBuilder& content_type(const std::string& content_type);
-
-private:
-    std::optional<unsigned short> m_code;
-    std::optional<std::string> m_body;
-    std::optional<std::string> m_content_type;
-};
-
 /// \brief Container class for a HTTP response.
 class ENJINSDK_EXPORT HttpResponse {
 public:
+    class HttpResponseBuilder;
+
     /// \brief Default constructor.
     HttpResponse() = default;
 
@@ -83,24 +50,72 @@ public:
     /// \return The response body optional.
     [[nodiscard]] const std::optional<std::string>& get_body() const;
 
-    /// \brief Returns the optional with the content type header.
-    /// \return The content type optional.
-    [[nodiscard]] const std::optional<std::string>& get_content_type() const;
+    /// \brief Returns the map for the HTTP headers.
+    /// \return The headers.
+    [[nodiscard]] const std::map<std::string, std::string>& get_headers() const;
+
+    /// \brief Returns the value for the header.
+    /// \param name The header name.
+    /// \return An optional containing the header value if one exists.
+    [[nodiscard]] std::optional<std::string> get_header_value(const std::string& name) const;
+
+    /// \brief Determines if a value exists for the provided header name.
+    /// \param name The header name.
+    /// \return Whether a value exists.
+    [[nodiscard]] bool has_header(const std::string& name) const noexcept;
 
     bool operator==(const HttpResponse& rhs) const;
 
     bool operator!=(const HttpResponse& rhs) const;
 
+    /// \brief Creates a builder for this class.
+    /// \return The builder.
+    [[nodiscard]] static HttpResponseBuilder builder();
+
+    /// \brief Builder class for HttpResponse.
+    class ENJINSDK_EXPORT HttpResponseBuilder {
+    public:
+        /// \brief Default destructor.
+        ~HttpResponseBuilder() = default;
+
+        /// \brief Builds the response.
+        /// \return The built response.
+        [[nodiscard]] HttpResponse build();
+
+        /// \brief Sets the status code the response will be built with.
+        /// \param code The status code.
+        /// \return This builder for chaining.
+        HttpResponseBuilder& code(unsigned short code);
+
+        /// \brief Sets the body data the response will be built with.
+        /// \param body The response body.
+        /// \return This builder for chaining.
+        HttpResponseBuilder& body(std::string body);
+
+        /// \brief Adds a header for the response to be built with.
+        /// \param name The header name.
+        /// \param value The header value.
+        /// \return This builder for chaining.
+        HttpResponseBuilder& add_header(std::string name, std::string value);
+
+    private:
+        std::optional<unsigned short> m_code;
+        std::optional<std::string> m_body;
+        std::map<std::string, std::string> headers;
+
+        HttpResponseBuilder() = default;
+
+        friend HttpResponseBuilder HttpResponse::builder();
+    };
+
 private:
     std::optional<unsigned short> code;
     std::optional<std::string> body;
-    std::optional<std::string> content_type;
+    std::map<std::string, std::string> headers;
 
     HttpResponse(std::optional<unsigned short> code,
                  std::optional<std::string>,
-                 std::optional<std::string> content_type);
-
-    friend HttpResponse HttpResponseBuilder::build();
+                 std::map<std::string, std::string> headers);
 };
 
 }

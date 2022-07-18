@@ -19,6 +19,7 @@
 #include "AssetFragmentArgumentsTestSuite.hpp"
 #include "BalanceFragmentArgumentsTestSuite.hpp"
 #include "TransactionFragmentArgumentsTestSuite.hpp"
+#include "enjinsdk/JsonValue.hpp"
 #include "enjinsdk/shared/WalletFragmentArguments.hpp"
 #include <type_traits>
 
@@ -34,6 +35,13 @@ class WalletFragmentArgumentsTestSuite : public AssetFragmentArgumentsTestSuite<
 public:
     static constexpr char WalletFragmentJson[] =
             R"({"walletBalanceFilter":{},"withAssetsCreated":true,"withWalletBalances":true,"withWalletTransactions":true})";
+
+    static sdk::json::JsonValue create_json_object() {
+        sdk::json::JsonValue json;
+
+        json.try_parse_as_object(WalletFragmentJson);
+        return json;
+    }
 
     static void set_wallet_fragment_arguments(sdk::shared::WalletFragmentArguments<T>& o) {
         o.set_wallet_balance_filter({})

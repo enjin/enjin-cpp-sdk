@@ -18,17 +18,28 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
+#include <memory>
 #include <optional>
+#include <string>
 
 namespace enjin::sdk::models {
 
 /// \brief Models gas prices on the platform.
 class ENJINSDK_EXPORT GasPrices : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    GasPrices() = default;
+    /// \brief Constructs an instance of this class.
+    GasPrices();
 
-    ~GasPrices() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    GasPrices(const GasPrices& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    GasPrices(GasPrices&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~GasPrices() override;
 
     void deserialize(const std::string& json) override;
 
@@ -56,16 +67,12 @@ public:
 
     bool operator!=(const GasPrices& rhs) const;
 
-private:
-    std::optional<float> safe_low;
-    std::optional<float> average;
-    std::optional<float> fast;
-    std::optional<float> fastest;
+    GasPrices& operator=(const GasPrices& rhs);
 
-    constexpr static char SAFE_LOW_KEY[] = "safeLow";
-    constexpr static char AVERAGE_KEY[] = "average";
-    constexpr static char FAST_KEY[] = "fast";
-    constexpr static char FASTEST_KEY[] = "fastest";
+private:
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

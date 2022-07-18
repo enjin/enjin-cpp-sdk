@@ -15,7 +15,7 @@
 
 #include "gtest/gtest.h"
 #include "JsonTestSuite.hpp"
-#include "enjinsdk/models/AssetTransferFeeSettings.hpp"
+#include "enjinsdk/models/AssetTransferFeeSettingsInput.hpp"
 #include <string>
 
 using namespace enjin::sdk::models;
@@ -30,7 +30,7 @@ public:
             R"({"type":"NONE","assetId":"1","value":"1"})";
 
     static AssetTransferFeeSettingsInput create_default_transfer_fee_settings_input() {
-        return AssetTransferFeeSettingsInput().set_type(AssetTransferFeeType::NONE)
+        return AssetTransferFeeSettingsInput().set_type(AssetTransferFeeType::None)
                                               .set_asset_id("1")
                                               .set_value("1");
     }
@@ -38,7 +38,7 @@ public:
 
 TEST_F(AssetTransferFeeSettingsInputTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
-    const std::string expected(EMPTY_JSON_OBJECT);
+    const std::string expected(EmptyJsonObject);
 
     // Act
     std::string actual = class_under_test.serialize();
@@ -50,7 +50,7 @@ TEST_F(AssetTransferFeeSettingsInputTest, SerializeNoSetFieldsReturnsEmptyJsonOb
 TEST_F(AssetTransferFeeSettingsInputTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_type(AssetTransferFeeType::NONE)
+    class_under_test.set_type(AssetTransferFeeType::None)
                     .set_asset_id("1")
                     .set_value("1");
 

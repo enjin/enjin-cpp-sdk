@@ -16,6 +16,7 @@
 #ifndef ENJINSDK_TRANSACTIONFRAGMENTARGUMENTSTESTSUITE_HPP
 #define ENJINSDK_TRANSACTIONFRAGMENTARGUMENTSTESTSUITE_HPP
 
+#include "enjinsdk/JsonValue.hpp"
 #include "enjinsdk/shared/TransactionFragmentArguments.hpp"
 #include <type_traits>
 
@@ -30,8 +31,15 @@ public:
     static constexpr char TransactionFragmentJson[] =
             R"({"transactionAssetIdFormat":"hex64","withBlockchainData":true,"withMeta":true,"withEncodedData":true,"withAssetData":true,"withSignedTxs":true,"withError":true,"withNonce":true,"withState":true,"withReceipt":true,"withReceiptLogs":true,"withLogEvent":true,"withTransactionProjectUuid":true,"withTransactionWalletAddress":true})";
 
+    static sdk::json::JsonValue create_json_object() {
+        sdk::json::JsonValue json;
+
+        json.try_parse_as_object(TransactionFragmentJson);
+        return json;
+    }
+
     static void set_transaction_fragment_arguments(sdk::shared::TransactionFragmentArguments<T>& o) {
-        o.set_transaction_asset_id_format(sdk::models::AssetIdFormat::HEX64)
+        o.set_transaction_asset_id_format(sdk::models::AssetIdFormat::Hex64)
          .set_with_blockchain_data()
          .set_with_meta()
          .set_with_encoded_data()

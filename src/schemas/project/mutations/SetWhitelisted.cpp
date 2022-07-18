@@ -15,76 +15,71 @@
 
 #include "enjinsdk/project/SetWhitelisted.hpp"
 
-#include "EnumUtils.hpp"
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
 
-SetWhitelisted::SetWhitelisted() : graphql::AbstractGraphqlRequest("enjin.sdk.project.SetWhitelisted") {
+SetWhitelisted::SetWhitelisted() : AbstractGraphqlRequest("enjin.sdk.project.SetWhitelisted"),
+                                   TransactionRequestArguments<SetWhitelisted>() {
 }
 
 std::string SetWhitelisted::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
-
-    if (asset_id.has_value()) {
-        utils::set_string_member(document, "assetId", asset_id.value());
-    }
-    if (account_address.has_value()) {
-        utils::set_string_member(document, "accountAddress", account_address.value());
-    }
-    if (whitelisted.has_value()) {
-        utils::set_string_member(document, "whitelisted", utils::serialize_whitelisted(whitelisted.value()));
-    }
-    if (whitelisted_address.has_value()) {
-        utils::set_string_member(document, "whitelistedAddress", whitelisted_address.value());
-    }
-    if (on.has_value()) {
-        utils::set_boolean_member(document, "on", on.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
-SetWhitelisted& SetWhitelisted::set_asset_id(const std::string& asset_id) {
-    SetWhitelisted::asset_id = asset_id;
+SetWhitelisted& SetWhitelisted::set_asset_id(std::string asset_id) {
+    asset_id_opt = std::move(asset_id);
     return *this;
 }
 
-SetWhitelisted& SetWhitelisted::set_account_address(const std::string& account_address) {
-    SetWhitelisted::account_address = account_address;
+SetWhitelisted& SetWhitelisted::set_account_address(std::string account_address) {
+    account_address_opt = std::move(account_address);
     return *this;
 }
 
-SetWhitelisted& SetWhitelisted::set_whitelisted(models::Whitelisted whitelisted) {
-    SetWhitelisted::whitelisted = whitelisted;
+SetWhitelisted& SetWhitelisted::set_whitelisted(Whitelisted whitelisted) {
+    whitelisted_opt = whitelisted;
     return *this;
 }
 
-SetWhitelisted& SetWhitelisted::set_whitelisted_address(const std::string& whitelisted_address) {
-    SetWhitelisted::whitelisted_address = whitelisted_address;
+SetWhitelisted& SetWhitelisted::set_whitelisted_address(std::string whitelisted_address) {
+    whitelisted_address_opt = std::move(whitelisted_address);
     return *this;
 }
 
 SetWhitelisted& SetWhitelisted::set_on(bool on) {
-    SetWhitelisted::on = on;
+    on_opt = on;
     return *this;
 }
 
+JsonValue SetWhitelisted::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, TransactionRequestArguments<SetWhitelisted>::to_json());
+    JsonUtils::try_set_field(json, "assetId", asset_id_opt);
+    JsonUtils::try_set_field(json, "accountAddress", account_address_opt);
+    JsonUtils::try_set_field(json, "whitelisted", whitelisted_opt);
+    JsonUtils::try_set_field(json, "whitelistedAddress", whitelisted_address_opt);
+    JsonUtils::try_set_field(json, "on", on_opt);
+
+    return json;
+}
+
 bool SetWhitelisted::operator==(const SetWhitelisted& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const ProjectTransactionRequestArguments<SetWhitelisted>&>(*this) ==
-           static_cast<const ProjectTransactionRequestArguments<SetWhitelisted>&>(rhs) &&
-           asset_id == rhs.asset_id &&
-           account_address == rhs.account_address &&
-           whitelisted == rhs.whitelisted &&
-           whitelisted_address == rhs.whitelisted_address &&
-           on == rhs.on;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<SetWhitelisted>&>(*this) == rhs
+           && asset_id_opt == rhs.asset_id_opt
+           && account_address_opt == rhs.account_address_opt
+           && whitelisted_opt == rhs.whitelisted_opt
+           && whitelisted_address_opt == rhs.whitelisted_address_opt
+           && on_opt == rhs.on_opt;
 }
 
 bool SetWhitelisted::operator!=(const SetWhitelisted& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

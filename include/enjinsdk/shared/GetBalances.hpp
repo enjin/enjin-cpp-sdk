@@ -42,13 +42,17 @@ public:
     /// \return This request for chaining.
     GetBalances& set_filter(models::BalanceFilter filter);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const GetBalances& rhs) const;
 
     bool operator!=(const GetBalances& rhs) const;
 
 private:
-    std::optional<models::BalanceFilter> filter;
+    std::optional<models::BalanceFilter> filter_opt;
 };
+
+// region BalanceFragmentArguments
 
 template ENJINSDK_EXPORT GetBalances&
 BalanceFragmentArguments<GetBalances>::set_bal_id_format(models::AssetIdFormat bal_id_format);
@@ -56,14 +60,23 @@ BalanceFragmentArguments<GetBalances>::set_bal_id_format(models::AssetIdFormat b
 template ENJINSDK_EXPORT GetBalances&
 BalanceFragmentArguments<GetBalances>::set_bal_index_format(models::AssetIndexFormat bal_index_format);
 
-template ENJINSDK_EXPORT GetBalances& BalanceFragmentArguments<GetBalances>::set_with_bal_project_uuid();
-
-template ENJINSDK_EXPORT GetBalances& BalanceFragmentArguments<GetBalances>::set_with_bal_wallet_address();
+template ENJINSDK_EXPORT GetBalances&
+BalanceFragmentArguments<GetBalances>::set_with_bal_project_uuid();
 
 template ENJINSDK_EXPORT GetBalances&
-PaginationArguments<GetBalances>::set_pagination(models::PaginationOptions pagination);
+BalanceFragmentArguments<GetBalances>::set_with_bal_wallet_address();
 
-template ENJINSDK_EXPORT GetBalances& PaginationArguments<GetBalances>::set_pagination(int page, int limit);
+// endregion BalanceFragmentArguments
+
+// region PaginationArguments
+
+template ENJINSDK_EXPORT GetBalances&
+PaginationArguments<GetBalances>::set_pagination(models::PaginationInput pagination);
+
+template ENJINSDK_EXPORT GetBalances&
+PaginationArguments<GetBalances>::set_pagination(int page, int limit);
+
+// endregion PaginationArguments
 
 }
 

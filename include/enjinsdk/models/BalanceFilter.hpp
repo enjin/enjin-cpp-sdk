@@ -19,6 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/ISerializable.hpp"
 #include "enjinsdk/models/Operator.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 #include <vector>
@@ -28,42 +29,51 @@ namespace enjin::sdk::models {
 /// \brief Models a filter input for balance queries.
 class ENJINSDK_EXPORT BalanceFilter : public serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    BalanceFilter() = default;
+    /// \brief Constructs an instance of this class.
+    BalanceFilter();
 
-    ~BalanceFilter() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    BalanceFilter(const BalanceFilter& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    BalanceFilter(BalanceFilter&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~BalanceFilter() override;
 
     [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the filter to include other filters to intersect with.
     /// \param others The other filters.
     /// \return This filter for chaining.
-    BalanceFilter& set_and(const std::vector<BalanceFilter>& others);
+    BalanceFilter& set_and(std::vector<BalanceFilter> others);
 
     /// \brief Sets the filter to include other filters to union with.
     /// \param others The other filters.
     /// \return This filter for chaining.
-    BalanceFilter& set_or(const std::vector<BalanceFilter>& others);
+    BalanceFilter& set_or(std::vector<BalanceFilter> others);
 
     /// \brief Sets the asset ID to filter for.
     /// \param asset_id The asset ID.
     /// \return This filter for chaining.
-    BalanceFilter& set_asset_id(const std::string& asset_id);
+    BalanceFilter& set_asset_id(std::string asset_id);
 
     /// \brief Sets the asset IDs to filter for.
     /// \param asset_ids The asset IDs.
     /// \return This filter for chaining.
-    BalanceFilter& set_asset_id_in(const std::vector<std::string>& asset_ids);
+    BalanceFilter& set_asset_id_in(std::vector<std::string> asset_ids);
 
     /// \brief Sets the wallet to filter by.
     /// \param wallet The wallet address.
     /// \return This filter for chaining.
-    BalanceFilter& set_wallet(const std::string& wallet);
+    BalanceFilter& set_wallet(std::string wallet);
 
     /// \brief Sets the wallets to filter by.
     /// \param wallets The wallet addresses.
     /// \return This filter for chaining.
-    BalanceFilter& set_wallet_in(const std::vector<std::string>& wallets);
+    BalanceFilter& set_wallet_in(std::vector<std::string> wallets);
 
     /// \brief Sets the filter to include balances equal to the passed value.
     /// \param value The value to compare by.
@@ -75,28 +85,18 @@ public:
     /// \return This filter for chaining.
     BalanceFilter& set_value_is(Operator value_is);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const BalanceFilter& rhs) const;
 
     bool operator!=(const BalanceFilter& rhs) const;
 
-private:
-    std::optional<std::vector<BalanceFilter>> and_filters;
-    std::optional<std::vector<BalanceFilter>> or_filters;
-    std::optional<std::string> asset_id;
-    std::optional<std::vector<std::string>> asset_id_in;
-    std::optional<std::string> wallet;
-    std::optional<std::vector<std::string>> wallet_in;
-    std::optional<int> value;
-    std::optional<Operator> value_is;
+    BalanceFilter& operator=(const BalanceFilter& rhs);
 
-    constexpr static char AND_KEY[] = "and";
-    constexpr static char OR_KEY[] = "or";
-    constexpr static char ASSET_ID_KEY[] = "assetId";
-    constexpr static char ASSET_ID_IN_KEY[] = "assetId_in";
-    constexpr static char WALLET_KEY[] = "wallet";
-    constexpr static char WALLET_IN_KEY[] = "wallet_in";
-    constexpr static char VALUE_KEY[] = "value";
-    constexpr static char VALUE_IS_KEY[] = "value_is";
+private:
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

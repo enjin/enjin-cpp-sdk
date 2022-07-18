@@ -15,41 +15,36 @@
 
 #include "DummyObject.hpp"
 
-#include "rapidjson/document.h"
-#include "rapidjson/writer.h"
+#include "enjinsdk/JsonUtils.hpp"
 
-namespace enjin::test::utils {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::utils;
+using namespace enjin::test::utils;
 
-DummyObject::DummyObject(int id) {
-    this->id = std::optional<int>(id);
+DummyObject::DummyObject(int id) : id(std::optional<int>(id)) {
 }
 
 void DummyObject::deserialize(const std::string& json) {
-    rapidjson::Document document;
-    document.Parse(json.c_str());
-    if (document.IsObject()) {
-        if (document.HasMember(ID_KEY) && document[ID_KEY].IsInt()) {
-            id = std::optional<int>(document[ID_KEY].GetInt());
-        }
+    JsonValue json_value;
+    if (!json_value.try_parse_as_object(json)) {
+        id.reset();
+
+        return;
     }
+
+    JsonUtils::try_get_field(json_value, IdKey, id);
 }
 
 std::string DummyObject::serialize() const {
-    rapidjson::Document document;
-    document.SetObject();
-    rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
+    return to_json().to_string();
+}
 
-    if (id.has_value()) {
-        rapidjson::Value v(id.value());
-        document.AddMember(ID_KEY, v, allocator);
-    }
+JsonValue DummyObject::to_json() const {
+    JsonValue json = JsonValue::create_object();
 
-    rapidjson::StringBuffer buffer;
-    rapidjson::Writer <rapidjson::StringBuffer> writer(buffer);
-    document.Accept(writer);
-    const char* json = buffer.GetString();
+    JsonUtils::try_set_field(json, IdKey, id);
 
-    return std::string(json);
+    return json;
 }
 
 bool DummyObject::operator==(const DummyObject& rhs) const {
@@ -57,11 +52,9 @@ bool DummyObject::operator==(const DummyObject& rhs) const {
 }
 
 bool DummyObject::operator!=(const DummyObject& rhs) const {
-    return !(rhs == *this);
+    return !(*this == rhs);
 }
 
 DummyObject DummyObject::create_default_dummy_object() {
     return DummyObject(1);
-}
-
 }

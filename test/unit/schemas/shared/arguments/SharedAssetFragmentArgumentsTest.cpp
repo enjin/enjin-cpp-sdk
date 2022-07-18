@@ -19,6 +19,7 @@
 #include "TestableSharedAssetFragmentArguments.hpp"
 #include <string>
 
+using namespace enjin::sdk::json;
 using namespace enjin::test::suites;
 using namespace enjin::test::utils;
 
@@ -35,24 +36,24 @@ public:
     }
 };
 
-TEST_F(SharedAssetFragmentArgumentsTest, SerializeNoSetFieldsReturnsEmptyJson) {
+TEST_F(SharedAssetFragmentArgumentsTest, ToJsonNoSetFieldsReturnsEmptyJson) {
     // Arrange
-    const std::string expected(EMPTY_JSON_OBJECT);
+    const JsonValue expected = create_empty_json_object();
 
     // Act
-    std::string actual = class_under_test.serialize();
+    const JsonValue actual = class_under_test.to_json();
 
     // Assert
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(SharedAssetFragmentArgumentsTest, SerializeSetAssetFragmentFieldsReturnsExpectedJson) {
+TEST_F(SharedAssetFragmentArgumentsTest, ToJsonSetAssetFragmentFieldsReturnsExpectedJson) {
     // Arrange
-    const std::string expected(AssetFragmentJson);
+    const JsonValue expected = AssetFragmentArgumentsTestSuite::create_json_object();
     set_asset_fragment_arguments(class_under_test);
 
     // Act
-    std::string actual = class_under_test.serialize();
+    const JsonValue actual = class_under_test.to_json();
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -60,11 +61,11 @@ TEST_F(SharedAssetFragmentArgumentsTest, SerializeSetAssetFragmentFieldsReturnsE
 
 TEST_F(SharedAssetFragmentArgumentsTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    TestableSharedAssetFragmentArguments lhs;
-    TestableSharedAssetFragmentArguments rhs;
+    const TestableSharedAssetFragmentArguments lhs;
+    const TestableSharedAssetFragmentArguments rhs;
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_TRUE(actual);
@@ -72,11 +73,11 @@ TEST_F(SharedAssetFragmentArgumentsTest, EqualityNeitherSideIsPopulatedReturnsTr
 
 TEST_F(SharedAssetFragmentArgumentsTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    TestableSharedAssetFragmentArguments lhs = create_default_arguments();
-    TestableSharedAssetFragmentArguments rhs = create_default_arguments();
+    const TestableSharedAssetFragmentArguments lhs = create_default_arguments();
+    const TestableSharedAssetFragmentArguments rhs = create_default_arguments();
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_TRUE(actual);
@@ -84,11 +85,11 @@ TEST_F(SharedAssetFragmentArgumentsTest, EqualityBothSidesArePopulatedReturnsTru
 
 TEST_F(SharedAssetFragmentArgumentsTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    TestableSharedAssetFragmentArguments lhs = create_default_arguments();
-    TestableSharedAssetFragmentArguments rhs;
+    const TestableSharedAssetFragmentArguments lhs = create_default_arguments();
+    const TestableSharedAssetFragmentArguments rhs;
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_FALSE(actual);
@@ -96,11 +97,11 @@ TEST_F(SharedAssetFragmentArgumentsTest, EqualityLeftSideIsPopulatedReturnsFalse
 
 TEST_F(SharedAssetFragmentArgumentsTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    TestableSharedAssetFragmentArguments lhs;
-    TestableSharedAssetFragmentArguments rhs = create_default_arguments();
+    const TestableSharedAssetFragmentArguments lhs;
+    const TestableSharedAssetFragmentArguments rhs = create_default_arguments();
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_FALSE(actual);

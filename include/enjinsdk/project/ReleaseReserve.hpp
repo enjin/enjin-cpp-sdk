@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for releasing the reserve of an asset.
 class ENJINSDK_EXPORT ReleaseReserve : public graphql::AbstractGraphqlRequest,
-                                       public ProjectTransactionRequestArguments<ReleaseReserve> {
+                                       public TransactionRequestArguments<ReleaseReserve> {
 public:
     /// \brief Default constructor.
     ReleaseReserve();
@@ -38,56 +38,81 @@ public:
     /// \brief Sets the asset ID.
     /// \param asset_id The ID.
     /// \return This request for chaining.
-    ReleaseReserve& set_asset_id(const std::string& asset_id);
+    ReleaseReserve& set_asset_id(std::string asset_id);
 
     /// \brief Sets the amount to release.
     /// \param value The amount.
     /// \return This request for chaining.
-    ReleaseReserve& set_value(const std::string& value);
+    ReleaseReserve& set_value(std::string value);
+
+    [[nodiscard]] json::JsonValue to_json() const override;
 
     bool operator==(const ReleaseReserve& rhs) const;
 
     bool operator!=(const ReleaseReserve& rhs) const;
 
 private:
-    std::optional<std::string> asset_id;
-    std::optional<std::string> value;
+    std::optional<std::string> asset_id_opt;
+    std::optional<std::string> value_opt;
 };
 
+// region TransactionRequestArguments
+
 template ENJINSDK_EXPORT ReleaseReserve&
-ProjectTransactionRequestArguments<ReleaseReserve>::set_transaction_asset_id_format(
+TransactionRequestArguments<ReleaseReserve>::set_eth_address(std::string address);
+
+// endregion TransactionRequestArguments
+
+}
+
+namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
+
+template ENJINSDK_EXPORT project::ReleaseReserve&
+TransactionFragmentArguments<project::ReleaseReserve>::set_transaction_asset_id_format(
         models::AssetIdFormat asset_id_format);
 
-template ENJINSDK_EXPORT ReleaseReserve& ProjectTransactionRequestArguments<ReleaseReserve>::set_with_blockchain_data();
+template ENJINSDK_EXPORT project::ReleaseReserve&
+TransactionFragmentArguments<project::ReleaseReserve>::set_with_blockchain_data();
 
-template ENJINSDK_EXPORT ReleaseReserve& ProjectTransactionRequestArguments<ReleaseReserve>::set_with_meta();
+template ENJINSDK_EXPORT project::ReleaseReserve&
+TransactionFragmentArguments<project::ReleaseReserve>::set_with_meta();
 
-template ENJINSDK_EXPORT ReleaseReserve& ProjectTransactionRequestArguments<ReleaseReserve>::set_with_encoded_data();
+template ENJINSDK_EXPORT project::ReleaseReserve&
+TransactionFragmentArguments<project::ReleaseReserve>::set_with_encoded_data();
 
-template ENJINSDK_EXPORT ReleaseReserve& ProjectTransactionRequestArguments<ReleaseReserve>::set_with_asset_data();
+template ENJINSDK_EXPORT project::ReleaseReserve&
+TransactionFragmentArguments<project::ReleaseReserve>::set_with_asset_data();
 
-template ENJINSDK_EXPORT ReleaseReserve& ProjectTransactionRequestArguments<ReleaseReserve>::set_with_signed_txs();
+template ENJINSDK_EXPORT project::ReleaseReserve&
+TransactionFragmentArguments<project::ReleaseReserve>::set_with_signed_txs();
 
-template ENJINSDK_EXPORT ReleaseReserve& ProjectTransactionRequestArguments<ReleaseReserve>::set_with_error();
+template ENJINSDK_EXPORT project::ReleaseReserve&
+TransactionFragmentArguments<project::ReleaseReserve>::set_with_error();
 
-template ENJINSDK_EXPORT ReleaseReserve& ProjectTransactionRequestArguments<ReleaseReserve>::set_with_nonce();
+template ENJINSDK_EXPORT project::ReleaseReserve&
+TransactionFragmentArguments<project::ReleaseReserve>::set_with_nonce();
 
-template ENJINSDK_EXPORT ReleaseReserve& ProjectTransactionRequestArguments<ReleaseReserve>::set_with_state();
+template ENJINSDK_EXPORT project::ReleaseReserve&
+TransactionFragmentArguments<project::ReleaseReserve>::set_with_state();
 
-template ENJINSDK_EXPORT ReleaseReserve& ProjectTransactionRequestArguments<ReleaseReserve>::set_with_receipt();
+template ENJINSDK_EXPORT project::ReleaseReserve&
+TransactionFragmentArguments<project::ReleaseReserve>::set_with_receipt();
 
-template ENJINSDK_EXPORT ReleaseReserve& ProjectTransactionRequestArguments<ReleaseReserve>::set_with_receipt_logs();
+template ENJINSDK_EXPORT project::ReleaseReserve&
+TransactionFragmentArguments<project::ReleaseReserve>::set_with_receipt_logs();
 
-template ENJINSDK_EXPORT ReleaseReserve& ProjectTransactionRequestArguments<ReleaseReserve>::set_with_log_event();
+template ENJINSDK_EXPORT project::ReleaseReserve&
+TransactionFragmentArguments<project::ReleaseReserve>::set_with_log_event();
 
-template ENJINSDK_EXPORT ReleaseReserve&
-ProjectTransactionRequestArguments<ReleaseReserve>::set_with_transaction_project_uuid();
+template ENJINSDK_EXPORT project::ReleaseReserve&
+TransactionFragmentArguments<project::ReleaseReserve>::set_with_transaction_project_uuid();
 
-template ENJINSDK_EXPORT ReleaseReserve&
-ProjectTransactionRequestArguments<ReleaseReserve>::set_with_transaction_wallet_address();
+template ENJINSDK_EXPORT project::ReleaseReserve&
+TransactionFragmentArguments<project::ReleaseReserve>::set_with_transaction_wallet_address();
 
-template ENJINSDK_EXPORT ReleaseReserve&
-ProjectTransactionRequestArguments<ReleaseReserve>::set_eth_address(const std::string& address);
+// endregion TransactionFragmentArguments
 
 }
 

@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for approving the crypto items contract to spend ENJ.
 class ENJINSDK_EXPORT ApproveEnj : public graphql::AbstractGraphqlRequest,
-                                   public ProjectTransactionRequestArguments<ApproveEnj> {
+                                   public TransactionRequestArguments<ApproveEnj> {
 public:
     /// \brief Default constructor.
     ApproveEnj();
@@ -39,60 +39,75 @@ public:
     /// \param value The value.
     /// \return This request for chaining.
     /// \remarks The value is in Wei as 10^18 (e.g. 1 ENJ = 1000000000000000000).
-    ApproveEnj& set_value(const std::string& value);
+    ApproveEnj& set_value(std::string value);
+
+    [[nodiscard]] json::JsonValue to_json() const override;
 
     bool operator==(const ApproveEnj& rhs) const;
 
     bool operator!=(const ApproveEnj& rhs) const;
 
 private:
-    std::optional<std::string> value;
+    std::optional<std::string> value_opt;
 };
 
-template ENJINSDK_EXPORT ApproveEnj&
-ProjectTransactionRequestArguments<ApproveEnj>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
+// region TransactionRequestArguments
 
 template ENJINSDK_EXPORT ApproveEnj&
-ProjectTransactionRequestArguments<ApproveEnj>::set_with_blockchain_data();
+TransactionRequestArguments<ApproveEnj>::set_eth_address(std::string address);
 
-template ENJINSDK_EXPORT ApproveEnj&
-ProjectTransactionRequestArguments<ApproveEnj>::set_with_meta();
+// endregion TransactionRequestArguments
 
-template ENJINSDK_EXPORT ApproveEnj&
-ProjectTransactionRequestArguments<ApproveEnj>::set_with_encoded_data();
+}
 
-template ENJINSDK_EXPORT ApproveEnj&
-ProjectTransactionRequestArguments<ApproveEnj>::set_with_asset_data();
+namespace enjin::sdk::shared {
 
-template ENJINSDK_EXPORT ApproveEnj&
-ProjectTransactionRequestArguments<ApproveEnj>::set_with_signed_txs();
+// region TransactionFragmentArguments
 
-template ENJINSDK_EXPORT ApproveEnj&
-ProjectTransactionRequestArguments<ApproveEnj>::set_with_error();
+template ENJINSDK_EXPORT project::ApproveEnj&
+TransactionFragmentArguments<project::ApproveEnj>::set_transaction_asset_id_format(
+        models::AssetIdFormat asset_id_format);
 
-template ENJINSDK_EXPORT ApproveEnj&
-ProjectTransactionRequestArguments<ApproveEnj>::set_with_nonce();
+template ENJINSDK_EXPORT project::ApproveEnj&
+TransactionFragmentArguments<project::ApproveEnj>::set_with_blockchain_data();
 
-template ENJINSDK_EXPORT ApproveEnj&
-ProjectTransactionRequestArguments<ApproveEnj>::set_with_state();
+template ENJINSDK_EXPORT project::ApproveEnj&
+TransactionFragmentArguments<project::ApproveEnj>::set_with_meta();
 
-template ENJINSDK_EXPORT ApproveEnj&
-ProjectTransactionRequestArguments<ApproveEnj>::set_with_receipt();
+template ENJINSDK_EXPORT project::ApproveEnj&
+TransactionFragmentArguments<project::ApproveEnj>::set_with_encoded_data();
 
-template ENJINSDK_EXPORT ApproveEnj&
-ProjectTransactionRequestArguments<ApproveEnj>::set_with_receipt_logs();
+template ENJINSDK_EXPORT project::ApproveEnj&
+TransactionFragmentArguments<project::ApproveEnj>::set_with_asset_data();
 
-template ENJINSDK_EXPORT ApproveEnj&
-ProjectTransactionRequestArguments<ApproveEnj>::set_with_log_event();
+template ENJINSDK_EXPORT project::ApproveEnj&
+TransactionFragmentArguments<project::ApproveEnj>::set_with_signed_txs();
 
-template ENJINSDK_EXPORT ApproveEnj&
-ProjectTransactionRequestArguments<ApproveEnj>::set_with_transaction_project_uuid();
+template ENJINSDK_EXPORT project::ApproveEnj&
+TransactionFragmentArguments<project::ApproveEnj>::set_with_error();
 
-template ENJINSDK_EXPORT ApproveEnj&
-ProjectTransactionRequestArguments<ApproveEnj>::set_with_transaction_wallet_address();
+template ENJINSDK_EXPORT project::ApproveEnj&
+TransactionFragmentArguments<project::ApproveEnj>::set_with_nonce();
 
-template ENJINSDK_EXPORT ApproveEnj&
-ProjectTransactionRequestArguments<ApproveEnj>::set_eth_address(const std::string& address);
+template ENJINSDK_EXPORT project::ApproveEnj&
+TransactionFragmentArguments<project::ApproveEnj>::set_with_state();
+
+template ENJINSDK_EXPORT project::ApproveEnj&
+TransactionFragmentArguments<project::ApproveEnj>::set_with_receipt();
+
+template ENJINSDK_EXPORT project::ApproveEnj&
+TransactionFragmentArguments<project::ApproveEnj>::set_with_receipt_logs();
+
+template ENJINSDK_EXPORT project::ApproveEnj&
+TransactionFragmentArguments<project::ApproveEnj>::set_with_log_event();
+
+template ENJINSDK_EXPORT project::ApproveEnj&
+TransactionFragmentArguments<project::ApproveEnj>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT project::ApproveEnj&
+TransactionFragmentArguments<project::ApproveEnj>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

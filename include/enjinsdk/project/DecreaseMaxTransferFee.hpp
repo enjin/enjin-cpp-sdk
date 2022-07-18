@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for setting an asset's max transfer fee to a lower value.
 class ENJINSDK_EXPORT DecreaseMaxTransferFee : public graphql::AbstractGraphqlRequest,
-                                               public ProjectTransactionRequestArguments<DecreaseMaxTransferFee> {
+                                               public TransactionRequestArguments<DecreaseMaxTransferFee> {
 public:
     /// \brief Default constructor.
     DecreaseMaxTransferFee();
@@ -38,67 +38,81 @@ public:
     /// \brief Sets the asset ID.
     /// \param asset_id The ID.
     /// \return This request for chaining.
-    DecreaseMaxTransferFee& set_asset_id(const std::string& asset_id);
+    DecreaseMaxTransferFee& set_asset_id(std::string asset_id);
 
     /// \brief Sets the new max transfer fee in Wei.
     /// \param max_transfer_fee The new fee.
     /// \return This request for chaining.
     DecreaseMaxTransferFee& set_max_transfer_fee(int max_transfer_fee);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const DecreaseMaxTransferFee& rhs) const;
 
     bool operator!=(const DecreaseMaxTransferFee& rhs) const;
 
 private:
-    std::optional<std::string> asset_id;
-    std::optional<int> max_transfer_fee;
+    std::optional<std::string> asset_id_opt;
+    std::optional<int> max_transfer_fee_opt;
 };
 
+// region TransactionRequestArguments
+
 template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_transaction_asset_id_format(
+TransactionRequestArguments<DecreaseMaxTransferFee>::set_eth_address(std::string address);
+
+// endregion TransactionRequestArguments
+
+}
+
+namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
+
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_transaction_asset_id_format(
         models::AssetIdFormat asset_id_format);
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_blockchain_data();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_blockchain_data();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_meta();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_meta();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_encoded_data();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_encoded_data();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_asset_data();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_asset_data();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_signed_txs();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_signed_txs();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_error();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_error();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_nonce();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_nonce();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_state();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_state();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_receipt();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_receipt();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_receipt_logs();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_receipt_logs();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_log_event();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_log_event();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_transaction_project_uuid();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_transaction_project_uuid();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_with_transaction_wallet_address();
+template ENJINSDK_EXPORT project::DecreaseMaxTransferFee&
+TransactionFragmentArguments<project::DecreaseMaxTransferFee>::set_with_transaction_wallet_address();
 
-template ENJINSDK_EXPORT DecreaseMaxTransferFee&
-ProjectTransactionRequestArguments<DecreaseMaxTransferFee>::set_eth_address(const std::string& address);
+// endregion TransactionFragmentArguments
 
 }
 

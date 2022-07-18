@@ -27,13 +27,19 @@ public:
 
     MOCK_METHOD(void, stop, (), (override));
 
-    MOCK_METHOD(std::future<sdk::http::HttpResponse>,
-                send_request,
-                (const sdk::http::HttpRequest& request),
-                (override));
+    MOCK_METHOD(std::future<sdk::http::HttpResponse>, send_request, (sdk::http::HttpRequest request), (override));
 
     MOCK_METHOD(bool, is_open, (), (const, override));
+
+    MOCK_METHOD(void, set_default_request_header, (std::string key, std::string value), (override));
+
+    MOCK_METHOD(void,
+                set_logger,
+                (sdk::http::HttpLogLevel level, std::shared_ptr<sdk::utils::LoggerProvider> logger_provider),
+                (override));
 };
+
+typedef testing::NiceMock<MockHttpClient> NiceMockHttpClient;
 
 }
 

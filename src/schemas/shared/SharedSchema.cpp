@@ -19,45 +19,45 @@
 
 namespace enjin::sdk::shared {
 
-SharedSchema::SharedSchema(TrustedPlatformMiddleware middleware,
-                           const std::string& schema,
+SharedSchema::SharedSchema(std::unique_ptr<http::IHttpClient> http_client,
+                           std::string schema,
                            std::shared_ptr<utils::LoggerProvider> logger_provider)
-        : BaseSchema(std::move(middleware), schema, std::move(logger_provider)) {
+        : BaseSchema(std::move(http_client), std::move(schema), std::move(logger_provider)) {
 }
 
-std::future<graphql::GraphqlResponse<bool>> SharedSchema::cancel_transaction(CancelTransaction& request) {
+std::future<graphql::GraphqlResponse<bool>> SharedSchema::cancel_transaction(CancelTransaction request) {
     return send_request_for_one<bool>(request);
 }
 
-std::future<graphql::GraphqlResponse<std::vector<models::Balance>>> SharedSchema::get_balances(GetBalances& request) {
+std::future<graphql::GraphqlResponse<std::vector<models::Balance>>> SharedSchema::get_balances(GetBalances request) {
     return send_request_for_many<models::Balance>(request);
 }
 
-std::future<graphql::GraphqlResponse<models::GasPrices>> SharedSchema::get_gas_prices(GetGasPrices& request) {
+std::future<graphql::GraphqlResponse<models::GasPrices>> SharedSchema::get_gas_prices(GetGasPrices request) {
     return send_request_for_one<models::GasPrices>(request);
 }
 
-std::future<graphql::GraphqlResponse<models::Platform>> SharedSchema::get_platform(GetPlatform& request) {
+std::future<graphql::GraphqlResponse<models::Platform>> SharedSchema::get_platform(GetPlatform request) {
     return send_request_for_one<models::Platform>(request);
 }
 
-std::future<graphql::GraphqlResponse<models::Project>> SharedSchema::get_project(GetProject& request) {
+std::future<graphql::GraphqlResponse<models::Project>> SharedSchema::get_project(GetProject request) {
     return send_request_for_one<models::Project>(request);
 }
 
-std::future<graphql::GraphqlResponse<models::Request>> SharedSchema::get_request(GetRequest& request) {
-    return send_request_for_one<models::Request>(request);
+std::future<graphql::GraphqlResponse<models::Transaction>> SharedSchema::get_request(GetTransaction request) {
+    return send_request_for_one<models::Transaction>(request);
 }
 
-std::future<graphql::GraphqlResponse<std::vector<models::Request>>> SharedSchema::get_requests(GetRequests& request) {
-    return send_request_for_many<models::Request>(request);
+std::future<graphql::GraphqlResponse<std::vector<models::Transaction>>> SharedSchema::get_requests(GetTransactions request) {
+    return send_request_for_many<models::Transaction>(request);
 }
 
-std::future<graphql::GraphqlResponse<models::Asset>> SharedSchema::get_asset(GetAsset& request) {
+std::future<graphql::GraphqlResponse<models::Asset>> SharedSchema::get_asset(GetAsset request) {
     return send_request_for_one<models::Asset>(request);
 }
 
-std::future<graphql::GraphqlResponse<std::vector<models::Asset>>> SharedSchema::get_assets(GetAssets& request) {
+std::future<graphql::GraphqlResponse<std::vector<models::Asset>>> SharedSchema::get_assets(GetAssets request) {
     return send_request_for_many<models::Asset>(request);
 }
 

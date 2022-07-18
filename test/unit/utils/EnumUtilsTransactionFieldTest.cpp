@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "EnumUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 #include "gtest/gtest.h"
 #include <string>
 #include <tuple>
@@ -30,7 +30,7 @@ TEST_P(TransactionFieldTest, SerializeTransactionFieldReturnsExpectedString) {
     TransactionField value = std::get<1>(GetParam());
 
     // Act
-    std::string actual = serialize_transaction_field(value);
+    std::string actual = EnumUtils::serialize_transaction_field(value);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -38,8 +38,8 @@ TEST_P(TransactionFieldTest, SerializeTransactionFieldReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializeTransactionField,
                          TransactionFieldTest,
-                         testing::Values(std::make_tuple("id", TransactionField::ID),
-                                         std::make_tuple("state", TransactionField::STATE),
-                                         std::make_tuple("title", TransactionField::TITLE),
-                                         std::make_tuple("createdAt", TransactionField::CREATED_AT),
-                                         std::make_tuple("updatedAt", TransactionField::UPDATED_AT)));
+                         testing::Values(std::make_tuple("id", TransactionField::Id),
+                                         std::make_tuple("state", TransactionField::State),
+                                         std::make_tuple("title", TransactionField::Title),
+                                         std::make_tuple("createdAt", TransactionField::CreatedAt),
+                                         std::make_tuple("updatedAt", TransactionField::UpdatedAt)));

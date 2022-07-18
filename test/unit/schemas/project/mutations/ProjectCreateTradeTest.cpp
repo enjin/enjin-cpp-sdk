@@ -35,8 +35,8 @@ public:
 
     static CreateTrade create_default_request() {
         CreateTrade request = CreateTrade()
-                .set_asking_assets(std::vector<Trade>())
-                .set_offering_assets(std::vector<Trade>())
+                .set_asking_assets(std::vector<TradeInput>())
+                .set_offering_assets(std::vector<TradeInput>())
                 .set_recipient_address("1");
         set_project_transaction_request_arguments(request);
         return request;
@@ -45,7 +45,7 @@ public:
 
 TEST_F(ProjectCreateTradeTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
-    const std::string expected(EMPTY_JSON_OBJECT);
+    const std::string expected(EmptyJsonObject);
 
     // Act
     std::string actual = class_under_test.serialize();
@@ -57,8 +57,8 @@ TEST_F(ProjectCreateTradeTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
 TEST_F(ProjectCreateTradeTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_asking_assets(std::vector<Trade>())
-                    .set_offering_assets(std::vector<Trade>())
+    class_under_test.set_asking_assets(std::vector<TradeInput>())
+                    .set_offering_assets(std::vector<TradeInput>())
                     .set_recipient_address("1");
 
     // Act

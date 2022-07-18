@@ -15,88 +15,159 @@
 
 #include "enjinsdk/models/PaginationCursor.hpp"
 
-#include "rapidjson/document.h"
-#include "rapidjson/stringbuffer.h"
-#include "rapidjson/writer.h"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::serialization;
+using namespace enjin::sdk::utils;
+
+class PaginationCursor::Impl final : public IDeserializable {
+public:
+    Impl() = default;
+
+    ~Impl() override = default;
+
+    void deserialize(const std::string& json) override {
+        JsonValue json_object;
+
+        if (!json_object.try_parse_as_object(json)) {
+            total.reset();
+            per_page.reset();
+            current_page.reset();
+            has_pages.reset();
+            from.reset();
+            to.reset();
+            last_page.reset();
+            has_more_pages.reset();
+
+            return;
+        }
+
+        JsonUtils::try_get_field(json_object, "total", total);
+        JsonUtils::try_get_field(json_object, "perPage", per_page);
+        JsonUtils::try_get_field(json_object, "currentPage", current_page);
+        JsonUtils::try_get_field(json_object, "hasPages", has_pages);
+        JsonUtils::try_get_field(json_object, "from", from);
+        JsonUtils::try_get_field(json_object, "to", to);
+        JsonUtils::try_get_field(json_object, "lastPage", last_page);
+        JsonUtils::try_get_field(json_object, "hasMorePages", has_more_pages);
+    }
+
+    [[nodiscard]] const std::optional<int>& get_total() const {
+        return total;
+    }
+
+    [[nodiscard]] const std::optional<int>& get_per_page() const {
+        return per_page;
+    }
+
+    [[nodiscard]] const std::optional<int>& get_current_page() const {
+        return current_page;
+    }
+
+    [[nodiscard]] const std::optional<bool>& get_has_pages() const {
+        return has_pages;
+    }
+
+    [[nodiscard]] const std::optional<int>& get_from() const {
+        return from;
+    }
+
+    [[nodiscard]] const std::optional<int>& get_to() const {
+        return to;
+    }
+
+    [[nodiscard]] const std::optional<int>& get_last_page() const {
+        return last_page;
+    }
+
+    [[nodiscard]] const std::optional<bool>& get_has_more_pages() const {
+        return has_more_pages;
+    }
+
+    bool operator==(const Impl& rhs) const {
+        return total == rhs.total
+               && per_page == rhs.per_page
+               && current_page == rhs.current_page
+               && has_pages == rhs.has_pages
+               && from == rhs.from
+               && to == rhs.to
+               && last_page == rhs.last_page
+               && has_more_pages == rhs.has_more_pages;
+    }
+
+    bool operator!=(const Impl& rhs) const {
+        return !(*this == rhs);
+    }
+
+private:
+    std::optional<int> total;
+    std::optional<int> per_page;
+    std::optional<int> current_page;
+    std::optional<bool> has_pages;
+    std::optional<int> from;
+    std::optional<int> to;
+    std::optional<int> last_page;
+    std::optional<bool> has_more_pages;
+};
+
+PaginationCursor::PaginationCursor() : pimpl(std::make_unique<Impl>()) {
+}
+
+PaginationCursor::PaginationCursor(const PaginationCursor& other) : pimpl(std::make_unique<Impl>(*other.pimpl)) {
+}
+
+PaginationCursor::PaginationCursor(PaginationCursor&& other) noexcept = default;
+
+PaginationCursor::~PaginationCursor() = default;
 
 void PaginationCursor::deserialize(const std::string& json) {
-    rapidjson::Document document;
-    document.Parse(json.c_str());
-    if (document.IsObject()) {
-        if (document.HasMember(TOTAL_KEY) && document[TOTAL_KEY].IsInt()) {
-            total.emplace(document[TOTAL_KEY].GetInt());
-        }
-        if (document.HasMember(PER_PAGE_KEY) && document[PER_PAGE_KEY].IsInt()) {
-            per_page.emplace(document[PER_PAGE_KEY].GetInt());
-        }
-        if (document.HasMember(CURRENT_PAGE_KEY) && document[CURRENT_PAGE_KEY].IsInt()) {
-            current_page.emplace(document[CURRENT_PAGE_KEY].GetInt());
-        }
-        if (document.HasMember(HAS_PAGES_KEY) && document[HAS_PAGES_KEY].IsBool()) {
-            has_pages.emplace(document[HAS_PAGES_KEY].GetBool());
-        }
-        if (document.HasMember(FROM_KEY) && document[FROM_KEY].IsInt()) {
-            from.emplace(document[FROM_KEY].GetInt());
-        }
-        if (document.HasMember(TO_KEY) && document[TO_KEY].IsInt()) {
-            to.emplace(document[TO_KEY].GetInt());
-        }
-        if (document.HasMember(LAST_PAGE_KEY) && document[LAST_PAGE_KEY].IsInt()) {
-            last_page.emplace(document[LAST_PAGE_KEY].GetInt());
-        }
-        if (document.HasMember(HAS_MORE_PAGES_KEY) && document[HAS_MORE_PAGES_KEY].IsBool()) {
-            has_more_pages.emplace(document[HAS_MORE_PAGES_KEY].GetBool());
-        }
-    }
+    pimpl->deserialize(json);
 }
 
 const std::optional<int>& PaginationCursor::get_total() const {
-    return total;
+    return pimpl->get_total();
 }
 
 const std::optional<int>& PaginationCursor::get_per_page() const {
-    return per_page;
+    return pimpl->get_per_page();
 }
 
 const std::optional<int>& PaginationCursor::get_current_page() const {
-    return current_page;
+    return pimpl->get_current_page();
 }
 
 const std::optional<bool>& PaginationCursor::get_has_pages() const {
-    return has_pages;
+    return pimpl->get_has_pages();
 }
 
 const std::optional<int>& PaginationCursor::get_from() const {
-    return from;
+    return pimpl->get_from();
 }
 
 const std::optional<int>& PaginationCursor::get_to() const {
-    return to;
+    return pimpl->get_to();
 }
 
 const std::optional<int>& PaginationCursor::get_last_page() const {
-    return last_page;
+    return pimpl->get_last_page();
 }
 
 const std::optional<bool>& PaginationCursor::get_has_more_pages() const {
-    return has_more_pages;
+    return pimpl->get_has_more_pages();
 }
 
 bool PaginationCursor::operator==(const PaginationCursor& rhs) const {
-    return total == rhs.total &&
-           per_page == rhs.per_page &&
-           current_page == rhs.current_page &&
-           has_pages == rhs.has_pages &&
-           from == rhs.from &&
-           to == rhs.to &&
-           last_page == rhs.last_page &&
-           has_more_pages == rhs.has_more_pages;
+    return *pimpl == *rhs.pimpl;
 }
 
 bool PaginationCursor::operator!=(const PaginationCursor& rhs) const {
-    return !(rhs == *this);
+    return *pimpl != *rhs.pimpl;
 }
 
+PaginationCursor& PaginationCursor::operator=(const PaginationCursor& rhs) {
+    pimpl = std::make_unique<Impl>(*rhs.pimpl);
+    return *this;
 }

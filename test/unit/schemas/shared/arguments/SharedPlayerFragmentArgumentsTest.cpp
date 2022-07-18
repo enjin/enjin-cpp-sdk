@@ -19,6 +19,7 @@
 #include "TestableSharedPlayerFragmentArguments.hpp"
 #include <string>
 
+using namespace enjin::sdk::json;
 using namespace enjin::test::suites;
 using namespace enjin::test::utils;
 
@@ -40,72 +41,72 @@ public:
     }
 };
 
-TEST_F(SharedPlayerFragmentArgumentsTest, SerializeNoSetFieldsReturnsEmptyJson) {
+TEST_F(SharedPlayerFragmentArgumentsTest, ToJsonNoSetFieldsReturnsEmptyJson) {
     // Arrange
-    const std::string expected(EMPTY_JSON_OBJECT);
+    const JsonValue expected = create_empty_json_object();
 
     // Act
-    std::string actual = class_under_test.serialize();
+    const JsonValue actual = class_under_test.to_json();
 
     // Assert
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(SharedPlayerFragmentArgumentsTest, SerializeSetAssetFragmentFieldsReturnsExpectedJson) {
+TEST_F(SharedPlayerFragmentArgumentsTest, ToJsonSetAssetFragmentFieldsReturnsExpectedJson) {
     // Arrange
-    const std::string expected(AssetFragmentJson);
+    const JsonValue expected = AssetFragmentArgumentsTestSuite::create_json_object();
     set_asset_fragment_arguments(class_under_test);
 
     // Act
-    std::string actual = class_under_test.serialize();
+    const JsonValue actual = class_under_test.to_json();
 
     // Assert
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(SharedPlayerFragmentArgumentsTest, SerializeSetBalanceFragmentFieldsReturnsExpectedJson) {
+TEST_F(SharedPlayerFragmentArgumentsTest, ToJsonSetBalanceFragmentFieldsReturnsExpectedJson) {
     // Arrange
-    const std::string expected(BalanceFragmentJson);
+    const JsonValue expected = BalanceFragmentArgumentsTestSuite::create_json_object();
     set_balance_fragment_arguments(class_under_test);
 
     // Act
-    std::string actual = class_under_test.serialize();
+    const JsonValue actual = class_under_test.to_json();
 
     // Assert
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(SharedPlayerFragmentArgumentsTest, SerializeSetPlayerFragmentFieldsReturnsExpectedJson) {
+TEST_F(SharedPlayerFragmentArgumentsTest, ToJsonSetPlayerFragmentFieldsReturnsExpectedJson) {
     // Arrange
-    const std::string expected(PlayerFragmentJson);
+    const JsonValue expected = PlayerFragmentArgumentsTestSuite::create_json_object();
     set_player_fragment_arguments(class_under_test);
 
     // Act
-    std::string actual = class_under_test.serialize();
+    const JsonValue actual = class_under_test.to_json();
 
     // Assert
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(SharedPlayerFragmentArgumentsTest, SerializeSetTransactionFragmentFieldsReturnsExpectedJson) {
+TEST_F(SharedPlayerFragmentArgumentsTest, ToJsonSetTransactionFragmentFieldsReturnsExpectedJson) {
     // Arrange
-    const std::string expected(TransactionFragmentJson);
+    const JsonValue expected = TransactionFragmentArgumentsTestSuite::create_json_object();
     set_transaction_fragment_arguments(class_under_test);
 
     // Act
-    std::string actual = class_under_test.serialize();
+    const JsonValue actual = class_under_test.to_json();
 
     // Assert
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(SharedPlayerFragmentArgumentsTest, SerializeSetWalletFragmentFieldsReturnsExpectedJson) {
+TEST_F(SharedPlayerFragmentArgumentsTest, ToJsonSetWalletFragmentFieldsReturnsExpectedJson) {
     // Arrange
-    const std::string expected(WalletFragmentJson);
+    const JsonValue expected = WalletFragmentArgumentsTestSuite::create_json_object();
     set_wallet_fragment_arguments(class_under_test);
 
     // Act
-    std::string actual = class_under_test.serialize();
+    const JsonValue actual = class_under_test.to_json();
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -113,11 +114,11 @@ TEST_F(SharedPlayerFragmentArgumentsTest, SerializeSetWalletFragmentFieldsReturn
 
 TEST_F(SharedPlayerFragmentArgumentsTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    TestableSharedPlayerFragmentArguments lhs;
-    TestableSharedPlayerFragmentArguments rhs;
+    const TestableSharedPlayerFragmentArguments lhs;
+    const TestableSharedPlayerFragmentArguments rhs;
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_TRUE(actual);
@@ -125,11 +126,11 @@ TEST_F(SharedPlayerFragmentArgumentsTest, EqualityNeitherSideIsPopulatedReturnsT
 
 TEST_F(SharedPlayerFragmentArgumentsTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    TestableSharedPlayerFragmentArguments lhs = create_default_arguments();
-    TestableSharedPlayerFragmentArguments rhs = create_default_arguments();
+    const TestableSharedPlayerFragmentArguments lhs = create_default_arguments();
+    const TestableSharedPlayerFragmentArguments rhs = create_default_arguments();
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_TRUE(actual);
@@ -137,11 +138,11 @@ TEST_F(SharedPlayerFragmentArgumentsTest, EqualityBothSidesArePopulatedReturnsTr
 
 TEST_F(SharedPlayerFragmentArgumentsTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    TestableSharedPlayerFragmentArguments lhs = create_default_arguments();
-    TestableSharedPlayerFragmentArguments rhs;
+    const TestableSharedPlayerFragmentArguments lhs = create_default_arguments();
+    const TestableSharedPlayerFragmentArguments rhs;
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_FALSE(actual);
@@ -149,11 +150,11 @@ TEST_F(SharedPlayerFragmentArgumentsTest, EqualityLeftSideIsPopulatedReturnsFals
 
 TEST_F(SharedPlayerFragmentArgumentsTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    TestableSharedPlayerFragmentArguments lhs;
-    TestableSharedPlayerFragmentArguments rhs = create_default_arguments();
+    const TestableSharedPlayerFragmentArguments lhs;
+    const TestableSharedPlayerFragmentArguments rhs = create_default_arguments();
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_FALSE(actual);

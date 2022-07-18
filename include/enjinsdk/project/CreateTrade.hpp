@@ -18,8 +18,8 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/models/Trade.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/models/TradeInput.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 #include <vector>
@@ -28,7 +28,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for creating a trade between two wallets.
 class ENJINSDK_EXPORT CreateTrade : public graphql::AbstractGraphqlRequest,
-                                    public ProjectTransactionRequestArguments<CreateTrade> {
+                                    public TransactionRequestArguments<CreateTrade> {
 public:
     /// \brief Default constructor.
     CreateTrade();
@@ -40,61 +40,87 @@ public:
     /// \brief Sets the assets the sender is asking for.
     /// \param assets The assets.
     /// \return This request for chaining.
-    CreateTrade& set_asking_assets(std::vector<models::Trade> assets);
+    CreateTrade& set_asking_assets(std::vector<models::TradeInput> assets);
 
     /// \brief Sets the assets to be offered bu the sender.
     /// \param assets The assets.
     /// \return This request for chaining.
-    CreateTrade& set_offering_assets(std::vector<models::Trade> assets);
+    CreateTrade& set_offering_assets(std::vector<models::TradeInput> assets);
 
     /// \brief Sets the wallet address of the recipient.
     /// \param recipient_address The address.
     /// \return This request for chaining.
-    CreateTrade& set_recipient_address(const std::string& recipient_address);
+    CreateTrade& set_recipient_address(std::string recipient_address);
+
+    [[nodiscard]] json::JsonValue to_json() const override;
 
     bool operator==(const CreateTrade& rhs) const;
 
     bool operator!=(const CreateTrade& rhs) const;
 
 private:
-    std::optional<std::vector<models::Trade>> asking_assets;
-    std::optional<std::vector<models::Trade>> offering_assets;
-    std::optional<std::string> recipient_address;
+    std::optional<std::vector<models::TradeInput>> asking_assets_opt;
+    std::optional<std::vector<models::TradeInput>> offering_assets_opt;
+    std::optional<std::string> recipient_address_opt;
 };
 
-template ENJINSDK_EXPORT CreateTrade&
-ProjectTransactionRequestArguments<CreateTrade>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_blockchain_data();
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_meta();
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_encoded_data();
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_asset_data();
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_signed_txs();
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_error();
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_nonce();
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_state();
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_receipt();
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_receipt_logs();
-
-template ENJINSDK_EXPORT CreateTrade& ProjectTransactionRequestArguments<CreateTrade>::set_with_log_event();
+// region TransactionRequestArguments
 
 template ENJINSDK_EXPORT CreateTrade&
-ProjectTransactionRequestArguments<CreateTrade>::set_with_transaction_project_uuid();
+TransactionRequestArguments<CreateTrade>::set_eth_address(std::string address);
 
-template ENJINSDK_EXPORT CreateTrade&
-ProjectTransactionRequestArguments<CreateTrade>::set_with_transaction_wallet_address();
+// endregion TransactionRequestArguments
 
-template ENJINSDK_EXPORT CreateTrade&
-ProjectTransactionRequestArguments<CreateTrade>::set_eth_address(const std::string& address);
+}
+
+namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_transaction_asset_id_format(
+        models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_blockchain_data();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_meta();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_encoded_data();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_asset_data();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_signed_txs();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_error();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_nonce();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_state();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_receipt();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_receipt_logs();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_log_event();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT project::CreateTrade&
+TransactionFragmentArguments<project::CreateTrade>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

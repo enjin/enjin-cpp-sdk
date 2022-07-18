@@ -20,6 +20,7 @@
 #include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/Contracts.hpp"
 #include "enjinsdk/models/Notifications.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -28,10 +29,19 @@ namespace enjin::sdk::models {
 /// \brief Models data about the platform.
 class ENJINSDK_EXPORT Platform : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    Platform() = default;
+    /// \brief Constructs an instance of this class.
+    Platform();
 
-    ~Platform() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    Platform(const Platform& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    Platform(Platform&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~Platform() override;
 
     void deserialize(const std::string& json) override;
 
@@ -59,18 +69,12 @@ public:
 
     bool operator!=(const Platform& rhs) const;
 
-private:
-    std::optional<int> id;
-    std::optional<std::string> name;
-    std::optional<std::string> network;
-    std::optional<Contracts> contracts;
-    std::optional<Notifications> notifications;
+    Platform& operator=(const Platform& rhs);
 
-    constexpr static char ID_KEY[] = "id";
-    constexpr static char NAME_KEY[] = "name";
-    constexpr static char NETWORK_KEY[] = "network";
-    constexpr static char CONTRACTS_KEY[] = "contracts";
-    constexpr static char NOTIFICATIONS_KEY[] = "notifications";
+private:
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

@@ -15,36 +15,39 @@
 
 #include "enjinsdk/project/DeletePlayer.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
 
-DeletePlayer::DeletePlayer() : graphql::AbstractGraphqlRequest("enjin.sdk.project.DeletePlayer") {
+DeletePlayer::DeletePlayer() : AbstractGraphqlRequest("enjin.sdk.project.DeletePlayer") {
 }
 
 std::string DeletePlayer::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-
-    if (id.has_value()) {
-        utils::set_string_member(document, "id", id.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
-DeletePlayer& DeletePlayer::set_id(const std::string& id) {
-    DeletePlayer::id = id;
+DeletePlayer& DeletePlayer::set_id(std::string id) {
+    id_opt = std::move(id);
     return *this;
 }
 
+JsonValue DeletePlayer::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::try_set_field(json, "id", id_opt);
+
+    return json;
+}
+
 bool DeletePlayer::operator==(const DeletePlayer& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           id == rhs.id;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && id_opt == rhs.id_opt;
 }
 
 bool DeletePlayer::operator!=(const DeletePlayer& rhs) const {
     return !(rhs == *this);
-}
-
 }

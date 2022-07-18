@@ -19,12 +19,13 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/GraphqlResponse.hpp"
 #include "enjinsdk/LoggerProvider.hpp"
-#include "enjinsdk/TrustedPlatformMiddleware.hpp"
+#include "enjinsdk/ClientMiddleware.hpp"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include <exception>
 #include <future>
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace enjin::sdk {
@@ -33,6 +34,10 @@ namespace enjin::sdk {
 class ENJINSDK_EXPORT BaseSchema {
 public:
     BaseSchema() = delete;
+
+    BaseSchema(const BaseSchema&) = delete;
+
+    BaseSchema(BaseSchema&&) = delete;
 
     /// \brief Default destructor.
     ~BaseSchema() = default;
@@ -43,19 +48,19 @@ public:
 
 protected:
     /// \brief The middleware for communicating with the platform.
-    TrustedPlatformMiddleware middleware;
+    const std::unique_ptr<ClientMiddleware> middleware;
 
     /// \brief The logger provider.
-    std::shared_ptr<utils::LoggerProvider> logger_provider;
+    const std::shared_ptr<utils::LoggerProvider> logger_provider;
 
     /// \brief The name of this schema.
-    std::string schema;
+    const std::string schema;
 
-    /// \brief The sole constructor for a base schema.
-    /// \param middleware The platform middleware.
+    /// \brief Constructs an instance of this class.
+    /// \param http_client The HTTP client.
     /// \param schema The name of the schema.
     /// \param logger_provider The logger provider. Null pointer by default.
-    BaseSchema(TrustedPlatformMiddleware middleware,
+    BaseSchema(std::unique_ptr<http::IHttpClient> http_client,
                std::string schema,
                std::shared_ptr<utils::LoggerProvider> logger_provider = nullptr);
 
@@ -75,13 +80,10 @@ protected:
     /// \return The future containing the response.
     template<class T>
     std::future<graphql::GraphqlResponse<T>> send_request_for_one(graphql::AbstractGraphqlRequest& request) {
-        http::HttpRequest http_request = create_request(request);
-
-        return std::async([this, http_request] {
-            auto response = send_request(http_request);
-
+        return std::async([this, http_request = create_request(request)] {
             try {
-                return graphql::GraphqlResponse<T>(response.get_body().value());
+                auto http_response = send_request(http_request);
+                return graphql::GraphqlResponse<T>(http_response.get_body().value());
             } catch (const std::exception& e) {
                 log_graphql_exception(e);
                 throw e;
@@ -96,13 +98,10 @@ protected:
     template<class T>
     std::future<graphql::GraphqlResponse<std::vector<T>>>
     send_request_for_many(graphql::AbstractGraphqlRequest& request) {
-        http::HttpRequest http_request = create_request(request);
-
-        return std::async([this, http_request]() {
-            auto response = send_request(http_request);
-
+        return std::async([this, http_request = create_request(request)]() {
             try {
-                return graphql::GraphqlResponse<std::vector<T>>(response.get_body().value());
+                auto http_response = send_request(std::move(http_request));
+                return graphql::GraphqlResponse<std::vector<T>>(http_response.get_body().value());
             } catch (const std::exception& e) {
                 log_graphql_exception(e);
                 throw e;
@@ -115,7 +114,7 @@ private:
 
     void log_graphql_exception(const std::exception& e);
 
-    http::HttpResponse send_request(const http::HttpRequest& request);
+    http::HttpResponse send_request(http::HttpRequest request);
 };
 
 }

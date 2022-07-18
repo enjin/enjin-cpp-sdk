@@ -35,7 +35,7 @@ public:
 
     static MeltAsset create_default_request() {
         MeltAsset request = MeltAsset()
-                .set_melts(std::vector<Melt>());
+                .set_melts(std::vector<MeltInput>());
         set_project_transaction_request_arguments(request);
         return request;
     }
@@ -43,7 +43,7 @@ public:
 
 TEST_F(ProjectMeltAssetTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
-    const std::string expected(EMPTY_JSON_OBJECT);
+    const std::string expected(EmptyJsonObject);
 
     // Act
     std::string actual = class_under_test.serialize();
@@ -55,7 +55,7 @@ TEST_F(ProjectMeltAssetTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
 TEST_F(ProjectMeltAssetTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_melts(std::vector<Melt>());
+    class_under_test.set_melts(std::vector<MeltInput>());
 
     // Act
     std::string actual = class_under_test.serialize();

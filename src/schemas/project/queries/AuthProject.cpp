@@ -15,45 +15,46 @@
 
 #include "enjinsdk/project/AuthProject.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
 
-AuthProject::AuthProject() : graphql::AbstractGraphqlRequest("enjin.sdk.project.AuthProject") {
+AuthProject::AuthProject() : AbstractGraphqlRequest("enjin.sdk.project.AuthProject") {
 }
 
 std::string AuthProject::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-
-    if (uuid.has_value()) {
-        utils::set_string_member(document, "uuid", uuid.value());
-    }
-    if (secret.has_value()) {
-        utils::set_string_member(document, "secret", secret.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
-AuthProject& AuthProject::set_uuid(const std::string& uuid) {
-    AuthProject::uuid = uuid;
+AuthProject& AuthProject::set_uuid(std::string uuid) {
+    uuid_opt = std::move(uuid);
     return *this;
 }
 
-AuthProject& AuthProject::set_secret(const std::string& secret) {
-    AuthProject::secret = secret;
+AuthProject& AuthProject::set_secret(std::string secret) {
+    secret_opt = std::move(secret);
     return *this;
+}
+
+JsonValue AuthProject::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::try_set_field(json, "uuid", uuid_opt);
+    JsonUtils::try_set_field(json, "secret", secret_opt);
+
+    return json;
 }
 
 bool AuthProject::operator==(const AuthProject& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           uuid == rhs.uuid &&
-           secret == rhs.secret;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && uuid_opt == rhs.uuid_opt
+           && secret_opt == rhs.secret_opt;
 }
 
 bool AuthProject::operator!=(const AuthProject& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

@@ -15,24 +15,27 @@
 
 #include "enjinsdk/project/ResetEnjApproval.hpp"
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::project;
 
-ResetEnjApproval::ResetEnjApproval() : graphql::AbstractGraphqlRequest("enjin.sdk.project.ResetEnjApproval") {
+ResetEnjApproval::ResetEnjApproval() : AbstractGraphqlRequest("enjin.sdk.project.ResetEnjApproval"),
+                                       TransactionRequestArguments<ResetEnjApproval>() {
 }
 
 std::string ResetEnjApproval::serialize() const {
-    return ProjectTransactionRequestArguments::serialize();
+    return TransactionRequestArguments<ResetEnjApproval>::serialize();
+}
+
+JsonValue ResetEnjApproval::to_json() const {
+    return TransactionRequestArguments<ResetEnjApproval>::to_json();
 }
 
 bool ResetEnjApproval::operator==(const ResetEnjApproval& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const ProjectTransactionRequestArguments<ResetEnjApproval>&>(*this) ==
-           static_cast<const ProjectTransactionRequestArguments<ResetEnjApproval>&>(rhs);
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<ResetEnjApproval>&>(*this) == rhs;
 }
 
 bool ResetEnjApproval::operator!=(const ResetEnjApproval& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

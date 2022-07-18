@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for sending send ENJ.
 class ENJINSDK_EXPORT SendEnj : public graphql::AbstractGraphqlRequest,
-                                public ProjectTransactionRequestArguments<SendEnj> {
+                                public TransactionRequestArguments<SendEnj> {
 public:
     /// \brief Default constructor.
     SendEnj();
@@ -38,54 +38,81 @@ public:
     /// \brief Sets the wallet address of the recipient.
     /// \param recipient_address The address.
     /// \return This request for chaining.
-    SendEnj& set_recipient_address(const std::string& recipient_address);
+    SendEnj& set_recipient_address(std::string recipient_address);
 
     /// \brief Sets the amount of ENJ to send.
     /// \param value The value.
     /// \return This request for chaining.
     /// \remarks The value is in Wei as 10^18 (e.g. 1 ENJ = 1000000000000000000).
-    SendEnj& set_value(const std::string& value);
+    SendEnj& set_value(std::string value);
+
+    [[nodiscard]] json::JsonValue to_json() const override;
 
     bool operator==(const SendEnj& rhs) const;
 
     bool operator!=(const SendEnj& rhs) const;
 
 private:
-    std::optional<std::string> recipient_address;
-    std::optional<std::string> value;
+    std::optional<std::string> recipient_address_opt;
+    std::optional<std::string> value_opt;
 };
 
-template ENJINSDK_EXPORT SendEnj&
-ProjectTransactionRequestArguments<SendEnj>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_blockchain_data();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_meta();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_encoded_data();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_asset_data();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_signed_txs();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_error();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_nonce();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_state();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_receipt();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_receipt_logs();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_log_event();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_transaction_project_uuid();
-
-template ENJINSDK_EXPORT SendEnj& ProjectTransactionRequestArguments<SendEnj>::set_with_transaction_wallet_address();
+// region TransactionRequestArguments
 
 template ENJINSDK_EXPORT SendEnj&
-ProjectTransactionRequestArguments<SendEnj>::set_eth_address(const std::string& address);
+TransactionRequestArguments<SendEnj>::set_eth_address(std::string address);
+
+// endregion TransactionRequestArguments
+
+}
+
+namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_blockchain_data();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_meta();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_encoded_data();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_asset_data();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_signed_txs();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_error();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_nonce();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_state();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_receipt();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_receipt_logs();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_log_event();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT project::SendEnj&
+TransactionFragmentArguments<project::SendEnj>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

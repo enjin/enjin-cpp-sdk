@@ -15,24 +15,34 @@
 
 #include "enjinsdk/project/ApproveMaxEnj.hpp"
 
-namespace enjin::sdk::project {
+#include "enjinsdk/JsonUtils.hpp"
 
-ApproveMaxEnj::ApproveMaxEnj() : graphql::AbstractGraphqlRequest("enjin.sdk.project.ApproveMaxEnj") {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
+
+ApproveMaxEnj::ApproveMaxEnj() : AbstractGraphqlRequest("enjin.sdk.project.ApproveMaxEnj"),
+                                 TransactionRequestArguments<ApproveMaxEnj>() {
 }
 
 std::string ApproveMaxEnj::serialize() const {
-    return ProjectTransactionRequestArguments::serialize();
+    return to_json().to_string();
+}
+
+JsonValue ApproveMaxEnj::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, TransactionRequestArguments<ApproveMaxEnj>::to_json());
+
+    return json;
 }
 
 bool ApproveMaxEnj::operator==(const ApproveMaxEnj& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const ProjectTransactionRequestArguments<ApproveMaxEnj>&>(*this) ==
-           static_cast<const ProjectTransactionRequestArguments<ApproveMaxEnj>&>(rhs);
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<ApproveMaxEnj>&>(*this) == rhs;
 }
 
 bool ApproveMaxEnj::operator!=(const ApproveMaxEnj& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "EnumUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 #include "gtest/gtest.h"
 #include <string>
 #include <tuple>
@@ -30,7 +30,7 @@ TEST_P(AssetVariantModeTest, DeserializeAssetVariantModeReturnsExpectedValue) {
     const std::string& str = std::get<0>(GetParam());
 
     // Act
-    AssetVariantMode actual = deserialize_asset_variant_mode(str);
+    AssetVariantMode actual = EnumUtils::deserialize_asset_variant_mode(str);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -42,7 +42,7 @@ TEST_P(AssetVariantModeTest, SerializeAssetVariantModeReturnsExpectedString) {
     AssetVariantMode value = std::get<1>(GetParam());
 
     // Act
-    std::string actual = serialize_asset_variant_mode(value);
+    std::string actual = EnumUtils::serialize_asset_variant_mode(value);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -50,8 +50,8 @@ TEST_P(AssetVariantModeTest, SerializeAssetVariantModeReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializableAssetVariantMode,
                          AssetVariantModeTest,
-                         testing::Values(std::make_tuple("UNKNOWN", AssetVariantMode::UNKNOWN),
-                                         std::make_tuple("NONE", AssetVariantMode::NONE),
-                                         std::make_tuple("BEAM", AssetVariantMode::BEAM),
-                                         std::make_tuple("ONCE", AssetVariantMode::ONCE),
-                                         std::make_tuple("ALWAYS", AssetVariantMode::ALWAYS)));
+                         testing::Values(std::make_tuple("UNKNOWN", AssetVariantMode::Unknown),
+                                         std::make_tuple("NONE", AssetVariantMode::None),
+                                         std::make_tuple("BEAM", AssetVariantMode::Beam),
+                                         std::make_tuple("ONCE", AssetVariantMode::Once),
+                                         std::make_tuple("ALWAYS", AssetVariantMode::Always)));

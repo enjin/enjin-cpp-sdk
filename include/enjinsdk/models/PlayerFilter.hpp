@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/ISerializable.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 #include <vector>
@@ -27,47 +28,54 @@ namespace enjin::sdk::models {
 /// \brief Models a filter input for player queries.
 class ENJINSDK_EXPORT PlayerFilter : public serialization::ISerializable {
 public:
-    /// \brief Default constructor.
-    PlayerFilter() = default;
+    /// \brief Constructs an instance of this class.
+    PlayerFilter();
 
-    ~PlayerFilter() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    PlayerFilter(const PlayerFilter& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    PlayerFilter(PlayerFilter&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~PlayerFilter() override;
 
     [[nodiscard]] std::string serialize() const override;
 
     /// \brief Sets the filter to include other filters to intersect with.
     /// \param others The other filters.
     /// \return This filter for chaining.
-    PlayerFilter& set_and(const std::vector<PlayerFilter>& others);
+    PlayerFilter& set_and(std::vector<PlayerFilter> others);
 
     /// \brief Sets the filter to include other filters to union with.
     /// \param others The other filters.
     /// \return This filter for chaining.
-    PlayerFilter& set_or(const std::vector<PlayerFilter>& others);
+    PlayerFilter& set_or(std::vector<PlayerFilter> others);
 
     /// \brief Sets the player ID to filter for.
     /// \param id The player ID.
     /// \return This filter for chaining.
-    PlayerFilter& set_id(const std::string& id);
+    PlayerFilter& set_id(std::string id);
 
     /// \brief Sets the player IDs to filter for.
     /// \param ids The player IDs.
     /// \return This filter for chaining.
-    PlayerFilter& set_id_in(const std::vector<std::string>& ids);
+    PlayerFilter& set_id_in(std::vector<std::string> ids);
+
+    [[nodiscard]] json::JsonValue to_json() const override;
 
     bool operator==(const PlayerFilter& rhs) const;
 
     bool operator!=(const PlayerFilter& rhs) const;
 
-private:
-    std::optional<std::vector<PlayerFilter>> and_filters;
-    std::optional<std::vector<PlayerFilter>> or_filters;
-    std::optional<std::string> id;
-    std::optional<std::vector<std::string>> id_in;
+    PlayerFilter& operator=(const PlayerFilter& rhs);
 
-    constexpr static char AND_KEY[] = "and";
-    constexpr static char OR_KEY[] = "or";
-    constexpr static char ID_KEY[] = "id";
-    constexpr static char ID_IN_KEY[] = "id_in";
+private:
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

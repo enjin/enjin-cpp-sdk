@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -26,10 +27,19 @@ namespace enjin::sdk::models {
 /// \brief Models a successful auth object.
 class ENJINSDK_EXPORT AccessToken : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    AccessToken() = default;
+    /// \brief Constructs an instance of this class.
+    AccessToken();
 
-    ~AccessToken() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    AccessToken(const AccessToken& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    AccessToken(AccessToken&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~AccessToken() override;
 
     void deserialize(const std::string& json) override;
 
@@ -45,12 +55,12 @@ public:
 
     bool operator!=(const AccessToken& rhs) const;
 
-private:
-    std::optional<std::string> token;
-    std::optional<long> expires_in;
+    AccessToken& operator=(const AccessToken& rhs);
 
-    constexpr static char TOKEN_KEY[] = "accessToken";
-    constexpr static char EXPIRES_IN_KEY[] = "expiresIn";
+private:
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

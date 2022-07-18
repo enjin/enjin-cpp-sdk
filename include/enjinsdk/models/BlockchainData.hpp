@@ -19,6 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/TransactionReceipt.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -27,10 +28,19 @@ namespace enjin::sdk::models {
 /// \brief Models the blockchain data of a request.
 class ENJINSDK_EXPORT BlockchainData : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    BlockchainData() = default;
+    /// \brief Constructs an instance of this class.
+    BlockchainData();
 
-    ~BlockchainData() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    BlockchainData(const BlockchainData& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    BlockchainData(BlockchainData&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~BlockchainData() override;
 
     void deserialize(const std::string& json) override;
 
@@ -66,22 +76,12 @@ public:
 
     bool operator!=(const BlockchainData& rhs) const;
 
-private:
-    std::optional<std::string> encoded_data;
-    std::optional<std::string> signed_transaction;
-    std::optional<std::string> signed_backup_transaction;
-    std::optional<std::string> signed_cancel_transaction;
-    std::optional<TransactionReceipt> receipt;
-    std::optional<std::string> error;
-    std::optional<std::string> nonce;
+    BlockchainData& operator=(const BlockchainData& rhs);
 
-    constexpr static char ENCODED_DATA_KEY[] = "encodedData";
-    constexpr static char SIGNED_TRANSACTION_KEY[] = "signedTransaction";
-    constexpr static char SIGNED_BACKUP_TRANSACTION_KEY[] = "signedBackupTransaction";
-    constexpr static char SIGNED_CANCEL_TRANSACTION_KEY[] = "signedCancelTransaction";
-    constexpr static char RECEIPT_KEY[] = "receipt";
-    constexpr static char ERROR_KEY[] = "error";
-    constexpr static char NONCE_KEY[] = "nonce";
+private:
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

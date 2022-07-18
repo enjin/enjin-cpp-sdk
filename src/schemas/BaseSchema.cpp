@@ -17,60 +17,40 @@
 
 #include "RapidJsonUtils.hpp"
 #include <sstream>
-#include <string>
 
-namespace enjin::sdk {
+using namespace enjin::sdk;
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::http;
+using namespace enjin::sdk::utils;
 
-BaseSchema::BaseSchema(TrustedPlatformMiddleware middleware,
+BaseSchema::BaseSchema(std::unique_ptr<IHttpClient> http_client,
                        std::string schema,
-                       std::shared_ptr<utils::LoggerProvider> logger_provider)
-        : middleware(std::move(middleware)),
+                       std::shared_ptr<LoggerProvider> logger_provider)
+        : middleware(std::make_unique<ClientMiddleware>(std::move(http_client))),
           logger_provider(std::move(logger_provider)),
           schema(std::move(schema)) {
 }
 
-std::string BaseSchema::create_request_body(graphql::AbstractGraphqlRequest& request) const {
+std::string BaseSchema::create_request_body(AbstractGraphqlRequest& request) const {
     rapidjson::Document document(rapidjson::kObjectType);
 
     utils::set_string_member(document,
                              "query",
-                             middleware.get_query_registry().get_operation_for_name(request.get_namespace()));
+                             middleware->get_query_registry().get_operation_for_name(request.get_namespace()));
     utils::set_object_member_from_string(document, "variables", request.serialize());
 
     return utils::document_to_string(document);
 }
 
-http::HttpRequest BaseSchema::create_request(graphql::AbstractGraphqlRequest& request) const {
-    http::HttpRequestBuilder builder;
-    builder.method(http::HttpMethod::Post)
-           .path_query_fragment(std::string("/graphql/").append(schema))
-           .content_type(JSON)
-           .body(create_request_body(request));
+HttpRequest BaseSchema::create_request(AbstractGraphqlRequest& request) const {
+    HttpRequest req = middleware->create_request();
 
-    // Adds the default SDK user agent header using the defined SDK version if the definition was set
-    std::stringstream user_agent_ss;
-    user_agent_ss << http::TrustedPlatformHandler::USER_AGENT_PREFIX;
+    req.set_method(HttpMethod::Post)
+       .set_path_query_fragment(std::string("/graphql/").append(schema))
+       .set_content_type(JSON)
+       .set_body(create_request_body(request));
 
-#ifdef ENJINSDK_VERSION
-    user_agent_ss << ENJINSDK_VERSION;
-#else
-    user_agent_ss << "?";
-#endif
-
-    builder.add_header(http::TrustedPlatformHandler::USER_AGENT, user_agent_ss.str());
-
-    // Adds authorization header if SDK has been authenticated
-    auto& tp_handler = middleware.get_handler();
-    if (tp_handler != nullptr && tp_handler->is_authenticated()) {
-        std::stringstream authorization_ss;
-        authorization_ss << http::TrustedPlatformHandler::AUTHORIZATION_SCHEMA
-                         << " "
-                         << tp_handler->get_auth_token().value();
-
-        builder.add_header(http::TrustedPlatformHandler::AUTHORIZATION, authorization_ss.str());
-    }
-
-    return builder.build();
+    return req;
 }
 
 const std::shared_ptr<utils::LoggerProvider>& BaseSchema::get_logger_provider() const {
@@ -84,11 +64,9 @@ void BaseSchema::log_graphql_exception(const std::exception& e) {
 
     std::stringstream ss;
     ss << "An exception occurred processing GraphQL response: " << e.what();
-    logger_provider->log(utils::LogLevel::SEVERE, ss.str());
+    logger_provider->log(utils::LogLevel::Severe, ss.str());
 }
 
-http::HttpResponse BaseSchema::send_request(const http::HttpRequest& request) {
-    return middleware.get_client()->send_request(request).get();
-}
-
+http::HttpResponse BaseSchema::send_request(http::HttpRequest request) {
+    return middleware->get_client()->send_request(request).get();
 }

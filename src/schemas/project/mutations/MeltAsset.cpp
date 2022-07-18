@@ -15,39 +15,43 @@
 
 #include "enjinsdk/project/MeltAsset.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
 
-MeltAsset::MeltAsset() : graphql::AbstractGraphqlRequest("enjin.sdk.project.MeltAsset") {
+MeltAsset::MeltAsset() : AbstractGraphqlRequest("enjin.sdk.project.MeltAsset"),
+                         TransactionRequestArguments<MeltAsset>() {
 }
 
 std::string MeltAsset::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
-
-    if (melts.has_value()) {
-        utils::set_array_member_from_type_vector<models::Melt>(document, "melts", melts.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
-MeltAsset& MeltAsset::set_melts(std::vector<models::Melt> melts) {
-    MeltAsset::melts = melts;
+MeltAsset& MeltAsset::set_melts(std::vector<MeltInput> melts) {
+    melts_opt = std::move(melts);
     return *this;
 }
 
+JsonValue MeltAsset::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, TransactionRequestArguments<MeltAsset>::to_json());
+    JsonUtils::try_set_field(json, "melts", melts_opt);
+
+    return json;
+}
+
 bool MeltAsset::operator==(const MeltAsset& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const ProjectTransactionRequestArguments<MeltAsset>&>(*this) ==
-           static_cast<const ProjectTransactionRequestArguments<MeltAsset>&>(rhs) &&
-           melts == rhs.melts;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<MeltAsset>&>(*this) == rhs
+           && melts_opt == rhs.melts_opt;
 }
 
 bool MeltAsset::operator!=(const MeltAsset& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

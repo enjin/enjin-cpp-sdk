@@ -19,7 +19,6 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/IHttpClient.hpp"
 #include "enjinsdk/IClient.hpp"
-#include "enjinsdk/TrustedPlatformMiddleware.hpp"
 #include "enjinsdk/player/PlayerSchema.hpp"
 #include <memory>
 #include <optional>
@@ -27,51 +26,21 @@
 
 namespace enjin::sdk {
 
-class PlayerClient;
-
-/// \brief Builder class for PlayerClient.
-class ENJINSDK_EXPORT PlayerClientBuilder {
-public:
-    /// \brief Default constructor.
-    PlayerClientBuilder() = default;
-
-    /// \brief Default destructor.
-    ~PlayerClientBuilder() = default;
-
-    /// \brief Builds the client and provides the unique pointer for it.
-    /// \return The client.
-    [[nodiscard]] std::unique_ptr<PlayerClient> build();
-
-    /// \brief Sets the base URI of the underlying HTTP client if one is not provided.
-    /// \param base_uri The base URI.
-    /// \return This builder for chaining.
-    PlayerClientBuilder& base_uri(const std::string& base_uri);
-
-    /// \brief Sets the underlying HTTP client implementation for the platform client to use.
-    /// \param http_client The client implementation.
-    /// \return This builder for chaining.
-    PlayerClientBuilder& http_client(std::unique_ptr<http::IHttpClient> http_client);
-
-    /// \brief Sets the logger provider to be used by the client.
-    /// \param logger_provider The logger provider.
-    /// \return This builder for chaining.
-    PlayerClientBuilder& logger_provider(std::shared_ptr<utils::LoggerProvider> logger_provider);
-
-private:
-    std::optional<std::string> m_base_uri;
-    std::unique_ptr<http::IHttpClient> m_http_client;
-    std::shared_ptr<utils::LoggerProvider> m_logger_provider;
-};
-
 /// \brief Client for using the player schema.
 class ENJINSDK_EXPORT PlayerClient : public IClient,
                                      public player::PlayerSchema {
 public:
+    class PlayerClientBuilder;
+
     PlayerClient() = delete;
+
+    PlayerClient(const PlayerClient&) = delete;
+
+    PlayerClient(PlayerClient&&) = delete;
 
     ~PlayerClient() override;
 
-    void auth(const std::string& token) override;
+    void auth(std::string token) override;
 
     void close() override;
 
@@ -79,10 +48,54 @@ public:
 
     [[nodiscard]] bool is_closed() const override;
 
-private:
-    PlayerClient(TrustedPlatformMiddleware middleware, std::shared_ptr<utils::LoggerProvider> logger_provider);
+    /// \brief Creates a builder for this class.
+    /// \return The builder.
+    [[nodiscard]] static PlayerClientBuilder builder();
 
-    friend std::unique_ptr<PlayerClient> PlayerClientBuilder::build();
+    /// \brief Builder class for PlayerClient.
+    class ENJINSDK_EXPORT PlayerClientBuilder {
+    public:
+        /// \brief Default destructor.
+        ~PlayerClientBuilder() = default;
+
+        /// \brief Builds the client.
+        /// \return The client.
+        [[nodiscard]] std::unique_ptr<PlayerClient> build();
+
+        /// \brief Sets the base URI of the built-in HTTP client if a client is not provided.
+        /// \param base_uri The base URI.
+        /// \return This builder for chaining.
+        PlayerClientBuilder& base_uri(std::string base_uri);
+
+        /// \brief Sets the underlying HTTP client implementation to be moved to the client.
+        /// \param http_client The client implementation.
+        /// \return This builder for chaining.
+        PlayerClientBuilder& http_client(std::unique_ptr<http::IHttpClient> http_client);
+
+        /// \brief Sets the HTTP log level to set the HTTP client to.
+        /// \param http_log_level The HTTP log level.
+        /// \return This builder for chaining.
+        PlayerClientBuilder& http_log_level(http::HttpLogLevel http_log_level);
+
+        /// \brief Sets the logger provider to be used by the client.
+        /// \param logger_provider The logger provider.
+        /// \return This builder for chaining.
+        PlayerClientBuilder& logger_provider(std::shared_ptr<utils::LoggerProvider> logger_provider);
+
+    private:
+        std::optional<std::string> m_base_uri;
+        std::unique_ptr<http::IHttpClient> m_http_client;
+        std::optional<http::HttpLogLevel> m_http_log_level;
+        std::shared_ptr<utils::LoggerProvider> m_logger_provider;
+
+        PlayerClientBuilder() = default;
+
+        friend PlayerClientBuilder PlayerClient::builder();
+    };
+
+private:
+    PlayerClient(std::unique_ptr<http::IHttpClient> http_client,
+                 std::shared_ptr<utils::LoggerProvider> logger_provider);
 };
 
 }

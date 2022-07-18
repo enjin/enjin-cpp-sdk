@@ -15,37 +15,40 @@
 
 #include "enjinsdk/project/InvalidateAssetMetadata.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
 
 InvalidateAssetMetadata::InvalidateAssetMetadata()
-        : graphql::AbstractGraphqlRequest("enjin.sdk.project.InvalidateAssetMetadata") {
+        : AbstractGraphqlRequest("enjin.sdk.project.InvalidateAssetMetadata") {
 }
 
 std::string InvalidateAssetMetadata::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-
-    if (id.has_value()) {
-        utils::set_string_member(document, "id", id.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
-InvalidateAssetMetadata& InvalidateAssetMetadata::set_id(const std::string& id) {
-    InvalidateAssetMetadata::id = id;
+InvalidateAssetMetadata& InvalidateAssetMetadata::set_id(std::string id) {
+    id_opt = std::move(id);
     return *this;
 }
 
+JsonValue InvalidateAssetMetadata::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::try_set_field(json, "id", id_opt);
+
+    return json;
+}
+
 bool InvalidateAssetMetadata::operator==(const InvalidateAssetMetadata& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           id == rhs.id;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && id_opt == rhs.id_opt;
 }
 
 bool InvalidateAssetMetadata::operator!=(const InvalidateAssetMetadata& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

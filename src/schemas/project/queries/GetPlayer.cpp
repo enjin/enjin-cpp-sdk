@@ -15,39 +15,43 @@
 
 #include "enjinsdk/project/GetPlayer.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::shared;
+using namespace enjin::sdk::utils;
 
-enjin::sdk::project::GetPlayer::GetPlayer() : graphql::AbstractGraphqlRequest("enjin.sdk.project.GetPlayer") {
+GetPlayer::GetPlayer() : AbstractGraphqlRequest("enjin.sdk.project.GetPlayer"),
+                         PlayerFragmentArguments<GetPlayer>() {
 }
 
 std::string GetPlayer::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, PlayerFragmentArguments::serialize());
-
-    if (id.has_value()) {
-        utils::set_string_member(document, "id", id.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
-GetPlayer& GetPlayer::set_id(const std::string& id) {
-    GetPlayer::id = id;
+GetPlayer& GetPlayer::set_id(std::string id) {
+    id_opt = std::move(id);
     return *this;
 }
 
+JsonValue GetPlayer::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, PlayerFragmentArguments<GetPlayer>::to_json());
+    JsonUtils::try_set_field(json, "id", id_opt);
+
+    return json;
+}
+
 bool GetPlayer::operator==(const GetPlayer& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::PlayerFragmentArguments<GetPlayer>&>(*this) ==
-           static_cast<const shared::PlayerFragmentArguments<GetPlayer>&>(rhs) &&
-           id == rhs.id;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const PlayerFragmentArguments<GetPlayer>&>(*this) == rhs
+           && id_opt == rhs.id_opt;
 }
 
 bool GetPlayer::operator!=(const GetPlayer& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

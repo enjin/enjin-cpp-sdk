@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for claiming assets on the bridge.
 class ENJINSDK_EXPORT BridgeClaimAsset : public graphql::AbstractGraphqlRequest,
-                                         public ProjectTransactionRequestArguments<BridgeClaimAsset> {
+                                         public TransactionRequestArguments<BridgeClaimAsset> {
 public:
     /// \brief Sole constructor.
     BridgeClaimAsset();
@@ -40,51 +40,73 @@ public:
     /// \return This request for chaining.
     BridgeClaimAsset& set_asset_id(std::string asset_id);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const BridgeClaimAsset& rhs) const;
 
     bool operator!=(const BridgeClaimAsset& rhs) const;
 
 private:
-    std::optional<std::string> asset_id;
+    std::optional<std::string> asset_id_opt;
 };
 
+// region TransactionRequestArguments
+
 template ENJINSDK_EXPORT BridgeClaimAsset&
-ProjectTransactionRequestArguments<BridgeClaimAsset>::set_transaction_asset_id_format(
+TransactionRequestArguments<BridgeClaimAsset>::set_eth_address(std::string address);
+
+// endregion TransactionRequestArguments
+
+}
+
+namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
+
+template ENJINSDK_EXPORT project::BridgeClaimAsset&
+TransactionFragmentArguments<project::BridgeClaimAsset>::set_transaction_asset_id_format(
         models::AssetIdFormat asset_id_format);
 
-template ENJINSDK_EXPORT BridgeClaimAsset&
-ProjectTransactionRequestArguments<BridgeClaimAsset>::set_with_blockchain_data();
+template ENJINSDK_EXPORT project::BridgeClaimAsset&
+TransactionFragmentArguments<project::BridgeClaimAsset>::set_with_blockchain_data();
 
-template ENJINSDK_EXPORT BridgeClaimAsset& ProjectTransactionRequestArguments<BridgeClaimAsset>::set_with_meta();
+template ENJINSDK_EXPORT project::BridgeClaimAsset&
+TransactionFragmentArguments<project::BridgeClaimAsset>::set_with_meta();
 
-template ENJINSDK_EXPORT BridgeClaimAsset&
-ProjectTransactionRequestArguments<BridgeClaimAsset>::set_with_encoded_data();
+template ENJINSDK_EXPORT project::BridgeClaimAsset&
+TransactionFragmentArguments<project::BridgeClaimAsset>::set_with_encoded_data();
 
-template ENJINSDK_EXPORT BridgeClaimAsset& ProjectTransactionRequestArguments<BridgeClaimAsset>::set_with_asset_data();
+template ENJINSDK_EXPORT project::BridgeClaimAsset&
+TransactionFragmentArguments<project::BridgeClaimAsset>::set_with_asset_data();
 
-template ENJINSDK_EXPORT BridgeClaimAsset& ProjectTransactionRequestArguments<BridgeClaimAsset>::set_with_signed_txs();
+template ENJINSDK_EXPORT project::BridgeClaimAsset&
+TransactionFragmentArguments<project::BridgeClaimAsset>::set_with_signed_txs();
 
-template ENJINSDK_EXPORT BridgeClaimAsset& ProjectTransactionRequestArguments<BridgeClaimAsset>::set_with_error();
+template ENJINSDK_EXPORT project::BridgeClaimAsset&
+TransactionFragmentArguments<project::BridgeClaimAsset>::set_with_error();
 
-template ENJINSDK_EXPORT BridgeClaimAsset& ProjectTransactionRequestArguments<BridgeClaimAsset>::set_with_nonce();
+template ENJINSDK_EXPORT project::BridgeClaimAsset&
+TransactionFragmentArguments<project::BridgeClaimAsset>::set_with_nonce();
 
-template ENJINSDK_EXPORT BridgeClaimAsset& ProjectTransactionRequestArguments<BridgeClaimAsset>::set_with_state();
+template ENJINSDK_EXPORT project::BridgeClaimAsset&
+TransactionFragmentArguments<project::BridgeClaimAsset>::set_with_state();
 
-template ENJINSDK_EXPORT BridgeClaimAsset& ProjectTransactionRequestArguments<BridgeClaimAsset>::set_with_receipt();
+template ENJINSDK_EXPORT project::BridgeClaimAsset&
+TransactionFragmentArguments<project::BridgeClaimAsset>::set_with_receipt();
 
-template ENJINSDK_EXPORT BridgeClaimAsset&
-ProjectTransactionRequestArguments<BridgeClaimAsset>::set_with_receipt_logs();
+template ENJINSDK_EXPORT project::BridgeClaimAsset&
+TransactionFragmentArguments<project::BridgeClaimAsset>::set_with_receipt_logs();
 
-template ENJINSDK_EXPORT BridgeClaimAsset& ProjectTransactionRequestArguments<BridgeClaimAsset>::set_with_log_event();
+template ENJINSDK_EXPORT project::BridgeClaimAsset&
+TransactionFragmentArguments<project::BridgeClaimAsset>::set_with_log_event();
 
-template ENJINSDK_EXPORT BridgeClaimAsset&
-ProjectTransactionRequestArguments<BridgeClaimAsset>::set_with_transaction_project_uuid();
+template ENJINSDK_EXPORT project::BridgeClaimAsset&
+TransactionFragmentArguments<project::BridgeClaimAsset>::set_with_transaction_project_uuid();
 
-template ENJINSDK_EXPORT BridgeClaimAsset&
-ProjectTransactionRequestArguments<BridgeClaimAsset>::set_with_transaction_wallet_address();
+template ENJINSDK_EXPORT project::BridgeClaimAsset&
+TransactionFragmentArguments<project::BridgeClaimAsset>::set_with_transaction_wallet_address();
 
-template ENJINSDK_EXPORT BridgeClaimAsset&
-ProjectTransactionRequestArguments<BridgeClaimAsset>::set_eth_address(const std::string& address);
+// endregion TransactionFragmentArguments
 
 }
 

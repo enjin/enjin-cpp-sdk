@@ -15,48 +15,51 @@
 
 #include "enjinsdk/player/AdvancedSendAsset.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include <utility>
 
-namespace enjin::sdk::player {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::player;
+using namespace enjin::sdk::shared;
+using namespace enjin::sdk::utils;
 
-AdvancedSendAsset::AdvancedSendAsset() : graphql::AbstractGraphqlRequest("enjin.sdk.player.AdvancedSendAsset") {
+AdvancedSendAsset::AdvancedSendAsset() : AbstractGraphqlRequest("enjin.sdk.player.AdvancedSendAsset"),
+                                         TransactionFragmentArguments<AdvancedSendAsset>() {
 }
 
 std::string AdvancedSendAsset::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, TransactionFragmentArguments::serialize());
-
-    if (transfers.has_value()) {
-        utils::set_array_member_from_type_vector<models::Transfer>(document, "transfers", transfers.value());
-    }
-    if (data.has_value()) {
-        utils::set_string_member(document, "data", data.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
-AdvancedSendAsset& AdvancedSendAsset::set_transfers(const std::vector<models::Transfer>& transfers) {
-    AdvancedSendAsset::transfers = transfers;
+AdvancedSendAsset& AdvancedSendAsset::set_transfers(std::vector<TransferInput> transfers) {
+    transfers_opt = std::move(transfers);
     return *this;
 }
 
-AdvancedSendAsset& AdvancedSendAsset::set_data(const std::string& data) {
-    AdvancedSendAsset::data = data;
+AdvancedSendAsset& AdvancedSendAsset::set_data(std::string data) {
+    data_opt = std::move(data);
     return *this;
+}
+
+JsonValue AdvancedSendAsset::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, TransactionFragmentArguments<AdvancedSendAsset>::to_json());
+    JsonUtils::try_set_field(json, "transfers", transfers_opt);
+    JsonUtils::try_set_field(json, "data", data_opt);
+
+    return json;
 }
 
 bool AdvancedSendAsset::operator==(const AdvancedSendAsset& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const shared::TransactionFragmentArguments<AdvancedSendAsset>&>(*this) ==
-           static_cast<const shared::TransactionFragmentArguments<AdvancedSendAsset>&>(rhs) &&
-           transfers == rhs.transfers &&
-           data == rhs.data;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const TransactionFragmentArguments<AdvancedSendAsset>&>(*this) == rhs
+           && transfers_opt == rhs.transfers_opt
+           && data_opt == rhs.data_opt;
 }
 
 bool AdvancedSendAsset::operator!=(const AdvancedSendAsset& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

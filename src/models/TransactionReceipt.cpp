@@ -15,102 +15,183 @@
 
 #include "enjinsdk/models/TransactionReceipt.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::serialization;
+using namespace enjin::sdk::utils;
+
+class TransactionReceipt::Impl final : public IDeserializable {
+public:
+    Impl() = default;
+
+    ~Impl() override = default;
+
+    void deserialize(const std::string& json) override {
+        JsonValue json_object;
+
+        if (!json_object.try_parse_as_object(json)) {
+            block_hash.reset();
+            block_number.reset();
+            cumulative_gas_used.reset();
+            gas_used.reset();
+            from.reset();
+            to.reset();
+            transaction_hash.reset();
+            transaction_index.reset();
+            status.reset();
+            logs.reset();
+
+            return;
+        }
+
+        JsonUtils::try_get_field(json_object, "blockHash", block_hash);
+        JsonUtils::try_get_field(json_object, "blockNumber", block_number);
+        JsonUtils::try_get_field(json_object, "cumulativeGasUsed", cumulative_gas_used);
+        JsonUtils::try_get_field(json_object, "gasUsed", gas_used);
+        JsonUtils::try_get_field(json_object, "from", from);
+        JsonUtils::try_get_field(json_object, "to", to);
+        JsonUtils::try_get_field(json_object, "transactionHash", transaction_hash);
+        JsonUtils::try_get_field(json_object, "transactionIndex", transaction_index);
+        JsonUtils::try_get_field(json_object, "status", status);
+        JsonUtils::try_get_field(json_object, "logs", logs);
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_block_hash() const {
+        return block_hash;
+    }
+
+    [[nodiscard]] const std::optional<int>& get_block_number() const {
+        return block_number;
+    }
+
+    [[nodiscard]] const std::optional<int>& get_cumulative_gas_used() const {
+        return cumulative_gas_used;
+    }
+
+    [[nodiscard]] const std::optional<int>& get_gas_used() const {
+        return gas_used;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_from() const {
+        return from;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_to() const {
+        return to;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_transaction_hash() const {
+        return transaction_hash;
+    }
+
+    [[nodiscard]] const std::optional<int>& get_transaction_index() const {
+        return transaction_index;
+    }
+
+    [[nodiscard]] const std::optional<bool>& get_status() const {
+        return status;
+    }
+
+    [[nodiscard]] const std::optional<std::vector<TransactionLog>>& get_logs() const {
+        return logs;
+    }
+
+    bool operator==(const Impl& rhs) const {
+        return block_hash == rhs.block_hash
+               && block_number == rhs.block_number
+               && cumulative_gas_used == rhs.cumulative_gas_used
+               && gas_used == rhs.gas_used
+               && from == rhs.from
+               && to == rhs.to
+               && transaction_hash == rhs.transaction_hash
+               && transaction_index == rhs.transaction_index
+               && status == rhs.status
+               && logs == rhs.logs;
+    }
+
+    bool operator!=(const Impl& rhs) const {
+        return !(*this == rhs);
+    }
+
+private:
+    std::optional<std::string> block_hash;
+    std::optional<int> block_number;
+    std::optional<int> cumulative_gas_used;
+    std::optional<int> gas_used;
+    std::optional<std::string> from;
+    std::optional<std::string> to;
+    std::optional<std::string> transaction_hash;
+    std::optional<int> transaction_index;
+    std::optional<bool> status;
+    std::optional<std::vector<TransactionLog>> logs;
+};
+
+TransactionReceipt::TransactionReceipt() : pimpl(std::make_unique<Impl>()) {
+}
+
+TransactionReceipt::TransactionReceipt(const TransactionReceipt& other) : pimpl(std::make_unique<Impl>(*other.pimpl)) {
+}
+
+TransactionReceipt::TransactionReceipt(TransactionReceipt&& other) noexcept = default;
+
+TransactionReceipt::~TransactionReceipt() = default;
 
 void TransactionReceipt::deserialize(const std::string& json) {
-    rapidjson::Document document;
-    document.Parse(json.c_str());
-    if (document.IsObject()) {
-        if (document.HasMember(BLOCK_HASH_KEY) && document[BLOCK_HASH_KEY].IsString()) {
-            block_hash.emplace(document[BLOCK_HASH_KEY].GetString());
-        }
-        if (document.HasMember(BLOCK_NUMBER_KEY) && document[BLOCK_NUMBER_KEY].IsInt()) {
-            block_number.emplace(document[BLOCK_NUMBER_KEY].GetInt());
-        }
-        if (document.HasMember(CUMULATIVE_GAS_USED_KEY) && document[CUMULATIVE_GAS_USED_KEY].IsInt()) {
-            cumulative_gas_used.emplace(document[CUMULATIVE_GAS_USED_KEY].GetInt());
-        }
-        if (document.HasMember(GAS_USED_KEY) && document[GAS_USED_KEY].IsInt()) {
-            gas_used.emplace(document[GAS_USED_KEY].GetInt());
-        }
-        if (document.HasMember(FROM_KEY) && document[FROM_KEY].IsString()) {
-            from.emplace(document[FROM_KEY].GetString());
-        }
-        if (document.HasMember(TO_KEY) && document[TO_KEY].IsString()) {
-            to.emplace(document[TO_KEY].GetString());
-        }
-        if (document.HasMember(TRANSACTION_HASH_KEY) && document[TRANSACTION_HASH_KEY].IsString()) {
-            transaction_hash.emplace(document[TRANSACTION_HASH_KEY].GetString());
-        }
-        if (document.HasMember(TRANSACTION_INDEX_KEY) && document[TRANSACTION_INDEX_KEY].IsInt()) {
-            transaction_index.emplace(document[TRANSACTION_INDEX_KEY].GetInt());
-        }
-        if (document.HasMember(STATUS_KEY) && document[STATUS_KEY].IsBool()) {
-            status.emplace(document[STATUS_KEY].GetBool());
-        }
-        if (document.HasMember(LOGS_KEY) && document[LOGS_KEY].IsArray()) {
-            logs.emplace(utils::get_array_as_type_vector<TransactionLog>(document, LOGS_KEY));
-        }
-    }
+    pimpl->deserialize(json);
 }
 
 const std::optional<std::string>& TransactionReceipt::get_block_hash() const {
-    return block_hash;
+    return pimpl->get_block_hash();
 }
 
 const std::optional<int>& TransactionReceipt::get_block_number() const {
-    return block_number;
+    return pimpl->get_block_number();
 }
 
 const std::optional<int>& TransactionReceipt::get_cumulative_gas_used() const {
-    return cumulative_gas_used;
+    return pimpl->get_cumulative_gas_used();
 }
 
 const std::optional<int>& TransactionReceipt::get_gas_used() const {
-    return gas_used;
+    return pimpl->get_gas_used();
 }
 
 const std::optional<std::string>& TransactionReceipt::get_from() const {
-    return from;
+    return pimpl->get_from();
 }
 
 const std::optional<std::string>& TransactionReceipt::get_to() const {
-    return to;
+    return pimpl->get_to();
 }
 
 const std::optional<std::string>& TransactionReceipt::get_transaction_hash() const {
-    return transaction_hash;
+    return pimpl->get_transaction_hash();
 }
 
 const std::optional<int>& TransactionReceipt::get_transaction_index() const {
-    return transaction_index;
+    return pimpl->get_transaction_index();
 }
 
 const std::optional<bool>& TransactionReceipt::get_status() const {
-    return status;
+    return pimpl->get_status();
 }
 
 const std::optional<std::vector<TransactionLog>>& TransactionReceipt::get_logs() const {
-    return logs;
+    return pimpl->get_logs();
 }
 
 bool TransactionReceipt::operator==(const TransactionReceipt& rhs) const {
-    return block_hash == rhs.block_hash &&
-           block_number == rhs.block_number &&
-           cumulative_gas_used == rhs.cumulative_gas_used &&
-           gas_used == rhs.gas_used &&
-           from == rhs.from &&
-           to == rhs.to &&
-           transaction_hash == rhs.transaction_hash &&
-           transaction_index == rhs.transaction_index &&
-           status == rhs.status &&
-           logs == rhs.logs;
+    return *pimpl == *rhs.pimpl;
 }
 
 bool TransactionReceipt::operator!=(const TransactionReceipt& rhs) const {
-    return !(rhs == *this);
+    return *pimpl != *rhs.pimpl;
 }
 
+TransactionReceipt& TransactionReceipt::operator=(const TransactionReceipt& rhs) {
+    pimpl = std::make_unique<Impl>(*rhs.pimpl);
+    return *this;
 }

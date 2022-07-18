@@ -19,6 +19,7 @@
 #include "TestableProjectTransactionRequestArguments.hpp"
 #include <string>
 
+using namespace enjin::sdk::json;
 using namespace enjin::test::suites;
 using namespace enjin::test::utils;
 
@@ -37,36 +38,36 @@ public:
     }
 };
 
-TEST_F(ProjectTransactionRequestArgumentsTest, SerializeNoSetFieldsReturnsEmptyJson) {
+TEST_F(ProjectTransactionRequestArgumentsTest, ToJsonNoSetFieldsReturnsEmptyJson) {
     // Arrange
-    const std::string expected(EMPTY_JSON_OBJECT);
+    const JsonValue expected = create_empty_json_object();
 
     // Act
-    std::string actual = class_under_test.serialize();
+    const JsonValue actual = class_under_test.to_json();
 
     // Assert
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(ProjectTransactionRequestArgumentsTest, SerializeSetProjectTransactionRequestFieldsReturnsExpectedJson) {
+TEST_F(ProjectTransactionRequestArgumentsTest, ToJsonSetProjectTransactionRequestFieldsReturnsExpectedJson) {
     // Arrange
-    const std::string expected(ProjectTransactionRequestJson);
+    const JsonValue expected = ProjectTransactionRequestArgumentsTestSuite::create_json_object();
     set_project_transaction_request_arguments(class_under_test);
 
     // Act
-    std::string actual = class_under_test.serialize();
+    const JsonValue actual = class_under_test.to_json();
 
     // Assert
     ASSERT_EQ(expected, actual);
 }
 
-TEST_F(ProjectTransactionRequestArgumentsTest, SerializeSetTransactionFragmentFieldsReturnsExpectedJson) {
+TEST_F(ProjectTransactionRequestArgumentsTest, ToJsonSetTransactionFragmentFieldsReturnsExpectedJson) {
     // Arrange
-    const std::string expected(TransactionFragmentJson);
+    const JsonValue expected = TransactionFragmentArgumentsTestSuite::create_json_object();
     set_transaction_fragment_arguments(class_under_test);
 
     // Act
-    std::string actual = class_under_test.serialize();
+    const JsonValue actual = class_under_test.to_json();
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -74,11 +75,11 @@ TEST_F(ProjectTransactionRequestArgumentsTest, SerializeSetTransactionFragmentFi
 
 TEST_F(ProjectTransactionRequestArgumentsTest, EqualityNeitherSideIsPopulatedReturnsTrue) {
     // Arrange
-    TestableProjectTransactionRequestArguments lhs;
-    TestableProjectTransactionRequestArguments rhs;
+    const TestableProjectTransactionRequestArguments lhs;
+    const TestableProjectTransactionRequestArguments rhs;
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_TRUE(actual);
@@ -86,11 +87,11 @@ TEST_F(ProjectTransactionRequestArgumentsTest, EqualityNeitherSideIsPopulatedRet
 
 TEST_F(ProjectTransactionRequestArgumentsTest, EqualityBothSidesArePopulatedReturnsTrue) {
     // Arrange
-    TestableProjectTransactionRequestArguments lhs = create_default_arguments();
-    TestableProjectTransactionRequestArguments rhs = create_default_arguments();
+    const TestableProjectTransactionRequestArguments lhs = create_default_arguments();
+    const TestableProjectTransactionRequestArguments rhs = create_default_arguments();
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_TRUE(actual);
@@ -98,11 +99,11 @@ TEST_F(ProjectTransactionRequestArgumentsTest, EqualityBothSidesArePopulatedRetu
 
 TEST_F(ProjectTransactionRequestArgumentsTest, EqualityLeftSideIsPopulatedReturnsFalse) {
     // Arrange
-    TestableProjectTransactionRequestArguments lhs = create_default_arguments();
-    TestableProjectTransactionRequestArguments rhs;
+    const TestableProjectTransactionRequestArguments lhs = create_default_arguments();
+    const TestableProjectTransactionRequestArguments rhs;
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_FALSE(actual);
@@ -110,11 +111,11 @@ TEST_F(ProjectTransactionRequestArgumentsTest, EqualityLeftSideIsPopulatedReturn
 
 TEST_F(ProjectTransactionRequestArgumentsTest, EqualityRightSideIsPopulatedReturnsFalse) {
     // Arrange
-    TestableProjectTransactionRequestArguments lhs;
-    TestableProjectTransactionRequestArguments rhs = create_default_arguments();
+    const TestableProjectTransactionRequestArguments lhs;
+    const TestableProjectTransactionRequestArguments rhs = create_default_arguments();
 
     // Act
-    bool actual = lhs == rhs;
+    const bool actual = lhs == rhs;
 
     // Assert
     ASSERT_FALSE(actual);

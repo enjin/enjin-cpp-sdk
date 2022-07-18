@@ -20,7 +20,7 @@
 #include "enjinsdk/GraphqlResponse.hpp"
 #include "enjinsdk/models/AccessToken.hpp"
 #include "enjinsdk/models/Player.hpp"
-#include "enjinsdk/models/Request.hpp"
+#include "enjinsdk/models/Transaction.hpp"
 #include "enjinsdk/models/Wallet.hpp"
 #include "enjinsdk/project/AdvancedSendAsset.hpp"
 #include "enjinsdk/project/ApproveEnj.hpp"
@@ -70,174 +70,174 @@ public:
     /// \brief Sends the AdvancedSendAsset request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> advanced_send_asset(AdvancedSendAsset& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> advanced_send_asset(AdvancedSendAsset request) = 0;
 
     /// \brief Sends the ApproveEnj request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> approve_enj(ApproveEnj& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> approve_enj(ApproveEnj request) = 0;
 
     /// \brief Sends the ApproveMaxEnj request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> approve_enj_max(ApproveMaxEnj& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> approve_enj_max(ApproveMaxEnj request) = 0;
 
     /// \brief Sends the AuthPlayer request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::AccessToken>> auth_player(AuthPlayer& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::AccessToken>> auth_player(AuthPlayer request) = 0;
 
     /// \brief Sends the AuthProject request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::AccessToken>> auth_project(AuthProject& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::AccessToken>> auth_project(AuthProject request) = 0;
 
     /// \brief Sends the BridgeAsset request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> bridge_asset(BridgeAsset& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> bridge_asset(BridgeAsset request) = 0;
 
     /// \brief Sends the BridgeAssets request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> bridge_assets(BridgeAssets& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> bridge_assets(BridgeAssets request) = 0;
 
     /// \brief Sends the BridgeClaimAsset request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> bridge_claim_asset(BridgeClaimAsset& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> bridge_claim_asset(BridgeClaimAsset request) = 0;
 
     /// \brief Sends the CompleteTrade request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> complete_trade(CompleteTrade& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> complete_trade(CompleteTrade request) = 0;
 
     /// \brief Sends the CreateAsset request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> create_asset(CreateAsset& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> create_asset(CreateAsset request) = 0;
 
     /// \brief Sends the CreatePlayer request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::AccessToken>> create_player(CreatePlayer& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::AccessToken>> create_player(CreatePlayer request) = 0;
 
     /// \brief Sends the CreateTrade request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> create_trade(CreateTrade& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> create_trade(CreateTrade request) = 0;
 
     /// \brief Sends the DecreaseMaxMeltFee request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>>
-    decrease_max_melt_fee(DecreaseMaxMeltFee& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>>
+    decrease_max_melt_fee(DecreaseMaxMeltFee request) = 0;
 
     /// \brief Sends the DecreaseMaxTransferFee request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>>
-    decrease_max_transfer_fee(DecreaseMaxTransferFee& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>>
+    decrease_max_transfer_fee(DecreaseMaxTransferFee request) = 0;
 
     /// \brief Sends the DeletePlayer request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<bool>> delete_player(DeletePlayer& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<bool>> delete_player(DeletePlayer request) = 0;
 
     /// \brief Sends the GetPlayer request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Player>> get_player(GetPlayer& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Player>> get_player(GetPlayer request) = 0;
 
     /// \brief Sends the GetPlayers request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<std::vector<models::Player>>> get_players(GetPlayers& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<std::vector<models::Player>>> get_players(GetPlayers request) = 0;
 
     /// \brief Sends the GetWallet request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Wallet>> get_wallet(GetWallet& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Wallet>> get_wallet(GetWallet request) = 0;
 
     /// \brief Sends the GetWallets request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<std::vector<models::Wallet>>> get_wallets(GetWallets& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<std::vector<models::Wallet>>> get_wallets(GetWallets request) = 0;
 
     /// \brief Sends the InvalidateAssetMetadata request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<bool>> invalidate_asset_metadata(InvalidateAssetMetadata& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<bool>> invalidate_asset_metadata(InvalidateAssetMetadata request) = 0;
 
     /// \brief Sends the MeltAsset request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> melt_asset(MeltAsset& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> melt_asset(MeltAsset request) = 0;
 
     /// \brief Sends the Message request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> message(Message& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> message(Message request) = 0;
 
     /// \brief Sends the MintAsset request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> mint_asset(MintAsset& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> mint_asset(MintAsset request) = 0;
 
     /// \brief Sends the ReleaseReserve request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> release_reserve(ReleaseReserve& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> release_reserve(ReleaseReserve request) = 0;
 
     /// \brief Sends the ResetEnjApproval request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> reset_enj_approval(ResetEnjApproval& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> reset_enj_approval(ResetEnjApproval request) = 0;
 
     /// \brief Sends the SendAsset request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> send_asset(SendAsset& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> send_asset(SendAsset request) = 0;
 
     /// \brief Sends the SendEnj request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> send_enj(SendEnj& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> send_enj(SendEnj request) = 0;
 
     /// \brief Sends the SetApprovalForAll request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> set_approval_for_all(SetApprovalForAll& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> set_approval_for_all(SetApprovalForAll request) = 0;
 
     /// \brief Sends the SetMeltFee request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> set_melt_fee(SetMeltFee& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> set_melt_fee(SetMeltFee request) = 0;
 
     /// \brief Sends the SetTransferFee request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> set_transfer_fee(SetTransferFee& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> set_transfer_fee(SetTransferFee request) = 0;
 
     /// \brief Sends the SetTransferable request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> set_transferable(SetTransferable& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> set_transferable(SetTransferable request) = 0;
 
     /// \brief Sends the SetUri request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> set_uri(SetUri& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> set_uri(SetUri request) = 0;
 
     /// \brief Sends the SetWhitelisted request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<models::Request>> set_whitelisted(SetWhitelisted& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> set_whitelisted(SetWhitelisted request) = 0;
 
     /// \brief Sends the UnlinkWallet request to the platform.
     /// \param request The request.
     /// \return The future containing the response.
-    virtual std::future<graphql::GraphqlResponse<bool>> unlink_wallet(UnlinkWallet& request) = 0;
+    virtual std::future<graphql::GraphqlResponse<bool>> unlink_wallet(UnlinkWallet request) = 0;
 };
 
 }

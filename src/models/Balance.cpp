@@ -15,45 +15,38 @@
 
 #include "enjinsdk/models/Balance.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
+using namespace enjin::sdk::json;
 using namespace enjin::sdk::models;
 using namespace enjin::sdk::serialization;
 using namespace enjin::sdk::utils;
 
-class Balance::Impl : public IDeserializable {
+class Balance::Impl final : public IDeserializable {
 public:
     Impl() = default;
 
     ~Impl() override = default;
 
     void deserialize(const std::string& json) override {
-        rapidjson::Document document;
-        document.Parse(json.c_str());
+        JsonValue json_object;
 
-        if (!document.IsObject()) {
+        if (!json_object.try_parse_as_object(json)) {
+            id.reset();
+            index.reset();
+            value.reset();
+            project.reset();
+            wallet.reset();
+
             return;
         }
 
-        if (document.HasMember(ID_KEY) && document[ID_KEY].IsString()) {
-            id.emplace(document[ID_KEY].GetString());
-        }
-
-        if (document.HasMember(INDEX_KEY) && document[INDEX_KEY].IsString()) {
-            index.emplace(document[INDEX_KEY].GetString());
-        }
-
-        if (document.HasMember(VALUE_KEY) && document[VALUE_KEY].IsInt()) {
-            value.emplace(document[VALUE_KEY].GetInt());
-        }
-
-        if (document.HasMember(PROJECT_KEY) && document[PROJECT_KEY].IsObject()) {
-            project.emplace(get_object_as_type<Project>(document, PROJECT_KEY));
-        }
-
-        if (document.HasMember(WALLET_KEY) && document[WALLET_KEY].IsObject()) {
-            wallet.emplace(get_object_as_type<Wallet>(document, WALLET_KEY));
-        }
+        JsonUtils::try_get_field(json_object, "id", id);
+        JsonUtils::try_get_field(json_object, "index", index);
+        JsonUtils::try_get_field(json_object, "value", value);
+        JsonUtils::try_get_field(json_object, "project", project);
+        JsonUtils::try_get_field(json_object, "wallet", wallet);
     }
 
     [[nodiscard]] const std::optional<std::string>& get_id() const {
@@ -94,19 +87,12 @@ private:
     std::optional<int> value;
     std::optional<Project> project;
     std::optional<Wallet> wallet;
-
-    constexpr static char ID_KEY[] = "id";
-    constexpr static char INDEX_KEY[] = "index";
-    constexpr static char VALUE_KEY[] = "value";
-    constexpr static char PROJECT_KEY[] = "project";
-    constexpr static char WALLET_KEY[] = "wallet";
 };
 
-Balance::Balance() : impl(std::make_unique<Impl>()) {
+Balance::Balance() : pimpl(std::make_unique<Impl>()) {
 }
 
-Balance::Balance(const Balance& other) {
-    impl = std::make_unique<Impl>(*other.impl);
+Balance::Balance(const Balance& other) : pimpl(std::make_unique<Impl>(*other.pimpl)) {
 }
 
 Balance::Balance(Balance&& other) noexcept = default;
@@ -114,38 +100,38 @@ Balance::Balance(Balance&& other) noexcept = default;
 Balance::~Balance() = default;
 
 void Balance::deserialize(const std::string& json) {
-    impl->deserialize(json);
+    pimpl->deserialize(json);
 }
 
 const std::optional<std::string>& Balance::get_id() const {
-    return impl->get_id();
+    return pimpl->get_id();
 }
 
 const std::optional<std::string>& Balance::get_index() const {
-    return impl->get_index();
+    return pimpl->get_index();
 }
 
 const std::optional<int>& Balance::get_value() const {
-    return impl->get_value();
+    return pimpl->get_value();
 }
 
 const std::optional<Project>& Balance::get_project() const {
-    return impl->get_project();
+    return pimpl->get_project();
 }
 
 const std::optional<Wallet>& Balance::get_wallet() const {
-    return impl->get_wallet();
+    return pimpl->get_wallet();
 }
 
 bool Balance::operator==(const Balance& rhs) const {
-    return *impl == *rhs.impl;
+    return *pimpl == *rhs.pimpl;
 }
 
 bool Balance::operator!=(const Balance& rhs) const {
-    return !(*this == rhs);
+    return *pimpl != *rhs.pimpl;
 }
 
 Balance& enjin::sdk::models::Balance::operator=(const Balance& rhs) {
-    impl = std::make_unique<Impl>(*rhs.impl);
+    pimpl = std::make_unique<Impl>(*rhs.pimpl);
     return *this;
 }

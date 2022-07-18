@@ -20,8 +20,8 @@ namespace enjin::sdk::models {
 
 /// \brief Enum for sort direction in sorting inputs.
 enum class SortDirection {
-    ASCENDING,
-    DESCENDING,
+    Ascending,
+    Descending,
 };
 
 }

@@ -139,27 +139,27 @@ public:
 
         auto clients = server.getClients();
         switch (message.get_type()) {
-            case WebsocketMessageType::WEBSOCKET_BINARY_MESSAGE_TYPE:
+            case WebsocketMessageType::WebsocketBinaryMessageType:
                 std::for_each(clients.begin(),
                               clients.end(),
                               [data](const std::shared_ptr<ix::WebSocket>& c) {
                                   c->sendBinary(data);
                               });
                 break;
-            case WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE:
+            case WebsocketMessageType::WebsocketUtf8MessageType:
                 std::for_each(clients.begin(),
                               clients.end(),
                               [data](const std::shared_ptr<ix::WebSocket>& c) {
                                   c->sendText(data);
                               });
                 break;
-            case WebsocketMessageType::WEBSOCKET_CLOSE_TYPE:
+            case WebsocketMessageType::WebsocketCloseType:
                 close(data);
                 break;
-            case WebsocketMessageType::WEBSOCKET_PING_TYPE:
-            case WebsocketMessageType::WEBSOCKET_PONG_TYPE:
-            case WebsocketMessageType::WEBSOCKET_BINARY_FRAGMENT_TYPE:
-            case WebsocketMessageType::WEBSOCKET_UTF8_FRAGMENT_TYPE:
+            case WebsocketMessageType::WebsocketPingType:
+            case WebsocketMessageType::WebsocketPongType:
+            case WebsocketMessageType::WebsocketBinaryFragmentType:
+            case WebsocketMessageType::WebsocketUtf8FragmentType:
                 throw std::runtime_error("Invalid websocket message type");
             default:
                 throw std::runtime_error("Unknown websocket message type");
@@ -209,7 +209,7 @@ private:
 
     void handle_open() {
         TestWebsocketMessage ws_message;
-        ws_message.set_type(WebsocketMessageType::WEBSOCKET_OPEN_TYPE);
+        ws_message.set_type(WebsocketMessageType::WebsocketOpenType);
 
         if (!should_handle_type(ws_message.get_type())) {
             return;
@@ -225,7 +225,7 @@ private:
 
     void handle_close() {
         TestWebsocketMessage ws_message;
-        ws_message.set_type(WebsocketMessageType::WEBSOCKET_CLOSE_TYPE);
+        ws_message.set_type(WebsocketMessageType::WebsocketCloseType);
 
         if (!should_handle_type(ws_message.get_type())) {
             return;
@@ -244,9 +244,9 @@ private:
         ws_message.set_data(std::vector<uint8_t>(msg->str.begin(), msg->str.end()));
 
         if (msg->binary) {
-            ws_message.set_type(WebsocketMessageType::WEBSOCKET_BINARY_MESSAGE_TYPE);
+            ws_message.set_type(WebsocketMessageType::WebsocketBinaryMessageType);
         } else {
-            ws_message.set_type(WebsocketMessageType::WEBSOCKET_UTF8_MESSAGE_TYPE);
+            ws_message.set_type(WebsocketMessageType::WebsocketUtf8MessageType);
         }
 
         if (!should_handle_type(ws_message.get_type())) {

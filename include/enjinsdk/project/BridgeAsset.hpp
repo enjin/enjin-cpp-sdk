@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for bridging an asset.
 class ENJINSDK_EXPORT BridgeAsset : public graphql::AbstractGraphqlRequest,
-                                    public ProjectTransactionRequestArguments<BridgeAsset> {
+                                    public TransactionRequestArguments<BridgeAsset> {
 public:
     /// \brief Sole constructor.
     BridgeAsset();
@@ -50,60 +50,75 @@ public:
     /// \return This request for chaining.
     BridgeAsset& set_value(std::string value);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const BridgeAsset& rhs) const;
 
     bool operator!=(const BridgeAsset& rhs) const;
 
 private:
-    std::optional<std::string> asset_id;
-    std::optional<std::string> asset_index;
-    std::optional<std::string> value;
+    std::optional<std::string> asset_id_opt;
+    std::optional<std::string> asset_index_opt;
+    std::optional<std::string> value_opt;
 };
 
-template ENJINSDK_EXPORT BridgeAsset&
-ProjectTransactionRequestArguments<BridgeAsset>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
+// region TransactionRequestArguments
 
 template ENJINSDK_EXPORT BridgeAsset&
-ProjectTransactionRequestArguments<BridgeAsset>::set_with_blockchain_data();
+TransactionRequestArguments<BridgeAsset>::set_eth_address(std::string address);
 
-template ENJINSDK_EXPORT BridgeAsset&
-ProjectTransactionRequestArguments<BridgeAsset>::set_with_meta();
+// endregion TransactionRequestArguments
 
-template ENJINSDK_EXPORT BridgeAsset&
-ProjectTransactionRequestArguments<BridgeAsset>::set_with_encoded_data();
+}
 
-template ENJINSDK_EXPORT BridgeAsset&
-ProjectTransactionRequestArguments<BridgeAsset>::set_with_asset_data();
+namespace enjin::sdk::shared {
 
-template ENJINSDK_EXPORT BridgeAsset&
-ProjectTransactionRequestArguments<BridgeAsset>::set_with_signed_txs();
+// region TransactionFragmentArguments
 
-template ENJINSDK_EXPORT BridgeAsset&
-ProjectTransactionRequestArguments<BridgeAsset>::set_with_error();
+template ENJINSDK_EXPORT project::BridgeAsset&
+TransactionFragmentArguments<project::BridgeAsset>::set_transaction_asset_id_format(
+        models::AssetIdFormat asset_id_format);
 
-template ENJINSDK_EXPORT BridgeAsset&
-ProjectTransactionRequestArguments<BridgeAsset>::set_with_nonce();
+template ENJINSDK_EXPORT project::BridgeAsset&
+TransactionFragmentArguments<project::BridgeAsset>::set_with_blockchain_data();
 
-template ENJINSDK_EXPORT BridgeAsset&
-ProjectTransactionRequestArguments<BridgeAsset>::set_with_state();
+template ENJINSDK_EXPORT project::BridgeAsset&
+TransactionFragmentArguments<project::BridgeAsset>::set_with_meta();
 
-template ENJINSDK_EXPORT BridgeAsset&
-ProjectTransactionRequestArguments<BridgeAsset>::set_with_receipt();
+template ENJINSDK_EXPORT project::BridgeAsset&
+TransactionFragmentArguments<project::BridgeAsset>::set_with_encoded_data();
 
-template ENJINSDK_EXPORT BridgeAsset&
-ProjectTransactionRequestArguments<BridgeAsset>::set_with_receipt_logs();
+template ENJINSDK_EXPORT project::BridgeAsset&
+TransactionFragmentArguments<project::BridgeAsset>::set_with_asset_data();
 
-template ENJINSDK_EXPORT BridgeAsset&
-ProjectTransactionRequestArguments<BridgeAsset>::set_with_log_event();
+template ENJINSDK_EXPORT project::BridgeAsset&
+TransactionFragmentArguments<project::BridgeAsset>::set_with_signed_txs();
 
-template ENJINSDK_EXPORT BridgeAsset&
-ProjectTransactionRequestArguments<BridgeAsset>::set_with_transaction_project_uuid();
+template ENJINSDK_EXPORT project::BridgeAsset&
+TransactionFragmentArguments<project::BridgeAsset>::set_with_error();
 
-template ENJINSDK_EXPORT BridgeAsset&
-ProjectTransactionRequestArguments<BridgeAsset>::set_with_transaction_wallet_address();
+template ENJINSDK_EXPORT project::BridgeAsset&
+TransactionFragmentArguments<project::BridgeAsset>::set_with_nonce();
 
-template ENJINSDK_EXPORT BridgeAsset&
-ProjectTransactionRequestArguments<BridgeAsset>::set_eth_address(const std::string& address);
+template ENJINSDK_EXPORT project::BridgeAsset&
+TransactionFragmentArguments<project::BridgeAsset>::set_with_state();
+
+template ENJINSDK_EXPORT project::BridgeAsset&
+TransactionFragmentArguments<project::BridgeAsset>::set_with_receipt();
+
+template ENJINSDK_EXPORT project::BridgeAsset&
+TransactionFragmentArguments<project::BridgeAsset>::set_with_receipt_logs();
+
+template ENJINSDK_EXPORT project::BridgeAsset&
+TransactionFragmentArguments<project::BridgeAsset>::set_with_log_event();
+
+template ENJINSDK_EXPORT project::BridgeAsset&
+TransactionFragmentArguments<project::BridgeAsset>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT project::BridgeAsset&
+TransactionFragmentArguments<project::BridgeAsset>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

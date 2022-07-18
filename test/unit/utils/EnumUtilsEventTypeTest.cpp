@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "EnumUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 #include "gtest/gtest.h"
 #include <string>
 #include <tuple>
@@ -30,7 +30,7 @@ TEST_P(EventTypeTest, DeserializeEventTypeReturnsExpectedValue) {
     const std::string& str = std::get<0>(GetParam());
 
     // Act
-    EventType actual = deserialize_event_type(str);
+    EventType actual = EnumUtils::deserialize_event_type(str);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -42,7 +42,7 @@ TEST_P(EventTypeTest, SerializeEventTypeReturnsExpectedString) {
     EventType value = std::get<1>(GetParam());
 
     // Act
-    std::string actual = serialize_event_type(value);
+    std::string actual = EnumUtils::serialize_event_type(value);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -50,34 +50,34 @@ TEST_P(EventTypeTest, SerializeEventTypeReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializableEventType,
                          EventTypeTest,
-                         testing::Values(std::make_tuple("PROJECT_CREATED", EventType::PROJECT_CREATED),
-                                         std::make_tuple("PROJECT_DELETED", EventType::PROJECT_DELETED),
-                                         std::make_tuple("PROJECT_LINKED", EventType::PROJECT_LINKED),
-                                         std::make_tuple("PROJECT_LOCKED", EventType::PROJECT_LOCKED),
-                                         std::make_tuple("PROJECT_UNLINKED", EventType::PROJECT_UNLINKED),
-                                         std::make_tuple("PROJECT_UNLOCKED", EventType::PROJECT_UNLOCKED),
-                                         std::make_tuple("PROJECT_UPDATED", EventType::PROJECT_UPDATED),
+                         testing::Values(std::make_tuple("PROJECT_CREATED", EventType::ProjectCreated),
+                                         std::make_tuple("PROJECT_DELETED", EventType::ProjectDeleted),
+                                         std::make_tuple("PROJECT_LINKED", EventType::ProjectLinked),
+                                         std::make_tuple("PROJECT_LOCKED", EventType::ProjectLocked),
+                                         std::make_tuple("PROJECT_UNLINKED", EventType::ProjectUnlinked),
+                                         std::make_tuple("PROJECT_UNLOCKED", EventType::ProjectUnlocked),
+                                         std::make_tuple("PROJECT_UPDATED", EventType::ProjectUpdated),
                                          std::make_tuple("BLOCKCHAIN_LOG_PROCESSED",
-                                                         EventType::BLOCKCHAIN_LOG_PROCESSED),
-                                         std::make_tuple("MESSAGE_PROCESSED", EventType::MESSAGE_PROCESSED),
-                                         std::make_tuple("PLAYER_CREATED", EventType::PLAYER_CREATED),
-                                         std::make_tuple("PLAYER_DELETED", EventType::PLAYER_DELETED),
-                                         std::make_tuple("PLAYER_LINKED", EventType::PLAYER_LINKED),
-                                         std::make_tuple("PLAYER_UNLINKED", EventType::PLAYER_UNLINKED),
-                                         std::make_tuple("PLAYER_UPDATED", EventType::PLAYER_UPDATED),
-                                         std::make_tuple("ASSET_CREATED", EventType::ASSET_CREATED),
-                                         std::make_tuple("ASSET_MELTED", EventType::ASSET_MELTED),
-                                         std::make_tuple("ASSET_MINTED", EventType::ASSET_MINTED),
-                                         std::make_tuple("ASSET_TRANSFERRED", EventType::ASSET_TRANSFERRED),
-                                         std::make_tuple("ASSET_UPDATED", EventType::ASSET_UPDATED),
-                                         std::make_tuple("TRADE_ASSET_COMPLETED", EventType::TRADE_ASSET_COMPLETED),
-                                         std::make_tuple("TRADE_ASSET_CREATED", EventType::TRADE_ASSET_CREATED),
-                                         std::make_tuple("TRANSACTION_BROADCAST", EventType::TRANSACTION_BROADCAST),
-                                         std::make_tuple("TRANSACTION_CANCELED", EventType::TRANSACTION_CANCELED),
-                                         std::make_tuple("TRANSACTION_DROPPED", EventType::TRANSACTION_DROPPED),
-                                         std::make_tuple("TRANSACTION_EXECUTED", EventType::TRANSACTION_EXECUTED),
-                                         std::make_tuple("TRANSACTION_FAILED", EventType::TRANSACTION_FAILED),
-                                         std::make_tuple("TRANSACTION_PENDING", EventType::TRANSACTION_PENDING),
-                                         std::make_tuple("TRANSACTION_PROCESSING", EventType::TRANSACTION_PROCESSING),
-                                         std::make_tuple("TRANSACTION_UPDATED", EventType::TRANSACTION_UPDATED),
-                                         std::make_tuple("", EventType::UNKNOWN)));
+                                                         EventType::BlockchainLogProcessed),
+                                         std::make_tuple("MESSAGE_PROCESSED", EventType::MessageProcessed),
+                                         std::make_tuple("PLAYER_CREATED", EventType::PlayerCreated),
+                                         std::make_tuple("PLAYER_DELETED", EventType::PlayerDeleted),
+                                         std::make_tuple("PLAYER_LINKED", EventType::PlayerLinked),
+                                         std::make_tuple("PLAYER_UNLINKED", EventType::PlayerUnlinked),
+                                         std::make_tuple("PLAYER_UPDATED", EventType::PlayerUpdated),
+                                         std::make_tuple("ASSET_CREATED", EventType::AssetCreated),
+                                         std::make_tuple("ASSET_MELTED", EventType::AssetMelted),
+                                         std::make_tuple("ASSET_MINTED", EventType::AssetMinted),
+                                         std::make_tuple("ASSET_TRANSFERRED", EventType::AssetTransferred),
+                                         std::make_tuple("ASSET_UPDATED", EventType::AssetUpdated),
+                                         std::make_tuple("TRADE_ASSET_COMPLETED", EventType::TradeAssetCompleted),
+                                         std::make_tuple("TRADE_ASSET_CREATED", EventType::TradeAssetCreated),
+                                         std::make_tuple("TRANSACTION_BROADCAST", EventType::TransactionBroadcast),
+                                         std::make_tuple("TRANSACTION_CANCELED", EventType::TransactionCanceled),
+                                         std::make_tuple("TRANSACTION_DROPPED", EventType::TransactionDropped),
+                                         std::make_tuple("TRANSACTION_EXECUTED", EventType::TransactionExecuted),
+                                         std::make_tuple("TRANSACTION_FAILED", EventType::TransactionFailed),
+                                         std::make_tuple("TRANSACTION_PENDING", EventType::TransactionPending),
+                                         std::make_tuple("TRANSACTION_PROCESSING", EventType::TransactionProcessing),
+                                         std::make_tuple("TRANSACTION_UPDATED", EventType::TransactionUpdated),
+                                         std::make_tuple("", EventType::Unknown)));

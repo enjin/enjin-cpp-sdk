@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-#include "EnumUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 #include "gtest/gtest.h"
 #include <string>
 #include <tuple>
@@ -30,7 +30,7 @@ TEST_P(OperatorTest, SerializeOperatorReturnsExpectedString) {
     Operator value = std::get<1>(GetParam());
 
     // Act
-    std::string actual = serialize_operator(value);
+    std::string actual = EnumUtils::serialize_operator(value);
 
     // Assert
     ASSERT_EQ(expected, actual);
@@ -38,7 +38,7 @@ TEST_P(OperatorTest, SerializeOperatorReturnsExpectedString) {
 
 INSTANTIATE_TEST_SUITE_P(SerializeOperator,
                          OperatorTest,
-                         testing::Values(std::make_tuple("GREATER_THAN", Operator::GREATER_THAN),
-                                         std::make_tuple("GREATER_THAN_OR_EQUAL", Operator::GREATER_THAN_OR_EQUAL),
-                                         std::make_tuple("LESS_THAN", Operator::LESS_THAN),
-                                         std::make_tuple("LESS_THAN_OR_EQUAL", Operator::LESS_THAN_OR_EQUAL)));
+                         testing::Values(std::make_tuple("GREATER_THAN", Operator::GreaterThan),
+                                         std::make_tuple("GREATER_THAN_OR_EQUAL", Operator::GreaterThanOrEqual),
+                                         std::make_tuple("LESS_THAN", Operator::LessThan),
+                                         std::make_tuple("LESS_THAN_OR_EQUAL", Operator::LessThanOrEqual)));

@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -26,10 +27,19 @@ namespace enjin::sdk::models {
 /// \brief Models the linking information for a player.
 class ENJINSDK_EXPORT LinkingInfo : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    LinkingInfo() = default;
+    /// \brief Constructs an instance of this class.
+    LinkingInfo();
 
-    ~LinkingInfo() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    LinkingInfo(const LinkingInfo& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    LinkingInfo(LinkingInfo&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~LinkingInfo() override;
 
     void deserialize(const std::string& json) override;
 
@@ -45,12 +55,12 @@ public:
 
     bool operator!=(const LinkingInfo& rhs) const;
 
-private:
-    std::optional<std::string> code;
-    std::optional<std::string> qr;
+    LinkingInfo& operator=(const LinkingInfo& rhs);
 
-    constexpr static char CODE_KEY[] = "code";
-    constexpr static char QR_KEY[] = "qr";
+private:
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

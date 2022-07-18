@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for setting the max melt fee of an asset to a lower value.
 class ENJINSDK_EXPORT DecreaseMaxMeltFee : public graphql::AbstractGraphqlRequest,
-                                           public ProjectTransactionRequestArguments<DecreaseMaxMeltFee> {
+                                           public TransactionRequestArguments<DecreaseMaxMeltFee> {
 public:
     /// \brief Default constructor.
     DecreaseMaxMeltFee();
@@ -38,7 +38,7 @@ public:
     /// \brief Sets the asset ID.
     /// \param asset_id The ID.
     /// \return This request for chaining.
-    DecreaseMaxMeltFee& set_asset_id(const std::string& asset_id);
+    DecreaseMaxMeltFee& set_asset_id(std::string asset_id);
 
     /// \brief Sets the new max melt fee for the asset.
     /// \param max_melt_fee The new ratio.
@@ -46,55 +46,74 @@ public:
     /// \remarks The ratio is in the range 0-5000 to allow fractional ratios, e.g. 1 = 0.01%, 5000 = 50%, ect...
     DecreaseMaxMeltFee& set_max_melt_fee(int max_melt_fee);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const DecreaseMaxMeltFee& rhs) const;
 
     bool operator!=(const DecreaseMaxMeltFee& rhs) const;
 
 private:
-    std::optional<std::string> asset_id;
-    std::optional<int> max_melt_fee;
+    std::optional<std::string> asset_id_opt;
+    std::optional<int> max_melt_fee_opt;
 };
 
+// region TransactionRequestArguments
+
 template ENJINSDK_EXPORT DecreaseMaxMeltFee&
-ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_transaction_asset_id_format(
+TransactionRequestArguments<DecreaseMaxMeltFee>::set_eth_address(std::string address);
+
+// endregion TransactionRequestArguments
+
+}
+
+namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
+
+template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
+TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_transaction_asset_id_format(
         models::AssetIdFormat asset_id_format);
 
-template ENJINSDK_EXPORT DecreaseMaxMeltFee&
-ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_with_blockchain_data();
+template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
+TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_with_blockchain_data();
 
-template ENJINSDK_EXPORT DecreaseMaxMeltFee& ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_with_meta();
+template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
+TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_with_meta();
 
-template ENJINSDK_EXPORT DecreaseMaxMeltFee&
-ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_with_encoded_data();
+template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
+TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_with_encoded_data();
 
-template ENJINSDK_EXPORT DecreaseMaxMeltFee&
-ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_with_asset_data();
+template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
+TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_with_asset_data();
 
-template ENJINSDK_EXPORT DecreaseMaxMeltFee&
-ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_with_signed_txs();
+template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
+TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_with_signed_txs();
 
-template ENJINSDK_EXPORT DecreaseMaxMeltFee& ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_with_error();
+template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
+TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_with_error();
 
-template ENJINSDK_EXPORT DecreaseMaxMeltFee& ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_with_nonce();
+template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
+TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_with_nonce();
 
-template ENJINSDK_EXPORT DecreaseMaxMeltFee& ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_with_state();
+template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
+TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_with_state();
 
-template ENJINSDK_EXPORT DecreaseMaxMeltFee& ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_with_receipt();
+template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
+TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_with_receipt();
 
-template ENJINSDK_EXPORT DecreaseMaxMeltFee&
-ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_with_receipt_logs();
+template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
+TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_with_receipt_logs();
 
-template ENJINSDK_EXPORT DecreaseMaxMeltFee&
-ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_with_log_event();
+template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
+TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_with_log_event();
 
-template ENJINSDK_EXPORT DecreaseMaxMeltFee&
-ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_with_transaction_project_uuid();
+template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
+TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_with_transaction_project_uuid();
 
-template ENJINSDK_EXPORT DecreaseMaxMeltFee&
-ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_with_transaction_wallet_address();
+template ENJINSDK_EXPORT project::DecreaseMaxMeltFee&
+TransactionFragmentArguments<project::DecreaseMaxMeltFee>::set_with_transaction_wallet_address();
 
-template ENJINSDK_EXPORT DecreaseMaxMeltFee&
-ProjectTransactionRequestArguments<DecreaseMaxMeltFee>::set_eth_address(const std::string& address);
+// endregion TransactionFragmentArguments
 
 }
 

@@ -36,14 +36,16 @@ public:
     /// \brief Sets the asset ID.
     /// \param id The ID.
     /// \return This request for chaining.
-    InvalidateAssetMetadata& set_id(const std::string& id);
+    InvalidateAssetMetadata& set_id(std::string id);
+
+    [[nodiscard]] json::JsonValue to_json() const override;
 
     bool operator==(const InvalidateAssetMetadata& rhs) const;
 
     bool operator!=(const InvalidateAssetMetadata& rhs) const;
 
 private:
-    std::optional<std::string> id;
+    std::optional<std::string> id_opt;
 };
 
 }

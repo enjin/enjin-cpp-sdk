@@ -16,27 +16,244 @@
 #include "MockHttpServer.hpp"
 
 #include "httplib.h"
-#include <map>
+#include "enjinsdk/EnumUtils.hpp"
+#include "enjinsdk/HttpHeaders.hpp"
+#include "enjinsdk_utils/StringUtils.hpp"
 #include <memory>
+#include <mutex>
+#include <queue>
 #include <sstream>
 #include <stdexcept>
 #include <thread>
+#include <utility>
 
-namespace enjin::test::mocks {
+using namespace enjin::sdk::http;
+using namespace enjin::sdk::utils;
+using namespace enjin::test::mocks;
 
-void ResponseProvider::respond_with(const sdk::http::HttpResponse& response) {
-    if (!response.get_body().has_value()) {
-        throw std::runtime_error("Stub response does not have a body");
-    } else if (!response.get_content_type().has_value()) {
-        throw std::runtime_error("Stub response does not have content-type");
-    }
+// region Request
 
-    ResponseProvider::response.emplace(response);
+Request& Request::using_delete() {
+    m_method = HttpMethod::Delete;
+    return *this;
 }
 
-const std::optional<sdk::http::HttpResponse>& ResponseProvider::get_response() const {
+Request& Request::using_get() {
+    m_method = HttpMethod::Get;
+    return *this;
+}
+
+Request& Request::using_post() {
+    m_method = HttpMethod::Post;
+    return *this;
+}
+
+Request& Request::using_put() {
+    m_method = HttpMethod::Put;
+    return *this;
+}
+
+Request& Request::with_body(std::string body) {
+    m_body = std::move(body);
+    return *this;
+}
+
+Request& Request::with_path(std::string path) {
+    m_path = std::move(path);
+    return *this;
+}
+
+const std::optional<std::string>& Request::get_body() const {
+    return m_body;
+}
+
+const std::optional<std::string>& Request::get_path() const {
+    return m_path;
+}
+
+const std::optional<HttpMethod>& Request::get_method() const {
+    return m_method;
+}
+
+bool Request::operator==(const Request& rhs) const {
+    return m_path == rhs.m_path &&
+           m_method == rhs.m_method;
+}
+
+bool Request::operator!=(const Request& rhs) const {
+    return !(rhs == *this);
+}
+
+bool Request::operator<(const Request& rhs) const {
+    if (m_path < rhs.m_path)
+        return true;
+    if (rhs.m_path < m_path)
+        return false;
+    return m_method < rhs.m_method;
+}
+
+bool Request::operator>(const Request& rhs) const {
+    return rhs < *this;
+}
+
+bool Request::operator<=(const Request& rhs) const {
+    return !(rhs < *this);
+}
+
+bool Request::operator>=(const Request& rhs) const {
+    return !(*this < rhs);
+}
+
+Request Request::create() {
+    return {};
+}
+
+// endregion Request
+
+// region Response
+
+Response& Response::with_body(std::string body) {
+    m_body = std::move(body);
+    return *this;
+}
+
+Response& Response::with_header(std::string name, std::string value) {
+    m_headers.emplace(std::move(name), std::move(value));
+    return *this;
+}
+
+Response& Response::with_status_code(int code) {
+    m_status_code = code;
+    return *this;
+}
+
+Response& Response::with_success() {
+    m_status_code = 200;
+    return *this;
+}
+
+const std::optional<std::string>& Response::get_body() const {
+    return m_body;
+}
+
+const std::map<std::string, std::string>& Response::get_headers() const {
+    return m_headers;
+}
+
+const std::optional<int>& Response::get_status_code() const {
+    return m_status_code;
+}
+
+Response Response::create() {
+    return {};
+}
+
+// endregion Response
+
+// region RequestMessage
+
+const std::string& RequestMessage::get_body() const {
+    return body;
+}
+
+const std::map<std::string, std::string>& RequestMessage::get_headers() const {
+    return headers;
+}
+
+const std::string& RequestMessage::get_method() const {
+    return method;
+}
+
+const std::string& RequestMessage::get_path() const {
+    return path;
+}
+
+RequestMessage& RequestMessage::add_header(std::string name, std::string value) {
+    headers.emplace(std::move(name), std::move(value));
+    return *this;
+}
+
+RequestMessage& RequestMessage::set_body(std::string value) {
+    body = std::move(value);
+    return *this;
+}
+
+RequestMessage& RequestMessage::set_method(std::string value) {
+    method = std::move(value);
+    return *this;
+}
+
+RequestMessage& RequestMessage::set_path(std::string value) {
+    path = std::move(value);
+    return *this;
+}
+
+// endregion RequestMessage
+
+// region ResponseMessage
+
+const std::string& ResponseMessage::get_body() const {
+    return body;
+}
+
+const std::map<std::string, std::string>& ResponseMessage::get_headers() const {
+    return headers;
+}
+
+int ResponseMessage::get_status_code() const {
+    return status_code;
+}
+
+ResponseMessage& ResponseMessage::add_header(std::string name, std::string value) {
+    headers.emplace(std::move(name), std::move(value));
+    return *this;
+}
+
+ResponseMessage& ResponseMessage::set_body(std::string value) {
+    body = std::move(value);
+    return *this;
+}
+
+ResponseMessage& ResponseMessage::set_status_code(int value) {
+    status_code = value;
+    return *this;
+}
+
+// endregion ResponseMessage
+
+// region ResponseProvider
+
+void ResponseProvider::respond_with(Response response) {
+    m_response = std::move(response);
+}
+
+const std::optional<Response>& ResponseProvider::get_response() const {
+    return m_response;
+}
+
+// endregion ResponseProvider
+
+// region LogEntry
+
+const std::optional<RequestMessage>& LogEntry::get_request_message() const {
+    return request;
+}
+
+const std::optional<ResponseMessage>& LogEntry::get_response_message() const {
     return response;
 }
+
+void LogEntry::set_request_message(RequestMessage message) {
+    request = std::move(message);
+}
+
+void LogEntry::set_response_message(ResponseMessage message) {
+    response = std::move(message);
+}
+
+// endregion LogEntry
+
+// region MockHttpServer implementation
 
 class MockHttpServer::Impl {
 public:
@@ -72,35 +289,55 @@ public:
         }
     }
 
-    ResponseProvider& given(const sdk::http::HttpRequest& request) {
+    void next_message(std::function<void(const HttpRequest&)> handler) {
+        std::lock_guard<std::mutex> guard(messages_mutex);
+        message_handlers.emplace(std::move(handler));
+    }
+
+    ResponseProvider& given(const Request& request) {
+        const auto& path_optional = request.get_path();
+        if (!path_optional.has_value()) {
+            throw std::runtime_error("Request does not have a set path query fragment");
+        }
+
+        const auto& method_optional = request.get_method();
+        if (!method_optional.has_value()) {
+            throw std::runtime_error("Request does not have a set HTTP method");
+        }
+
+        const auto& path = path_optional.value();
+        auto method = method_optional.value();
+
         std::lock_guard<std::mutex> guard(server_mutex);
 
-        response_provider_map[request.get_path_query_fragment()] = std::make_unique<ResponseProvider>();
-        auto& provider = response_provider_map[request.get_path_query_fragment()];
+        response_provider_map[path] = std::unique_ptr<ResponseProvider>(new ResponseProvider());
+        auto& provider = response_provider_map[path];
         auto handler = create_handler(provider);
 
-        switch (request.get_method()) {
-            case sdk::http::HttpMethod::Get:
-                server.Get(request.get_path_query_fragment().c_str(), handler);
+        switch (method) {
+            case HttpMethod::Get:
+                server.Get(path.c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::Post:
-                server.Post(request.get_path_query_fragment().c_str(), handler);
+            case HttpMethod::Post:
+                server.Post(path.c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::Put:
-                server.Put(request.get_path_query_fragment().c_str(), handler);
+            case HttpMethod::Put:
+                server.Put(path.c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::Delete:
-                server.Delete(request.get_path_query_fragment().c_str(), handler);
+            case HttpMethod::Delete:
+                server.Delete(path.c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::Options:
-                server.Options(request.get_path_query_fragment().c_str(), handler);
+            case HttpMethod::Options:
+                server.Options(path.c_str(), handler);
                 break;
-            case sdk::http::HttpMethod::Patch:
-                server.Patch(request.get_path_query_fragment().c_str(), handler);
+            case HttpMethod::Patch:
+                server.Patch(path.c_str(), handler);
                 break;
             default:
                 throw std::runtime_error("Unsupported HTTP method");
         }
+
+        log_entries.try_emplace(request, std::vector<LogEntry>());
 
         return *provider;
     }
@@ -117,26 +354,144 @@ public:
         return ss.str();
     }
 
+    std::vector<LogEntry> find_received_requests(const Request& request) const {
+        auto iter = log_entries.find(request);
+        if (iter != log_entries.end()) {
+            return iter->second;
+        }
+
+        return {};
+    }
+
 private:
     httplib::Server server;
-    std::map<std::string, std::unique_ptr<ResponseProvider>> response_provider_map;
     std::optional<int> port;
 
-    std::thread server_thread;
-    std::mutex server_mutex;
+    std::map<std::string, std::unique_ptr<ResponseProvider>> response_provider_map;
+    std::queue<std::function<void(HttpRequest)>> message_handlers;
+    std::map<Request, std::vector<LogEntry>> log_entries;
 
-    static httplib::Server::Handler create_handler(const std::unique_ptr<ResponseProvider>& provider) {
-        return httplib::Server::Handler([&provider](const httplib::Request& req, httplib::Response& res) {
-            if (!provider->get_response().has_value()) {
-                return;
+    // Threads
+    std::thread server_thread;
+
+    // Mutexes
+    mutable std::mutex log_entries_mutex;
+    mutable std::mutex messages_mutex;
+    mutable std::mutex server_mutex;
+
+    static constexpr char DEFAULT_CONTENT_TYPE[] = "text/plain; charset=utf-8";
+
+    httplib::Server::Handler create_handler(const std::unique_ptr<ResponseProvider>& provider) {
+        return {[this, &provider](const httplib::Request& req, httplib::Response& res) {
+            auto log_entry = LogEntry();
+            log_entry.set_request_message(create_request_message(req));
+
+            if (provider->get_response().has_value()) {
+                res.status = provider->get_response()->get_status_code().value();
+
+                auto& headers = provider->get_response()->get_headers();
+                auto iter = headers.find(ContentType);
+                if (iter == headers.end()) {
+                    res.set_content(provider->get_response()->get_body().value(), DEFAULT_CONTENT_TYPE);
+                } else {
+                    res.set_content(provider->get_response()->get_body().value(), iter->second.c_str());
+                }
+
+                log_entry.set_response_message(create_response_message(res));
             }
 
-            res.status = provider->get_response()->get_code().value();
-            res.set_content(provider->get_response()->get_body().value(),
-                            provider->get_response()->get_content_type()->c_str());
-        });
+            {
+                std::lock_guard<std::mutex> guard(log_entries_mutex);
+                log_entries.at(convert_request(req)).push_back(std::move(log_entry));
+            }
+
+            process_next_message(req);
+        }};
+    }
+
+    void process_next_message(const httplib::Request& req) {
+        std::unique_lock<std::mutex> lock(messages_mutex);
+
+        if (message_handlers.empty()) {
+            return;
+        }
+
+        auto handler = message_handlers.front();
+        message_handlers.pop();
+
+        lock.unlock();
+
+        auto request = HttpRequest()
+                .set_method(convert_http_method(req.method))
+                .set_path_query_fragment(req.path)
+                .set_body(req.body);
+
+        for (const auto& [k, v]: req.headers) {
+            request.add_header(k, v);
+        }
+
+        handler(request);
+    }
+
+    static HttpMethod convert_http_method(const std::string& method) {
+        return EnumUtils::deserialize_http_method(utils::to_upper(method));
+    }
+
+    static Request convert_request(const httplib::Request& req) {
+        auto new_req = Request::create()
+                .with_path(req.path)
+                .with_body(req.body);
+
+        auto method = convert_http_method(req.method);
+        switch (method) {
+            case HttpMethod::Get:
+                new_req.using_get();
+                break;
+            case HttpMethod::Post:
+                new_req.using_post();
+                break;
+            case HttpMethod::Put:
+                new_req.using_put();
+                break;
+            case HttpMethod::Delete:
+                new_req.using_delete();
+                break;
+            default:
+                throw std::runtime_error("Unsupported HTTP method");
+        }
+
+        return new_req;
+    }
+
+    static RequestMessage create_request_message(const httplib::Request& req) {
+        auto msg = RequestMessage()
+                .set_path(req.path)
+                .set_method(req.method)
+                .set_body(req.body);
+
+        for (const auto& [k, v]: req.headers) {
+            msg.add_header(k, v);
+        }
+
+        return msg;
+    }
+
+    static ResponseMessage create_response_message(const httplib::Response& res) {
+        auto msg = ResponseMessage()
+                .set_status_code(res.status)
+                .set_body(res.body);
+
+        for (const auto& [k, v]: res.headers) {
+            msg.add_header(k, v);
+        }
+
+        return msg;
     }
 };
+
+// endregion MockHttpServer implementation
+
+// region MockHttpServer
 
 MockHttpServer::MockHttpServer() : impl(new Impl()) {
 }
@@ -153,7 +508,11 @@ void MockHttpServer::stop() {
     impl->stop();
 }
 
-ResponseProvider& MockHttpServer::given(const sdk::http::HttpRequest& request) {
+void MockHttpServer::next_message(std::function<void(const HttpRequest&)> handler) {
+    impl->next_message(std::move(handler));
+}
+
+ResponseProvider& MockHttpServer::given(const Request& request) {
     return impl->given(request);
 }
 
@@ -161,4 +520,8 @@ std::string MockHttpServer::uri() {
     return impl->uri();
 }
 
+std::vector<LogEntry> MockHttpServer::find_received_requests(const Request& request) const {
+    return impl->find_received_requests(request);
 }
+
+// endregion MockHttpServer

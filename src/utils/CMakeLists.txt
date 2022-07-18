@@ -2,6 +2,8 @@ target_sources(${PROJECT_NAME}
         PRIVATE
         EnumUtils.cpp
         FutureUtils.cpp
+        JsonUtils.cpp
         Logger.cpp
         LoggerProvider.cpp
-        RapidJsonUtils.cpp)
+        RapidJsonUtils.cpp
+        Timer.cpp)

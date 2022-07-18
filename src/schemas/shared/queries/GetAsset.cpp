@@ -15,39 +15,42 @@
 
 #include "enjinsdk/shared/GetAsset.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include <utility>
 
-namespace enjin::sdk::shared {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::shared;
+using namespace enjin::sdk::utils;
 
-GetAsset::GetAsset() : graphql::AbstractGraphqlRequest("enjin.sdk.shared.GetAsset") {
+GetAsset::GetAsset() : AbstractGraphqlRequest("enjin.sdk.shared.GetAsset"),
+                       AssetFragmentArguments<GetAsset>() {
 }
 
 std::string GetAsset::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, AssetFragmentArguments::serialize());
-
-    if (id.has_value()) {
-        utils::set_string_member(document, "id", id.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
-GetAsset& GetAsset::set_id(const std::string& id) {
-    GetAsset::id = id;
+GetAsset& GetAsset::set_id(std::string id) {
+    id_opt = std::move(id);
     return *this;
 }
 
+JsonValue GetAsset::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, AssetFragmentArguments<GetAsset>::to_json());
+    JsonUtils::try_set_field(json, "id", id_opt);
+
+    return json;
+}
+
 bool GetAsset::operator==(const GetAsset& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const AssetFragmentArguments<GetAsset>&>(*this) ==
-           static_cast<const AssetFragmentArguments<GetAsset>&>(rhs) &&
-           id == rhs.id;
+    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const AssetFragmentArguments<GetAsset>&>(*this) == rhs
+           && id_opt == rhs.id_opt;
 }
 
 bool GetAsset::operator!=(const GetAsset& rhs) const {
     return !(rhs == *this);
-}
-
 }

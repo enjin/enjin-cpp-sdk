@@ -19,7 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
 #include "enjinsdk/models/Whitelisted.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -27,7 +27,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for setting an asset's whitelist.
 class ENJINSDK_EXPORT SetWhitelisted : public graphql::AbstractGraphqlRequest,
-                                       public ProjectTransactionRequestArguments<SetWhitelisted> {
+                                       public TransactionRequestArguments<SetWhitelisted> {
 public:
     /// \brief Default constructor.
     SetWhitelisted();
@@ -39,12 +39,12 @@ public:
     /// \brief Sets the asset ID.
     /// \param asset_id The ID.
     /// \return This request for chaining.
-    SetWhitelisted& set_asset_id(const std::string& asset_id);
+    SetWhitelisted& set_asset_id(std::string asset_id);
 
     /// \brief Sets the account address to be added to the whitelist.
     /// \param account_address The address.
     /// \return This request for chaining.
-    SetWhitelisted& set_account_address(const std::string& account_address);
+    SetWhitelisted& set_account_address(std::string account_address);
 
     /// \brief Sets the whitelisted setting for the account.
     /// \param whitelisted The setting.
@@ -54,70 +54,84 @@ public:
     /// \brief Sets the specified address for sending or receiving.
     /// \param whitelisted_address The address.
     /// \return This request for chaining.
-    SetWhitelisted& set_whitelisted_address(const std::string& whitelisted_address);
+    SetWhitelisted& set_whitelisted_address(std::string whitelisted_address);
 
     /// \brief Sets whether the whitelist setting is on or off.
     /// \param on The setting.
     /// \return This request for chaining.
     SetWhitelisted& set_on(bool on);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const SetWhitelisted& rhs) const;
 
     bool operator!=(const SetWhitelisted& rhs) const;
 
 private:
-    std::optional<std::string> asset_id;
-    std::optional<std::string> account_address;
-    std::optional<models::Whitelisted> whitelisted;
-    std::optional<std::string> whitelisted_address;
-    std::optional<bool> on;
+    std::optional<std::string> asset_id_opt;
+    std::optional<std::string> account_address_opt;
+    std::optional<models::Whitelisted> whitelisted_opt;
+    std::optional<std::string> whitelisted_address_opt;
+    std::optional<bool> on_opt;
 };
 
+// region TransactionRequestArguments
+
+template ENJINSDK_EXPORT SetWhitelisted&
+TransactionRequestArguments<SetWhitelisted>::set_eth_address(std::string address);
+
+// endregion TransactionRequestArguments
+
+}
+
+namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
+
 template ENJINSDK_EXPORT project::SetWhitelisted&
-ProjectTransactionRequestArguments<project::SetWhitelisted>::set_transaction_asset_id_format(
+TransactionFragmentArguments<project::SetWhitelisted>::set_transaction_asset_id_format(
         models::AssetIdFormat asset_id_format);
 
 template ENJINSDK_EXPORT project::SetWhitelisted&
-ProjectTransactionRequestArguments<project::SetWhitelisted>::set_with_blockchain_data();
+TransactionFragmentArguments<project::SetWhitelisted>::set_with_blockchain_data();
 
 template ENJINSDK_EXPORT project::SetWhitelisted&
-ProjectTransactionRequestArguments<project::SetWhitelisted>::set_with_meta();
+TransactionFragmentArguments<project::SetWhitelisted>::set_with_meta();
 
 template ENJINSDK_EXPORT project::SetWhitelisted&
-ProjectTransactionRequestArguments<project::SetWhitelisted>::set_with_encoded_data();
+TransactionFragmentArguments<project::SetWhitelisted>::set_with_encoded_data();
 
 template ENJINSDK_EXPORT project::SetWhitelisted&
-ProjectTransactionRequestArguments<project::SetWhitelisted>::set_with_asset_data();
+TransactionFragmentArguments<project::SetWhitelisted>::set_with_asset_data();
 
 template ENJINSDK_EXPORT project::SetWhitelisted&
-ProjectTransactionRequestArguments<project::SetWhitelisted>::set_with_signed_txs();
+TransactionFragmentArguments<project::SetWhitelisted>::set_with_signed_txs();
 
-template ENJINSDK_EXPORT SetWhitelisted&
-ProjectTransactionRequestArguments<SetWhitelisted>::set_with_error();
+template ENJINSDK_EXPORT project::SetWhitelisted&
+TransactionFragmentArguments<project::SetWhitelisted>::set_with_error();
 
-template ENJINSDK_EXPORT SetWhitelisted&
-ProjectTransactionRequestArguments<SetWhitelisted>::set_with_nonce();
+template ENJINSDK_EXPORT project::SetWhitelisted&
+TransactionFragmentArguments<project::SetWhitelisted>::set_with_nonce();
 
-template ENJINSDK_EXPORT SetWhitelisted&
-ProjectTransactionRequestArguments<SetWhitelisted>::set_with_state();
+template ENJINSDK_EXPORT project::SetWhitelisted&
+TransactionFragmentArguments<project::SetWhitelisted>::set_with_state();
 
-template ENJINSDK_EXPORT SetWhitelisted&
-ProjectTransactionRequestArguments<SetWhitelisted>::set_with_receipt();
+template ENJINSDK_EXPORT project::SetWhitelisted&
+TransactionFragmentArguments<project::SetWhitelisted>::set_with_receipt();
 
-template ENJINSDK_EXPORT SetWhitelisted&
-ProjectTransactionRequestArguments<SetWhitelisted>::set_with_receipt_logs();
+template ENJINSDK_EXPORT project::SetWhitelisted&
+TransactionFragmentArguments<project::SetWhitelisted>::set_with_receipt_logs();
 
-template ENJINSDK_EXPORT SetWhitelisted&
-ProjectTransactionRequestArguments<SetWhitelisted>::set_with_log_event();
+template ENJINSDK_EXPORT project::SetWhitelisted&
+TransactionFragmentArguments<project::SetWhitelisted>::set_with_log_event();
 
-template ENJINSDK_EXPORT SetWhitelisted&
-ProjectTransactionRequestArguments<SetWhitelisted>::set_with_transaction_project_uuid();
+template ENJINSDK_EXPORT project::SetWhitelisted&
+TransactionFragmentArguments<project::SetWhitelisted>::set_with_transaction_project_uuid();
 
-template ENJINSDK_EXPORT SetWhitelisted&
-ProjectTransactionRequestArguments<SetWhitelisted>::set_with_transaction_wallet_address();
+template ENJINSDK_EXPORT project::SetWhitelisted&
+TransactionFragmentArguments<project::SetWhitelisted>::set_with_transaction_wallet_address();
 
-template ENJINSDK_EXPORT SetWhitelisted&
-ProjectTransactionRequestArguments<SetWhitelisted>::set_eth_address(const std::string& address);
+// endregion TransactionFragmentArguments
 
 }
 

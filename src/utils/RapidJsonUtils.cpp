@@ -19,8 +19,7 @@
 
 namespace enjin::sdk::utils {
 
-void join_serialized_object_to_document(rapidjson::Document& document,
-                                        const std::string& o) {
+void join_serialized_object_to_document(rapidjson::Document& document, const std::string& o) {
     if (!document.IsObject()) {
         throw std::runtime_error("Document is not a Json Object");
     }
@@ -33,20 +32,19 @@ void join_serialized_object_to_document(rapidjson::Document& document,
     }
 
     auto& allocator = document.GetAllocator();
-    for (auto& [key, value] : object_document.GetObject()) {
+    for (auto&[key, value]: object_document.GetObject()) {
         rapidjson::Value v_key;
         v_key.SetString(key.GetString(), allocator);
         document.AddMember(v_key, value, allocator);
     }
 }
 
-void join_serialized_objects_to_document(rapidjson::Document& document,
-                                         const std::vector<std::string>& o) {
+void join_serialized_objects_to_document(rapidjson::Document& document, const std::vector<std::string>& o) {
     if (!document.IsObject()) {
         throw std::runtime_error("Document is not a Json Object");
     }
 
-    for (const auto& s : o) {
+    for (const auto& s: o) {
         join_serialized_object_to_document(document, s);
     }
 }
@@ -55,13 +53,13 @@ std::string document_to_string(const rapidjson::Document& document) {
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
     document.Accept(writer);
-    return std::string(buffer.GetString());
+    return {buffer.GetString()};
 }
 
 std::vector<std::string> get_array_as_serialized_vector(const rapidjson::Document& document, const std::string& key) {
     if (key.empty() && document.IsArray()) {
         std::vector<std::string> v;
-        for (auto& arr_el : document.GetArray()) {
+        for (auto& arr_el: document.GetArray()) {
             rapidjson::StringBuffer buffer;
             rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
             arr_el.Accept(writer);
@@ -70,7 +68,7 @@ std::vector<std::string> get_array_as_serialized_vector(const rapidjson::Documen
         return v;
     } else if (!key.empty() && document[key.c_str()].IsArray()) {
         std::vector<std::string> v;
-        for (auto& arr_el : document[key.c_str()].GetArray()) {
+        for (auto& arr_el: document[key.c_str()].GetArray()) {
             rapidjson::StringBuffer buffer;
             rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
             arr_el.Accept(writer);
@@ -114,7 +112,7 @@ void set_array_member_from_string_vector(rapidjson::Document& document,
 
     auto& allocator = document.GetAllocator();
     rapidjson::Value v(rapidjson::kArrayType);
-    for (auto& e : values) {
+    for (auto& e: values) {
         rapidjson::Value e_value;
         e_value.SetString(e.c_str(), allocator);
         v.PushBack(e_value, allocator);
@@ -144,6 +142,17 @@ void set_integer_member(rapidjson::Document& document, const std::string& key, i
     rapidjson::Value v;
     v_key.SetString(key.c_str(), allocator);
     v.SetInt(value);
+    document.AddMember(v_key, v, allocator);
+}
+
+void set_integer_member(rapidjson::Document& document, const std::string& key, long value) {
+    set_member_assert(document, key);
+
+    auto& allocator = document.GetAllocator();
+    rapidjson::Value v_key;
+    rapidjson::Value v;
+    v_key.SetString(key.c_str(), allocator);
+    v.SetInt64(value);
     document.AddMember(v_key, v, allocator);
 }
 

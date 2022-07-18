@@ -18,6 +18,8 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
+#include "enjinsdk/JsonValue.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -26,10 +28,19 @@ namespace enjin::sdk::models {
 /// \brief Models a asset variant.
 class ENJINSDK_EXPORT AssetVariant : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    AssetVariant() = default;
+    /// \brief Constructs an instance of this class.
+    AssetVariant();
 
-    ~AssetVariant() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    AssetVariant(const AssetVariant& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    AssetVariant(AssetVariant&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~AssetVariant() override;
 
     void deserialize(const std::string& json) override;
 
@@ -43,7 +54,7 @@ public:
 
     /// \brief Returns the metadata of this variant.
     /// \return The metadata.
-    [[nodiscard]] const std::optional<std::string>& get_variant_metadata() const;
+    [[nodiscard]] const std::optional<json::JsonValue>& get_variant_metadata() const;
 
     /// \brief Returns the usage count of this variant.
     /// \return The usage count.
@@ -63,20 +74,12 @@ public:
 
     bool operator!=(const AssetVariant& rhs) const;
 
-private:
-    std::optional<int> id;
-    std::optional<std::string> asset_id;
-    std::optional<std::string> variant_metadata;
-    std::optional<int> usage_count;
-    std::optional<std::string> created_at;
-    std::optional<std::string> updated_at;
+    AssetVariant& operator=(const AssetVariant& rhs);
 
-    constexpr static char ID_KEY[] = "id";
-    constexpr static char ASSET_ID_KEY[] = "assetId";
-    constexpr static char VARIANT_METADATA_KEY[] = "variantMetadata";
-    constexpr static char USAGE_COUNT_KEY[] = "usageCount";
-    constexpr static char CREATED_AT_KEY[] = "createdAt";
-    constexpr static char UPDATED_AT_KEY[] = "updatedAt";
+private:
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

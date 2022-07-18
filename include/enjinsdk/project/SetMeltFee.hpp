@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for setting the melt fee of an asset.
 class ENJINSDK_EXPORT SetMeltFee : public graphql::AbstractGraphqlRequest,
-                                   public ProjectTransactionRequestArguments<SetMeltFee> {
+                                   public TransactionRequestArguments<SetMeltFee> {
 public:
     /// \brief Default constructor.
     SetMeltFee();
@@ -38,7 +38,7 @@ public:
     /// \brief Sets the asset ID.
     /// \param asset_id The ID.
     /// \return This request for chaining.
-    SetMeltFee& set_asset_id(const std::string& asset_id);
+    SetMeltFee& set_asset_id(std::string asset_id);
 
     /// \brief Sets the new melt fee for the asset.
     /// \param melt_fee The new ratio.
@@ -46,48 +46,74 @@ public:
     /// \remarks The ratio is in the range 0-5000 to allow fractional ratios, e.g. 1 = 0.01%, 5000 = 50%, ect...
     SetMeltFee& set_melt_fee(int melt_fee);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const SetMeltFee& rhs) const;
 
     bool operator!=(const SetMeltFee& rhs) const;
 
 private:
-    std::optional<std::string> asset_id;
-    std::optional<int> melt_fee;
+    std::optional<std::string> asset_id_opt;
+    std::optional<int> melt_fee_opt;
 };
 
-template ENJINSDK_EXPORT SetMeltFee&
-ProjectTransactionRequestArguments<SetMeltFee>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_blockchain_data();
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_meta();
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_encoded_data();
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_asset_data();
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_signed_txs();
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_error();
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_nonce();
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_state();
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_receipt();
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_receipt_logs();
-
-template ENJINSDK_EXPORT SetMeltFee& ProjectTransactionRequestArguments<SetMeltFee>::set_with_log_event();
+// region TransactionRequestArguments
 
 template ENJINSDK_EXPORT SetMeltFee&
-ProjectTransactionRequestArguments<SetMeltFee>::set_with_transaction_project_uuid();
+TransactionRequestArguments<SetMeltFee>::set_eth_address(std::string address);
 
-template ENJINSDK_EXPORT SetMeltFee&
-ProjectTransactionRequestArguments<SetMeltFee>::set_with_transaction_wallet_address();
+// endregion TransactionRequestArguments
 
-template ENJINSDK_EXPORT SetMeltFee&
-ProjectTransactionRequestArguments<SetMeltFee>::set_eth_address(const std::string& address);
+}
+
+namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_transaction_asset_id_format(
+        models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_blockchain_data();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_meta();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_encoded_data();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_asset_data();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_signed_txs();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_error();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_nonce();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_state();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_receipt();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_receipt_logs();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_log_event();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT project::SetMeltFee&
+TransactionFragmentArguments<project::SetMeltFee>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

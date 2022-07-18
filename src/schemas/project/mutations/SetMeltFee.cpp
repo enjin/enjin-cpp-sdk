@@ -15,48 +15,49 @@
 
 #include "enjinsdk/project/SetMeltFee.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
 
-SetMeltFee::SetMeltFee() : graphql::AbstractGraphqlRequest("enjin.sdk.project.SetMeltFee") {
+SetMeltFee::SetMeltFee() : AbstractGraphqlRequest("enjin.sdk.project.SetMeltFee"),
+                           TransactionRequestArguments<SetMeltFee>() {
 }
 
 std::string SetMeltFee::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
-
-    if (asset_id.has_value()) {
-        utils::set_string_member(document, "assetId", asset_id.value());
-    }
-    if (melt_fee.has_value()) {
-        utils::set_integer_member(document, "meltFee", melt_fee.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
-SetMeltFee& SetMeltFee::set_asset_id(const std::string& asset_id) {
-    SetMeltFee::asset_id = asset_id;
+SetMeltFee& SetMeltFee::set_asset_id(std::string asset_id) {
+    asset_id_opt = std::move(asset_id);
     return *this;
 }
 
 SetMeltFee& SetMeltFee::set_melt_fee(int melt_fee) {
-    SetMeltFee::melt_fee = melt_fee;
+    melt_fee_opt = melt_fee;
     return *this;
 }
 
+JsonValue SetMeltFee::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, TransactionRequestArguments<SetMeltFee>::to_json());
+    JsonUtils::try_set_field(json, "assetId", asset_id_opt);
+    JsonUtils::try_set_field(json, "meltFee", melt_fee_opt);
+
+    return json;
+}
+
 bool SetMeltFee::operator==(const SetMeltFee& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const ProjectTransactionRequestArguments<SetMeltFee>&>(*this) ==
-           static_cast<const ProjectTransactionRequestArguments<SetMeltFee>&>(rhs) &&
-           asset_id == rhs.asset_id &&
-           melt_fee == rhs.melt_fee;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<SetMeltFee>&>(*this) == rhs
+           && asset_id_opt == rhs.asset_id_opt
+           && melt_fee_opt == rhs.melt_fee_opt;
 }
 
 bool SetMeltFee::operator!=(const SetMeltFee& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

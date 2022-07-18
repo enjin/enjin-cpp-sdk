@@ -38,43 +38,47 @@ public:
     /// \brief Sets the wallet address of the recipient.
     /// \param recipient_address The address.
     /// \return This request for chaining.
-    SendAsset& set_recipient_address(const std::string& recipient_address);
+    SendAsset& set_recipient_address(std::string recipient_address);
 
     /// \brief Sets the asset ID.
     /// \param asset_id The ID.
     /// \return This request for chaining.
-    SendAsset& set_asset_id(const std::string& asset_id);
+    SendAsset& set_asset_id(std::string asset_id);
 
     /// \brief Sets the index for non-fungible assets.
     /// \param asset_index The index.
     /// \return This request for chaining.
-    SendAsset& set_asset_index(const std::string& asset_index);
+    SendAsset& set_asset_index(std::string asset_index);
 
     /// \brief Sets the amount to send.
     /// \param value The amount.
     /// \return This request for chaining.
-    SendAsset& set_value(const std::string& value);
+    SendAsset& set_value(std::string value);
 
     /// \brief Sets the data to forward with the transaction.
     /// \param data The data.
     /// \return This request for chaining.
-    SendAsset& set_data(const std::string& data);
+    SendAsset& set_data(std::string data);
+
+    [[nodiscard]] json::JsonValue to_json() const override;
 
     bool operator==(const SendAsset& rhs) const;
 
     bool operator!=(const SendAsset& rhs) const;
 
 private:
-    std::optional<std::string> recipient_address;
-    std::optional<std::string> asset_id;
-    std::optional<std::string> asset_index;
-    std::optional<std::string> value;
-    std::optional<std::string> data;
+    std::optional<std::string> recipient_address_opt;
+    std::optional<std::string> asset_id_opt;
+    std::optional<std::string> asset_index_opt;
+    std::optional<std::string> value_opt;
+    std::optional<std::string> data_opt;
 };
 
 }
 
 namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
 
 template ENJINSDK_EXPORT player::SendAsset&
 TransactionFragmentArguments<player::SendAsset>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
@@ -117,6 +121,8 @@ TransactionFragmentArguments<player::SendAsset>::set_with_transaction_project_uu
 
 template ENJINSDK_EXPORT player::SendAsset&
 TransactionFragmentArguments<player::SendAsset>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

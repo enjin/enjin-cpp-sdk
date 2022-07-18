@@ -18,8 +18,8 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/models/Transfer.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/models/TransferInput.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 #include <vector>
@@ -28,7 +28,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for sending one or more assets in a single transaction.
 class ENJINSDK_EXPORT AdvancedSendAsset : public graphql::AbstractGraphqlRequest,
-                                          public ProjectTransactionRequestArguments<AdvancedSendAsset> {
+                                          public TransactionRequestArguments<AdvancedSendAsset> {
 public:
     /// \brief Default constructor.
     AdvancedSendAsset();
@@ -40,67 +40,81 @@ public:
     /// \brief Sets the different transfers to perform.
     /// \param transfers The transfers.
     /// \return This request for chaining.
-    AdvancedSendAsset& set_transfers(const std::vector<models::Transfer>& transfers);
+    AdvancedSendAsset& set_transfers(std::vector<models::TransferInput> transfers);
 
     /// \brief Sets the data to forward with the transaction.
     /// \param data The data.
     /// \return This request for chaining.
-    AdvancedSendAsset& set_data(const std::string& data);
+    AdvancedSendAsset& set_data(std::string data);
+
+    [[nodiscard]] json::JsonValue to_json() const override;
 
     bool operator==(const AdvancedSendAsset& rhs) const;
 
     bool operator!=(const AdvancedSendAsset& rhs) const;
 
 private:
-    std::optional<std::vector<models::Transfer>> transfers;
-    std::optional<std::string> data;
+    std::optional<std::vector<models::TransferInput>> transfers_opt;
+    std::optional<std::string> data_opt;
 };
 
+// region TransactionRequestArguments
+
 template ENJINSDK_EXPORT AdvancedSendAsset&
-ProjectTransactionRequestArguments<AdvancedSendAsset>::set_transaction_asset_id_format(
+TransactionRequestArguments<AdvancedSendAsset>::set_eth_address(std::string address);
+
+// endregion TransactionRequestArguments
+
+}
+
+namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
+
+template ENJINSDK_EXPORT project::AdvancedSendAsset&
+TransactionFragmentArguments<project::AdvancedSendAsset>::set_transaction_asset_id_format(
         models::AssetIdFormat asset_id_format);
 
-template ENJINSDK_EXPORT AdvancedSendAsset&
-ProjectTransactionRequestArguments<AdvancedSendAsset>::set_with_blockchain_data();
+template ENJINSDK_EXPORT project::AdvancedSendAsset&
+TransactionFragmentArguments<project::AdvancedSendAsset>::set_with_blockchain_data();
 
-template ENJINSDK_EXPORT AdvancedSendAsset&
-ProjectTransactionRequestArguments<AdvancedSendAsset>::set_with_meta();
+template ENJINSDK_EXPORT project::AdvancedSendAsset&
+TransactionFragmentArguments<project::AdvancedSendAsset>::set_with_meta();
 
-template ENJINSDK_EXPORT AdvancedSendAsset&
-ProjectTransactionRequestArguments<AdvancedSendAsset>::set_with_encoded_data();
+template ENJINSDK_EXPORT project::AdvancedSendAsset&
+TransactionFragmentArguments<project::AdvancedSendAsset>::set_with_encoded_data();
 
-template ENJINSDK_EXPORT AdvancedSendAsset&
-ProjectTransactionRequestArguments<AdvancedSendAsset>::set_with_asset_data();
+template ENJINSDK_EXPORT project::AdvancedSendAsset&
+TransactionFragmentArguments<project::AdvancedSendAsset>::set_with_asset_data();
 
-template ENJINSDK_EXPORT AdvancedSendAsset&
-ProjectTransactionRequestArguments<AdvancedSendAsset>::set_with_signed_txs();
+template ENJINSDK_EXPORT project::AdvancedSendAsset&
+TransactionFragmentArguments<project::AdvancedSendAsset>::set_with_signed_txs();
 
-template ENJINSDK_EXPORT AdvancedSendAsset&
-ProjectTransactionRequestArguments<AdvancedSendAsset>::set_with_error();
+template ENJINSDK_EXPORT project::AdvancedSendAsset&
+TransactionFragmentArguments<project::AdvancedSendAsset>::set_with_error();
 
-template ENJINSDK_EXPORT AdvancedSendAsset&
-ProjectTransactionRequestArguments<AdvancedSendAsset>::set_with_nonce();
+template ENJINSDK_EXPORT project::AdvancedSendAsset&
+TransactionFragmentArguments<project::AdvancedSendAsset>::set_with_nonce();
 
-template ENJINSDK_EXPORT AdvancedSendAsset&
-ProjectTransactionRequestArguments<AdvancedSendAsset>::set_with_state();
+template ENJINSDK_EXPORT project::AdvancedSendAsset&
+TransactionFragmentArguments<project::AdvancedSendAsset>::set_with_state();
 
-template ENJINSDK_EXPORT AdvancedSendAsset&
-ProjectTransactionRequestArguments<AdvancedSendAsset>::set_with_receipt();
+template ENJINSDK_EXPORT project::AdvancedSendAsset&
+TransactionFragmentArguments<project::AdvancedSendAsset>::set_with_receipt();
 
-template ENJINSDK_EXPORT AdvancedSendAsset&
-ProjectTransactionRequestArguments<AdvancedSendAsset>::set_with_receipt_logs();
+template ENJINSDK_EXPORT project::AdvancedSendAsset&
+TransactionFragmentArguments<project::AdvancedSendAsset>::set_with_receipt_logs();
 
-template ENJINSDK_EXPORT AdvancedSendAsset&
-ProjectTransactionRequestArguments<AdvancedSendAsset>::set_with_log_event();
+template ENJINSDK_EXPORT project::AdvancedSendAsset&
+TransactionFragmentArguments<project::AdvancedSendAsset>::set_with_log_event();
 
-template ENJINSDK_EXPORT AdvancedSendAsset&
-ProjectTransactionRequestArguments<AdvancedSendAsset>::set_with_transaction_project_uuid();
+template ENJINSDK_EXPORT project::AdvancedSendAsset&
+TransactionFragmentArguments<project::AdvancedSendAsset>::set_with_transaction_project_uuid();
 
-template ENJINSDK_EXPORT AdvancedSendAsset&
-ProjectTransactionRequestArguments<AdvancedSendAsset>::set_with_transaction_wallet_address();
+template ENJINSDK_EXPORT project::AdvancedSendAsset&
+TransactionFragmentArguments<project::AdvancedSendAsset>::set_with_transaction_wallet_address();
 
-template ENJINSDK_EXPORT AdvancedSendAsset&
-ProjectTransactionRequestArguments<AdvancedSendAsset>::set_eth_address(const std::string& address);
+// endregion TransactionFragmentArguments
 
 }
 

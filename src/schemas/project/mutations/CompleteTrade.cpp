@@ -15,39 +15,42 @@
 
 #include "enjinsdk/project/CompleteTrade.hpp"
 
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include <utility>
 
-namespace enjin::sdk::project {
+using namespace enjin::sdk::graphql;
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::project;
+using namespace enjin::sdk::utils;
 
-CompleteTrade::CompleteTrade() : graphql::AbstractGraphqlRequest("enjin.sdk.project.CompleteTrade") {
+CompleteTrade::CompleteTrade() : AbstractGraphqlRequest("enjin.sdk.project.CompleteTrade"),
+                                 TransactionRequestArguments<CompleteTrade>() {
 }
 
 std::string CompleteTrade::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-    utils::join_serialized_object_to_document(document, ProjectTransactionRequestArguments::serialize());
-
-    if (trade_id.has_value()) {
-        utils::set_string_member(document, "tradeId", trade_id.value());
-    }
-
-    return utils::document_to_string(document);
+    return to_json().to_string();
 }
 
-CompleteTrade& CompleteTrade::set_trade_id(const std::string& id) {
-    trade_id = id;
+CompleteTrade& CompleteTrade::set_trade_id(std::string id) {
+    trade_id_opt = std::move(id);
     return *this;
 }
 
+JsonValue CompleteTrade::to_json() const {
+    JsonValue json = JsonValue::create_object();
+
+    JsonUtils::join_object(json, TransactionRequestArguments<CompleteTrade>::to_json());
+    JsonUtils::try_set_field(json, "tradeId", trade_id_opt);
+
+    return json;
+}
+
 bool CompleteTrade::operator==(const CompleteTrade& rhs) const {
-    return static_cast<const graphql::AbstractGraphqlRequest&>(*this) ==
-           static_cast<const graphql::AbstractGraphqlRequest&>(rhs) &&
-           static_cast<const ProjectTransactionRequestArguments<CompleteTrade>&>(*this) ==
-           static_cast<const ProjectTransactionRequestArguments<CompleteTrade>&>(rhs) &&
-           trade_id == rhs.trade_id;
+    return static_cast<const AbstractGraphqlRequest&>(*this) == rhs
+           && static_cast<const TransactionRequestArguments<CompleteTrade>&>(*this) == rhs
+           && trade_id_opt == rhs.trade_id_opt;
 }
 
 bool CompleteTrade::operator!=(const CompleteTrade& rhs) const {
-    return !(rhs == *this);
-}
-
+    return !(*this == rhs);
 }

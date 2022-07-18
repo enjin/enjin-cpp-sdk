@@ -20,12 +20,12 @@ namespace enjin::pusher {
 
 /// \brief Enums for different connection states for a Pusher client.
 enum class PusherConnectionState {
-    CONNECTING,
-    CONNECTED,
-    DISCONNECTING,
-    DISCONNECTED,
-    RECONNECTING,
-    ALL, ///< \brief Value used to indicate any state when used as a function argument.
+    Connecting,
+    Connected,
+    Disconnecting,
+    Disconnected,
+    Reconnecting,
+    All, ///< \brief Value used to indicate any state when used as a function argument.
 };
 
 }

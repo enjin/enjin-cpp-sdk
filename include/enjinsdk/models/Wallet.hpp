@@ -20,7 +20,7 @@
 #include "enjinsdk/IDeserializable.hpp"
 #include "enjinsdk/models/Asset.hpp"
 #include "enjinsdk/models/Balance.hpp"
-#include "enjinsdk/models/Request.hpp"
+#include "enjinsdk/models/Transaction.hpp"
 #include <memory>
 #include <optional>
 #include <string>
@@ -30,7 +30,7 @@ namespace enjin::sdk::models {
 
 class Balance;
 
-class Request;
+class Transaction;
 
 /// \brief Models a wallet on the platform.
 class ENJINSDK_EXPORT Wallet : public serialization::IDeserializable {
@@ -77,7 +77,7 @@ public:
 
     /// \brief Returns the transactions this wallet has signed.
     /// \return The transactions.
-    [[nodiscard]] const std::optional<std::vector<Request>>& get_transactions() const;
+    [[nodiscard]] const std::optional<std::vector<Transaction>>& get_transactions() const;
 
     bool operator==(const Wallet& rhs) const;
 
@@ -88,7 +88,7 @@ public:
 private:
     class Impl;
 
-    std::unique_ptr<Impl> impl;
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

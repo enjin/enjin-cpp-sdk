@@ -15,87 +15,100 @@
 
 #include "enjinsdk/models/AssetTransferFeeSettings.hpp"
 
-#include "EnumUtils.hpp"
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::serialization;
+using namespace enjin::sdk::utils;
+
+class AssetTransferFeeSettings::Impl final : public IDeserializable {
+public:
+    Impl() = default;
+
+    ~Impl() override = default;
+
+    void deserialize(const std::string& json) override {
+        JsonValue json_object;
+
+        if (!json_object.try_parse_as_object(json)) {
+            type.reset();
+            asset_id.reset();
+            value.reset();
+
+            return;
+        }
+
+        JsonUtils::try_get_field(json_object, "type", type);
+        JsonUtils::try_get_field(json_object, "assetId", asset_id);
+        JsonUtils::try_get_field(json_object, "value", value);
+    }
+
+    [[nodiscard]] const std::optional<AssetTransferFeeType>& get_type() const {
+        return type;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_asset_id() const {
+        return asset_id;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_value() const {
+        return value;
+    }
+
+    bool operator==(const Impl& rhs) const {
+        return type == rhs.type
+               && asset_id == rhs.asset_id
+               && value == rhs.value;
+    }
+
+    bool operator!=(const Impl& rhs) const {
+        return !(*this == rhs);
+    }
+
+private:
+    std::optional<AssetTransferFeeType> type;
+    std::optional<std::string> asset_id;
+    std::optional<std::string> value;
+};
+
+AssetTransferFeeSettings::AssetTransferFeeSettings() : pimpl(std::make_unique<Impl>()) {
+}
+
+AssetTransferFeeSettings::AssetTransferFeeSettings(const AssetTransferFeeSettings& other)
+        : pimpl(std::make_unique<Impl>(*other.pimpl)) {
+}
+
+AssetTransferFeeSettings::AssetTransferFeeSettings(AssetTransferFeeSettings&& other) noexcept = default;
+
+AssetTransferFeeSettings::~AssetTransferFeeSettings() = default;
 
 void AssetTransferFeeSettings::deserialize(const std::string& json) {
-    rapidjson::Document document;
-    document.Parse(json.c_str());
-    if (document.IsObject()) {
-        if (document.HasMember(TYPE_KEY) && document[TYPE_KEY].IsString()) {
-            type.emplace(utils::deserialize_asset_transfer_fee_type(document[TYPE_KEY].GetString()));
-        }
-        if (document.HasMember(ASSET_ID_KEY) && document[ASSET_ID_KEY].IsString()) {
-            asset_id.emplace(document[ASSET_ID_KEY].GetString());
-        }
-        if (document.HasMember(VALUE_KEY) && document[VALUE_KEY].IsString()) {
-            value.emplace(document[VALUE_KEY].GetString());
-        }
-    }
+    pimpl->deserialize(json);
 }
 
 const std::optional<AssetTransferFeeType>& AssetTransferFeeSettings::get_type() const {
-    return type;
+    return pimpl->get_type();
 }
 
 const std::optional<std::string>& AssetTransferFeeSettings::get_asset_id() const {
-    return asset_id;
+    return pimpl->get_asset_id();
 }
 
 const std::optional<std::string>& AssetTransferFeeSettings::get_value() const {
-    return value;
+    return pimpl->get_asset_id();
 }
 
 bool AssetTransferFeeSettings::operator==(const AssetTransferFeeSettings& rhs) const {
-    return type == rhs.type &&
-           asset_id == rhs.asset_id &&
-           value == rhs.value;
+    return *pimpl == *rhs.pimpl;
 }
 
 bool AssetTransferFeeSettings::operator!=(const AssetTransferFeeSettings& rhs) const {
-    return !(rhs == *this);
+    return *pimpl != *rhs.pimpl;
 }
 
-std::string AssetTransferFeeSettingsInput::serialize() const {
-    rapidjson::Document document(rapidjson::kObjectType);
-
-    if (type.has_value()) {
-        utils::set_string_member(document, TYPE_KEY, utils::serialize_asset_transfer_fee_type(type.value()));
-    }
-    if (asset_id.has_value()) {
-        utils::set_string_member(document, ASSET_ID_KEY, asset_id.value());
-    }
-    if (value.has_value()) {
-        utils::set_string_member(document, VALUE_KEY, value.value());
-    }
-
-    return utils::document_to_string(document);
-}
-
-AssetTransferFeeSettingsInput& AssetTransferFeeSettingsInput::set_type(AssetTransferFeeType type) {
-    AssetTransferFeeSettingsInput::type = type;
+AssetTransferFeeSettings& AssetTransferFeeSettings::operator=(const AssetTransferFeeSettings& rhs) {
+    pimpl = std::make_unique<Impl>(*rhs.pimpl);
     return *this;
-}
-
-AssetTransferFeeSettingsInput& AssetTransferFeeSettingsInput::set_asset_id(const std::string& asset_id) {
-    AssetTransferFeeSettingsInput::asset_id = asset_id;
-    return *this;
-}
-
-AssetTransferFeeSettingsInput& AssetTransferFeeSettingsInput::set_value(const std::string& value) {
-    AssetTransferFeeSettingsInput::value = value;
-    return *this;
-}
-
-bool AssetTransferFeeSettingsInput::operator==(const AssetTransferFeeSettingsInput& rhs) const {
-    return static_cast<const AssetTransferFeeSettings&>(*this) ==
-           static_cast<const AssetTransferFeeSettings&>(rhs);
-}
-
-bool AssetTransferFeeSettingsInput::operator!=(const AssetTransferFeeSettingsInput& rhs) const {
-    return !(rhs == *this);
-}
-
 }

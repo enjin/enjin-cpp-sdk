@@ -18,9 +18,8 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/models/Asset.hpp"
 #include "enjinsdk/models/AssetFilter.hpp"
-#include "enjinsdk/models/AssetSort.hpp"
+#include "enjinsdk/models/AssetSortInput.hpp"
 #include "enjinsdk/shared/PaginationArguments.hpp"
 #include "enjinsdk/shared/AssetFragmentArguments.hpp"
 #include <optional>
@@ -43,51 +42,73 @@ public:
     /// \brief Sets the filter the request will use.
     /// \param filter The filter.
     /// \return This request for chaining.
-    GetAssets& set_filter(const models::AssetFilter& filter);
+    GetAssets& set_filter(models::AssetFilter filter);
 
     /// \brief Sets the request to sort the results by the specified options.
-    /// \param sort The sort options.
+    /// \param sort The sort input.
     /// \return This request for chaining.
-    GetAssets& set_sort(const models::AssetSort& sort);
+    GetAssets& set_sort(models::AssetSortInput sort);
+
+    [[nodiscard]] json::JsonValue to_json() const override;
 
     bool operator==(const GetAssets& rhs) const;
 
     bool operator!=(const GetAssets& rhs) const;
 
 private:
-    std::optional<models::AssetFilter> filter;
-    std::optional<models::AssetSort> sort;
+    std::optional<models::AssetFilter> filter_opt;
+    std::optional<models::AssetSortInput> sort_opt;
 };
+
+// region AssetFragmentArguments
 
 template ENJINSDK_EXPORT GetAssets&
 AssetFragmentArguments<GetAssets>::set_asset_id_format(models::AssetIdFormat asset_id_format);
 
-template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_state_data();
-
-template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_config_data();
-
-template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_asset_blocks();
-
-template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_creator();
-
-template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_melt_details();
-
-template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_metadata_uri();
-
-template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_supply_details();
-
-template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_transfer_settings();
-
-template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_asset_variant_mode();
-
-template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_asset_variants();
-
-template ENJINSDK_EXPORT GetAssets& AssetFragmentArguments<GetAssets>::set_with_variant_metadata();
+template ENJINSDK_EXPORT GetAssets&
+AssetFragmentArguments<GetAssets>::set_with_state_data();
 
 template ENJINSDK_EXPORT GetAssets&
-PaginationArguments<GetAssets>::set_pagination(models::PaginationOptions pagination);
+AssetFragmentArguments<GetAssets>::set_with_config_data();
 
-template ENJINSDK_EXPORT GetAssets& PaginationArguments<GetAssets>::set_pagination(int page, int limit);
+template ENJINSDK_EXPORT GetAssets&
+AssetFragmentArguments<GetAssets>::set_with_asset_blocks();
+
+template ENJINSDK_EXPORT GetAssets&
+AssetFragmentArguments<GetAssets>::set_with_creator();
+
+template ENJINSDK_EXPORT GetAssets&
+AssetFragmentArguments<GetAssets>::set_with_melt_details();
+
+template ENJINSDK_EXPORT GetAssets&
+AssetFragmentArguments<GetAssets>::set_with_metadata_uri();
+
+template ENJINSDK_EXPORT GetAssets&
+AssetFragmentArguments<GetAssets>::set_with_supply_details();
+
+template ENJINSDK_EXPORT GetAssets&
+AssetFragmentArguments<GetAssets>::set_with_transfer_settings();
+
+template ENJINSDK_EXPORT GetAssets&
+AssetFragmentArguments<GetAssets>::set_with_asset_variant_mode();
+
+template ENJINSDK_EXPORT GetAssets&
+AssetFragmentArguments<GetAssets>::set_with_asset_variants();
+
+template ENJINSDK_EXPORT GetAssets&
+AssetFragmentArguments<GetAssets>::set_with_variant_metadata();
+
+// endregion AssetFragmentArguments
+
+// region PaginationArguments
+
+template ENJINSDK_EXPORT GetAssets&
+PaginationArguments<GetAssets>::set_pagination(models::PaginationInput pagination);
+
+template ENJINSDK_EXPORT GetAssets&
+PaginationArguments<GetAssets>::set_pagination(int page, int limit);
+
+// endregion PaginationArguments
 
 }
 

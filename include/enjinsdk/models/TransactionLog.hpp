@@ -18,7 +18,9 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
+#include "enjinsdk/JsonValue.hpp"
 #include "enjinsdk/models/TransactionEvent.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 #include <vector>
@@ -28,10 +30,19 @@ namespace enjin::sdk::models {
 /// \brief Models a blockchain transaction log.
 class ENJINSDK_EXPORT TransactionLog : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    TransactionLog() = default;
+    /// \brief Constructs an instance of this class.
+    TransactionLog();
 
-    ~TransactionLog() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    TransactionLog(const TransactionLog& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    TransactionLog(TransactionLog&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~TransactionLog() override;
 
     void deserialize(const std::string& json) override;
 
@@ -43,19 +54,19 @@ public:
     /// \return The address.
     [[nodiscard]] const std::optional<std::string>& get_address() const;
 
-    /// \brief Returns the hash for the transaction (request).
+    /// \brief Returns the hash for the transaction.
     /// \return The hash.
     [[nodiscard]] const std::optional<std::string>& get_transaction_hash() const;
 
-    /// \brief Returns the serialized data objects.
-    /// \return The serialized data objects.
-    [[nodiscard]] const std::optional<std::vector<std::string>>& get_data() const;
+    /// \brief Returns the data objects.
+    /// \return The data objects.
+    [[nodiscard]] const std::optional<std::vector<json::JsonValue>>& get_data() const;
 
-    /// \brief Returns the serialized topics.
-    /// \return The serialized topics.
-    [[nodiscard]] const std::optional<std::vector<std::string>>& get_topics() const;
+    /// \brief Returns the topics.
+    /// \return The topics.
+    [[nodiscard]] const std::optional<std::vector<json::JsonValue>>& get_topics() const;
 
-    /// \brief Returns the transaction (request) event.
+    /// \brief Returns the transaction event.
     /// \return The transaction event.
     [[nodiscard]] const std::optional<TransactionEvent>& get_event() const;
 
@@ -63,20 +74,12 @@ public:
 
     bool operator!=(const TransactionLog& rhs) const;
 
-private:
-    std::optional<int> block_number;
-    std::optional<std::string> address;
-    std::optional<std::string> transaction_hash;
-    std::optional<std::vector<std::string>> data;
-    std::optional<std::vector<std::string>> topics;
-    std::optional<TransactionEvent> event;
+    TransactionLog& operator=(const TransactionLog& rhs);
 
-    constexpr static char BLOCK_NUMBER_KEY[] = "blockNumber";
-    constexpr static char ADDRESS_KEY[] = "address";
-    constexpr static char TRANSACTION_HASH_KEY[] = "transactionHash";
-    constexpr static char DATA_KEY[] = "data";
-    constexpr static char TOPICS_KEY[] = "topics";
-    constexpr static char EVENT_KEY[] = "event";
+private:
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

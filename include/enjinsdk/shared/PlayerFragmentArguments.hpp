@@ -17,9 +17,12 @@
 #define ENJINCPPSDK_SHAREDPLAYERFRAGMENTARGUMENTS_HPP
 
 #include "enjinsdk_export.h"
-#include "enjinsdk/internal/PlayerFragmentArgumentsImpl.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 #include "enjinsdk/shared/WalletFragmentArguments.hpp"
+#include <optional>
 #include <string>
+#include <type_traits>
 
 namespace enjin::sdk::shared {
 
@@ -31,225 +34,64 @@ public:
     ~PlayerFragmentArguments() override = default;
 
     [[nodiscard]] std::string serialize() const override {
-        return impl.serialize();
+        return to_json().to_string();
     }
-
-    // PlayerFragmentArguments functions
 
     /// \brief Sets the request to include the linking information with the player.
     /// \return This request for chaining.
-    virtual T& set_with_linking_info() {
-        impl.set_with_linking_info();
-        return dynamic_cast<T&>(*this);
+    T& set_with_linking_info() {
+        with_linking_info_opt = true;
+        return static_cast<T&>(*this);
     }
 
     /// \brief Sets the desired size of the QR image in pixels when used with set_with_linking_info().
     /// \param size The size.
     /// \return This request for chaining.
-    virtual T& set_qr_size(int size) {
-        impl.set_qr_size(size);
-        return dynamic_cast<T&>(*this);
+    T& set_qr_size(int size) {
+        qr_size_opt = size;
+        return static_cast<T&>(*this);
     }
 
     /// \brief Sets the request to include the wallet with the player.
     /// \return This request for chaining.
-    virtual T& set_with_wallet() {
-        impl.set_with_wallet();
-        return dynamic_cast<T&>(*this);
+    T& set_with_wallet() {
+        with_wallet_opt = true;
+        return static_cast<T&>(*this);
     }
 
-    // WalletFragmentArguments functions
+    [[nodiscard]] json::JsonValue to_json() const override {
+        json::JsonValue json = json::JsonValue::create_object();
 
-    virtual T& set_wallet_balance_filter(models::BalanceFilter filter) override {
-        impl.set_wallet_balance_filter(std::move(filter));
-        return dynamic_cast<T&>(*this);
-    }
+        utils::JsonUtils::join_object(json, WalletFragmentArguments<T>::to_json());
+        utils::JsonUtils::try_set_field(json, "withLinkingInfo", with_linking_info_opt);
+        utils::JsonUtils::try_set_field(json, "linkingCodeQrSize", qr_size_opt);
+        utils::JsonUtils::try_set_field(json, "withPlayerWallet", with_wallet_opt);
 
-    virtual T& set_with_assets_created() override {
-        impl.set_with_assets_created();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_wallet_balances() override {
-        impl.set_with_wallet_balances();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_wallet_transactions() override {
-        impl.set_with_wallet_transactions();
-        return dynamic_cast<T&>(*this);
-    }
-
-    // AssetFragmentArguments functions
-
-    virtual T& set_asset_id_format(models::AssetIdFormat asset_id_format) override {
-        impl.set_asset_id_format(asset_id_format);
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_state_data() override {
-        impl.set_with_state_data();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_config_data() override {
-        impl.set_with_config_data();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_asset_blocks() override {
-        impl.set_with_asset_blocks();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_creator() override {
-        impl.set_with_creator();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_melt_details() override {
-        impl.set_with_melt_details();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_metadata_uri() override {
-        impl.set_with_metadata_uri();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_supply_details() override {
-        impl.set_with_supply_details();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_transfer_settings() override {
-        impl.set_with_transfer_settings();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_asset_variant_mode() override {
-        impl.set_with_asset_variant_mode();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_asset_variants() override {
-        impl.set_with_asset_variants();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_variant_metadata() override {
-        impl.set_with_variant_metadata();
-        return dynamic_cast<T&>(*this);
-    }
-
-    // BalanceFragmentArguments functions
-
-    virtual T& set_bal_id_format(models::AssetIdFormat bal_id_format) override {
-        impl.set_bal_id_format(bal_id_format);
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_bal_index_format(models::AssetIndexFormat bal_index_format) override {
-        impl.set_bal_index_format(bal_index_format);
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_bal_project_uuid() override {
-        impl.set_with_bal_project_uuid();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_bal_wallet_address() override {
-        impl.set_with_bal_wallet_address();
-        return dynamic_cast<T&>(*this);
-    }
-
-    // TransactionFragmentArguments functions
-
-    virtual T& set_transaction_asset_id_format(models::AssetIdFormat asset_id_format) override {
-        impl.set_transaction_asset_id_format(asset_id_format);
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_blockchain_data() override {
-        impl.set_with_blockchain_data();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_meta() override {
-        impl.set_with_meta();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_encoded_data() override {
-        impl.set_with_encoded_data();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_asset_data() override {
-        impl.set_with_asset_data();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_signed_txs() override {
-        impl.set_with_signed_txs();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_error() override {
-        impl.set_with_error();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_nonce() override {
-        impl.set_with_nonce();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_state() override {
-        impl.set_with_state();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_receipt() override {
-        impl.set_with_receipt();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_receipt_logs() override {
-        impl.set_with_receipt_logs();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_log_event() override {
-        impl.set_with_log_event();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_transaction_project_uuid() override {
-        impl.set_with_transaction_project_uuid();
-        return dynamic_cast<T&>(*this);
-    }
-
-    virtual T& set_with_transaction_wallet_address() override {
-        impl.set_with_transaction_wallet_address();
-        return dynamic_cast<T&>(*this);
+        return json;
     }
 
     bool operator==(const PlayerFragmentArguments& rhs) const {
-        return impl == rhs.impl;
+        return static_cast<const WalletFragmentArguments<T>&>(*this) == rhs
+               && with_linking_info_opt == rhs.with_linking_info_opt
+               && qr_size_opt == rhs.qr_size_opt
+               && with_wallet_opt == rhs.with_wallet_opt;
     }
 
     bool operator!=(const PlayerFragmentArguments& rhs) const {
-        return impl != rhs.impl;
+        return !(*this == rhs);
     }
 
 protected:
-    /// \brief Default constructor.
-    PlayerFragmentArguments() = default;
+    /// \brief Sole constructor.
+    PlayerFragmentArguments() : WalletFragmentArguments<T>() {
+        static_assert(std::is_base_of<PlayerFragmentArguments, T>::value,
+                      "Class T does not inherit from PlayerFragmentArguments.");
+    }
 
 private:
-    PlayerFragmentArgumentsImpl impl;
+    std::optional<bool> with_linking_info_opt;
+    std::optional<int> qr_size_opt;
+    std::optional<bool> with_wallet_opt;
 };
 
 }

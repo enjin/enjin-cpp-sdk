@@ -17,6 +17,7 @@
 #include "DummyObject.hpp"
 #include "JsonTestSuite.hpp"
 #include "gtest/gtest.h"
+#include <climits>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -50,7 +51,7 @@ TEST_F(RapidJsonUtilsTest, JoinSerializedObjectToDocumentDocumentIsNotObjectThro
 
 TEST_F(RapidJsonUtilsTest, JoinSerializedObjectToDocumentJsonIsNotObjectDoesNothing) {
     // Arrange
-    const std::string expected(EMPTY_JSON_OBJECT);
+    const std::string expected(EmptyJsonObject);
     const std::string json(R"("1":1)");
     rapidjson::Document document;
     document.Parse(expected.c_str());
@@ -66,7 +67,7 @@ TEST_F(RapidJsonUtilsTest, JoinSerializedObjectToDocumentDocumentIsObjectAddsMem
     // Arrange
     const std::string expected_key(DEFAULT_KEY);
     rapidjson::Document document;
-    document.Parse(EMPTY_JSON_OBJECT);
+    document.Parse(EmptyJsonObject);
     std::stringstream s;
     s << R"({")"
       << expected_key
@@ -101,7 +102,7 @@ TEST_F(RapidJsonUtilsTest, JoinSerializedObjectsToDocumentDocumentIsNotObjectThr
 
 TEST_F(RapidJsonUtilsTest, JoinSerializedObjectsToDocumentJsonsAreNotObjectsDoesNothing) {
     // Arrange
-    const std::string expected(EMPTY_JSON_OBJECT);
+    const std::string expected(EmptyJsonObject);
     const std::vector<std::string> jsons({R"("1":1)"});
     rapidjson::Document document;
     document.Parse(expected.c_str());
@@ -118,7 +119,7 @@ TEST_F(RapidJsonUtilsTest, JoinSerializedObjectsToDocumentDocumentIsObjectAddsMe
     const std::string expected_key1("key1");
     const std::string expected_key2("key2");
     rapidjson::Document document;
-    document.Parse(EMPTY_JSON_OBJECT);
+    document.Parse(EmptyJsonObject);
     std::stringstream s1;
     s1 << R"({")"
        << expected_key1
@@ -465,6 +466,21 @@ TEST_F(RapidJsonUtilsTest, SetIntegerMemberMemberIsSet) {
     ASSERT_TRUE(document.HasMember(expected_key));
     ASSERT_TRUE(document[expected_key].IsInt());
     ASSERT_EQ(expected_value, document[expected_key].GetInt());
+}
+
+TEST_F(RapidJsonUtilsTest, SetIntegerMemberValueIs64BitIntegerMemberIsSet) {
+    // Arrange
+    const char* expected_key = DEFAULT_KEY;
+    const long expected_value = LONG_MAX;
+    rapidjson::Document document = create_object_document();
+
+    // Act
+    set_integer_member(document, expected_key, expected_value);
+
+    // Assert
+    ASSERT_TRUE(document.HasMember(expected_key));
+    ASSERT_TRUE(document[expected_key].IsInt64());
+    ASSERT_EQ(expected_value, document[expected_key].GetInt64());
 }
 
 TEST_F(RapidJsonUtilsTest, SetStringMemberMemberIsSet) {

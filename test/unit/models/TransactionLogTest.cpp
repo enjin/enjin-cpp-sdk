@@ -27,7 +27,7 @@ public:
     TransactionLog class_under_test;
 
     constexpr static char POPULATED_JSON_OBJECT[] =
-            R"({"blockNumber":1,"address":"1","transactionHash":"1","data":[],"topics":[],"event":{}})";
+            R"({"blockNumber":1,"address":"1","transactionHash":"1","data":[{},{}],"topics":[{},{}],"event":{}})";
 };
 
 TEST_F(TransactionLogTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
@@ -48,7 +48,7 @@ TEST_F(TransactionLogTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
 
 TEST_F(TransactionLogTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     class_under_test.deserialize(json);

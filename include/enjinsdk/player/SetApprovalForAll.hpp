@@ -38,28 +38,33 @@ public:
     /// \brief Sets the wallet address of the operator.
     /// \param operator_address The operator's address.
     /// \return This request for chaining.
-    SetApprovalForAll& set_operator_address(const std::string& operator_address);
+    SetApprovalForAll& set_operator_address(std::string operator_address);
 
     /// \brief Sets the approval state.
     /// \param approved The approval.
     /// \return This request for chaining.
     SetApprovalForAll& set_approved(bool approved);
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const SetApprovalForAll& rhs) const;
 
     bool operator!=(const SetApprovalForAll& rhs) const;
 
 private:
-    std::optional<std::string> operator_address;
-    std::optional<bool> approved;
+    std::optional<std::string> operator_address_opt;
+    std::optional<bool> approved_opt;
 };
 
 }
 
 namespace enjin::sdk::shared {
 
+// region TransactionFragmentArguments
+
 template ENJINSDK_EXPORT player::SetApprovalForAll&
-TransactionFragmentArguments<player::SetApprovalForAll>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
+TransactionFragmentArguments<player::SetApprovalForAll>::set_transaction_asset_id_format(
+        models::AssetIdFormat asset_id_format);
 
 template ENJINSDK_EXPORT player::SetApprovalForAll&
 TransactionFragmentArguments<player::SetApprovalForAll>::set_with_blockchain_data();
@@ -99,6 +104,8 @@ TransactionFragmentArguments<player::SetApprovalForAll>::set_with_transaction_pr
 
 template ENJINSDK_EXPORT player::SetApprovalForAll&
 TransactionFragmentArguments<player::SetApprovalForAll>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

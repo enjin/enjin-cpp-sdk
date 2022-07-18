@@ -13,558 +13,593 @@
  * limitations under the License.
  */
 
-#include "EnumUtils.hpp"
+#include "enjinsdk/EnumUtils.hpp"
 
 #include "enjinsdk_utils/StringUtils.hpp"
+#include <stdexcept>
 
-namespace enjin::sdk::utils {
+/* The namespace for utilities from enjin::utils is used explicitly to avoid collision with enjin::sdk::utils with some
+ * compilers.
+ */
+using namespace enjin::sdk::http;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::utils;
 
-models::EventType deserialize_event_type(const std::string& s) noexcept {
+EventType EnumUtils::deserialize_event_type(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "PROJECT_CREATED") {
-        return models::EventType::PROJECT_CREATED;
+        return EventType::ProjectCreated;
     } else if (str == "PROJECT_DELETED") {
-        return models::EventType::PROJECT_DELETED;
+        return EventType::ProjectDeleted;
     } else if (str == "PROJECT_LINKED") {
-        return models::EventType::PROJECT_LINKED;
+        return EventType::ProjectLinked;
     } else if (str == "PROJECT_LOCKED") {
-        return models::EventType::PROJECT_LOCKED;
+        return EventType::ProjectLocked;
     } else if (str == "PROJECT_UNLINKED") {
-        return models::EventType::PROJECT_UNLINKED;
+        return EventType::ProjectUnlinked;
     } else if (str == "PROJECT_UNLOCKED") {
-        return models::EventType::PROJECT_UNLOCKED;
+        return EventType::ProjectUnlocked;
     } else if (str == "PROJECT_UPDATED") {
-        return models::EventType::PROJECT_UPDATED;
+        return EventType::ProjectUpdated;
     } else if (str == "BLOCKCHAIN_LOG_PROCESSED") {
-        return models::EventType::BLOCKCHAIN_LOG_PROCESSED;
+        return EventType::BlockchainLogProcessed;
     } else if (str == "MESSAGE_PROCESSED") {
-        return models::EventType::MESSAGE_PROCESSED;
+        return EventType::MessageProcessed;
     } else if (str == "PLAYER_CREATED") {
-        return models::EventType::PLAYER_CREATED;
+        return EventType::PlayerCreated;
     } else if (str == "PLAYER_DELETED") {
-        return models::EventType::PLAYER_DELETED;
+        return EventType::PlayerDeleted;
     } else if (str == "PLAYER_LINKED") {
-        return models::EventType::PLAYER_LINKED;
+        return EventType::PlayerLinked;
     } else if (str == "PLAYER_UNLINKED") {
-        return models::EventType::PLAYER_UNLINKED;
+        return EventType::PlayerUnlinked;
     } else if (str == "PLAYER_UPDATED") {
-        return models::EventType::PLAYER_UPDATED;
+        return EventType::PlayerUpdated;
     } else if (str == "ASSET_CREATED") {
-        return models::EventType::ASSET_CREATED;
+        return EventType::AssetCreated;
     } else if (str == "ASSET_MELTED") {
-        return models::EventType::ASSET_MELTED;
+        return EventType::AssetMelted;
     } else if (str == "ASSET_MINTED") {
-        return models::EventType::ASSET_MINTED;
+        return EventType::AssetMinted;
     } else if (str == "ASSET_TRANSFERRED") {
-        return models::EventType::ASSET_TRANSFERRED;
+        return EventType::AssetTransferred;
     } else if (str == "ASSET_UPDATED") {
-        return models::EventType::ASSET_UPDATED;
+        return EventType::AssetUpdated;
     } else if (str == "TRADE_ASSET_COMPLETED") {
-        return models::EventType::TRADE_ASSET_COMPLETED;
+        return EventType::TradeAssetCompleted;
     } else if (str == "TRADE_ASSET_CREATED") {
-        return models::EventType::TRADE_ASSET_CREATED;
+        return EventType::TradeAssetCreated;
     } else if (str == "TRANSACTION_BROADCAST") {
-        return models::EventType::TRANSACTION_BROADCAST;
+        return EventType::TransactionBroadcast;
     } else if (str == "TRANSACTION_CANCELED") {
-        return models::EventType::TRANSACTION_CANCELED;
+        return EventType::TransactionCanceled;
     } else if (str == "TRANSACTION_DROPPED") {
-        return models::EventType::TRANSACTION_DROPPED;
+        return EventType::TransactionDropped;
     } else if (str == "TRANSACTION_EXECUTED") {
-        return models::EventType::TRANSACTION_EXECUTED;
+        return EventType::TransactionExecuted;
     } else if (str == "TRANSACTION_FAILED") {
-        return models::EventType::TRANSACTION_FAILED;
+        return EventType::TransactionFailed;
     } else if (str == "TRANSACTION_PENDING") {
-        return models::EventType::TRANSACTION_PENDING;
+        return EventType::TransactionPending;
     } else if (str == "TRANSACTION_PROCESSING") {
-        return models::EventType::TRANSACTION_PROCESSING;
+        return EventType::TransactionProcessing;
     } else if (str == "TRANSACTION_UPDATED") {
-        return models::EventType::TRANSACTION_UPDATED;
+        return EventType::TransactionUpdated;
     }
 
-    return models::EventType::UNKNOWN;
+    return EventType::Unknown;
 }
 
-models::RequestState deserialize_request_state(const std::string& s) noexcept {
+TransactionState EnumUtils::deserialize_transaction_state(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "PENDING") {
-        return models::RequestState::PENDING;
+        return TransactionState::Pending;
     } else if (str == "BROADCAST") {
-        return models::RequestState::BROADCAST;
+        return TransactionState::Broadcast;
     } else if (str == "TP_PROCESSING") {
-        return models::RequestState::TP_PROCESSING;
+        return TransactionState::TpProcessing;
     } else if (str == "EXECUTED") {
-        return models::RequestState::EXECUTED;
+        return TransactionState::Executed;
     } else if (str == "CANCELED_USER") {
-        return models::RequestState::CANCELED_USER;
+        return TransactionState::CanceledUser;
     } else if (str == "CANCELED_PLATFORM") {
-        return models::RequestState::CANCELED_PLATFORM;
+        return TransactionState::CanceledPlatform;
     } else if (str == "DROPPED") {
-        return models::RequestState::DROPPED;
+        return TransactionState::Dropped;
     } else if (str == "FAILED") {
-        return models::RequestState::FAILED;
+        return TransactionState::Failed;
     }
 
-    return models::RequestState::UNKNOWN;
+    return TransactionState::Unknown;
 }
 
-models::RequestType deserialize_request_type(const std::string& s) noexcept {
+TransactionType EnumUtils::deserialize_transaction_type(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "ACCEPT_ASSIGNMENT") {
-        return models::RequestType::ACCEPT_ASSIGNMENT;
+        return TransactionType::AcceptAssignment;
     } else if (str == "ASSIGN") {
-        return models::RequestType::ASSIGN;
+        return TransactionType::Assign;
     } else if (str == "APPROVE") {
-        return models::RequestType::APPROVE;
+        return TransactionType::Approve;
     } else if (str == "CREATE") {
-        return models::RequestType::CREATE;
+        return TransactionType::Create;
     } else if (str == "MINT") {
-        return models::RequestType::MINT;
+        return TransactionType::Mint;
     } else if (str == "SEND") {
-        return models::RequestType::SEND;
+        return TransactionType::Send;
     } else if (str == "SEND_ENJ") {
-        return models::RequestType::SEND_ENJ;
+        return TransactionType::SendEnj;
     } else if (str == "ADVANCED_SEND") {
-        return models::RequestType::ADVANCED_SEND;
+        return TransactionType::AdvancedSend;
     } else if (str == "CREATE_TRADE") {
-        return models::RequestType::CREATE_TRADE;
+        return TransactionType::CreateTrade;
     } else if (str == "CANCEL_TRADE") {
-        return models::RequestType::CANCEL_TRADE;
+        return TransactionType::CancelTrade;
     } else if (str == "MELT") {
-        return models::RequestType::MELT;
+        return TransactionType::Melt;
     } else if (str == "UPDATE_NAME") {
-        return models::RequestType::UPDATE_NAME;
+        return TransactionType::UpdateName;
     } else if (str == "SET_ITEM_URI") {
-        return models::RequestType::SET_ITEM_URI;
+        return TransactionType::SetItemUri;
     } else if (str == "SET_WHITELISTED") {
-        return models::RequestType::SET_WHITELISTED;
+        return TransactionType::SetWhitelisted;
     } else if (str == "SET_TRANSFERABLE") {
-        return models::RequestType::SET_TRANSFERABLE;
+        return TransactionType::SetTransferable;
     } else if (str == "SET_MELT_FEE") {
-        return models::RequestType::SET_MELT_FEE;
+        return TransactionType::SetMeltFee;
     } else if (str == "DECREASE_MAX_MELT_FEE") {
-        return models::RequestType::DECREASE_MAX_MELT_FEE;
+        return TransactionType::DecreaseMaxMeltFee;
     } else if (str == "SET_TRANSFER_FEE") {
-        return models::RequestType::SET_TRANSFER_FEE;
+        return TransactionType::SetTransferFee;
     } else if (str == "DECREASE_MAX_TRANSFER_FEE") {
-        return models::RequestType::DECREASE_MAX_TRANSFER_FEE;
+        return TransactionType::DecreaseMaxTransferFee;
     } else if (str == "RELEASE_RESERVE") {
-        return models::RequestType::RELEASE_RESERVE;
+        return TransactionType::ReleaseReserve;
     } else if (str == "ADD_LOG") {
-        return models::RequestType::ADD_LOG;
+        return TransactionType::AddLog;
     } else if (str == "SET_APPROVAL_FOR_ALL") {
-        return models::RequestType::SET_APPROVAL_FOR_ALL;
+        return TransactionType::SetApprovalForAll;
     } else if (str == "MANAGE_UPDATE") {
-        return models::RequestType::MANAGE_UPDATE;
+        return TransactionType::ManageUpdate;
     } else if (str == "SET_DECIMALS") {
-        return models::RequestType::SET_DECIMALS;
+        return TransactionType::SetDecimals;
     } else if (str == "SET_SYMBOL") {
-        return models::RequestType::SET_SYMBOL;
+        return TransactionType::SetSymbol;
     } else if (str == "MESSAGE") {
-        return models::RequestType::MESSAGE;
+        return TransactionType::Message;
     }
 
-    return models::RequestType::UNKNOWN;
+    return TransactionType::Unknown;
 }
 
-models::AssetSupplyModel deserialize_asset_supply_model(const std::string& s) noexcept {
+AssetSupplyModel EnumUtils::deserialize_asset_supply_model(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "FIXED") {
-        return models::AssetSupplyModel::FIXED;
+        return AssetSupplyModel::Fixed;
     } else if (str == "SETTABLE") {
-        return models::AssetSupplyModel::SETTABLE;
+        return AssetSupplyModel::Settable;
     } else if (str == "INFINITE") {
-        return models::AssetSupplyModel::INFINITE;
+        return AssetSupplyModel::Infinite;
     } else if (str == "COLLAPSING") {
-        return models::AssetSupplyModel::COLLAPSING;
+        return AssetSupplyModel::Collapsing;
     } else if (str == "ANNUAL_VALUE") {
-        return models::AssetSupplyModel::ANNUAL_VALUE;
+        return AssetSupplyModel::AnnualValue;
     } else if (str == "ANNUAL_PERCENTAGE") {
-        return models::AssetSupplyModel::ANNUAL_PERCENTAGE;
+        return AssetSupplyModel::AnnualPercentage;
     }
 
-    return models::AssetSupplyModel::UNKNOWN;
+    return AssetSupplyModel::Unknown;
 }
 
-models::AssetTransferFeeType deserialize_asset_transfer_fee_type(const std::string& s) noexcept {
+AssetTransferFeeType EnumUtils::deserialize_asset_transfer_fee_type(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "NONE") {
-        return models::AssetTransferFeeType::NONE;
+        return AssetTransferFeeType::None;
     } else if (str == "PER_TRANSFER") {
-        return models::AssetTransferFeeType::PER_TRANSFER;
+        return AssetTransferFeeType::PerTransfer;
     } else if (str == "PER_CRYPTO_ITEM") {
-        return models::AssetTransferFeeType::PER_CRYPTO_ITEM;
+        return AssetTransferFeeType::PerCryptoItem;
     } else if (str == "RATIO_CUT") {
-        return models::AssetTransferFeeType::RATIO_CUT;
+        return AssetTransferFeeType::RatioCut;
     } else if (str == "RATIO_EXTRA") {
-        return models::AssetTransferFeeType::RATIO_EXTRA;
+        return AssetTransferFeeType::RatioExtra;
     }
 
-    return models::AssetTransferFeeType::UNKNOWN;
+    return AssetTransferFeeType::Unknown;
 }
 
-models::AssetTransferable deserialize_asset_transferable(const std::string& s) noexcept {
+AssetTransferable EnumUtils::deserialize_asset_transferable(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "PERMANENT") {
-        return models::AssetTransferable::PERMANENT;
+        return AssetTransferable::Permanent;
     } else if (str == "TEMPORARY") {
-        return models::AssetTransferable::TEMPORARY;
+        return AssetTransferable::Temporary;
     } else if (str == "BOUND") {
-        return models::AssetTransferable::BOUND;
+        return AssetTransferable::Bound;
     }
 
-    return models::AssetTransferable::UNKNOWN;
+    return AssetTransferable::Unknown;
 }
 
-models::AssetVariantMode deserialize_asset_variant_mode(const std::string& s) noexcept {
+AssetVariantMode EnumUtils::deserialize_asset_variant_mode(const std::string& s) noexcept {
     std::string str = enjin::utils::to_upper(s);
     if (str == "NONE") {
-        return models::AssetVariantMode::NONE;
+        return AssetVariantMode::None;
     } else if (str == "BEAM") {
-        return models::AssetVariantMode::BEAM;
+        return AssetVariantMode::Beam;
     } else if (str == "ONCE") {
-        return models::AssetVariantMode::ONCE;
+        return AssetVariantMode::Once;
     } else if (str == "ALWAYS") {
-        return models::AssetVariantMode::ALWAYS;
+        return AssetVariantMode::Always;
     }
 
-    return models::AssetVariantMode::UNKNOWN;
+    return AssetVariantMode::Unknown;
 }
 
-std::string serialize_event_type(models::EventType v) noexcept {
+HttpMethod EnumUtils::deserialize_http_method(const std::string& s) {
+    std::string str = enjin::utils::to_upper(s);
+    if (str == "GET") {
+        return HttpMethod::Get;
+    } else if (str == "HEAD") {
+        return HttpMethod::Head;
+    } else if (str == "POST") {
+        return HttpMethod::Post;
+    } else if (str == "PUT") {
+        return HttpMethod::Put;
+    } else if (str == "DELETE") {
+        return HttpMethod::Delete;
+    } else if (str == "CONNECT") {
+        return HttpMethod::Connect;
+    } else if (str == "OPTIONS") {
+        return HttpMethod::Options;
+    } else if (str == "TRACE") {
+        return HttpMethod::Trace;
+    } else if (str == "PATCH") {
+        return HttpMethod::Patch;
+    }
+
+    throw std::runtime_error("No valid conversion for " + s + " to HTTP method.");
+}
+
+std::string EnumUtils::serialize_event_type(EventType v) noexcept {
     switch (v) {
-        case models::EventType::PROJECT_CREATED:
+        case EventType::ProjectCreated:
             return "PROJECT_CREATED";
-        case models::EventType::PROJECT_DELETED:
+        case EventType::ProjectDeleted:
             return "PROJECT_DELETED";
-        case models::EventType::PROJECT_LINKED:
+        case EventType::ProjectLinked:
             return "PROJECT_LINKED";
-        case models::EventType::PROJECT_LOCKED:
+        case EventType::ProjectLocked:
             return "PROJECT_LOCKED";
-        case models::EventType::PROJECT_UNLINKED:
+        case EventType::ProjectUnlinked:
             return "PROJECT_UNLINKED";
-        case models::EventType::PROJECT_UNLOCKED:
+        case EventType::ProjectUnlocked:
             return "PROJECT_UNLOCKED";
-        case models::EventType::PROJECT_UPDATED:
+        case EventType::ProjectUpdated:
             return "PROJECT_UPDATED";
-        case models::EventType::BLOCKCHAIN_LOG_PROCESSED:
+        case EventType::BlockchainLogProcessed:
             return "BLOCKCHAIN_LOG_PROCESSED";
-        case models::EventType::MESSAGE_PROCESSED:
+        case EventType::MessageProcessed:
             return "MESSAGE_PROCESSED";
-        case models::EventType::PLAYER_CREATED:
+        case EventType::PlayerCreated:
             return "PLAYER_CREATED";
-        case models::EventType::PLAYER_DELETED:
+        case EventType::PlayerDeleted:
             return "PLAYER_DELETED";
-        case models::EventType::PLAYER_LINKED:
+        case EventType::PlayerLinked:
             return "PLAYER_LINKED";
-        case models::EventType::PLAYER_UNLINKED:
+        case EventType::PlayerUnlinked:
             return "PLAYER_UNLINKED";
-        case models::EventType::PLAYER_UPDATED:
+        case EventType::PlayerUpdated:
             return "PLAYER_UPDATED";
-        case models::EventType::ASSET_CREATED:
+        case EventType::AssetCreated:
             return "ASSET_CREATED";
-        case models::EventType::ASSET_MELTED:
+        case EventType::AssetMelted:
             return "ASSET_MELTED";
-        case models::EventType::ASSET_MINTED:
+        case EventType::AssetMinted:
             return "ASSET_MINTED";
-        case models::EventType::ASSET_TRANSFERRED:
+        case EventType::AssetTransferred:
             return "ASSET_TRANSFERRED";
-        case models::EventType::ASSET_UPDATED:
+        case EventType::AssetUpdated:
             return "ASSET_UPDATED";
-        case models::EventType::TRADE_ASSET_COMPLETED:
+        case EventType::TradeAssetCompleted:
             return "TRADE_ASSET_COMPLETED";
-        case models::EventType::TRADE_ASSET_CREATED:
+        case EventType::TradeAssetCreated:
             return "TRADE_ASSET_CREATED";
-        case models::EventType::TRANSACTION_BROADCAST:
+        case EventType::TransactionBroadcast:
             return "TRANSACTION_BROADCAST";
-        case models::EventType::TRANSACTION_CANCELED:
+        case EventType::TransactionCanceled:
             return "TRANSACTION_CANCELED";
-        case models::EventType::TRANSACTION_DROPPED:
+        case EventType::TransactionDropped:
             return "TRANSACTION_DROPPED";
-        case models::EventType::TRANSACTION_EXECUTED:
+        case EventType::TransactionExecuted:
             return "TRANSACTION_EXECUTED";
-        case models::EventType::TRANSACTION_FAILED:
+        case EventType::TransactionFailed:
             return "TRANSACTION_FAILED";
-        case models::EventType::TRANSACTION_PENDING:
+        case EventType::TransactionPending:
             return "TRANSACTION_PENDING";
-        case models::EventType::TRANSACTION_PROCESSING:
+        case EventType::TransactionProcessing:
             return "TRANSACTION_PROCESSING";
-        case models::EventType::TRANSACTION_UPDATED:
+        case EventType::TransactionUpdated:
             return "TRANSACTION_UPDATED";
         default:
             return "";
     }
 }
 
-std::string serialize_pusher_connection_state(pusher::PusherConnectionState v) noexcept {
+std::string EnumUtils::serialize_transaction_state(TransactionState v) noexcept {
     switch (v) {
-        case pusher::PusherConnectionState::ALL:
-            return "ALL";
-        case pusher::PusherConnectionState::CONNECTING:
-            return "CONNECTING";
-        case pusher::PusherConnectionState::CONNECTED:
-            return "CONNECTED";
-        case pusher::PusherConnectionState::DISCONNECTED:
-            return "DISCONNECTED";
-        case pusher::PusherConnectionState::DISCONNECTING:
-            return "DISCONNECTING";
-        case pusher::PusherConnectionState::RECONNECTING:
-            return "RECONNECTING";
-        default:
-            return "";
-    }
-}
-
-std::string serialize_request_state(models::RequestState v) noexcept {
-    switch (v) {
-        case models::RequestState::PENDING:
+        case TransactionState::Pending:
             return "PENDING";
-        case models::RequestState::BROADCAST:
+        case TransactionState::Broadcast:
             return "BROADCAST";
-        case models::RequestState::TP_PROCESSING:
+        case TransactionState::TpProcessing:
             return "TP_PROCESSING";
-        case models::RequestState::EXECUTED:
+        case TransactionState::Executed:
             return "EXECUTED";
-        case models::RequestState::CANCELED_USER:
+        case TransactionState::CanceledUser:
             return "CANCELED_USER";
-        case models::RequestState::CANCELED_PLATFORM:
+        case TransactionState::CanceledPlatform:
             return "CANCELED_PLATFORM";
-        case models::RequestState::DROPPED:
+        case TransactionState::Dropped:
             return "DROPPED";
-        case models::RequestState::FAILED:
+        case TransactionState::Failed:
             return "FAILED";
         default:
             return "";
     }
 }
 
-std::string serialize_request_type(models::RequestType v) noexcept {
+std::string EnumUtils::serialize_transaction_type(TransactionType v) noexcept {
     switch (v) {
-        case models::RequestType::ACCEPT_ASSIGNMENT:
+        case TransactionType::AcceptAssignment:
             return "ACCEPT_ASSIGNMENT";
-        case models::RequestType::ASSIGN:
+        case TransactionType::Assign:
             return "ASSIGN";
-        case models::RequestType::APPROVE:
+        case TransactionType::Approve:
             return "APPROVE";
-        case models::RequestType::CREATE:
+        case TransactionType::Create:
             return "CREATE";
-        case models::RequestType::MINT:
+        case TransactionType::Mint:
             return "MINT";
-        case models::RequestType::SEND:
+        case TransactionType::Send:
             return "SEND";
-        case models::RequestType::SEND_ENJ:
+        case TransactionType::SendEnj:
             return "SEND_ENJ";
-        case models::RequestType::ADVANCED_SEND:
+        case TransactionType::AdvancedSend:
             return "ADVANCED_SEND";
-        case models::RequestType::CREATE_TRADE:
+        case TransactionType::CreateTrade:
             return "CREATE_TRADE";
-        case models::RequestType::CANCEL_TRADE:
+        case TransactionType::CancelTrade:
             return "CANCEL_TRADE";
-        case models::RequestType::MELT:
+        case TransactionType::Melt:
             return "MELT";
-        case models::RequestType::UPDATE_NAME:
+        case TransactionType::UpdateName:
             return "UPDATE_NAME";
-        case models::RequestType::SET_ITEM_URI:
+        case TransactionType::SetItemUri:
             return "SET_ITEM_URI";
-        case models::RequestType::SET_WHITELISTED:
+        case TransactionType::SetWhitelisted:
             return "SET_WHITELISTED";
-        case models::RequestType::SET_TRANSFERABLE:
+        case TransactionType::SetTransferable:
             return "SET_TRANSFERABLE";
-        case models::RequestType::SET_MELT_FEE:
+        case TransactionType::SetMeltFee:
             return "SET_MELT_FEE";
-        case models::RequestType::DECREASE_MAX_MELT_FEE:
+        case TransactionType::DecreaseMaxMeltFee:
             return "DECREASE_MAX_MELT_FEE";
-        case models::RequestType::SET_TRANSFER_FEE:
+        case TransactionType::SetTransferFee:
             return "SET_TRANSFER_FEE";
-        case models::RequestType::DECREASE_MAX_TRANSFER_FEE:
+        case TransactionType::DecreaseMaxTransferFee:
             return "DECREASE_MAX_TRANSFER_FEE";
-        case models::RequestType::RELEASE_RESERVE:
+        case TransactionType::ReleaseReserve:
             return "RELEASE_RESERVE";
-        case models::RequestType::ADD_LOG:
+        case TransactionType::AddLog:
             return "ADD_LOG";
-        case models::RequestType::SET_APPROVAL_FOR_ALL:
+        case TransactionType::SetApprovalForAll:
             return "SET_APPROVAL_FOR_ALL";
-        case models::RequestType::MANAGE_UPDATE:
+        case TransactionType::ManageUpdate:
             return "MANAGE_UPDATE";
-        case models::RequestType::SET_DECIMALS:
+        case TransactionType::SetDecimals:
             return "SET_DECIMALS";
-        case models::RequestType::SET_SYMBOL:
+        case TransactionType::SetSymbol:
             return "SET_SYMBOL";
-        case models::RequestType::MESSAGE:
+        case TransactionType::Message:
             return "MESSAGE";
         default:
             return "";
     }
 }
 
-std::string serialize_sort_direction(models::SortDirection v) noexcept {
+std::string EnumUtils::serialize_sort_direction(SortDirection v) noexcept {
     switch (v) {
-        case models::SortDirection::ASCENDING:
+        case SortDirection::Ascending:
             return "asc";
-        case models::SortDirection::DESCENDING:
+        case SortDirection::Descending:
             return "desc";
         default:
             return "";
     }
 }
 
-std::string serialize_asset_field(models::AssetField v) noexcept {
+std::string EnumUtils::serialize_asset_field(AssetField v) noexcept {
     switch (v) {
-        case models::AssetField::ID:
+        case AssetField::Id:
             return "id";
-        case models::AssetField::NAME:
+        case AssetField::Name:
             return "name";
-        case models::AssetField::CIRCULATING_SUPPLY:
+        case AssetField::CirculatingSupply:
             return "circulatingSupply";
-        case models::AssetField::NON_FUNGIBLE:
+        case AssetField::NonFungible:
             return "nonFungible";
-        case models::AssetField::RESERVE:
+        case AssetField::Reserve:
             return "reserve";
-        case models::AssetField::TOTAL_SUPPLY:
+        case AssetField::TotalSupply:
             return "totalSupply";
-        case models::AssetField::CREATED_AT:
+        case AssetField::CreatedAt:
             return "createdAt";
         default:
             return "";
     }
 }
 
-std::string serialize_asset_id_format(models::AssetIdFormat v) noexcept {
+std::string EnumUtils::serialize_asset_id_format(AssetIdFormat v) noexcept {
     switch (v) {
-        case models::AssetIdFormat::HEX64:
+        case AssetIdFormat::Hex64:
             return "hex64";
-        case models::AssetIdFormat::HEX256:
+        case AssetIdFormat::Hex256:
             return "hex256";
-        case models::AssetIdFormat::UINT256:
+        case AssetIdFormat::Uint256:
             return "uint256";
         default:
             return "";
     }
 }
 
-std::string serialize_asset_index_format(models::AssetIndexFormat v) noexcept {
+std::string EnumUtils::serialize_asset_index_format(AssetIndexFormat v) noexcept {
     switch (v) {
-        case models::AssetIndexFormat::HEX64:
+        case AssetIndexFormat::Hex64:
             return "hex64";
-        case models::AssetIndexFormat::UINT64:
+        case AssetIndexFormat::Uint64:
             return "uint64";
         default:
             return "";
     }
 }
 
-std::string serialize_asset_supply_model(models::AssetSupplyModel v) noexcept {
+std::string EnumUtils::serialize_asset_supply_model(AssetSupplyModel v) noexcept {
     switch (v) {
-        case models::AssetSupplyModel::FIXED:
+        case AssetSupplyModel::Fixed:
             return "FIXED";
-        case models::AssetSupplyModel::SETTABLE:
+        case AssetSupplyModel::Settable:
             return "SETTABLE";
-        case models::AssetSupplyModel::INFINITE:
+        case AssetSupplyModel::Infinite:
             return "INFINITE";
-        case models::AssetSupplyModel::COLLAPSING:
+        case AssetSupplyModel::Collapsing:
             return "COLLAPSING";
-        case models::AssetSupplyModel::ANNUAL_VALUE:
+        case AssetSupplyModel::AnnualValue:
             return "ANNUAL_VALUE";
-        case models::AssetSupplyModel::ANNUAL_PERCENTAGE:
+        case AssetSupplyModel::AnnualPercentage:
             return "ANNUAL_PERCENTAGE";
         default:
             return "UNKNOWN";
     }
 }
 
-std::string serialize_asset_transfer_fee_type(models::AssetTransferFeeType v) noexcept {
+std::string EnumUtils::serialize_asset_transfer_fee_type(AssetTransferFeeType v) noexcept {
     switch (v) {
-        case models::AssetTransferFeeType::NONE:
+        case AssetTransferFeeType::None:
             return "NONE";
-        case models::AssetTransferFeeType::PER_TRANSFER:
+        case AssetTransferFeeType::PerTransfer:
             return "PER_TRANSFER";
-        case models::AssetTransferFeeType::PER_CRYPTO_ITEM:
+        case AssetTransferFeeType::PerCryptoItem:
             return "PER_CRYPTO_ITEM";
-        case models::AssetTransferFeeType::RATIO_CUT:
+        case AssetTransferFeeType::RatioCut:
             return "RATIO_CUT";
-        case models::AssetTransferFeeType::RATIO_EXTRA:
+        case AssetTransferFeeType::RatioExtra:
             return "RATIO_EXTRA";
         default:
             return "UNKNOWN";
     }
 }
 
-std::string serialize_asset_transferable(models::AssetTransferable v) noexcept {
+std::string EnumUtils::serialize_asset_transferable(AssetTransferable v) noexcept {
     switch (v) {
-        case models::AssetTransferable::PERMANENT:
+        case AssetTransferable::Permanent:
             return "PERMANENT";
-        case models::AssetTransferable::TEMPORARY:
+        case AssetTransferable::Temporary:
             return "TEMPORARY";
-        case models::AssetTransferable::BOUND:
+        case AssetTransferable::Bound:
             return "BOUND";
         default:
             return "UNKNOWN";
     }
 }
 
-std::string serialize_asset_variant_mode(models::AssetVariantMode v) noexcept {
+std::string EnumUtils::serialize_asset_variant_mode(AssetVariantMode v) noexcept {
     switch (v) {
-        case models::AssetVariantMode::NONE:
+        case AssetVariantMode::None:
             return "NONE";
-        case models::AssetVariantMode::BEAM:
+        case AssetVariantMode::Beam:
             return "BEAM";
-        case models::AssetVariantMode::ONCE:
+        case AssetVariantMode::Once:
             return "ONCE";
-        case models::AssetVariantMode::ALWAYS:
+        case AssetVariantMode::Always:
             return "ALWAYS";
         default:
             return "UNKNOWN";
     }
 }
 
-std::string serialize_operator(models::Operator v) noexcept {
+std::string EnumUtils::serialize_http_method(HttpMethod v) noexcept {
     switch (v) {
-        case models::Operator::GREATER_THAN:
+        case HttpMethod::Get:
+            return "GET";
+        case HttpMethod::Head:
+            return "HEAD";
+        case HttpMethod::Post:
+            return "POST";
+        case HttpMethod::Put:
+            return "PUT";
+        case HttpMethod::Delete:
+            return "DELETE";
+        case HttpMethod::Connect:
+            return "CONNECT";
+        case HttpMethod::Options:
+            return "OPTIONS";
+        case HttpMethod::Trace:
+            return "TRACE";
+        case HttpMethod::Patch:
+            return "PATCH";
+        default:
+            return "";
+    }
+}
+
+std::string EnumUtils::serialize_operator(Operator v) noexcept {
+    switch (v) {
+        case Operator::GreaterThan:
             return "GREATER_THAN";
-        case models::Operator::GREATER_THAN_OR_EQUAL:
+        case Operator::GreaterThanOrEqual:
             return "GREATER_THAN_OR_EQUAL";
-        case models::Operator::LESS_THAN:
+        case Operator::LessThan:
             return "LESS_THAN";
-        case models::Operator::LESS_THAN_OR_EQUAL:
+        case Operator::LessThanOrEqual:
             return "LESS_THAN_OR_EQUAL";
         default:
             return "";
     }
 }
 
-std::string serialize_transaction_field(models::TransactionField v) noexcept {
+std::string EnumUtils::serialize_transaction_field(TransactionField v) noexcept {
     switch (v) {
-        case models::TransactionField::ID:
+        case TransactionField::Id:
             return "id";
-        case models::TransactionField::STATE:
+        case TransactionField::State:
             return "state";
-        case models::TransactionField::TITLE:
+        case TransactionField::Title:
             return "title";
-        case models::TransactionField::CREATED_AT:
+        case TransactionField::CreatedAt:
             return "createdAt";
-        case models::TransactionField::UPDATED_AT:
+        case TransactionField::UpdatedAt:
             return "updatedAt";
         default:
             return "";
     }
 }
 
-std::string serialize_whitelisted(models::Whitelisted v) noexcept {
+std::string EnumUtils::serialize_whitelisted(Whitelisted v) noexcept {
     switch (v) {
-        case models::Whitelisted::NONE:
+        case Whitelisted::None:
             return "NONE";
-        case models::Whitelisted::SEND_AND_RECEIVE:
+        case Whitelisted::SendAndReceive:
             return "SEND_AND_RECEIVE";
-        case models::Whitelisted::SEND:
+        case Whitelisted::Send:
             return "SEND";
-        case models::Whitelisted::RECEIVE:
+        case Whitelisted::Receive:
             return "RECEIVE";
-        case models::Whitelisted::NO_FEES:
+        case Whitelisted::NoFees:
             return "NO_FEES";
-        case models::Whitelisted::ADDRESS:
+        case Whitelisted::Address:
             return "ADDRESS";
         default:
             return "";
     }
-}
-
 }

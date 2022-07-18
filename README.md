@@ -119,8 +119,8 @@ using namespace enjin::sdk::project;
 int main() {
     // Builds the project client to run on the Goerli test network.
     // See: https://goerli.cloud.enjin.io to sign up for the test network.
-    std::unique_ptr<ProjectClient> client = ProjectClientBuilder()
-        .base_uri(GOERLI) // From EnjinHosts
+    std::unique_ptr<ProjectClient> client = ProjectClient::builder()
+        .base_uri(EnjinHosts::Goerli)
         .build();
 
     // Creates the request to authenticate the client.

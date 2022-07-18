@@ -4,9 +4,10 @@ target_sources(${PROJECT_NAME}
         Asset.cpp
         AssetConfigData.cpp
         AssetFilter.cpp
-        AssetSort.cpp
+        AssetSortInput.cpp
         AssetStateData.cpp
         AssetTransferFeeSettings.cpp
+        AssetTransferFeeSettingsInput.cpp
         AssetVariant.cpp
         Balance.cpp
         BalanceFilter.cpp
@@ -14,12 +15,12 @@ target_sources(${PROJECT_NAME}
         Contracts.cpp
         GasPrices.cpp
         LinkingInfo.cpp
-        Melt.cpp
+        MeltInput.cpp
         MintInput.cpp
         NotificationEvent.cpp
         Notifications.cpp
         PaginationCursor.cpp
-        PaginationOptions.cpp
+        PaginationInput.cpp
         Platform.cpp
         Player.cpp
         PlayerFilter.cpp
@@ -27,13 +28,13 @@ target_sources(${PROJECT_NAME}
         Pusher.cpp
         PusherChannels.cpp
         PusherOptions.cpp
-        Request.cpp
+        Transaction.cpp
         SupplyModels.cpp
-        Trade.cpp
+        TradeInput.cpp
         TransactionEvent.cpp
         TransactionFilter.cpp
         TransactionLog.cpp
         TransactionReceipt.cpp
-        TransactionSort.cpp
-        Transfer.cpp
+        TransactionSortInput.cpp
+        TransferInput.cpp
         Wallet.cpp)

@@ -17,8 +17,10 @@
 #define ENJINCPPSDK_IHTTPCLIENT_HPP
 
 #include "enjinsdk_export.h"
+#include "enjinsdk/HttpLogLevel.hpp"
 #include "enjinsdk/HttpRequest.hpp"
 #include "enjinsdk/HttpResponse.hpp"
+#include "enjinsdk/LoggerProvider.hpp"
 #include <future>
 
 namespace enjin::sdk::http {
@@ -38,11 +40,23 @@ public:
     /// \brief Sends an HTTP request asynchronously.
     /// \param request The HTTP request.
     /// \return The future for accessing the response.
-    virtual std::future<HttpResponse> send_request(const HttpRequest& request) = 0;
+    virtual std::future<HttpResponse> send_request(HttpRequest request) = 0;
 
     /// \brief Determines if this client is open.
     /// \return Whether this client is open.
     [[nodiscard]] virtual bool is_open() const = 0;
+
+    /// \brief Assigns a default request header for all requests sent by this client.
+    /// \param key The header key.
+    /// \param value The header value.
+    virtual void set_default_request_header(std::string key, std::string value) = 0;
+
+    /// \brief Assigns a logger provider and a HTTP log level for requests and responses processed by this client.
+    /// \param level The HTTP log level.
+    /// \param logger_provider The logger provider.
+    /// \remarks If the HTTP log level is set to HttpLogLevel::NONE or if the logger provider pointer is null, then no
+    /// logging shall occur.
+    virtual void set_logger(HttpLogLevel level, std::shared_ptr<utils::LoggerProvider> logger_provider) = 0;
 };
 
 }

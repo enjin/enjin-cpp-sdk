@@ -46,7 +46,7 @@ TEST_F(GraphqlErrorTest, DeserializeEmptyStringFieldsDoNotHaveValues) {
 
 TEST_F(GraphqlErrorTest, DeserializeEmptyJsonObjectFieldsDoNotHaveValues) {
     // Arrange
-    const std::string json(EMPTY_JSON_OBJECT);
+    const std::string json(EmptyJsonObject);
 
     // Act
     class_under_test.deserialize(json);
@@ -77,6 +77,7 @@ TEST_F(GraphqlErrorTest, DeserializePopulatedJsonObjectFieldsHaveValues) {
     EXPECT_EQ(expected_int, class_under_test.get_code().value());
     EXPECT_EQ(expected_string, class_under_test.get_details().value());
     EXPECT_FALSE(class_under_test.get_locations().value().empty());
+
     for (auto l : class_under_test.get_locations().value()) {
         EXPECT_EQ(expected_int, l.at(expected_key));
     }

@@ -40,13 +40,15 @@ public:
     /// \return This request for chaining.
     GetPlatform& set_with_notifications();
 
+    [[nodiscard]] json::JsonValue to_json() const override;
+
     bool operator==(const GetPlatform& rhs) const;
 
     bool operator!=(const GetPlatform& rhs) const;
 
 private:
-    std::optional<bool> with_contracts;
-    std::optional<bool> with_notifications;
+    std::optional<bool> with_contracts_opt;
+    std::optional<bool> with_notifications_opt;
 };
 
 }

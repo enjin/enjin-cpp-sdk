@@ -15,87 +15,159 @@
 
 #include "enjinsdk/models/Asset.hpp"
 
-#include "EnumUtils.hpp"
-#include "RapidJsonUtils.hpp"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::serialization;
+using namespace enjin::sdk::utils;
+
+class Asset::Impl final : public IDeserializable {
+public:
+    Impl() = default;
+
+    ~Impl() override = default;
+
+    void deserialize(const std::string& json) override {
+        JsonValue json_object;
+
+        if (!json_object.try_parse_as_object(json)) {
+            id.reset();
+            name.reset();
+            state_data.reset();
+            config_data.reset();
+            variant_mode.reset();
+            variants.reset();
+            created_at.reset();
+            updated_at.reset();
+
+            return;
+        }
+
+        JsonUtils::try_get_field(json_object, "id", id);
+        JsonUtils::try_get_field(json_object, "name", name);
+        JsonUtils::try_get_field(json_object, "stateData", state_data);
+        JsonUtils::try_get_field(json_object, "configData", config_data);
+        JsonUtils::try_get_field(json_object, "variantMode", variant_mode);
+        JsonUtils::try_get_field(json_object, "variants", variants);
+        JsonUtils::try_get_field(json_object, "createdAt", created_at);
+        JsonUtils::try_get_field(json_object, "updatedAt", updated_at);
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_id() const {
+        return id;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_name() const {
+        return name;
+    }
+
+    [[nodiscard]] const std::optional<AssetStateData>& get_state_data() const {
+        return state_data;
+    }
+
+    [[nodiscard]] const std::optional<AssetConfigData>& get_config_data() const {
+        return config_data;
+    }
+
+    [[nodiscard]] const std::optional<AssetVariantMode>& get_variant_mode() const {
+        return variant_mode;
+    }
+
+    [[nodiscard]] const std::optional<std::vector<AssetVariant>>& get_variants() const {
+        return variants;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_created_at() const {
+        return created_at;
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_updated_at() const {
+        return updated_at;
+    }
+
+    bool operator==(const Impl& rhs) const {
+        return id == rhs.id
+               && name == rhs.name
+               && state_data == rhs.state_data
+               && config_data == rhs.config_data
+               && variant_mode == rhs.variant_mode
+               && variants == rhs.variants
+               && created_at == rhs.created_at
+               && updated_at == rhs.updated_at;
+    }
+
+    bool operator!=(const Impl& rhs) const {
+        return !(*this == rhs);
+    }
+
+private:
+    std::optional<std::string> id;
+    std::optional<std::string> name;
+    std::optional<AssetStateData> state_data;
+    std::optional<AssetConfigData> config_data;
+    std::optional<AssetVariantMode> variant_mode;
+    std::optional<std::vector<AssetVariant>> variants;
+    std::optional<std::string> created_at;
+    std::optional<std::string> updated_at;
+};
+
+Asset::Asset() : pimpl(std::make_unique<Impl>()) {
+}
+
+Asset::Asset(const Asset& other) : pimpl(std::make_unique<Impl>(*other.pimpl)) {
+}
+
+Asset::Asset(Asset&& other) noexcept = default;
+
+Asset::~Asset() = default;
 
 void Asset::deserialize(const std::string& json) {
-    rapidjson::Document document;
-    document.Parse(json.c_str());
-    if (document.IsObject()) {
-        if (document.HasMember(ID_KEY) && document[ID_KEY].IsString()) {
-            id.emplace(document[ID_KEY].GetString());
-        }
-        if (document.HasMember(NAME_KEY) && document[NAME_KEY].IsString()) {
-            name.emplace(document[NAME_KEY].GetString());
-        }
-        if (document.HasMember(STATE_DATA_KEY) && document[STATE_DATA_KEY].IsObject()) {
-            state_data.emplace(utils::get_object_as_type<AssetStateData>(document, STATE_DATA_KEY));
-        }
-        if (document.HasMember(CONFIG_DATA_KEY) && document[CONFIG_DATA_KEY].IsObject()) {
-            config_data.emplace(utils::get_object_as_type<AssetConfigData>(document, CONFIG_DATA_KEY));
-        }
-        if (document.HasMember(VARIANT_MODE_KEY) && document[VARIANT_MODE_KEY].IsString()) {
-            variant_mode.emplace(utils::deserialize_asset_variant_mode(document[VARIANT_MODE_KEY].GetString()));
-        }
-        if (document.HasMember(VARIANTS_KEY) && document[VARIANTS_KEY].IsArray()) {
-            variants.emplace(utils::get_array_as_type_vector<AssetVariant>(document, VARIANTS_KEY));
-        }
-        if (document.HasMember(CREATED_AT_KEY) && document[CREATED_AT_KEY].IsString()) {
-            created_at.emplace(document[CREATED_AT_KEY].GetString());
-        }
-        if (document.HasMember(UPDATED_AT_KEY) && document[UPDATED_AT_KEY].IsString()) {
-            updated_at.emplace(document[UPDATED_AT_KEY].GetString());
-        }
-    }
+    pimpl->deserialize(json);
 }
 
 const std::optional<std::string>& Asset::get_id() const {
-    return id;
+    return pimpl->get_id();
 }
 
 const std::optional<std::string>& Asset::get_name() const {
-    return name;
+    return pimpl->get_name();
 }
 
 const std::optional<AssetStateData>& Asset::get_state_data() const {
-    return state_data;
+    return pimpl->get_state_data();
 }
 
 const std::optional<AssetConfigData>& Asset::get_config_data() const {
-    return config_data;
+    return pimpl->get_config_data();
 }
 
 const std::optional<AssetVariantMode>& Asset::get_variant_mode() const {
-    return variant_mode;
+    return pimpl->get_variant_mode();
 }
 
 const std::optional<std::vector<AssetVariant>>& Asset::get_variants() const {
-    return variants;
+    return pimpl->get_variants();
 }
 
 const std::optional<std::string>& Asset::get_created_at() const {
-    return created_at;
+    return pimpl->get_created_at();
 }
 
 const std::optional<std::string>& Asset::get_updated_at() const {
-    return updated_at;
+    return pimpl->get_updated_at();
 }
 
 bool Asset::operator==(const Asset& rhs) const {
-    return id == rhs.id &&
-           name == rhs.name &&
-           state_data == rhs.state_data &&
-           config_data == rhs.config_data &&
-           variant_mode == rhs.variant_mode &&
-           variants == rhs.variants &&
-           created_at == rhs.created_at &&
-           updated_at == rhs.updated_at;
+    return *pimpl == *rhs.pimpl;
 }
 
 bool Asset::operator!=(const Asset& rhs) const {
-    return !(rhs == *this);
+    return *pimpl != *rhs.pimpl;
 }
 
+Asset& Asset::operator=(const Asset& rhs) {
+    pimpl = std::make_unique<Impl>(*rhs.pimpl);
+    return *this;
 }

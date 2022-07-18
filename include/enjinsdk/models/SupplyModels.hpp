@@ -18,6 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/IDeserializable.hpp"
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -26,10 +27,19 @@ namespace enjin::sdk::models {
 /// \brief Models the supply models used by the platform.
 class ENJINSDK_EXPORT SupplyModels : public serialization::IDeserializable {
 public:
-    /// \brief Default constructor.
-    SupplyModels() = default;
+    /// \brief Constructs an instance of this class.
+    SupplyModels();
 
-    ~SupplyModels() override = default;
+    /// \brief Constructs an instance as a copy of another.
+    /// \param other The other instance.
+    SupplyModels(const SupplyModels& other);
+
+    /// \brief Constructs an instance via move.
+    /// \param other The other instance being moved.
+    SupplyModels(SupplyModels&& other) noexcept;
+
+    /// \brief Deconstructs this instance.
+    ~SupplyModels() override;
 
     void deserialize(const std::string& json) override;
 
@@ -61,20 +71,12 @@ public:
 
     bool operator!=(const SupplyModels& rhs) const;
 
-private:
-    std::optional<std::string> fixed;
-    std::optional<std::string> settable;
-    std::optional<std::string> infinite;
-    std::optional<std::string> collapsing;
-    std::optional<std::string> annual_value;
-    std::optional<std::string> annual_percentage;
+    SupplyModels& operator=(const SupplyModels& rhs);
 
-    constexpr static char FIXED_KEY[] = "fixed";
-    constexpr static char SETTABLE_KEY[] = "settable";
-    constexpr static char INFINITE_KEY[] = "infinite";
-    constexpr static char COLLAPSING_KEY[] = "collapsing";
-    constexpr static char ANNUAL_VALUE_KEY[] = "annualValue";
-    constexpr static char ANNUAL_PERCENTAGE_KEY[] = "annualPercentage";
+private:
+    class Impl;
+
+    std::unique_ptr<Impl> pimpl;
 };
 
 }

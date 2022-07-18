@@ -34,7 +34,7 @@ public:
 
     static AdvancedSendAsset create_default_request() {
         AdvancedSendAsset request = AdvancedSendAsset()
-                .set_transfers(std::vector<Transfer>())
+                .set_transfers(std::vector<TransferInput>())
                 .set_data("1");
         set_transaction_fragment_arguments(request);
         return request;
@@ -43,7 +43,7 @@ public:
 
 TEST_F(PlayerAdvancedSendAssetTest, SerializeNoSetFieldsReturnsEmptyJsonObject) {
     // Arrange
-    const std::string expected(EMPTY_JSON_OBJECT);
+    const std::string expected(EmptyJsonObject);
 
     // Act
     std::string actual = class_under_test.serialize();
@@ -55,7 +55,7 @@ TEST_F(PlayerAdvancedSendAssetTest, SerializeNoSetFieldsReturnsEmptyJsonObject) 
 TEST_F(PlayerAdvancedSendAssetTest, SerializeSetFieldsReturnsExpectedJsonObject) {
     // Arrange
     const std::string expected(POPULATED_JSON_OBJECT);
-    class_under_test.set_transfers(std::vector<Transfer>())
+    class_under_test.set_transfers(std::vector<TransferInput>())
                     .set_data("1");
 
     // Act

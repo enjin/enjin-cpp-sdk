@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/models/Melt.hpp"
+#include "enjinsdk/models/MeltInput.hpp"
 #include "enjinsdk/shared/TransactionFragmentArguments.hpp"
 #include <optional>
 #include <vector>
@@ -39,19 +39,23 @@ public:
     /// Sets the melts to be performed.
     /// \param melts The melts.
     /// \return This request for chaining.
-    MeltAsset& set_melts(std::vector<models::Melt> melts);
+    MeltAsset& set_melts(std::vector<models::MeltInput> melts);
+
+    [[nodiscard]] json::JsonValue to_json() const override;
 
     bool operator==(const MeltAsset& rhs) const;
 
     bool operator!=(const MeltAsset& rhs) const;
 
 private:
-    std::optional<std::vector<models::Melt>> melts;
+    std::optional<std::vector<models::MeltInput>> melts_opt;
 };
 
 }
 
 namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
 
 template ENJINSDK_EXPORT player::MeltAsset&
 TransactionFragmentArguments<player::MeltAsset>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
@@ -94,6 +98,8 @@ TransactionFragmentArguments<player::MeltAsset>::set_with_transaction_project_uu
 
 template ENJINSDK_EXPORT player::MeltAsset&
 TransactionFragmentArguments<player::MeltAsset>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

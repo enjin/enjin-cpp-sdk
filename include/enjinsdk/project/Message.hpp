@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request to sign a message to prove wallet ownership.
 class ENJINSDK_EXPORT Message : public graphql::AbstractGraphqlRequest,
-                                public ProjectTransactionRequestArguments<Message> {
+                                public TransactionRequestArguments<Message> {
 public:
     /// \brief Default constructor.
     Message();
@@ -38,47 +38,74 @@ public:
     /// \brief Sets the message to sign.
     /// \param message The message.
     /// \return This request for chaining.
-    Message& set_message(const std::string& message);
+    Message& set_message(std::string message);
+
+    [[nodiscard]] json::JsonValue to_json() const override;
 
     bool operator==(const Message& rhs) const;
 
     bool operator!=(const Message& rhs) const;
 
 private:
-    std::optional<std::string> message;
+    std::optional<std::string> message_opt;
 };
 
-template ENJINSDK_EXPORT Message&
-ProjectTransactionRequestArguments<Message>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
-
-template ENJINSDK_EXPORT Message& ProjectTransactionRequestArguments<Message>::set_with_blockchain_data();
-
-template ENJINSDK_EXPORT Message& ProjectTransactionRequestArguments<Message>::set_with_meta();
-
-template ENJINSDK_EXPORT Message& ProjectTransactionRequestArguments<Message>::set_with_encoded_data();
-
-template ENJINSDK_EXPORT Message& ProjectTransactionRequestArguments<Message>::set_with_asset_data();
-
-template ENJINSDK_EXPORT Message& ProjectTransactionRequestArguments<Message>::set_with_signed_txs();
-
-template ENJINSDK_EXPORT Message& ProjectTransactionRequestArguments<Message>::set_with_error();
-
-template ENJINSDK_EXPORT Message& ProjectTransactionRequestArguments<Message>::set_with_nonce();
-
-template ENJINSDK_EXPORT Message& ProjectTransactionRequestArguments<Message>::set_with_state();
-
-template ENJINSDK_EXPORT Message& ProjectTransactionRequestArguments<Message>::set_with_receipt();
-
-template ENJINSDK_EXPORT Message& ProjectTransactionRequestArguments<Message>::set_with_receipt_logs();
-
-template ENJINSDK_EXPORT Message& ProjectTransactionRequestArguments<Message>::set_with_log_event();
-
-template ENJINSDK_EXPORT Message& ProjectTransactionRequestArguments<Message>::set_with_transaction_project_uuid();
-
-template ENJINSDK_EXPORT Message& ProjectTransactionRequestArguments<Message>::set_with_transaction_wallet_address();
+// region TransactionRequestArguments
 
 template ENJINSDK_EXPORT Message&
-ProjectTransactionRequestArguments<Message>::set_eth_address(const std::string& address);
+TransactionRequestArguments<Message>::set_eth_address(std::string address);
+
+// endregion TransactionRequestArguments
+
+}
+
+namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
+
+template ENJINSDK_EXPORT project::Message&
+TransactionFragmentArguments<project::Message>::set_transaction_asset_id_format(models::AssetIdFormat asset_id_format);
+
+template ENJINSDK_EXPORT project::Message&
+TransactionFragmentArguments<project::Message>::set_with_blockchain_data();
+
+template ENJINSDK_EXPORT project::Message&
+TransactionFragmentArguments<project::Message>::set_with_meta();
+
+template ENJINSDK_EXPORT project::Message&
+TransactionFragmentArguments<project::Message>::set_with_encoded_data();
+
+template ENJINSDK_EXPORT project::Message&
+TransactionFragmentArguments<project::Message>::set_with_asset_data();
+
+template ENJINSDK_EXPORT project::Message&
+TransactionFragmentArguments<project::Message>::set_with_signed_txs();
+
+template ENJINSDK_EXPORT project::Message&
+TransactionFragmentArguments<project::Message>::set_with_error();
+
+template ENJINSDK_EXPORT project::Message&
+TransactionFragmentArguments<project::Message>::set_with_nonce();
+
+template ENJINSDK_EXPORT project::Message&
+TransactionFragmentArguments<project::Message>::set_with_state();
+
+template ENJINSDK_EXPORT project::Message&
+TransactionFragmentArguments<project::Message>::set_with_receipt();
+
+template ENJINSDK_EXPORT project::Message&
+TransactionFragmentArguments<project::Message>::set_with_receipt_logs();
+
+template ENJINSDK_EXPORT project::Message&
+TransactionFragmentArguments<project::Message>::set_with_log_event();
+
+template ENJINSDK_EXPORT project::Message&
+TransactionFragmentArguments<project::Message>::set_with_transaction_project_uuid();
+
+template ENJINSDK_EXPORT project::Message&
+TransactionFragmentArguments<project::Message>::set_with_transaction_wallet_address();
+
+// endregion TransactionFragmentArguments
 
 }
 

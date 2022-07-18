@@ -15,38 +15,87 @@
 
 #include "enjinsdk/models/AccessToken.hpp"
 
-#include "rapidjson/document.h"
+#include "enjinsdk/JsonUtils.hpp"
+#include "enjinsdk/JsonValue.hpp"
 
-namespace enjin::sdk::models {
+using namespace enjin::sdk::json;
+using namespace enjin::sdk::models;
+using namespace enjin::sdk::serialization;
+using namespace enjin::sdk::utils;
+
+class AccessToken::Impl final : public IDeserializable {
+public:
+    Impl() = default;
+
+    ~Impl() override = default;
+
+    void deserialize(const std::string& json) override {
+        JsonValue json_object;
+
+        if (!json_object.try_parse_as_object(json)) {
+            token.reset();
+            expires_in.reset();
+
+            return;
+        }
+
+        JsonUtils::try_get_field(json_object, "accessToken", token);
+        JsonUtils::try_get_field(json_object, "expiresIn", expires_in);
+    }
+
+    [[nodiscard]] const std::optional<std::string>& get_token() const {
+        return token;
+    }
+
+    [[nodiscard]] const std::optional<long>& get_expires_in() const {
+        return expires_in;
+    }
+
+    bool operator==(const Impl& rhs) const {
+        return token == rhs.token
+               && expires_in == rhs.expires_in;
+    }
+
+    bool operator!=(const Impl& rhs) const {
+        return !(*this == rhs);
+    }
+
+private:
+    std::optional<std::string> token;
+    std::optional<long> expires_in;
+};
+
+AccessToken::AccessToken() : pimpl(std::make_unique<Impl>()) {
+}
+
+AccessToken::AccessToken(const AccessToken& other) : pimpl(std::make_unique<Impl>(*other.pimpl)) {
+}
+
+AccessToken::AccessToken(AccessToken&& other) noexcept = default;
+
+AccessToken::~AccessToken() = default;
 
 void AccessToken::deserialize(const std::string& json) {
-    rapidjson::Document document;
-    document.Parse(json.c_str());
-    if (document.IsObject()) {
-        if (document.HasMember(TOKEN_KEY) && document[TOKEN_KEY].IsString()) {
-            token.emplace(document[TOKEN_KEY].GetString());
-        }
-        if (document.HasMember(EXPIRES_IN_KEY) && document[EXPIRES_IN_KEY].IsInt()) {
-            expires_in.emplace(document[EXPIRES_IN_KEY].GetInt());
-        }
-    }
+    pimpl->deserialize(json);
 }
 
 const std::optional<std::string>& AccessToken::get_token() const {
-    return token;
+    return pimpl->get_token();
 }
 
 const std::optional<long>& AccessToken::get_expires_in() const {
-    return expires_in;
+    return pimpl->get_expires_in();
 }
 
 bool AccessToken::operator==(const AccessToken& rhs) const {
-    return token == rhs.token &&
-           expires_in == rhs.expires_in;
+    return *pimpl == *rhs.pimpl;
 }
 
 bool AccessToken::operator!=(const AccessToken& rhs) const {
-    return !(rhs == *this);
+    return *pimpl != *rhs.pimpl;
 }
 
+AccessToken& AccessToken::operator=(const AccessToken& rhs) {
+    pimpl = std::make_unique<Impl>(*rhs.pimpl);
+    return *this;
 }

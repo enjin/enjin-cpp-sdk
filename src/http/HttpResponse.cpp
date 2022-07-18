@@ -20,31 +20,12 @@
 
 namespace enjin::sdk::http {
 
-HttpResponse HttpResponseBuilder::build() {
-    return HttpResponse(m_code, m_body, m_content_type);
-}
-
-HttpResponseBuilder& HttpResponseBuilder::code(uint16_t code) {
-    m_code = std::optional<uint16_t>(code);
-    return *this;
-}
-
-HttpResponseBuilder& HttpResponseBuilder::body(const std::string& body) {
-    m_body = std::optional<std::string>(body);
-    return *this;
-}
-
-HttpResponseBuilder& HttpResponseBuilder::content_type(const std::string& content_type) {
-    m_content_type = std::optional<std::string>(content_type);
-    return *this;
-}
-
-HttpResponse::HttpResponse(std::optional<uint16_t> code,
+HttpResponse::HttpResponse(std::optional<unsigned short> code,
                            std::optional<std::string> body,
-                           std::optional<std::string> content_type) :
-        code(code),
-        body(std::move(body)),
-        content_type(std::move(content_type)) {
+                           std::map<std::string, std::string> headers)
+        : code(code),
+          body(std::move(body)),
+          headers(std::move(headers)) {
 }
 
 bool HttpResponse::is_success() const {
@@ -70,18 +51,51 @@ const std::optional<std::string>& HttpResponse::get_body() const {
     return body;
 }
 
-const std::optional<std::string>& HttpResponse::get_content_type() const {
-    return content_type;
+const std::map<std::string, std::string>& HttpResponse::get_headers() const {
+    return headers;
+}
+
+std::optional<std::string> HttpResponse::get_header_value(const std::string& name) const {
+    return has_header(name)
+           ? std::optional<std::string>(headers.at(name))
+           : std::optional<std::string>();
+}
+
+bool HttpResponse::has_header(const std::string& name) const noexcept {
+    return headers.find(name) != headers.end();
 }
 
 bool HttpResponse::operator==(const HttpResponse& rhs) const {
     return code == rhs.code &&
            body == rhs.body &&
-           content_type == rhs.content_type;
+           headers == rhs.headers;
 }
 
 bool HttpResponse::operator!=(const HttpResponse& rhs) const {
     return !(rhs == *this);
+}
+
+HttpResponse::HttpResponseBuilder HttpResponse::builder() {
+    return {};
+}
+
+HttpResponse HttpResponse::HttpResponseBuilder::build() {
+    return {m_code, std::move(m_body), std::move(headers)};
+}
+
+HttpResponse::HttpResponseBuilder& HttpResponse::HttpResponseBuilder::code(unsigned short code) {
+    m_code = code;
+    return *this;
+}
+
+HttpResponse::HttpResponseBuilder& HttpResponse::HttpResponseBuilder::body(std::string body) {
+    m_body = std::move(body);
+    return *this;
+}
+
+HttpResponse::HttpResponseBuilder& HttpResponse::HttpResponseBuilder::add_header(std::string name, std::string value) {
+    headers.emplace(std::move(name), std::move(value));
+    return *this;
 }
 
 }

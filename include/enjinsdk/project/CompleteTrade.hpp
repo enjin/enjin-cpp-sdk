@@ -18,7 +18,7 @@
 
 #include "enjinsdk_export.h"
 #include "enjinsdk/internal/AbstractGraphqlRequest.hpp"
-#include "enjinsdk/project/ProjectTransactionRequestArguments.hpp"
+#include "enjinsdk/project/TransactionRequestArguments.hpp"
 #include <optional>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace enjin::sdk::project {
 
 /// \brief Request for completing a trade between two wallets.
 class ENJINSDK_EXPORT CompleteTrade : public graphql::AbstractGraphqlRequest,
-                                      public ProjectTransactionRequestArguments<CompleteTrade> {
+                                      public TransactionRequestArguments<CompleteTrade> {
 public:
     /// \brief Default constructor.
     CompleteTrade();
@@ -38,50 +38,75 @@ public:
     /// \brief Sets the trade ID.
     /// \param id The ID.
     /// \return This request for chaining.
-    CompleteTrade& set_trade_id(const std::string& id);
+    CompleteTrade& set_trade_id(std::string id);
+
+    [[nodiscard]] json::JsonValue to_json() const override;
 
     bool operator==(const CompleteTrade& rhs) const;
 
     bool operator!=(const CompleteTrade& rhs) const;
 
 private:
-    std::optional<std::string> trade_id;
+    std::optional<std::string> trade_id_opt;
 };
 
+// region TransactionRequestArguments
+
 template ENJINSDK_EXPORT CompleteTrade&
-ProjectTransactionRequestArguments<CompleteTrade>::set_transaction_asset_id_format(
+TransactionRequestArguments<CompleteTrade>::set_eth_address(std::string address);
+
+// endregion TransactionRequestArguments
+
+}
+
+namespace enjin::sdk::shared {
+
+// region TransactionFragmentArguments
+
+template ENJINSDK_EXPORT project::CompleteTrade&
+TransactionFragmentArguments<project::CompleteTrade>::set_transaction_asset_id_format(
         models::AssetIdFormat asset_id_format);
 
-template ENJINSDK_EXPORT CompleteTrade& ProjectTransactionRequestArguments<CompleteTrade>::set_with_blockchain_data();
+template ENJINSDK_EXPORT project::CompleteTrade&
+TransactionFragmentArguments<project::CompleteTrade>::set_with_blockchain_data();
 
-template ENJINSDK_EXPORT CompleteTrade& ProjectTransactionRequestArguments<CompleteTrade>::set_with_meta();
+template ENJINSDK_EXPORT project::CompleteTrade&
+TransactionFragmentArguments<project::CompleteTrade>::set_with_meta();
 
-template ENJINSDK_EXPORT CompleteTrade& ProjectTransactionRequestArguments<CompleteTrade>::set_with_encoded_data();
+template ENJINSDK_EXPORT project::CompleteTrade&
+TransactionFragmentArguments<project::CompleteTrade>::set_with_encoded_data();
 
-template ENJINSDK_EXPORT CompleteTrade& ProjectTransactionRequestArguments<CompleteTrade>::set_with_asset_data();
+template ENJINSDK_EXPORT project::CompleteTrade&
+TransactionFragmentArguments<project::CompleteTrade>::set_with_asset_data();
 
-template ENJINSDK_EXPORT CompleteTrade& ProjectTransactionRequestArguments<CompleteTrade>::set_with_signed_txs();
+template ENJINSDK_EXPORT project::CompleteTrade&
+TransactionFragmentArguments<project::CompleteTrade>::set_with_signed_txs();
 
-template ENJINSDK_EXPORT CompleteTrade& ProjectTransactionRequestArguments<CompleteTrade>::set_with_error();
+template ENJINSDK_EXPORT project::CompleteTrade&
+TransactionFragmentArguments<project::CompleteTrade>::set_with_error();
 
-template ENJINSDK_EXPORT CompleteTrade& ProjectTransactionRequestArguments<CompleteTrade>::set_with_nonce();
+template ENJINSDK_EXPORT project::CompleteTrade&
+TransactionFragmentArguments<project::CompleteTrade>::set_with_nonce();
 
-template ENJINSDK_EXPORT CompleteTrade& ProjectTransactionRequestArguments<CompleteTrade>::set_with_state();
+template ENJINSDK_EXPORT project::CompleteTrade&
+TransactionFragmentArguments<project::CompleteTrade>::set_with_state();
 
-template ENJINSDK_EXPORT CompleteTrade& ProjectTransactionRequestArguments<CompleteTrade>::set_with_receipt();
+template ENJINSDK_EXPORT project::CompleteTrade&
+TransactionFragmentArguments<project::CompleteTrade>::set_with_receipt();
 
-template ENJINSDK_EXPORT CompleteTrade& ProjectTransactionRequestArguments<CompleteTrade>::set_with_receipt_logs();
+template ENJINSDK_EXPORT project::CompleteTrade&
+TransactionFragmentArguments<project::CompleteTrade>::set_with_receipt_logs();
 
-template ENJINSDK_EXPORT CompleteTrade& ProjectTransactionRequestArguments<CompleteTrade>::set_with_log_event();
+template ENJINSDK_EXPORT project::CompleteTrade&
+TransactionFragmentArguments<project::CompleteTrade>::set_with_log_event();
 
-template ENJINSDK_EXPORT CompleteTrade&
-ProjectTransactionRequestArguments<CompleteTrade>::set_with_transaction_project_uuid();
+template ENJINSDK_EXPORT project::CompleteTrade&
+TransactionFragmentArguments<project::CompleteTrade>::set_with_transaction_project_uuid();
 
-template ENJINSDK_EXPORT CompleteTrade&
-ProjectTransactionRequestArguments<CompleteTrade>::set_with_transaction_wallet_address();
+template ENJINSDK_EXPORT project::CompleteTrade&
+TransactionFragmentArguments<project::CompleteTrade>::set_with_transaction_wallet_address();
 
-template ENJINSDK_EXPORT CompleteTrade&
-ProjectTransactionRequestArguments<CompleteTrade>::set_eth_address(const std::string& address);
+// endregion TransactionFragmentArguments
 
 }
 
