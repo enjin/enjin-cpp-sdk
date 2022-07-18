@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.1006</span>
+   &#160;<span id="projectnumber">1.0.0.2000</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -91,21 +91,26 @@ $(function() {
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#define ENJINCPPSDK_SERIALIZABLE_HPP</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;enjinsdk_export.h&quot;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>enjin::sdk::serialization {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1serialization_1_1_i_serializable.html">   25</a></span>&#160;<span class="keyword">class </span>ENJINSDK_EXPORT <a class="code" href="classenjin_1_1sdk_1_1serialization_1_1_i_serializable.html">ISerializable</a> {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1serialization_1_1_i_serializable.html#a62e6cbf7c1dcd355b6533c47e7c01248">   28</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classenjin_1_1sdk_1_1serialization_1_1_i_serializable.html#a62e6cbf7c1dcd355b6533c47e7c01248">~ISerializable</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1serialization_1_1_i_serializable.html#afaf8116d2ecdd89c9d491bb16fee9f8d">   33</a></span>&#160;    [[nodiscard]] <span class="keyword">virtual</span> std::string <a class="code" href="classenjin_1_1sdk_1_1serialization_1_1_i_serializable.html#afaf8116d2ecdd89c9d491bb16fee9f8d">serialize</a>() <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;};</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;enjinsdk/JsonValue.hpp&quot;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">namespace </span>enjin::sdk::serialization {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1serialization_1_1_i_serializable.html">   26</a></span>&#160;<span class="keyword">class </span>ENJINSDK_EXPORT <a class="code" href="classenjin_1_1sdk_1_1serialization_1_1_i_serializable.html">ISerializable</a> {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1serialization_1_1_i_serializable.html#a62e6cbf7c1dcd355b6533c47e7c01248">   29</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classenjin_1_1sdk_1_1serialization_1_1_i_serializable.html#a62e6cbf7c1dcd355b6533c47e7c01248">~ISerializable</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1serialization_1_1_i_serializable.html#afaf8116d2ecdd89c9d491bb16fee9f8d">   34</a></span>&#160;    [[nodiscard]] <span class="keyword">virtual</span> std::string <a class="code" href="classenjin_1_1sdk_1_1serialization_1_1_i_serializable.html#afaf8116d2ecdd89c9d491bb16fee9f8d">serialize</a>() <span class="keyword">const</span> = 0;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//ENJINCPPSDK_SERIALIZABLE_HPP</span></div>
-<div class="ttc" id="aclassenjin_1_1sdk_1_1serialization_1_1_i_serializable_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1serialization_1_1_i_serializable.html">enjin::sdk::serialization::ISerializable</a></div><div class="ttdoc">Interface for serialization.</div><div class="ttdef"><b>Definition:</b> ISerializable.hpp:25</div></div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1serialization_1_1_i_serializable.html#a3a4409941ab2338c9dc481ab6b0a4631">   38</a></span>&#160;    [[nodiscard]] <span class="keyword">virtual</span> <a class="code" href="classenjin_1_1sdk_1_1json_1_1_json_value.html">json::JsonValue</a> <a class="code" href="classenjin_1_1sdk_1_1serialization_1_1_i_serializable.html#a3a4409941ab2338c9dc481ab6b0a4631">to_json</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//ENJINCPPSDK_SERIALIZABLE_HPP</span></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1json_1_1_json_value_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1json_1_1_json_value.html">enjin::sdk::json::JsonValue</a></div><div class="ttdoc">Public API class for JSON functionality needed by this SDK.</div><div class="ttdef"><b>Definition:</b> JsonValue.hpp:28</div></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1serialization_1_1_i_serializable_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1serialization_1_1_i_serializable.html">enjin::sdk::serialization::ISerializable</a></div><div class="ttdoc">Interface for serialization.</div><div class="ttdef"><b>Definition:</b> ISerializable.hpp:26</div></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1serialization_1_1_i_serializable_html_a3a4409941ab2338c9dc481ab6b0a4631"><div class="ttname"><a href="classenjin_1_1sdk_1_1serialization_1_1_i_serializable.html#a3a4409941ab2338c9dc481ab6b0a4631">enjin::sdk::serialization::ISerializable::to_json</a></div><div class="ttdeci">virtual json::JsonValue to_json() const =0</div><div class="ttdoc">Returns a JSON value representing this object.</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1serialization_1_1_i_serializable_html_a62e6cbf7c1dcd355b6533c47e7c01248"><div class="ttname"><a href="classenjin_1_1sdk_1_1serialization_1_1_i_serializable.html#a62e6cbf7c1dcd355b6533c47e7c01248">enjin::sdk::serialization::ISerializable::~ISerializable</a></div><div class="ttdeci">virtual ~ISerializable()=default</div><div class="ttdoc">Default destructor.</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1serialization_1_1_i_serializable_html_afaf8116d2ecdd89c9d491bb16fee9f8d"><div class="ttname"><a href="classenjin_1_1sdk_1_1serialization_1_1_i_serializable.html#afaf8116d2ecdd89c9d491bb16fee9f8d">enjin::sdk::serialization::ISerializable::serialize</a></div><div class="ttdeci">virtual std::string serialize() const =0</div><div class="ttdoc">Returns a JSON string with this object's data.</div></div>
 </div><!-- fragment --></div><!-- contents -->

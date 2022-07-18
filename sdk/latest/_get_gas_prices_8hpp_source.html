@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.1006</span>
+   &#160;<span id="projectnumber">1.0.0.2000</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -103,16 +103,20 @@ $(function() {
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1shared_1_1_get_gas_prices.html#ac1e1f02e5522e3948490a73b29cc4a7d">   32</a></span>&#160;    [[nodiscard]] std::string <a class="code" href="classenjin_1_1sdk_1_1shared_1_1_get_gas_prices.html#ac1e1f02e5522e3948490a73b29cc4a7d">serialize</a>() <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1shared_1_1_get_gas_prices.html">GetGasPrices</a>&amp; rhs) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1shared_1_1_get_gas_prices.html#a7864581e89fc2cf4dd89801c9194810f">   34</a></span>&#160;    [[nodiscard]] <a class="code" href="classenjin_1_1sdk_1_1json_1_1_json_value.html">json::JsonValue</a> <a class="code" href="classenjin_1_1sdk_1_1shared_1_1_get_gas_prices.html#a7864581e89fc2cf4dd89801c9194810f">to_json</a>() <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1shared_1_1_get_gas_prices.html">GetGasPrices</a>&amp; rhs) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1shared_1_1_get_gas_prices.html">GetGasPrices</a>&amp; rhs) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1shared_1_1_get_gas_prices.html">GetGasPrices</a>&amp; rhs) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//ENJINCPPSDK_SHAREDGETGASPRICES_HPP</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//ENJINCPPSDK_SHAREDGETGASPRICES_HPP</span></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_request_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_request.html">enjin::sdk::graphql::AbstractGraphqlRequest</a></div><div class="ttdoc">Base class for representing a GraphQL request to the platform.</div><div class="ttdef"><b>Definition:</b> AbstractGraphqlRequest.hpp:27</div></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1json_1_1_json_value_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1json_1_1_json_value.html">enjin::sdk::json::JsonValue</a></div><div class="ttdoc">Public API class for JSON functionality needed by this SDK.</div><div class="ttdef"><b>Definition:</b> JsonValue.hpp:28</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1shared_1_1_get_gas_prices_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1shared_1_1_get_gas_prices.html">enjin::sdk::shared::GetGasPrices</a></div><div class="ttdoc">Request for getting the latest gas prices.</div><div class="ttdef"><b>Definition:</b> GetGasPrices.hpp:25</div></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1shared_1_1_get_gas_prices_html_a7864581e89fc2cf4dd89801c9194810f"><div class="ttname"><a href="classenjin_1_1sdk_1_1shared_1_1_get_gas_prices.html#a7864581e89fc2cf4dd89801c9194810f">enjin::sdk::shared::GetGasPrices::to_json</a></div><div class="ttdeci">json::JsonValue to_json() const override</div><div class="ttdoc">Returns a JSON value representing this object.</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1shared_1_1_get_gas_prices_html_ac1e1f02e5522e3948490a73b29cc4a7d"><div class="ttname"><a href="classenjin_1_1sdk_1_1shared_1_1_get_gas_prices.html#ac1e1f02e5522e3948490a73b29cc4a7d">enjin::sdk::shared::GetGasPrices::serialize</a></div><div class="ttdeci">std::string serialize() const override</div><div class="ttdoc">Returns a JSON string with this object's data.</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1shared_1_1_get_gas_prices_html_ad201774cb5adede8480f90f4f22329cc"><div class="ttname"><a href="classenjin_1_1sdk_1_1shared_1_1_get_gas_prices.html#ad201774cb5adede8480f90f4f22329cc">enjin::sdk::shared::GetGasPrices::GetGasPrices</a></div><div class="ttdeci">GetGasPrices()</div><div class="ttdoc">Default constructor.</div></div>
 </div><!-- fragment --></div><!-- contents -->

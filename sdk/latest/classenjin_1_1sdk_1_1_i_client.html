@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.1006</span>
+   &#160;<span id="projectnumber">1.0.0.2000</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -91,9 +91,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1_i_client.html#a9474a6c1796884922ca0b86cd9ede3f1">close</a> ()=0</td></tr>
 <tr class="memdesc:a9474a6c1796884922ca0b86cd9ede3f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes this client. <br /></td></tr>
 <tr class="separator:a9474a6c1796884922ca0b86cd9ede3f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82971b0afb8a6499b25369233794479a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1_i_client.html#a82971b0afb8a6499b25369233794479a">auth</a> (const std::string &amp;token)=0</td></tr>
-<tr class="memdesc:a82971b0afb8a6499b25369233794479a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Authenticates this client with the given token.  <a href="classenjin_1_1sdk_1_1_i_client.html#a82971b0afb8a6499b25369233794479a">More...</a><br /></td></tr>
-<tr class="separator:a82971b0afb8a6499b25369233794479a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bd45f1f8cc0483d533ca2397dfba647"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1_i_client.html#a9bd45f1f8cc0483d533ca2397dfba647">auth</a> (std::string token)=0</td></tr>
+<tr class="memdesc:a9bd45f1f8cc0483d533ca2397dfba647"><td class="mdescLeft">&#160;</td><td class="mdescRight">Authenticates this client with the given token.  <a href="classenjin_1_1sdk_1_1_i_client.html#a9bd45f1f8cc0483d533ca2397dfba647">More...</a><br /></td></tr>
+<tr class="separator:a9bd45f1f8cc0483d533ca2397dfba647"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a648e79d0063c1c4688c6048233d4cd99"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1_i_client.html#a648e79d0063c1c4688c6048233d4cd99">is_authenticated</a> () const =0</td></tr>
 <tr class="memdesc:a648e79d0063c1c4688c6048233d4cd99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if this client is authenticated.  <a href="classenjin_1_1sdk_1_1_i_client.html#a648e79d0063c1c4688c6048233d4cd99">More...</a><br /></td></tr>
 <tr class="separator:a648e79d0063c1c4688c6048233d4cd99"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -104,8 +104,8 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for client implementation. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a82971b0afb8a6499b25369233794479a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82971b0afb8a6499b25369233794479a">&#9670;&nbsp;</a></span>auth()</h2>
+<a id="a9bd45f1f8cc0483d533ca2397dfba647"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bd45f1f8cc0483d533ca2397dfba647">&#9670;&nbsp;</a></span>auth()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -116,7 +116,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
         <tr>
           <td class="memname">virtual void enjin::sdk::IClient::auth </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>token</em></td><td>)</td>
           <td></td>
         </tr>
@@ -136,7 +136,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classenjin_1_1sdk_1_1_project_client.html#ada2f526483ed8d1b430fe88230403e53">enjin::sdk::ProjectClient</a>, and <a class="el" href="classenjin_1_1sdk_1_1_player_client.html#a2bcfc7c3453d62b49770d06307af541f">enjin::sdk::PlayerClient</a>.</p>
+<p>Implemented in <a class="el" href="classenjin_1_1sdk_1_1_project_client.html#a6f7e3981843ccee721d953ca73d4e2ef">enjin::sdk::ProjectClient</a>, and <a class="el" href="classenjin_1_1sdk_1_1_player_client.html#a23c303e2b41d0c668db84abc7a3a4c07">enjin::sdk::PlayerClient</a>.</p>
 
 </div>
 </div>

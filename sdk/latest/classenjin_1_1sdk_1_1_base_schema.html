@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.1006</span>
+   &#160;<span id="projectnumber">1.0.0.2000</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -85,6 +85,12 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:aa8d2c3f37649454cf7f4625a0f1744f9"><td class="memItemLeft" align="right" valign="top"><a id="aa8d2c3f37649454cf7f4625a0f1744f9"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>BaseSchema</b> (const <a class="el" href="classenjin_1_1sdk_1_1_base_schema.html">BaseSchema</a> &amp;)=delete</td></tr>
+<tr class="separator:aa8d2c3f37649454cf7f4625a0f1744f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a741885042007110852015e9131e76011"><td class="memItemLeft" align="right" valign="top"><a id="a741885042007110852015e9131e76011"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>BaseSchema</b> (<a class="el" href="classenjin_1_1sdk_1_1_base_schema.html">BaseSchema</a> &amp;&amp;)=delete</td></tr>
+<tr class="separator:a741885042007110852015e9131e76011"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19a36241174c08dbcafbb5e0d03d0ee2"><td class="memItemLeft" align="right" valign="top"><a id="a19a36241174c08dbcafbb5e0d03d0ee2"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1_base_schema.html#a19a36241174c08dbcafbb5e0d03d0ee2">~BaseSchema</a> ()=default</td></tr>
 <tr class="memdesc:a19a36241174c08dbcafbb5e0d03d0ee2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor. <br /></td></tr>
@@ -95,9 +101,9 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a1f69d2f397770a45f59726c87901722b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1_base_schema.html#a1f69d2f397770a45f59726c87901722b">BaseSchema</a> (<a class="el" href="classenjin_1_1sdk_1_1_trusted_platform_middleware.html">TrustedPlatformMiddleware</a> <a class="el" href="classenjin_1_1sdk_1_1_base_schema.html#a7b11700f2bd3fb4a58dac5f173b39964">middleware</a>, std::string <a class="el" href="classenjin_1_1sdk_1_1_base_schema.html#aeb0f467ed6e97f37736d74b2441cd9fd">schema</a>, std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1utils_1_1_logger_provider.html">utils::LoggerProvider</a> &gt; <a class="el" href="classenjin_1_1sdk_1_1_base_schema.html#ac0200319e886084ea8b5d8a823deef22">logger_provider</a>=nullptr)</td></tr>
-<tr class="memdesc:a1f69d2f397770a45f59726c87901722b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sole constructor for a base schema.  <a href="classenjin_1_1sdk_1_1_base_schema.html#a1f69d2f397770a45f59726c87901722b">More...</a><br /></td></tr>
-<tr class="separator:a1f69d2f397770a45f59726c87901722b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cf1a307467faffd30622d58c10ae3bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1_base_schema.html#a6cf1a307467faffd30622d58c10ae3bb">BaseSchema</a> (std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1http_1_1_i_http_client.html">http::IHttpClient</a> &gt; http_client, std::string <a class="el" href="classenjin_1_1sdk_1_1_base_schema.html#a653ed252884087e1f16d967a6331712a">schema</a>, std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1utils_1_1_logger_provider.html">utils::LoggerProvider</a> &gt; <a class="el" href="classenjin_1_1sdk_1_1_base_schema.html#a06755ff965953ab04eef8b1da75fa83d">logger_provider</a>=nullptr)</td></tr>
+<tr class="memdesc:a6cf1a307467faffd30622d58c10ae3bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance of this class.  <a href="classenjin_1_1sdk_1_1_base_schema.html#a6cf1a307467faffd30622d58c10ae3bb">More...</a><br /></td></tr>
+<tr class="separator:a6cf1a307467faffd30622d58c10ae3bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b22347dd319b6ea8158f8366e296b0a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1_base_schema.html#a6b22347dd319b6ea8158f8366e296b0a">create_request_body</a> (<a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_request.html">graphql::AbstractGraphqlRequest</a> &amp;request) const</td></tr>
 <tr class="memdesc:a6b22347dd319b6ea8158f8366e296b0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the serialized request body to be sent to the platform.  <a href="classenjin_1_1sdk_1_1_base_schema.html#a6b22347dd319b6ea8158f8366e296b0a">More...</a><br /></td></tr>
 <tr class="separator:a6b22347dd319b6ea8158f8366e296b0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -115,24 +121,24 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a7b11700f2bd3fb4a58dac5f173b39964"><td class="memItemLeft" align="right" valign="top"><a id="a7b11700f2bd3fb4a58dac5f173b39964"></a>
-<a class="el" href="classenjin_1_1sdk_1_1_trusted_platform_middleware.html">TrustedPlatformMiddleware</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1_base_schema.html#a7b11700f2bd3fb4a58dac5f173b39964">middleware</a></td></tr>
-<tr class="memdesc:a7b11700f2bd3fb4a58dac5f173b39964"><td class="mdescLeft">&#160;</td><td class="mdescRight">The middleware for communicating with the platform. <br /></td></tr>
-<tr class="separator:a7b11700f2bd3fb4a58dac5f173b39964"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0200319e886084ea8b5d8a823deef22"><td class="memItemLeft" align="right" valign="top"><a id="ac0200319e886084ea8b5d8a823deef22"></a>
-std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1utils_1_1_logger_provider.html">utils::LoggerProvider</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1_base_schema.html#ac0200319e886084ea8b5d8a823deef22">logger_provider</a></td></tr>
-<tr class="memdesc:ac0200319e886084ea8b5d8a823deef22"><td class="mdescLeft">&#160;</td><td class="mdescRight">The logger provider. <br /></td></tr>
-<tr class="separator:ac0200319e886084ea8b5d8a823deef22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb0f467ed6e97f37736d74b2441cd9fd"><td class="memItemLeft" align="right" valign="top"><a id="aeb0f467ed6e97f37736d74b2441cd9fd"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1_base_schema.html#aeb0f467ed6e97f37736d74b2441cd9fd">schema</a></td></tr>
-<tr class="memdesc:aeb0f467ed6e97f37736d74b2441cd9fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of this schema. <br /></td></tr>
-<tr class="separator:aeb0f467ed6e97f37736d74b2441cd9fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e0d677947bc202dc024e5abac32e906"><td class="memItemLeft" align="right" valign="top"><a id="a5e0d677947bc202dc024e5abac32e906"></a>
+const std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1_client_middleware.html">ClientMiddleware</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1_base_schema.html#a5e0d677947bc202dc024e5abac32e906">middleware</a></td></tr>
+<tr class="memdesc:a5e0d677947bc202dc024e5abac32e906"><td class="mdescLeft">&#160;</td><td class="mdescRight">The middleware for communicating with the platform. <br /></td></tr>
+<tr class="separator:a5e0d677947bc202dc024e5abac32e906"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06755ff965953ab04eef8b1da75fa83d"><td class="memItemLeft" align="right" valign="top"><a id="a06755ff965953ab04eef8b1da75fa83d"></a>
+const std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1utils_1_1_logger_provider.html">utils::LoggerProvider</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1_base_schema.html#a06755ff965953ab04eef8b1da75fa83d">logger_provider</a></td></tr>
+<tr class="memdesc:a06755ff965953ab04eef8b1da75fa83d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The logger provider. <br /></td></tr>
+<tr class="separator:a06755ff965953ab04eef8b1da75fa83d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a653ed252884087e1f16d967a6331712a"><td class="memItemLeft" align="right" valign="top"><a id="a653ed252884087e1f16d967a6331712a"></a>
+const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1_base_schema.html#a653ed252884087e1f16d967a6331712a">schema</a></td></tr>
+<tr class="memdesc:a653ed252884087e1f16d967a6331712a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of this schema. <br /></td></tr>
+<tr class="separator:a653ed252884087e1f16d967a6331712a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class for schema with functionality to send GraphQL requests to the platform and process the responses. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1f69d2f397770a45f59726c87901722b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f69d2f397770a45f59726c87901722b">&#9670;&nbsp;</a></span>BaseSchema()</h2>
+<a id="a6cf1a307467faffd30622d58c10ae3bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cf1a307467faffd30622d58c10ae3bb">&#9670;&nbsp;</a></span>BaseSchema()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -143,8 +149,8 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
         <tr>
           <td class="memname">enjin::sdk::BaseSchema::BaseSchema </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classenjin_1_1sdk_1_1_trusted_platform_middleware.html">TrustedPlatformMiddleware</a>&#160;</td>
-          <td class="paramname"><em>middleware</em>, </td>
+          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1http_1_1_i_http_client.html">http::IHttpClient</a> &gt;&#160;</td>
+          <td class="paramname"><em>http_client</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -171,10 +177,10 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 </table>
 </div><div class="memdoc">
 
-<p>The sole constructor for a base schema. </p>
+<p>Constructs an instance of this class. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">middleware</td><td>The platform middleware. </td></tr>
+    <tr><td class="paramname">http_client</td><td>The HTTP client. </td></tr>
     <tr><td class="paramname">schema</td><td>The name of the schema. </td></tr>
     <tr><td class="paramname">logger_provider</td><td>The logger provider. Null pointer by default. </td></tr>
   </table>

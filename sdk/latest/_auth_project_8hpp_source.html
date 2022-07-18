@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.1006</span>
+   &#160;<span id="projectnumber">1.0.0.2000</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -105,28 +105,32 @@ $(function() {
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1project_1_1_auth_project.html#aaf80c71f3f604615db45078c6e64c783">   34</a></span>&#160;    [[nodiscard]] std::string <a class="code" href="classenjin_1_1sdk_1_1project_1_1_auth_project.html#aaf80c71f3f604615db45078c6e64c783">serialize</a>() <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1project_1_1_auth_project.html#a2654b74a92dbaff2561cb493265fc6c8">   39</a></span>&#160;    <a class="code" href="classenjin_1_1sdk_1_1project_1_1_auth_project.html">AuthProject</a>&amp; <a class="code" href="classenjin_1_1sdk_1_1project_1_1_auth_project.html#a2654b74a92dbaff2561cb493265fc6c8">set_uuid</a>(<span class="keyword">const</span> std::string&amp; uuid);</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1project_1_1_auth_project.html#a810981780dad85ad45b787e571b78855">   39</a></span>&#160;    <a class="code" href="classenjin_1_1sdk_1_1project_1_1_auth_project.html">AuthProject</a>&amp; <a class="code" href="classenjin_1_1sdk_1_1project_1_1_auth_project.html#a810981780dad85ad45b787e571b78855">set_uuid</a>(std::string uuid);</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1project_1_1_auth_project.html#a7ba6d2ed8e20143b867a4fdd0db20363">   44</a></span>&#160;    <a class="code" href="classenjin_1_1sdk_1_1project_1_1_auth_project.html">AuthProject</a>&amp; <a class="code" href="classenjin_1_1sdk_1_1project_1_1_auth_project.html#a7ba6d2ed8e20143b867a4fdd0db20363">set_secret</a>(<span class="keyword">const</span> std::string&amp; secret);</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1project_1_1_auth_project.html#a3ba0abd2e118363148cd25b669d8c0f3">   44</a></span>&#160;    <a class="code" href="classenjin_1_1sdk_1_1project_1_1_auth_project.html">AuthProject</a>&amp; <a class="code" href="classenjin_1_1sdk_1_1project_1_1_auth_project.html#a3ba0abd2e118363148cd25b669d8c0f3">set_secret</a>(std::string secret);</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1project_1_1_auth_project.html">AuthProject</a>&amp; rhs) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1project_1_1_auth_project.html#ab228624e4994011491419afdd2be46e3">   46</a></span>&#160;    [[nodiscard]] <a class="code" href="classenjin_1_1sdk_1_1json_1_1_json_value.html">json::JsonValue</a> <a class="code" href="classenjin_1_1sdk_1_1project_1_1_auth_project.html#ab228624e4994011491419afdd2be46e3">to_json</a>() <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1project_1_1_auth_project.html">AuthProject</a>&amp; rhs) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1project_1_1_auth_project.html">AuthProject</a>&amp; rhs) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    std::optional&lt;std::string&gt; uuid;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    std::optional&lt;std::string&gt; secret;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;};</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1project_1_1_auth_project.html">AuthProject</a>&amp; rhs) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    std::optional&lt;std::string&gt; uuid_opt;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    std::optional&lt;std::string&gt; secret_opt;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;};</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//ENJINCPPSDK_PROJECTAUTHPROJECT_HPP</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//ENJINCPPSDK_PROJECTAUTHPROJECT_HPP</span></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_request_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_request.html">enjin::sdk::graphql::AbstractGraphqlRequest</a></div><div class="ttdoc">Base class for representing a GraphQL request to the platform.</div><div class="ttdef"><b>Definition:</b> AbstractGraphqlRequest.hpp:27</div></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1json_1_1_json_value_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1json_1_1_json_value.html">enjin::sdk::json::JsonValue</a></div><div class="ttdoc">Public API class for JSON functionality needed by this SDK.</div><div class="ttdef"><b>Definition:</b> JsonValue.hpp:28</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1project_1_1_auth_project_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1project_1_1_auth_project.html">enjin::sdk::project::AuthProject</a></div><div class="ttdoc">Request to obtain the access token for a project.</div><div class="ttdef"><b>Definition:</b> AuthProject.hpp:27</div></div>
-<div class="ttc" id="aclassenjin_1_1sdk_1_1project_1_1_auth_project_html_a2654b74a92dbaff2561cb493265fc6c8"><div class="ttname"><a href="classenjin_1_1sdk_1_1project_1_1_auth_project.html#a2654b74a92dbaff2561cb493265fc6c8">enjin::sdk::project::AuthProject::set_uuid</a></div><div class="ttdeci">AuthProject &amp; set_uuid(const std::string &amp;uuid)</div><div class="ttdoc">Sets the project UUID.</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1project_1_1_auth_project_html_a2cde78b8e2c09bf7c51e50ad96b2a9ca"><div class="ttname"><a href="classenjin_1_1sdk_1_1project_1_1_auth_project.html#a2cde78b8e2c09bf7c51e50ad96b2a9ca">enjin::sdk::project::AuthProject::AuthProject</a></div><div class="ttdeci">AuthProject()</div><div class="ttdoc">Default constructor.</div></div>
-<div class="ttc" id="aclassenjin_1_1sdk_1_1project_1_1_auth_project_html_a7ba6d2ed8e20143b867a4fdd0db20363"><div class="ttname"><a href="classenjin_1_1sdk_1_1project_1_1_auth_project.html#a7ba6d2ed8e20143b867a4fdd0db20363">enjin::sdk::project::AuthProject::set_secret</a></div><div class="ttdeci">AuthProject &amp; set_secret(const std::string &amp;secret)</div><div class="ttdoc">Sets the secret.</div></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1project_1_1_auth_project_html_a3ba0abd2e118363148cd25b669d8c0f3"><div class="ttname"><a href="classenjin_1_1sdk_1_1project_1_1_auth_project.html#a3ba0abd2e118363148cd25b669d8c0f3">enjin::sdk::project::AuthProject::set_secret</a></div><div class="ttdeci">AuthProject &amp; set_secret(std::string secret)</div><div class="ttdoc">Sets the secret.</div></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1project_1_1_auth_project_html_a810981780dad85ad45b787e571b78855"><div class="ttname"><a href="classenjin_1_1sdk_1_1project_1_1_auth_project.html#a810981780dad85ad45b787e571b78855">enjin::sdk::project::AuthProject::set_uuid</a></div><div class="ttdeci">AuthProject &amp; set_uuid(std::string uuid)</div><div class="ttdoc">Sets the project UUID.</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1project_1_1_auth_project_html_aaf80c71f3f604615db45078c6e64c783"><div class="ttname"><a href="classenjin_1_1sdk_1_1project_1_1_auth_project.html#aaf80c71f3f604615db45078c6e64c783">enjin::sdk::project::AuthProject::serialize</a></div><div class="ttdeci">std::string serialize() const override</div><div class="ttdoc">Returns a JSON string with this object's data.</div></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1project_1_1_auth_project_html_ab228624e4994011491419afdd2be46e3"><div class="ttname"><a href="classenjin_1_1sdk_1_1project_1_1_auth_project.html#ab228624e4994011491419afdd2be46e3">enjin::sdk::project::AuthProject::to_json</a></div><div class="ttdeci">json::JsonValue to_json() const override</div><div class="ttdoc">Returns a JSON value representing this object.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

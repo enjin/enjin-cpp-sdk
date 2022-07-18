@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.1006</span>
+   &#160;<span id="projectnumber">1.0.0.2000</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -93,36 +93,36 @@ $(function() {
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace </span>enjin::sdk::models {</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">enum class</span> EventType {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    UNKNOWN, </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    PROJECT_CREATED,</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    PROJECT_DELETED,</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    PROJECT_LINKED,</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    PROJECT_LOCKED,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    PROJECT_UNLINKED,</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    PROJECT_UNLOCKED,</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    PROJECT_UPDATED,</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    BLOCKCHAIN_LOG_PROCESSED,</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    MESSAGE_PROCESSED,</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    PLAYER_CREATED,</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    PLAYER_DELETED,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    PLAYER_LINKED,</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    PLAYER_UNLINKED,</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    PLAYER_UPDATED,</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    ASSET_CREATED,</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    ASSET_MELTED,</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    ASSET_MINTED,</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    ASSET_TRANSFERRED,</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    ASSET_UPDATED,</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    TRADE_ASSET_COMPLETED,</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    TRADE_ASSET_CREATED,</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    TRANSACTION_BROADCAST,</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    TRANSACTION_CANCELED,</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    TRANSACTION_DROPPED,</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    TRANSACTION_EXECUTED,</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    TRANSACTION_FAILED,</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    TRANSACTION_PENDING,</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    TRANSACTION_PROCESSING,</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    TRANSACTION_UPDATED,</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    Unknown, </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    ProjectCreated,</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    ProjectDeleted,</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    ProjectLinked,</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    ProjectLocked,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    ProjectUnlinked,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    ProjectUnlocked,</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    ProjectUpdated,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    BlockchainLogProcessed,</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    MessageProcessed,</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    PlayerCreated,</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    PlayerDeleted,</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    PlayerLinked,</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    PlayerUnlinked,</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    PlayerUpdated,</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    AssetCreated,</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    AssetMelted,</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    AssetMinted,</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    AssetTransferred,</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    AssetUpdated,</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    TradeAssetCompleted,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    TradeAssetCreated,</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    TransactionBroadcast,</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    TransactionCanceled,</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    TransactionDropped,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    TransactionExecuted,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    TransactionFailed,</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    TransactionPending,</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    TransactionProcessing,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    TransactionUpdated,</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;};</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>

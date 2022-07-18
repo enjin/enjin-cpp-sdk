@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.1006</span>
+   &#160;<span id="projectnumber">1.0.0.2000</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -106,22 +106,26 @@ $(function() {
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1shared_1_1_cancel_transaction.html#a99286a725df0091b7c2349bc6cb77465">   38</a></span>&#160;    <a class="code" href="classenjin_1_1sdk_1_1shared_1_1_cancel_transaction.html">CancelTransaction</a>&amp; <a class="code" href="classenjin_1_1sdk_1_1shared_1_1_cancel_transaction.html#a99286a725df0091b7c2349bc6cb77465">set_id</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1shared_1_1_cancel_transaction.html">CancelTransaction</a>&amp; rhs) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1shared_1_1_cancel_transaction.html#ae4c104d99e9ec2728952b5ad52efd368">   40</a></span>&#160;    [[nodiscard]] <a class="code" href="classenjin_1_1sdk_1_1json_1_1_json_value.html">json::JsonValue</a> <a class="code" href="classenjin_1_1sdk_1_1shared_1_1_cancel_transaction.html#ae4c104d99e9ec2728952b5ad52efd368">to_json</a>() <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1shared_1_1_cancel_transaction.html">CancelTransaction</a>&amp; rhs) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1shared_1_1_cancel_transaction.html">CancelTransaction</a>&amp; rhs) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    std::optional&lt;int&gt; id;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;};</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1shared_1_1_cancel_transaction.html">CancelTransaction</a>&amp; rhs) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    std::optional&lt;int&gt; id_opt;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;};</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//ENJINCPPSDK_SHAREDCANCELTRANSACTION_HPP</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//ENJINCPPSDK_SHAREDCANCELTRANSACTION_HPP</span></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_request_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_request.html">enjin::sdk::graphql::AbstractGraphqlRequest</a></div><div class="ttdoc">Base class for representing a GraphQL request to the platform.</div><div class="ttdef"><b>Definition:</b> AbstractGraphqlRequest.hpp:27</div></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1json_1_1_json_value_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1json_1_1_json_value.html">enjin::sdk::json::JsonValue</a></div><div class="ttdoc">Public API class for JSON functionality needed by this SDK.</div><div class="ttdef"><b>Definition:</b> JsonValue.hpp:28</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1shared_1_1_cancel_transaction_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1shared_1_1_cancel_transaction.html">enjin::sdk::shared::CancelTransaction</a></div><div class="ttdoc">Request for canceling a transaction on the platform.</div><div class="ttdef"><b>Definition:</b> CancelTransaction.hpp:26</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1shared_1_1_cancel_transaction_html_a8f2a3673905350e3e0224c2a7994f954"><div class="ttname"><a href="classenjin_1_1sdk_1_1shared_1_1_cancel_transaction.html#a8f2a3673905350e3e0224c2a7994f954">enjin::sdk::shared::CancelTransaction::CancelTransaction</a></div><div class="ttdeci">CancelTransaction()</div><div class="ttdoc">Default constructor.</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1shared_1_1_cancel_transaction_html_a99286a725df0091b7c2349bc6cb77465"><div class="ttname"><a href="classenjin_1_1sdk_1_1shared_1_1_cancel_transaction.html#a99286a725df0091b7c2349bc6cb77465">enjin::sdk::shared::CancelTransaction::set_id</a></div><div class="ttdeci">CancelTransaction &amp; set_id(int id)</div><div class="ttdoc">Sets the ID of the transaction to cancel.</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1shared_1_1_cancel_transaction_html_a9dbcf69d653896b95346c98bca1a2512"><div class="ttname"><a href="classenjin_1_1sdk_1_1shared_1_1_cancel_transaction.html#a9dbcf69d653896b95346c98bca1a2512">enjin::sdk::shared::CancelTransaction::serialize</a></div><div class="ttdeci">std::string serialize() const override</div><div class="ttdoc">Returns a JSON string with this object's data.</div></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1shared_1_1_cancel_transaction_html_ae4c104d99e9ec2728952b5ad52efd368"><div class="ttname"><a href="classenjin_1_1sdk_1_1shared_1_1_cancel_transaction.html#ae4c104d99e9ec2728952b5ad52efd368">enjin::sdk::shared::CancelTransaction::to_json</a></div><div class="ttdeci">json::JsonValue to_json() const override</div><div class="ttdoc">Returns a JSON value representing this object.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

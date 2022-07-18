@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.1006</span>
+   &#160;<span id="projectnumber">1.0.0.2000</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -105,22 +105,26 @@ $(function() {
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html#aff24a90081677b0afb34fb81bc2cd3c3">   34</a></span>&#160;    [[nodiscard]] std::string <a class="code" href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html#aff24a90081677b0afb34fb81bc2cd3c3">serialize</a>() <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html#a6e211d5459c65c969c6123ed74d21bfc">   39</a></span>&#160;    <a class="code" href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html">UnlinkWallet</a>&amp; <a class="code" href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html#a6e211d5459c65c969c6123ed74d21bfc">set_eth_address</a>(<span class="keyword">const</span> std::string&amp; eth_address);</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html#a6eeeeb40d94d959e5679929295d58b69">   39</a></span>&#160;    <a class="code" href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html">UnlinkWallet</a>&amp; <a class="code" href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html#a6eeeeb40d94d959e5679929295d58b69">set_eth_address</a>(std::string eth_address);</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html">UnlinkWallet</a>&amp; rhs) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html#ab21e4d09324ed5de35934a885ab6a622">   41</a></span>&#160;    [[nodiscard]] <a class="code" href="classenjin_1_1sdk_1_1json_1_1_json_value.html">json::JsonValue</a> <a class="code" href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html#ab21e4d09324ed5de35934a885ab6a622">to_json</a>() <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html">UnlinkWallet</a>&amp; rhs) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html">UnlinkWallet</a>&amp; rhs) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    std::optional&lt;std::string&gt; eth_address;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;};</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html">UnlinkWallet</a>&amp; rhs) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    std::optional&lt;std::string&gt; eth_address_opt;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;};</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//ENJINCPPSDK_PROJECTUNLINKWALLET_HPP</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//ENJINCPPSDK_PROJECTUNLINKWALLET_HPP</span></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_request_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_request.html">enjin::sdk::graphql::AbstractGraphqlRequest</a></div><div class="ttdoc">Base class for representing a GraphQL request to the platform.</div><div class="ttdef"><b>Definition:</b> AbstractGraphqlRequest.hpp:27</div></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1json_1_1_json_value_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1json_1_1_json_value.html">enjin::sdk::json::JsonValue</a></div><div class="ttdoc">Public API class for JSON functionality needed by this SDK.</div><div class="ttdef"><b>Definition:</b> JsonValue.hpp:28</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1project_1_1_unlink_wallet_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html">enjin::sdk::project::UnlinkWallet</a></div><div class="ttdoc">Request for unlinking a wallet from the project.</div><div class="ttdef"><b>Definition:</b> UnlinkWallet.hpp:27</div></div>
-<div class="ttc" id="aclassenjin_1_1sdk_1_1project_1_1_unlink_wallet_html_a6e211d5459c65c969c6123ed74d21bfc"><div class="ttname"><a href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html#a6e211d5459c65c969c6123ed74d21bfc">enjin::sdk::project::UnlinkWallet::set_eth_address</a></div><div class="ttdeci">UnlinkWallet &amp; set_eth_address(const std::string &amp;eth_address)</div><div class="ttdoc">Sets the Ethereum address of the wallet to unlink.</div></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1project_1_1_unlink_wallet_html_a6eeeeb40d94d959e5679929295d58b69"><div class="ttname"><a href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html#a6eeeeb40d94d959e5679929295d58b69">enjin::sdk::project::UnlinkWallet::set_eth_address</a></div><div class="ttdeci">UnlinkWallet &amp; set_eth_address(std::string eth_address)</div><div class="ttdoc">Sets the Ethereum address of the wallet to unlink.</div></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1project_1_1_unlink_wallet_html_ab21e4d09324ed5de35934a885ab6a622"><div class="ttname"><a href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html#ab21e4d09324ed5de35934a885ab6a622">enjin::sdk::project::UnlinkWallet::to_json</a></div><div class="ttdeci">json::JsonValue to_json() const override</div><div class="ttdoc">Returns a JSON value representing this object.</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1project_1_1_unlink_wallet_html_aedb4ab9b2595d0dae0f5934e19ddc49c"><div class="ttname"><a href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html#aedb4ab9b2595d0dae0f5934e19ddc49c">enjin::sdk::project::UnlinkWallet::UnlinkWallet</a></div><div class="ttdeci">UnlinkWallet()</div><div class="ttdoc">Default constructor.</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1project_1_1_unlink_wallet_html_aff24a90081677b0afb34fb81bc2cd3c3"><div class="ttname"><a href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html#aff24a90081677b0afb34fb81bc2cd3c3">enjin::sdk::project::UnlinkWallet::serialize</a></div><div class="ttdeci">std::string serialize() const override</div><div class="ttdoc">Returns a JSON string with this object's data.</div></div>
 </div><!-- fragment --></div><!-- contents -->

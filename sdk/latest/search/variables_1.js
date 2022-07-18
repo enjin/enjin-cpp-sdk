@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['logger_5fprovider_1258',['logger_provider',['../classenjin_1_1sdk_1_1_base_schema.html#ac0200319e886084ea8b5d8a823deef22',1,'enjin::sdk::BaseSchema']]]
+  ['goerli_1454',['Goerli',['../classenjin_1_1sdk_1_1_enjin_hosts.html#a6981f0faf38b3193a091f8cc894ca4ec',1,'enjin::sdk::EnjinHosts']]]
 ];

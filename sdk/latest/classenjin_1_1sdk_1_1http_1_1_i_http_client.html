@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.1006</span>
+   &#160;<span id="projectnumber">1.0.0.2000</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -93,12 +93,18 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1http_1_1_i_http_client.html#a74a6d05e361b2e32441c542a9c96ddd3">stop</a> ()=0</td></tr>
 <tr class="memdesc:a74a6d05e361b2e32441c542a9c96ddd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops this client. <br /></td></tr>
 <tr class="separator:a74a6d05e361b2e32441c542a9c96ddd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1beaf18f38dfba8f21e0d6b033e7581"><td class="memItemLeft" align="right" valign="top">virtual std::future&lt; <a class="el" href="classenjin_1_1sdk_1_1http_1_1_http_response.html">HttpResponse</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1http_1_1_i_http_client.html#af1beaf18f38dfba8f21e0d6b033e7581">send_request</a> (const <a class="el" href="classenjin_1_1sdk_1_1http_1_1_http_request.html">HttpRequest</a> &amp;request)=0</td></tr>
-<tr class="memdesc:af1beaf18f38dfba8f21e0d6b033e7581"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends an HTTP request asynchronously.  <a href="classenjin_1_1sdk_1_1http_1_1_i_http_client.html#af1beaf18f38dfba8f21e0d6b033e7581">More...</a><br /></td></tr>
-<tr class="separator:af1beaf18f38dfba8f21e0d6b033e7581"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8112bfab0da413bafedd23fcd1466c5b"><td class="memItemLeft" align="right" valign="top">virtual std::future&lt; <a class="el" href="classenjin_1_1sdk_1_1http_1_1_http_response.html">HttpResponse</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1http_1_1_i_http_client.html#a8112bfab0da413bafedd23fcd1466c5b">send_request</a> (<a class="el" href="classenjin_1_1sdk_1_1http_1_1_http_request.html">HttpRequest</a> request)=0</td></tr>
+<tr class="memdesc:a8112bfab0da413bafedd23fcd1466c5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends an HTTP request asynchronously.  <a href="classenjin_1_1sdk_1_1http_1_1_i_http_client.html#a8112bfab0da413bafedd23fcd1466c5b">More...</a><br /></td></tr>
+<tr class="separator:a8112bfab0da413bafedd23fcd1466c5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b39830ab1b0897e72652dca08284573"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1http_1_1_i_http_client.html#a7b39830ab1b0897e72652dca08284573">is_open</a> () const =0</td></tr>
 <tr class="memdesc:a7b39830ab1b0897e72652dca08284573"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if this client is open.  <a href="classenjin_1_1sdk_1_1http_1_1_i_http_client.html#a7b39830ab1b0897e72652dca08284573">More...</a><br /></td></tr>
 <tr class="separator:a7b39830ab1b0897e72652dca08284573"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a954fed7c4aed93897ec28f71651c9f2c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1http_1_1_i_http_client.html#a954fed7c4aed93897ec28f71651c9f2c">set_default_request_header</a> (std::string key, std::string value)=0</td></tr>
+<tr class="memdesc:a954fed7c4aed93897ec28f71651c9f2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns a default request header for all requests sent by this client.  <a href="classenjin_1_1sdk_1_1http_1_1_i_http_client.html#a954fed7c4aed93897ec28f71651c9f2c">More...</a><br /></td></tr>
+<tr class="separator:a954fed7c4aed93897ec28f71651c9f2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9e86ee4b2e455c0644ff522e72ff045"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1http_1_1_i_http_client.html#ae9e86ee4b2e455c0644ff522e72ff045">set_logger</a> (HttpLogLevel level, std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1utils_1_1_logger_provider.html">utils::LoggerProvider</a> &gt; logger_provider)=0</td></tr>
+<tr class="memdesc:ae9e86ee4b2e455c0644ff522e72ff045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns a logger provider and a HTTP log level for requests and responses processed by this client.  <a href="classenjin_1_1sdk_1_1http_1_1_i_http_client.html#ae9e86ee4b2e455c0644ff522e72ff045">More...</a><br /></td></tr>
+<tr class="separator:ae9e86ee4b2e455c0644ff522e72ff045"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>HTTP client interface to be used for interfacing with the Enjin SDK platform clients. </p>
@@ -131,8 +137,8 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 
 </div>
 </div>
-<a id="af1beaf18f38dfba8f21e0d6b033e7581"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1beaf18f38dfba8f21e0d6b033e7581">&#9670;&nbsp;</a></span>send_request()</h2>
+<a id="a8112bfab0da413bafedd23fcd1466c5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8112bfab0da413bafedd23fcd1466c5b">&#9670;&nbsp;</a></span>send_request()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -143,7 +149,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
         <tr>
           <td class="memname">virtual std::future&lt;<a class="el" href="classenjin_1_1sdk_1_1http_1_1_http_response.html">HttpResponse</a>&gt; enjin::sdk::http::IHttpClient::send_request </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classenjin_1_1sdk_1_1http_1_1_http_request.html">HttpRequest</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classenjin_1_1sdk_1_1http_1_1_http_request.html">HttpRequest</a>&#160;</td>
           <td class="paramname"><em>request</em></td><td>)</td>
           <td></td>
         </tr>
@@ -163,6 +169,97 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The future for accessing the response. </dd></dl>
+
+</div>
+</div>
+<a id="a954fed7c4aed93897ec28f71651c9f2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a954fed7c4aed93897ec28f71651c9f2c">&#9670;&nbsp;</a></span>set_default_request_header()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void enjin::sdk::http::IHttpClient::set_default_request_header </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Assigns a default request header for all requests sent by this client. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>The header key. </td></tr>
+    <tr><td class="paramname">value</td><td>The header value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae9e86ee4b2e455c0644ff522e72ff045"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9e86ee4b2e455c0644ff522e72ff045">&#9670;&nbsp;</a></span>set_logger()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void enjin::sdk::http::IHttpClient::set_logger </td>
+          <td>(</td>
+          <td class="paramtype">HttpLogLevel&#160;</td>
+          <td class="paramname"><em>level</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1utils_1_1_logger_provider.html">utils::LoggerProvider</a> &gt;&#160;</td>
+          <td class="paramname"><em>logger_provider</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Assigns a logger provider and a HTTP log level for requests and responses processed by this client. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">level</td><td>The HTTP log level. </td></tr>
+    <tr><td class="paramname">logger_provider</td><td>The logger provider. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section remark"><dt>Remarks</dt><dd>If the HTTP log level is set to HttpLogLevel::NONE or if the logger provider pointer is null, then no logging shall occur. </dd></dl>
 
 </div>
 </div>

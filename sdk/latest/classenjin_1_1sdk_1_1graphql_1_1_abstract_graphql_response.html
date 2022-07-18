@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.1006</span>
+   &#160;<span id="projectnumber">1.0.0.2000</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -71,7 +71,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#pro-static-attribs">Static Protected Attributes</a> &#124;
 <a href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">enjin::sdk::graphql::AbstractGraphqlResponse Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -92,9 +92,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:ae44899217e884571858bf0863d4a9ab5"><td class="memItemLeft" align="right" valign="top">const std::optional&lt; std::vector&lt; <a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_error.html">GraphqlError</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#ae44899217e884571858bf0863d4a9ab5">get_errors</a> () const</td></tr>
 <tr class="memdesc:ae44899217e884571858bf0863d4a9ab5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the GraphQL errors.  <a href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#ae44899217e884571858bf0863d4a9ab5">More...</a><br /></td></tr>
 <tr class="separator:ae44899217e884571858bf0863d4a9ab5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac92e4e922a95905ce421694306ad5df7"><td class="memItemLeft" align="right" valign="top">const std::optional&lt; <a class="el" href="classenjin_1_1sdk_1_1models_1_1_pagination_cursor.html">models::PaginationCursor</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#ac92e4e922a95905ce421694306ad5df7">get_cursor</a> () const</td></tr>
-<tr class="memdesc:ac92e4e922a95905ce421694306ad5df7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the pagination cursor.  <a href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#ac92e4e922a95905ce421694306ad5df7">More...</a><br /></td></tr>
-<tr class="separator:ac92e4e922a95905ce421694306ad5df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4a585168e313b358d731c2f77ace937"><td class="memItemLeft" align="right" valign="top">virtual const std::optional&lt; <a class="el" href="classenjin_1_1sdk_1_1models_1_1_pagination_cursor.html">models::PaginationCursor</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#aa4a585168e313b358d731c2f77ace937">get_cursor</a> () const =0</td></tr>
+<tr class="memdesc:aa4a585168e313b358d731c2f77ace937"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the pagination cursor.  <a href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#aa4a585168e313b358d731c2f77ace937">More...</a><br /></td></tr>
+<tr class="separator:aa4a585168e313b358d731c2f77ace937"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1dc3d91a7ea26d4794c0e2205d1ab7c5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#a1dc3d91a7ea26d4794c0e2205d1ab7c5">has_errors</a> () const noexcept</td></tr>
 <tr class="memdesc:a1dc3d91a7ea26d4794c0e2205d1ab7c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the response has errors or not.  <a href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#a1dc3d91a7ea26d4794c0e2205d1ab7c5">More...</a><br /></td></tr>
 <tr class="separator:a1dc3d91a7ea26d4794c0e2205d1ab7c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -104,48 +104,56 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:a6f9225da1fe30525c35bf7498f8e44f7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#a6f9225da1fe30525c35bf7498f8e44f7">is_successful</a> () const noexcept</td></tr>
 <tr class="memdesc:a6f9225da1fe30525c35bf7498f8e44f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the response is successful or not.  <a href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#a6f9225da1fe30525c35bf7498f8e44f7">More...</a><br /></td></tr>
 <tr class="separator:a6f9225da1fe30525c35bf7498f8e44f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6ae354001da60ab212f0069eb3c0ad7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#af6ae354001da60ab212f0069eb3c0ad7">is_paginated</a> () const noexcept</td></tr>
-<tr class="memdesc:af6ae354001da60ab212f0069eb3c0ad7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the response is paginated or not.  <a href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#af6ae354001da60ab212f0069eb3c0ad7">More...</a><br /></td></tr>
-<tr class="separator:af6ae354001da60ab212f0069eb3c0ad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aade6509755a40186c28645bd5fae44c9"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#aade6509755a40186c28645bd5fae44c9">is_paginated</a> () const noexcept=0</td></tr>
+<tr class="memdesc:aade6509755a40186c28645bd5fae44c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the response is paginated or not.  <a href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#aade6509755a40186c28645bd5fae44c9">More...</a><br /></td></tr>
+<tr class="separator:aade6509755a40186c28645bd5fae44c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:acafb4f2eeccf0c09cf1006d26bf415fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#acafb4f2eeccf0c09cf1006d26bf415fa">process</a> (const std::string &amp;json)</td></tr>
-<tr class="memdesc:acafb4f2eeccf0c09cf1006d26bf415fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the serialized GraphQL response.  <a href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#acafb4f2eeccf0c09cf1006d26bf415fa">More...</a><br /></td></tr>
+<tr class="memdesc:acafb4f2eeccf0c09cf1006d26bf415fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes this response from raw JSON input..  <a href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#acafb4f2eeccf0c09cf1006d26bf415fa">More...</a><br /></td></tr>
 <tr class="separator:acafb4f2eeccf0c09cf1006d26bf415fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2a6d3c8bc7cc28e541eaeb323b958e2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#af2a6d3c8bc7cc28e541eaeb323b958e2">process_data</a> (const std::string &amp;data_json)=0</td></tr>
-<tr class="memdesc:af2a6d3c8bc7cc28e541eaeb323b958e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the data member of a serialized GraphQL response.  <a href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#af2a6d3c8bc7cc28e541eaeb323b958e2">More...</a><br /></td></tr>
-<tr class="separator:af2a6d3c8bc7cc28e541eaeb323b958e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e7f67b3ac9add82abeb839be25a2c26"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#a9e7f67b3ac9add82abeb839be25a2c26">process_data</a> (const <a class="el" href="classenjin_1_1sdk_1_1json_1_1_json_value.html">json::JsonValue</a> &amp;data)=0</td></tr>
+<tr class="memdesc:a9e7f67b3ac9add82abeb839be25a2c26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the data member of a serialized GraphQL response.  <a href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#a9e7f67b3ac9add82abeb839be25a2c26">More...</a><br /></td></tr>
+<tr class="separator:a9e7f67b3ac9add82abeb839be25a2c26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:a04a24df39109cfba2fafd34ab4c491c7"><td class="memItemLeft" align="right" valign="top"><a id="a04a24df39109cfba2fafd34ab4c491c7"></a>
-std::optional&lt; std::vector&lt; <a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_error.html">GraphqlError</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>errors</b></td></tr>
-<tr class="separator:a04a24df39109cfba2fafd34ab4c491c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3c87b0757319da1b914817345d7681e"><td class="memItemLeft" align="right" valign="top"><a id="ae3c87b0757319da1b914817345d7681e"></a>
-std::optional&lt; <a class="el" href="classenjin_1_1sdk_1_1models_1_1_pagination_cursor.html">models::PaginationCursor</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>cursor</b></td></tr>
-<tr class="separator:ae3c87b0757319da1b914817345d7681e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-attribs"></a>
+Static Protected Attributes</h2></td></tr>
+<tr class="memitem:a828a981ad9bdefcfa91fd5d36d54b905"><td class="memItemLeft" align="right" valign="top"><a id="a828a981ad9bdefcfa91fd5d36d54b905"></a>
+static constexpr char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#a828a981ad9bdefcfa91fd5d36d54b905">ResultKey</a> [] = &quot;result&quot;</td></tr>
+<tr class="memdesc:a828a981ad9bdefcfa91fd5d36d54b905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constant-expression representing the expected key for results in most data objects. <br /></td></tr>
+<tr class="separator:a828a981ad9bdefcfa91fd5d36d54b905"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class which models common functionality for GraphQL responses. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac92e4e922a95905ce421694306ad5df7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac92e4e922a95905ce421694306ad5df7">&#9670;&nbsp;</a></span>get_cursor()</h2>
+<a id="aa4a585168e313b358d731c2f77ace937"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4a585168e313b358d731c2f77ace937">&#9670;&nbsp;</a></span>get_cursor()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::optional&lt;<a class="el" href="classenjin_1_1sdk_1_1models_1_1_pagination_cursor.html">models::PaginationCursor</a>&gt;&amp; enjin::sdk::graphql::AbstractGraphqlResponse::get_cursor </td>
+          <td class="memname">virtual const std::optional&lt;<a class="el" href="classenjin_1_1sdk_1_1models_1_1_pagination_cursor.html">models::PaginationCursor</a>&gt;&amp; enjin::sdk::graphql::AbstractGraphqlResponse::get_cursor </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the pagination cursor. </p>
 <dl class="section return"><dt>Returns</dt><dd>Optional for the cursor. </dd></dl>
+
+<p>Implemented in <a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_response_3_01std_1_1vector_3_01_t_01_4_01_4.html#a27e04b376503071b17c4541192ccb9e7">enjin::sdk::graphql::GraphqlResponse&lt; std::vector&lt; T &gt; &gt;</a>, and <a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_response_3_01_t_01_4.html#a41ca969382e6bafeb06234baea8ecfe9">enjin::sdk::graphql::GraphqlResponse&lt; T &gt;</a>.</p>
 
 </div>
 </div>
@@ -227,8 +235,8 @@ std::optional&lt; <a class="el" href="classenjin_1_1sdk_1_1models_1_1_pagination
 
 </div>
 </div>
-<a id="af6ae354001da60ab212f0069eb3c0ad7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6ae354001da60ab212f0069eb3c0ad7">&#9670;&nbsp;</a></span>is_paginated()</h2>
+<a id="aade6509755a40186c28645bd5fae44c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aade6509755a40186c28645bd5fae44c9">&#9670;&nbsp;</a></span>is_paginated()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -237,7 +245,7 @@ std::optional&lt; <a class="el" href="classenjin_1_1sdk_1_1models_1_1_pagination
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool enjin::sdk::graphql::AbstractGraphqlResponse::is_paginated </td>
+          <td class="memname">virtual bool enjin::sdk::graphql::AbstractGraphqlResponse::is_paginated </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -245,13 +253,15 @@ std::optional&lt; <a class="el" href="classenjin_1_1sdk_1_1models_1_1_pagination
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Determines if the response is paginated or not. </p>
 <dl class="section return"><dt>Returns</dt><dd>Whether this response is paginated. </dd></dl>
+
+<p>Implemented in <a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_response_3_01std_1_1vector_3_01_t_01_4_01_4.html#a30aaccde5d97db4c155512d52088768b">enjin::sdk::graphql::GraphqlResponse&lt; std::vector&lt; T &gt; &gt;</a>, and <a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_response_3_01_t_01_4.html#ac1922aa866996d4e9a9a0db3f9428d44">enjin::sdk::graphql::GraphqlResponse&lt; T &gt;</a>.</p>
 
 </div>
 </div>
@@ -308,18 +318,18 @@ std::optional&lt; <a class="el" href="classenjin_1_1sdk_1_1models_1_1_pagination
 </table>
 </div><div class="memdoc">
 
-<p>Processes the serialized GraphQL response. </p>
+<p>Processes this response from raw JSON input.. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">json</td><td>The JSON. </td></tr>
+    <tr><td class="paramname">json</td><td>The raw JSON. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="af2a6d3c8bc7cc28e541eaeb323b958e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2a6d3c8bc7cc28e541eaeb323b958e2">&#9670;&nbsp;</a></span>process_data()</h2>
+<a id="a9e7f67b3ac9add82abeb839be25a2c26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e7f67b3ac9add82abeb839be25a2c26">&#9670;&nbsp;</a></span>process_data()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -330,8 +340,8 @@ std::optional&lt; <a class="el" href="classenjin_1_1sdk_1_1models_1_1_pagination
         <tr>
           <td class="memname">virtual void enjin::sdk::graphql::AbstractGraphqlResponse::process_data </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>data_json</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classenjin_1_1sdk_1_1json_1_1_json_value.html">json::JsonValue</a> &amp;&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -345,12 +355,12 @@ std::optional&lt; <a class="el" href="classenjin_1_1sdk_1_1models_1_1_pagination
 <p>Processes the data member of a serialized GraphQL response. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data_json</td><td>The JSON string of the member. </td></tr>
+    <tr><td class="paramname">data</td><td>The JSON object of the data field. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_response_3_01std_1_1vector_3_01_t_01_4_01_4.html#ab2efc4e2f425599cc327cbe3949df5a4">enjin::sdk::graphql::GraphqlResponse&lt; std::vector&lt; T &gt; &gt;</a>, and <a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_response_3_01_t_01_4.html#aab3d93f8ffb0acc1bf465d513c5f4697">enjin::sdk::graphql::GraphqlResponse&lt; T &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_response_3_01std_1_1vector_3_01_t_01_4_01_4.html#a01fd4fff90b8dc08ac0171b92b0694ea">enjin::sdk::graphql::GraphqlResponse&lt; std::vector&lt; T &gt; &gt;</a>, and <a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_response_3_01_t_01_4.html#a618d83955c450396fcd2c3d019923142">enjin::sdk::graphql::GraphqlResponse&lt; T &gt;</a>.</p>
 
 </div>
 </div>

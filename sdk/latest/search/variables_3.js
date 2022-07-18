@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['schema_1260',['schema',['../classenjin_1_1sdk_1_1_base_schema.html#aeb0f467ed6e97f37736d74b2441cd9fd',1,'enjin::sdk::BaseSchema']]]
+  ['logger_5fprovider_1456',['logger_provider',['../classenjin_1_1sdk_1_1_base_schema.html#a06755ff965953ab04eef8b1da75fa83d',1,'enjin::sdk::BaseSchema']]]
 ];
