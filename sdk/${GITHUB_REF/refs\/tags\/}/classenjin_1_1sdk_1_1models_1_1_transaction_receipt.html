@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.1006</span>
+   &#160;<span id="projectnumber">1.0.0.2000</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -76,49 +76,59 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Models a receipt for a blockchain request.  
+<p>Models a receipt for a blockchain transaction.  
  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#details">More...</a></p>
 
 <p>Inherits <a class="el" href="classenjin_1_1sdk_1_1serialization_1_1_i_deserializable.html">enjin::sdk::serialization::IDeserializable</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aae6c1df49fdb6afa02add4d7d3c6c6bd"><td class="memItemLeft" align="right" valign="top"><a id="aae6c1df49fdb6afa02add4d7d3c6c6bd"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#aae6c1df49fdb6afa02add4d7d3c6c6bd">TransactionReceipt</a> ()=default</td></tr>
-<tr class="memdesc:aae6c1df49fdb6afa02add4d7d3c6c6bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
-<tr class="separator:aae6c1df49fdb6afa02add4d7d3c6c6bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8582605b529eaaa2529b4a3497c4b4f0"><td class="memItemLeft" align="right" valign="top"><a id="a8582605b529eaaa2529b4a3497c4b4f0"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a8582605b529eaaa2529b4a3497c4b4f0">TransactionReceipt</a> ()</td></tr>
+<tr class="memdesc:a8582605b529eaaa2529b4a3497c4b4f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance of this class. <br /></td></tr>
+<tr class="separator:a8582605b529eaaa2529b4a3497c4b4f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a390d2be87a35a3b96276be02fb4450fc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a390d2be87a35a3b96276be02fb4450fc">TransactionReceipt</a> (const <a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html">TransactionReceipt</a> &amp;other)</td></tr>
+<tr class="memdesc:a390d2be87a35a3b96276be02fb4450fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance as a copy of another.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a390d2be87a35a3b96276be02fb4450fc">More...</a><br /></td></tr>
+<tr class="separator:a390d2be87a35a3b96276be02fb4450fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a8cd5a2b04325dd84750c4597d48f77"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a5a8cd5a2b04325dd84750c4597d48f77">TransactionReceipt</a> (<a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html">TransactionReceipt</a> &amp;&amp;other) noexcept</td></tr>
+<tr class="memdesc:a5a8cd5a2b04325dd84750c4597d48f77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance via move.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a5a8cd5a2b04325dd84750c4597d48f77">More...</a><br /></td></tr>
+<tr class="separator:a5a8cd5a2b04325dd84750c4597d48f77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87b6c5e78d5b7b83850201170e6bd7fc"><td class="memItemLeft" align="right" valign="top"><a id="a87b6c5e78d5b7b83850201170e6bd7fc"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a87b6c5e78d5b7b83850201170e6bd7fc">~TransactionReceipt</a> () override</td></tr>
+<tr class="memdesc:a87b6c5e78d5b7b83850201170e6bd7fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deconstructs this instance. <br /></td></tr>
+<tr class="separator:a87b6c5e78d5b7b83850201170e6bd7fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae250000e66623b92dce8681feea03e58"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#ae250000e66623b92dce8681feea03e58">deserialize</a> (const std::string &amp;json) override</td></tr>
 <tr class="memdesc:ae250000e66623b92dce8681feea03e58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the JSON string and assigns valid values to this object's fields.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#ae250000e66623b92dce8681feea03e58">More...</a><br /></td></tr>
 <tr class="separator:ae250000e66623b92dce8681feea03e58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5f144914d45e00c8fc973a49cc65526"><td class="memItemLeft" align="right" valign="top">const std::optional&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#aa5f144914d45e00c8fc973a49cc65526">get_block_hash</a> () const</td></tr>
-<tr class="memdesc:aa5f144914d45e00c8fc973a49cc65526"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the hash of the block for the request this receipt belongs to.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#aa5f144914d45e00c8fc973a49cc65526">More...</a><br /></td></tr>
+<tr class="memdesc:aa5f144914d45e00c8fc973a49cc65526"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the hash of the block for the transaction this receipt belongs to.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#aa5f144914d45e00c8fc973a49cc65526">More...</a><br /></td></tr>
 <tr class="separator:aa5f144914d45e00c8fc973a49cc65526"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a651bf8082cee0742bd97c7511b1c8378"><td class="memItemLeft" align="right" valign="top">const std::optional&lt; int &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a651bf8082cee0742bd97c7511b1c8378">get_block_number</a> () const</td></tr>
-<tr class="memdesc:a651bf8082cee0742bd97c7511b1c8378"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the block number where the request this receipt belongs to is.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a651bf8082cee0742bd97c7511b1c8378">More...</a><br /></td></tr>
+<tr class="memdesc:a651bf8082cee0742bd97c7511b1c8378"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the block number where the transaction this receipt belongs to is.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a651bf8082cee0742bd97c7511b1c8378">More...</a><br /></td></tr>
 <tr class="separator:a651bf8082cee0742bd97c7511b1c8378"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade66e273470221ceb3e8f71aae745134"><td class="memItemLeft" align="right" valign="top">const std::optional&lt; int &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#ade66e273470221ceb3e8f71aae745134">get_cumulative_gas_used</a> () const</td></tr>
-<tr class="memdesc:ade66e273470221ceb3e8f71aae745134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total amount of gas used when the request was executed in the block.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#ade66e273470221ceb3e8f71aae745134">More...</a><br /></td></tr>
+<tr class="memdesc:ade66e273470221ceb3e8f71aae745134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total amount of gas used when the transaction was executed in the block.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#ade66e273470221ceb3e8f71aae745134">More...</a><br /></td></tr>
 <tr class="separator:ade66e273470221ceb3e8f71aae745134"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ba8eae89bba82320302edcb9e970acc"><td class="memItemLeft" align="right" valign="top">const std::optional&lt; int &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a6ba8eae89bba82320302edcb9e970acc">get_gas_used</a> () const</td></tr>
-<tr class="memdesc:a6ba8eae89bba82320302edcb9e970acc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the gas used by the specific request alone.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a6ba8eae89bba82320302edcb9e970acc">More...</a><br /></td></tr>
+<tr class="memdesc:a6ba8eae89bba82320302edcb9e970acc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the gas used by the specific transaction alone.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a6ba8eae89bba82320302edcb9e970acc">More...</a><br /></td></tr>
 <tr class="separator:a6ba8eae89bba82320302edcb9e970acc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05c71dc193e27704a7bd5cab13319af0"><td class="memItemLeft" align="right" valign="top">const std::optional&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a05c71dc193e27704a7bd5cab13319af0">get_from</a> () const</td></tr>
-<tr class="memdesc:a05c71dc193e27704a7bd5cab13319af0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the sender address for the request this receipt belongs to.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a05c71dc193e27704a7bd5cab13319af0">More...</a><br /></td></tr>
+<tr class="memdesc:a05c71dc193e27704a7bd5cab13319af0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the sender address for the transaction this receipt belongs to.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a05c71dc193e27704a7bd5cab13319af0">More...</a><br /></td></tr>
 <tr class="separator:a05c71dc193e27704a7bd5cab13319af0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85e2a7ac275df888f308ea22ffdd5fb8"><td class="memItemLeft" align="right" valign="top">const std::optional&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a85e2a7ac275df888f308ea22ffdd5fb8">get_to</a> () const</td></tr>
-<tr class="memdesc:a85e2a7ac275df888f308ea22ffdd5fb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the receiver address for the request this receipt belongs to.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a85e2a7ac275df888f308ea22ffdd5fb8">More...</a><br /></td></tr>
+<tr class="memdesc:a85e2a7ac275df888f308ea22ffdd5fb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the receiver address for the transaction this receipt belongs to.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a85e2a7ac275df888f308ea22ffdd5fb8">More...</a><br /></td></tr>
 <tr class="separator:a85e2a7ac275df888f308ea22ffdd5fb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a08132144de39a89fc23ea0f19739538c"><td class="memItemLeft" align="right" valign="top">const std::optional&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a08132144de39a89fc23ea0f19739538c">get_transaction_hash</a> () const</td></tr>
-<tr class="memdesc:a08132144de39a89fc23ea0f19739538c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the hash of the request this receipt belongs to.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a08132144de39a89fc23ea0f19739538c">More...</a><br /></td></tr>
+<tr class="memdesc:a08132144de39a89fc23ea0f19739538c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the hash of the transaction this receipt belongs to.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a08132144de39a89fc23ea0f19739538c">More...</a><br /></td></tr>
 <tr class="separator:a08132144de39a89fc23ea0f19739538c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2e629c0947798e15f7730e26083fade"><td class="memItemLeft" align="right" valign="top">const std::optional&lt; int &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#aa2e629c0947798e15f7730e26083fade">get_transaction_index</a> () const</td></tr>
-<tr class="memdesc:aa2e629c0947798e15f7730e26083fade"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index position in the block for the request this receipt belongs to.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#aa2e629c0947798e15f7730e26083fade">More...</a><br /></td></tr>
+<tr class="memdesc:aa2e629c0947798e15f7730e26083fade"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index position in the block for the transaction this receipt belongs to.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#aa2e629c0947798e15f7730e26083fade">More...</a><br /></td></tr>
 <tr class="separator:aa2e629c0947798e15f7730e26083fade"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e4c08e995528cb643086ff42298e256"><td class="memItemLeft" align="right" valign="top">const std::optional&lt; bool &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a0e4c08e995528cb643086ff42298e256">get_status</a> () const</td></tr>
-<tr class="memdesc:a0e4c08e995528cb643086ff42298e256"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the status for the request this receipt belongs to.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a0e4c08e995528cb643086ff42298e256">More...</a><br /></td></tr>
+<tr class="memdesc:a0e4c08e995528cb643086ff42298e256"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the status for the transaction this receipt belongs to.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a0e4c08e995528cb643086ff42298e256">More...</a><br /></td></tr>
 <tr class="separator:a0e4c08e995528cb643086ff42298e256"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21595e61f49f4c02d2db5528898c0089"><td class="memItemLeft" align="right" valign="top">const std::optional&lt; std::vector&lt; <a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_log.html">TransactionLog</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a21595e61f49f4c02d2db5528898c0089">get_logs</a> () const</td></tr>
-<tr class="memdesc:a21595e61f49f4c02d2db5528898c0089"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the transaction logs generated for the request this receipt belongs to.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a21595e61f49f4c02d2db5528898c0089">More...</a><br /></td></tr>
+<tr class="memdesc:a21595e61f49f4c02d2db5528898c0089"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the transaction logs generated for the transaction this receipt belongs to.  <a href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html#a21595e61f49f4c02d2db5528898c0089">More...</a><br /></td></tr>
 <tr class="separator:a21595e61f49f4c02d2db5528898c0089"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f1f487fe64d6297929bfb3b8afcbbca"><td class="memItemLeft" align="right" valign="top"><a id="a5f1f487fe64d6297929bfb3b8afcbbca"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html">TransactionReceipt</a> &amp;rhs) const</td></tr>
@@ -126,6 +136,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
 <tr class="memitem:a3a7a4e3156e4f68607a99f0341e74d31"><td class="memItemLeft" align="right" valign="top"><a id="a3a7a4e3156e4f68607a99f0341e74d31"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator!=</b> (const <a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html">TransactionReceipt</a> &amp;rhs) const</td></tr>
 <tr class="separator:a3a7a4e3156e4f68607a99f0341e74d31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13c020b0e7e0009600c5d4a2604b9fea"><td class="memItemLeft" align="right" valign="top"><a id="a13c020b0e7e0009600c5d4a2604b9fea"></a>
+<a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html">TransactionReceipt</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html">TransactionReceipt</a> &amp;rhs)</td></tr>
+<tr class="separator:a13c020b0e7e0009600c5d4a2604b9fea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classenjin_1_1sdk_1_1serialization_1_1_i_deserializable"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classenjin_1_1sdk_1_1serialization_1_1_i_deserializable')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classenjin_1_1sdk_1_1serialization_1_1_i_deserializable.html">enjin::sdk::serialization::IDeserializable</a></td></tr>
 <tr class="memitem:a89b7f09644e275f04d55db7e2617ab8f inherit pub_methods_classenjin_1_1sdk_1_1serialization_1_1_i_deserializable"><td class="memItemLeft" align="right" valign="top"><a id="a89b7f09644e275f04d55db7e2617ab8f"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1serialization_1_1_i_deserializable.html#a89b7f09644e275f04d55db7e2617ab8f">~IDeserializable</a> ()=default</td></tr>
@@ -133,8 +146,69 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="separator:a89b7f09644e275f04d55db7e2617ab8f inherit pub_methods_classenjin_1_1sdk_1_1serialization_1_1_i_deserializable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Models a receipt for a blockchain request. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+<div class="textblock"><p>Models a receipt for a blockchain transaction. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a390d2be87a35a3b96276be02fb4450fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a390d2be87a35a3b96276be02fb4450fc">&#9670;&nbsp;</a></span>TransactionReceipt() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enjin::sdk::models::TransactionReceipt::TransactionReceipt </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html">TransactionReceipt</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructs an instance as a copy of another. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The other instance. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5a8cd5a2b04325dd84750c4597d48f77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a8cd5a2b04325dd84750c4597d48f77">&#9670;&nbsp;</a></span>TransactionReceipt() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enjin::sdk::models::TransactionReceipt::TransactionReceipt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_receipt.html">TransactionReceipt</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructs an instance via move. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The other instance being moved. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="ae250000e66623b92dce8681feea03e58"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae250000e66623b92dce8681feea03e58">&#9670;&nbsp;</a></span>deserialize()</h2>
 
@@ -186,7 +260,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
 </div><div class="memdoc">
 
-<p>Returns the hash of the block for the request this receipt belongs to. </p>
+<p>Returns the hash of the block for the transaction this receipt belongs to. </p>
 <dl class="section return"><dt>Returns</dt><dd>The block hash. </dd></dl>
 
 </div>
@@ -206,7 +280,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
 </div><div class="memdoc">
 
-<p>Returns the block number where the request this receipt belongs to is. </p>
+<p>Returns the block number where the transaction this receipt belongs to is. </p>
 <dl class="section return"><dt>Returns</dt><dd>The block number. </dd></dl>
 
 </div>
@@ -226,7 +300,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
 </div><div class="memdoc">
 
-<p>Returns the total amount of gas used when the request was executed in the block. </p>
+<p>Returns the total amount of gas used when the transaction was executed in the block. </p>
 <dl class="section return"><dt>Returns</dt><dd>The total gas used. </dd></dl>
 
 </div>
@@ -246,7 +320,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
 </div><div class="memdoc">
 
-<p>Returns the sender address for the request this receipt belongs to. </p>
+<p>Returns the sender address for the transaction this receipt belongs to. </p>
 <dl class="section return"><dt>Returns</dt><dd>The sender address. </dd></dl>
 
 </div>
@@ -266,7 +340,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
 </div><div class="memdoc">
 
-<p>Returns the gas used by the specific request alone. </p>
+<p>Returns the gas used by the specific transaction alone. </p>
 <dl class="section return"><dt>Returns</dt><dd>The gas used. </dd></dl>
 
 </div>
@@ -286,7 +360,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
 </div><div class="memdoc">
 
-<p>Returns the transaction logs generated for the request this receipt belongs to. </p>
+<p>Returns the transaction logs generated for the transaction this receipt belongs to. </p>
 <dl class="section return"><dt>Returns</dt><dd>The transaction logs. </dd></dl>
 
 </div>
@@ -306,7 +380,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
 </div><div class="memdoc">
 
-<p>Returns the status for the request this receipt belongs to. </p>
+<p>Returns the status for the transaction this receipt belongs to. </p>
 <dl class="section return"><dt>Returns</dt><dd>The status. </dd></dl>
 
 </div>
@@ -326,9 +400,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
 </div><div class="memdoc">
 
-<p>Returns the receiver address for the request this receipt belongs to. </p>
+<p>Returns the receiver address for the transaction this receipt belongs to. </p>
 <dl class="section return"><dt>Returns</dt><dd>The receiver address. </dd></dl>
-<dl class="section remark"><dt>Remarks</dt><dd>If the request was for contract creation, then the optional will not have a value. </dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd>If the transaction was for contract creation, then the optional will not have a value. </dd></dl>
 
 </div>
 </div>
@@ -347,7 +421,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
 </div><div class="memdoc">
 
-<p>Returns the hash of the request this receipt belongs to. </p>
+<p>Returns the hash of the transaction this receipt belongs to. </p>
 <dl class="section return"><dt>Returns</dt><dd>The hash. </dd></dl>
 
 </div>
@@ -367,7 +441,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
 </div><div class="memdoc">
 
-<p>Returns the index position in the block for the request this receipt belongs to. </p>
+<p>Returns the index position in the block for the transaction this receipt belongs to. </p>
 <dl class="section return"><dt>Returns</dt><dd>The index position. </dd></dl>
 
 </div>

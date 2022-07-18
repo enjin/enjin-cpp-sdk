@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['user_5fagent_1261',['USER_AGENT',['../classenjin_1_1sdk_1_1http_1_1_trusted_platform_handler.html#a30ec909c46e9d3b098250a96b7a3c138',1,'enjin::sdk::http::TrustedPlatformHandler']]],
-  ['user_5fagent_5fprefix_1262',['USER_AGENT_PREFIX',['../classenjin_1_1sdk_1_1http_1_1_trusted_platform_handler.html#a909e88de147a2805bc0600c837bd0446',1,'enjin::sdk::http::TrustedPlatformHandler']]]
+  ['mainnet_1457',['MainNet',['../classenjin_1_1sdk_1_1_enjin_hosts.html#a21deb893b0ac8a688a23cd4c24c53d1a',1,'enjin::sdk::EnjinHosts']]],
+  ['middleware_1458',['middleware',['../classenjin_1_1sdk_1_1_base_schema.html#a5e0d677947bc202dc024e5abac32e906',1,'enjin::sdk::BaseSchema']]]
 ];

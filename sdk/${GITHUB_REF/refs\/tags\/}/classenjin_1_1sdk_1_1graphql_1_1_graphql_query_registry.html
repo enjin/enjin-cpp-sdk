@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.1006</span>
+   &#160;<span id="projectnumber">1.0.0.2000</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -89,9 +89,9 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_query_registry.html#a931ace95d106e3508934dbf9605b16cc">~GraphqlQueryRegistry</a> ()=default</td></tr>
 <tr class="memdesc:a931ace95d106e3508934dbf9605b16cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor. <br /></td></tr>
 <tr class="separator:a931ace95d106e3508934dbf9605b16cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade860ddf49d47f479809a0865a23a576"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_query_registry.html#ade860ddf49d47f479809a0865a23a576">register_template</a> (const std::string &amp;name, const std::string &amp;query)</td></tr>
-<tr class="memdesc:ade860ddf49d47f479809a0865a23a576"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a new template if one with the given name does not already exist.  <a href="classenjin_1_1sdk_1_1graphql_1_1_graphql_query_registry.html#ade860ddf49d47f479809a0865a23a576">More...</a><br /></td></tr>
-<tr class="separator:ade860ddf49d47f479809a0865a23a576"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fe46d6b76183ebeb2f3a30952081190"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_query_registry.html#a6fe46d6b76183ebeb2f3a30952081190">register_template</a> (std::string name, std::string query)</td></tr>
+<tr class="memdesc:a6fe46d6b76183ebeb2f3a30952081190"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a new template if one with the given name does not already exist.  <a href="classenjin_1_1sdk_1_1graphql_1_1_graphql_query_registry.html#a6fe46d6b76183ebeb2f3a30952081190">More...</a><br /></td></tr>
+<tr class="separator:a6fe46d6b76183ebeb2f3a30952081190"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab14a46c313ad5960ef6cf8217ee319f9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_query_registry.html#ab14a46c313ad5960ef6cf8217ee319f9">has_operation_for_name</a> (const std::string &amp;name) const</td></tr>
 <tr class="memdesc:ab14a46c313ad5960ef6cf8217ee319f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if this registry contains a template with the given name.  <a href="classenjin_1_1sdk_1_1graphql_1_1_graphql_query_registry.html#ab14a46c313ad5960ef6cf8217ee319f9">More...</a><br /></td></tr>
 <tr class="separator:ab14a46c313ad5960ef6cf8217ee319f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -156,8 +156,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ade860ddf49d47f479809a0865a23a576"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade860ddf49d47f479809a0865a23a576">&#9670;&nbsp;</a></span>register_template()</h2>
+<a id="a6fe46d6b76183ebeb2f3a30952081190"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fe46d6b76183ebeb2f3a30952081190">&#9670;&nbsp;</a></span>register_template()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -165,13 +165,13 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">bool enjin::sdk::graphql::GraphqlQueryRegistry::register_template </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>name</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>query</em>&#160;</td>
         </tr>
         <tr>

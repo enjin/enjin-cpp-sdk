@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.1006</span>
+   &#160;<span id="projectnumber">1.0.0.2000</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -85,30 +85,30 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#af912ecea7116dff3f179f7d27cc1ad25">~IWebsocketClient</a> ()=default</td></tr>
 <tr class="memdesc:af912ecea7116dff3f179f7d27cc1ad25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor. <br /></td></tr>
 <tr class="separator:af912ecea7116dff3f179f7d27cc1ad25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8fa18a318108d0659df7d2655f085f4"><td class="memItemLeft" align="right" valign="top">virtual std::future&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#af8fa18a318108d0659df7d2655f085f4">connect</a> (const std::string &amp;uri)=0</td></tr>
-<tr class="memdesc:af8fa18a318108d0659df7d2655f085f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connects to the server at the given URI address.  <a href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#af8fa18a318108d0659df7d2655f085f4">More...</a><br /></td></tr>
-<tr class="separator:af8fa18a318108d0659df7d2655f085f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3d38ed5ae9bcc04ef61c04ee2f5d0f7"><td class="memItemLeft" align="right" valign="top">virtual std::future&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#ae3d38ed5ae9bcc04ef61c04ee2f5d0f7">connect</a> (std::string uri)=0</td></tr>
+<tr class="memdesc:ae3d38ed5ae9bcc04ef61c04ee2f5d0f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connects to the server at the given URI address.  <a href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#ae3d38ed5ae9bcc04ef61c04ee2f5d0f7">More...</a><br /></td></tr>
+<tr class="separator:ae3d38ed5ae9bcc04ef61c04ee2f5d0f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28ccf01b7fb696f03005d23c918565a7"><td class="memItemLeft" align="right" valign="top">virtual std::future&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#a28ccf01b7fb696f03005d23c918565a7">close</a> ()=0</td></tr>
 <tr class="memdesc:a28ccf01b7fb696f03005d23c918565a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes the websocket connection.  <a href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#a28ccf01b7fb696f03005d23c918565a7">More...</a><br /></td></tr>
 <tr class="separator:a28ccf01b7fb696f03005d23c918565a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf3cb8a28174e17395d71eea8f9fd631"><td class="memItemLeft" align="right" valign="top">virtual std::future&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#abf3cb8a28174e17395d71eea8f9fd631">close</a> (int status_code, const std::string &amp;reason)=0</td></tr>
-<tr class="memdesc:abf3cb8a28174e17395d71eea8f9fd631"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes the websocket connection with the provided code and message.  <a href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#abf3cb8a28174e17395d71eea8f9fd631">More...</a><br /></td></tr>
-<tr class="separator:abf3cb8a28174e17395d71eea8f9fd631"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51a94e8e6d4028f3df17d038def7dbee"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#a51a94e8e6d4028f3df17d038def7dbee">send</a> (const std::string &amp;data)=0</td></tr>
-<tr class="memdesc:a51a94e8e6d4028f3df17d038def7dbee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a websocket message to the server.  <a href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#a51a94e8e6d4028f3df17d038def7dbee">More...</a><br /></td></tr>
-<tr class="separator:a51a94e8e6d4028f3df17d038def7dbee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac00fcba175b90140b2d96756523e40b5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#ac00fcba175b90140b2d96756523e40b5">set_open_handler</a> (const std::function&lt; void()&gt; &amp;handler)=0</td></tr>
-<tr class="memdesc:ac00fcba175b90140b2d96756523e40b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the handler for receiving open events.  <a href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#ac00fcba175b90140b2d96756523e40b5">More...</a><br /></td></tr>
-<tr class="separator:ac00fcba175b90140b2d96756523e40b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d1937ebb98cebab93d3e483a50cb5fe"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#a3d1937ebb98cebab93d3e483a50cb5fe">set_close_handler</a> (const std::function&lt; void(int close_status, const std::string &amp;message)&gt; &amp;handler)=0</td></tr>
-<tr class="memdesc:a3d1937ebb98cebab93d3e483a50cb5fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the handler for receiving close events.  <a href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#a3d1937ebb98cebab93d3e483a50cb5fe">More...</a><br /></td></tr>
-<tr class="separator:a3d1937ebb98cebab93d3e483a50cb5fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24cbe35d440427e6b97565cb46b77ec5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#a24cbe35d440427e6b97565cb46b77ec5">set_message_handler</a> (const std::function&lt; void(const std::string &amp;message)&gt; &amp;handler)=0</td></tr>
-<tr class="memdesc:a24cbe35d440427e6b97565cb46b77ec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the handler for receiving string messages from the server.  <a href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#a24cbe35d440427e6b97565cb46b77ec5">More...</a><br /></td></tr>
-<tr class="separator:a24cbe35d440427e6b97565cb46b77ec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab97465b6934709a15fe9444ec52b5796"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#ab97465b6934709a15fe9444ec52b5796">set_error_handler</a> (const std::function&lt; void(int code, const std::string &amp;message)&gt; &amp;handler)=0</td></tr>
-<tr class="memdesc:ab97465b6934709a15fe9444ec52b5796"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the handler for receiving errors which occur with the websocket connection.  <a href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#ab97465b6934709a15fe9444ec52b5796">More...</a><br /></td></tr>
-<tr class="separator:ab97465b6934709a15fe9444ec52b5796"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa86ff0e3d699b8aff295a9e7cb8a2ff1"><td class="memItemLeft" align="right" valign="top">virtual std::future&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#aa86ff0e3d699b8aff295a9e7cb8a2ff1">close</a> (int status_code, std::string reason)=0</td></tr>
+<tr class="memdesc:aa86ff0e3d699b8aff295a9e7cb8a2ff1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes the websocket connection with the provided code and message.  <a href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#aa86ff0e3d699b8aff295a9e7cb8a2ff1">More...</a><br /></td></tr>
+<tr class="separator:aa86ff0e3d699b8aff295a9e7cb8a2ff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a316bd0690605eba9499a5ff19c5d14e2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#a316bd0690605eba9499a5ff19c5d14e2">send</a> (std::string data)=0</td></tr>
+<tr class="memdesc:a316bd0690605eba9499a5ff19c5d14e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a websocket message to the server.  <a href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#a316bd0690605eba9499a5ff19c5d14e2">More...</a><br /></td></tr>
+<tr class="separator:a316bd0690605eba9499a5ff19c5d14e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06c0b2bd8fc01229e0cfefe667937454"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#a06c0b2bd8fc01229e0cfefe667937454">set_open_handler</a> (std::function&lt; void()&gt; handler)=0</td></tr>
+<tr class="memdesc:a06c0b2bd8fc01229e0cfefe667937454"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the handler for receiving open events.  <a href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#a06c0b2bd8fc01229e0cfefe667937454">More...</a><br /></td></tr>
+<tr class="separator:a06c0b2bd8fc01229e0cfefe667937454"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed91de00fb3e3fd3f0da7966a9a6aee3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#aed91de00fb3e3fd3f0da7966a9a6aee3">set_close_handler</a> (std::function&lt; void(int close_status, const std::string &amp;message)&gt; handler)=0</td></tr>
+<tr class="memdesc:aed91de00fb3e3fd3f0da7966a9a6aee3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the handler for receiving close events.  <a href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#aed91de00fb3e3fd3f0da7966a9a6aee3">More...</a><br /></td></tr>
+<tr class="separator:aed91de00fb3e3fd3f0da7966a9a6aee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0b36937d65bccba0475892bb4823aba"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#ae0b36937d65bccba0475892bb4823aba">set_message_handler</a> (std::function&lt; void(const std::string &amp;message)&gt; handler)=0</td></tr>
+<tr class="memdesc:ae0b36937d65bccba0475892bb4823aba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the handler for receiving string messages from the server.  <a href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#ae0b36937d65bccba0475892bb4823aba">More...</a><br /></td></tr>
+<tr class="separator:ae0b36937d65bccba0475892bb4823aba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a796802d4a11a7abecd85cf39ef24a416"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#a796802d4a11a7abecd85cf39ef24a416">set_error_handler</a> (std::function&lt; void(int code, const std::string &amp;message)&gt; handler)=0</td></tr>
+<tr class="memdesc:a796802d4a11a7abecd85cf39ef24a416"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the handler for receiving errors which occur with the websocket connection.  <a href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#a796802d4a11a7abecd85cf39ef24a416">More...</a><br /></td></tr>
+<tr class="separator:a796802d4a11a7abecd85cf39ef24a416"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1ff7099414c04d2b94435109d224403"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#ac1ff7099414c04d2b94435109d224403">set_allow_reconnecting</a> (bool allowed)=0</td></tr>
 <tr class="memdesc:ac1ff7099414c04d2b94435109d224403"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether reconnecting is allowed.  <a href="classenjin_1_1sdk_1_1websockets_1_1_i_websocket_client.html#ac1ff7099414c04d2b94435109d224403">More...</a><br /></td></tr>
 <tr class="separator:ac1ff7099414c04d2b94435109d224403"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,8 +147,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 
 </div>
 </div>
-<a id="abf3cb8a28174e17395d71eea8f9fd631"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf3cb8a28174e17395d71eea8f9fd631">&#9670;&nbsp;</a></span>close() <span class="overload">[2/2]</span></h2>
+<a id="aa86ff0e3d699b8aff295a9e7cb8a2ff1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa86ff0e3d699b8aff295a9e7cb8a2ff1">&#9670;&nbsp;</a></span>close() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -165,7 +165,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>reason</em>&#160;</td>
         </tr>
         <tr>
@@ -193,8 +193,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 
 </div>
 </div>
-<a id="af8fa18a318108d0659df7d2655f085f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8fa18a318108d0659df7d2655f085f4">&#9670;&nbsp;</a></span>connect()</h2>
+<a id="ae3d38ed5ae9bcc04ef61c04ee2f5d0f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3d38ed5ae9bcc04ef61c04ee2f5d0f7">&#9670;&nbsp;</a></span>connect()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -205,7 +205,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
         <tr>
           <td class="memname">virtual std::future&lt;void&gt; enjin::sdk::websockets::IWebsocketClient::connect </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>uri</em></td><td>)</td>
           <td></td>
         </tr>
@@ -228,8 +228,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 
 </div>
 </div>
-<a id="a51a94e8e6d4028f3df17d038def7dbee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a51a94e8e6d4028f3df17d038def7dbee">&#9670;&nbsp;</a></span>send()</h2>
+<a id="a316bd0690605eba9499a5ff19c5d14e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a316bd0690605eba9499a5ff19c5d14e2">&#9670;&nbsp;</a></span>send()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -240,7 +240,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
         <tr>
           <td class="memname">virtual void enjin::sdk::websockets::IWebsocketClient::send </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>data</em></td><td>)</td>
           <td></td>
         </tr>
@@ -330,8 +330,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 
 </div>
 </div>
-<a id="a3d1937ebb98cebab93d3e483a50cb5fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d1937ebb98cebab93d3e483a50cb5fe">&#9670;&nbsp;</a></span>set_close_handler()</h2>
+<a id="aed91de00fb3e3fd3f0da7966a9a6aee3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed91de00fb3e3fd3f0da7966a9a6aee3">&#9670;&nbsp;</a></span>set_close_handler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -342,7 +342,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
         <tr>
           <td class="memname">virtual void enjin::sdk::websockets::IWebsocketClient::set_close_handler </td>
           <td>(</td>
-          <td class="paramtype">const std::function&lt; void(int close_status, const std::string &amp;message)&gt; &amp;&#160;</td>
+          <td class="paramtype">std::function&lt; void(int close_status, const std::string &amp;message)&gt;&#160;</td>
           <td class="paramname"><em>handler</em></td><td>)</td>
           <td></td>
         </tr>
@@ -365,8 +365,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 
 </div>
 </div>
-<a id="ab97465b6934709a15fe9444ec52b5796"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab97465b6934709a15fe9444ec52b5796">&#9670;&nbsp;</a></span>set_error_handler()</h2>
+<a id="a796802d4a11a7abecd85cf39ef24a416"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a796802d4a11a7abecd85cf39ef24a416">&#9670;&nbsp;</a></span>set_error_handler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -377,7 +377,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
         <tr>
           <td class="memname">virtual void enjin::sdk::websockets::IWebsocketClient::set_error_handler </td>
           <td>(</td>
-          <td class="paramtype">const std::function&lt; void(int code, const std::string &amp;message)&gt; &amp;&#160;</td>
+          <td class="paramtype">std::function&lt; void(int code, const std::string &amp;message)&gt;&#160;</td>
           <td class="paramname"><em>handler</em></td><td>)</td>
           <td></td>
         </tr>
@@ -400,8 +400,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 
 </div>
 </div>
-<a id="a24cbe35d440427e6b97565cb46b77ec5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24cbe35d440427e6b97565cb46b77ec5">&#9670;&nbsp;</a></span>set_message_handler()</h2>
+<a id="ae0b36937d65bccba0475892bb4823aba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0b36937d65bccba0475892bb4823aba">&#9670;&nbsp;</a></span>set_message_handler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -412,7 +412,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
         <tr>
           <td class="memname">virtual void enjin::sdk::websockets::IWebsocketClient::set_message_handler </td>
           <td>(</td>
-          <td class="paramtype">const std::function&lt; void(const std::string &amp;message)&gt; &amp;&#160;</td>
+          <td class="paramtype">std::function&lt; void(const std::string &amp;message)&gt;&#160;</td>
           <td class="paramname"><em>handler</em></td><td>)</td>
           <td></td>
         </tr>
@@ -435,8 +435,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 
 </div>
 </div>
-<a id="ac00fcba175b90140b2d96756523e40b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac00fcba175b90140b2d96756523e40b5">&#9670;&nbsp;</a></span>set_open_handler()</h2>
+<a id="a06c0b2bd8fc01229e0cfefe667937454"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06c0b2bd8fc01229e0cfefe667937454">&#9670;&nbsp;</a></span>set_open_handler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -447,7 +447,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
         <tr>
           <td class="memname">virtual void enjin::sdk::websockets::IWebsocketClient::set_open_handler </td>
           <td>(</td>
-          <td class="paramtype">const std::function&lt; void()&gt; &amp;&#160;</td>
+          <td class="paramtype">std::function&lt; void()&gt;&#160;</td>
           <td class="paramname"><em>handler</em></td><td>)</td>
           <td></td>
         </tr>

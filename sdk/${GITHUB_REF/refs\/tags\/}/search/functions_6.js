@@ -1,10 +1,11 @@
 var searchData=
 [
-  ['has_5ferrors_983',['has_errors',['../classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#a1dc3d91a7ea26d4794c0e2205d1ab7c5',1,'enjin::sdk::graphql::AbstractGraphqlResponse']]],
-  ['has_5fheader_984',['has_header',['../classenjin_1_1sdk_1_1http_1_1_http_request.html#aff33b37319c111fb0885cb2cd4e4ab32',1,'enjin::sdk::http::HttpRequest']]],
-  ['has_5foperation_5ffor_5fname_985',['has_operation_for_name',['../classenjin_1_1sdk_1_1graphql_1_1_graphql_query_registry.html#ab14a46c313ad5960ef6cf8217ee319f9',1,'enjin::sdk::graphql::GraphqlQueryRegistry']]],
-  ['http_5fclient_986',['http_client',['../classenjin_1_1sdk_1_1_player_client_builder.html#a8834c050a2a64b341395f1fbfd5f25f5',1,'enjin::sdk::PlayerClientBuilder::http_client()'],['../classenjin_1_1sdk_1_1_project_client_builder.html#aed0164de240c4ccacdb970f268b0716c',1,'enjin::sdk::ProjectClientBuilder::http_client()']]],
-  ['httprequestbuilder_987',['HttpRequestBuilder',['../classenjin_1_1sdk_1_1http_1_1_http_request_builder.html#a86bec0196d5d75cd60b6d441f3e60753',1,'enjin::sdk::http::HttpRequestBuilder']]],
-  ['httpresponse_988',['HttpResponse',['../classenjin_1_1sdk_1_1http_1_1_http_response.html#a7b8b5d00f166617ac33a9d34a87822b1',1,'enjin::sdk::http::HttpResponse']]],
-  ['httpresponsebuilder_989',['HttpResponseBuilder',['../classenjin_1_1sdk_1_1http_1_1_http_response_builder.html#a0feaee9b57e34065e208ced8749330a9',1,'enjin::sdk::http::HttpResponseBuilder']]]
+  ['has_5ferrors_1098',['has_errors',['../classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_response.html#a1dc3d91a7ea26d4794c0e2205d1ab7c5',1,'enjin::sdk::graphql::AbstractGraphqlResponse']]],
+  ['has_5fheader_1099',['has_header',['../classenjin_1_1sdk_1_1http_1_1_http_request.html#aff33b37319c111fb0885cb2cd4e4ab32',1,'enjin::sdk::http::HttpRequest::has_header()'],['../classenjin_1_1sdk_1_1http_1_1_http_response.html#ab57f2d338c6ac75096e249344927a397',1,'enjin::sdk::http::HttpResponse::has_header()']]],
+  ['has_5fobject_5ffield_1100',['has_object_field',['../classenjin_1_1sdk_1_1json_1_1_json_value.html#addb285f94b575ac7f1c69d6a4738371f',1,'enjin::sdk::json::JsonValue']]],
+  ['has_5foperation_5ffor_5fname_1101',['has_operation_for_name',['../classenjin_1_1sdk_1_1graphql_1_1_graphql_query_registry.html#ab14a46c313ad5960ef6cf8217ee319f9',1,'enjin::sdk::graphql::GraphqlQueryRegistry']]],
+  ['http_5fclient_1102',['http_client',['../classenjin_1_1sdk_1_1_player_client_1_1_player_client_builder.html#a26210290454088fa54cd2ccfe1d77cfa',1,'enjin::sdk::PlayerClient::PlayerClientBuilder::http_client()'],['../classenjin_1_1sdk_1_1_project_client_1_1_project_client_builder.html#a64d6e895bc825101163e562a9ce11d73',1,'enjin::sdk::ProjectClient::ProjectClientBuilder::http_client()']]],
+  ['http_5flog_5flevel_1103',['http_log_level',['../classenjin_1_1sdk_1_1_player_client_1_1_player_client_builder.html#ab79a768fad752b2828ea681dc42b130f',1,'enjin::sdk::PlayerClient::PlayerClientBuilder::http_log_level()'],['../classenjin_1_1sdk_1_1_project_client_1_1_project_client_builder.html#a65a921eeb639445daf1d2eefdca444da',1,'enjin::sdk::ProjectClient::ProjectClientBuilder::http_log_level()']]],
+  ['httprequest_1104',['HttpRequest',['../classenjin_1_1sdk_1_1http_1_1_http_request.html#a270a624ea2c5187be8694d0c6cbccee0',1,'enjin::sdk::http::HttpRequest']]],
+  ['httpresponse_1105',['HttpResponse',['../classenjin_1_1sdk_1_1http_1_1_http_response.html#a7b8b5d00f166617ac33a9d34a87822b1',1,'enjin::sdk::http::HttpResponse']]]
 ];

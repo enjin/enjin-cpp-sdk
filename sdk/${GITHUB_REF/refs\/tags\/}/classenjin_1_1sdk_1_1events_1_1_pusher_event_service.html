@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.1006</span>
+   &#160;<span id="projectnumber">1.0.0.2000</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -69,8 +69,9 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">enjin::sdk::events::PusherEventService Class Reference</div>  </div>
@@ -82,14 +83,30 @@ $(function() {
 
 <p>Inherits <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html">enjin::sdk::events::IEventService</a>.</p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service_1_1_pusher_event_service_builder.html">PusherEventServiceBuilder</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder class for PusherEventService.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service_1_1_pusher_event_service_builder.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a095772204d310acbd142125074ce1b71"><td class="memItemLeft" align="right" valign="top"><a id="a095772204d310acbd142125074ce1b71"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>PusherEventService</b> (const <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html">PusherEventService</a> &amp;)=delete</td></tr>
+<tr class="separator:a095772204d310acbd142125074ce1b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83415c550598ecca401e35d1ff85ccff"><td class="memItemLeft" align="right" valign="top"><a id="a83415c550598ecca401e35d1ff85ccff"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>PusherEventService</b> (<a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html">PusherEventService</a> &amp;&amp;rhs)=delete</td></tr>
+<tr class="separator:a83415c550598ecca401e35d1ff85ccff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51602a5078ecf91644943f187386d45d"><td class="memItemLeft" align="right" valign="top"><a id="a51602a5078ecf91644943f187386d45d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a51602a5078ecf91644943f187386d45d">~PusherEventService</a> () override</td></tr>
+<tr class="memdesc:a51602a5078ecf91644943f187386d45d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deconstructs this instance. <br /></td></tr>
+<tr class="separator:a51602a5078ecf91644943f187386d45d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf0ee66d5753da157b5e2eb15a14fa4b"><td class="memItemLeft" align="right" valign="top">std::future&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#aaf0ee66d5753da157b5e2eb15a14fa4b">start</a> () override</td></tr>
 <tr class="memdesc:aaf0ee66d5753da157b5e2eb15a14fa4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts this service.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#aaf0ee66d5753da157b5e2eb15a14fa4b">More...</a><br /></td></tr>
 <tr class="separator:aaf0ee66d5753da157b5e2eb15a14fa4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:affd1bf5d91ba3dfa1b30e385e0510f54"><td class="memItemLeft" align="right" valign="top">std::future&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#affd1bf5d91ba3dfa1b30e385e0510f54">start</a> (const <a class="el" href="classenjin_1_1sdk_1_1models_1_1_platform.html">models::Platform</a> &amp;platform) override</td></tr>
-<tr class="memdesc:affd1bf5d91ba3dfa1b30e385e0510f54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts this service with the provided platform details.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#affd1bf5d91ba3dfa1b30e385e0510f54">More...</a><br /></td></tr>
-<tr class="separator:affd1bf5d91ba3dfa1b30e385e0510f54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43d831a5e470e81dafa751bfc3891cf5"><td class="memItemLeft" align="right" valign="top">std::future&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a43d831a5e470e81dafa751bfc3891cf5">start</a> (<a class="el" href="classenjin_1_1sdk_1_1models_1_1_platform.html">models::Platform</a> platform) override</td></tr>
+<tr class="memdesc:a43d831a5e470e81dafa751bfc3891cf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts this service with the provided platform details.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a43d831a5e470e81dafa751bfc3891cf5">More...</a><br /></td></tr>
+<tr class="separator:a43d831a5e470e81dafa751bfc3891cf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6b0a4f72e635f6a6c68882fa9df0676"><td class="memItemLeft" align="right" valign="top">std::future&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#ae6b0a4f72e635f6a6c68882fa9df0676">shutdown</a> () override</td></tr>
 <tr class="memdesc:ae6b0a4f72e635f6a6c68882fa9df0676"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shuts down this service.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#ae6b0a4f72e635f6a6c68882fa9df0676">More...</a><br /></td></tr>
 <tr class="separator:ae6b0a4f72e635f6a6c68882fa9df0676"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -99,66 +116,66 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a668b93bda5c39690ef53aa69df3ba879"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a668b93bda5c39690ef53aa69df3ba879">is_registered</a> (const <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_listener.html">IEventListener</a> &amp;listener) const override</td></tr>
 <tr class="memdesc:a668b93bda5c39690ef53aa69df3ba879"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the the listener is registered to this service.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a668b93bda5c39690ef53aa69df3ba879">More...</a><br /></td></tr>
 <tr class="separator:a668b93bda5c39690ef53aa69df3ba879"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9156a3c4ca85175b0c5b22792b608df7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a9156a3c4ca85175b0c5b22792b608df7">set_connected_handler</a> (const std::function&lt; void()&gt; &amp;handler) override</td></tr>
-<tr class="memdesc:a9156a3c4ca85175b0c5b22792b608df7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a handler for when the service connects to the server.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a9156a3c4ca85175b0c5b22792b608df7">More...</a><br /></td></tr>
-<tr class="separator:a9156a3c4ca85175b0c5b22792b608df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9467760b7a042b44a41e5db8c68f0258"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a9467760b7a042b44a41e5db8c68f0258">set_disconnected_handler</a> (const std::function&lt; void()&gt; &amp;handler) override</td></tr>
-<tr class="memdesc:a9467760b7a042b44a41e5db8c68f0258"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a handler for when the service disconnects from the server.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a9467760b7a042b44a41e5db8c68f0258">More...</a><br /></td></tr>
-<tr class="separator:a9467760b7a042b44a41e5db8c68f0258"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab34de7efac48d201362a65421919a323"><td class="memItemLeft" align="right" valign="top"><a id="ab34de7efac48d201362a65421919a323"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_error_handler</b> (const std::function&lt; void(const std::exception &amp;)&gt; &amp;handler) override</td></tr>
-<tr class="separator:ab34de7efac48d201362a65421919a323"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04df6e843b72ab77d28b698d52ad1cbc"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classenjin_1_1sdk_1_1events_1_1_event_listener_registration.html">EventListenerRegistration</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a04df6e843b72ab77d28b698d52ad1cbc">register_listener</a> (const std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_listener.html">IEventListener</a> &gt; &amp;listener) override</td></tr>
-<tr class="memdesc:a04df6e843b72ab77d28b698d52ad1cbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a event listener and provides the registration for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a04df6e843b72ab77d28b698d52ad1cbc">More...</a><br /></td></tr>
-<tr class="separator:a04df6e843b72ab77d28b698d52ad1cbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5b7eb7f16a86d2592443ba9c7f2b8cc"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classenjin_1_1sdk_1_1events_1_1_event_listener_registration.html">EventListenerRegistration</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#ab5b7eb7f16a86d2592443ba9c7f2b8cc">register_listener_with_matcher</a> (const std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_listener.html">IEventListener</a> &gt; &amp;listener, const std::function&lt; bool(models::EventType)&gt; &amp;matcher) override</td></tr>
-<tr class="memdesc:ab5b7eb7f16a86d2592443ba9c7f2b8cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a event listener with a function for event matcher and provides the registration for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#ab5b7eb7f16a86d2592443ba9c7f2b8cc">More...</a><br /></td></tr>
-<tr class="separator:ab5b7eb7f16a86d2592443ba9c7f2b8cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5555a56ccf02e54edda652d1bd7482a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classenjin_1_1sdk_1_1events_1_1_event_listener_registration.html">EventListenerRegistration</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#ad5555a56ccf02e54edda652d1bd7482a">register_listener_including_types</a> (const std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_listener.html">IEventListener</a> &gt; &amp;listener, const std::vector&lt; models::EventType &gt; &amp;types) override</td></tr>
-<tr class="memdesc:ad5555a56ccf02e54edda652d1bd7482a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a event listener with event types to allow and provides the registration for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#ad5555a56ccf02e54edda652d1bd7482a">More...</a><br /></td></tr>
-<tr class="separator:ad5555a56ccf02e54edda652d1bd7482a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8504f79aad49d84958afb5d35e7169f3"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classenjin_1_1sdk_1_1events_1_1_event_listener_registration.html">EventListenerRegistration</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a8504f79aad49d84958afb5d35e7169f3">register_listener_excluding_types</a> (const std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_listener.html">IEventListener</a> &gt; &amp;listener, const std::vector&lt; models::EventType &gt; &amp;types) override</td></tr>
-<tr class="memdesc:a8504f79aad49d84958afb5d35e7169f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a event listener with event types to ignore and provides the registration for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a8504f79aad49d84958afb5d35e7169f3">More...</a><br /></td></tr>
-<tr class="separator:a8504f79aad49d84958afb5d35e7169f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98ce1fceb5ea1cf0dfc4229182f8b4c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a98ce1fceb5ea1cf0dfc4229182f8b4c6">set_connected_handler</a> (std::function&lt; void()&gt; handler) override</td></tr>
+<tr class="memdesc:a98ce1fceb5ea1cf0dfc4229182f8b4c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a handler for when the service connects to the server.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a98ce1fceb5ea1cf0dfc4229182f8b4c6">More...</a><br /></td></tr>
+<tr class="separator:a98ce1fceb5ea1cf0dfc4229182f8b4c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dbf5c5e58280784ca1a81c997b9f389"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a3dbf5c5e58280784ca1a81c997b9f389">set_disconnected_handler</a> (std::function&lt; void()&gt; handler) override</td></tr>
+<tr class="memdesc:a3dbf5c5e58280784ca1a81c997b9f389"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a handler for when the service disconnects from the server.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a3dbf5c5e58280784ca1a81c997b9f389">More...</a><br /></td></tr>
+<tr class="separator:a3dbf5c5e58280784ca1a81c997b9f389"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7beeddc9b770b56fe727f1022e2d63ab"><td class="memItemLeft" align="right" valign="top"><a id="a7beeddc9b770b56fe727f1022e2d63ab"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_error_handler</b> (std::function&lt; void(const std::exception &amp;)&gt; handler) override</td></tr>
+<tr class="separator:a7beeddc9b770b56fe727f1022e2d63ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc0018061c40279a578450fda74146c3"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classenjin_1_1sdk_1_1events_1_1_event_listener_registration.html">EventListenerRegistration</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#afc0018061c40279a578450fda74146c3">register_listener</a> (std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_listener.html">IEventListener</a> &gt; listener) override</td></tr>
+<tr class="memdesc:afc0018061c40279a578450fda74146c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a event listener and provides the registration for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#afc0018061c40279a578450fda74146c3">More...</a><br /></td></tr>
+<tr class="separator:afc0018061c40279a578450fda74146c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bde2096f5eb32c032f8d49e1c3150ff"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classenjin_1_1sdk_1_1events_1_1_event_listener_registration.html">EventListenerRegistration</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a2bde2096f5eb32c032f8d49e1c3150ff">register_listener_with_matcher</a> (std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_listener.html">IEventListener</a> &gt; listener, std::function&lt; bool(models::EventType)&gt; matcher) override</td></tr>
+<tr class="memdesc:a2bde2096f5eb32c032f8d49e1c3150ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a event listener with a function for event matcher and provides the registration for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a2bde2096f5eb32c032f8d49e1c3150ff">More...</a><br /></td></tr>
+<tr class="separator:a2bde2096f5eb32c032f8d49e1c3150ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40e19b2bc05eebb789a9018c68f70264"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classenjin_1_1sdk_1_1events_1_1_event_listener_registration.html">EventListenerRegistration</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a40e19b2bc05eebb789a9018c68f70264">register_listener_including_types</a> (std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_listener.html">IEventListener</a> &gt; listener, std::vector&lt; models::EventType &gt; types) override</td></tr>
+<tr class="memdesc:a40e19b2bc05eebb789a9018c68f70264"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a event listener with event types to allow and provides the registration for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a40e19b2bc05eebb789a9018c68f70264">More...</a><br /></td></tr>
+<tr class="separator:a40e19b2bc05eebb789a9018c68f70264"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8348ee9cadfe644a10a3f11e8ec0e832"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classenjin_1_1sdk_1_1events_1_1_event_listener_registration.html">EventListenerRegistration</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a8348ee9cadfe644a10a3f11e8ec0e832">register_listener_excluding_types</a> (std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_listener.html">IEventListener</a> &gt; listener, std::vector&lt; models::EventType &gt; types) override</td></tr>
+<tr class="memdesc:a8348ee9cadfe644a10a3f11e8ec0e832"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a event listener with event types to ignore and provides the registration for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a8348ee9cadfe644a10a3f11e8ec0e832">More...</a><br /></td></tr>
+<tr class="separator:a8348ee9cadfe644a10a3f11e8ec0e832"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aece3e7671153484f2dfb84d4a0caab98"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#aece3e7671153484f2dfb84d4a0caab98">unregister_listener</a> (const <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_listener.html">IEventListener</a> &amp;listener) override</td></tr>
 <tr class="memdesc:aece3e7671153484f2dfb84d4a0caab98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unregisters the event listener from this service.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#aece3e7671153484f2dfb84d4a0caab98">More...</a><br /></td></tr>
 <tr class="separator:aece3e7671153484f2dfb84d4a0caab98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d262c8541f1c13bcb10b3f92421ae97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a8d262c8541f1c13bcb10b3f92421ae97">subscribe_to_project</a> (const std::string &amp;project) override</td></tr>
-<tr class="memdesc:a8d262c8541f1c13bcb10b3f92421ae97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens a channel for the specified project, allowing listeners to receive events for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a8d262c8541f1c13bcb10b3f92421ae97">More...</a><br /></td></tr>
-<tr class="separator:a8d262c8541f1c13bcb10b3f92421ae97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef7dcbbd02a0c0e763c5966a9f7a7956"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#aef7dcbbd02a0c0e763c5966a9f7a7956">unsubscribe_to_project</a> (const std::string &amp;project) override</td></tr>
-<tr class="memdesc:aef7dcbbd02a0c0e763c5966a9f7a7956"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes a channel for the specified project, preventing listeners from receiving events for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#aef7dcbbd02a0c0e763c5966a9f7a7956">More...</a><br /></td></tr>
-<tr class="separator:aef7dcbbd02a0c0e763c5966a9f7a7956"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f1f7a5a03e1f997d2ed111403708b9b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a0f1f7a5a03e1f997d2ed111403708b9b">is_subscribed_to_project</a> (const std::string &amp;project) const override</td></tr>
-<tr class="memdesc:a0f1f7a5a03e1f997d2ed111403708b9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if this service is subscribed to the specified channel.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a0f1f7a5a03e1f997d2ed111403708b9b">More...</a><br /></td></tr>
-<tr class="separator:a0f1f7a5a03e1f997d2ed111403708b9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b90ea1c37a26b4f26ac7ed3414dd255"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a9b90ea1c37a26b4f26ac7ed3414dd255">subscribe_to_player</a> (const std::string &amp;project, const std::string &amp;player) override</td></tr>
-<tr class="memdesc:a9b90ea1c37a26b4f26ac7ed3414dd255"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens a channel for the specified player, allowing listeners to receive events for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a9b90ea1c37a26b4f26ac7ed3414dd255">More...</a><br /></td></tr>
-<tr class="separator:a9b90ea1c37a26b4f26ac7ed3414dd255"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8f3131b98ece6eae43b0855942c4751"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#af8f3131b98ece6eae43b0855942c4751">unsubscribe_to_player</a> (const std::string &amp;project, const std::string &amp;player) override</td></tr>
-<tr class="memdesc:af8f3131b98ece6eae43b0855942c4751"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes a channel for the specified player, preventing listeners from receiving events for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#af8f3131b98ece6eae43b0855942c4751">More...</a><br /></td></tr>
-<tr class="separator:af8f3131b98ece6eae43b0855942c4751"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d12fa7dba25d2313f2974eb48def5e2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a1d12fa7dba25d2313f2974eb48def5e2">is_subscribed_to_player</a> (const std::string &amp;project, const std::string &amp;player) const override</td></tr>
-<tr class="memdesc:a1d12fa7dba25d2313f2974eb48def5e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if this service is subscribed to the specified channel.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a1d12fa7dba25d2313f2974eb48def5e2">More...</a><br /></td></tr>
-<tr class="separator:a1d12fa7dba25d2313f2974eb48def5e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77b0f07e45b5d56dd8036264910aad54"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a77b0f07e45b5d56dd8036264910aad54">subscribe_to_asset</a> (const std::string &amp;asset) override</td></tr>
-<tr class="memdesc:a77b0f07e45b5d56dd8036264910aad54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens a channel for the specified asset, allowing listeners to receive events for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a77b0f07e45b5d56dd8036264910aad54">More...</a><br /></td></tr>
-<tr class="separator:a77b0f07e45b5d56dd8036264910aad54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab718d7ca7bf29eb34dc37a256abd96a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#ab718d7ca7bf29eb34dc37a256abd96a3">unsubscribe_to_asset</a> (const std::string &amp;asset) override</td></tr>
-<tr class="memdesc:ab718d7ca7bf29eb34dc37a256abd96a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes a channel for the specified asset, preventing listeners from receiving events for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#ab718d7ca7bf29eb34dc37a256abd96a3">More...</a><br /></td></tr>
-<tr class="separator:ab718d7ca7bf29eb34dc37a256abd96a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3aa6ce62bce663948b0c1e6d6c24e136"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a3aa6ce62bce663948b0c1e6d6c24e136">is_subscribed_to_asset</a> (const std::string &amp;asset) const override</td></tr>
-<tr class="memdesc:a3aa6ce62bce663948b0c1e6d6c24e136"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if this service is subscribed to the specified channel.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a3aa6ce62bce663948b0c1e6d6c24e136">More...</a><br /></td></tr>
-<tr class="separator:a3aa6ce62bce663948b0c1e6d6c24e136"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab673233d9a50db5ffe6243125971eea3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#ab673233d9a50db5ffe6243125971eea3">subscribe_to_wallet</a> (const std::string &amp;wallet) override</td></tr>
-<tr class="memdesc:ab673233d9a50db5ffe6243125971eea3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens a channel for the specified wallet, allowing listeners to receive events for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#ab673233d9a50db5ffe6243125971eea3">More...</a><br /></td></tr>
-<tr class="separator:ab673233d9a50db5ffe6243125971eea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f203a2fce307dc95298696ce8ebc78a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a8f203a2fce307dc95298696ce8ebc78a">unsubscribe_to_wallet</a> (const std::string &amp;wallet) override</td></tr>
-<tr class="memdesc:a8f203a2fce307dc95298696ce8ebc78a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes a channel for the specified wallet, preventing listeners from receiving events for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a8f203a2fce307dc95298696ce8ebc78a">More...</a><br /></td></tr>
-<tr class="separator:a8f203a2fce307dc95298696ce8ebc78a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b48edf446277190b6b83f8ebc643cb3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a0b48edf446277190b6b83f8ebc643cb3">is_subscribed_to_wallet</a> (const std::string &amp;wallet) const override</td></tr>
-<tr class="memdesc:a0b48edf446277190b6b83f8ebc643cb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if this service is subscribed to the specified channel.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a0b48edf446277190b6b83f8ebc643cb3">More...</a><br /></td></tr>
-<tr class="separator:a0b48edf446277190b6b83f8ebc643cb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac32f3ae50fad4524b915fdabb34d0f54"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#ac32f3ae50fad4524b915fdabb34d0f54">subscribe_to_project</a> (std::string project) override</td></tr>
+<tr class="memdesc:ac32f3ae50fad4524b915fdabb34d0f54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens a channel for the specified project, allowing listeners to receive events for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#ac32f3ae50fad4524b915fdabb34d0f54">More...</a><br /></td></tr>
+<tr class="separator:ac32f3ae50fad4524b915fdabb34d0f54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00ba4f03df91aa200a9d821f65b44426"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a00ba4f03df91aa200a9d821f65b44426">unsubscribe_to_project</a> (std::string project) override</td></tr>
+<tr class="memdesc:a00ba4f03df91aa200a9d821f65b44426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes a channel for the specified project, preventing listeners from receiving events for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a00ba4f03df91aa200a9d821f65b44426">More...</a><br /></td></tr>
+<tr class="separator:a00ba4f03df91aa200a9d821f65b44426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2043b6b96fe4c17772e02e4a2f500fed"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a2043b6b96fe4c17772e02e4a2f500fed">is_subscribed_to_project</a> (std::string project) const override</td></tr>
+<tr class="memdesc:a2043b6b96fe4c17772e02e4a2f500fed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if this service is subscribed to the specified channel.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a2043b6b96fe4c17772e02e4a2f500fed">More...</a><br /></td></tr>
+<tr class="separator:a2043b6b96fe4c17772e02e4a2f500fed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae446c144769805cd8e71b818feb3771e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#ae446c144769805cd8e71b818feb3771e">subscribe_to_player</a> (std::string project, std::string player) override</td></tr>
+<tr class="memdesc:ae446c144769805cd8e71b818feb3771e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens a channel for the specified player, allowing listeners to receive events for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#ae446c144769805cd8e71b818feb3771e">More...</a><br /></td></tr>
+<tr class="separator:ae446c144769805cd8e71b818feb3771e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68de66b18ac46f94264c8cc740f1fdd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a68de66b18ac46f94264c8cc740f1fdd7">unsubscribe_to_player</a> (std::string project, std::string player) override</td></tr>
+<tr class="memdesc:a68de66b18ac46f94264c8cc740f1fdd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes a channel for the specified player, preventing listeners from receiving events for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a68de66b18ac46f94264c8cc740f1fdd7">More...</a><br /></td></tr>
+<tr class="separator:a68de66b18ac46f94264c8cc740f1fdd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af90412c78ccf06905f81b7b958fefecc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#af90412c78ccf06905f81b7b958fefecc">is_subscribed_to_player</a> (std::string project, std::string player) const override</td></tr>
+<tr class="memdesc:af90412c78ccf06905f81b7b958fefecc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if this service is subscribed to the specified channel.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#af90412c78ccf06905f81b7b958fefecc">More...</a><br /></td></tr>
+<tr class="separator:af90412c78ccf06905f81b7b958fefecc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7718ca21422d4425d3b2c1e411cd247e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a7718ca21422d4425d3b2c1e411cd247e">subscribe_to_asset</a> (std::string asset) override</td></tr>
+<tr class="memdesc:a7718ca21422d4425d3b2c1e411cd247e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens a channel for the specified asset, allowing listeners to receive events for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a7718ca21422d4425d3b2c1e411cd247e">More...</a><br /></td></tr>
+<tr class="separator:a7718ca21422d4425d3b2c1e411cd247e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd4ab4153cde9cfb4b9571b517ab5c71"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#acd4ab4153cde9cfb4b9571b517ab5c71">unsubscribe_to_asset</a> (std::string asset) override</td></tr>
+<tr class="memdesc:acd4ab4153cde9cfb4b9571b517ab5c71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes a channel for the specified asset, preventing listeners from receiving events for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#acd4ab4153cde9cfb4b9571b517ab5c71">More...</a><br /></td></tr>
+<tr class="separator:acd4ab4153cde9cfb4b9571b517ab5c71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a405e484cb8961880532ce4364f24ae0c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a405e484cb8961880532ce4364f24ae0c">is_subscribed_to_asset</a> (std::string asset) const override</td></tr>
+<tr class="memdesc:a405e484cb8961880532ce4364f24ae0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if this service is subscribed to the specified channel.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a405e484cb8961880532ce4364f24ae0c">More...</a><br /></td></tr>
+<tr class="separator:a405e484cb8961880532ce4364f24ae0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51725b3c65d349fe2b377d766fd69e10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a51725b3c65d349fe2b377d766fd69e10">subscribe_to_wallet</a> (std::string wallet) override</td></tr>
+<tr class="memdesc:a51725b3c65d349fe2b377d766fd69e10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens a channel for the specified wallet, allowing listeners to receive events for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a51725b3c65d349fe2b377d766fd69e10">More...</a><br /></td></tr>
+<tr class="separator:a51725b3c65d349fe2b377d766fd69e10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a752ff6813d1a5670d636b3cf994f24bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a752ff6813d1a5670d636b3cf994f24bf">unsubscribe_to_wallet</a> (std::string wallet) override</td></tr>
+<tr class="memdesc:a752ff6813d1a5670d636b3cf994f24bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes a channel for the specified wallet, preventing listeners from receiving events for it.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a752ff6813d1a5670d636b3cf994f24bf">More...</a><br /></td></tr>
+<tr class="separator:a752ff6813d1a5670d636b3cf994f24bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e67cc9235fdfcecd73c7903e9ea63ec"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a0e67cc9235fdfcecd73c7903e9ea63ec">is_subscribed_to_wallet</a> (std::string wallet) const override</td></tr>
+<tr class="memdesc:a0e67cc9235fdfcecd73c7903e9ea63ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if this service is subscribed to the specified channel.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a0e67cc9235fdfcecd73c7903e9ea63ec">More...</a><br /></td></tr>
+<tr class="separator:a0e67cc9235fdfcecd73c7903e9ea63ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51440baad11d5c785f8ef5774de90af4"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_event_listener_registration.html">EventListenerRegistration</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a51440baad11d5c785f8ef5774de90af4">get_listeners</a> () const</td></tr>
 <tr class="memdesc:a51440baad11d5c785f8ef5774de90af4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the registrations for listeners registered to this service.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a51440baad11d5c785f8ef5774de90af4">More...</a><br /></td></tr>
 <tr class="separator:a51440baad11d5c785f8ef5774de90af4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -170,19 +187,47 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>set_error_handler</b>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#aed43aea0f16f3dae25976f77678f3b3a">~IEventService</a> ()=default</td></tr>
 <tr class="memdesc:aed43aea0f16f3dae25976f77678f3b3a inherit pub_methods_classenjin_1_1sdk_1_1events_1_1_i_event_service"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor. <br /></td></tr>
 <tr class="separator:aed43aea0f16f3dae25976f77678f3b3a inherit pub_methods_classenjin_1_1sdk_1_1events_1_1_i_event_service"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7cbd52f6f2309f5804a1c6ba59db1ad inherit pub_methods_classenjin_1_1sdk_1_1events_1_1_i_event_service"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#aa7cbd52f6f2309f5804a1c6ba59db1ad">set_error_handler</a> (const std::function&lt; void(const std::exception &amp;e)&gt; &amp;handler)=0</td></tr>
-<tr class="memdesc:aa7cbd52f6f2309f5804a1c6ba59db1ad inherit pub_methods_classenjin_1_1sdk_1_1events_1_1_i_event_service"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a handler for when the service encounters an error.  <a href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#aa7cbd52f6f2309f5804a1c6ba59db1ad">More...</a><br /></td></tr>
-<tr class="separator:aa7cbd52f6f2309f5804a1c6ba59db1ad inherit pub_methods_classenjin_1_1sdk_1_1events_1_1_i_event_service"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af61e981d88aab1f5cf3fca8a4e4c5ec8 inherit pub_methods_classenjin_1_1sdk_1_1events_1_1_i_event_service"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#af61e981d88aab1f5cf3fca8a4e4c5ec8">set_error_handler</a> (std::function&lt; void(const std::exception &amp;e)&gt; handler)=0</td></tr>
+<tr class="memdesc:af61e981d88aab1f5cf3fca8a4e4c5ec8 inherit pub_methods_classenjin_1_1sdk_1_1events_1_1_i_event_service"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a handler for when the service encounters an error.  <a href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#af61e981d88aab1f5cf3fca8a4e4c5ec8">More...</a><br /></td></tr>
+<tr class="separator:af61e981d88aab1f5cf3fca8a4e4c5ec8 inherit pub_methods_classenjin_1_1sdk_1_1events_1_1_i_event_service"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:acc1d54a60a187efa257d093a6423dc15"><td class="memItemLeft" align="right" valign="top"><a id="acc1d54a60a187efa257d093a6423dc15"></a>
-std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html">PusherEventService</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>PusherEventServiceBuilder::build</b> ()</td></tr>
-<tr class="separator:acc1d54a60a187efa257d093a6423dc15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a9514afaf4ddfc8c1f2a44d8c2d751c7d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service_1_1_pusher_event_service_builder.html">PusherEventServiceBuilder</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a9514afaf4ddfc8c1f2a44d8c2d751c7d">builder</a> ()</td></tr>
+<tr class="memdesc:a9514afaf4ddfc8c1f2a44d8c2d751c7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a builder for this class.  <a href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service.html#a9514afaf4ddfc8c1f2a44d8c2d751c7d">More...</a><br /></td></tr>
+<tr class="separator:a9514afaf4ddfc8c1f2a44d8c2d751c7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implementation of IEventService for Pusher events. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a9514afaf4ddfc8c1f2a44d8c2d751c7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9514afaf4ddfc8c1f2a44d8c2d751c7d">&#9670;&nbsp;</a></span>builder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_event_service_1_1_pusher_event_service_builder.html">PusherEventServiceBuilder</a> enjin::sdk::events::PusherEventService::builder </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a builder for this class. </p>
+<dl class="section return"><dt>Returns</dt><dd>The builder. </dd></dl>
+
+</div>
+</div>
 <a id="a51440baad11d5c785f8ef5774de90af4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a51440baad11d5c785f8ef5774de90af4">&#9670;&nbsp;</a></span>get_listeners()</h2>
 
@@ -290,8 +335,8 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
 
 </div>
 </div>
-<a id="a3aa6ce62bce663948b0c1e6d6c24e136"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3aa6ce62bce663948b0c1e6d6c24e136">&#9670;&nbsp;</a></span>is_subscribed_to_asset()</h2>
+<a id="a405e484cb8961880532ce4364f24ae0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a405e484cb8961880532ce4364f24ae0c">&#9670;&nbsp;</a></span>is_subscribed_to_asset()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -302,7 +347,7 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
         <tr>
           <td class="memname">bool enjin::sdk::events::PusherEventService::is_subscribed_to_asset </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>asset</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -323,12 +368,12 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Whether this service is subscribed to the channel. </dd></dl>
 
-<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a10016f70a6feef66057a14937524660b">enjin::sdk::events::IEventService</a>.</p>
+<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a6a6688e9f41d929140bc3dd4bd5ceed1">enjin::sdk::events::IEventService</a>.</p>
 
 </div>
 </div>
-<a id="a1d12fa7dba25d2313f2974eb48def5e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d12fa7dba25d2313f2974eb48def5e2">&#9670;&nbsp;</a></span>is_subscribed_to_player()</h2>
+<a id="af90412c78ccf06905f81b7b958fefecc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af90412c78ccf06905f81b7b958fefecc">&#9670;&nbsp;</a></span>is_subscribed_to_player()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -339,13 +384,13 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
         <tr>
           <td class="memname">bool enjin::sdk::events::PusherEventService::is_subscribed_to_player </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>project</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>player</em>&#160;</td>
         </tr>
         <tr>
@@ -371,12 +416,12 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Whether this service is subscribed to the channel. </dd></dl>
 
-<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a8549bbdd5689ae71f9df297647d5ba3e">enjin::sdk::events::IEventService</a>.</p>
+<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a729bc0c0991caf4f67ba7468c0b27eef">enjin::sdk::events::IEventService</a>.</p>
 
 </div>
 </div>
-<a id="a0f1f7a5a03e1f997d2ed111403708b9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f1f7a5a03e1f997d2ed111403708b9b">&#9670;&nbsp;</a></span>is_subscribed_to_project()</h2>
+<a id="a2043b6b96fe4c17772e02e4a2f500fed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2043b6b96fe4c17772e02e4a2f500fed">&#9670;&nbsp;</a></span>is_subscribed_to_project()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -387,7 +432,7 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
         <tr>
           <td class="memname">bool enjin::sdk::events::PusherEventService::is_subscribed_to_project </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>project</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -408,12 +453,12 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Whether this service is subscribed to the channel. </dd></dl>
 
-<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#aada4333a7bc36c6ca18dab3d9c03a258">enjin::sdk::events::IEventService</a>.</p>
+<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#afb2e2e319c4827a0eb24e7923143ad81">enjin::sdk::events::IEventService</a>.</p>
 
 </div>
 </div>
-<a id="a0b48edf446277190b6b83f8ebc643cb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b48edf446277190b6b83f8ebc643cb3">&#9670;&nbsp;</a></span>is_subscribed_to_wallet()</h2>
+<a id="a0e67cc9235fdfcecd73c7903e9ea63ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e67cc9235fdfcecd73c7903e9ea63ec">&#9670;&nbsp;</a></span>is_subscribed_to_wallet()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -424,7 +469,7 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
         <tr>
           <td class="memname">bool enjin::sdk::events::PusherEventService::is_subscribed_to_wallet </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>wallet</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -445,12 +490,12 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Whether this service is subscribed to the channel. </dd></dl>
 
-<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a4ab8038d51295b4e6e79004d4fe93df5">enjin::sdk::events::IEventService</a>.</p>
+<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a6953a6dcee3628df745badd6ea53150b">enjin::sdk::events::IEventService</a>.</p>
 
 </div>
 </div>
-<a id="a04df6e843b72ab77d28b698d52ad1cbc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04df6e843b72ab77d28b698d52ad1cbc">&#9670;&nbsp;</a></span>register_listener()</h2>
+<a id="afc0018061c40279a578450fda74146c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc0018061c40279a578450fda74146c3">&#9670;&nbsp;</a></span>register_listener()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -461,7 +506,7 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
         <tr>
           <td class="memname">const <a class="el" href="classenjin_1_1sdk_1_1events_1_1_event_listener_registration.html">EventListenerRegistration</a>&amp; enjin::sdk::events::PusherEventService::register_listener </td>
           <td>(</td>
-          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_listener.html">IEventListener</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_listener.html">IEventListener</a> &gt;&#160;</td>
           <td class="paramname"><em>listener</em></td><td>)</td>
           <td></td>
         </tr>
@@ -482,12 +527,12 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The registration. </dd></dl>
 
-<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#aafdf35992b9a381a646b735ec1d86f3a">enjin::sdk::events::IEventService</a>.</p>
+<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a149b50588a3568ff04077fa8c81cd531">enjin::sdk::events::IEventService</a>.</p>
 
 </div>
 </div>
-<a id="a8504f79aad49d84958afb5d35e7169f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8504f79aad49d84958afb5d35e7169f3">&#9670;&nbsp;</a></span>register_listener_excluding_types()</h2>
+<a id="a8348ee9cadfe644a10a3f11e8ec0e832"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8348ee9cadfe644a10a3f11e8ec0e832">&#9670;&nbsp;</a></span>register_listener_excluding_types()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -498,13 +543,13 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
         <tr>
           <td class="memname">const <a class="el" href="classenjin_1_1sdk_1_1events_1_1_event_listener_registration.html">EventListenerRegistration</a>&amp; enjin::sdk::events::PusherEventService::register_listener_excluding_types </td>
           <td>(</td>
-          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_listener.html">IEventListener</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_listener.html">IEventListener</a> &gt;&#160;</td>
           <td class="paramname"><em>listener</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; models::EventType &gt; &amp;&#160;</td>
+          <td class="paramtype">std::vector&lt; models::EventType &gt;&#160;</td>
           <td class="paramname"><em>types</em>&#160;</td>
         </tr>
         <tr>
@@ -530,12 +575,12 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The registration. </dd></dl>
 
-<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a7e703d78d048b6347e8dff79f1e5ec07">enjin::sdk::events::IEventService</a>.</p>
+<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#ab0d5bffb87f5db9291fd91419b6e3915">enjin::sdk::events::IEventService</a>.</p>
 
 </div>
 </div>
-<a id="ad5555a56ccf02e54edda652d1bd7482a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad5555a56ccf02e54edda652d1bd7482a">&#9670;&nbsp;</a></span>register_listener_including_types()</h2>
+<a id="a40e19b2bc05eebb789a9018c68f70264"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40e19b2bc05eebb789a9018c68f70264">&#9670;&nbsp;</a></span>register_listener_including_types()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -546,13 +591,13 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
         <tr>
           <td class="memname">const <a class="el" href="classenjin_1_1sdk_1_1events_1_1_event_listener_registration.html">EventListenerRegistration</a>&amp; enjin::sdk::events::PusherEventService::register_listener_including_types </td>
           <td>(</td>
-          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_listener.html">IEventListener</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_listener.html">IEventListener</a> &gt;&#160;</td>
           <td class="paramname"><em>listener</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; models::EventType &gt; &amp;&#160;</td>
+          <td class="paramtype">std::vector&lt; models::EventType &gt;&#160;</td>
           <td class="paramname"><em>types</em>&#160;</td>
         </tr>
         <tr>
@@ -578,12 +623,12 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The registration. </dd></dl>
 
-<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#aba4b4e0c654b98862b47bb05dcda1a9b">enjin::sdk::events::IEventService</a>.</p>
+<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#adc08a9017d7784f8ebc78800e5dff115">enjin::sdk::events::IEventService</a>.</p>
 
 </div>
 </div>
-<a id="ab5b7eb7f16a86d2592443ba9c7f2b8cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5b7eb7f16a86d2592443ba9c7f2b8cc">&#9670;&nbsp;</a></span>register_listener_with_matcher()</h2>
+<a id="a2bde2096f5eb32c032f8d49e1c3150ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bde2096f5eb32c032f8d49e1c3150ff">&#9670;&nbsp;</a></span>register_listener_with_matcher()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -594,13 +639,13 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
         <tr>
           <td class="memname">const <a class="el" href="classenjin_1_1sdk_1_1events_1_1_event_listener_registration.html">EventListenerRegistration</a>&amp; enjin::sdk::events::PusherEventService::register_listener_with_matcher </td>
           <td>(</td>
-          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_listener.html">IEventListener</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_listener.html">IEventListener</a> &gt;&#160;</td>
           <td class="paramname"><em>listener</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::function&lt; bool(models::EventType)&gt; &amp;&#160;</td>
+          <td class="paramtype">std::function&lt; bool(models::EventType)&gt;&#160;</td>
           <td class="paramname"><em>matcher</em>&#160;</td>
         </tr>
         <tr>
@@ -626,12 +671,12 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The registration. </dd></dl>
 
-<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a9017041a1969533abfdf5aa301744b1d">enjin::sdk::events::IEventService</a>.</p>
+<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a63a34decbf00ca53bdccf43854fe0232">enjin::sdk::events::IEventService</a>.</p>
 
 </div>
 </div>
-<a id="a9156a3c4ca85175b0c5b22792b608df7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9156a3c4ca85175b0c5b22792b608df7">&#9670;&nbsp;</a></span>set_connected_handler()</h2>
+<a id="a98ce1fceb5ea1cf0dfc4229182f8b4c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98ce1fceb5ea1cf0dfc4229182f8b4c6">&#9670;&nbsp;</a></span>set_connected_handler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -642,7 +687,7 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
         <tr>
           <td class="memname">void enjin::sdk::events::PusherEventService::set_connected_handler </td>
           <td>(</td>
-          <td class="paramtype">const std::function&lt; void()&gt; &amp;&#160;</td>
+          <td class="paramtype">std::function&lt; void()&gt;&#160;</td>
           <td class="paramname"><em>handler</em></td><td>)</td>
           <td></td>
         </tr>
@@ -662,12 +707,12 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a78fabdce46c8969cbf299a390f39308a">enjin::sdk::events::IEventService</a>.</p>
+<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a5b3d29ef8258920fcc47920234f44814">enjin::sdk::events::IEventService</a>.</p>
 
 </div>
 </div>
-<a id="a9467760b7a042b44a41e5db8c68f0258"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9467760b7a042b44a41e5db8c68f0258">&#9670;&nbsp;</a></span>set_disconnected_handler()</h2>
+<a id="a3dbf5c5e58280784ca1a81c997b9f389"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dbf5c5e58280784ca1a81c997b9f389">&#9670;&nbsp;</a></span>set_disconnected_handler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -678,7 +723,7 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
         <tr>
           <td class="memname">void enjin::sdk::events::PusherEventService::set_disconnected_handler </td>
           <td>(</td>
-          <td class="paramtype">const std::function&lt; void()&gt; &amp;&#160;</td>
+          <td class="paramtype">std::function&lt; void()&gt;&#160;</td>
           <td class="paramname"><em>handler</em></td><td>)</td>
           <td></td>
         </tr>
@@ -698,7 +743,7 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#aad76318d28a6a97b2518754fd5acbf1d">enjin::sdk::events::IEventService</a>.</p>
+<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a43883256dc4b5f620025cff08c78cd61">enjin::sdk::events::IEventService</a>.</p>
 
 </div>
 </div>
@@ -762,8 +807,8 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
 
 </div>
 </div>
-<a id="affd1bf5d91ba3dfa1b30e385e0510f54"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#affd1bf5d91ba3dfa1b30e385e0510f54">&#9670;&nbsp;</a></span>start() <span class="overload">[2/2]</span></h2>
+<a id="a43d831a5e470e81dafa751bfc3891cf5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43d831a5e470e81dafa751bfc3891cf5">&#9670;&nbsp;</a></span>start() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -774,7 +819,7 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
         <tr>
           <td class="memname">std::future&lt;void&gt; enjin::sdk::events::PusherEventService::start </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classenjin_1_1sdk_1_1models_1_1_platform.html">models::Platform</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classenjin_1_1sdk_1_1models_1_1_platform.html">models::Platform</a>&#160;</td>
           <td class="paramname"><em>platform</em></td><td>)</td>
           <td></td>
         </tr>
@@ -795,12 +840,12 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The future for this operation. </dd></dl>
 
-<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a556c42bdf77f78f8cbe83c8e44b19090">enjin::sdk::events::IEventService</a>.</p>
+<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a04a163472dbc0af4cf68bb534862ba41">enjin::sdk::events::IEventService</a>.</p>
 
 </div>
 </div>
-<a id="a77b0f07e45b5d56dd8036264910aad54"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a77b0f07e45b5d56dd8036264910aad54">&#9670;&nbsp;</a></span>subscribe_to_asset()</h2>
+<a id="a7718ca21422d4425d3b2c1e411cd247e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7718ca21422d4425d3b2c1e411cd247e">&#9670;&nbsp;</a></span>subscribe_to_asset()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -811,7 +856,7 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
         <tr>
           <td class="memname">void enjin::sdk::events::PusherEventService::subscribe_to_asset </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>asset</em></td><td>)</td>
           <td></td>
         </tr>
@@ -830,14 +875,13 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
   </table>
   </dd>
 </dl>
-<dl class="section remark"><dt>Remarks</dt><dd>This operation may timeout after 30 seconds if no response is received from the server. In such event, this service will unsubscribe from the given channel. </dd></dl>
 
-<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a4a8cdfb65773f9ee8eac752e73b715bf">enjin::sdk::events::IEventService</a>.</p>
+<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#afe2d9d297214f0b3832e9854973830f3">enjin::sdk::events::IEventService</a>.</p>
 
 </div>
 </div>
-<a id="a9b90ea1c37a26b4f26ac7ed3414dd255"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b90ea1c37a26b4f26ac7ed3414dd255">&#9670;&nbsp;</a></span>subscribe_to_player()</h2>
+<a id="ae446c144769805cd8e71b818feb3771e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae446c144769805cd8e71b818feb3771e">&#9670;&nbsp;</a></span>subscribe_to_player()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -848,13 +892,13 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
         <tr>
           <td class="memname">void enjin::sdk::events::PusherEventService::subscribe_to_player </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>project</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>player</em>&#160;</td>
         </tr>
         <tr>
@@ -878,14 +922,13 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
   </table>
   </dd>
 </dl>
-<dl class="section remark"><dt>Remarks</dt><dd>This operation may timeout after 30 seconds if no response is received from the server. In such event, this service will unsubscribe from the given channel. </dd></dl>
 
-<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a479559f6ee600604f510fce2c6977035">enjin::sdk::events::IEventService</a>.</p>
+<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a6dd8203f36a821c6e304055ba031a1f8">enjin::sdk::events::IEventService</a>.</p>
 
 </div>
 </div>
-<a id="a8d262c8541f1c13bcb10b3f92421ae97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d262c8541f1c13bcb10b3f92421ae97">&#9670;&nbsp;</a></span>subscribe_to_project()</h2>
+<a id="ac32f3ae50fad4524b915fdabb34d0f54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac32f3ae50fad4524b915fdabb34d0f54">&#9670;&nbsp;</a></span>subscribe_to_project()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -896,7 +939,7 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
         <tr>
           <td class="memname">void enjin::sdk::events::PusherEventService::subscribe_to_project </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>project</em></td><td>)</td>
           <td></td>
         </tr>
@@ -915,14 +958,13 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
   </table>
   </dd>
 </dl>
-<dl class="section remark"><dt>Remarks</dt><dd>This operation may timeout after 30 seconds if no response is received from the server. In such event, this service will unsubscribe from the given channel. </dd></dl>
 
-<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a047e1303d17a896d5b5e453c9e8c95a9">enjin::sdk::events::IEventService</a>.</p>
+<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#ac7f77d7c9002b4242f1badb2e3123415">enjin::sdk::events::IEventService</a>.</p>
 
 </div>
 </div>
-<a id="ab673233d9a50db5ffe6243125971eea3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab673233d9a50db5ffe6243125971eea3">&#9670;&nbsp;</a></span>subscribe_to_wallet()</h2>
+<a id="a51725b3c65d349fe2b377d766fd69e10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51725b3c65d349fe2b377d766fd69e10">&#9670;&nbsp;</a></span>subscribe_to_wallet()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -933,7 +975,7 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
         <tr>
           <td class="memname">void enjin::sdk::events::PusherEventService::subscribe_to_wallet </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>wallet</em></td><td>)</td>
           <td></td>
         </tr>
@@ -952,9 +994,8 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
   </table>
   </dd>
 </dl>
-<dl class="section remark"><dt>Remarks</dt><dd>This operation may timeout after 30 seconds if no response is received from the server. In such event, this service will unsubscribe from the given channel. </dd></dl>
 
-<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#af944e086981282ba1dd61c9f023a8769">enjin::sdk::events::IEventService</a>.</p>
+<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#ae98d0e49260463475bcae3bb6aac7fd5">enjin::sdk::events::IEventService</a>.</p>
 
 </div>
 </div>
@@ -994,8 +1035,8 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
 
 </div>
 </div>
-<a id="ab718d7ca7bf29eb34dc37a256abd96a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab718d7ca7bf29eb34dc37a256abd96a3">&#9670;&nbsp;</a></span>unsubscribe_to_asset()</h2>
+<a id="acd4ab4153cde9cfb4b9571b517ab5c71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd4ab4153cde9cfb4b9571b517ab5c71">&#9670;&nbsp;</a></span>unsubscribe_to_asset()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1006,7 +1047,7 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
         <tr>
           <td class="memname">void enjin::sdk::events::PusherEventService::unsubscribe_to_asset </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>asset</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1026,12 +1067,12 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#af9ea79df9473127a16afca3662d4d41f">enjin::sdk::events::IEventService</a>.</p>
+<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a5fdca3e4d859d23098bfbf8b8b542570">enjin::sdk::events::IEventService</a>.</p>
 
 </div>
 </div>
-<a id="af8f3131b98ece6eae43b0855942c4751"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8f3131b98ece6eae43b0855942c4751">&#9670;&nbsp;</a></span>unsubscribe_to_player()</h2>
+<a id="a68de66b18ac46f94264c8cc740f1fdd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68de66b18ac46f94264c8cc740f1fdd7">&#9670;&nbsp;</a></span>unsubscribe_to_player()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1042,13 +1083,13 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
         <tr>
           <td class="memname">void enjin::sdk::events::PusherEventService::unsubscribe_to_player </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>project</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>player</em>&#160;</td>
         </tr>
         <tr>
@@ -1073,12 +1114,12 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a82eabb19a162201ecf4e1171b12e898e">enjin::sdk::events::IEventService</a>.</p>
+<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a28bf0a9c87a14c235e6f7d5c7a2970e6">enjin::sdk::events::IEventService</a>.</p>
 
 </div>
 </div>
-<a id="aef7dcbbd02a0c0e763c5966a9f7a7956"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef7dcbbd02a0c0e763c5966a9f7a7956">&#9670;&nbsp;</a></span>unsubscribe_to_project()</h2>
+<a id="a00ba4f03df91aa200a9d821f65b44426"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00ba4f03df91aa200a9d821f65b44426">&#9670;&nbsp;</a></span>unsubscribe_to_project()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1089,7 +1130,7 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
         <tr>
           <td class="memname">void enjin::sdk::events::PusherEventService::unsubscribe_to_project </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>project</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1109,12 +1150,12 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#af6e789f814d17f3c8a6d6b8acc39cfd3">enjin::sdk::events::IEventService</a>.</p>
+<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a6e4605b3b8b292c18da23d9c2c8b1fda">enjin::sdk::events::IEventService</a>.</p>
 
 </div>
 </div>
-<a id="a8f203a2fce307dc95298696ce8ebc78a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f203a2fce307dc95298696ce8ebc78a">&#9670;&nbsp;</a></span>unsubscribe_to_wallet()</h2>
+<a id="a752ff6813d1a5670d636b3cf994f24bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a752ff6813d1a5670d636b3cf994f24bf">&#9670;&nbsp;</a></span>unsubscribe_to_wallet()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1125,7 +1166,7 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
         <tr>
           <td class="memname">void enjin::sdk::events::PusherEventService::unsubscribe_to_wallet </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>wallet</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1145,7 +1186,7 @@ std::unique_ptr&lt; <a class="el" href="classenjin_1_1sdk_1_1events_1_1_pusher_e
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#a9928917355b684c1e59cacc0819e9fa3">enjin::sdk::events::IEventService</a>.</p>
+<p>Implements <a class="el" href="classenjin_1_1sdk_1_1events_1_1_i_event_service.html#ab2adb22472a00305720ad63aa5fba6e6">enjin::sdk::events::IEventService</a>.</p>
 
 </div>
 </div>

@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.1006</span>
+   &#160;<span id="projectnumber">1.0.0.2000</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -69,8 +69,9 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classenjin_1_1sdk_1_1http_1_1_http_response-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">enjin::sdk::http::HttpResponse Class Reference</div>  </div>
@@ -80,6 +81,12 @@ $(function() {
 <p>Container class for a HTTP response.  
  <a href="classenjin_1_1sdk_1_1http_1_1_http_response.html#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1http_1_1_http_response_1_1_http_response_builder.html">HttpResponseBuilder</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder class for HttpResponse.  <a href="classenjin_1_1sdk_1_1http_1_1_http_response_1_1_http_response_builder.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a7b8b5d00f166617ac33a9d34a87822b1"><td class="memItemLeft" align="right" valign="top"><a id="a7b8b5d00f166617ac33a9d34a87822b1"></a>
@@ -102,9 +109,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a816e675bce7ea18e2ced00ae8b1f8095"><td class="memItemLeft" align="right" valign="top">const std::optional&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1http_1_1_http_response.html#a816e675bce7ea18e2ced00ae8b1f8095">get_body</a> () const</td></tr>
 <tr class="memdesc:a816e675bce7ea18e2ced00ae8b1f8095"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the optional with the response body.  <a href="classenjin_1_1sdk_1_1http_1_1_http_response.html#a816e675bce7ea18e2ced00ae8b1f8095">More...</a><br /></td></tr>
 <tr class="separator:a816e675bce7ea18e2ced00ae8b1f8095"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c8881a79b3fb8710a44d6a873c15fd4"><td class="memItemLeft" align="right" valign="top">const std::optional&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1http_1_1_http_response.html#a2c8881a79b3fb8710a44d6a873c15fd4">get_content_type</a> () const</td></tr>
-<tr class="memdesc:a2c8881a79b3fb8710a44d6a873c15fd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the optional with the content type header.  <a href="classenjin_1_1sdk_1_1http_1_1_http_response.html#a2c8881a79b3fb8710a44d6a873c15fd4">More...</a><br /></td></tr>
-<tr class="separator:a2c8881a79b3fb8710a44d6a873c15fd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fff03a781c55a00e2662c3f8530cd60"><td class="memItemLeft" align="right" valign="top">const std::map&lt; std::string, std::string &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1http_1_1_http_response.html#a9fff03a781c55a00e2662c3f8530cd60">get_headers</a> () const</td></tr>
+<tr class="memdesc:a9fff03a781c55a00e2662c3f8530cd60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the map for the HTTP headers.  <a href="classenjin_1_1sdk_1_1http_1_1_http_response.html#a9fff03a781c55a00e2662c3f8530cd60">More...</a><br /></td></tr>
+<tr class="separator:a9fff03a781c55a00e2662c3f8530cd60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7358ec0b1f10c741f7e42c04e92eaad8"><td class="memItemLeft" align="right" valign="top">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1http_1_1_http_response.html#a7358ec0b1f10c741f7e42c04e92eaad8">get_header_value</a> (const std::string &amp;name) const</td></tr>
+<tr class="memdesc:a7358ec0b1f10c741f7e42c04e92eaad8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value for the header.  <a href="classenjin_1_1sdk_1_1http_1_1_http_response.html#a7358ec0b1f10c741f7e42c04e92eaad8">More...</a><br /></td></tr>
+<tr class="separator:a7358ec0b1f10c741f7e42c04e92eaad8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab57f2d338c6ac75096e249344927a397"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1http_1_1_http_response.html#ab57f2d338c6ac75096e249344927a397">has_header</a> (const std::string &amp;name) const noexcept</td></tr>
+<tr class="memdesc:ab57f2d338c6ac75096e249344927a397"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if a value exists for the provided header name.  <a href="classenjin_1_1sdk_1_1http_1_1_http_response.html#ab57f2d338c6ac75096e249344927a397">More...</a><br /></td></tr>
+<tr class="separator:ab57f2d338c6ac75096e249344927a397"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a224346a17f729352d09a4e7726a5d61d"><td class="memItemLeft" align="right" valign="top"><a id="a224346a17f729352d09a4e7726a5d61d"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="classenjin_1_1sdk_1_1http_1_1_http_response.html">HttpResponse</a> &amp;rhs) const</td></tr>
 <tr class="separator:a224346a17f729352d09a4e7726a5d61d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -112,15 +125,43 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator!=</b> (const <a class="el" href="classenjin_1_1sdk_1_1http_1_1_http_response.html">HttpResponse</a> &amp;rhs) const</td></tr>
 <tr class="separator:a4c8273bb5300bd554dee3d31cbdc999e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:abfe956d0136e3e878ceccb3aa0d141a7"><td class="memItemLeft" align="right" valign="top"><a id="abfe956d0136e3e878ceccb3aa0d141a7"></a>
-<a class="el" href="classenjin_1_1sdk_1_1http_1_1_http_response.html">HttpResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>HttpResponseBuilder::build</b> ()</td></tr>
-<tr class="separator:abfe956d0136e3e878ceccb3aa0d141a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a97a33e19bb4ea396cbdbbd036274a389"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classenjin_1_1sdk_1_1http_1_1_http_response_1_1_http_response_builder.html">HttpResponseBuilder</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1http_1_1_http_response.html#a97a33e19bb4ea396cbdbbd036274a389">builder</a> ()</td></tr>
+<tr class="memdesc:a97a33e19bb4ea396cbdbbd036274a389"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a builder for this class.  <a href="classenjin_1_1sdk_1_1http_1_1_http_response.html#a97a33e19bb4ea396cbdbbd036274a389">More...</a><br /></td></tr>
+<tr class="separator:a97a33e19bb4ea396cbdbbd036274a389"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Container class for a HTTP response. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a97a33e19bb4ea396cbdbbd036274a389"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97a33e19bb4ea396cbdbbd036274a389">&#9670;&nbsp;</a></span>builder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classenjin_1_1sdk_1_1http_1_1_http_response_1_1_http_response_builder.html">HttpResponseBuilder</a> enjin::sdk::http::HttpResponse::builder </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a builder for this class. </p>
+<dl class="section return"><dt>Returns</dt><dd>The builder. </dd></dl>
+
+</div>
+</div>
 <a id="a816e675bce7ea18e2ced00ae8b1f8095"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a816e675bce7ea18e2ced00ae8b1f8095">&#9670;&nbsp;</a></span>get_body()</h2>
 
@@ -161,14 +202,41 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a2c8881a79b3fb8710a44d6a873c15fd4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c8881a79b3fb8710a44d6a873c15fd4">&#9670;&nbsp;</a></span>get_content_type()</h2>
+<a id="a7358ec0b1f10c741f7e42c04e92eaad8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7358ec0b1f10c741f7e42c04e92eaad8">&#9670;&nbsp;</a></span>get_header_value()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const std::optional&lt;std::string&gt;&amp; enjin::sdk::http::HttpResponse::get_content_type </td>
+          <td class="memname">std::optional&lt;std::string&gt; enjin::sdk::http::HttpResponse::get_header_value </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the value for the header. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The header name. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An optional containing the header value if one exists. </dd></dl>
+
+</div>
+</div>
+<a id="a9fff03a781c55a00e2662c3f8530cd60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fff03a781c55a00e2662c3f8530cd60">&#9670;&nbsp;</a></span>get_headers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::map&lt;std::string, std::string&gt;&amp; enjin::sdk::http::HttpResponse::get_headers </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -176,8 +244,43 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the optional with the content type header. </p>
-<dl class="section return"><dt>Returns</dt><dd>The content type optional. </dd></dl>
+<p>Returns the map for the HTTP headers. </p>
+<dl class="section return"><dt>Returns</dt><dd>The headers. </dd></dl>
+
+</div>
+</div>
+<a id="ab57f2d338c6ac75096e249344927a397"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab57f2d338c6ac75096e249344927a397">&#9670;&nbsp;</a></span>has_header()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool enjin::sdk::http::HttpResponse::has_header </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determines if a value exists for the provided header name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The header name. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Whether a value exists. </dd></dl>
 
 </div>
 </div>

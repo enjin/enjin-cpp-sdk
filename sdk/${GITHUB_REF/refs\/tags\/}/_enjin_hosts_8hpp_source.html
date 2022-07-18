@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.1006</span>
+   &#160;<span id="projectnumber">1.0.0.2000</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -87,23 +87,30 @@ $(function() {
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * limitations under the License.</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">/* This header file contains the host names for Enjin networks.</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#ifndef ENJINCPPSDK_ENJINHOSTS_HPP</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#define ENJINCPPSDK_ENJINHOSTS_HPP</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#ifndef ENJINCPPSDK_ENJINHOSTS_HPP</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#define ENJINCPPSDK_ENJINHOSTS_HPP</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>enjin::sdk {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">static</span> constexpr <span class="keywordtype">char</span> GOERLI[] = <span class="stringliteral">&quot;https://goerli.cloud.enjin.io&quot;</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">static</span> constexpr <span class="keywordtype">char</span> MAIN_NET[] = <span class="stringliteral">&quot;https://cloud.enjin.io&quot;</span>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;enjinsdk_export.h&quot;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span>enjin::sdk {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1_enjin_hosts.html">   24</a></span>&#160;<span class="keyword">class </span>ENJINSDK_EXPORT <a class="code" href="classenjin_1_1sdk_1_1_enjin_hosts.html">EnjinHosts</a> final {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="classenjin_1_1sdk_1_1_enjin_hosts.html">EnjinHosts</a>() = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    ~<a class="code" href="classenjin_1_1sdk_1_1_enjin_hosts.html">EnjinHosts</a>() = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">static</span> constexpr <span class="keywordtype">char</span> JUMP_NET[] = <span class="stringliteral">&quot;https://jumpnet.cloud.enjin.io&quot;</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1_enjin_hosts.html#a6981f0faf38b3193a091f8cc894ca4ec">   31</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">char</span> Goerli[] = <span class="stringliteral">&quot;https://goerli.cloud.enjin.io&quot;</span>;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//ENJINCPPSDK_ENJINHOSTS_HPP</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1_enjin_hosts.html#a21deb893b0ac8a688a23cd4c24c53d1a">   34</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">char</span> MainNet[] = <span class="stringliteral">&quot;https://cloud.enjin.io&quot;</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1_enjin_hosts.html#ac7e10c56476ed81382875be4aaf80163">   37</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">char</span> JumpNet[] = <span class="stringliteral">&quot;https://jumpnet.cloud.enjin.io&quot;</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;};</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//ENJINCPPSDK_ENJINHOSTS_HPP</span></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1_enjin_hosts_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1_enjin_hosts.html">enjin::sdk::EnjinHosts</a></div><div class="ttdoc">The network hosts used by the Enjin Platform.</div><div class="ttdef"><b>Definition:</b> EnjinHosts.hpp:24</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

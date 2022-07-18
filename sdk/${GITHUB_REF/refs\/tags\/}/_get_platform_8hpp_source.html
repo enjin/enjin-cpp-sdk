@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.1006</span>
+   &#160;<span id="projectnumber">1.0.0.2000</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -108,23 +108,27 @@ $(function() {
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
 <div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1shared_1_1_get_platform.html#a3daa3b0d610a62181803ee4819d5d46c">   41</a></span>&#160;    <a class="code" href="classenjin_1_1sdk_1_1shared_1_1_get_platform.html">GetPlatform</a>&amp; <a class="code" href="classenjin_1_1sdk_1_1shared_1_1_get_platform.html#a3daa3b0d610a62181803ee4819d5d46c">set_with_notifications</a>();</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1shared_1_1_get_platform.html">GetPlatform</a>&amp; rhs) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1shared_1_1_get_platform.html#a9bd664cf9ebca5d07099f3059f6080eb">   43</a></span>&#160;    [[nodiscard]] <a class="code" href="classenjin_1_1sdk_1_1json_1_1_json_value.html">json::JsonValue</a> <a class="code" href="classenjin_1_1sdk_1_1shared_1_1_get_platform.html#a9bd664cf9ebca5d07099f3059f6080eb">to_json</a>() <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1shared_1_1_get_platform.html">GetPlatform</a>&amp; rhs) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1shared_1_1_get_platform.html">GetPlatform</a>&amp; rhs) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    std::optional&lt;bool&gt; with_contracts;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    std::optional&lt;bool&gt; with_notifications;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1shared_1_1_get_platform.html">GetPlatform</a>&amp; rhs) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    std::optional&lt;bool&gt; with_contracts_opt;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    std::optional&lt;bool&gt; with_notifications_opt;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//ENJINCPPSDK_SHAREDGETPLATFORM_HPP</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//ENJINCPPSDK_SHAREDGETPLATFORM_HPP</span></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_request_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1graphql_1_1_abstract_graphql_request.html">enjin::sdk::graphql::AbstractGraphqlRequest</a></div><div class="ttdoc">Base class for representing a GraphQL request to the platform.</div><div class="ttdef"><b>Definition:</b> AbstractGraphqlRequest.hpp:27</div></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1json_1_1_json_value_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1json_1_1_json_value.html">enjin::sdk::json::JsonValue</a></div><div class="ttdoc">Public API class for JSON functionality needed by this SDK.</div><div class="ttdef"><b>Definition:</b> JsonValue.hpp:28</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1shared_1_1_get_platform_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1shared_1_1_get_platform.html">enjin::sdk::shared::GetPlatform</a></div><div class="ttdoc">Request for getting the platform details.</div><div class="ttdef"><b>Definition:</b> GetPlatform.hpp:26</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1shared_1_1_get_platform_html_a3daa3b0d610a62181803ee4819d5d46c"><div class="ttname"><a href="classenjin_1_1sdk_1_1shared_1_1_get_platform.html#a3daa3b0d610a62181803ee4819d5d46c">enjin::sdk::shared::GetPlatform::set_with_notifications</a></div><div class="ttdeci">GetPlatform &amp; set_with_notifications()</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1shared_1_1_get_platform_html_a7173a611608bfafe2318094ec08c4716"><div class="ttname"><a href="classenjin_1_1sdk_1_1shared_1_1_get_platform.html#a7173a611608bfafe2318094ec08c4716">enjin::sdk::shared::GetPlatform::set_with_contracts</a></div><div class="ttdeci">GetPlatform &amp; set_with_contracts()</div><div class="ttdoc">Sets the request to include the contracts with the platform.</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1shared_1_1_get_platform_html_a76c7bccf80720897e1da087a3b11d827"><div class="ttname"><a href="classenjin_1_1sdk_1_1shared_1_1_get_platform.html#a76c7bccf80720897e1da087a3b11d827">enjin::sdk::shared::GetPlatform::GetPlatform</a></div><div class="ttdeci">GetPlatform()</div><div class="ttdoc">Default constructor.</div></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1shared_1_1_get_platform_html_a9bd664cf9ebca5d07099f3059f6080eb"><div class="ttname"><a href="classenjin_1_1sdk_1_1shared_1_1_get_platform.html#a9bd664cf9ebca5d07099f3059f6080eb">enjin::sdk::shared::GetPlatform::to_json</a></div><div class="ttdeci">json::JsonValue to_json() const override</div><div class="ttdoc">Returns a JSON value representing this object.</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1shared_1_1_get_platform_html_ad3c0fff04b7dac8ceb4438739a1378bc"><div class="ttname"><a href="classenjin_1_1sdk_1_1shared_1_1_get_platform.html#ad3c0fff04b7dac8ceb4438739a1378bc">enjin::sdk::shared::GetPlatform::serialize</a></div><div class="ttdeci">std::string serialize() const override</div><div class="ttdoc">Returns a JSON string with this object's data.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

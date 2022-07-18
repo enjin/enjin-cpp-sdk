@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.1006</span>
+   &#160;<span id="projectnumber">1.0.0.2000</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -101,7 +101,7 @@ $(function() {
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
 <div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1_i_client.html#a9474a6c1796884922ca0b86cd9ede3f1">   31</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classenjin_1_1sdk_1_1_i_client.html#a9474a6c1796884922ca0b86cd9ede3f1">close</a>() = 0;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1_i_client.html#a82971b0afb8a6499b25369233794479a">   35</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classenjin_1_1sdk_1_1_i_client.html#a82971b0afb8a6499b25369233794479a">auth</a>(<span class="keyword">const</span> std::string&amp; token) = 0;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1_i_client.html#a9bd45f1f8cc0483d533ca2397dfba647">   35</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classenjin_1_1sdk_1_1_i_client.html#a9bd45f1f8cc0483d533ca2397dfba647">auth</a>(std::string token) = 0;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1_i_client.html#a648e79d0063c1c4688c6048233d4cd99">   39</a></span>&#160;    [[nodiscard]] <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classenjin_1_1sdk_1_1_i_client.html#a648e79d0063c1c4688c6048233d4cd99">is_authenticated</a>() <span class="keyword">const</span> = 0;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
@@ -114,8 +114,8 @@ $(function() {
 <div class="ttc" id="aclassenjin_1_1sdk_1_1_i_client_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1_i_client.html">enjin::sdk::IClient</a></div><div class="ttdoc">Interface for client implementation.</div><div class="ttdef"><b>Definition:</b> IClient.hpp:25</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1_i_client_html_a4ef3db55d427eb0351e966cc4013f15c"><div class="ttname"><a href="classenjin_1_1sdk_1_1_i_client.html#a4ef3db55d427eb0351e966cc4013f15c">enjin::sdk::IClient::~IClient</a></div><div class="ttdeci">virtual ~IClient()=default</div><div class="ttdoc">Default destructor.</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1_i_client_html_a648e79d0063c1c4688c6048233d4cd99"><div class="ttname"><a href="classenjin_1_1sdk_1_1_i_client.html#a648e79d0063c1c4688c6048233d4cd99">enjin::sdk::IClient::is_authenticated</a></div><div class="ttdeci">virtual bool is_authenticated() const =0</div><div class="ttdoc">Determines if this client is authenticated.</div></div>
-<div class="ttc" id="aclassenjin_1_1sdk_1_1_i_client_html_a82971b0afb8a6499b25369233794479a"><div class="ttname"><a href="classenjin_1_1sdk_1_1_i_client.html#a82971b0afb8a6499b25369233794479a">enjin::sdk::IClient::auth</a></div><div class="ttdeci">virtual void auth(const std::string &amp;token)=0</div><div class="ttdoc">Authenticates this client with the given token.</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1_i_client_html_a9474a6c1796884922ca0b86cd9ede3f1"><div class="ttname"><a href="classenjin_1_1sdk_1_1_i_client.html#a9474a6c1796884922ca0b86cd9ede3f1">enjin::sdk::IClient::close</a></div><div class="ttdeci">virtual void close()=0</div><div class="ttdoc">Closes this client.</div></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1_i_client_html_a9bd45f1f8cc0483d533ca2397dfba647"><div class="ttname"><a href="classenjin_1_1sdk_1_1_i_client.html#a9bd45f1f8cc0483d533ca2397dfba647">enjin::sdk::IClient::auth</a></div><div class="ttdeci">virtual void auth(std::string token)=0</div><div class="ttdoc">Authenticates this client with the given token.</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1_i_client_html_aef9eb65d60adeaed75d80d001f9ff2a8"><div class="ttname"><a href="classenjin_1_1sdk_1_1_i_client.html#aef9eb65d60adeaed75d80d001f9ff2a8">enjin::sdk::IClient::is_closed</a></div><div class="ttdeci">virtual bool is_closed() const =0</div><div class="ttdoc">Determines if this client is closed.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

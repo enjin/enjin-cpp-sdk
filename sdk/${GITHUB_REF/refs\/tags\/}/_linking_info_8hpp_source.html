@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.1006</span>
+   &#160;<span id="projectnumber">1.0.0.2000</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -92,42 +92,50 @@ $(function() {
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;enjinsdk_export.h&quot;</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;enjinsdk/IDeserializable.hpp&quot;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;optional&gt;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">namespace </span>enjin::sdk::models {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html">   27</a></span>&#160;<span class="keyword">class </span>ENJINSDK_EXPORT <a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html">LinkingInfo</a> : <span class="keyword">public</span> <a class="code" href="classenjin_1_1sdk_1_1serialization_1_1_i_deserializable.html">serialization::IDeserializable</a> {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#acb60c400d7833ba8a2e561282c1d12db">   30</a></span>&#160;    <a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#acb60c400d7833ba8a2e561282c1d12db">LinkingInfo</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    ~<a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html">LinkingInfo</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#aff0dcdba1f5953cd3ad2c75979cfc3f0">   34</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#aff0dcdba1f5953cd3ad2c75979cfc3f0">deserialize</a>(<span class="keyword">const</span> std::string&amp; json) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#a4728be9b2c8efc309c12a75c577bf2c5">   38</a></span>&#160;    [[nodiscard]] <span class="keyword">const</span> std::optional&lt;std::string&gt;&amp; <a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#a4728be9b2c8efc309c12a75c577bf2c5">get_code</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#a6dcf24b4310673a45a53d1f9e7e023c4">   42</a></span>&#160;    [[nodiscard]] <span class="keyword">const</span> std::optional&lt;std::string&gt;&amp; <a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#a6dcf24b4310673a45a53d1f9e7e023c4">get_qr</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">namespace </span>enjin::sdk::models {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html">   28</a></span>&#160;<span class="keyword">class </span>ENJINSDK_EXPORT <a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html">LinkingInfo</a> : <span class="keyword">public</span> <a class="code" href="classenjin_1_1sdk_1_1serialization_1_1_i_deserializable.html">serialization::IDeserializable</a> {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#a065c7e19e06e5bdedea913dbe51e719f">   31</a></span>&#160;    <a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#a065c7e19e06e5bdedea913dbe51e719f">LinkingInfo</a>();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#a69cb3e32d511ad582b04a6f3781993f1">   35</a></span>&#160;    <a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#a69cb3e32d511ad582b04a6f3781993f1">LinkingInfo</a>(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html">LinkingInfo</a>&amp; other);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#a56eb547046c009868866d7b8da22b113">   39</a></span>&#160;    <a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#a56eb547046c009868866d7b8da22b113">LinkingInfo</a>(<a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html">LinkingInfo</a>&amp;&amp; other) noexcept;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#ab14bde79e17eccea905e92de7362ff3e">   42</a></span>&#160;    <a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#ab14bde79e17eccea905e92de7362ff3e">~LinkingInfo</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html">LinkingInfo</a>&amp; rhs) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#aff0dcdba1f5953cd3ad2c75979cfc3f0">   44</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#aff0dcdba1f5953cd3ad2c75979cfc3f0">deserialize</a>(<span class="keyword">const</span> std::string&amp; json) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html">LinkingInfo</a>&amp; rhs) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    std::optional&lt;std::string&gt; code;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    std::optional&lt;std::string&gt; qr;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    constexpr <span class="keyword">static</span> <span class="keywordtype">char</span> CODE_KEY[] = <span class="stringliteral">&quot;code&quot;</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    constexpr <span class="keyword">static</span> <span class="keywordtype">char</span> QR_KEY[] = <span class="stringliteral">&quot;qr&quot;</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;};</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#a4728be9b2c8efc309c12a75c577bf2c5">   48</a></span>&#160;    [[nodiscard]] <span class="keyword">const</span> std::optional&lt;std::string&gt;&amp; <a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#a4728be9b2c8efc309c12a75c577bf2c5">get_code</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#a6dcf24b4310673a45a53d1f9e7e023c4">   52</a></span>&#160;    [[nodiscard]] <span class="keyword">const</span> std::optional&lt;std::string&gt;&amp; <a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#a6dcf24b4310673a45a53d1f9e7e023c4">get_qr</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html">LinkingInfo</a>&amp; rhs) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html">LinkingInfo</a>&amp; rhs) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//ENJINCPPSDK_LINKINGINFO_HPP</span></div>
-<div class="ttc" id="aclassenjin_1_1sdk_1_1models_1_1_linking_info_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1models_1_1_linking_info.html">enjin::sdk::models::LinkingInfo</a></div><div class="ttdoc">Models the linking information for a player.</div><div class="ttdef"><b>Definition:</b> LinkingInfo.hpp:27</div></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html">LinkingInfo</a>&amp; operator=(<span class="keyword">const</span> <a class="code" href="classenjin_1_1sdk_1_1models_1_1_linking_info.html">LinkingInfo</a>&amp; rhs);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">class </span>Impl;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    std::unique_ptr&lt;Impl&gt; pimpl;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;};</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//ENJINCPPSDK_LINKINGINFO_HPP</span></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1models_1_1_linking_info_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1models_1_1_linking_info.html">enjin::sdk::models::LinkingInfo</a></div><div class="ttdoc">Models the linking information for a player.</div><div class="ttdef"><b>Definition:</b> LinkingInfo.hpp:28</div></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1models_1_1_linking_info_html_a065c7e19e06e5bdedea913dbe51e719f"><div class="ttname"><a href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#a065c7e19e06e5bdedea913dbe51e719f">enjin::sdk::models::LinkingInfo::LinkingInfo</a></div><div class="ttdeci">LinkingInfo()</div><div class="ttdoc">Constructs an instance of this class.</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1models_1_1_linking_info_html_a4728be9b2c8efc309c12a75c577bf2c5"><div class="ttname"><a href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#a4728be9b2c8efc309c12a75c577bf2c5">enjin::sdk::models::LinkingInfo::get_code</a></div><div class="ttdeci">const std::optional&lt; std::string &gt; &amp; get_code() const</div><div class="ttdoc">Returns the linking code used to link a wallet to the player this info belongs to.</div></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1models_1_1_linking_info_html_a56eb547046c009868866d7b8da22b113"><div class="ttname"><a href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#a56eb547046c009868866d7b8da22b113">enjin::sdk::models::LinkingInfo::LinkingInfo</a></div><div class="ttdeci">LinkingInfo(LinkingInfo &amp;&amp;other) noexcept</div><div class="ttdoc">Constructs an instance via move.</div></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1models_1_1_linking_info_html_a69cb3e32d511ad582b04a6f3781993f1"><div class="ttname"><a href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#a69cb3e32d511ad582b04a6f3781993f1">enjin::sdk::models::LinkingInfo::LinkingInfo</a></div><div class="ttdeci">LinkingInfo(const LinkingInfo &amp;other)</div><div class="ttdoc">Constructs an instance as a copy of another.</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1models_1_1_linking_info_html_a6dcf24b4310673a45a53d1f9e7e023c4"><div class="ttname"><a href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#a6dcf24b4310673a45a53d1f9e7e023c4">enjin::sdk::models::LinkingInfo::get_qr</a></div><div class="ttdeci">const std::optional&lt; std::string &gt; &amp; get_qr() const</div><div class="ttdoc">Returns the URL for the QR image that links a wallet to the player this info belongs to.</div></div>
-<div class="ttc" id="aclassenjin_1_1sdk_1_1models_1_1_linking_info_html_acb60c400d7833ba8a2e561282c1d12db"><div class="ttname"><a href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#acb60c400d7833ba8a2e561282c1d12db">enjin::sdk::models::LinkingInfo::LinkingInfo</a></div><div class="ttdeci">LinkingInfo()=default</div><div class="ttdoc">Default constructor.</div></div>
+<div class="ttc" id="aclassenjin_1_1sdk_1_1models_1_1_linking_info_html_ab14bde79e17eccea905e92de7362ff3e"><div class="ttname"><a href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#ab14bde79e17eccea905e92de7362ff3e">enjin::sdk::models::LinkingInfo::~LinkingInfo</a></div><div class="ttdeci">~LinkingInfo() override</div><div class="ttdoc">Deconstructs this instance.</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1models_1_1_linking_info_html_aff0dcdba1f5953cd3ad2c75979cfc3f0"><div class="ttname"><a href="classenjin_1_1sdk_1_1models_1_1_linking_info.html#aff0dcdba1f5953cd3ad2c75979cfc3f0">enjin::sdk::models::LinkingInfo::deserialize</a></div><div class="ttdeci">void deserialize(const std::string &amp;json) override</div><div class="ttdoc">Parses the JSON string and assigns valid values to this object's fields.</div></div>
 <div class="ttc" id="aclassenjin_1_1sdk_1_1serialization_1_1_i_deserializable_html"><div class="ttname"><a href="classenjin_1_1sdk_1_1serialization_1_1_i_deserializable.html">enjin::sdk::serialization::IDeserializable</a></div><div class="ttdoc">Interface for deserialization.</div><div class="ttdef"><b>Definition:</b> IDeserializable.hpp:25</div></div>
 </div><!-- fragment --></div><!-- contents -->
