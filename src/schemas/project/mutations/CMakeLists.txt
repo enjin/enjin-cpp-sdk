@@ -27,4 +27,5 @@ target_sources(${PROJECT_NAME}
         SetTransferable.cpp
         SetUri.cpp
         SetWhitelisted.cpp
-        UnlinkWallet.cpp)
+        UnlinkWallet.cpp
+        UpdateName.cpp)

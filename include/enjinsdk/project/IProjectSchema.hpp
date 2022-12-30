@@ -56,6 +56,7 @@
 #include "enjinsdk/project/SetUri.hpp"
 #include "enjinsdk/project/SetWhitelisted.hpp"
 #include "enjinsdk/project/UnlinkWallet.hpp"
+#include "enjinsdk/project/UpdateName.hpp"
 #include <future>
 #include <vector>
 
@@ -238,6 +239,11 @@ public:
     /// \param request The request.
     /// \return The future containing the response.
     virtual std::future<graphql::GraphqlResponse<bool>> unlink_wallet(UnlinkWallet request) = 0;
+
+    /// \brief Sends the UpdateName request to the platform.
+    /// \param request The request.
+    /// \return The future containing the response.
+    virtual std::future<graphql::GraphqlResponse<models::Transaction>> update_name(UpdateName request) = 0;
 };
 
 }

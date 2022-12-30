@@ -7,6 +7,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Added `UpdateName` request to `IProjectSchema`.
+
+### Fixed
+
+- Fixed GraphQL template argument type for `BridgeClaimAsset`.
+
 ## [1.0.0.2000] - 2022-07-18
 
 ### Added

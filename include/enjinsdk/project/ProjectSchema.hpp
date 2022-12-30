@@ -103,6 +103,8 @@ public:
 
     std::future<graphql::GraphqlResponse<bool>> unlink_wallet(UnlinkWallet request) override;
 
+    std::future<graphql::GraphqlResponse<models::Transaction>> update_name(UpdateName request) override;
+
 protected:
     /// \brief Constructs an instance of this class.
     /// \param http_client The HTTP client.
