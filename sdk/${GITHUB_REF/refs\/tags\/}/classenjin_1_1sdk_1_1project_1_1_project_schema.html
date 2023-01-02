@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.2000</span>
+   &#160;<span id="projectnumber">1.0.0.2001</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -194,6 +194,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a349f93c554177a13257553684b10700f"><td class="memItemLeft" align="right" valign="top">std::future&lt; <a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_response.html">graphql::GraphqlResponse</a>&lt; bool &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1project_1_1_project_schema.html#a349f93c554177a13257553684b10700f">unlink_wallet</a> (<a class="el" href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html">UnlinkWallet</a> request) override</td></tr>
 <tr class="memdesc:a349f93c554177a13257553684b10700f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends the UnlinkWallet request to the platform.  <a href="classenjin_1_1sdk_1_1project_1_1_project_schema.html#a349f93c554177a13257553684b10700f">More...</a><br /></td></tr>
 <tr class="separator:a349f93c554177a13257553684b10700f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac92fc8e199e3d6513f6d6e607fbacfd7"><td class="memItemLeft" align="right" valign="top">std::future&lt; <a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_response.html">graphql::GraphqlResponse</a>&lt; <a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction.html">models::Transaction</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1project_1_1_project_schema.html#ac92fc8e199e3d6513f6d6e607fbacfd7">update_name</a> (<a class="el" href="classenjin_1_1sdk_1_1project_1_1_update_name.html">UpdateName</a> request) override</td></tr>
+<tr class="memdesc:ac92fc8e199e3d6513f6d6e607fbacfd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends the UpdateName request to the platform.  <a href="classenjin_1_1sdk_1_1project_1_1_project_schema.html#ac92fc8e199e3d6513f6d6e607fbacfd7">More...</a><br /></td></tr>
+<tr class="separator:ac92fc8e199e3d6513f6d6e607fbacfd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classenjin_1_1sdk_1_1project_1_1_i_project_schema"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classenjin_1_1sdk_1_1project_1_1_i_project_schema')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classenjin_1_1sdk_1_1project_1_1_i_project_schema.html">enjin::sdk::project::IProjectSchema</a></td></tr>
 <tr class="memitem:a07182b69eee13b74d17105ca9286bf06 inherit pub_methods_classenjin_1_1sdk_1_1project_1_1_i_project_schema"><td class="memItemLeft" align="right" valign="top"><a id="a07182b69eee13b74d17105ca9286bf06"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1project_1_1_i_project_schema.html#a07182b69eee13b74d17105ca9286bf06">~IProjectSchema</a> ()=default</td></tr>
@@ -1601,6 +1604,43 @@ const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 <dl class="section return"><dt>Returns</dt><dd>The future containing the response. </dd></dl>
 
 <p>Implements <a class="el" href="classenjin_1_1sdk_1_1project_1_1_i_project_schema.html#ae87dd502724d033d3749d56e379222c1">enjin::sdk::project::IProjectSchema</a>.</p>
+
+</div>
+</div>
+<a id="ac92fc8e199e3d6513f6d6e607fbacfd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac92fc8e199e3d6513f6d6e607fbacfd7">&#9670;&nbsp;</a></span>update_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::future&lt;<a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_response.html">graphql::GraphqlResponse</a>&lt;<a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction.html">models::Transaction</a>&gt; &gt; enjin::sdk::project::ProjectSchema::update_name </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classenjin_1_1sdk_1_1project_1_1_update_name.html">UpdateName</a>&#160;</td>
+          <td class="paramname"><em>request</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sends the UpdateName request to the platform. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">request</td><td>The request. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The future containing the response. </dd></dl>
+
+<p>Implements <a class="el" href="classenjin_1_1sdk_1_1project_1_1_i_project_schema.html#a2ab979fbc7b34a6536c09f630c9ffe5f">enjin::sdk::project::IProjectSchema</a>.</p>
 
 </div>
 </div>

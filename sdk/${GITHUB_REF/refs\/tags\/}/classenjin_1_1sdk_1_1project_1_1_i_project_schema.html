@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.2000</span>
+   &#160;<span id="projectnumber">1.0.0.2001</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -189,6 +189,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:ae87dd502724d033d3749d56e379222c1"><td class="memItemLeft" align="right" valign="top">virtual std::future&lt; <a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_response.html">graphql::GraphqlResponse</a>&lt; bool &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1project_1_1_i_project_schema.html#ae87dd502724d033d3749d56e379222c1">unlink_wallet</a> (<a class="el" href="classenjin_1_1sdk_1_1project_1_1_unlink_wallet.html">UnlinkWallet</a> request)=0</td></tr>
 <tr class="memdesc:ae87dd502724d033d3749d56e379222c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends the UnlinkWallet request to the platform.  <a href="classenjin_1_1sdk_1_1project_1_1_i_project_schema.html#ae87dd502724d033d3749d56e379222c1">More...</a><br /></td></tr>
 <tr class="separator:ae87dd502724d033d3749d56e379222c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ab979fbc7b34a6536c09f630c9ffe5f"><td class="memItemLeft" align="right" valign="top">virtual std::future&lt; <a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_response.html">graphql::GraphqlResponse</a>&lt; <a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction.html">models::Transaction</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1project_1_1_i_project_schema.html#a2ab979fbc7b34a6536c09f630c9ffe5f">update_name</a> (<a class="el" href="classenjin_1_1sdk_1_1project_1_1_update_name.html">UpdateName</a> request)=0</td></tr>
+<tr class="memdesc:a2ab979fbc7b34a6536c09f630c9ffe5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends the UpdateName request to the platform.  <a href="classenjin_1_1sdk_1_1project_1_1_i_project_schema.html#a2ab979fbc7b34a6536c09f630c9ffe5f">More...</a><br /></td></tr>
+<tr class="separator:a2ab979fbc7b34a6536c09f630c9ffe5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for project schema implementation. </p>
@@ -1448,6 +1451,43 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <dl class="section return"><dt>Returns</dt><dd>The future containing the response. </dd></dl>
 
 <p>Implemented in <a class="el" href="classenjin_1_1sdk_1_1project_1_1_project_schema.html#a349f93c554177a13257553684b10700f">enjin::sdk::project::ProjectSchema</a>.</p>
+
+</div>
+</div>
+<a id="a2ab979fbc7b34a6536c09f630c9ffe5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ab979fbc7b34a6536c09f630c9ffe5f">&#9670;&nbsp;</a></span>update_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::future&lt;<a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_response.html">graphql::GraphqlResponse</a>&lt;<a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction.html">models::Transaction</a>&gt; &gt; enjin::sdk::project::IProjectSchema::update_name </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classenjin_1_1sdk_1_1project_1_1_update_name.html">UpdateName</a>&#160;</td>
+          <td class="paramname"><em>request</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sends the UpdateName request to the platform. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">request</td><td>The request. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The future containing the response. </dd></dl>
+
+<p>Implemented in <a class="el" href="classenjin_1_1sdk_1_1project_1_1_project_schema.html#ac92fc8e199e3d6513f6d6e607fbacfd7">enjin::sdk::project::ProjectSchema</a>.</p>
 
 </div>
 </div>
