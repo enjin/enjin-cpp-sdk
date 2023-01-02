@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.0.2001] - 2023-01-02
+
 ### Added
 
 - Added `UpdateName` request to `IProjectSchema`.
@@ -167,7 +169,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Initial alpha release.
 
-[Unreleased]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.2000...HEAD
+[Unreleased]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.2001...HEAD
+
+[1.0.0.2001]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.2000...1.0.0.2001
 
 [1.0.0.2000]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.1006...1.0.0.2000
 
