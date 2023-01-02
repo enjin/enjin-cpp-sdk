@@ -27,4 +27,5 @@ target_sources(${PROJECT_NAME}_tests
         ProjectSetTransferFeeTest.cpp
         ProjectSetUriTest.cpp
         ProjectSetWhitelistedTest.cpp
-        ProjectUnlinkWalletTest.cpp)
+        ProjectUnlinkWalletTest.cpp
+        ProjectUpdateNameTest.cpp)
