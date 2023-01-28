@@ -2,6 +2,7 @@ target_sources(${PROJECT_NAME}
         PRIVATE
         AuthPlayer.cpp
         AuthProject.cpp
+        GetAssetsFromProjects.cpp
         GetPlayer.cpp
         GetPlayers.cpp
         GetWallet.cpp
