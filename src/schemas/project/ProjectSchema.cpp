@@ -86,6 +86,11 @@ std::future<GraphqlResponse<bool>> ProjectSchema::delete_player(DeletePlayer req
     return send_request_for_one<bool>(request);
 }
 
+std::future<GraphqlResponse<std::vector<Asset>>>
+ProjectSchema::get_assets_from_projects(GetAssetsFromProjects request) {
+    return send_request_for_many<Asset>(request);
+}
+
 std::future<GraphqlResponse<Player>> ProjectSchema::get_player(GetPlayer request) {
     return send_request_for_one<Player>(request);
 }

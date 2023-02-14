@@ -19,6 +19,7 @@
 #include "enjinsdk_export.h"
 #include "enjinsdk/GraphqlResponse.hpp"
 #include "enjinsdk/models/AccessToken.hpp"
+#include "enjinsdk/models/Asset.hpp"
 #include "enjinsdk/models/Player.hpp"
 #include "enjinsdk/models/Transaction.hpp"
 #include "enjinsdk/models/Wallet.hpp"
@@ -37,6 +38,7 @@
 #include "enjinsdk/project/DecreaseMaxMeltFee.hpp"
 #include "enjinsdk/project/DecreaseMaxTransferFee.hpp"
 #include "enjinsdk/project/DeletePlayer.hpp"
+#include "enjinsdk/project/GetAssetsFromProjects.hpp"
 #include "enjinsdk/project/GetPlayer.hpp"
 #include "enjinsdk/project/GetPlayers.hpp"
 #include "enjinsdk/project/GetWallet.hpp"
@@ -144,6 +146,12 @@ public:
     /// \param request The request.
     /// \return The future containing the response.
     virtual std::future<graphql::GraphqlResponse<bool>> delete_player(DeletePlayer request) = 0;
+
+    /// \brief Sends the GetAssetsFromProjects request to the platform.
+    /// \param request The request.
+    /// \return The future containing the response.
+    virtual std::future<graphql::GraphqlResponse<std::vector<models::Asset>>>
+    get_assets_from_projects(GetAssetsFromProjects request) = 0;
 
     /// \brief Sends the GetPlayer request to the platform.
     /// \param request The request.
