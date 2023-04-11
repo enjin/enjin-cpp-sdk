@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.2001</span>
+   &#160;<span id="projectnumber">1.0.0.2002</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -145,6 +145,7 @@ $(function() {
 , <a class="el" href="classenjin_1_1sdk_1_1project_1_1_decrease_max_melt_fee.html#af160e1f76b324349b4a545375d23032e">enjin::sdk::project::DecreaseMaxMeltFee</a>
 , <a class="el" href="classenjin_1_1sdk_1_1project_1_1_decrease_max_transfer_fee.html#a385d53a3a4f854f0c3d49386a4d30fb3">enjin::sdk::project::DecreaseMaxTransferFee</a>
 , <a class="el" href="classenjin_1_1sdk_1_1project_1_1_delete_player.html#a5de2dc342a3171d53eb6121b2644709c">enjin::sdk::project::DeletePlayer</a>
+, <a class="el" href="classenjin_1_1sdk_1_1project_1_1_get_assets_from_projects.html#a25306770dbd3e6a0f3533110611a4f7d">enjin::sdk::project::GetAssetsFromProjects</a>
 , <a class="el" href="classenjin_1_1sdk_1_1project_1_1_get_player.html#ae91e5a1623a967416712e8de9c5fbd95">enjin::sdk::project::GetPlayer</a>
 , <a class="el" href="classenjin_1_1sdk_1_1project_1_1_get_players.html#afc2e028d361640ce0e6faf115b4efca0">enjin::sdk::project::GetPlayers</a>
 , <a class="el" href="classenjin_1_1sdk_1_1project_1_1_get_wallet.html#a614a9cce5ad7a740806ea8500341eb2d">enjin::sdk::project::GetWallet</a>
@@ -173,6 +174,7 @@ $(function() {
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_get_asset.html#afc39bea901bd73556aa0ef8e6f443b3c">enjin::sdk::shared::GetAsset</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_get_assets.html#a015bb2bfd1ec37819017de4029fd20ac">enjin::sdk::shared::GetAssets</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_get_balances.html#a54999b331a5fe1d1a47a8d8e1e087011">enjin::sdk::shared::GetBalances</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_get_balances_from_projects.html#a32e52f13989868af58bbbe59e9581a3c">enjin::sdk::shared::GetBalancesFromProjects</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_get_gas_prices.html#ac1e1f02e5522e3948490a73b29cc4a7d">enjin::sdk::shared::GetGasPrices</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_get_platform.html#ad3c0fff04b7dac8ceb4438739a1378bc">enjin::sdk::shared::GetPlatform</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_get_project.html#a231a8d56edb13cf6dd6f3f34e720b9c7">enjin::sdk::shared::GetProject</a>
@@ -308,10 +310,10 @@ $(function() {
 : <a class="el" href="classenjin_1_1sdk_1_1_client_middleware.html#a472daacd16e7030c0963e83df0d199d4">enjin::sdk::ClientMiddleware</a>
 </li>
 <li>set_bal_id_format()
-: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_balance_fragment_arguments.html#a31c78fd67330e5ea4ef066820b11e040">enjin::sdk::shared::BalanceFragmentArguments&lt; T &gt;</a>
+: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_balance_fragment_arguments.html#ab0ea03fcb4d1cc6d8f6e82c6ca979827">enjin::sdk::shared::BalanceFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_bal_index_format()
-: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_balance_fragment_arguments.html#a0676443bced4f0398324acb5dcf40c8e">enjin::sdk::shared::BalanceFragmentArguments&lt; T &gt;</a>
+: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_balance_fragment_arguments.html#aaafd3a59fc058039d6234a20f34c05d6">enjin::sdk::shared::BalanceFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_body()
 : <a class="el" href="classenjin_1_1sdk_1_1http_1_1_http_request.html#a812d1d13618290cc420a3fb16df84d16">enjin::sdk::http::HttpRequest</a>
@@ -360,9 +362,11 @@ $(function() {
 , <a class="el" href="classenjin_1_1sdk_1_1models_1_1_transaction_sort_input.html#adf017432c3d029c5ac882a025de1929d">enjin::sdk::models::TransactionSortInput</a>
 </li>
 <li>set_filter()
-: <a class="el" href="classenjin_1_1sdk_1_1project_1_1_get_players.html#a08fad460474a4a8cbc3fc47c50d278b1">enjin::sdk::project::GetPlayers</a>
+: <a class="el" href="classenjin_1_1sdk_1_1project_1_1_get_assets_from_projects.html#a18a0f737d992fb89faaffd83735d6359">enjin::sdk::project::GetAssetsFromProjects</a>
+, <a class="el" href="classenjin_1_1sdk_1_1project_1_1_get_players.html#a08fad460474a4a8cbc3fc47c50d278b1">enjin::sdk::project::GetPlayers</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_get_assets.html#a8b9139eaa3bfcaf24b29dbaa963d7b4d">enjin::sdk::shared::GetAssets</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_get_balances.html#a7ad2638a4e0167d6d802568047476d8b">enjin::sdk::shared::GetBalances</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_get_balances_from_projects.html#ad67a9c3ff66560ddb13451f2d458f0ac">enjin::sdk::shared::GetBalancesFromProjects</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_get_transactions.html#a71775b4dd58e64d7ec018996753c9889">enjin::sdk::shared::GetTransactions</a>
 </li>
 <li>set_from()
@@ -477,6 +481,10 @@ $(function() {
 <li>set_path_query_fragment()
 : <a class="el" href="classenjin_1_1sdk_1_1http_1_1_http_request.html#a980ba2f18e3c941d90f6fb7460d7c263">enjin::sdk::http::HttpRequest</a>
 </li>
+<li>set_projects()
+: <a class="el" href="classenjin_1_1sdk_1_1project_1_1_get_assets_from_projects.html#a9872800ee623f1d288f8e0d738b9c178">enjin::sdk::project::GetAssetsFromProjects</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_get_balances_from_projects.html#a9c150cfe391d82e287aa45963e5f8a0a">enjin::sdk::shared::GetBalancesFromProjects</a>
+</li>
 <li>set_qr_size()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_player_fragment_arguments.html#a6e75fecd7eb6f48de167f0d1b4199908">enjin::sdk::shared::PlayerFragmentArguments&lt; T &gt;</a>
 </li>
@@ -491,7 +499,8 @@ $(function() {
 : <a class="el" href="classenjin_1_1sdk_1_1project_1_1_auth_project.html#a3ba0abd2e118363148cd25b669d8c0f3">enjin::sdk::project::AuthProject</a>
 </li>
 <li>set_sort()
-: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_get_assets.html#a45eec63e3ef0fa70dc8b3f6725baeb60">enjin::sdk::shared::GetAssets</a>
+: <a class="el" href="classenjin_1_1sdk_1_1project_1_1_get_assets_from_projects.html#a2013f826980d1798c2f3be4d420e6280">enjin::sdk::project::GetAssetsFromProjects</a>
+, <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_get_assets.html#a45eec63e3ef0fa70dc8b3f6725baeb60">enjin::sdk::shared::GetAssets</a>
 , <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_get_transactions.html#ae02036348a144b32068c08f982ccd0a9">enjin::sdk::shared::GetTransactions</a>
 </li>
 <li>set_state()
@@ -632,10 +641,10 @@ $(function() {
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_wallet_fragment_arguments.html#ad7e64af69e9346ba0ed1424644491fcb">enjin::sdk::shared::WalletFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_bal_project_uuid()
-: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_balance_fragment_arguments.html#a31a83bfb19a6343d356e0e8c7bcc7dcd">enjin::sdk::shared::BalanceFragmentArguments&lt; T &gt;</a>
+: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_balance_fragment_arguments.html#afb44c7699edcf11496cff3e3775e635b">enjin::sdk::shared::BalanceFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_bal_wallet_address()
-: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_balance_fragment_arguments.html#af5c795764b6089c34955e8650e062ac2">enjin::sdk::shared::BalanceFragmentArguments&lt; T &gt;</a>
+: <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_balance_fragment_arguments.html#ad6a33dda0147e31f9acbe34e033b923f">enjin::sdk::shared::BalanceFragmentArguments&lt; T &gt;</a>
 </li>
 <li>set_with_blockchain_data()
 : <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_transaction_fragment_arguments.html#a65d74a7f7e71d9e7eab95e9f5a7a26a1">enjin::sdk::shared::TransactionFragmentArguments&lt; T &gt;</a>
