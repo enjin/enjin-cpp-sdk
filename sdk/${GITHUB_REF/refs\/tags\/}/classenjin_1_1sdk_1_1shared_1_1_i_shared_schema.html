@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="doxygenIcon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Enjin C++ SDK
-   &#160;<span id="projectnumber">1.0.0.2001</span>
+   &#160;<span id="projectnumber">1.0.0.2002</span>
    </div>
    <div id="projectbrief">A C++ SDK for creating games using the Enjin blockchain platform.</div>
   </td>
@@ -93,6 +93,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:a89a1408e12173c412b97cc9612031ea8"><td class="memItemLeft" align="right" valign="top">virtual std::future&lt; <a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_response.html">graphql::GraphqlResponse</a>&lt; std::vector&lt; <a class="el" href="classenjin_1_1sdk_1_1models_1_1_balance.html">models::Balance</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1shared_1_1_i_shared_schema.html#a89a1408e12173c412b97cc9612031ea8">get_balances</a> (<a class="el" href="classenjin_1_1sdk_1_1shared_1_1_get_balances.html">GetBalances</a> request)=0</td></tr>
 <tr class="memdesc:a89a1408e12173c412b97cc9612031ea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends the GetBalances request to the platform.  <a href="classenjin_1_1sdk_1_1shared_1_1_i_shared_schema.html#a89a1408e12173c412b97cc9612031ea8">More...</a><br /></td></tr>
 <tr class="separator:a89a1408e12173c412b97cc9612031ea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22f83f5be53ffd6f54ea782fd405c4be"><td class="memItemLeft" align="right" valign="top">virtual std::future&lt; <a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_response.html">graphql::GraphqlResponse</a>&lt; std::vector&lt; <a class="el" href="classenjin_1_1sdk_1_1models_1_1_balance.html">models::Balance</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1shared_1_1_i_shared_schema.html#a22f83f5be53ffd6f54ea782fd405c4be">get_balances_from_projects</a> (<a class="el" href="classenjin_1_1sdk_1_1shared_1_1_get_balances_from_projects.html">GetBalancesFromProjects</a> request)=0</td></tr>
+<tr class="memdesc:a22f83f5be53ffd6f54ea782fd405c4be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends the GetBalancesFromProjects request to the platform.  <a href="classenjin_1_1sdk_1_1shared_1_1_i_shared_schema.html#a22f83f5be53ffd6f54ea782fd405c4be">More...</a><br /></td></tr>
+<tr class="separator:a22f83f5be53ffd6f54ea782fd405c4be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0199f3bb2d5b8c0fe9018c657c13f67"><td class="memItemLeft" align="right" valign="top">virtual std::future&lt; <a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_response.html">graphql::GraphqlResponse</a>&lt; <a class="el" href="classenjin_1_1sdk_1_1models_1_1_gas_prices.html">models::GasPrices</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classenjin_1_1sdk_1_1shared_1_1_i_shared_schema.html#ab0199f3bb2d5b8c0fe9018c657c13f67">get_gas_prices</a> (<a class="el" href="classenjin_1_1sdk_1_1shared_1_1_get_gas_prices.html">GetGasPrices</a> request)=0</td></tr>
 <tr class="memdesc:ab0199f3bb2d5b8c0fe9018c657c13f67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends the GetGasPrices request to the platform.  <a href="classenjin_1_1sdk_1_1shared_1_1_i_shared_schema.html#ab0199f3bb2d5b8c0fe9018c657c13f67">More...</a><br /></td></tr>
 <tr class="separator:ab0199f3bb2d5b8c0fe9018c657c13f67"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -263,6 +266,43 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <dl class="section return"><dt>Returns</dt><dd>The future containing the response. </dd></dl>
 
 <p>Implemented in <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_shared_schema.html#ac1e5e550339ed61f2d09a412897f5035">enjin::sdk::shared::SharedSchema</a>.</p>
+
+</div>
+</div>
+<a id="a22f83f5be53ffd6f54ea782fd405c4be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22f83f5be53ffd6f54ea782fd405c4be">&#9670;&nbsp;</a></span>get_balances_from_projects()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::future&lt;<a class="el" href="classenjin_1_1sdk_1_1graphql_1_1_graphql_response.html">graphql::GraphqlResponse</a>&lt;std::vector&lt;<a class="el" href="classenjin_1_1sdk_1_1models_1_1_balance.html">models::Balance</a>&gt; &gt; &gt; enjin::sdk::shared::ISharedSchema::get_balances_from_projects </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classenjin_1_1sdk_1_1shared_1_1_get_balances_from_projects.html">GetBalancesFromProjects</a>&#160;</td>
+          <td class="paramname"><em>request</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sends the GetBalancesFromProjects request to the platform. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">request</td><td>The request. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The future containing the response. </dd></dl>
+
+<p>Implemented in <a class="el" href="classenjin_1_1sdk_1_1shared_1_1_shared_schema.html#ab0a7d29b9bcafd19b63a82599b3f0d11">enjin::sdk::shared::SharedSchema</a>.</p>
 
 </div>
 </div>
