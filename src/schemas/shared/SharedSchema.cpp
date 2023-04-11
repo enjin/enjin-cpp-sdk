@@ -33,6 +33,12 @@ std::future<graphql::GraphqlResponse<std::vector<models::Balance>>> SharedSchema
     return send_request_for_many<models::Balance>(request);
 }
 
+std::future<graphql::GraphqlResponse<std::vector<models::Balance>>>
+SharedSchema::get_balances_from_projects(GetBalancesFromProjects request)
+{
+    return send_request_for_many<models::Balance>(request);
+}
+
 std::future<graphql::GraphqlResponse<models::GasPrices>> SharedSchema::get_gas_prices(GetGasPrices request) {
     return send_request_for_one<models::GasPrices>(request);
 }
@@ -49,7 +55,8 @@ std::future<graphql::GraphqlResponse<models::Transaction>> SharedSchema::get_req
     return send_request_for_one<models::Transaction>(request);
 }
 
-std::future<graphql::GraphqlResponse<std::vector<models::Transaction>>> SharedSchema::get_requests(GetTransactions request) {
+std::future<graphql::GraphqlResponse<std::vector<models::Transaction>>>
+SharedSchema::get_requests(GetTransactions request) {
     return send_request_for_many<models::Transaction>(request);
 }
 
