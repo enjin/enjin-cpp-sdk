@@ -3,6 +3,7 @@ target_sources(${PROJECT_NAME}
         GetAsset.cpp
         GetAssets.cpp
         GetBalances.cpp
+        GetBalancesFromProjects.cpp
         GetGasPrices.cpp
         GetPlatform.cpp
         GetProject.cpp

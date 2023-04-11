@@ -39,6 +39,9 @@ public:
 
     std::future<graphql::GraphqlResponse<std::vector<models::Balance>>> get_balances(GetBalances request) override;
 
+    std::future<graphql::GraphqlResponse<std::vector<models::Balance>>>
+    get_balances_from_projects(GetBalancesFromProjects request) override;
+
     std::future<graphql::GraphqlResponse<models::GasPrices>> get_gas_prices(GetGasPrices request) override;
 
     std::future<graphql::GraphqlResponse<models::Platform>> get_platform(GetPlatform request) override;
@@ -47,7 +50,8 @@ public:
 
     std::future<graphql::GraphqlResponse<models::Transaction>> get_request(GetTransaction request) override;
 
-    std::future<graphql::GraphqlResponse<std::vector<models::Transaction>>> get_requests(GetTransactions request) override;
+    std::future<graphql::GraphqlResponse<std::vector<models::Transaction>>>
+    get_requests(GetTransactions request) override;
 
     std::future<graphql::GraphqlResponse<models::Asset>> get_asset(GetAsset request) override;
 
