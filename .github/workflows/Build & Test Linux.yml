@@ -14,13 +14,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install Conan
         uses: turtlebrowser/get-conan@main
+        with:
+          version: 1.59.0
 
       - name: Cache Conan Packages
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.conan/data
           key: ${{ runner.os }}-conan-${{ hashFiles('**/.conan') }}

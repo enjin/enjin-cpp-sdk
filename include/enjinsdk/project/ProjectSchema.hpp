@@ -65,6 +65,9 @@ public:
 
     std::future<graphql::GraphqlResponse<bool>> delete_player(DeletePlayer request) override;
 
+    std::future<graphql::GraphqlResponse<std::vector<models::Asset>>>
+    get_assets_from_projects(GetAssetsFromProjects request) override;
+
     std::future<graphql::GraphqlResponse<models::Player>> get_player(GetPlayer request) override;
 
     std::future<graphql::GraphqlResponse<std::vector<models::Player>>> get_players(GetPlayers request) override;

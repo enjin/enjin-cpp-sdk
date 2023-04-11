@@ -7,6 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.0.2002] - 2023-04-11
+
+- Added `GetAssetsFromProjects` to `IProjectSchema`.
+- Added `GetBalancesFromProjects` to `ISharedSchema`.
+
 ## [1.0.0.2001] - 2023-01-02
 
 ### Added
@@ -169,7 +174,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Initial alpha release.
 
-[Unreleased]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.2001...HEAD
+[Unreleased]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.2002...HEAD
+
+[1.0.0.2002]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.2001...1.0.0.2002
 
 [1.0.0.2001]: https://github.com/enjin/enjin-cpp-sdk/compare/1.0.0.2000...1.0.0.2001
 

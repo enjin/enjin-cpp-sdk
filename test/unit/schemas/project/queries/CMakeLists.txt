@@ -2,6 +2,7 @@ target_sources(${PROJECT_NAME}_tests
         PRIVATE
         ProjectAuthPlayerTest.cpp
         ProjectAuthProjectTest.cpp
+        ProjectGetAssetsFromProjectsTest.cpp
         ProjectGetPlayersTest.cpp
         ProjectGetPlayerTest.cpp
         ProjectGetWalletsTest.cpp
